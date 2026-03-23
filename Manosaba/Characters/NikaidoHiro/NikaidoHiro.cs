@@ -5,9 +5,6 @@ using manosaba.Extensions;
 using Manosaba.Characters.NikaidoHiro.Cards;
 using MegaCrit.Sts2.Core.Entities.Characters;
 using MegaCrit.Sts2.Core.Models;
-using MegaCrit.Sts2.Core.Models.Cards;
-using MegaCrit.Sts2.Core.Models.Relics;
-using System.Diagnostics.Contracts;
 
 namespace manosaba.Characters.NikaidoHiro
 {
@@ -18,7 +15,7 @@ namespace manosaba.Characters.NikaidoHiro
         public static readonly Color Color = new("B72222");
         public override Color NameColor => Color;
         public override CharacterGender Gender => CharacterGender.Feminine;
-        public override int StartingHp => 65;
+        public override int StartingHp => 60;
 
         public override IEnumerable<CardModel> StartingDeck => [
         ModelDb.Card<StrikeNikaidoHiro>(),

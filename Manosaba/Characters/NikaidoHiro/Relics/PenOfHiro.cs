@@ -2,21 +2,12 @@
 using BaseLib.Extensions;
 using BaseLib.Utils;
 using Godot;
-using manosaba.Characters.NikaidoHiro;
 using manosaba.Extensions;
 using Manosaba.Characters.Common.Powers;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Creatures;
-using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.Entities.Relics;
-using MegaCrit.Sts2.Core.Localization.DynamicVars;
-using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Saves.Runs;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace manosaba.Characters.NikaidoHiro.Relics
 {

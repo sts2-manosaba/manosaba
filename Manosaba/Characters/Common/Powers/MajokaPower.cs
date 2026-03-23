@@ -1,13 +1,9 @@
 ﻿using BaseLib.Abstracts;
-using BaseLib.Extensions;
 using manosaba.Extensions;
-using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Commands;
-using MegaCrit.Sts2.Core.Commands.Builders;
-using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Entities.Powers;
-using MegaCrit.Sts2.Core.GameActions.Multiplayer;
+using MegaCrit.Sts2.Core.Logging;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.ValueProps;
 
@@ -29,20 +25,19 @@ namespace Manosaba.Characters.Common.Powers
             return 1m + base.Amount / 100m;
         }
 
-        public override async Task AfterCardPlayed(PlayerChoiceContext context, CardPlay cardPlay)
+        public override Task AfterPowerAmountChanged(PowerModel power, decimal amount, Creature? applier, CardModel? cardSource)
         {
-            if (base.Amount >= 100 && cardPlay.Card.Owner == base.Owner.Player && cardPlay.Card.Type == CardType.Attack && cardPlay.Card.DynamicVars.Damage.BaseValue > 0)
+
+            int toApply = base.Amount / 100 - base.Owner.GetPowerAmount<MurderousImpulse>();
+            Log.Info($"MajokaPower applied. Current amount: {base.Amount}. MurderousImpulse to apply: {toApply}");
+            if (toApply > 0)
             {
-                await Cmd.CustomScaledWait(0.1f, 0.2f);
-                Creature creature = base.Owner.Player.RunState.Rng.CombatTargets.NextItem(base.Owner.CombatState.Allies);
-
-                if (creature != null)
-                {
-                    await CreatureCmd.Damage(context, creature, cardPlay.Card.DynamicVars.Damage, Owner.Player.Creature);
-                }
+                PowerCmd.Apply<MurderousImpulse>(base.Owner.Player.Creature, toApply, base.Owner.Player.Creature, null);
             }
-
+            return Task.CompletedTask;
         }
+
+
 
         public override string CustomPackedIconPath => "Majoka.png".PowerImagePath();
         public override string CustomBigIconPath => "Majoka.png".PowerImagePath();

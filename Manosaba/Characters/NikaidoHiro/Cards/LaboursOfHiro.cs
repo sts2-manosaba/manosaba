@@ -1,5 +1,4 @@
-﻿using BaseLib.Abstracts;
-using BaseLib.Utils;
+﻿using BaseLib.Utils;
 using manosaba.Characters.NikaidoHiro;
 using Manosaba.Characters.NikaidoHiro.Powers;
 using Manosaba.Extensions;
@@ -7,9 +6,6 @@ using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
-using MegaCrit.Sts2.Core.Localization.DynamicVars;
-using MegaCrit.Sts2.Core.Models.CardPools;
-using MegaCrit.Sts2.Core.ValueProps;
 
 namespace Manosaba.Characters.NikaidoHiro.Cards
 {
@@ -31,7 +27,6 @@ namespace Manosaba.Characters.NikaidoHiro.Cards
             await PowerCmd.Apply<LaboursOfHiroPower>(Owner.Creature, 1m, Owner.Creature, this);
         }
 
-        // 升级后的效果逻辑
         protected override void OnUpgrade()
         {
             AddKeyword(CardKeyword.Innate);
