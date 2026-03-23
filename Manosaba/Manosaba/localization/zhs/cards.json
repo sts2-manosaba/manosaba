@@ -1,0 +1,14 @@
+{
+  "MANOSABA-STRIKE_NIKAIDO_HIRO.title": "打擊",
+  "MANOSABA-STRIKE_NIKAIDO_HIRO.description": "造成 {Damage:diff()} 點傷害。",
+  "MANOSABA-DEFEND_NIKAIDO_HIRO.title": "防禦",
+  "MANOSABA-DEFEND_NIKAIDO_HIRO.description": "獲得 {Block:diff()} 點[gold]格檔[/gold]。",
+  "MANOSABA-TRAUMA_NIKAIDO_HIRO.title": "精神創傷",
+  "MANOSABA-TRAUMA_NIKAIDO_HIRO.description": "獲得 {MajokaPower:diff()} 點[gold]魔女化[/gold]。",
+  "MANOSABA-GOOD_SLEEP.title": "一夜好眠？",
+  "MANOSABA-GOOD_SLEEP.description": "獲得 {Block:diff()} 點[gold]格檔[/gold]，獲得 {MajokaPower:diff()} 點[gold]魔女化[/gold]。",
+  "MANOSABA-PICNIC_TIME.title": "野餐時間",
+  "MANOSABA-PICNIC_TIME.description": "抽 {Cards} 張牌，並在下回合開始時獲得 {Energy:energyIcons()}。",
+  "MANOSABA-LABOURS_OF_HIRO.title": "十二試煉",
+  "MANOSABA-LABOURS_OF_HIRO.description": "獲得[gold]十二試煉[/gold]"
+}

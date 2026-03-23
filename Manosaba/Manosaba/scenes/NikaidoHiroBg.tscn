@@ -1,0 +1,12 @@
+[gd_scene load_steps=2 format=3 uid="uid://bm5fhee3cuc43"]
+
+[ext_resource type="Texture2D" uid="uid://ciilxpoimxtgt" path="res://Manosaba/images/charui/nikaido_hiro_bg.png" id="1_m6ws5"]
+
+[node name="NikaidoHiroBg" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+
+[node name="NikaidoHiroBg" type="Sprite2D" parent="."]
+position = Vector2(1363, 602)
+scale = Vector2(1.7824155, 1.7824156)
+texture = ExtResource("1_m6ws5")
