@@ -1,5 +1,4 @@
-﻿using BaseLib.Abstracts;
-using manosaba.Extensions;
+﻿using Manosaba.Extensions;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Creatures;
@@ -9,7 +8,7 @@ using MegaCrit.Sts2.Core.ValueProps;
 
 namespace Manosaba.Characters.Common.Powers
 {
-    public class MurderousImpulse : CustomPowerModel
+    public class MurderousImpulsePower : PathCustomPowerModel
     {
         public override PowerType Type => PowerType.Buff;
         public override PowerStackType StackType => PowerStackType.Counter;
@@ -28,9 +27,5 @@ namespace Manosaba.Characters.Common.Powers
                 }
             }
         }
-
-        public override string CustomPackedIconPath => "MurderousImpulse.png".PowerImagePath();
-        public override string CustomBigIconPath => "MurderousImpulse.png".PowerImagePath();
-        public override string CustomBigBetaIconPath => "MurderousImpulse.png".PowerImagePath();
     }
 }

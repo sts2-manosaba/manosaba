@@ -2,6 +2,7 @@
 using Godot;
 using manosaba.Characters.NikaidoHiro.Relics;
 using manosaba.Extensions;
+using Manosaba.Characters.Common.Cards;
 using Manosaba.Characters.NikaidoHiro.Cards;
 using MegaCrit.Sts2.Core.Entities.Characters;
 using MegaCrit.Sts2.Core.Models;
@@ -18,16 +19,16 @@ namespace manosaba.Characters.NikaidoHiro
         public override int StartingHp => 60;
 
         public override IEnumerable<CardModel> StartingDeck => [
-        ModelDb.Card<StrikeNikaidoHiro>(),
-        ModelDb.Card<StrikeNikaidoHiro>(),
-        ModelDb.Card<StrikeNikaidoHiro>(),
-        ModelDb.Card<StrikeNikaidoHiro>(),
-        ModelDb.Card<StrikeNikaidoHiro>(),
-        ModelDb.Card<DefendNikaidoHiro>(),
-        ModelDb.Card<DefendNikaidoHiro>(),
-        ModelDb.Card<DefendNikaidoHiro>(),
-        ModelDb.Card<DefendNikaidoHiro>(),
-        ModelDb.Card<DefendNikaidoHiro>()
+            ModelDb.Card<StrikeNikaidoHiro>(),
+            ModelDb.Card<StrikeNikaidoHiro>(),
+            ModelDb.Card<StrikeNikaidoHiro>(),
+            ModelDb.Card<StrikeNikaidoHiro>(),
+            ModelDb.Card<DefendNikaidoHiro>(),
+            ModelDb.Card<DefendNikaidoHiro>(),
+            ModelDb.Card<DefendNikaidoHiro>(),
+            ModelDb.Card<DefendNikaidoHiro>(),
+            ModelDb.Card<EmaNikaidoHiro>(),
+            ModelDb.Card<EmaNikaidoHiro>()
         ];
 
         public override IReadOnlyList<RelicModel> StartingRelics =>

@@ -1,92 +1,30 @@
-﻿using BaseLib.Abstracts;
-using BaseLib.Extensions;
-using BaseLib.Utils;
-using Godot;
-using manosaba.Extensions;
+﻿using BaseLib.Utils;
 using Manosaba.Characters.Common.Powers;
+using Manosaba.Extensions;
 using MegaCrit.Sts2.Core.Commands;
-using MegaCrit.Sts2.Core.Entities.Creatures;
+using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.Entities.Relics;
-using MegaCrit.Sts2.Core.Saves.Runs;
+using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 
 namespace manosaba.Characters.NikaidoHiro.Relics
 {
 
     [Pool(typeof(NikaidoHiroRelicPool))]
-    public sealed class PenOfHiro : CustomRelicModel
+    public sealed class PenOfHiro : PathCustomRelicModel
     {
         public override RelicRarity Rarity => RelicRarity.Starter;
 
-        private bool _wasUsed;
-
-        public override bool IsUsedUp => _wasUsed;
-
-        [SavedProperty]
-        public bool WasUsed
+        public override Task AfterPlayerTurnStart(PlayerChoiceContext choiceContext, Player player)
         {
-            get
+            if (base.Owner.Creature == player.Creature)
             {
-                return _wasUsed;
-            }
-            set
-            {
-                AssertMutable();
-                _wasUsed = value;
-                if (IsUsedUp)
+                if (base.Owner.Creature.GetPowerAmount<VotePower>() > 0)
                 {
-                    base.Status = RelicStatus.Disabled;
+                    PlayerCmd.GainEnergy(1, player);
+                    PowerCmd.Apply<VotePower>(base.Owner.Creature, -1m, player.Creature, null);
                 }
             }
-        }
-        public override bool ShouldDieLate(Creature creature)
-        {
-            if (creature != base.Owner.Creature)
-            {
-                return true;
-            }
-
-            if (WasUsed)
-            {
-                return true;
-            }
-
-            return false;
-        }
-
-        public override async Task AfterPreventingDeath(Creature creature)
-        {
-            Flash();
-            WasUsed = true;
-            decimal amount = Math.Max(1m, (decimal)creature.MaxHp * (50m / 100m));
-            await CreatureCmd.Heal(creature, amount);
-            await PowerCmd.Apply<MajokaPower>(creature, 50, creature, null);
-        }
-
-        public override string PackedIconPath
-        {
-            get
-            {
-                var path = $"{Id.Entry.RemovePrefix().ToLowerInvariant()}.png".RelicImagePath();
-                return ResourceLoader.Exists(path) ? path : "pen_of_hiro.png".RelicImagePath();
-            }
-        }
-
-        protected override string PackedIconOutlinePath
-        {
-            get
-            {
-                var path = $"{Id.Entry.RemovePrefix().ToLowerInvariant()}_outline.png".RelicImagePath();
-                return ResourceLoader.Exists(path) ? path : "pen_of_hiro.png".RelicImagePath();
-            }
-        }
-
-        protected override string BigIconPath
-        {
-            get
-            {
-                var path = $"{Id.Entry.RemovePrefix().ToLowerInvariant()}.png".BigRelicImagePath();
-                return ResourceLoader.Exists(path) ? path : "pen_of_hiro.png".BigRelicImagePath();
-            }
+            return Task.CompletedTask;
         }
     }
 }

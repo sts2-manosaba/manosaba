@@ -9,7 +9,12 @@ public static class StringExtensions
     {
         return Path.Join(Entry.ModId, "images", path);
     }
-    
+
+    public static string CardsImagePath(this string path)
+    {
+        return Path.Join(Entry.ModId, "images", "cards", path);
+    }
+
     public static string CardImagePath(this string path)
     {
         return Path.Join(Entry.ModId, "images", "card_portraits", path);

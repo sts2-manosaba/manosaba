@@ -1,17 +1,15 @@
 ﻿using BaseLib.Abstracts;
 using Godot;
 using manosaba.Extensions;
-using Manosaba.Characters.NikaidoHiro.Cards;
 using Manosaba.Characters.Common.Cards;
 using MegaCrit.Sts2.Core.Models;
-using MegaCrit.Sts2.Core.Models.Cards;
 
 namespace manosaba.Characters.Common;
 
 public class CommonCardPool : CustomCardPoolModel
 {
     public override string Title => "manosaba_common"; //This is not a display name.
-    
+
     public override string BigEnergyIconPath => "charui/big_energy.png".ImagePath();
     public override string TextEnergyIconPath => "charui/text_energy.png".ImagePath();
 
@@ -23,7 +21,7 @@ public class CommonCardPool : CustomCardPoolModel
     public override float H => 1f; //Hue; changes the color.
     public override float S => 1f; //Saturation
     public override float V => 1f; //Brightness
-    
+
     //Alternatively, leave these values at 1 and provide a custom frame image.
     /*public override Texture2D CustomFrame(CustomCardModel card)
     {
@@ -33,6 +31,22 @@ public class CommonCardPool : CustomCardPoolModel
 
     //Color of small card icons
     public override Color DeckEntryCardColor => new("FFFFFF");
-    
+
     public override bool IsColorless => true;
+
+    public static CardModel[] getAllCards()
+    {
+        return new CardModel[10] {
+            ModelDb.Card<PicnicTime>(),
+            ModelDb.Card<TrialStart>(),
+            ModelDb.Card<Vote>(),
+            ModelDb.Card<ConcentratedFire>(),
+            ModelDb.Card<Hotpot>(),
+            ModelDb.Card<Boulders>(),
+            ModelDb.Card<Suicide>(),
+            ModelDb.Card<Alibi>(),
+            ModelDb.Card<SimpleSpear>(),
+            ModelDb.Card<Electrocution>()
+        };
+    }
 }

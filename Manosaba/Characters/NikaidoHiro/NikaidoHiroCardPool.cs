@@ -1,17 +1,15 @@
 ﻿using BaseLib.Abstracts;
 using Godot;
+using manosaba.Characters.Common;
 using manosaba.Extensions;
-using Manosaba.Characters.NikaidoHiro.Cards;
-using Manosaba.Characters.Common.Cards;
 using MegaCrit.Sts2.Core.Models;
-using MegaCrit.Sts2.Core.Models.Cards;
 
 namespace manosaba.Characters.NikaidoHiro;
 
 public class NikaidoHiroCardPool : CustomCardPoolModel
 {
     public override string Title => NikaidoHiro.CharacterId; //This is not a display name.
-    
+
     public override string BigEnergyIconPath => "charui/big_energy.png".ImagePath();
     public override string TextEnergyIconPath => "charui/text_energy.png".ImagePath();
 
@@ -23,7 +21,7 @@ public class NikaidoHiroCardPool : CustomCardPoolModel
     public override float H => 1f; //Hue; changes the color.
     public override float S => 1f; //Saturation
     public override float V => 1f; //Brightness
-    
+
     //Alternatively, leave these values at 1 and provide a custom frame image.
     /*public override Texture2D CustomFrame(CustomCardModel card)
     {
@@ -33,18 +31,11 @@ public class NikaidoHiroCardPool : CustomCardPoolModel
 
     //Color of small card icons
     public override Color DeckEntryCardColor => new("B72222");
-    
+
     public override bool IsColorless => false;
 
     protected override CardModel[] GenerateAllCards()
     {
-        return new CardModel[6] {
-            ModelDb.Card<DefendNikaidoHiro>(),
-            ModelDb.Card<StrikeNikaidoHiro>(),
-            ModelDb.Card<TraumaNikaidoHiro>(),
-            ModelDb.Card<GoodSleep>(),
-            ModelDb.Card<PicnicTime>(),
-            ModelDb.Card<LaboursOfHiro>()
-        };
+        return CommonCardPool.getAllCards();
     }
 }

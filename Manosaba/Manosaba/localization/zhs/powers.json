@@ -1,11 +1,17 @@
 {
   "MANOSABA-MAJOKA_POWER.title": "魔女化",
-  "MANOSABA-MAJOKA_POWER.description": "隨著魔女化獲得等量百分比攻擊加成。超過一百後會發生不好的事...",
-  "MANOSABA-MAJOKA_POWER.smartDescription": "隨著魔女化獲得等量百分比攻擊加成。",
-  "MANOSABA-MURDEROUS_IMPULSE.title": "殺人衝動",
-  "MANOSABA-MURDEROUS_IMPULSE.description": "打出攻擊牌時，隨機傷害友方角色。層數會增加傷害數值。",
-  "MANOSABA-MURDEROUS_IMPULSE.smartDescription": "打出攻擊牌時，隨機傷害友方角色。層數會增加傷害數值。",
+  "MANOSABA-MAJOKA_POWER.description": "隨著魔女化獲得攻擊加成。超過一百後會發生不好的事...",
+  "MANOSABA-MAJOKA_POWER.smartDescription": "隨著魔女化獲得攻擊加成。",
+  "MANOSABA-MURDEROUS_IMPULSE_POWER.title": "殺人衝動",
+  "MANOSABA-MURDEROUS_IMPULSE_POWER.description": "打出攻擊牌時，隨機傷害友方角色。層數會增加傷害數值。",
+  "MANOSABA-MURDEROUS_IMPULSE_POWER.smartDescription": "打出攻擊牌時，隨機傷害友方角色。層數會增加傷害數值。",
   "MANOSABA-LABOURS_OF_HIRO_POWER.title": "十二試煉",
-  "MANOSABA-LABOURS_OF_HIRO_POWER.description": "每回合開始獲得 20 點[gold]魔女化[/gold]與 1 點[gold]力量[/gold]。這麼做是正確的...",
-  "MANOSABA-LABOURS_OF_HIRO_POWER.smartDescription": "每回合開始獲得 20 點[gold]魔女化[/gold]與 1 點[gold]力量[/gold]。"
+  "MANOSABA-LABOURS_OF_HIRO_POWER.description": "每回合開始獲得 20 點[gold]魔女化[/gold]。你必須相信這麼做是正確的...",
+  "MANOSABA-LABOURS_OF_HIRO_POWER.smartDescription": "每回合開始獲得 20 點[gold]魔女化[/gold]。",
+  "MANOSABA-DEATH_LOOP_POWER.title": "死亡回溯",
+  "MANOSABA-DEATH_LOOP_POWER.description": "死亡時，根據[gold]魔女化[/gold]程度回復相應血量。",
+  "MANOSABA-DEATH_LOOP_POWER.smartDescription": "死亡時，根據[gold]魔女化[/gold]程度回復相應血量。",
+  "MANOSABA-VOTE_POWER.title": "嫌疑",
+  "MANOSABA-VOTE_POWER.description": "你就是犯人吧！遠野漢娜！",
+  "MANOSABA-VOTE_POWER.smartDescription": "你就是犯人吧！"
 }

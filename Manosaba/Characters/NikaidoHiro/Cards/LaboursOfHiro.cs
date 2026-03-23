@@ -1,5 +1,6 @@
 ﻿using BaseLib.Utils;
 using manosaba.Characters.NikaidoHiro;
+using Manosaba.Characters.Common;
 using Manosaba.Characters.NikaidoHiro.Powers;
 using Manosaba.Extensions;
 using MegaCrit.Sts2.Core.Commands;
@@ -18,6 +19,7 @@ namespace Manosaba.Characters.NikaidoHiro.Cards
         private const TargetType targetType = TargetType.Self;
         private const bool shouldShowInCardLibrary = true;
         protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<LaboursOfHiroPower>()];
+        public override IEnumerable<CardKeyword> CanonicalKeywords => [ManosabaKeywords.Unique];
         public LaboursOfHiro() : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)
         {
         }
