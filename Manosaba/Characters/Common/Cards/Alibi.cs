@@ -29,7 +29,7 @@ namespace Manosaba.Characters.Common.Cards
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
             await CardPileCmd.Draw(choiceContext, base.DynamicVars.Cards.BaseValue, base.Owner);
-            await PowerCmd.Apply<VotePower>(base.Owner.Creature, -1 * DynamicVars["VotePower"].BaseValue, base.Owner.Creature, this);
+            await PowerCmd.Apply<VotePower>(base.Owner.Creature, -DynamicVars["VotePower"].BaseValue, base.Owner.Creature, this);
         }
 
         protected override void OnUpgrade()

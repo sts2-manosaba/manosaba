@@ -18,6 +18,7 @@ namespace Manosaba.Characters.NikaidoHiro.Cards
         private const CardRarity rarity = CardRarity.Rare;
         private const TargetType targetType = TargetType.Self;
         private const bool shouldShowInCardLibrary = true;
+
         protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<LaboursOfHiroPower>()];
         public override IEnumerable<CardKeyword> CanonicalKeywords => [ManosabaKeywords.Unique];
         public LaboursOfHiro() : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)

@@ -23,7 +23,7 @@ namespace Manosaba.Characters.Common.Powers
 
                 if (creature != null && creature != base.Owner.Player.Creature)
                 {
-                    await CreatureCmd.Damage(context, creature, cardPlay.Card.DynamicVars.Damage.BaseValue * base.Amount * 0.25m, ValueProp.Move, Owner.Player.Creature);
+                    await CreatureCmd.Damage(context, creature, cardPlay.Card.DynamicVars.Damage.BaseValue * base.Amount * 0.12m, ValueProp.Move, Owner.Player.Creature);
                 }
             }
         }
