@@ -20,6 +20,11 @@ namespace Manosaba.Characters.Common.Powers
                 return 1m;
             }
 
+            if (props == ValueProp.Unpowered)
+            {
+                return 1m;
+            }
+
             return 1m + base.Amount / 100m;
         }
 
@@ -27,8 +32,14 @@ namespace Manosaba.Characters.Common.Powers
         {
             if (base.Owner != dealer)
             {
-                return 0;
+                return 0m;
             }
+
+            if (props == ValueProp.Unpowered)
+            {
+                return 0m;
+            }
+
             return base.Amount / 25;
         }
 

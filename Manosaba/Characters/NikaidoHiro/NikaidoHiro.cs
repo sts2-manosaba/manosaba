@@ -52,5 +52,6 @@ namespace manosaba.Characters.NikaidoHiro
         public override string CustomIconPath => (CharacterId + "_icon.tscn").CharacterScenePath(CharacterId);
         public override string CustomArmPointingTexturePath => (CharacterId + "_arm_pointing.png").CharacterImgPath(CharacterId);
         public override string CustomRestSiteAnimPath => (CharacterId + "_rest_site.tscn").CharacterScenePath(CharacterId);
+        public override string CustomMerchantAnimPath => (CharacterId + "_merchant.tscn").CharacterScenePath(CharacterId);
     }
 }
