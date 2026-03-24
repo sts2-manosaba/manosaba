@@ -1,0 +1,15 @@
+[gd_scene load_steps=2 format=3 uid="uid://wbdh1h1j02iy"]
+
+[ext_resource type="Texture2D" uid="uid://d2p77e4iceprl" path="res://Manosaba/images/characters/nikaido_hiro/nikaido_hiro_map.png" id="1_v88wh"]
+
+[node name="NikaidoHiroIcon" type="TextureRect"]
+anchors_preset = -1
+anchor_top = -0.004
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 2.592
+offset_right = 1.0
+offset_bottom = -4.0
+texture = ExtResource("1_v88wh")
+expand_mode = 1
+stretch_mode = 5

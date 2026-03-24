@@ -44,11 +44,13 @@ namespace manosaba.Characters.NikaidoHiro
             override all the other methods that define those assets. 
             These are just some of the simplest assets, given some placeholders to differentiate your character with. 
             You don't have to, but you're suggested to rename these images. */
-        public override string CustomIconTexturePath => "nikaido_hiro_map.png".CharacterUiPath();
-        public override string CustomCharacterSelectIconPath => "nikaido_hiro_char_select.png".CharacterUiPath();
-        public override string CustomMapMarkerPath => "nikaido_hiro_map.png".CharacterUiPath();
-        public override string CustomCharacterSelectBg => "NikaidoHiroBg.tscn".CharacterScenePath();
-        public override string CustomVisualPath => "NikaidoHiro.tscn".CharacterScenePath();
-        public override string CustomIconPath => "NikaidoHiroIcon.tscn".CharacterScenePath();
+        public override string CustomIconTexturePath => (CharacterId + "_map.png").CharacterImgPath(CharacterId);
+        public override string CustomCharacterSelectIconPath => (CharacterId + "_char_select.png").CharacterImgPath(CharacterId);
+        public override string CustomMapMarkerPath => (CharacterId + "_map.png").CharacterImgPath(CharacterId);
+        public override string CustomCharacterSelectBg => (CharacterId + "_bg.tscn").CharacterScenePath(CharacterId);
+        public override string CustomVisualPath => (CharacterId + ".tscn").CharacterScenePath(CharacterId);
+        public override string CustomIconPath => (CharacterId + "_icon.tscn").CharacterScenePath(CharacterId);
+        public override string CustomArmPointingTexturePath => (CharacterId + "_arm_pointing.png").CharacterImgPath(CharacterId);
+        public override string CustomRestSiteAnimPath => (CharacterId + "_rest_site.tscn").CharacterScenePath(CharacterId);
     }
 }

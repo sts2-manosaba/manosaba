@@ -44,14 +44,14 @@ public static class StringExtensions
         return Path.Join(Entry.ModId, "images", "relics", "big", path);
     }
 
-    public static string CharacterUiPath(this string path)
+    public static string CharacterImgPath(this string path, String character)
     {
-        return Path.Join(Entry.ModId, "images", "charui", path);
+        return Path.Join(Entry.ModId, "images", "characters", character, path);
     }
 
-    public static string CharacterScenePath(this string path)
+    public static string CharacterScenePath(this string path, String character)
     {
-        return Path.Join(Entry.ModId, "scenes", path);
+        return Path.Join(Entry.ModId, "scenes", character, path);
 
     }
 }

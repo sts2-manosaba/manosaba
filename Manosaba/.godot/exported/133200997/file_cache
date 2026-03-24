@@ -1,3 +1,5 @@
-res://Manosaba/scenes/NikaidoHiro.tscn::ed553d13e81b0f9bce995bab9aef430c::1774286290::res://.godot/exported/133200997/export-25653fc81ed36dc4354890b9405f4758-NikaidoHiro.scn
-res://Manosaba/scenes/NikaidoHiroBg.tscn::f448737990f96f43dffa7d879abc89bc::1774265608::res://.godot/exported/133200997/export-2d7e852a56016972758cd9d9fefa1bd0-NikaidoHiroBg.scn
-res://Manosaba/scenes/NikaidoHiroIcon.tscn::ae31f008b7fdf5a7c13d5abecfe35354::1774193806::res://.godot/exported/133200997/export-456dd8305d0cb74be17bf4ff346f20bb-NikaidoHiroIcon.scn
+res://Manosaba/scenes/nikaido_hiro/nikaido_hiro.tscn::50f4a7fffbd738d1e8a15c39c926f4a6::1774324620::res://.godot/exported/133200997/export-fe0cd6cae27a46d53a36eeaa437dddf5-nikaido_hiro.scn
+res://Manosaba/scenes/nikaido_hiro/nikaido_hiro_bg.tscn::fca9d25581873db3746b9c096a2e5668::1774326229::res://.godot/exported/133200997/export-ace33f62d3380b841b13dd817f09fafe-nikaido_hiro_bg.scn
+res://Manosaba/scenes/nikaido_hiro/nikaido_hiro_icon.tscn::e31401a97e2dfaae9944544d9f2d668f::1774324872::res://.godot/exported/133200997/export-ae8bbc53c8d7f6bc0efefe62843484b4-nikaido_hiro_icon.scn
+res://Manosaba/scenes/nikaido_hiro/nikaido_hiro_rest_site.tscn::f6527c00f348e180ed20fc535531845a::1774329074::res://.godot/exported/133200997/export-3e88239569a3fb56968816a51e54a113-nikaido_hiro_rest_site.scn
+res://Manosaba/scenes/selection_reticle.tscn::afe5a61b5418aa637e3e5d3b91929f53::1774328790::res://.godot/exported/133200997/export-15cd5b6b0768db6d9837bb78a20bc1fa-selection_reticle.scn
