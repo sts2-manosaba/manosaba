@@ -14,7 +14,7 @@ namespace Manosaba.Characters.Common.Cards
     {
         private const int energyCost = 1;
         private const CardType type = CardType.Attack;
-        private const CardRarity rarity = CardRarity.Common;
+        private const CardRarity rarity = CardRarity.Rare;
         private const TargetType targetType = TargetType.AnyEnemy;
         private const bool shouldShowInCardLibrary = true;
         protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(1, ValueProp.Move), new RepeatVar(10)];

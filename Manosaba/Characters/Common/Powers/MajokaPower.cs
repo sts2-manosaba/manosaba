@@ -20,7 +20,7 @@ namespace Manosaba.Characters.Common.Powers
                 return 1m;
             }
 
-            if (props == ValueProp.Unpowered)
+            if (props.HasFlag(ValueProp.Unpowered))
             {
                 return 1m;
             }
@@ -35,7 +35,7 @@ namespace Manosaba.Characters.Common.Powers
                 return 0m;
             }
 
-            if (props == ValueProp.Unpowered)
+            if (props.HasFlag(ValueProp.Unpowered))
             {
                 return 0m;
             }

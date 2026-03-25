@@ -26,7 +26,7 @@ namespace manosaba.Characters.NikaidoHiro
             ModelDb.Card<DefendNikaidoHiro>(),
             ModelDb.Card<DefendNikaidoHiro>(),
             ModelDb.Card<DefendNikaidoHiro>(),
-            ModelDb.Card<DefendNikaidoHiro>(),
+            ModelDb.Card<Intimidate>(),
             ModelDb.Card<EmaNikaidoHiro>(),
             ModelDb.Card<EmaNikaidoHiro>()
         ];
@@ -53,5 +53,8 @@ namespace manosaba.Characters.NikaidoHiro
         public override string CustomArmPointingTexturePath => (CharacterId + "_arm_pointing.png").CharacterImgPath(CharacterId);
         public override string CustomRestSiteAnimPath => (CharacterId + "_rest_site.tscn").CharacterScenePath(CharacterId);
         public override string CustomMerchantAnimPath => (CharacterId + "_merchant.tscn").CharacterScenePath(CharacterId);
+        public override string CustomArmRockTexturePath => (CharacterId + "_arm_rock.png").CharacterImgPath(CharacterId);
+        public override string CustomArmPaperTexturePath => (CharacterId + "_arm_paper.png").CharacterImgPath(CharacterId);
+        public override string CustomArmScissorsTexturePath => (CharacterId + "_arm_scissors.png").CharacterImgPath(CharacterId);
     }
 }

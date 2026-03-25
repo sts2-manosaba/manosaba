@@ -107,6 +107,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<Folder Include="Characters\HikamiMeruru\" />
 		<Folder Include="Manosaba\images\card_portraits\big\" />
 		<Folder Include="Manosaba\images\powers\big\" />
 	</ItemGroup>

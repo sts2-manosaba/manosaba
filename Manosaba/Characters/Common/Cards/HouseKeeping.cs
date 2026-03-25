@@ -5,14 +5,13 @@ using Manosaba.Extensions;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
-using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
-using MegaCrit.Sts2.Core.ValueProps;
+using MegaCrit.Sts2.Core.Models.Powers;
 
 namespace Manosaba.Characters.Common.Cards
 {
     [Pool(typeof(CommonCardPool))]
-    public class Suicide : PathCustomCardModel
+    public class HouseKeeping : PathCustomCardModel
     {
 
         private const int energyCost = 1;
@@ -20,25 +19,20 @@ namespace Manosaba.Characters.Common.Cards
         private const CardRarity rarity = CardRarity.Common;
         private const TargetType targetType = TargetType.Self;
         private const bool shouldShowInCardLibrary = true;
-        protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<VotePower>()];
-        protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(1, ValueProp.Unpowered), new PowerVar<VotePower>(3)];
+        protected override IEnumerable<DynamicVar> CanonicalVars => [new PowerVar<StrengthPower>(2m)];
 
-        public Suicide() : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)
+        public HouseKeeping() : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)
         {
         }
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
-            await DamageCmd.Attack(base.DynamicVars.Damage.BaseValue)
-            .FromCard(this)
-            .Targeting(base.Owner.Creature)
-            .Execute(choiceContext);
-            await PowerCmd.Apply<VotePower>(base.Owner.Creature, DynamicVars["VotePower"].BaseValue, base.Owner.Creature, this);
+            await PowerCmd.Apply<HouseKeepingPower>(base.Owner.Creature, base.DynamicVars.Strength.BaseValue, base.Owner.Creature, this);
         }
 
         protected override void OnUpgrade()
         {
-            base.DynamicVars["VotePower"].UpgradeValueBy(2m);
+            base.DynamicVars.Strength.UpgradeValueBy(2m);
         }
     }
 }

@@ -36,7 +36,7 @@ public class CommonCardPool : CustomCardPoolModel
 
     public static CardModel[] getAllCards()
     {
-        return new CardModel[17] {
+        return new CardModel[19] {
             ModelDb.Card<PicnicTime>(),
             ModelDb.Card<TrialStart>(),
             ModelDb.Card<Vote>(),
@@ -53,7 +53,9 @@ public class CommonCardPool : CustomCardPoolModel
             ModelDb.Card<SSArrow>(),
             ModelDb.Card<SSBroom>(),
             ModelDb.Card<SSRapier>(),
-            ModelDb.Card<SSRibbon>()
+            ModelDb.Card<SSRibbon>(),
+            ModelDb.Card<HouseKeeping>(),
+            ModelDb.Card<BadEnd>()
         };
     }
 

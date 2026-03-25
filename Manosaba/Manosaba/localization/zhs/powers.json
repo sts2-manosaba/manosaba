@@ -12,6 +12,6 @@
   "MANOSABA-DEATH_LOOP_POWER.description": "死亡時，根據[gold]魔女化[/gold]程度回復相應血量。",
   "MANOSABA-DEATH_LOOP_POWER.smartDescription": "死亡時，根據[gold]魔女化[/gold]程度回復相應血量。",
   "MANOSABA-VOTE_POWER.title": "嫌疑",
-  "MANOSABA-VOTE_POWER.description": "你就是犯人吧！遠野漢娜！",
-  "MANOSABA-VOTE_POWER.smartDescription": "你就是犯人吧！"
+  "MANOSABA-VOTE_POWER.description": "超過 10 層每回合增加一張[gold]壞結局[/gold]到手牌中。你就是犯人吧！遠野漢娜！",
+  "MANOSABA-VOTE_POWER.smartDescription": "你就是犯人吧！遠野漢娜！"
 }

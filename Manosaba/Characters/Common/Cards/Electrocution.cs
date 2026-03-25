@@ -21,7 +21,7 @@ namespace Manosaba.Characters.Common.Cards
         private const bool shouldShowInCardLibrary = true;
 
         protected string EvokeSfx => "event:/sfx/characters/defect/defect_lightning_evoke";
-        protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(12, ValueProp.Unpowered)];
+        protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(12, ValueProp.Move)];
 
         public Electrocution() : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)
         {

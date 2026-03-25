@@ -12,10 +12,10 @@ namespace Manosaba.Characters.Common.Cards
     public class SSRibbon : PathCustomCardModel
     {
 
-        private const int energyCost = 0;
-        private const CardType type = CardType.Skill;
+        private const int energyCost = -1;
+        private const CardType type = CardType.Quest;
         private const CardRarity rarity = CardRarity.Token;
-        private const TargetType targetType = TargetType.Self;
+        private const TargetType targetType = TargetType.None;
         private const bool shouldShowInCardLibrary = false;
 
         protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromCard<SimpleSpear>()];

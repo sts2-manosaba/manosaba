@@ -23,7 +23,7 @@ namespace Manosaba.Characters.NikaidoHiro.Cards
 
         protected override bool IsPlayable => base.Owner.Creature.GetPowerAmount<MajokaPower>() >= 100;
         public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
-        protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(35, ValueProp.Move), new PowerVar<MajokaPower>(100)];
+        protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(35, ValueProp.Unblockable), new PowerVar<MajokaPower>(100)];
         protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<MajokaPower>(), HoverTipFactory.FromPower<VotePower>()];
         public WitchesSabbath() : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)
         {
@@ -36,7 +36,7 @@ namespace Manosaba.Characters.NikaidoHiro.Cards
             await PowerCmd.Apply<MajokaPower>(base.Owner.Creature, -majokaAmount, base.Owner.Creature, this);
             await PowerCmd.Apply<VotePower>(base.Owner.Creature, -voteAmount, base.Owner.Creature, this);
 
-            decimal damage = (DynamicVars.Damage.BaseValue + voteAmount * 3) * (1 + 0.01m * majokaAmount);
+            decimal damage = (DynamicVars.Damage.BaseValue + voteAmount * 3) * (1 + 0.02m * majokaAmount);
 
             await DamageCmd.Attack(damage)
                 .FromCard(this)

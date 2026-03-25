@@ -8,13 +8,12 @@ namespace Manosaba.Extensions
 {
     public abstract class PathCustomPowerModel : CustomPowerModel
     {
-        public override Task AfterPowerAmountChanged(PowerModel power, decimal amount, Creature? applier, CardModel? cardSource)
+        public override async Task AfterPowerAmountChanged(PowerModel power, decimal amount, Creature? applier, CardModel? cardSource)
         {
-            if (amount < 0 && !AllowNegative)
+            if (power.Amount < 0 && !power.AllowNegative)
             {
                 power.RemoveInternal();
             }
-            return Task.CompletedTask;
         }
         public override string CustomPackedIconPath => $"{Id.Entry.RemovePrefix().ToLowerInvariant()}.png".PowerImagePath();
         public override string CustomBigIconPath => $"{Id.Entry.RemovePrefix().ToLowerInvariant()}.png".PowerImagePath();
