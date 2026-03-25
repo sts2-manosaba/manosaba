@@ -23,6 +23,8 @@ namespace Manosaba.Characters.Common.Cards
 
         protected override IEnumerable<DynamicVar> CanonicalVars => [new CardsVar(1)];
 
+        public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
+
         public ForgeSpear() : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)
         {
         }
@@ -40,7 +42,7 @@ namespace Manosaba.Characters.Common.Cards
 
         protected override void OnUpgrade()
         {
-            base.DynamicVars.Cards.UpgradeValueBy(1);
+            RemoveKeyword(CardKeyword.Exhaust);
         }
     }
 }

@@ -106,12 +106,6 @@
 	  <None Remove="Manosaba\mod_image.png.import" />
 	</ItemGroup>
 
-	<ItemGroup>
-		<Folder Include="Characters\HikamiMeruru\" />
-		<Folder Include="Manosaba\images\card_portraits\big\" />
-		<Folder Include="Manosaba\images\powers\big\" />
-	</ItemGroup>
-
 	<Target Name="CheckDependencyPaths">
 		<Error Text=" Slay the Spire 2 data not found at path '$(Sts2DataDir)'" Condition="'$(Sts2DataDir)' == '' or !Exists('$(Sts2DataDir)')" />
 		<Error Text=" Godot not found at path '$(GodotPath)'" Condition="'$(GodotPath)' == '' or !Exists('$(GodotPath)')" />

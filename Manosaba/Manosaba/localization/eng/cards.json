@@ -3,6 +3,10 @@
   "MANOSABA-STRIKE_NIKAIDO_HIRO.description": "",
   "MANOSABA-DEFEND_NIKAIDO_HIRO.title": "",
   "MANOSABA-DEFEND_NIKAIDO_HIRO.description": "",
+  "MANOSABA-STRIKE_HIKAMI_MERURU.title": "",
+  "MANOSABA-STRIKE_HIKAMI_MERURU.description": "",
+  "MANOSABA-DEFEND_HIKAMI_MERURU.title": "",
+  "MANOSABA-DEFEND_HIKAMI_MERURU.description": "",
   "MANOSABA-TRAUMA_NIKAIDO_HIRO.title": "",
   "MANOSABA-TRAUMA_NIKAIDO_HIRO.description": "",
   "MANOSABA-GOOD_SLEEP.title": "",
@@ -60,5 +64,7 @@
   "MANOSABA-HOUSE_KEEPING.title": "",
   "MANOSABA-HOUSE_KEEPING.description": "",
   "MANOSABA-INTIMIDATE.title": "",
-  "MANOSABA-INTIMIDATE.description": ""
+  "MANOSABA-INTIMIDATE.description": "",
+  "MANOSABA-PAIN_KILLER.title": "",
+  "MANOSABA-PAIN_KILLER.description": ""
 }

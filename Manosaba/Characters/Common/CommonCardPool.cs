@@ -1,8 +1,6 @@
 ﻿using BaseLib.Abstracts;
 using Godot;
 using manosaba.Extensions;
-using Manosaba.Characters.Common.Cards;
-using MegaCrit.Sts2.Core.Models;
 
 namespace manosaba.Characters.Common;
 
@@ -19,8 +17,8 @@ public class CommonCardPool : CustomCardPoolModel
     so it may take some experimentation to find a color you like.
     Generally they should be values between 0 and 1. */
     public override float H => 1f; //Hue; changes the color.
-    public override float S => 1f; //Saturation
-    public override float V => 1f; //Brightness
+    public override float S => 0f; //Saturation
+    public override float V => 0.35f; //Brightness
 
     //Alternatively, leave these values at 1 and provide a custom frame image.
     /*public override Texture2D CustomFrame(CustomCardModel card)
@@ -33,30 +31,5 @@ public class CommonCardPool : CustomCardPoolModel
     public override Color DeckEntryCardColor => new("FFFFFF");
 
     public override bool IsColorless => true;
-
-    public static CardModel[] getAllCards()
-    {
-        return new CardModel[19] {
-            ModelDb.Card<PicnicTime>(),
-            ModelDb.Card<TrialStart>(),
-            ModelDb.Card<Vote>(),
-            ModelDb.Card<ConcentratedFire>(),
-            ModelDb.Card<Hotpot>(),
-            ModelDb.Card<Boulders>(),
-            ModelDb.Card<Suicide>(),
-            ModelDb.Card<Alibi>(),
-            ModelDb.Card<SimpleSpear>(),
-            ModelDb.Card<Electrocution>(),
-            ModelDb.Card<Bullseye>(),
-            ModelDb.Card<DriftApart>(),
-            ModelDb.Card<ForgeSpear>(),
-            ModelDb.Card<SSArrow>(),
-            ModelDb.Card<SSBroom>(),
-            ModelDb.Card<SSRapier>(),
-            ModelDb.Card<SSRibbon>(),
-            ModelDb.Card<HouseKeeping>(),
-            ModelDb.Card<BadEnd>()
-        };
-    }
 
 }

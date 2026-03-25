@@ -1,5 +1,8 @@
 {
   "MANOSABA-PEN_OF_HIRO.title": "希羅的鋼筆",
-  "MANOSABA-PEN_OF_HIRO.description": "在收到嫌疑時可以當作證據提出？",
-  "MANOSABA-PEN_OF_HIRO.flavor": "神秘偽證女專屬"
+  "MANOSABA-PEN_OF_HIRO.description": "每個回合開始時，若有 {VoteCost} 層嫌疑則獲得 {Energy:energyIcons()}",
+  "MANOSABA-PEN_OF_HIRO.flavor": "神秘偽證女專屬",
+  "MANOSABA-PHOTO_OF_THE_GREAT_WITCH.title": "大魔女的相片",
+  "MANOSABA-PHOTO_OF_THE_GREAT_WITCH.description": "回復自己或隊友時，獲得更多治療量。",
+  "MANOSABA-PHOTO_OF_THE_GREAT_WITCH.flavor": "好想您阿...大魔女大人..."
 }

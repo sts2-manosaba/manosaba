@@ -4,9 +4,11 @@ using Manosaba.Characters.Common.Powers;
 using Manosaba.Extensions;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
+using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
+using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.ValueProps;
 
 namespace Manosaba.Characters.NikaidoHiro.Cards
@@ -23,7 +25,15 @@ namespace Manosaba.Characters.NikaidoHiro.Cards
 
         protected override bool IsPlayable => base.Owner.Creature.GetPowerAmount<MajokaPower>() >= 100;
         public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
-        protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(35, ValueProp.Unblockable), new PowerVar<MajokaPower>(100)];
+        protected override IEnumerable<DynamicVar> CanonicalVars => [
+            new CalculationBaseVar(50m),
+            new ExtraDamageVar(3m),
+            new CalculatedDamageVar(ValueProp.Move).WithMultiplier(delegate(CardModel card, Creature? _){
+                int voteAmount = card.Owner.Creature.GetPowerAmount<VotePower>();
+                return voteAmount;
+            }),
+            new PowerVar<MajokaPower>(100)
+            ];
         protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<MajokaPower>(), HoverTipFactory.FromPower<VotePower>()];
         public WitchesSabbath() : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)
         {
@@ -36,7 +46,7 @@ namespace Manosaba.Characters.NikaidoHiro.Cards
             await PowerCmd.Apply<MajokaPower>(base.Owner.Creature, -majokaAmount, base.Owner.Creature, this);
             await PowerCmd.Apply<VotePower>(base.Owner.Creature, -voteAmount, base.Owner.Creature, this);
 
-            decimal damage = (DynamicVars.Damage.BaseValue + voteAmount * 3) * (1 + 0.02m * majokaAmount);
+            decimal damage = (DynamicVars.CalculationBase.BaseValue + voteAmount * 3 + majokaAmount / 25) * (1 + 0.01m * majokaAmount);
 
             await DamageCmd.Attack(damage)
                 .FromCard(this)
@@ -46,7 +56,7 @@ namespace Manosaba.Characters.NikaidoHiro.Cards
 
         protected override void OnUpgrade()
         {
-            DynamicVars.Damage.UpgradeValueBy(15m);
+            DynamicVars.CalculationBase.UpgradeValueBy(20m);
         }
     }
 }

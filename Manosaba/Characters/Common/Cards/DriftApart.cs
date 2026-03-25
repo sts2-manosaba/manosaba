@@ -28,7 +28,8 @@ namespace Manosaba.Characters.Common.Cards
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
-            await PowerCmd.Apply<StrengthPower>(cardPlay.Target, DynamicVars.Strength.BaseValue, base.Owner.Creature, this);
+            if (cardPlay.Target != null && cardPlay.Target != Owner.Creature)
+                await PowerCmd.Apply<StrengthPower>(cardPlay.Target, DynamicVars.Strength.BaseValue, base.Owner.Creature, this);
             await PowerCmd.Apply<DexterityPower>(base.Owner.Creature, DynamicVars.Dexterity.BaseValue, base.Owner.Creature, this);
         }
 

@@ -19,7 +19,7 @@ namespace Manosaba.Characters.NikaidoHiro.Cards
         private const TargetType targetType = TargetType.AnyEnemy;
         private const bool shouldShowInCardLibrary = true;
 
-        protected override IEnumerable<DynamicVar> CanonicalVars => [new PowerVar<VotePower>(2m), new PowerVar<WeakPower>(2m)];
+        protected override IEnumerable<DynamicVar> CanonicalVars => [new PowerVar<VotePower>(1m), new PowerVar<WeakPower>(1m)];
 
         public Intimidate() : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)
         {

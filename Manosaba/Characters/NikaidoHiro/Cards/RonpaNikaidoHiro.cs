@@ -8,7 +8,6 @@ using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
-using MegaCrit.Sts2.Core.Logging;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.ValueProps;
 
@@ -29,12 +28,10 @@ namespace Manosaba.Characters.NikaidoHiro.Cards
             new CalculatedDamageVar(ValueProp.Move).WithMultiplier(delegate(CardModel card, Creature? _){
                 if (card.Owner.Creature.GetPowerAmount<VotePower>() > 1)
                 {
-                    Log.Info("has VP");
                     return 1;
                 }
                 else
                 {
-                    Log.Info("no VP");
                     return 0;
                 }
             }),
@@ -48,7 +45,6 @@ namespace Manosaba.Characters.NikaidoHiro.Cards
         {
             if (base.Owner.Creature.GetPowerAmount<VotePower>() > 1)
             {
-                Log.Info("has VP");
                 await DamageCmd.Attack(DynamicVars.CalculatedDamage)
                  .FromCard(this)
                  .Targeting(cardPlay.Target)
@@ -57,7 +53,6 @@ namespace Manosaba.Characters.NikaidoHiro.Cards
             }
             else
             {
-                Log.Info("no VP");
                 await DamageCmd.Attack(DynamicVars.CalculationBase.BaseValue)
                     .FromCard(this)
                     .Targeting(cardPlay.Target)
