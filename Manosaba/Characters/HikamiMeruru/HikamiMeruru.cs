@@ -22,12 +22,13 @@ namespace manosaba.Characters.HikamiMeruru
             ModelDb.Card<StrikeHikamiMeruru>(),
             ModelDb.Card<StrikeHikamiMeruru>(),
             ModelDb.Card<StrikeHikamiMeruru>(),
-            ModelDb.Card<StrikeHikamiMeruru>(),
+            ModelDb.Card<DefendHikamiMeruru>(),
             ModelDb.Card<DefendHikamiMeruru>(),
             ModelDb.Card<DefendHikamiMeruru>(),
             ModelDb.Card<DefendHikamiMeruru>(),
             ModelDb.Card<PainKiller>(),
-            ModelDb.Card<PainKiller>()
+            ModelDb.Card<PainKiller>(),
+            ModelDb.Card<MixPotions>()
         ];
 
         public override IReadOnlyList<RelicModel> StartingRelics =>

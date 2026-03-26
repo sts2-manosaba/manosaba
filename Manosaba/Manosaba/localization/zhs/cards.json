@@ -50,7 +50,7 @@
   "MANOSABA-DRIFT_APART.title": "漸行漸遠",
   "MANOSABA-DRIFT_APART.description": "給隊友 {StrengthPower:diff()} 層[gold]力量[/gold]，並給予自己 {DexterityPower:diff()} 層[gold]敏捷[/gold]。",
   "MANOSABA-FORGE_SPEAR.title": "鑄矛",
-  "MANOSABA-FORGE_SPEAR.description": "將各 {Cards:diff()} 張的[gold]箭矢[/gold]、[gold]刺劍[/gold]、[gold]髮帶[/gold]、[gold]掃帚[/gold]加入抽牌堆。\nt. 抽牌時若手上有[gold]箭矢[/gold]、[gold]刺劍[/gold]、[gold]髮帶[/gold]、[gold]掃帚[/gold]則會消耗並給予一張[gold]簡易長矛[/gold]。",
+  "MANOSABA-FORGE_SPEAR.description": "將各 {Cards:diff()} 張的[gold]箭矢[/gold]、[gold]刺劍[/gold]、[gold]髮帶[/gold]、[gold]掃帚[/gold]加入抽牌堆。\n. 抽牌時若手上有[gold]箭矢[/gold]、[gold]刺劍[/gold]、[gold]髮帶[/gold]、[gold]掃帚[/gold]則會消耗並給予一張[gold]簡易長矛[/gold]。",
   "MANOSABA-S_S_ARROW.title": "箭矢",
   "MANOSABA-S_S_ARROW.description": "弩箭的箭矢，前端十分鋒利。",
   "MANOSABA-S_S_RAPIER.title": "刺劍",
@@ -66,5 +66,7 @@
   "MANOSABA-INTIMIDATE.title": "威嚇",
   "MANOSABA-INTIMIDATE.description": "給予目標 {WeakPower:diff()} 層[gold]虛弱[/gold]，並給予自己 {VotePower:diff()} 層[gold]嫌疑[/gold]。",
   "MANOSABA-PAIN_KILLER.title": "止痛藥",
-  "MANOSABA-PAIN_KILLER.description": "獲得 1 瓶[gold]止痛藥[/gold]"
+  "MANOSABA-PAIN_KILLER.description": "獲得 1 瓶[gold]止痛藥[/gold]",
+  "MANOSABA-MIX_POTIONS.title": "調製藥品",
+  "MANOSABA-MIX_POTIONS.description": "消耗身上藥水生成較高階藥水。"
 }

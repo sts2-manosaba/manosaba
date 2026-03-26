@@ -5,6 +5,7 @@ using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.Entities.Relics;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
+using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 
 namespace manosaba.Characters.NikaidoHiro.Relics
@@ -14,6 +15,8 @@ namespace manosaba.Characters.NikaidoHiro.Relics
     public sealed class PenOfHiro : PathCustomRelicModel
     {
         public override RelicRarity Rarity => RelicRarity.Starter;
+        protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<VotePower>()];
+
         protected override IEnumerable<DynamicVar> CanonicalVars => [new DynamicVar("VoteCost", 1m), new EnergyVar(1)];
 
         public override Task AfterPlayerTurnStart(PlayerChoiceContext choiceContext, Player player)

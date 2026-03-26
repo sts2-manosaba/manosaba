@@ -1,7 +1,6 @@
 ﻿using BaseLib.Utils;
 using Manosaba.Extensions;
 using MegaCrit.Sts2.Core.Commands;
-using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Entities.Relics;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 
@@ -18,18 +17,6 @@ namespace manosaba.Characters.HikamiMeruru.Relics
         public override async Task AfterObtained()
         {
             await PlayerCmd.GainMaxPotionCount(base.DynamicVars["PotionSlots"].IntValue, base.Owner);
-        }
-
-        public override decimal ModifyHealAmount(Creature creature, decimal amount)
-        {
-            if (creature.IsPlayer)
-            {
-                return amount * 1.2m;
-            }
-            else
-            {
-                return amount;
-            }
         }
     }
 }
