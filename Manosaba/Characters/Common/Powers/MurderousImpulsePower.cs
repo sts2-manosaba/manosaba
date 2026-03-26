@@ -1,4 +1,5 @@
-﻿using Manosaba.Extensions;
+﻿using Manosaba.Characters.HikamiMeruru.Powers;
+using Manosaba.Extensions;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Creatures;
@@ -21,7 +22,7 @@ namespace Manosaba.Characters.Common.Powers
                 await Cmd.CustomScaledWait(0.1f, 0.2f);
                 Creature creature = base.Owner.Player.RunState.Rng.CombatTargets.NextItem(base.Owner.CombatState.Allies);
 
-                if (creature != null && creature != base.Owner.Player.Creature)
+                if (creature != null && creature != base.Owner.Player.Creature && Owner.GetPowerAmount<InhibitionPower>() < 1)
                 {
                     if (cardPlay.Card.DynamicVars.Damage != null)
                         await CreatureCmd.Damage(context, creature, cardPlay.Card.DynamicVars.Damage.BaseValue * base.Amount * 0.25m, ValueProp.Unpowered, Owner.Player.Creature);

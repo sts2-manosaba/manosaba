@@ -14,6 +14,8 @@ namespace manosaba.Characters.NikaidoHiro
         public const string CharacterId = "nikaido_hiro";
 
         public static readonly Color Color = new("B72222");
+
+        public new Color MapDrawingColor = new("B72222");
         public override Color NameColor => Color;
         public override CharacterGender Gender => CharacterGender.Feminine;
         public override int StartingHp => 60;
@@ -22,10 +24,10 @@ namespace manosaba.Characters.NikaidoHiro
             ModelDb.Card<StrikeNikaidoHiro>(),
             ModelDb.Card<StrikeNikaidoHiro>(),
             ModelDb.Card<StrikeNikaidoHiro>(),
-            ModelDb.Card<StrikeNikaidoHiro>(),
             ModelDb.Card<DefendNikaidoHiro>(),
             ModelDb.Card<DefendNikaidoHiro>(),
             ModelDb.Card<DefendNikaidoHiro>(),
+            ModelDb.Card<TraumaNikaidoHiro>(),
             ModelDb.Card<Intimidate>(),
             ModelDb.Card<EmaNikaidoHiro>(),
             ModelDb.Card<EmaNikaidoHiro>()

@@ -12,6 +12,12 @@
   "MANOSABA-DEATH_LOOP_POWER.description": "死亡時，根據[gold]魔女化[/gold]程度回復相應血量。",
   "MANOSABA-DEATH_LOOP_POWER.smartDescription": "死亡時，根據[gold]魔女化[/gold]程度回復相應血量。",
   "MANOSABA-VOTE_POWER.title": "嫌疑",
-  "MANOSABA-VOTE_POWER.description": "超過 10 層每回合增加一張[gold]壞結局[/gold]到手牌中。你就是犯人吧！遠野漢娜！",
-  "MANOSABA-VOTE_POWER.smartDescription": "你就是犯人吧！遠野漢娜！"
+  "MANOSABA-VOTE_POWER.description": "超過 10 層每回合增加一張[gold]壞結局[/gold]到手牌中。犯人就是你吧！遠野漢娜！",
+  "MANOSABA-VOTE_POWER.smartDescription": "超過 10 層每回合增加一張[gold]壞結局[/gold]到手牌中。",
+  "MANOSABA-INHIBITION_POWER.title": "抑制力",
+  "MANOSABA-INHIBITION_POWER.description": "在有抑制力的情況下[gold]殺人衝動[/gold]無效。",
+  "MANOSABA-INHIBITION_POWER.smartDescription": "在有抑制力的情況下[gold]殺人衝動[/gold]無效。",
+  "MANOSABA-BURN_POWER.title": "灼燒",
+  "MANOSABA-BURN_POWER.description": "回合開始時受到當前層數的傷害，並使攻擊傷害減少 10%。",
+  "MANOSABA-BURN_POWER.smartDescription": "回合開始時受到當前層數的傷害，並使攻擊傷害減少 10%。"
 }

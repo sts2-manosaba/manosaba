@@ -20,8 +20,8 @@ namespace Manosaba.Characters.Common.Cards
         private const CardRarity rarity = CardRarity.Common;
         private const TargetType targetType = TargetType.Self;
         private const bool shouldShowInCardLibrary = true;
-        protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<VotePower>()];
-        protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(1, ValueProp.Unpowered), new PowerVar<VotePower>(3)];
+        protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<MajokaPower>()];
+        protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(5, ValueProp.Unpowered), new PowerVar<MajokaPower>(15)];
 
         public Suicide() : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)
         {
@@ -33,12 +33,12 @@ namespace Manosaba.Characters.Common.Cards
             .FromCard(this)
             .Targeting(base.Owner.Creature)
             .Execute(choiceContext);
-            await PowerCmd.Apply<VotePower>(base.Owner.Creature, DynamicVars["VotePower"].BaseValue, base.Owner.Creature, this);
+            await PowerCmd.Apply<MajokaPower>(base.Owner.Creature, DynamicVars["MajokaPower"].BaseValue, base.Owner.Creature, this);
         }
 
         protected override void OnUpgrade()
         {
-            base.DynamicVars["VotePower"].UpgradeValueBy(2m);
+            base.DynamicVars["MajokaPower"].UpgradeValueBy(8m);
         }
     }
 }

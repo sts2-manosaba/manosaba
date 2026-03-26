@@ -10,8 +10,8 @@ public class NikaidoHiroCardPool : CustomCardPoolModel
 {
     public override string Title => NikaidoHiro.CharacterId; //This is not a display name.
 
-    public override string BigEnergyIconPath => "nikaido_hiro_energy.png".CharacterImgPath(NikaidoHiro.CharacterId);
-    public override string TextEnergyIconPath => "nikaido_hiro_energy_text.png".CharacterImgPath(NikaidoHiro.CharacterId);
+    public override string BigEnergyIconPath => "charui/manosaba_energy.png".ImagePath();
+    public override string TextEnergyIconPath => "charui/manosaba_energy_text.png".ImagePath();
 
 
     /* These HSV values will determine the color of your card back.

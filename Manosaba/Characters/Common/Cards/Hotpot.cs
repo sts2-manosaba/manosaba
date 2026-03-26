@@ -5,6 +5,7 @@ using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
+using MegaCrit.Sts2.Core.ValueProps;
 
 namespace Manosaba.Characters.Common.Cards
 {
@@ -13,12 +14,11 @@ namespace Manosaba.Characters.Common.Cards
     {
 
         private const int energyCost = 1;
-        private const CardType type = CardType.Skill;
+        private const CardType type = CardType.Attack;
         private const CardRarity rarity = CardRarity.Common;
-        private const TargetType targetType = TargetType.Self;
+        private const TargetType targetType = TargetType.AllEnemies;
         private const bool shouldShowInCardLibrary = true;
-        public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
-        protected override IEnumerable<DynamicVar> CanonicalVars => [new HealVar(3)];
+        protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(9m, ValueProp.Move)];
 
         public Hotpot() : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)
         {
@@ -26,12 +26,14 @@ namespace Manosaba.Characters.Common.Cards
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
-            await CreatureCmd.Heal(base.Owner.Creature, base.DynamicVars.Heal.BaseValue);
+            await DamageCmd.Attack(base.DynamicVars.Damage.BaseValue).FromCard(this)
+            .TargetingAllOpponents(base.CombatState)
+            .Execute(choiceContext);
         }
 
         protected override void OnUpgrade()
         {
-            base.DynamicVars.Heal.UpgradeValueBy(2m);
+            base.DynamicVars.Damage.UpgradeValueBy(4m);
         }
     }
 }

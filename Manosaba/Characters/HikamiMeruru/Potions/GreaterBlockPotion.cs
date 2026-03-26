@@ -6,25 +6,28 @@ using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Entities.Potions;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
+using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
+using MegaCrit.Sts2.Core.ValueProps;
 
-namespace Manosaba.Characters.Common.Potions
+namespace Manosaba.Characters.HikamiMeruru.Potions
 {
     [Pool(typeof(HikamiMeruruPotionPool))]
-    public class PainKillerPotion : PathCustomPotionModel
+    public class GreaterBlockPotion : PathCustomPotionModel
     {
         public override PotionUsage Usage => PotionUsage.CombatOnly;
         public override PotionRarity Rarity => PotionRarity.Token;
         public override TargetType TargetType => TargetType.AnyPlayer;
+        protected override IEnumerable<DynamicVar> CanonicalVars => [new BlockVar(24m, ValueProp.Unpowered)];
+
+        public override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.Static(StaticHoverTip.Block)];
 
         public override bool CanBeGeneratedInCombat => true;
-
-        protected override IEnumerable<DynamicVar> CanonicalVars => [new HealVar(3m)];
         protected override async Task OnUse(PlayerChoiceContext choiceContext, Creature? target)
         {
             PotionModel.AssertValidForTargetedPotion(target);
-            await CreatureCmd.Heal(target, base.DynamicVars.Heal.BaseValue);
+            await CreatureCmd.GainBlock(target, base.DynamicVars.Block, null);
         }
     }
 }

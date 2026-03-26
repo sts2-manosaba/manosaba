@@ -1,10 +1,13 @@
 ﻿using BaseLib.Utils;
 using manosaba.Characters.HikamiMeruru;
-using Manosaba.Characters.Common.Potions;
+using Manosaba.Characters.HikamiMeruru.PotionCraft;
+using Manosaba.Characters.HikamiMeruru.Potions;
 using Manosaba.Extensions;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
+using MegaCrit.Sts2.Core.HoverTips;
+using MegaCrit.Sts2.Core.Localization.DynamicVars;
 
 namespace Manosaba.Characters.Common.Cards
 {
@@ -12,11 +15,14 @@ namespace Manosaba.Characters.Common.Cards
     public class MixPotions : PathCustomCardModel
     {
 
-        private const int energyCost = 0;
+        private const int energyCost = 1;
         private const CardType type = CardType.Skill;
         private const CardRarity rarity = CardRarity.Basic;
         private const TargetType targetType = TargetType.Self;
         private const bool shouldShowInCardLibrary = true;
+
+        protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPotion<Catalyst>()];
+        protected override IEnumerable<DynamicVar> CanonicalVars => [new DynamicVar("CraftCount", 1), new DynamicVar("CatalystChance", 10)];
 
         public MixPotions() : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)
         {
@@ -24,16 +30,21 @@ namespace Manosaba.Characters.Common.Cards
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
-            if (Owner.PotionSlots.Count(p => p is PainKillerPotion) >= 2)
+            for (int i = 0; i < DynamicVars["CraftCount"].IntValue; i++)
             {
-                await PotionCmd.Discard(Owner.PotionSlots.First(p => p is PainKillerPotion));
-                await PotionCmd.Discard(Owner.PotionSlots.First(p => p is PainKillerPotion));
+                var recipe = PotionCraftService.FindFirstCraftableRecipe(Owner.PotionSlots);
+                await PotionCraftService.TryCraft(Owner, Owner.PotionSlots, recipe);
+            }
+            if (Owner.RunState.Rng.CombatPotionGeneration.NextInt(100) < DynamicVars["CatalystChance"].IntValue)
+            {
+                await PotionCmd.TryToProcure<Catalyst>(Owner);
             }
         }
 
         protected override void OnUpgrade()
         {
-            base.EnergyCost.UpgradeBy(-1);
+            DynamicVars["CraftCount"].UpgradeValueBy(1m);
+            DynamicVars["CatalystChance"].UpgradeValueBy(10m);
         }
     }
 }

@@ -1,11 +1,12 @@
 ﻿using BaseLib.Utils;
 using manosaba.Characters.HikamiMeruru;
-using Manosaba.Characters.Common.Potions;
+using Manosaba.Characters.HikamiMeruru.Potions;
 using Manosaba.Extensions;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
+using MegaCrit.Sts2.Core.Localization.DynamicVars;
 
 namespace Manosaba.Characters.Common.Cards
 {
@@ -19,7 +20,8 @@ namespace Manosaba.Characters.Common.Cards
         private const TargetType targetType = TargetType.Self;
         private const bool shouldShowInCardLibrary = true;
 
-        protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPotion<PainKillerPotion>()];
+        protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPotion<LesserPainKillerPotion>()];
+        protected override IEnumerable<DynamicVar> CanonicalVars => [new CardsVar(1)];
 
         public PainKiller() : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)
         {
@@ -27,12 +29,15 @@ namespace Manosaba.Characters.Common.Cards
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
-            await PotionCmd.TryToProcure<PainKillerPotion>(Owner);
+            for (var i = 0; i < DynamicVars.Cards.IntValue; i++)
+            {
+                await PotionCmd.TryToProcure<LesserPainKillerPotion>(Owner);
+            }
         }
 
         protected override void OnUpgrade()
         {
-            base.EnergyCost.UpgradeBy(-1);
+            base.DynamicVars.Cards.UpgradeValueBy(1m);
         }
     }
 }

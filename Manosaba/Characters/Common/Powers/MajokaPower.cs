@@ -1,8 +1,13 @@
-﻿using Manosaba.Extensions;
+﻿using BaseLib.Extensions;
+using Manosaba.Characters.HikamiMeruru.Cards;
+using Manosaba.Characters.NikaidoHiro.Cards;
+using Manosaba.Extensions;
 using MegaCrit.Sts2.Core.Commands;
+using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Entities.Powers;
 using MegaCrit.Sts2.Core.Models;
+using MegaCrit.Sts2.Core.Nodes.CommonUi;
 using MegaCrit.Sts2.Core.ValueProps;
 
 namespace Manosaba.Characters.Common.Powers
@@ -12,6 +17,12 @@ namespace Manosaba.Characters.Common.Powers
         public override PowerType Type => PowerType.Buff;
         public override PowerStackType StackType => PowerStackType.Counter;
         public override bool AllowNegative => false;
+
+        public static Dictionary<string, Type> mahouCardsMap = new()
+        {
+            { "nikaido_hiro",  typeof(DeathLoop)},
+            { "hikami_meruru", typeof(GrandHeal)},
+        };
 
         public override decimal ModifyDamageMultiplicative(Creature? target, decimal amount, ValueProp props, Creature? dealer, CardModel? cardSource)
         {
@@ -49,7 +60,28 @@ namespace Manosaba.Characters.Common.Powers
             int toApplyMI = base.Amount / 100 - base.Owner.GetPowerAmount<MurderousImpulsePower>();
             PowerCmd.Apply<MurderousImpulsePower>(base.Owner.Player.Creature, toApplyMI, base.Owner.Player.Creature, null);
 
+            CheckAndGiveMahouCards();
+
             return Task.CompletedTask;
         }
+
+        private async Task CheckAndGiveMahouCards()
+        {
+            if (base.Amount >= 100 && Owner.Player != null)
+            {
+                String characterId = Owner.Player.Character.Id.ToString().RemovePrefix().ToLowerInvariant();
+                if (!mahouCardsMap.TryGetValue(characterId, out Type targetType))
+                    return;
+                if (Owner.Player.Deck.Cards.Count(c => c.GetType() == targetType) < 1)
+                {
+                    CardModel cardType = ModelDb.GetById<CardModel>(ModelDb.GetId(targetType));
+                    CardModel cardToDeck = Owner.Player.RunState.CreateCard(cardType, Owner.Player);
+                    CardCmd.PreviewCardPileAdd(await CardPileCmd.Add(cardToDeck, PileType.Deck), 1.2f, CardPreviewStyle.GridLayout);
+                    CardModel cardToHand = Owner.CombatState.CreateCard(cardType, Owner.Player);
+                    await CardPileCmd.AddGeneratedCardToCombat(cardToHand, PileType.Hand, true);
+                }
+            }
+        }
+
     }
 }

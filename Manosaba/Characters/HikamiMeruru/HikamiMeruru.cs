@@ -14,6 +14,8 @@ namespace manosaba.Characters.HikamiMeruru
         public const string CharacterId = "hikami_meruru";
 
         public static readonly Color Color = new("C1D9F5");
+
+        public new Color MapDrawingColor = new("C1D9F5");
         public override Color NameColor => Color;
         public override CharacterGender Gender => CharacterGender.Feminine;
         public override int StartingHp => 80;
@@ -25,7 +27,7 @@ namespace manosaba.Characters.HikamiMeruru
             ModelDb.Card<DefendHikamiMeruru>(),
             ModelDb.Card<DefendHikamiMeruru>(),
             ModelDb.Card<DefendHikamiMeruru>(),
-            ModelDb.Card<DefendHikamiMeruru>(),
+            ModelDb.Card<TraumaHikamiMeruru>(),
             ModelDb.Card<PainKiller>(),
             ModelDb.Card<PainKiller>(),
             ModelDb.Card<MixPotions>()

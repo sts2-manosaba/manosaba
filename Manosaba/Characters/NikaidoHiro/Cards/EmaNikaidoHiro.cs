@@ -18,7 +18,7 @@ namespace Manosaba.Characters.Common.Cards
         private const CardRarity rarity = CardRarity.Basic;
         private const TargetType targetType = TargetType.Self;
         private const bool shouldShowInCardLibrary = true;
-        protected override IEnumerable<DynamicVar> CanonicalVars => [new HealVar(1), new PowerVar<MajokaPower>(10)];
+        protected override IEnumerable<DynamicVar> CanonicalVars => [new CardsVar(1), new PowerVar<MajokaPower>(10)];
 
         public EmaNikaidoHiro() : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)
         {
@@ -26,13 +26,13 @@ namespace Manosaba.Characters.Common.Cards
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
-            await CreatureCmd.Heal(base.Owner.Creature, base.DynamicVars.Heal.BaseValue);
+            await CardPileCmd.Draw(choiceContext, base.DynamicVars.Cards.BaseValue, base.Owner);
             await PowerCmd.Apply<MajokaPower>(Owner.Creature, DynamicVars["MajokaPower"].BaseValue, Owner.Creature, this);
         }
 
         protected override void OnUpgrade()
         {
-            base.DynamicVars.Heal.UpgradeValueBy(1m);
+            base.DynamicVars.Cards.UpgradeValueBy(1m);
             DynamicVars["MajokaPower"].UpgradeValueBy(5);
         }
     }

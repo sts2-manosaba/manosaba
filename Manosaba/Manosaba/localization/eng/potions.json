@@ -1,5 +1,26 @@
 {
+  "MANOSABA-LESSER_PAIN_KILLER_POTION.title": "",
+  "MANOSABA-LESSER_PAIN_KILLER_POTION.description": "",
+  "MANOSABA-LESSER_PAIN_KILLER_POTION.selectionScreenPrompt": "",
   "MANOSABA-PAIN_KILLER_POTION.title": "",
   "MANOSABA-PAIN_KILLER_POTION.description": "",
-  "MANOSABA-PAIN_KILLER_POTION.selectionScreenPrompt": ""
+  "MANOSABA-PAIN_KILLER_POTION.selectionScreenPrompt": "",
+  "MANOSABA-GREATER_PAIN_KILLER_POTION.title": "",
+  "MANOSABA-GREATER_PAIN_KILLER_POTION.description": "",
+  "MANOSABA-GREATER_PAIN_KILLER_POTION.selectionScreenPrompt": "",
+  "MANOSABA-LESSER_BLOCK_POTION.title": "",
+  "MANOSABA-LESSER_BLOCK_POTION.description": "",
+  "MANOSABA-LESSER_BLOCK_POTION.selectionScreenPrompt": "",
+  "MANOSABA-GREATER_BLOCK_POTION.title": "",
+  "MANOSABA-GREATER_BLOCK_POTION.description": "",
+  "MANOSABA-GREATER_BLOCK_POTION.selectionScreenPrompt": "",
+  "MANOSABA-CATALYST.title": "",
+  "MANOSABA-CATALYST.description": "",
+  "MANOSABA-CATALYST.selectionScreenPrompt": "",
+  "MANOSABA-LESSER_STRENGTH_POTION.title": "",
+  "MANOSABA-LESSER_STRENGTH_POTION.description": "",
+  "MANOSABA-LESSER_STRENGTH_POTION.selectionScreenPrompt": "",
+  "MANOSABA-GREATER_BEETLE_JUICE.title": "",
+  "MANOSABA-GREATER_BEETLE_JUICE.description": "",
+  "MANOSABA-GREATER_BEETLE_JUICE.selectionScreenPrompt": ""
 }

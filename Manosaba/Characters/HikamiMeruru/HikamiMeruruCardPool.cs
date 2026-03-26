@@ -10,8 +10,8 @@ public class HikamiMeruruCardPool : CustomCardPoolModel
 {
     public override string Title => HikamiMeruru.CharacterId; //This is not a display name.
 
-    public override string BigEnergyIconPath => "hikami_meruru_energy.png".CharacterImgPath(HikamiMeruru.CharacterId);
-    public override string TextEnergyIconPath => "hikami_meruru_energy_text.png".CharacterImgPath(HikamiMeruru.CharacterId);
+    public override string BigEnergyIconPath => "charui/manosaba_energy.png".ImagePath();
+    public override string TextEnergyIconPath => "charui/manosaba_energy_text.png".ImagePath();
 
 
     /* These HSV values will determine the color of your card back.
