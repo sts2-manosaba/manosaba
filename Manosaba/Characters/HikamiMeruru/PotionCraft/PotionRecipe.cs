@@ -13,10 +13,10 @@ namespace Manosaba.Characters.HikamiMeruru.PotionCraft
             ResultPotionType = resultPotionType;
         }
 
-        public bool CanCraft(IEnumerable<PotionModel> potionSlots)
+        public bool CanCraft(IEnumerable<PotionModel?> potionSlots)
         {
             var counts = potionSlots
-                .Where(p => p != null)
+                .OfType<PotionModel>()
                 .GroupBy(p => p.GetType())
                 .ToDictionary(g => g.Key, g => g.Count());
 

@@ -5,7 +5,7 @@ namespace manosaba.Characters.Common;
 
 public partial class ManosabaRestSiteCharacter : NRestSiteCharacter
 {
-	private Control _controlRoot;
+	private Control? _controlRoot;
 	public new void FlipX()
 	{
 		Vector2 scale;
@@ -18,10 +18,13 @@ public partial class ManosabaRestSiteCharacter : NRestSiteCharacter
 			scale.X = 0f - childSprite2D.Position.X;
 			childSprite2D.Position = scale;
 		}
-		Control controlRoot = _controlRoot;
-		scale = _controlRoot.Scale;
-		scale.X = 0f - _controlRoot.Scale.X;
-		controlRoot.Scale = scale;
+		if (_controlRoot != null)
+		{
+			Control controlRoot = _controlRoot;
+			scale = _controlRoot.Scale;
+			scale.X = 0f - _controlRoot.Scale.X;
+			controlRoot.Scale = scale;
+		}
 	}
 
 	private IEnumerable<Node2D> GetChildSprite2D()

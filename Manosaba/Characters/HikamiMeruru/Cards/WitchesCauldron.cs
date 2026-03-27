@@ -28,8 +28,8 @@ namespace Manosaba.Characters.Common.Cards
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
-            PotionRecipe recipe;
-            while ((recipe = PotionCraftService.FindFirstCraftableRecipe(Owner.PotionSlots)) != null)
+            PotionRecipe? recipe;
+            while ((recipe = PotionCraftService.FindFirstCraftableRecipe(Owner.PotionSlots)) is not null)
             {
                 await PotionCraftService.TryCraft(Owner, Owner.PotionSlots, recipe);
             }
