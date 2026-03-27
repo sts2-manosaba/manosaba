@@ -1,6 +1,7 @@
 ﻿using BaseLib.Utils;
 using manosaba.Characters.HikamiMeruru;
 using Manosaba.Characters.Common;
+using Manosaba.Characters.Common.Powers;
 using Manosaba.Characters.HikamiMeruru.Powers;
 using Manosaba.Extensions;
 using MegaCrit.Sts2.Core.Commands;
@@ -36,8 +37,10 @@ namespace Manosaba.Characters.HikamiMeruru.Cards
             foreach (Creature item in enumerable)
             {
                 await CreatureCmd.Heal(item, base.DynamicVars.Heal.BaseValue);
-                await PowerCmd.Apply<RegenPower>(item, DynamicVars["RegenPower"].BaseValue, Owner.Creature, this);
-                await PowerCmd.Apply<InhibitionPower>(item, DynamicVars["InhibitionPower"].BaseValue, Owner.Creature, this);
+                if (DynamicVars["RegenPower"].BaseValue * (Owner.Creature.GetPowerAmount<MajokaPower>() / 100m) >= 1)
+                    await PowerCmd.Apply<RegenPower>(item, DynamicVars["RegenPower"].BaseValue * (Owner.Creature.GetPowerAmount<MajokaPower>() / 100m), Owner.Creature, this);
+                if (DynamicVars["InhibitionPower"].BaseValue * (Owner.Creature.GetPowerAmount<MajokaPower>() / 100m) >= 1)
+                    await PowerCmd.Apply<InhibitionPower>(item, DynamicVars["InhibitionPower"].BaseValue * (Owner.Creature.GetPowerAmount<MajokaPower>() / 100m), Owner.Creature, this);
             }
         }
 

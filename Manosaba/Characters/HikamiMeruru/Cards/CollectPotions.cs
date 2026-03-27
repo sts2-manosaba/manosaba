@@ -19,7 +19,7 @@ namespace Manosaba.Characters.HikamiMeruru.Cards
         private const CardRarity rarity = CardRarity.Common;
         private const TargetType targetType = TargetType.Self;
         private const bool shouldShowInCardLibrary = true;
-        protected override IEnumerable<DynamicVar> CanonicalVars => [new CardsVar(3)];
+        protected override IEnumerable<DynamicVar> CanonicalVars => [new CardsVar(2)];
 
         private readonly List<PotionModel> PotionPool =
         [

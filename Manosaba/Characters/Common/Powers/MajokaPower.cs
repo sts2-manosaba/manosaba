@@ -54,15 +54,13 @@ namespace Manosaba.Characters.Common.Powers
             return base.Amount / 25;
         }
 
-        public override Task AfterPowerAmountChanged(PowerModel power, decimal amount, Creature? applier, CardModel? cardSource)
+        public override async Task AfterPowerAmountChanged(PowerModel power, decimal amount, Creature? applier, CardModel? cardSource)
         {
 
             int toApplyMI = base.Amount / 100 - base.Owner.GetPowerAmount<MurderousImpulsePower>();
             PowerCmd.Apply<MurderousImpulsePower>(base.Owner.Player.Creature, toApplyMI, base.Owner.Player.Creature, null);
 
-            CheckAndGiveMahouCards();
-
-            return Task.CompletedTask;
+            await CheckAndGiveMahouCards();
         }
 
         private async Task CheckAndGiveMahouCards()

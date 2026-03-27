@@ -12,7 +12,7 @@ namespace manosaba.Characters.HikamiMeruru.Relics
     {
         public override RelicRarity Rarity => RelicRarity.Starter;
 
-        protected override IEnumerable<DynamicVar> CanonicalVars => [new DynamicVar("PotionSlots", 3m)];
+        protected override IEnumerable<DynamicVar> CanonicalVars => [new DynamicVar("PotionSlots", 4m)];
 
         public override async Task AfterObtained()
         {
