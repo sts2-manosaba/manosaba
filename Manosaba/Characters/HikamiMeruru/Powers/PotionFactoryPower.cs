@@ -13,17 +13,17 @@ namespace Manosaba.Characters.HikamiMeruru.Powers
         public override PowerType Type => PowerType.Buff;
         public override PowerStackType StackType => PowerStackType.Counter;
 
-        private readonly List<PotionModel> PotionPool =
-        [
-            ModelDb.Potion<BlockPotion>(),
-            ModelDb.Potion<PainKillerPotion>(),
-            ModelDb.Potion<FlexPotion>(),
-            ModelDb.Potion<BeetleJuice>(),
-            ModelDb.Potion<EnergyPotion>(),
-        ];
-
         public override async Task AfterSideTurnStart(CombatSide side, CombatState combatState)
         {
+
+            List<PotionModel> PotionPool =
+            [
+                ModelDb.Potion<BlockPotion>(),
+                ModelDb.Potion<PainKillerPotion>(),
+                ModelDb.Potion<FlexPotion>(),
+                ModelDb.Potion<BeetleJuice>(),
+                ModelDb.Potion<EnergyPotion>(),
+            ];
             if (side != base.Owner.Side)
             {
                 return;
@@ -34,7 +34,7 @@ namespace Manosaba.Characters.HikamiMeruru.Powers
                 return;
             }
 
-            for (int i = 0; i < base.DynamicVars.Cards.IntValue; i++)
+            for (int i = 0; i < base.Amount; i++)
             {
                 PotionModel potionModel = PotionPool[Owner.Player.RunState.Rng.CombatPotionGeneration.NextInt(PotionPool.Count)];
                 await PotionCmd.TryToProcure(potionModel.ToMutable(), Owner.Player);
