@@ -41,6 +41,10 @@ namespace Manosaba.Characters.NikaidoHiro.Cards
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
+            var combatState = base.CombatState;
+            if (combatState == null)
+                return;
+
             int majokaAmount = base.Owner.Creature.GetPowerAmount<MajokaPower>();
             int voteAmount = base.Owner.Creature.GetPowerAmount<VotePower>();
             await PowerCmd.Apply<MajokaPower>(base.Owner.Creature, -majokaAmount, base.Owner.Creature, this);
@@ -50,7 +54,7 @@ namespace Manosaba.Characters.NikaidoHiro.Cards
 
             await DamageCmd.Attack(damage)
                 .FromCard(this)
-                .TargetingAllOpponents(base.CombatState)
+                .TargetingAllOpponents(combatState)
                 .Execute(choiceContext);
         }
 

@@ -31,10 +31,14 @@ namespace Manosaba.Characters.Common.Cards
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
+            var combatState = base.CombatState;
+            if (combatState == null)
+                return;
+
             await DamageCmd.Attack(base.DynamicVars.Damage.BaseValue).FromCard(this)
-            .TargetingAllOpponents(base.CombatState)
+            .TargetingAllOpponents(combatState)
             .Execute(choiceContext);
-            IEnumerable<Creature> enumerable = from c in base.CombatState.GetOpponentsOf(base.Owner.Creature)
+            IEnumerable<Creature> enumerable = from c in combatState.GetOpponentsOf(base.Owner.Creature)
                                                where c != null && c.IsAlive && c.IsEnemy
                                                select c;
             foreach (Creature item in enumerable)

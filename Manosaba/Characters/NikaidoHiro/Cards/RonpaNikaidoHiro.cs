@@ -43,11 +43,15 @@ namespace Manosaba.Characters.NikaidoHiro.Cards
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
+            var target = cardPlay.Target;
+            if (target == null)
+                return;
+
             if (base.Owner.Creature.GetPowerAmount<VotePower>() > 1)
             {
                 await DamageCmd.Attack(DynamicVars.CalculatedDamage)
                  .FromCard(this)
-                 .Targeting(cardPlay.Target)
+                 .Targeting(target)
                  .Execute(choiceContext);
                 await PowerCmd.Apply<VotePower>(base.Owner.Creature, -DynamicVars["VotePowerCost"].BaseValue, base.Owner.Creature, this);
             }
@@ -55,7 +59,7 @@ namespace Manosaba.Characters.NikaidoHiro.Cards
             {
                 await DamageCmd.Attack(DynamicVars.CalculationBase.BaseValue)
                     .FromCard(this)
-                    .Targeting(cardPlay.Target)
+                    .Targeting(target)
                     .Execute(choiceContext);
             }
         }

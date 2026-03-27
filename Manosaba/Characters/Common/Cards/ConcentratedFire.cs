@@ -25,8 +25,12 @@ namespace Manosaba.Characters.Common.Cards
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
+            var target = cardPlay.Target;
+            if (target == null)
+                return;
+
             await DamageCmd.Attack(base.DynamicVars.Damage.BaseValue).WithHitCount(base.DynamicVars.Repeat.IntValue).FromCard(this)
-            .Targeting(cardPlay.Target)
+            .Targeting(target)
             .Execute(choiceContext);
         }
 

@@ -31,11 +31,15 @@ namespace Manosaba.Characters.Common.Cards
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
+            var combatState = base.CombatState;
+            if (combatState == null)
+                return;
+
             List<CardModel> cards = new List<CardModel>();
-            cards.AddRange(SSArrow.Create(base.Owner, base.DynamicVars.Cards.IntValue, base.CombatState));
-            cards.AddRange(SSRapier.Create(base.Owner, base.DynamicVars.Cards.IntValue, base.CombatState));
-            cards.AddRange(SSRibbon.Create(base.Owner, base.DynamicVars.Cards.IntValue, base.CombatState));
-            cards.AddRange(SSBroom.Create(base.Owner, base.DynamicVars.Cards.IntValue, base.CombatState));
+            cards.AddRange(SSArrow.Create(base.Owner, base.DynamicVars.Cards.IntValue, combatState));
+            cards.AddRange(SSRapier.Create(base.Owner, base.DynamicVars.Cards.IntValue, combatState));
+            cards.AddRange(SSRibbon.Create(base.Owner, base.DynamicVars.Cards.IntValue, combatState));
+            cards.AddRange(SSBroom.Create(base.Owner, base.DynamicVars.Cards.IntValue, combatState));
             IReadOnlyList<CardPileAddResult> results = await CardPileCmd.AddGeneratedCardsToCombat(cards, PileType.Draw, addedByPlayer: true, CardPilePosition.Random);
             CardCmd.PreviewCardPileAdd(results);
         }

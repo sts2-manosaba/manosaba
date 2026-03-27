@@ -28,11 +28,15 @@ namespace Manosaba.Characters.Common.Cards
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
+            var target = cardPlay.Target;
+            if (target == null)
+                return;
+
             await DamageCmd.Attack(base.DynamicVars.Damage.BaseValue)
             .FromCard(this)
-            .Targeting(cardPlay.Target)
+            .Targeting(target)
             .Execute(choiceContext);
-            await PowerCmd.Apply<VulnerablePower>(cardPlay.Target, DynamicVars.Vulnerable.BaseValue, base.Owner.Creature, this);
+            await PowerCmd.Apply<VulnerablePower>(target, DynamicVars.Vulnerable.BaseValue, base.Owner.Creature, this);
         }
 
         protected override void OnUpgrade()

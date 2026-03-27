@@ -27,9 +27,13 @@ namespace Manosaba.Characters.HikamiMeruru.Cards
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
+            var target = cardPlay.Target;
+            if (target == null)
+                return;
+
             await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
                 .FromCard(this)
-                .Targeting(cardPlay.Target)
+                .Targeting(target)
                 .Execute(choiceContext);
         }
 

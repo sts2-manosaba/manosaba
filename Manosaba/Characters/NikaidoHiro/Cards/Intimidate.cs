@@ -27,7 +27,11 @@ namespace Manosaba.Characters.NikaidoHiro.Cards
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
-            await PowerCmd.Apply<WeakPower>(cardPlay.Target, DynamicVars.Weak.BaseValue, base.Owner.Creature, this);
+            var target = cardPlay.Target;
+            if (target == null)
+                return;
+
+            await PowerCmd.Apply<WeakPower>(target, DynamicVars.Weak.BaseValue, base.Owner.Creature, this);
             await PowerCmd.Apply<VotePower>(base.Owner.Creature, DynamicVars["VotePower"].BaseValue, base.Owner.Creature, this);
         }
 
