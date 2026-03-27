@@ -3,6 +3,6 @@
   "MANOSABA-PEN_OF_HIRO.description": "每個回合開始時，若有 {VoteCost} 層[gold]嫌疑[/gold]則消耗[gold]嫌疑[/gold]獲得 {Energy:energyIcons()}",
   "MANOSABA-PEN_OF_HIRO.flavor": "神秘偽證女專屬",
   "MANOSABA-PHOTO_OF_THE_GREAT_WITCH.title": "大魔女的相片",
-  "MANOSABA-PHOTO_OF_THE_GREAT_WITCH.description": "藥水欄位增加 3 格",
+  "MANOSABA-PHOTO_OF_THE_GREAT_WITCH.description": "藥水欄位增加 {PotionSlots} 格",
   "MANOSABA-PHOTO_OF_THE_GREAT_WITCH.flavor": "好想您阿...大魔女大人..."
 }

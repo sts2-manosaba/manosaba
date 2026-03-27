@@ -20,7 +20,7 @@ namespace Manosaba.Characters.Common.Cards
         private const TargetType targetType = TargetType.Self;
         private const bool shouldShowInCardLibrary = true;
         protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<VotePower>()];
-        protected override IEnumerable<DynamicVar> CanonicalVars => [new CardsVar(3), new PowerVar<VotePower>(2)];
+        protected override IEnumerable<DynamicVar> CanonicalVars => [new CardsVar(2), new PowerVar<VotePower>(2)];
 
         public Alibi() : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)
         {

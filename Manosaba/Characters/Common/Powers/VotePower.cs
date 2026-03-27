@@ -18,7 +18,7 @@ public class VotePower : PathCustomPowerModel
         if (side == CombatSide.Player && Owner.GetPowerAmount<VotePower>() >= 10 && Owner.Player != null)
         {
             List<BadEnd> cards = BadEnd.Create(Owner.Player, 1, combatState).ToList();
-            IReadOnlyList<CardPileAddResult> results = await CardPileCmd.AddGeneratedCardsToCombat(cards, PileType.Hand, addedByPlayer: true, CardPilePosition.Random);
+            IReadOnlyList<CardPileAddResult> results = await CardPileCmd.AddGeneratedCardsToCombat(cards, PileType.Hand, addedByPlayer: true, CardPilePosition.Top);
             CardCmd.PreviewCardPileAdd(results);
         }
     }

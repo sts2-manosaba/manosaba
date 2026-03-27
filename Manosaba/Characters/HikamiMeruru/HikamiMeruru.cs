@@ -14,8 +14,7 @@ namespace manosaba.Characters.HikamiMeruru
         public const string CharacterId = "hikami_meruru";
 
         public static readonly Color Color = new("C1D9F5");
-
-        public new Color MapDrawingColor = new("C1D9F5");
+        public override Color MapDrawingColor => Color;
         public override Color NameColor => Color;
         public override CharacterGender Gender => CharacterGender.Feminine;
         public override int StartingHp => 80;
