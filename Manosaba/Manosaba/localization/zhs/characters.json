@@ -26,5 +26,20 @@
   "MANOSABA-HIKAMI_MERURU.cardsModifierTitle": "",
   "MANOSABA-HIKAMI_MERURU.cardsModifierDescription": "",
   "MANOSABA-HIKAMI_MERURU.banter.alive.endTurnPing": "沒...沒關係，慢慢來就好...",
-  "MANOSABA-HIKAMI_MERURU.banter.dead.endTurnPing": "......"
+  "MANOSABA-HIKAMI_MERURU.banter.dead.endTurnPing": "......",
+ 
+  "MANOSABA-TACHIBANA_SHERRY.title": "橘雪莉",
+  "MANOSABA-TACHIBANA_SHERRY.titleObject": "",
+  "MANOSABA-TACHIBANA_SHERRY.description": "站在有趣的一邊，就是我的信條！",
+  "MANOSABA-TACHIBANA_SHERRY.pronounObject": "",
+  "MANOSABA-TACHIBANA_SHERRY.possessiveAdjective": "",
+  "MANOSABA-TACHIBANA_SHERRY.pronounPossessive": "",
+  "MANOSABA-TACHIBANA_SHERRY.pronounSubject": "",
+  "MANOSABA-TACHIBANA_SHERRY.goldMonologue": "",
+  "MANOSABA-TACHIBANA_SHERRY.eventDeathPrevention": "",
+  "MANOSABA-TACHIBANA_SHERRY.aromaPrinciple": "",
+  "MANOSABA-TACHIBANA_SHERRY.cardsModifierTitle": "",
+  "MANOSABA-TACHIBANA_SHERRY.cardsModifierDescription": "",
+  "MANOSABA-TACHIBANA_SHERRY.banter.alive.endTurnPing": "",
+  "MANOSABA-TACHIBANA_SHERRY.banter.dead.endTurnPing": ""
 }

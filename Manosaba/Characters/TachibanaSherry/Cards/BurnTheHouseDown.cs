@@ -1,0 +1,52 @@
+using BaseLib.Utils;
+using manosaba.Characters.TachibanaSherry;
+using Manosaba.Extensions;
+using MegaCrit.Sts2.Core.Combat;
+using MegaCrit.Sts2.Core.Commands;
+using MegaCrit.Sts2.Core.Entities.Cards;
+using MegaCrit.Sts2.Core.Entities.Creatures;
+using MegaCrit.Sts2.Core.GameActions.Multiplayer;
+using MegaCrit.Sts2.Core.HoverTips;
+using MegaCrit.Sts2.Core.Localization.DynamicVars;
+using MegaCrit.Sts2.Core.Models;
+using MegaCrit.Sts2.Core.ValueProps;
+
+namespace Manosaba.Characters.TachibanaSherry.Cards
+{
+    [Pool(typeof(TachibanaSherryCardPool))]
+    public class BurnTheHouseDown : PathCustomCardModel
+    {
+        private const int energyCost = 3;
+        private const CardType type = CardType.Attack;
+        private const CardRarity rarity = CardRarity.Rare;
+        private const TargetType targetType = TargetType.AnyEnemy;
+        private const bool shouldShowInCardLibrary = true;
+
+        protected override IEnumerable<DynamicVar> CanonicalVars => [
+            new CalculationBaseVar(20m),
+            new ExtraDamageVar(1m),
+            new CalculatedDamageVar(ValueProp.Move)
+                .WithMultiplier((CardModel card, Creature? _) => card.Owner != null ? PileType.Exhaust.GetPile(card.Owner).Cards.Count : 0)
+        ];
+        protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromKeyword(CardKeyword.Exhaust)];
+
+        public BurnTheHouseDown() : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)
+        {
+        }
+
+        protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
+        {
+            ArgumentNullException.ThrowIfNull(cardPlay.Target, "cardPlay.Target");
+
+            await DamageCmd.Attack(DynamicVars.CalculatedDamage)
+                .FromCard(this)
+                .Targeting(cardPlay.Target)
+                .Execute(choiceContext);
+        }
+
+        protected override void OnUpgrade()
+        {
+            base.DynamicVars.CalculationBase.UpgradeValueBy(5m);
+        }
+    }
+}

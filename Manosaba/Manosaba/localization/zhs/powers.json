@@ -31,5 +31,18 @@
   "MANOSABA-IKITEYO_HIROCHAN_POWER.smartDescription": "[gold]櫻羽艾瑪？[/gold]會吸收所有未被格擋的傷害。",
   "MANOSABA-EMA_DOG_ATTACK_POWER.title": "艾瑪出擊",
   "MANOSABA-EMA_DOG_ATTACK_POWER.description": "回合結束時，[gold]櫻羽艾瑪？[/gold]對隨機敵人造成自身當前血量的傷害。",
-  "MANOSABA-EMA_DOG_ATTACK_POWER.smartDescription": "回合結束時，[gold]櫻羽艾瑪？[/gold]對隨機敵人造成自身當前血量的傷害。"
+  "MANOSABA-EMA_DOG_ATTACK_POWER.smartDescription": "回合結束時，[gold]櫻羽艾瑪？[/gold]對隨機敵人造成自身當前血量的傷害。",
+    
+  "MANOSABA-QUICK_WIT_POWER.title": "靈機一動",
+  "MANOSABA-QUICK_WIT_POWER.description": "每回合開始，獲得以下全部效果（數值在區間中隨機）：\n獲得1~3點力量、\n獲得-2~2點敏捷、\n血量-10~+10、\n全體敵人獲得易傷0~2層、\n全體敵人獲得虛弱0~2層。",
+  "MANOSABA-QUICK_WIT_POWER.smartDescription": "每回合開始變化獲得力量/敏捷/血量並讓全體敵人獲得易傷與虛弱。",
+  "MANOSABA-HANGING_KILL_POWER.title": "吊殺",
+  "MANOSABA-HANGING_KILL_POWER.description": "所有[gold]吊殺[/gold]牌對這名敵人造成[blue]2[/blue]倍傷害。",
+  "MANOSABA-HANGING_KILL_POWER.smartDescription": "所有[gold]吊殺[/gold]牌對這名敵人造成[blue]{Amount}[/blue]倍傷害。",
+  "MANOSABA-LIFELONG_FRIEND_POWER.title": "苦命鴛鴦",
+  "MANOSABA-LIFELONG_FRIEND_POWER.description": "回合開始時失去20點[gold]魔女化[/gold]，並獲得1張0費[gold]落石[/gold]。\n若綁定對象死亡，你也會立刻死亡。",
+  "MANOSABA-LIFELONG_FRIEND_POWER.smartDescription": "每回合失去20點魔女化並獲得0費落石；對象死亡時你也會死亡。",
+  "MANOSABA-DATE_TIME_NO_MAJOKA_POWER.title": "約會時光",
+  "MANOSABA-DATE_TIME_NO_MAJOKA_POWER.description": "本回合內你無法獲得[gold]魔女化[/gold]。",
+  "MANOSABA-DATE_TIME_NO_MAJOKA_POWER.smartDescription": "本回合內你無法獲得魔女化。"
 }

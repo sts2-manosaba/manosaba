@@ -1,6 +1,7 @@
-﻿using BaseLib.Extensions;
+using BaseLib.Extensions;
 using Manosaba.Characters.HikamiMeruru.Cards;
 using Manosaba.Characters.NikaidoHiro.Cards;
+using Manosaba.Characters.TachibanaSherry.Cards;
 using Manosaba.Extensions;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
@@ -22,6 +23,7 @@ namespace Manosaba.Characters.Common.Powers
         {
             { "nikaido_hiro",  typeof(DeathLoop)},
             { "hikami_meruru", typeof(GrandHeal)},
+            { "tachibana_sherry", typeof(SuperPunch)},
         };
 
         public override decimal ModifyDamageMultiplicative(Creature? target, decimal amount, ValueProp props, Creature? dealer, CardModel? cardSource)

@@ -4,5 +4,15 @@
   "MANOSABA-PEN_OF_HIRO.flavor": "...",
   "MANOSABA-PHOTO_OF_THE_GREAT_WITCH.title": "Photo of The Great Witch",
   "MANOSABA-PHOTO_OF_THE_GREAT_WITCH.description": "...",
-  "MANOSABA-PHOTO_OF_THE_GREAT_WITCH.flavor": "..."
+  "MANOSABA-PHOTO_OF_THE_GREAT_WITCH.flavor": "...",
+  
+  "MANOSABA-BROKEN_CROSSBOW.title": "Broken Crossbow",
+  "MANOSABA-BROKEN_CROSSBOW.description": "Just testing if it works, so it turned out like this. Hehe ✰",
+  "MANOSABA-BROKEN_CROSSBOW.flavor": "Exclusively for the mysterious powerhouse girl",
+  "MANOSABA-BROKEN_CROSSBOW_TEMP.title": "Broken Crossbow",
+  "MANOSABA-BROKEN_CROSSBOW_TEMP.description": "Just testing if it works, so it turned out like this. Hehe ✰",
+  "MANOSABA-BROKEN_CROSSBOW_TEMP.flavor": "Exclusively for the mysterious powerhouse girl",
+  "MANOSABA-FAIRY_HEART.title": "Fairy Heart",
+  "MANOSABA-FAIRY_HEART.description": "At the start of your turn, lose all Majoka.\nWhenever you take damage, reduce it by your current Strength (cannot reduce that hit below 0).",
+  "MANOSABA-FAIRY_HEART.flavor": "I've become the perfect detective Sherry! I'll never be Majoka again."
 }
