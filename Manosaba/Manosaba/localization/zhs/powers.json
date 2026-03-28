@@ -28,5 +28,8 @@
   "MANOSABA-POTION_FACTORY_POWER.smartDescription": "回合開始時隨機生成等同當前層數瓶的進階藥水。",
   "MANOSABA-IKITEYO_HIROCHAN_POWER.title": "活下去，希羅醬",
   "MANOSABA-IKITEYO_HIROCHAN_POWER.description": "[gold]櫻羽艾瑪？[/gold]會吸收所有未被格擋的傷害。",
-  "MANOSABA-IKITEYO_HIROCHAN_POWER.smartDescription": "[gold]櫻羽艾瑪？[/gold]會吸收所有未被格擋的傷害。"
+  "MANOSABA-IKITEYO_HIROCHAN_POWER.smartDescription": "[gold]櫻羽艾瑪？[/gold]會吸收所有未被格擋的傷害。",
+  "MANOSABA-EMA_DOG_ATTACK_POWER.title": "艾瑪出擊",
+  "MANOSABA-EMA_DOG_ATTACK_POWER.description": "回合結束時，[gold]櫻羽艾瑪？[/gold]對隨機敵人造成自身當前血量的傷害。",
+  "MANOSABA-EMA_DOG_ATTACK_POWER.smartDescription": "回合結束時，[gold]櫻羽艾瑪？[/gold]對隨機敵人造成自身當前血量的傷害。"
 }

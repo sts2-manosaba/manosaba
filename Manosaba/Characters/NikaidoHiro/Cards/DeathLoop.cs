@@ -1,6 +1,6 @@
 ﻿using BaseLib.Utils;
 using manosaba.Characters.NikaidoHiro;
-using Manosaba.Characters.Common;
+using Manosaba.Characters.Common.Overrides;
 using Manosaba.Characters.NikaidoHiro.Powers;
 using Manosaba.Extensions;
 using MegaCrit.Sts2.Core.Commands;

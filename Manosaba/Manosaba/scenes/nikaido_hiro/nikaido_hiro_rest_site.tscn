@@ -1,8 +1,9 @@
 [gd_scene load_steps=4 format=3 uid="uid://bmnhuecnqyfg8"]
 
-[ext_resource type="Script" uid="uid://2naf1cwb8gfs" path="res://Characters/Common/ManosabaRestSiteCharacter.cs" id="1_ff4hk"]
+[ext_resource type="Script" uid="uid://b2rnfe1rayfpi" path="res://Characters/Common/Overrides/ManosabaRestSiteCharacter.cs" id="1_ff4hk"]
 [ext_resource type="Texture2D" uid="uid://b2cknff6iwy5r" path="res://Manosaba/images/characters/nikaido_hiro/NikaidoHiroRest.png" id="1_gwnx3"]
 [ext_resource type="PackedScene" uid="uid://bgy88bk44xxvk" path="res://Manosaba/scenes/selection_reticle.tscn" id="3_0juru"]
+
 
 [node name="NikaidoHiroRestSite" type="Node2D"]
 script = ExtResource("1_ff4hk")

@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://bgy88bk44xxvk"]
 
-[ext_resource type="Script" uid="uid://cyyp012pd7q5m" path="res://Characters/Common/ManosabaSelectionReticle.cs" id="1_lc2fu"]
+[ext_resource type="Script" uid="uid://bf6lm2ugqv5do" path="res://Characters/Common/Overrides/ManosabaSelectionReticle.cs" id="1_lc2fu"]
 [ext_resource type="Texture2D" uid="uid://cqkp4t0hg7tey" path="res://Manosaba/images/ui/combat_reticle.png" id="2_75ikg"]
 
 [node name="SelectionReticle" type="Control"]

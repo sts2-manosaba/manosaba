@@ -1,7 +1,7 @@
 ﻿using BaseLib.Abstracts;
 using BaseLib.Extensions;
 using manosaba.Extensions;
-using Manosaba.Characters.Common;
+using Manosaba.Characters.Common.Overrides;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Models;
 

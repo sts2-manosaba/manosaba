@@ -1,6 +1,6 @@
 ﻿using BaseLib.Utils;
 using manosaba.Characters.HikamiMeruru;
-using Manosaba.Characters.Common;
+using Manosaba.Characters.Common.Overrides;
 using Manosaba.Characters.Common.Powers;
 using Manosaba.Characters.HikamiMeruru.Powers;
 using Manosaba.Extensions;

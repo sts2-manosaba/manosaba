@@ -1,8 +1,9 @@
 [gd_scene load_steps=4 format=3 uid="uid://bxx4ft1gfc8em"]
 
-[ext_resource type="Script" uid="uid://2naf1cwb8gfs" path="res://Characters/Common/ManosabaRestSiteCharacter.cs" id="1_4nfv5"]
+[ext_resource type="Script" uid="uid://b2rnfe1rayfpi" path="res://Characters/Common/Overrides/ManosabaRestSiteCharacter.cs" id="1_4nfv5"]
 [ext_resource type="Texture2D" uid="uid://ca1mu1klsdg3w" path="res://Manosaba/images/characters/hikami_meruru/HikamiMeruruRest.png" id="2_e5beq"]
 [ext_resource type="PackedScene" uid="uid://bgy88bk44xxvk" path="res://Manosaba/scenes/selection_reticle.tscn" id="3_63bc8"]
+
 
 [node name="HikamiMeruruRestSite" type="Node2D"]
 script = ExtResource("1_4nfv5")

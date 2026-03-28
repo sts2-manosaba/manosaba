@@ -1,9 +1,9 @@
 [gd_scene load_steps=8 format=3 uid="uid://dlgdiqifqax83"]
 
-[ext_resource type="Script" uid="uid://c2l4ch360gcwf" path="res://Characters/Common/ManosabaEnergyCounter.cs" id="1_tcisy"]
+[ext_resource type="Script" uid="uid://d3r08absyhcvw" path="res://Characters/Common/Overrides/ManosabaEnergyCounter.cs" id="1_tcisy"]
 [ext_resource type="Texture2D" uid="uid://dldyfb75gfy4e" path="res://Manosaba/images/characters/hikami_meruru/hikami_meruru_energy.png" id="2_xd02i"]
 [ext_resource type="FontFile" uid="uid://dntfn4rajubna" path="res://Manosaba/font/kreon_bold.ttf" id="4_7amom"]
-[ext_resource type="Script" uid="uid://do1nslcmkj3g3" path="res://Characters/Common/ManosabaLabel.cs" id="5_titls"]
+[ext_resource type="Script" uid="uid://cyusfwpr67vv6" path="res://Characters/Common/Overrides/ManosabaLabel.cs" id="5_titls"]
 
 [sub_resource type="Curve" id="Curve_umldk"]
 _data = [Vector2(0.00596422, 0.0309963), 0.0, 4.46389, 0, 0, Vector2(0.298211, 0.736162), 0.832039, 0.832039, 0, 0, Vector2(0.99006, 0.932841), -0.247478, 0.0, 0, 0]
