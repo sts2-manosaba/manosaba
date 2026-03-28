@@ -31,5 +31,18 @@
   "MANOSABA-IKITEYO_HIROCHAN_POWER.smartDescription": "",
   "MANOSABA-EMA_DOG_ATTACK_POWER.title": "",
   "MANOSABA-EMA_DOG_ATTACK_POWER.description": "",
-  "MANOSABA-EMA_DOG_ATTACK_POWER.smartDescription": ""
+  "MANOSABA-EMA_DOG_ATTACK_POWER.smartDescription": "",
+  
+  "MANOSABA-QUICK_WIT_POWER.title": "Quick Wit",
+  "MANOSABA-QUICK_WIT_POWER.description": "At the start of each turn, randomly gain: 1-3 Strength, -2~2 Dexterity, -10~+10 HP, 0-2 Vulnerable to all enemies, and 0-2 Weak to all enemies.",
+  "MANOSABA-QUICK_WIT_POWER.smartDescription": "At the start of each turn, gain random Strength/Dex/HP and give all enemies Vulnerable and Weak.",
+  "MANOSABA-HANGING_KILL_POWER.title": "Hanging Kill",
+  "MANOSABA-HANGING_KILL_POWER.description": "Hanging Kill cards deal multiplied damage to this creature.",
+  "MANOSABA-HANGING_KILL_POWER.smartDescription": "Hanging Kill cards deal multiplied damage to this creature.",
+  "MANOSABA-LIFELONG_FRIEND_POWER.title": "Lifelong Friend",
+  "MANOSABA-LIFELONG_FRIEND_POWER.description": "At the start of your turn, lose 20 Majoka and gain a 0-cost Boulders.\nIf your linked partner dies, you immediately die.",
+  "MANOSABA-LIFELONG_FRIEND_POWER.smartDescription": "Lose 20 Majoka and gain a 0-cost Boulders each turn; die if partner dies.",
+  "MANOSABA-DATE_TIME_NO_MAJOKA_POWER.title": "Date Time",
+  "MANOSABA-DATE_TIME_NO_MAJOKA_POWER.description": "You cannot gain Majoka this turn.",
+  "MANOSABA-DATE_TIME_NO_MAJOKA_POWER.smartDescription": "You cannot gain Majoka this turn."
 }

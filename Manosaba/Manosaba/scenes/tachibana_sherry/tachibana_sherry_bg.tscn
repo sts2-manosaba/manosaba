@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=3 uid="uid://65g3h17jq854"]
+
+[ext_resource type="Texture2D" uid="uid://8jjarohapmkj" path="res://Manosaba/images/characters/tachibana_sherry/TachibanaSherryBg.JPG" id="1_qn4c8"]
+
+
+[node name="TachibanaSherryBg" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+
+[node name="TachibanaSherryBg2" type="Sprite2D" parent="."]
+position = Vector2(1361.5, 587)
+scale = Vector2(2.45, 2.45)
+texture = ExtResource("1_qn4c8")
