@@ -16,7 +16,7 @@ namespace Manosaba.Characters.Common.Cards
 
         private const int energyCost = 2;
         private const CardType type = CardType.Power;
-        private const CardRarity rarity = CardRarity.Common;
+        private const CardRarity rarity = CardRarity.Uncommon;
         private const TargetType targetType = TargetType.Self;
         private const bool shouldShowInCardLibrary = true;
         protected override bool IsPlayable => Owner.PlayerCombatState.GetPet<SakurabaEmaDog>() is not null ? Owner.PlayerCombatState.GetPet<SakurabaEmaDog>().IsAlive : false;
