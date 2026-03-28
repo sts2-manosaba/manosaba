@@ -25,5 +25,8 @@
   "MANOSABA-PRISON_POWER.smartDescription": "回合開始時給予當前層數的[gold]魔女化[/gold]。",
   "MANOSABA-POTION_FACTORY_POWER.title": "藥水工廠",
   "MANOSABA-POTION_FACTORY_POWER.description": "回合開始時隨機生成等同當前層數瓶的進階藥水。",
-  "MANOSABA-POTION_FACTORY_POWER.smartDescription": "回合開始時隨機生成等同當前層數瓶的進階藥水。"
+  "MANOSABA-POTION_FACTORY_POWER.smartDescription": "回合開始時隨機生成等同當前層數瓶的進階藥水。",
+  "MANOSABA-IKITEYO_HIROCHAN_POWER.title": "活下去，希羅醬",
+  "MANOSABA-IKITEYO_HIROCHAN_POWER.description": "[gold]櫻羽艾瑪？[/gold]會吸收所有未被格擋的傷害。",
+  "MANOSABA-IKITEYO_HIROCHAN_POWER.smartDescription": "[gold]櫻羽艾瑪？[/gold]會吸收所有未被格擋的傷害。"
 }

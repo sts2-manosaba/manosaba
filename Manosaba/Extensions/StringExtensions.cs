@@ -52,12 +52,20 @@ public static class StringExtensions
     public static string CharacterScenePath(this string path, String character)
     {
         return Path.Join(Entry.ModId, "scenes", character, path);
+    }
 
+    public static string MonsterScenePath(this string path)
+    {
+        return Path.Join(Entry.ModId, "scenes", "creature_visuals", path);
     }
 
     public static string PotionImagePath(this string path)
     {
         return Path.Join(Entry.ModId, "images", "potions", path);
+    }
 
+    public static string SfxPath(this string path)
+    {
+        return Path.Join(Entry.ModId, "sfx", path);
     }
 }

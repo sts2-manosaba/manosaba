@@ -19,8 +19,8 @@ public class HikamiMeruruCardPool : CustomCardPoolModel
     so it may take some experimentation to find a color you like.
     Generally they should be values between 0 and 1. */
     public override float H => 1f; //Hue; changes the color.
-    public override float S => 1f; //Saturation
-    public override float V => 1f; //Brightness
+    public override float S => 0.8f; //Saturation
+    public override float V => 0.7f; //Brightness
 
     //Alternatively, leave these values at 1 and provide a custom frame image.
     /*public override Texture2D CustomFrame(CustomCardModel card)

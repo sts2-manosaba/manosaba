@@ -107,9 +107,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <None Remove="Manosaba\mod_image.png.import" />
+		<None Remove="Manosaba\mod_image.png.import" />
 	</ItemGroup>
-
+	
 	<Target Name="CheckDependencyPaths">
 		<Error Text=" Slay the Spire 2 data not found at path '$(Sts2DataDir)'" Condition="'$(Sts2DataDir)' == '' or !Exists('$(Sts2DataDir)')" />
 		<Error Text=" Godot not found at path '$(GodotPath)'" Condition="'$(GodotPath)' == '' or !Exists('$(GodotPath)')" />
