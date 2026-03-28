@@ -23,7 +23,7 @@ namespace Manosaba.Characters.Common.Cards
         private const bool shouldShowInCardLibrary = true;
 
         protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<StrengthPower>()];
-        protected override IEnumerable<DynamicVar> CanonicalVars => [new DynamicVar("StrengthLoss", 5m)];
+        protected override IEnumerable<DynamicVar> CanonicalVars => [new DynamicVar("StrengthLoss", 4m)];
 
         public Dissolve() : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)
         {
