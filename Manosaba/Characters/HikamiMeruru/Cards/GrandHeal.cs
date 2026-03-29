@@ -44,7 +44,7 @@ namespace Manosaba.Characters.HikamiMeruru.Cards
 
                 if (item.Player != null)
                 {
-                    List<CardModel> list = GetStatuses(base.Owner).ToList();
+                    List<CardModel> list = GetStatuses(item.Player).ToList();
                     foreach (var card in list)
                     {
                         await CardCmd.Exhaust(choiceContext, card);

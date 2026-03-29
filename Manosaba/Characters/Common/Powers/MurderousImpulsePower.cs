@@ -17,7 +17,7 @@ namespace Manosaba.Characters.Common.Powers
 
         public override async Task AfterCardPlayed(PlayerChoiceContext context, CardPlay cardPlay)
         {
-            if (base.Amount >= 1 && cardPlay.Card.Owner == base.Owner.Player && cardPlay.Card.Type == CardType.Attack && cardPlay.Card.DynamicVars.Damage.BaseValue > 0)
+            if (base.Amount >= 1 && cardPlay.Card.Owner == base.Owner.Player && cardPlay.Card.Type == CardType.Attack)
             {
                 await Cmd.CustomScaledWait(0.1f, 0.2f);
                 Creature creature = base.Owner.Player.RunState.Rng.CombatTargets.NextItem(base.Owner.CombatState.Allies);
