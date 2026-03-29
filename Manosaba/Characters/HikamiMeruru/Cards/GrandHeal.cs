@@ -7,9 +7,11 @@ using Manosaba.Extensions;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Creatures;
+using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
+using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.Powers;
 
 namespace Manosaba.Characters.HikamiMeruru.Cards
@@ -37,16 +39,28 @@ namespace Manosaba.Characters.HikamiMeruru.Cards
             foreach (Creature item in enumerable)
             {
                 await CreatureCmd.Heal(item, base.DynamicVars.Heal.BaseValue);
-                if (DynamicVars["RegenPower"].BaseValue * (Owner.Creature.GetPowerAmount<MajokaPower>() / 100m) >= 1)
-                    await PowerCmd.Apply<RegenPower>(item, DynamicVars["RegenPower"].BaseValue * (Owner.Creature.GetPowerAmount<MajokaPower>() / 100m), Owner.Creature, this);
                 if (DynamicVars["InhibitionPower"].BaseValue * (Owner.Creature.GetPowerAmount<MajokaPower>() / 100m) >= 1)
                     await PowerCmd.Apply<InhibitionPower>(item, DynamicVars["InhibitionPower"].BaseValue * (Owner.Creature.GetPowerAmount<MajokaPower>() / 100m), Owner.Creature, this);
+
+                if (item.Player != null)
+                {
+                    List<CardModel> list = GetStatuses(base.Owner).ToList();
+                    foreach (var card in list)
+                    {
+                        await CardCmd.Exhaust(choiceContext, card);
+                    }
+                }
             }
         }
 
         protected override void OnUpgrade()
         {
             base.EnergyCost.UpgradeBy(-1);
+        }
+
+        private static IEnumerable<CardModel> GetStatuses(Player owner)
+        {
+            return owner.PlayerCombatState.AllCards.Where((CardModel c) => c.Type == CardType.Status && c.Pile.Type != PileType.Exhaust);
         }
     }
 }

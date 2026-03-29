@@ -98,8 +98,12 @@
   "MANOSABA-WORLD_VANQUISHER.title": "",
   "MANOSABA-WORLD_VANQUISHER.description": "",
   "MANOSABA-EMA_DOG_ATTACK.title": "",
-  "MANOSABA-EMA_DOG_ATTACK.description": "",
-  
+  "MANOSABA-EMA_DOG_ATTACK.description": null,
+  "MANOSABA-HIKAMI_MERURU_EXAID.title": "",
+  "MANOSABA-HIKAMI_MERURU_EXAID.description": "",
+  "MANOSABA-DOUBLE_SUICIDE.title": "",
+  "MANOSABA-DOUBLE_SUICIDE.description": "",
+
   "MANOSABA-STRIKE_TACHIBANA_SHERRY.title": "Strike",
   "MANOSABA-STRIKE_TACHIBANA_SHERRY.description": "Deal {Damage:diff()} damage.",
   "MANOSABA-DEFEND_TACHIBANA_SHERRY.title": "Defend",
