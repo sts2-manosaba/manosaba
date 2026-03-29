@@ -1,18 +1,18 @@
 {
-  "MANOSABA-PEN_OF_HIRO.title": "Hiro's pen",
-  "MANOSABA-PEN_OF_HIRO.description": "...",
-  "MANOSABA-PEN_OF_HIRO.flavor": "...",
-  "MANOSABA-PHOTO_OF_THE_GREAT_WITCH.title": "Photo of The Great Witch",
-  "MANOSABA-PHOTO_OF_THE_GREAT_WITCH.description": "...",
-  "MANOSABA-PHOTO_OF_THE_GREAT_WITCH.flavor": "...",
-  
+  "MANOSABA-PEN_OF_HIRO.title": "Hiro's Pen",
+  "MANOSABA-PEN_OF_HIRO.description": "At the start of each turn, if you have at least {VoteCost} [gold]Suspicion[/gold], spend it to gain [gold]Summon[/gold]: {Summon}",
+  "MANOSABA-PEN_OF_HIRO.flavor": "Exclusive to the mysterious perjury girl",
+  "MANOSABA-PHOTO_OF_THE_GREAT_WITCH.title": "Photo of the Great Witch",
+  "MANOSABA-PHOTO_OF_THE_GREAT_WITCH.description": "Gain {PotionSlots} additional potion slot(s).",
+  "MANOSABA-PHOTO_OF_THE_GREAT_WITCH.flavor": "I miss you so much... Great Witch...",
+  "MANOSABA-FAIRY_HEART.title": "Fairy Heart",
+  "MANOSABA-FAIRY_HEART.description": "At the start of your turn, lose all [gold]Majoka[/gold].\nWhenever you are hit by an enemy attack, reduce that damage by 50% of your [gold]Strength[/gold] stacks.",
+  "MANOSABA-FAIRY_HEART.flavor": "I've become the perfect detective Sherry! I definitely won't go Majoka again.",
+
   "MANOSABA-BROKEN_CROSSBOW.title": "Broken Crossbow",
   "MANOSABA-BROKEN_CROSSBOW.description": "Just testing if it works, so it turned out like this. Hehe ✰",
   "MANOSABA-BROKEN_CROSSBOW.flavor": "Exclusively for the mysterious powerhouse girl",
   "MANOSABA-BROKEN_CROSSBOW_TEMP.title": "Broken Crossbow",
   "MANOSABA-BROKEN_CROSSBOW_TEMP.description": "Just testing if it works, so it turned out like this. Hehe ✰",
-  "MANOSABA-BROKEN_CROSSBOW_TEMP.flavor": "Exclusively for the mysterious powerhouse girl",
-  "MANOSABA-FAIRY_HEART.title": "Fairy Heart",
-  "MANOSABA-FAIRY_HEART.description": "At the start of your turn, lose all Majoka.\nWhenever you take damage, reduce it by your current Strength (cannot reduce that hit below 0).",
-  "MANOSABA-FAIRY_HEART.flavor": "I've become the perfect detective Sherry! I'll never be Majoka again."
+  "MANOSABA-BROKEN_CROSSBOW_TEMP.flavor": "Exclusively for the mysterious powerhouse girl"
 }
