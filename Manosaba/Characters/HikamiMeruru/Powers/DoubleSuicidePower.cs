@@ -17,7 +17,7 @@ namespace Manosaba.Characters.HikamiMeruru.Powers
 
         public override bool AllowNegative => false;
 
-        protected override IEnumerable<DynamicVar> CanonicalVars => [new DynamicVar("ExtraDamage", 3)];
+        protected override IEnumerable<DynamicVar> CanonicalVars => [new ExtraDamageVar(3)];
 
         public override decimal ModifyDamageAdditive(Creature? target, decimal amount, ValueProp props, Creature? dealer, CardModel? cardSource)
         {
@@ -26,7 +26,7 @@ namespace Manosaba.Characters.HikamiMeruru.Powers
                 return 0m;
             }
 
-            return DynamicVars["ExtraDamage"].BaseValue;
+            return DynamicVars.ExtraDamage.BaseValue;
         }
 
         public override async Task AfterTurnEnd(PlayerChoiceContext choiceContext, CombatSide side)
