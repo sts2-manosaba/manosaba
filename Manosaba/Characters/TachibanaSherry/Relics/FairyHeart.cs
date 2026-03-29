@@ -1,7 +1,7 @@
-using System;
 using BaseLib.Utils;
 using Manosaba.Characters.Common.Powers;
 using Manosaba.Extensions;
+using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Creatures;
@@ -34,11 +34,23 @@ namespace manosaba.Characters.TachibanaSherry.Relics
             if (target != base.Owner.Creature)
                 return 0m;
 
+            if (dealer == null)
+                return 0m;
+
+            // Match AttackCommand targeting: dealer must be on the opposing combat side (see CombatState.GetOpponentsOf).
+            CombatState? combatState = base.Owner.Creature.CombatState;
+            if (combatState == null || !combatState.GetOpponentsOf(base.Owner.Creature).Contains(dealer))
+                return 0m;
+
+            // Same condition as ValuePropExtensions.IsPoweredAttack (internal in sts2 — inlined here).
+            if (!props.HasFlag(ValueProp.Move) || props.HasFlag(ValueProp.Unpowered))
+                return 0m;
+
             decimal strength = base.Owner.Creature.GetPowerAmount<StrengthPower>();
             if (strength <= 0m)
                 return 0m;
 
-            return strength*-1m;
+            return -(strength * 0.5m);
         }
     }
 }
