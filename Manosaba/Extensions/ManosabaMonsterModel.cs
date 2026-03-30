@@ -1,6 +1,6 @@
 ﻿using MegaCrit.Sts2.Core.Models;
 
-namespace Manosaba.Characters.Common.Overrides
+namespace Manosaba.Extensions
 {
     public abstract class ManosabaMonsterModel : MonsterModel
     {

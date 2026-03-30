@@ -1,0 +1,14 @@
+{
+  "RED_PAINT_ORB.title": "紅色顏料球",
+  "RED_PAINT_ORB.description": "寶珠：提升攻擊並在引爆時造成全體傷害。",
+  "RED_PAINT_ORB.smartDescription": "[gold]被動：[/gold]回合結束時，獲得 [blue]{Passive}[/blue] 點 [gold]力量[/gold]。\\n[gold]引爆：[/gold]對所有敵人造成 [blue]{Evoke}[/blue] 點傷害。",
+  "BLUE_PAINT_ORB.title": "藍色顏料球",
+  "BLUE_PAINT_ORB.description": "寶珠：給予自己與隊友格擋。",
+  "BLUE_PAINT_ORB.smartDescription": "[gold]被動：[/gold]回合結束時，獲得 [blue]{Passive}[/blue] 點 [gold]格擋[/gold]。\\n[gold]引爆：[/gold]給所有隊友 [blue]{Evoke}[/blue] 點 [gold]格擋[/gold]。",
+  "YELLOW_PAINT_ORB.title": "黃色顏料球",
+  "YELLOW_PAINT_ORB.description": "寶珠：給予自己與隊友能量。",
+  "YELLOW_PAINT_ORB.smartDescription": "[gold]被動：[/gold]回合開始時，獲得 {energyPrefix:energyIcons(1)}。\\n[gold]引爆：[/gold]給所有隊友 {energyPrefix:energyIcons(1)}。",
+  "MANOSABA_ORB.title": "Manosaba 球",
+  "MANOSABA_ORB.description": "寶珠：使用模組指定的圖片與場景路徑。",
+  "MANOSABA_ORB.smartDescription": "[gold]被動：[/gold]回合結束時，獲得 [blue]{Passive}[/blue] 點 [gold]格擋[/gold]。\\n[gold]引爆：[/gold]對所有敵人造成 [blue]{Evoke}[/blue] 點傷害。"
+}

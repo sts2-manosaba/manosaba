@@ -4,7 +4,7 @@ using MegaCrit.Sts2.Core.Entities.Creatures;
 [HarmonyPatch(typeof(Creature), nameof(Creature.AfterAddedToRoom))]
 public static class Patch_Creature_AfterAddedToRoom_HpMultiplier
 {
-    private const decimal EnemyHpMultiplier = 1.35m; // 你要的難度倍率
+    private const decimal EnemyHpMultiplier = 1.35m; // 血量倍率
     private static readonly HashSet<Creature> _applied = new();
 
     static void Prefix(Creature __instance)

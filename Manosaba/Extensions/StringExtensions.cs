@@ -64,8 +64,13 @@ public static class StringExtensions
         return Path.Join(Entry.ModId, "images", "potions", path);
     }
 
-    public static string SfxPath(this string path)
+    public static string OrbImgPath(this string path)
     {
-        return Path.Join(Entry.ModId, "sfx", path);
+        return Path.Join(Entry.ModId, "images", "orbs", path);
+    }
+
+    public static string OrbScenePath(this string path)
+    {
+        return Path.Join(Entry.ModId, "scenes", "orbs", "orb_visuals", path);
     }
 }

@@ -1,16 +1,16 @@
-[gd_scene load_steps=4 format=3 uid="uid://4n30a8ea01u8"]
+[gd_scene load_steps=4 format=3 uid="uid://bmnhuecnqyfg8"]
 
-[ext_resource type="Script" uid="uid://b2rnfe1rayfpi" path="res://Characters/Common/Overrides/ManosabaRestSiteCharacter.cs" id="1_ff4hk"]
-[ext_resource type="Texture2D" uid="uid://b2cknff6iwy5r" path="res://Manosaba/images/characters/nikaido_hiro/NikaidoHiroRest.png" id="1_gwnx3"]
-[ext_resource type="PackedScene" uid="uid://bgy88bk44xxvk" path="res://Manosaba/scenes/selection_reticle.tscn" id="3_0juru"]
+[ext_resource type="Script" uid="uid://b2rnfe1rayfpi" path="res://Characters/Common/Overrides/ManosabaRestSiteCharacter.cs" id="1_gvlb0"]
+[ext_resource type="Texture2D" uid="uid://b5y1ctpx5xjyu" path="res://Manosaba/images/characters/jogasaki_noah/JogasakiNoahRest.png" id="2_0sori"]
+[ext_resource type="PackedScene" uid="uid://bgy88bk44xxvk" path="res://Manosaba/scenes/selection_reticle.tscn" id="3_gmewo"]
 
-[node name="JogasakiNoaRestSite" type="Node2D"]
-script = ExtResource("1_ff4hk")
+[node name="NikaidoHiroRestSite" type="Node2D"]
+script = ExtResource("1_gvlb0")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(44.000004, -21)
-scale = Vector2(0.42871094, 0.42871097)
-texture = ExtResource("1_gwnx3")
+[node name="Sprite2D2" type="Sprite2D" parent="."]
+position = Vector2(31, 0)
+scale = Vector2(0.43017575, 0.43017575)
+texture = ExtResource("2_0sori")
 
 [node name="ControlRoot" type="Control" parent="."]
 layout_mode = 3
@@ -18,7 +18,7 @@ anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="SelectionReticle" parent="ControlRoot" instance=ExtResource("3_0juru")]
+[node name="SelectionReticle" parent="ControlRoot" instance=ExtResource("3_gmewo")]
 unique_name_in_owner = true
 layout_mode = 0
 offset_left = -153.0

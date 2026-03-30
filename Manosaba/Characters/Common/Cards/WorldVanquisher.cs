@@ -36,14 +36,23 @@ namespace Manosaba.Characters.Common.Cards
             await CardPileCmd.Draw(choiceContext, base.DynamicVars.Cards.BaseValue, base.Owner);
             if (cardPlay.IsAutoPlay)
             {
-                var combatState = base.CombatState;
-                if (combatState == null)
-                    return;
-                List<Creature> creatures = combatState.Enemies.ToList();
-                foreach (Creature creature in creatures)
+                int totalMajoka = 0;
+                foreach (Creature c in base.Owner.Creature.CombatState.Creatures)
                 {
-                    if (creature == null || creature.IsDead) continue;
-                    await DoomPower.DoomKill([creature]);
+                    totalMajoka += c.GetPowerAmount<MajokaPower>();
+                }
+                int playerTimesCost = base.Owner.Creature.CombatState.Creatures.Count(c => c.IsPlayer) * DynamicVars["MajokaPower"].IntValue;
+                if (totalMajoka >= playerTimesCost)
+                {
+                    var combatState = base.CombatState;
+                    if (combatState == null)
+                        return;
+                    List<Creature> creatures = combatState.Enemies.ToList();
+                    foreach (Creature creature in creatures)
+                    {
+                        if (creature == null || creature.IsDead) continue;
+                        await DoomPower.DoomKill([creature]);
+                    }
                 }
             }
         }

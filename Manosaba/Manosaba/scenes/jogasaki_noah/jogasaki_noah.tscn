@@ -1,0 +1,30 @@
+[gd_scene load_steps=2 format=3 uid="uid://dxdkw7pfbhjo"]
+
+[ext_resource type="Texture2D" uid="uid://bj24xiubvyi2m" path="res://Manosaba/images/characters/jogasaki_noah/JogasakiNoah.png" id="1_j6v0e"]
+
+[node name="JogasakiNoa" type="Node2D"]
+
+[node name="Visuals" type="Sprite2D" parent="."]
+unique_name_in_owner = true
+
+[node name="JogasakiNoa" type="Sprite2D" parent="Visuals"]
+position = Vector2(-2.3841858e-07, -117)
+scale = Vector2(0.20410158, 0.20410158)
+texture = ExtResource("1_j6v0e")
+
+[node name="Bounds" type="Control" parent="."]
+unique_name_in_owner = true
+layout_mode = 3
+anchors_preset = 0
+offset_left = -82.0
+offset_top = -282.0
+offset_right = 77.0
+offset_bottom = 20.0
+
+[node name="IntentPos" type="Marker2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(1, -289)
+
+[node name="CenterPos" type="Marker2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(-3, -156)
