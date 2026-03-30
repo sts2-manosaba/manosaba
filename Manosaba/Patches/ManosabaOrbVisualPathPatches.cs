@@ -4,8 +4,6 @@ using Manosaba.Extensions;
 using MegaCrit.Sts2.Core.Assets;
 using MegaCrit.Sts2.Core.Models;
 
-namespace ArcOrbMod.Patches.Manosaba;
-
 [HarmonyPatch]
 public static class ManosabaOrbVisualPathPatches
 {

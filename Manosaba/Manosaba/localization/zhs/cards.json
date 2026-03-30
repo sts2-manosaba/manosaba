@@ -19,6 +19,8 @@
   "MANOSABA-TRAUMA_JOGASAKI_NOAH.description": "獲得 {MajokaPower:diff()} 層[gold]魔女化[/gold]。",
   "MANOSABA-PALETTE.title": "調色",
   "MANOSABA-PALETTE.description": "隨機生成 {Repeat:diff()} 顆顏料球。",
+  "MANOSABA-STILL.title": "定格畫面",
+  "MANOSABA-STILL.description": "將目標怪物繪製，並獲得該[gold]繪畫板[/gold]。(不能繪製菁英或頭目)",
   "MANOSABA-GOOD_SLEEP.title": "一夜好眠？",
   "MANOSABA-GOOD_SLEEP.description": "獲得 {Block:diff()} 點[gold]格檔[/gold]，獲得 {MajokaPower:diff()} 層[gold]魔女化[/gold]。",
   "MANOSABA-WELL_SLEEP.title": "我當時睡得可香了",

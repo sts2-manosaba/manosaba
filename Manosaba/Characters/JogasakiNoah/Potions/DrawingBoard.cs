@@ -1,12 +1,17 @@
 ﻿using BaseLib.Utils;
+using Godot;
 using manosaba.Characters.JogasakiNoah;
+using Manosaba.Characters.JogasakiNoah.Powers;
 using Manosaba.Extensions;
+using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Entities.Potions;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Models;
+using MegaCrit.Sts2.Core.Nodes.Combat;
+using MegaCrit.Sts2.Core.Nodes.Rooms;
 
 namespace Manosaba.Characters.JogasakiNoah.Potions
 {
@@ -16,7 +21,7 @@ namespace Manosaba.Characters.JogasakiNoah.Potions
         private ModelId _storedMonsterId = ModelId.none;
         public override PotionUsage Usage => PotionUsage.CombatOnly;
         public override PotionRarity Rarity => PotionRarity.Token;
-        public override TargetType TargetType => TargetType.AnyPlayer;
+        public override TargetType TargetType => TargetType.Self;
 
         public override bool CanBeGeneratedInCombat => true;
 
@@ -30,9 +35,22 @@ namespace Manosaba.Characters.JogasakiNoah.Potions
         {
             if (_storedMonsterId == ModelId.none) return;
 
+            Owner.MaxEnergy--;
+
             MonsterModel monster = ModelDb.GetById<MonsterModel>(_storedMonsterId).ToMutable();
-            Creature pet = Owner.Creature.CombatState.CreateCreature(monster, Owner.Creature.Side, null);
+            Creature pet = Owner.Creature.CombatState.CreateCreature(monster, CombatSide.Player, null);
             await PlayerCmd.AddPet(pet, Owner);
+            NCreature node = NCombatRoom.Instance?.GetCreatureNode(pet);
+            if (node != null)
+            {
+                Vector2 s = node.Visuals.Body.Scale;
+                node.Visuals.Body.Scale = new Vector2(-Mathf.Abs(s.X), s.Y);
+                node.ToggleIsInteractable(true);
+            }
+
+            Creature perspective = pet.PetOwner?.Creature ?? Owner.Creature;
+            pet.PrepareForNextTurn(pet.CombatState.GetOpponentsOf(perspective), true);
+            await PowerCmd.Apply<PetEnemyAiPower>(pet, 1m, Owner.Creature, null);
         }
     }
 }

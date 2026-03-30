@@ -35,6 +35,9 @@
   "MANOSABA-DOUBLE_SUICIDE_POWER.title": "殉情",
   "MANOSABA-DOUBLE_SUICIDE_POWER.description": "受到傷害增加 3 點，敵人回合結束時回復層數百分比的生命並移除此能力。",
   "MANOSABA-DOUBLE_SUICIDE_POWER.smartDescription": "受到傷害增加 3 點，敵人回合結束時回復層數百分比的生命並移除此能力。",
+  "MANOSABA-PET_ENEMY_AI_POWER.title": "超獸偽畫",
+  "MANOSABA-PET_ENEMY_AI_POWER.description": "召喚的怪物會按原有順序行動(只限攻擊、增/減益)，並吸收所有未被格擋的傷害。",
+  "MANOSABA-PET_ENEMY_AI_POWER.smartDescription": "召喚的怪物會按原有順序行動(只限攻擊、增/減益)，並吸收所有未被格擋的傷害。",
 
   "MANOSABA-QUICK_WIT_POWER.title": "靈機一動",
   "MANOSABA-QUICK_WIT_POWER.description": "每回合開始，獲得以下全部效果（數值在區間中隨機）：\n獲得1~3點力量、\n獲得-2~2點敏捷、\n血量-10~+10、\n全體敵人獲得易傷0~2層、\n全體敵人獲得虛弱0~2層。",
