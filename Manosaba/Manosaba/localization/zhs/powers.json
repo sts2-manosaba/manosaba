@@ -43,8 +43,10 @@
   "MANOSABA-LIQUID_MANIPULATION_POWER.smartDescription": "給予相等於層數的百分比減傷，每回合減少 1 層。",
 
   "MANOSABA-QUICK_WIT_POWER.title": "靈機一動",
-  "MANOSABA-QUICK_WIT_POWER.description": "每回合開始，獲得以下全部效果（數值在區間中隨機）：\n獲得1~3點力量、\n獲得-2~2點敏捷、\n血量-10~+10、\n全體敵人獲得易傷0~2層、\n全體敵人獲得虛弱0~2層。",
-  "MANOSABA-QUICK_WIT_POWER.smartDescription": "每回合開始變化獲得力量/敏捷/血量並讓全體敵人獲得易傷與虛弱。",
+  "MANOSABA-QUICK_WIT_POWER.description": "每回合開始，獲得以下全部效果（數值在區間中隨機）：\n本回合力量變化-5~+5、\n本回合敏捷變化-5~+5、\n血量-5~+5、\n全體敵人獲得易傷0~2層、\n全體敵人獲得虛弱0~2層。",
+  "MANOSABA-QUICK_WIT_POWER.smartDescription": "每回合開始隨機變化本回合力量/敏捷與血量，並讓全體敵人獲得易傷與虛弱。",
+  "MANOSABA-QUICK_WIT_POWER.description.normal": "每回合開始，獲得以下全部效果（數值在區間中隨機）：\n力量變化為+1/+2/+3、\n敏捷變化-2~+2、\n血量-5~+5、\n全體敵人獲得易傷0~2層、\n全體敵人獲得虛弱0~2層。",
+  "MANOSABA-QUICK_WIT_POWER.smartDescription.normal": "每回合開始隨機變化力量/敏捷與血量，並讓全體敵人獲得易傷與虛弱。",
   "MANOSABA-HANGING_KILL_POWER.title": "吊殺",
   "MANOSABA-HANGING_KILL_POWER.description": "所有[gold]吊殺[/gold]牌對這名敵人造成[blue]2[/blue]倍傷害。",
   "MANOSABA-HANGING_KILL_POWER.smartDescription": "所有[gold]吊殺[/gold]牌對這名敵人造成[blue]{Amount}[/blue]倍傷害。",

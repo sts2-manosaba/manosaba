@@ -43,8 +43,10 @@
   "MANOSABA-LIQUID_MANIPULATION_POWER.smartDescription": "",
 
   "MANOSABA-QUICK_WIT_POWER.title": "Quick Wit",
-  "MANOSABA-QUICK_WIT_POWER.description": "At the start of each turn, gain all of the following (values roll within each range):\nGain 1–3 Strength,\nGain −2–2 Dexterity,\nHP changes by −10–+10,\nAll enemies gain 0–2 Vulnerable,\nAll enemies gain 0–2 Weak.",
-  "MANOSABA-QUICK_WIT_POWER.smartDescription": "At the start of each turn, randomly shift Strength, Dexterity, and HP, and give all enemies Vulnerable and Weak.",
+  "MANOSABA-QUICK_WIT_POWER.description": "At the start of each turn, gain all of the following (values roll within each range):\nStrength changes by −5–+5 this turn,\nDexterity changes by −5–+5 this turn,\nHP changes by −5–+5,\nAll enemies gain 0–2 Vulnerable,\nAll enemies gain 0–2 Weak.",
+  "MANOSABA-QUICK_WIT_POWER.smartDescription": "At the start of each turn, randomly shift Strength and Dexterity for this turn, randomly shift HP, then apply Vulnerable and Weak to all enemies.",
+  "MANOSABA-QUICK_WIT_POWER.description.normal": "At the start of each turn, gain all of the following (values roll within each range):\nStrength changes by +1/+2/+3,\nDexterity changes by −2~+2,\nHP changes by −5~+5,\nAll enemies gain 0–2 Vulnerable,\nAll enemies gain 0–2 Weak.",
+  "MANOSABA-QUICK_WIT_POWER.smartDescription.normal": "At the start of each turn, gain random Strength, random Dexterity, and random HP change, then apply Vulnerable and Weak to all enemies.",
   "MANOSABA-HANGING_KILL_POWER.title": "Hanging Kill",
   "MANOSABA-HANGING_KILL_POWER.description": "All [gold]Hanging Kill[/gold] cards deal [blue]2[/blue]× damage to this enemy.",
   "MANOSABA-HANGING_KILL_POWER.smartDescription": "All [gold]Hanging Kill[/gold] cards deal [blue]{Amount}[/blue]× damage to this enemy.",

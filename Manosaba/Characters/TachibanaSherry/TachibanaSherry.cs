@@ -1,11 +1,15 @@
 using BaseLib.Abstracts;
 using Godot;
+using MegaCrit.Sts2.Core.Commands;
+using MegaCrit.Sts2.Core.Entities.Cards;
+using Manosaba;
 using manosaba.Characters.TachibanaSherry.Relics;
 using manosaba.Extensions;
 using Manosaba.Characters.Common.Cards;
 using Manosaba.Characters.TachibanaSherry.Cards;
 using MegaCrit.Sts2.Core.Entities.Characters;
 using MegaCrit.Sts2.Core.Models;
+using MegaCrit.Sts2.Core.Nodes.CommonUi;
 
 namespace manosaba.Characters.TachibanaSherry
 {
@@ -27,7 +31,7 @@ namespace manosaba.Characters.TachibanaSherry
 			ModelDb.Card<StrikeTachibanaSherry>(),
 			ModelDb.Card<StrikeTachibanaSherry>(),
 			ModelDb.Card<DefendTachibanaSherry>(),
-			ModelDb.Card<DefendTachibanaSherry>(),
+			ManosabaFeatureFlags.AprilFoolsModeEnabled ? ModelDb.Card<QuickWit>() : ModelDb.Card<DefendTachibanaSherry>(),
 			ModelDb.Card<LeftPunch>(),
 			ModelDb.Card<RightPunch>(),
 		];
@@ -36,7 +40,6 @@ namespace manosaba.Characters.TachibanaSherry
 		[
 			ModelDb.Relic<FairyHeart>()
 		];
-
 		public override CardPoolModel CardPool => ModelDb.CardPool<TachibanaSherryCardPool>();
 		public override RelicPoolModel RelicPool => ModelDb.RelicPool<TachibanaSherryRelicPool>();
 		public override PotionPoolModel PotionPool => ModelDb.PotionPool<TachibanaSherryPotionPool>();
