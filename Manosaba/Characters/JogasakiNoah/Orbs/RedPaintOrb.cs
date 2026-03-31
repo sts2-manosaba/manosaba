@@ -1,12 +1,11 @@
 using BaseLib.Utils;
 using Godot;
+using Manosaba.Characters.Common.Powers;
 using Manosaba.Characters.JogasakiNoah;
 using Manosaba.Extensions;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
-using MegaCrit.Sts2.Core.Models.Powers;
-using MegaCrit.Sts2.Core.ValueProps;
 
 namespace Manosaba.Characters.JogasakiNoa.Orbs;
 
@@ -27,19 +26,19 @@ public sealed class RedPaintOrb : ManosabaOrbModel
     public override async Task Passive(PlayerChoiceContext choiceContext, Creature? target)
     {
         Trigger();
-        await PowerCmd.Apply<StrengthPower>(Owner.Creature, PassiveVal, Owner.Creature, null);
+        await PowerCmd.Apply<RedPaintOrbPower>(Owner.Creature, PassiveVal, Owner.Creature, null);
     }
 
     public override async Task<IEnumerable<Creature>> Evoke(PlayerChoiceContext playerChoiceContext)
     {
-        IReadOnlyList<Creature> enemies = CombatState.HittableEnemies;
-        if (enemies.Count == 0)
-        {
-            return Array.Empty<Creature>();
-        }
+        List<Creature> teammates = CombatState.GetTeammatesOf(Owner.Creature)
+            .Where(c => c != null && c.IsAlive && c.IsPlayer)
+            .ToList();
 
-        PlayEvokeSfx();
-        await CreatureCmd.Damage(playerChoiceContext, enemies, EvokeVal, ValueProp.Unpowered, Owner.Creature);
-        return enemies.ToList();
+        foreach (Creature teammate in teammates)
+        {
+            await PowerCmd.Apply<RedPaintOrbPower>(teammate, PassiveVal, Owner.Creature, null);
+        }
+        return teammates;
     }
 }

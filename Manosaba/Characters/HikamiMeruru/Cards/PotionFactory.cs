@@ -20,7 +20,7 @@ namespace Manosaba.Characters.HikamiMeruru.Cards
         private const TargetType targetType = TargetType.Self;
         private const bool shouldShowInCardLibrary = true;
         protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<PotionFactoryPower>()];
-        protected override IEnumerable<DynamicVar> CanonicalVars => [new PowerVar<PotionFactoryPower>(2)];
+        protected override IEnumerable<DynamicVar> CanonicalVars => [new PowerVar<PotionFactoryPower>(1)];
 
         public PotionFactory() : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)
         {
@@ -36,7 +36,7 @@ namespace Manosaba.Characters.HikamiMeruru.Cards
 
         protected override void OnUpgrade()
         {
-            base.DynamicVars["PotionFactoryPower"].UpgradeValueBy(1m);
+            base.AddKeyword(CardKeyword.Innate);
         }
     }
 }

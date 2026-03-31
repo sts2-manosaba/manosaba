@@ -1,5 +1,6 @@
 ﻿using BaseLib.Utils;
 using manosaba.Characters.Common;
+using Manosaba.Audio;
 using Manosaba.Characters.Common.Powers;
 using Manosaba.Extensions;
 using MegaCrit.Sts2.Core.Combat;
@@ -10,6 +11,7 @@ using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
+using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.Powers;
 
 namespace Manosaba.Characters.Common.Cards
@@ -53,6 +55,7 @@ namespace Manosaba.Characters.Common.Cards
                         if (creature == null || creature.IsDead) continue;
                         await DoomPower.DoomKill([creature]);
                     }
+
                 }
             }
         }
@@ -69,7 +72,28 @@ namespace Manosaba.Characters.Common.Cards
                 }
                 int playerTimesCost = combatState.Creatures.Count(c => c.IsPlayer) * DynamicVars["MajokaPower"].IntValue;
                 if (totalMajoka >= playerTimesCost)
+                {
                     await CardCmd.AutoPlay(choiceContext, this, null);
+                    GodotSfxRouter.StopCustomBgmAndResumeVanilla();
+                }
+            }
+        }
+
+        public override async Task AfterPowerAmountChanged(PowerModel power, decimal amount, Creature? applier, CardModel? cardSource)
+        {
+            if (power is MajokaPower)
+            {
+                CombatState combatState = Owner.Creature.CombatState;
+                int totalMajoka = 0;
+                foreach (Creature c in combatState.Creatures)
+                {
+                    totalMajoka += c.GetPowerAmount<MajokaPower>();
+                }
+                int playerTimesCost = combatState.Creatures.Count(c => c.IsPlayer) * DynamicVars["MajokaPower"].IntValue;
+                if (totalMajoka >= playerTimesCost)
+                {
+                    SfxCmd.Play("event:/Manosaba/audio/bgm/world_vanquisher.mp3", 0.5f);
+                }
             }
         }
 

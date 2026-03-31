@@ -48,6 +48,30 @@ namespace Manosaba.Characters.HikamiMeruru.PotionCraft
                new PotionRecipe(
                 new Dictionary<Type, int>
                 {
+                    { typeof(FlexPotion), 1 },
+                    { typeof(Catalyst), 1  }
+                },
+                ModelDb.Potion<GreaterStrengthPotion>()
+            ),
+               new PotionRecipe(
+                new Dictionary<Type, int>
+                {
+                    { typeof(EnergyPotion), 1 },
+                    { typeof(Catalyst), 1  }
+                },
+                ModelDb.Potion<GreaterEnergyPotion>()
+            ),
+               new PotionRecipe(
+                new Dictionary<Type, int>
+                {
+                    { typeof(WeakPotion), 1 },
+                    { typeof(Catalyst), 1  }
+                },
+                ModelDb.Potion<GreaterWeakPotion>()
+            ),
+               new PotionRecipe(
+                new Dictionary<Type, int>
+                {
                     { typeof(BeetleJuice), 1 },
                     { typeof(Catalyst), 1  }
                 },

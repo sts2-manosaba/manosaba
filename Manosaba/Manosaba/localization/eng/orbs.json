@@ -8,7 +8,19 @@
   "YELLOW_PAINT_ORB.title": "Yellow Paint Orb",
   "YELLOW_PAINT_ORB.description": "Orb: Generates Energy for self and allies.",
   "YELLOW_PAINT_ORB.smartDescription": "[gold]Passive:[/gold] At start of turn, gain {energyPrefix:energyIcons(1)}.\\n[gold]Evoke:[/gold] Give {energyPrefix:energyIcons(1)} to all allies.",
-  "MANOSABA_ORB.title": "Manosaba Orb",
-  "MANOSABA_ORB.description": "Orb: Uses custom icon/scene paths from the mod.",
-  "MANOSABA_ORB.smartDescription": "[gold]Passive:[/gold] At end of turn, gain [blue]{Passive}[/blue] [gold]Block[/gold].\\n[gold]Evoke:[/gold] Deal [blue]{Evoke}[/blue] damage to ALL enemies."
+  "ORANGE_PAINT_ORB.title": "",
+  "ORANGE_PAINT_ORB.description": "",
+  "ORANGE_PAINT_ORB.smartDescription": "",
+  "GREEN_PAINT_ORB.title": "",
+  "GREEN_PAINT_ORB.description": "",
+  "GREEN_PAINT_ORB.smartDescription": "",
+  "PURPLE_PAINT_ORB.title": "",
+  "PURPLE_PAINT_ORB.description": "",
+  "PURPLE_PAINT_ORB.smartDescription": "",
+  "BLACK_PAINT_ORB.title": "",
+  "BLACK_PAINT_ORB.description": "",
+  "BLACK_PAINT_ORB.smartDescription": "",
+  "WHITE_PAINT_ORB.title": "",
+  "WHITE_PAINT_ORB.description": "",
+  "WHITE_PAINT_ORB.smartDescription": ""
 }

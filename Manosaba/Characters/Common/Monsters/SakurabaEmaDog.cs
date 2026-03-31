@@ -11,7 +11,7 @@ namespace Manosaba.Characters.Common.Monsters
         public override int MinInitialHp => 1;
         public override int MaxInitialHp => 1;
         public override bool IsHealthBarVisible => true;
-        public override string? HurtSfx => "event:/Manosaba/sfx/sakuraba_ema_dog_hurt.ogg";
+        public override string? HurtSfx => "event:/Manosaba/audio/monsters/sakuraba_ema_dog_hurt.ogg";
 
         protected override string VisualsPath => "sakuraba_ema_dog.tscn".MonsterScenePath();
         protected override MonsterMoveStateMachine GenerateMoveStateMachine()

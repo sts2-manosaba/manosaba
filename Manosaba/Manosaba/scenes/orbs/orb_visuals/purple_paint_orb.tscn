@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://gb5n5wodkwyg"]
+
+[ext_resource type="Texture2D" uid="uid://np4wu211nrdi" path="res://Manosaba/images/orbs/purple_paint_orb.png" id="1_qu204"]
+
+[node name="PurplePaintOrb" type="Node2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_qu204")

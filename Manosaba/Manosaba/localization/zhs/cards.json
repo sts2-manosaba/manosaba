@@ -107,7 +107,7 @@
   "MANOSABA-PRISON.title": "魔女島監獄",
   "MANOSABA-PRISON.description": "給予自身 {PrisonPower:diff()} 層[gold]魔女島監獄[/gold]。",
   "MANOSABA-WORLD_VANQUISHER.title": "世界征服者",
-  "MANOSABA-WORLD_VANQUISHER.description": "抽 {Cards:diff()} 張牌。\n回合開始時，若場上總[gold]魔女化[/gold]層數大於[gold]玩家[/gold] x {MajokaPower} 層則自動從消耗牌堆打出並殺死所有敵人。",
+  "MANOSABA-WORLD_VANQUISHER.description": "抽 {Cards:diff()} 張牌。\n回合開始時，若場上總[gold]魔女化[/gold]層數大於[gold]玩家[/gold] x {MajokaPower} 層則自動從牌堆打出並殺死所有敵人。",
   "MANOSABA-EMA_DOG_ATTACK.title": "艾瑪出擊",
   "MANOSABA-EMA_DOG_ATTACK.description": "給予你的[gold]櫻羽艾瑪？[/gold]能力：[gold]艾瑪出擊[/gold]",
   "MANOSABA-HIKAMI_MERURU_EXAID.title": "冰↗上↘梅↗露↘露↗",
