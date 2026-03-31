@@ -12,12 +12,14 @@ using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Nodes.Combat;
 using MegaCrit.Sts2.Core.Nodes.Rooms;
+using MegaCrit.Sts2.Core.Saves.Runs;
 
 namespace Manosaba.Characters.JogasakiNoah.Potions
 {
     [Pool(typeof(JogasakiNoahPotionPool))]
     public class DrawingBoard : PathCustomPotionModel
     {
+        [SavedProperty]
         private ModelId _storedMonsterId = ModelId.none;
         public override PotionUsage Usage => PotionUsage.CombatOnly;
         public override PotionRarity Rarity => PotionRarity.Token;
@@ -45,7 +47,6 @@ namespace Manosaba.Characters.JogasakiNoah.Potions
             {
                 Vector2 s = node.Visuals.Body.Scale;
                 node.Visuals.Body.Scale = new Vector2(-Mathf.Abs(s.X), s.Y);
-                node.ToggleIsInteractable(true);
             }
 
             Creature perspective = pet.PetOwner?.Creature ?? Owner.Creature;

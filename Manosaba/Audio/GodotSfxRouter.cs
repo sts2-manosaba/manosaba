@@ -1,6 +1,5 @@
 using Godot;
 using MegaCrit.Sts2.Core.Nodes;
-using MegaCrit.Sts2.Core.Nodes.Audio;
 
 namespace Manosaba.Audio;
 
@@ -97,7 +96,6 @@ public static class GodotSfxRouter
             _customBgmPlayer = null;
         }
 
-        NRunMusicController.Instance?.StopMusic();
 
         _customBgmPlayer = new AudioStreamPlayer
         {
@@ -111,8 +109,6 @@ public static class GodotSfxRouter
             _customBgmPlayer?.QueueFree();
             _customBgmPlayer = null;
             _currentBgmEvent = null;
-            NRunMusicController.Instance?.UpdateMusic();
-            NRunMusicController.Instance?.UpdateTrack();
         };
 
         game.AddChild(_customBgmPlayer);
@@ -128,9 +124,6 @@ public static class GodotSfxRouter
             _customBgmPlayer.QueueFree();
             _customBgmPlayer = null;
         }
-
         _currentBgmEvent = null;
-        NRunMusicController.Instance?.UpdateMusic();
-        NRunMusicController.Instance?.UpdateTrack();
     }
 }

@@ -41,6 +41,9 @@
   "MANOSABA-LIQUID_MANIPULATION_POWER.title": "",
   "MANOSABA-LIQUID_MANIPULATION_POWER.description": "",
   "MANOSABA-LIQUID_MANIPULATION_POWER.smartDescription": "",
+  "MANOSABA-SPACE_OUT_POWER.title": "Space Out",
+  "MANOSABA-SPACE_OUT_POWER.description": "At the start of your turn, if you have all six paint orb colors (Red, Orange, Yellow, Green, Blue, Purple), deal 50 damage to all enemies, then evoke all orbs. Otherwise, channel 1 missing color orb at random.",
+  "MANOSABA-SPACE_OUT_POWER.smartDescription": "Start of turn: if all six paint colors are present, deal 50 to all enemies and evoke all orbs; otherwise channel a random missing color orb.",
 
   "MANOSABA-QUICK_WIT_POWER.title": "Quick Wit",
   "MANOSABA-QUICK_WIT_POWER.description": "At the start of each turn, gain all of the following (values roll within each range):\nGain 1–3 Strength,\nGain −2–2 Dexterity,\nHP changes by −10–+10,\nAll enemies gain 0–2 Vulnerable,\nAll enemies gain 0–2 Weak.",

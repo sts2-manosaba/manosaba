@@ -41,6 +41,9 @@
   "MANOSABA-LIQUID_MANIPULATION_POWER.title": "液體操縱",
   "MANOSABA-LIQUID_MANIPULATION_POWER.description": "給予相等於層數的百分比減傷，每回合減少 1 層。",
   "MANOSABA-LIQUID_MANIPULATION_POWER.smartDescription": "給予相等於層數的百分比減傷，每回合減少 1 層。",
+  "MANOSABA-SPACE_OUT_POWER.title": "發呆",
+  "MANOSABA-SPACE_OUT_POWER.description": "回合開始時，若你擁有紅、橙、黃、綠、藍、紫六種顏料球，則對所有敵人造成 50 點傷害，接著[gold]激發[/gold]所有顏料球；若未湊齊，則隨機生成 1 顆缺少顏色的顏料球。",
+  "MANOSABA-SPACE_OUT_POWER.smartDescription": "回合開始：六色齊全則對全體造成 50 傷害並激發全部顏料球；否則隨機補 1 顆缺色顏料球。",
 
   "MANOSABA-QUICK_WIT_POWER.title": "靈機一動",
   "MANOSABA-QUICK_WIT_POWER.description": "每回合開始，獲得以下全部效果（數值在區間中隨機）：\n獲得1~3點力量、\n獲得-2~2點敏捷、\n血量-10~+10、\n全體敵人獲得易傷0~2層、\n全體敵人獲得虛弱0~2層。",

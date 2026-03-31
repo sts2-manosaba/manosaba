@@ -15,7 +15,7 @@ namespace Manosaba.Characters.JogasakiNoah.Cards
     {
         private const int energyCost = 2;
         public override OrbEvokeType OrbEvokeType => OrbEvokeType.All;
-        private const CardType type = CardType.Power;
+        private const CardType type = CardType.Skill;
         private const CardRarity rarity = CardRarity.Rare;
         private const TargetType targetType = TargetType.Self;
         private const bool shouldShowInCardLibrary = true;

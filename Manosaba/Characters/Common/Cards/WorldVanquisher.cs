@@ -1,6 +1,5 @@
 ﻿using BaseLib.Utils;
 using manosaba.Characters.Common;
-using Manosaba.Audio;
 using Manosaba.Characters.Common.Powers;
 using Manosaba.Extensions;
 using MegaCrit.Sts2.Core.Combat;
@@ -12,7 +11,6 @@ using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.Powers;
-using MegaCrit.Sts2.Core.Rooms;
 
 namespace Manosaba.Characters.Common.Cards
 {
@@ -92,14 +90,9 @@ namespace Manosaba.Characters.Common.Cards
                 int playerTimesCost = combatState.Creatures.Count(c => c.IsPlayer) * DynamicVars["MajokaPower"].IntValue;
                 if (totalMajoka >= playerTimesCost)
                 {
-                    SfxCmd.Play("event:/Manosaba/audio/bgm/world_vanquisher.mp3", 0.3f);
+                    SfxCmd.Play("event:/Manosaba/audio/bgm/world_vanquisher.mp3", 0.2f);
                 }
             }
-        }
-
-        public override async Task AfterCombatEnd(CombatRoom room)
-        {
-            GodotSfxRouter.StopCustomBgmAndResumeVanilla();
         }
 
         protected override void OnUpgrade()

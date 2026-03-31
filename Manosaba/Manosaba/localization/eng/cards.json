@@ -120,6 +120,8 @@
   "MANOSABA-CONFUSION.description": "",
   "MANOSABA-COLOR_BLAST.title": "",
   "MANOSABA-COLOR_BLAST.description": "",
+  "MANOSABA-SPACE_OUT.title": "Space Out",
+  "MANOSABA-SPACE_OUT.description": "Gain [gold]Space Out[/gold].",
 
   "MANOSABA-STRIKE_TACHIBANA_SHERRY.title": "Strike",
   "MANOSABA-STRIKE_TACHIBANA_SHERRY.description": "Deal {Damage:diff()} damage.",

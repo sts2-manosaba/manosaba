@@ -120,6 +120,8 @@
   "MANOSABA-CONFUSION.description": "隨機生成 {Repeat:diff()} 顆顏料球。",
   "MANOSABA-COLOR_BLAST.title": "色彩迸發",
   "MANOSABA-COLOR_BLAST.description": "[gold]激發[/gold]所有的顏料球，根據[gold]激發[/gold]的數量隨機生成顏料球。",
+  "MANOSABA-SPACE_OUT.title": "發呆",
+  "MANOSABA-SPACE_OUT.description": "獲得能力：[gold]發呆[/gold]。",
 
   "MANOSABA-STRIKE_TACHIBANA_SHERRY.title": "打擊",
   "MANOSABA-STRIKE_TACHIBANA_SHERRY.description": "造成 {Damage:diff()} 點傷害。",
