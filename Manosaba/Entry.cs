@@ -1,7 +1,9 @@
-﻿using Godot.Bridge;
+using Godot.Bridge;
 using HarmonyLib;
+using Manosaba.Characters.JogasakiNoah.Potions;
 using MegaCrit.Sts2.Core.Logging;
 using MegaCrit.Sts2.Core.Modding;
+using MegaCrit.Sts2.Core.Saves.Runs;
 
 namespace Manosaba.Scripts;
 
@@ -12,12 +14,12 @@ public class Entry
     public static string ModId = "Manosaba";
     // 初始化函数
     public static void Init()
-    { 
+    {
         var harmony = new Harmony(ModId);
         harmony.PatchAll();
+        SavedPropertiesTypeCache.InjectTypeIntoCache(typeof(DrawingBoard));
         // 使得tscn可以加载自定义脚本
         ScriptManagerBridge.LookupScriptsInAssembly(typeof(Entry).Assembly);
         Log.Debug("Mod initialized!");
-
     }
 }

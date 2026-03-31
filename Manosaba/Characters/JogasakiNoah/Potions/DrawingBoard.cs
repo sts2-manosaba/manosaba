@@ -20,7 +20,9 @@ namespace Manosaba.Characters.JogasakiNoah.Potions
     public class DrawingBoard : PathCustomPotionModel
     {
         [SavedProperty]
-        private ModelId _storedMonsterId = ModelId.none;
+        public ModelId _storedMonsterId { get; set; } = ModelId.none;
+        public SavedProperties? SaveData => SavedProperties.From(this);
+        public bool IsNetworked => true;
         public override PotionUsage Usage => PotionUsage.CombatOnly;
         public override PotionRarity Rarity => PotionRarity.Token;
         public override TargetType TargetType => TargetType.Self;
@@ -36,8 +38,6 @@ namespace Manosaba.Characters.JogasakiNoah.Potions
         protected override async Task OnUse(PlayerChoiceContext choiceContext, Creature? target)
         {
             if (_storedMonsterId == ModelId.none) return;
-
-            Owner.MaxEnergy--;
 
             MonsterModel monster = ModelDb.GetById<MonsterModel>(_storedMonsterId).ToMutable();
             Creature pet = Owner.Creature.CombatState.CreateCreature(monster, CombatSide.Player, null);

@@ -1,6 +1,7 @@
 using Manosaba.Extensions;
 using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Entities.Creatures;
+using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.Entities.Powers;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.MonsterMoves.Intents;
@@ -59,8 +60,12 @@ public sealed class PetEnemyAiPower : PathCustomPowerModel
         owner.PrepareForNextTurn(targets, rollNewMove: true);
     }
 
-    public override async Task AfterDeath(PlayerChoiceContext choiceContext, Creature creature, bool wasRemovalPrevented, float deathAnimLength)
+    public override decimal ModifyMaxEnergy(Player player, decimal amount)
     {
-        Owner.PetOwner.MaxEnergy++;
+        if (player != base.Owner.PetOwner)
+        {
+            return amount;
+        }
+        return amount - 1;
     }
 }
