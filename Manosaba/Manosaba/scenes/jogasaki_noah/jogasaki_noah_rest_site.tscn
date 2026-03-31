@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://b5y1ctpx5xjyu" path="res://Manosaba/images/characters/jogasaki_noah/JogasakiNoahRest.png" id="2_0sori"]
 [ext_resource type="PackedScene" uid="uid://bgy88bk44xxvk" path="res://Manosaba/scenes/selection_reticle.tscn" id="3_gmewo"]
 
-[node name="NikaidoHiroRestSite" type="Node2D"]
+[node name="JogasakiNoahRestSite" type="Node2D"]
 script = ExtResource("1_gvlb0")
 
 [node name="Sprite2D2" type="Sprite2D" parent="."]
