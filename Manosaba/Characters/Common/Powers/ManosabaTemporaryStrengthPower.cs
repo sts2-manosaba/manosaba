@@ -62,6 +62,10 @@ public abstract class ManosabaTemporaryStrengthPower : PathCustomPowerModel
                     {
                         return relicModel.Title;
                     }
+                    if (originModel is OrbModel orbModel)
+                    {
+                        return orbModel.Title;
+                    }
 
                     throw new InvalidOperationException();
                 }
@@ -102,10 +106,17 @@ public abstract class ManosabaTemporaryStrengthPower : PathCustomPowerModel
                 {
                     if (!(originModel is RelicModel relic))
                     {
-                        throw new InvalidOperationException();
-                    }
+                        if (!(originModel is OrbModel orbModel))
+                        {
+                            throw new InvalidOperationException();
+                        }
 
-                    collection = HoverTipFactory.FromRelic(relic);
+                        collection = [orbModel.DumbHoverTip];
+                    }
+                    else
+                    {
+                        collection = HoverTipFactory.FromRelic(relic);
+                    }
                 }
                 else
                 {

@@ -17,7 +17,6 @@ public sealed class PetEnemyAiPower : PathCustomPowerModel
 
     public override PowerStackType StackType => PowerStackType.Single;
 
-    protected override bool IsVisibleInternal => false;
 
     public override bool ShouldPlayVfx => false;
 

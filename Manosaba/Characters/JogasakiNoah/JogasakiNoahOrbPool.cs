@@ -9,6 +9,11 @@ namespace Manosaba.Characters.JogasakiNoah
             ModelDb.Orb<RedPaintOrb>(),
             ModelDb.Orb<YellowPaintOrb>(),
             ModelDb.Orb<BluePaintOrb>(),
+            ModelDb.Orb<OrangePaintOrb>(),
+            ModelDb.Orb<GreenPaintOrb>(),
+            ModelDb.Orb<PurplePaintOrb>(),
+            ModelDb.Orb<BlackPaintOrb>(),
+            ModelDb.Orb<WhitePaintOrb>(),
             ];
     }
 }

@@ -1,5 +1,6 @@
 ﻿using BaseLib.Utils;
 using manosaba.Characters.NikaidoHiro;
+using Manosaba.Audio;
 using Manosaba.Characters.Common.Overrides;
 using Manosaba.Characters.NikaidoHiro.Powers;
 using Manosaba.Extensions;
@@ -7,6 +8,7 @@ using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
+using MegaCrit.Sts2.Core.Rooms;
 
 namespace Manosaba.Characters.NikaidoHiro.Cards
 {
@@ -28,6 +30,12 @@ namespace Manosaba.Characters.NikaidoHiro.Cards
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
             await PowerCmd.Apply<LaboursOfHiroPower>(Owner.Creature, 1m, Owner.Creature, this);
+            SfxCmd.Play("event:/Manosaba/audio/bgm/ai_no_zanshi.mp3", 0.3f);
+        }
+
+        public override async Task AfterCombatEnd(CombatRoom room)
+        {
+            GodotSfxRouter.StopCustomBgmAndResumeVanilla();
         }
 
         protected override void OnUpgrade()

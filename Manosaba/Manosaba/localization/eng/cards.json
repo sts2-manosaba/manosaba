@@ -114,6 +114,12 @@
   "MANOSABA-HIKAMI_MERURU_EXAID.description": "End your turn.\nGain {MajokaPower:diff()} [gold]Majoka[/gold].",
   "MANOSABA-DOUBLE_SUICIDE.title": "Lovers' Pact",
   "MANOSABA-DOUBLE_SUICIDE.description": "You and the target each gain {DoubleSuicidePower:diff()} [gold]Lovers' Pact[/gold].",
+  "MANOSABA-LIQUID_MANIPULATION.title": "",
+  "MANOSABA-LIQUID_MANIPULATION.description": "",
+  "MANOSABA-CONFUSION.title": "",
+  "MANOSABA-CONFUSION.description": "",
+  "MANOSABA-COLOR_BLAST.title": "",
+  "MANOSABA-COLOR_BLAST.description": "",
 
   "MANOSABA-STRIKE_TACHIBANA_SHERRY.title": "Strike",
   "MANOSABA-STRIKE_TACHIBANA_SHERRY.description": "Deal {Damage:diff()} damage.",

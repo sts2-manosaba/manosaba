@@ -1,5 +1,6 @@
 using BaseLib.Extensions;
 using Manosaba.Characters.HikamiMeruru.Cards;
+using Manosaba.Characters.JogasakiNoahCard.Cards;
 using Manosaba.Characters.NikaidoHiro.Cards;
 using Manosaba.Characters.TachibanaSherry.Cards;
 using Manosaba.Extensions;
@@ -23,6 +24,7 @@ namespace Manosaba.Characters.Common.Powers
         {
             { "nikaido_hiro",  typeof(DeathLoop)},
             { "hikami_meruru", typeof(GrandHeal)},
+            { "jogasaki_noah", typeof(LiquidManipulation)},
             { "tachibana_sherry", typeof(SuperPunch)},
         };
 

@@ -18,7 +18,7 @@ public sealed class RedPaintOrb : ManosabaOrbModel
 
     public override decimal EvokeVal => ModifyOrbValue(8m);
 
-    public override async Task BeforeTurnEndOrbTrigger(PlayerChoiceContext choiceContext)
+    public override async Task AfterTurnStartOrbTrigger(PlayerChoiceContext choiceContext)
     {
         await Passive(choiceContext, null);
     }
