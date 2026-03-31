@@ -7,7 +7,6 @@ using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Creatures;
-using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
@@ -60,11 +59,12 @@ namespace Manosaba.Characters.Common.Cards
             }
         }
 
-        public override async Task BeforeHandDraw(Player player, PlayerChoiceContext choiceContext, CombatState combatState)
+        public override async Task AfterTurnEnd(PlayerChoiceContext choiceContext, CombatSide side)
         {
             CardPile? pile = base.Pile;
-            if (pile != null && (pile.Type == PileType.Discard || pile.Type == PileType.Hand || pile.Type == PileType.Draw) && player == base.Owner)
+            if (pile != null && (pile.Type == PileType.Discard || pile.Type == PileType.Hand || pile.Type == PileType.Draw) && side == CombatSide.Player)
             {
+                CombatState combatState = Owner.Creature.CombatState;
                 int totalMajoka = 0;
                 foreach (Creature c in combatState.Creatures)
                 {
