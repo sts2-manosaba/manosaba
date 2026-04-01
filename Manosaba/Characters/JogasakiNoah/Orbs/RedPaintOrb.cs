@@ -1,11 +1,11 @@
 using BaseLib.Utils;
 using Godot;
-using Manosaba.Characters.Common.Powers;
 using Manosaba.Characters.JogasakiNoah;
 using Manosaba.Extensions;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
+using MegaCrit.Sts2.Core.ValueProps;
 
 namespace Manosaba.Characters.JogasakiNoa.Orbs;
 
@@ -14,31 +14,47 @@ public sealed class RedPaintOrb : ManosabaOrbModel
 {
     public override Color DarkenedColor => new("8A3333");
 
-    public override decimal PassiveVal => ModifyOrbValue(1m);
+    public override decimal PassiveVal => ModifyOrbValue(5m);
 
-    public override decimal EvokeVal => ModifyOrbValue(8m);
+    public override decimal EvokeVal => ModifyOrbValue(5m);
 
-    public override async Task AfterTurnStartOrbTrigger(PlayerChoiceContext choiceContext)
+    public override Task BeforeTurnEndOrbTrigger(PlayerChoiceContext choiceContext)
     {
-        await Passive(choiceContext, null);
+        return Passive(choiceContext, null);
     }
 
     public override async Task Passive(PlayerChoiceContext choiceContext, Creature? target)
     {
+        if (target != null)
+        {
+            throw new InvalidOperationException("Red paint orb cannot target creatures.");
+        }
+
+        List<Creature> candidates = CombatState.HittableEnemies
+            .Where(e => e.IsHittable)
+            .ToList();
+        if (candidates.Count == 0)
+        {
+            return;
+        }
+
+        Creature chosen = Owner.RunState.Rng.CombatTargets.NextItem(candidates);
         Trigger();
-        await PowerCmd.Apply<RedPaintOrbPower>(Owner.Creature, PassiveVal, Owner.Creature, null);
+        PlayPassiveSfx();
+        await CreatureCmd.Damage(choiceContext, chosen, PassiveVal, ValueProp.Move, Owner.Creature);
     }
 
     public override async Task<IEnumerable<Creature>> Evoke(PlayerChoiceContext playerChoiceContext)
     {
-        List<Creature> teammates = CombatState.GetTeammatesOf(Owner.Creature)
-            .Where(c => c != null && c.IsAlive && c.IsPlayer)
+        List<Creature> enemies = CombatState.HittableEnemies
+            .Where(e => e.IsHittable)
             .ToList();
-
-        foreach (Creature teammate in teammates)
+        if (enemies.Count == 0)
         {
-            await PowerCmd.Apply<RedPaintOrbPower>(teammate, PassiveVal, Owner.Creature, null);
+            return [];
         }
-        return teammates;
+
+        await CreatureCmd.Damage(playerChoiceContext, enemies, EvokeVal, ValueProp.Move, Owner.Creature, null);
+        return enemies;
     }
 }

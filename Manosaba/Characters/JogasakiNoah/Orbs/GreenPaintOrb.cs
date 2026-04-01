@@ -5,17 +5,16 @@ using Manosaba.Extensions;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
+using MegaCrit.Sts2.Core.Models.Powers;
 
 namespace Manosaba.Characters.JogasakiNoa.Orbs;
 
 [Pool(typeof(JogasakiNoahOrbPool))]
 public sealed class GreenPaintOrb : ManosabaOrbModel
 {
-    private decimal _passiveVal = 3m;
-
     public override Color DarkenedColor => new("3D8A4B");
 
-    public override decimal PassiveVal => ModifyOrbValue(_passiveVal);
+    public override decimal PassiveVal => ModifyOrbValue(5m);
 
     public override decimal EvokeVal => ModifyOrbValue(5m);
 
@@ -31,29 +30,31 @@ public sealed class GreenPaintOrb : ManosabaOrbModel
             throw new InvalidOperationException("Green paint orb cannot target creatures.");
         }
 
-        decimal healAmount = PassiveVal;
-        if (healAmount <= 0m)
+        List<Creature> candidates = CombatState.HittableEnemies
+            .Where(e => e.IsHittable)
+            .ToList();
+        if (candidates.Count == 0)
         {
             return;
         }
 
+        Creature chosen = Owner.RunState.Rng.CombatTargets.NextItem(candidates);
         Trigger();
         PlayPassiveSfx();
-        await CreatureCmd.Heal(Owner.Creature, healAmount);
-        _passiveVal = Math.Max(0m, _passiveVal - 1m);
+        await PowerCmd.Apply<PoisonPower>(chosen, PassiveVal, Owner.Creature, null);
     }
 
     public override async Task<IEnumerable<Creature>> Evoke(PlayerChoiceContext playerChoiceContext)
     {
-        List<Creature> teammates = CombatState.GetTeammatesOf(Owner.Creature)
-            .Where(c => c != null && c.IsAlive && c.IsPlayer)
+        List<Creature> enemies = CombatState.HittableEnemies
+            .Where(e => e.IsHittable)
             .ToList();
-
-        foreach (Creature teammate in teammates)
+        if (enemies.Count == 0)
         {
-            await CreatureCmd.Heal(teammate, EvokeVal);
+            return [];
         }
 
-        return teammates;
+        await PowerCmd.Apply<PoisonPower>(enemies, EvokeVal, Owner.Creature, null);
+        return enemies;
     }
 }

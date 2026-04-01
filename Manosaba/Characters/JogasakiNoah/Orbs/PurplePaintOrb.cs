@@ -1,11 +1,11 @@
 using BaseLib.Utils;
 using Godot;
-using Manosaba.Characters.Common.Powers;
 using Manosaba.Characters.JogasakiNoah;
 using Manosaba.Extensions;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
+using MegaCrit.Sts2.Core.Models.Powers;
 
 namespace Manosaba.Characters.JogasakiNoa.Orbs;
 
@@ -14,9 +14,9 @@ public sealed class PurplePaintOrb : ManosabaOrbModel
 {
     public override Color DarkenedColor => new("6B4A8D");
 
-    public override decimal PassiveVal => ModifyOrbValue(1m);
+    public override decimal PassiveVal => ModifyOrbValue(5m);
 
-    public override decimal EvokeVal => ModifyOrbValue(1m);
+    public override decimal EvokeVal => ModifyOrbValue(5m);
 
     public override Task BeforeTurnEndOrbTrigger(PlayerChoiceContext choiceContext)
     {
@@ -41,7 +41,7 @@ public sealed class PurplePaintOrb : ManosabaOrbModel
         Creature chosen = Owner.RunState.Rng.CombatTargets.NextItem(candidates);
         Trigger();
         PlayPassiveSfx();
-        await PowerCmd.Apply<PurplePaintOrbPower>(chosen, PassiveVal, Owner.Creature, null);
+        await PowerCmd.Apply<DoomPower>(chosen, PassiveVal, Owner.Creature, null);
     }
 
     public override async Task<IEnumerable<Creature>> Evoke(PlayerChoiceContext playerChoiceContext)
@@ -54,7 +54,7 @@ public sealed class PurplePaintOrb : ManosabaOrbModel
             return [];
         }
 
-        await PowerCmd.Apply<PurplePaintOrbPower>(enemies, EvokeVal, Owner.Creature, null);
+        await PowerCmd.Apply<DoomPower>(enemies, EvokeVal, Owner.Creature, null);
         return enemies;
     }
 }
