@@ -30,6 +30,6 @@ public class CommonCardPool : CustomCardPoolModel
     //Color of small card icons
     public override Color DeckEntryCardColor => new("FFFFFF");
 
-    public override bool IsColorless => true;
+    public override bool IsColorless => false;
 
 }

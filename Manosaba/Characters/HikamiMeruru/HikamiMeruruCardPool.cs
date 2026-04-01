@@ -30,7 +30,7 @@ public class HikamiMeruruCardPool : CustomCardPoolModel
     }*/
 
     //Color of small card icons
-    public override Color DeckEntryCardColor => new("C1D9F5");
+    public override Color DeckEntryCardColor => HikamiMeruru.Color;
 
     public override bool IsColorless => false;
 

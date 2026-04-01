@@ -30,7 +30,7 @@ public class JogasakiNoahCardPool : CustomCardPoolModel
     }*/
 
     //Color of small card icons
-    public override Color DeckEntryCardColor => new("B72222");
+    public override Color DeckEntryCardColor => JogasakiNoah.Color;
 
     public override bool IsColorless => false;
 

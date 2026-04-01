@@ -30,7 +30,7 @@ public class NikaidoHiroCardPool : CustomCardPoolModel
     }*/
 
     //Color of small card icons
-    public override Color DeckEntryCardColor => new("B72222");
+    public override Color DeckEntryCardColor => NikaidoHiro.Color;
 
     public override bool IsColorless => false;
 
