@@ -1,5 +1,6 @@
 ﻿using BaseLib.Utils;
 using manosaba.Characters.Common;
+using Manosaba.Characters.Common.Commands;
 using Manosaba.Characters.Common.Powers;
 using Manosaba.Extensions;
 using MegaCrit.Sts2.Core.Combat;
@@ -17,7 +18,7 @@ namespace Manosaba.Characters.Common.Cards
     [Pool(typeof(CommonCardPool))]
     public class WorldVanquisher : PathCustomCardModel
     {
-
+        private const string VfxScenePath = "res://Manosaba/scenes/common/vfx/world_vanquisher.tscn";
         private const int energyCost = 0;
         private const CardType type = CardType.Skill;
         private const CardRarity rarity = CardRarity.Rare;
@@ -72,6 +73,7 @@ namespace Manosaba.Characters.Common.Cards
                 int playerTimesCost = combatState.Creatures.Count(c => c.IsPlayer) * DynamicVars["MajokaPower"].IntValue;
                 if (totalMajoka >= playerTimesCost)
                 {
+                    await ManosabaVfxCmd.PlaySceneAtCombatCenterAndWait(VfxScenePath, fitCoverViewport: true, spriteNodeNames: ["StillA", "StillB"]);
                     await CardCmd.AutoPlay(choiceContext, this, null);
                 }
             }

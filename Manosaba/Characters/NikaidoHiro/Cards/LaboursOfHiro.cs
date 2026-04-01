@@ -14,7 +14,7 @@ namespace Manosaba.Characters.NikaidoHiro.Cards
     [Pool(typeof(NikaidoHiroCardPool))]
     public class LaboursOfHiro : PathCustomCardModel
     {
-        private const string StillsFadeVfxScenePath = "res://Manosaba/scenes/nikaido_hiro/vfx/labours_of_hiro.tscn";
+        private const string VfxScenePath = "res://Manosaba/scenes/nikaido_hiro/vfx/labours_of_hiro.tscn";
         private const int energyCost = 2;
         private const CardType type = CardType.Power;
         private const CardRarity rarity = CardRarity.Rare;
@@ -30,7 +30,7 @@ namespace Manosaba.Characters.NikaidoHiro.Cards
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
             await PowerCmd.Apply<LaboursOfHiroPower>(Owner.Creature, 1m, Owner.Creature, this);
-            ManosabaVfxCmd.PlaySceneAtCombatCenter(StillsFadeVfxScenePath, fitCoverViewport: true);
+            ManosabaVfxCmd.PlaySceneAtCombatCenter(VfxScenePath, fitCoverViewport: true);
             SfxCmd.Play("event:/Manosaba/audio/bgm/ai_no_zanshi.mp3", 0.2f);
         }
 

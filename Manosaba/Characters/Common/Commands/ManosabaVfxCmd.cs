@@ -1,5 +1,6 @@
 ﻿using Godot;
 using MegaCrit.Sts2.Core.Assets;
+using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Helpers;
 using MegaCrit.Sts2.Core.Nodes;
 using MegaCrit.Sts2.Core.Nodes.Rooms;
@@ -8,7 +9,10 @@ namespace Manosaba.Characters.Common.Commands
 {
     public static class ManosabaVfxCmd
     {
-        public static Node2D? PlaySceneAtCombatCenter(string scenePath, bool fitCoverViewport = false, string spriteNodeName = "Still")
+        private const float DefaultPollIntervalSeconds = 0.05f;
+        private const float DefaultWaitTimeoutSeconds = 30f;
+
+        public static Node2D? PlaySceneAtCombatCenter(string scenePath, bool fitCoverViewport = false, string[]? spriteNodeNames = null)
         {
             NCombatRoom? combatRoom = NCombatRoom.Instance;
             NGame? game = NGame.Instance;
@@ -25,28 +29,77 @@ namespace Manosaba.Characters.Common.Commands
 
             if (fitCoverViewport)
             {
-                FitSpriteToViewportCover(vfxNode, viewportSize, spriteNodeName);
+                FitSpriteToViewportCover(vfxNode, viewportSize, spriteNodeNames);
             }
 
             return vfxNode;
         }
 
-        private static void FitSpriteToViewportCover(Node2D vfxNode, Vector2 viewportSize, string spriteNodeName)
+        public static async Task<Node2D?> PlaySceneAtCombatCenterAndWait(
+            string scenePath,
+            bool fitCoverViewport = false,
+            string[]? spriteNodeNames = null,
+            float timeoutSeconds = DefaultWaitTimeoutSeconds)
         {
-            Sprite2D? sprite = vfxNode.GetNodeOrNull<Sprite2D>(spriteNodeName);
-            if (sprite?.Texture == null)
+            Node2D? vfxNode = PlaySceneAtCombatCenter(scenePath, fitCoverViewport, spriteNodeNames);
+            if (vfxNode == null)
             {
-                return;
+                return null;
             }
 
-            Vector2 textureSize = sprite.Texture.GetSize();
-            if (textureSize.X <= 0 || textureSize.Y <= 0)
+            float elapsed = 0f;
+            while (elapsed < timeoutSeconds && GodotObject.IsInstanceValid(vfxNode) && vfxNode.IsInsideTree())
             {
-                return;
+                await Cmd.Wait(DefaultPollIntervalSeconds);
+                elapsed += DefaultPollIntervalSeconds;
             }
 
-            float coverScale = Mathf.Max(viewportSize.X / textureSize.X, viewportSize.Y / textureSize.Y);
-            sprite.Scale = new Vector2(coverScale, coverScale);
+            return vfxNode;
+        }
+
+        private static void FitSpriteToViewportCover(Node2D vfxNode, Vector2 viewportSize, string[]? spriteNodeNames)
+        {
+            List<Sprite2D> sprites = [];
+            if (spriteNodeNames != null && spriteNodeNames.Length > 0)
+            {
+                foreach (string spriteNodeName in spriteNodeNames)
+                {
+                    Sprite2D? sprite = vfxNode.GetNodeOrNull<Sprite2D>(spriteNodeName);
+                    if (sprite == null)
+                    {
+                        continue;
+                    }
+
+                    sprites.Add(sprite);
+                }
+            }
+            else
+            {
+                foreach (Node node in vfxNode.FindChildren("*", "Sprite2D", true, false))
+                {
+                    if (node is Sprite2D sprite)
+                    {
+                        sprites.Add(sprite);
+                    }
+                }
+            }
+
+            foreach (Sprite2D sprite in sprites)
+            {
+                if (sprite.Texture == null)
+                {
+                    continue;
+                }
+
+                Vector2 textureSize = sprite.Texture.GetSize();
+                if (textureSize.X <= 0 || textureSize.Y <= 0)
+                {
+                    continue;
+                }
+
+                float coverScale = Mathf.Max(viewportSize.X / textureSize.X, viewportSize.Y / textureSize.Y);
+                sprite.Scale = new Vector2(coverScale, coverScale);
+            }
         }
     }
 }

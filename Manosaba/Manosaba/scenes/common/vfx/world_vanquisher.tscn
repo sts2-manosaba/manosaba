@@ -1,0 +1,156 @@
+[gd_scene load_steps=10 format=3]
+
+[ext_resource type="Texture2D" uid="uid://blf6xbko6pqpj" path="res://Manosaba/images/characters/common/stills/Still_700_001.png" id="1_jk2q1"]
+[ext_resource type="Texture2D" uid="uid://bkexnok8xvggj" path="res://Manosaba/images/characters/common/stills/Still_700_002.png" id="2_02h9f"]
+[ext_resource type="Texture2D" uid="uid://f8suxffih7ch" path="res://Manosaba/images/characters/common/stills/Still_700_003.png" id="3_qd8mb"]
+[ext_resource type="Texture2D" uid="uid://7c3dslfcoiot" path="res://Manosaba/images/characters/common/stills/Still_700_004.png" id="4_xsn7s"]
+[ext_resource type="Texture2D" uid="uid://ca64n32a7eeau" path="res://Manosaba/images/characters/common/stills/Still_700_006.png" id="5_k0q9n"]
+
+[sub_resource type="Animation" id="Animation_reset"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("StillA:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("1_jk2q1")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("StillB:texture")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("2_02h9f")]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("StillA:modulate:a")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0.0]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("StillB:modulate:a")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_once"]
+resource_name = "stills_crossfade_once"
+length = 6.6
+loop_mode = 0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("StillA:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2.4, 4.8),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [ExtResource("1_jk2q1"), ExtResource("3_qd8mb"), ExtResource("5_k0q9n")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("StillB:texture")
+tracks/1/interp = 1
+tracks/1/loop_wrap = false
+tracks/1/keys = {
+"times": PackedFloat32Array(1.2, 3.6),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [ExtResource("2_02h9f"), ExtResource("4_xsn7s")]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("StillA:modulate:a")
+tracks/2/interp = 1
+tracks/2/loop_wrap = false
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.3, 6.6),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [0.0, 1.0, 1.0]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("StillB:modulate:a")
+tracks/3/interp = 1
+tracks/3/loop_wrap = false
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 1.2, 1.7, 2.4, 2.9, 3.6, 4.1, 4.8, 5.3, 6.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [0.0, 0.0, 1.0, 1.0, 0.0, 0.0, 1.0, 1.0, 0.0, 0.0]
+}
+tracks/4/type = "method"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath(".")
+tracks/4/interp = 1
+tracks/4/loop_wrap = false
+tracks/4/keys = {
+"times": PackedFloat32Array(6.6),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"queue_free"
+}]
+}
+
+[sub_resource type="Shader" id="Shader_force_opaque"]
+code = "shader_type canvas_item;\n\nvoid fragment()\n{\n\tvec4 tex = texture(TEXTURE, UV);\n\tCOLOR = vec4(tex.rgb, COLOR.a);\n}\n"
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_7vvxk"]
+_data = {
+&"RESET": SubResource("Animation_reset"),
+&"stills_crossfade_once": SubResource("Animation_once")
+}
+
+[node name="WorldVanquisherVfx" type="Node2D"]
+
+[node name="StillA" type="Sprite2D" parent="."]
+position = Vector2(0, 0)
+scale = Vector2(1, 1)
+modulate = Color(1, 1, 1, 0)
+texture = ExtResource("1_jk2q1")
+material = SubResource("Shader_force_opaque")
+
+[node name="StillB" type="Sprite2D" parent="."]
+position = Vector2(0, 0)
+scale = Vector2(1, 1)
+modulate = Color(1, 1, 1, 0)
+texture = ExtResource("2_02h9f")
+material = SubResource("Shader_force_opaque")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_7vvxk")
+}
+autoplay = "stills_crossfade_once"

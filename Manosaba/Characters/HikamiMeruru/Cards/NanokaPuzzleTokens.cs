@@ -1,5 +1,6 @@
 ﻿using BaseLib.Utils;
 using manosaba.Characters.HikamiMeruru;
+using Manosaba.Characters.Common.Commands;
 using Manosaba.Extensions;
 using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Commands;
@@ -14,6 +15,7 @@ namespace Manosaba.Characters.HikamiMeruru.Cards
 {
     public abstract class NanokaPuzzleQuestTokenBase : PathCustomCardModel
     {
+        private const string VfxScenePath = "res://Manosaba/scenes/hikami_meruru/vfx/nanoka_complete.tscn";
         private const int EnergyCost = -1;
         private const CardType CardTypeValue = CardType.Quest;
         private const CardRarity Rarity = CardRarity.Token;
@@ -78,9 +80,8 @@ namespace Manosaba.Characters.HikamiMeruru.Cards
                 CardPilePosition.Random
             );
             CardCmd.PreviewCardPileAdd(completeResult, 1.2f, CardPreviewStyle.HorizontalLayout);
-            await Cmd.Wait(1.25f);
+            await ManosabaVfxCmd.PlaySceneAtCombatCenterAndWait(VfxScenePath, fitCoverViewport: true);
             await CardCmd.AutoPlay(choiceContext, complete, null);
-            await Cmd.Wait(1.25f);
             IReadOnlyList<Creature> hittableEnemies = combatState.GetOpponentsOf(ownerCreature)
                 .Where(e => e.IsHittable)
                 .ToList();
