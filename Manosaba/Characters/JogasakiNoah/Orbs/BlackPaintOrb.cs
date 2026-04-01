@@ -16,7 +16,7 @@ public sealed class BlackPaintOrb : ManosabaOrbModel
 
     public override decimal PassiveVal => ModifyOrbValue(5m);
 
-    public override decimal EvokeVal => ModifyOrbValue(5m);
+    public override decimal EvokeVal => ModifyOrbValue(10m);
 
     public override Task AfterTurnStartOrbTrigger(PlayerChoiceContext choiceContext)
     {

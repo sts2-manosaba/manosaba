@@ -1,12 +1,10 @@
-﻿using Manosaba.Characters.JogasakiNoa.Orbs;
+﻿using Manosaba.Characters.Common.Commands;
 using Manosaba.Extensions;
 using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Commands;
-using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Entities.Powers;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Models;
-using MegaCrit.Sts2.Core.ValueProps;
 
 namespace Manosaba.Characters.JogasakiNoah.Powers
 {
@@ -22,47 +20,28 @@ namespace Manosaba.Characters.JogasakiNoah.Powers
             {
                 return;
             }
-
             ThrowingPlayerChoiceContext choiceContext = new();
-            IReadOnlyList<OrbModel> currentOrbs = Owner.Player.PlayerCombatState.OrbQueue.Orbs;
-            HashSet<Type> currentOrbTypes = currentOrbs.Select(o => o.GetType()).ToHashSet();
-
-            List<OrbModel> requiredOrbs =
-            [
-                ModelDb.Orb<RedPaintOrb>(),
-                ModelDb.Orb<OrangePaintOrb>(),
-                ModelDb.Orb<YellowPaintOrb>(),
-                ModelDb.Orb<GreenPaintOrb>(),
-                ModelDb.Orb<BluePaintOrb>(),
-                ModelDb.Orb<PurplePaintOrb>()
-            ];
-
-            List<OrbModel> missingOrbs = requiredOrbs
-                .Where(o => !currentOrbTypes.Contains(o.GetType()))
-                .ToList();
-
-            if (missingOrbs.Count == 0)
-            {
-                List<Creature> enemies = combatState.HittableEnemies
-                    .Where(e => e.IsHittable && e.IsAlive)
-                    .ToList();
-
-                if (enemies.Count > 0)
-                {
-                    await CreatureCmd.Damage(choiceContext, enemies, 50m, ValueProp.Unpowered, Owner, null);
-                }
-
-                int orbCount = Owner.Player.PlayerCombatState.OrbQueue.Orbs.Count;
-                for (int i = 0; i < orbCount; i++)
-                {
-                    await OrbCmd.EvokeNext(choiceContext, Owner.Player);
-                }
-                return;
-            }
-
-            OrbModel randomMissingOrb = missingOrbs[Owner.CombatState.RunState.Rng.CombatOrbGeneration.NextInt(missingOrbs.Count)];
-            await OrbCmd.Channel(choiceContext, randomMissingOrb.ToMutable(), Owner.Player);
+            IReadOnlyList<OrbModel> paintOrbs = JogasakiNoahOrbPool.AllOrbs;
+            OrbModel randomOrb = paintOrbs[Owner.CombatState.RunState.Rng.CombatOrbGeneration.NextInt(paintOrbs.Count)];
+            await OrbCmd.Channel(choiceContext, randomOrb.ToMutable(), Owner.Player);
         }
 
+        public override async Task AfterTurnEnd(PlayerChoiceContext choiceContext, CombatSide side)
+        {
+            if (side == CombatSide.Player)
+            {
+                HashSet<Type> paintOrbTypes = JogasakiNoahOrbPool.AllOrbs
+                    .Select(o => o.GetType())
+                    .ToHashSet();
+                int distinctColorCount = Owner.Player.PlayerCombatState.OrbQueue.Orbs
+                    .Select(o => o.GetType())
+                    .Where(paintOrbTypes.Contains)
+                    .Distinct()
+                    .Count();
+                if (distinctColorCount < 8)
+                    return;
+                await ManosabaCombatCmd.ForceWinWithoutDeathOrEscape(Owner.Player.Creature.CombatState);
+            }
+        }
     }
 }

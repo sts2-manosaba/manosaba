@@ -11,7 +11,6 @@ using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
-using MegaCrit.Sts2.Core.Models.Powers;
 
 namespace Manosaba.Characters.Common.Cards
 {
@@ -34,6 +33,12 @@ namespace Manosaba.Characters.Common.Cards
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
+            CombatState? combatState = CombatState;
+            Creature? ownerCreature = Owner.Creature;
+            if (combatState == null || ownerCreature == null)
+            {
+                return;
+            }
             await CardPileCmd.Draw(choiceContext, base.DynamicVars.Cards.BaseValue, base.Owner);
             if (cardPlay.IsAutoPlay)
             {
@@ -45,16 +50,15 @@ namespace Manosaba.Characters.Common.Cards
                 int playerTimesCost = base.Owner.Creature.CombatState.Creatures.Count(c => c.IsPlayer) * DynamicVars["MajokaPower"].IntValue;
                 if (totalMajoka >= playerTimesCost)
                 {
-                    var combatState = base.CombatState;
-                    if (combatState == null)
-                        return;
-                    List<Creature> creatures = combatState.Enemies.ToList();
-                    foreach (Creature creature in creatures)
+                    IReadOnlyList<Creature> hittableEnemies = combatState.GetOpponentsOf(ownerCreature)
+                    .Where(e => e.IsHittable)
+                    .ToList();
+                    if (hittableEnemies.Count == 0)
                     {
-                        if (creature == null || creature.IsDead) continue;
-                        await DoomPower.DoomKill([creature]);
+                        return;
                     }
 
+                    await ManosabaCombatCmd.ForceWinWithoutDeathOrEscape(combatState);
                 }
             }
         }

@@ -90,8 +90,7 @@ namespace Manosaba.Characters.HikamiMeruru.Cards
                 return;
             }
 
-            await CreatureCmd.Kill(hittableEnemies, force: true);
-            await combatManager.CheckWinCondition();
+            await ManosabaCombatCmd.ForceWinWithoutDeathOrEscape(combatState);
         }
 
         protected override void OnUpgrade()

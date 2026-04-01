@@ -6,6 +6,7 @@ using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
+using MegaCrit.Sts2.Core.Localization.DynamicVars;
 
 
 namespace Manosaba.Characters.JogasakiNoah.Cards
@@ -20,6 +21,7 @@ namespace Manosaba.Characters.JogasakiNoah.Cards
         private const bool shouldShowInCardLibrary = true;
 
         protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<SpaceOutPower>()];
+        protected override IEnumerable<DynamicVar> CanonicalVars => [new RepeatVar(2)];
 
         public SpaceOut() : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)
         {
@@ -28,6 +30,7 @@ namespace Manosaba.Characters.JogasakiNoah.Cards
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
             await PowerCmd.Apply<SpaceOutPower>(Owner.Creature, 1m, Owner.Creature, this);
+            await OrbCmd.AddSlots(base.Owner, base.DynamicVars.Repeat.IntValue);
         }
 
         protected override void OnUpgrade()

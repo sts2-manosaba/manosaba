@@ -41,7 +41,7 @@ public sealed class RedPaintOrb : ManosabaOrbModel
         Creature chosen = Owner.RunState.Rng.CombatTargets.NextItem(candidates);
         Trigger();
         PlayPassiveSfx();
-        await CreatureCmd.Damage(choiceContext, chosen, PassiveVal, ValueProp.Move, Owner.Creature);
+        await CreatureCmd.Damage(choiceContext, chosen, PassiveVal, ValueProp.Unpowered, Owner.Creature);
     }
 
     public override async Task<IEnumerable<Creature>> Evoke(PlayerChoiceContext playerChoiceContext)
@@ -54,7 +54,7 @@ public sealed class RedPaintOrb : ManosabaOrbModel
             return [];
         }
 
-        await CreatureCmd.Damage(playerChoiceContext, enemies, EvokeVal, ValueProp.Move, Owner.Creature, null);
+        await CreatureCmd.Damage(playerChoiceContext, enemies, EvokeVal, ValueProp.Unpowered, Owner.Creature, null);
         return enemies;
     }
 }
