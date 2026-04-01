@@ -22,7 +22,7 @@ namespace Manosaba.Characters.Common.Cards
         private const bool shouldShowInCardLibrary = true;
 
         protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPotion<Catalyst>()];
-        protected override IEnumerable<DynamicVar> CanonicalVars => [new DynamicVar("CraftCount", 1), new DynamicVar("CatalystChance", 10m)];
+        protected override IEnumerable<DynamicVar> CanonicalVars => [new DynamicVar("CraftCount", 1), new DynamicVar("CatalystChance", 20m)];
 
         public MixPotions() : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)
         {

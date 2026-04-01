@@ -24,6 +24,7 @@ namespace Manosaba.Characters.HikamiMeruru.Powers
                 ModelDb.Potion<BeetleJuice>(),
                 ModelDb.Potion<EnergyPotion>(),
                 ModelDb.Potion<WeakPotion>(),
+                ModelDb.Potion<VulnerablePotion>(),
             ];
             if (side != base.Owner.Side)
             {
