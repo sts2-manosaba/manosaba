@@ -19,7 +19,7 @@ namespace Manosaba.Characters.HikamiMeruru.Cards
         private const TargetType TargetTypeValue = TargetType.Self;
         private const bool ShouldShowInCardLibrary = true;
 
-        protected override IEnumerable<DynamicVar> CanonicalVars => [new DynamicVar("NanokaPieces", 45)];
+        protected override IEnumerable<DynamicVar> CanonicalVars => [new DynamicVar("NanokaPieces", 35)];
 
         protected override IEnumerable<IHoverTip> ExtraHoverTips => [
             HoverTipFactory.FromCard<NanokaPiece>(),

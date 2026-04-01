@@ -4,7 +4,7 @@ using MegaCrit.Sts2.Core.Models;
 using System.Reflection;
 
 [HarmonyPatch(typeof(AttackCommand), nameof(AttackCommand.FromMonster))]
-public static class PetMonsterAttackTargetPatch
+public static class Patch_AttackCommand_FromMonster_PetTargeting
 {
     private const int SourceTypeCardValue = 1;
 

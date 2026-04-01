@@ -5,7 +5,7 @@ using MegaCrit.Sts2.Core.Assets;
 using MegaCrit.Sts2.Core.Models;
 
 [HarmonyPatch]
-public static class ManosabaOrbVisualPathPatches
+public static class Patch_OrbModel_VisualPaths
 {
     [HarmonyPatch(typeof(OrbModel), nameof(OrbModel.Icon), MethodType.Getter)]
     [HarmonyPrefix]

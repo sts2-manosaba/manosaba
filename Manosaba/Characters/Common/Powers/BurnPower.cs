@@ -1,9 +1,12 @@
-﻿using Manosaba.Extensions;
+﻿using System.Collections.Generic;
+using Manosaba.Extensions;
+using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Entities.Powers;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
+using MegaCrit.Sts2.Core.Hooks;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.ValueProps;
@@ -32,6 +35,13 @@ public class BurnPower : PathCustomPowerModel
 
         return base.DynamicVars["DamageDecrease"].BaseValue;
     }
+
+    public int CalculateDamageNextTurn()
+    {
+        decimal damage = Hook.ModifyDamage(base.Owner.CombatState.RunState, base.Owner.CombatState, base.Owner, null, base.Amount, ValueProp.Unblockable | ValueProp.Unpowered, null, ModifyDamageHookType.All, CardPreviewMode.None, out IEnumerable<AbstractModel> _);
+        return (int)damage;
+    }
+
     public override async Task AfterSideTurnStart(CombatSide side, CombatState combatState)
     {
         if (side != base.Owner.Side)

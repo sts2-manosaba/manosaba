@@ -24,6 +24,7 @@ namespace Manosaba.Characters.Common.Cards
 
         protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<StrengthPower>()];
         protected override IEnumerable<DynamicVar> CanonicalVars => [new DynamicVar("StrengthLoss", 4m)];
+        public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Ethereal];
 
         public Dissolve() : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)
         {

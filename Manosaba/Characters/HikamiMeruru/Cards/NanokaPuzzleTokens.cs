@@ -167,8 +167,6 @@ namespace Manosaba.Characters.HikamiMeruru.Cards
         private const TargetType TargetTypeValue = TargetType.Self;
         private const bool ShouldShowInCardLibrary = false;
 
-        public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
-
         public NanokaComplete() : base(EnergyCost, CardTypeValue, Rarity, TargetTypeValue, ShouldShowInCardLibrary)
         {
         }
