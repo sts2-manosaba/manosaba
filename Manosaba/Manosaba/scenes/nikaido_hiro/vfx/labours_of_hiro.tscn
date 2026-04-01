@@ -1,0 +1,98 @@
+[gd_scene load_steps=10 format=3]
+
+[ext_resource type="Texture2D" uid="uid://cd4xs6tu6fadj" path="res://Manosaba/images/characters/nikaido_hiro/stills/Still_570_000.png" id="1_x6r4v"]
+[ext_resource type="Texture2D" uid="uid://uyaokcglqu8p" path="res://Manosaba/images/characters/nikaido_hiro/stills/Still_570_003.png" id="2_4en0f"]
+[ext_resource type="Texture2D" uid="uid://c8ixstekef8qf" path="res://Manosaba/images/characters/nikaido_hiro/stills/Still_570_006.png" id="3_jv9n2"]
+[ext_resource type="Texture2D" uid="uid://bpkwy024cp6dn" path="res://Manosaba/images/characters/nikaido_hiro/stills/Still_570_011.png" id="4_lspm1"]
+[ext_resource type="Texture2D" uid="uid://5f4d62a6shmt" path="res://Manosaba/images/characters/nikaido_hiro/stills/Still_570_013.png" id="5_9o5cx"]
+[ext_resource type="Texture2D" uid="uid://c6tkk20tninul" path="res://Manosaba/images/characters/nikaido_hiro/stills/Still_570_015.png" id="6_0u7ka"]
+
+[sub_resource type="Animation" id="Animation_reset"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Still:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("1_x6r4v")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Still:modulate:a")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_xs8mk"]
+resource_name = "stills_fade_once"
+length = 9.0
+loop_mode = 0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Still:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1.5, 3, 4.5, 6, 7.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [ExtResource("1_x6r4v"), ExtResource("2_4en0f"), ExtResource("3_jv9n2"), ExtResource("4_lspm1"), ExtResource("5_9o5cx"), ExtResource("6_0u7ka")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Still:modulate:a")
+tracks/1/interp = 1
+tracks/1/loop_wrap = false
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.3, 1.2, 1.5, 1.8, 2.7, 3, 3.3, 4.2, 4.5, 4.8, 5.7, 6, 6.3, 7.2, 7.5, 7.8, 8.7, 9),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [0.0, 1.0, 1.0, 0.0, 1.0, 1.0, 0.0, 1.0, 1.0, 0.0, 1.0, 1.0, 0.0, 1.0, 1.0, 0.0, 1.0, 1.0, 0.0]
+}
+tracks/2/type = "method"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".")
+tracks/2/interp = 1
+tracks/2/loop_wrap = false
+tracks/2/keys = {
+"times": PackedFloat32Array(9),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"queue_free"
+}]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_5g6t2"]
+_data = {
+&"RESET": SubResource("Animation_reset"),
+&"stills_fade_once": SubResource("Animation_xs8mk")
+}
+
+[node name="NikaidoHiroStillsFadeVfx" type="Node2D"]
+
+[node name="Still" type="Sprite2D" parent="."]
+position = Vector2(0, 0)
+scale = Vector2(1, 1)
+modulate = Color(1, 1, 1, 0)
+texture = ExtResource("1_x6r4v")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_5g6t2")
+}
+autoplay = "stills_fade_once"

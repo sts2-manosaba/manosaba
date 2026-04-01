@@ -27,7 +27,8 @@ namespace manosaba.Characters.JogasakiNoah
             ModelDb.Card<DefendJogasakiNoah>(),
             ModelDb.Card<TraumaJogasakiNoah>(),
             ModelDb.Card<Palette>(),
-            ModelDb.Card<Palette>()
+            ModelDb.Card<Palette>(),
+            ModelDb.Card<ColorMix>()
         ];
 
         public override IReadOnlyList<RelicModel> StartingRelics =>

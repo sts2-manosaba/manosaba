@@ -28,6 +28,7 @@ namespace Manosaba.Characters.HikamiMeruru.Cards
         {
             await PowerCmd.Apply<MajokaPower>(base.Owner.Creature, base.DynamicVars["MajokaPower"].BaseValue, base.Owner.Creature, this);
             PlayerCmd.EndTurn(base.Owner, canBackOut: false);
+            SfxCmd.Play("event:/Manosaba/audio/bgm/hikami_meruru_exaid.mp3", 0.2f);
         }
 
         protected override void OnUpgrade()

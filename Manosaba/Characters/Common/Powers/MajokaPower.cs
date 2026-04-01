@@ -63,7 +63,6 @@ namespace Manosaba.Characters.Common.Powers
 
             int toApplyMI = base.Amount / 100 - base.Owner.GetPowerAmount<MurderousImpulsePower>();
             await PowerCmd.Apply<MurderousImpulsePower>(base.Owner.Player.Creature, toApplyMI, base.Owner.Player.Creature, null);
-
             await CheckAndGiveMahouCards();
         }
 

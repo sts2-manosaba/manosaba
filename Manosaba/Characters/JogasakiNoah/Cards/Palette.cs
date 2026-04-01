@@ -14,6 +14,13 @@ namespace Manosaba.Characters.JogasakiNoah.Cards
     [Pool(typeof(JogasakiNoahCardPool))]
     public class Palette : PathCustomCardModel
     {
+        private static readonly IReadOnlyList<(OrbModel Orb, int Weight)> OrbChanceTable =
+        [
+            (ModelDb.Orb<RedPaintOrb>(), 40),
+            (ModelDb.Orb<BluePaintOrb>(), 40),
+            (ModelDb.Orb<YellowPaintOrb>(), 20)
+        ];
+
         private const int energyCost = 1;
         private const CardType type = CardType.Skill;
         private const CardRarity rarity = CardRarity.Basic;
@@ -29,17 +36,27 @@ namespace Manosaba.Characters.JogasakiNoah.Cards
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
-            IReadOnlyList<OrbModel> paintOrbs = [
-                ModelDb.Orb<RedPaintOrb>(),
-                ModelDb.Orb<YellowPaintOrb>(),
-                ModelDb.Orb<BluePaintOrb>(),
-                ];
-
             for (int i = 0; i < DynamicVars.Repeat.IntValue; i++)
             {
-                OrbModel randomOrb = paintOrbs[Owner.RunState.Rng.CombatOrbGeneration.NextInt(paintOrbs.Count)];
+                OrbModel randomOrb = RollOrbFromChanceTable();
                 await OrbCmd.Channel(choiceContext, randomOrb.ToMutable(), Owner);
             }
+        }
+
+        private OrbModel RollOrbFromChanceTable()
+        {
+            int roll = Owner.RunState.Rng.CombatOrbGeneration.NextInt(100);
+            int cumulative = 0;
+            foreach ((OrbModel orb, int weight) in OrbChanceTable)
+            {
+                cumulative += weight;
+                if (roll < cumulative)
+                {
+                    return orb;
+                }
+            }
+
+            return OrbChanceTable[^1].Orb;
         }
 
         protected override void OnUpgrade()

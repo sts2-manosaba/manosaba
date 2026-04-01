@@ -118,6 +118,8 @@
   "MANOSABA-LIQUID_MANIPULATION.description": "給予全部隊友能力：[gold]液體操作[/gold]。",
   "MANOSABA-CONFUSION.title": "困惑",
   "MANOSABA-CONFUSION.description": "隨機生成 {Repeat:diff()} 顆顏料球。",
+  "MANOSABA-COLOR_MIX.title": "混色",
+  "MANOSABA-COLOR_MIX.description": "造成 {CalculatedDamage:diff()} 點傷害。\n若你擁有至少3種不同顏色的顏料球額外增加 5 點傷害、4 種則額外增加 10 點、5 種則額外增加 25 點、6 種則額外增加 45 點。",
   "MANOSABA-COLOR_BLAST.title": "色彩迸發",
   "MANOSABA-COLOR_BLAST.description": "[gold]激發[/gold]所有的顏料球，根據[gold]激發[/gold]的數量隨機生成顏料球。",
   "MANOSABA-JUDGE_JOGASAKI_NOAH.title": "諾雅的畫...",

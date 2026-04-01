@@ -118,6 +118,8 @@
   "MANOSABA-LIQUID_MANIPULATION.description": "",
   "MANOSABA-CONFUSION.title": "",
   "MANOSABA-CONFUSION.description": "",
+  "MANOSABA-COLOR_MIX.title": "Color Mix",
+  "MANOSABA-COLOR_MIX.description": "If you have at least 3 different paint orb colors, deal 10 damage to all enemies.\nIf at least 4, deal 15 instead; if at least 5, deal 25 instead; if at least 6, deal 50 instead.",
   "MANOSABA-COLOR_BLAST.title": "",
   "MANOSABA-COLOR_BLAST.description": "",
   "MANOSABA-JUDGE_JOGASAKI_NOAH.title": "Judge",

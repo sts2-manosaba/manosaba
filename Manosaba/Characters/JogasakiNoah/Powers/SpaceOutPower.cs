@@ -49,7 +49,7 @@ namespace Manosaba.Characters.JogasakiNoah.Powers
 
                 if (enemies.Count > 0)
                 {
-                    await CreatureCmd.Damage(choiceContext, enemies, 50m, ValueProp.Move, Owner, null);
+                    await CreatureCmd.Damage(choiceContext, enemies, 50m, ValueProp.Unpowered, Owner, null);
                 }
 
                 int orbCount = Owner.Player.PlayerCombatState.OrbQueue.Orbs.Count;

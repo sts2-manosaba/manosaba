@@ -46,21 +46,13 @@ namespace Manosaba.Characters.NikaidoHiro.Cards
             var target = cardPlay.Target;
             if (target == null)
                 return;
-
-            if (base.Owner.Creature.GetPowerAmount<VotePower>() > 1)
-            {
-                await DamageCmd.Attack(DynamicVars.CalculatedDamage)
+            await DamageCmd.Attack(DynamicVars.CalculatedDamage)
                  .FromCard(this)
                  .Targeting(target)
                  .Execute(choiceContext);
-                await PowerCmd.Apply<VotePower>(base.Owner.Creature, -DynamicVars["VotePowerCost"].BaseValue, base.Owner.Creature, this);
-            }
-            else
+            if (base.Owner.Creature.GetPowerAmount<VotePower>() > 1)
             {
-                await DamageCmd.Attack(DynamicVars.CalculationBase.BaseValue)
-                    .FromCard(this)
-                    .Targeting(target)
-                    .Execute(choiceContext);
+                await PowerCmd.Apply<VotePower>(base.Owner.Creature, -DynamicVars["VotePowerCost"].BaseValue, base.Owner.Creature, this);
             }
         }
 
