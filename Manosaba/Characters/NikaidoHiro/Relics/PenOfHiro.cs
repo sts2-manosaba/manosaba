@@ -13,23 +13,53 @@ namespace manosaba.Characters.NikaidoHiro.Relics
 {
 
     [Pool(typeof(NikaidoHiroRelicPool))]
-    public sealed class PenOfHiro : PathCustomRelicModel
+    public sealed class PenOfHiro : LevelingPathCustomRelicModel
     {
         public override RelicRarity Rarity => RelicRarity.Starter;
         protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<VotePower>()];
+        protected override int MaxRelicLevel => 3;
 
         protected override IEnumerable<DynamicVar> CanonicalVars => [new DynamicVar("VoteCost", 1m), new SummonVar(7)];
 
+        public override Task AfterObtained()
+        {
+            ApplyRelicLevelEffects();
+            return Task.CompletedTask;
+        }
+
         public override async Task AfterPlayerTurnStart(PlayerChoiceContext choiceContext, Player player)
         {
+            ApplyRelicLevelEffects();
+
             if (base.Owner.Creature == player.Creature)
             {
-                if (base.Owner.Creature.GetPowerAmount<VotePower>() > 0)
+                decimal voteCost = base.DynamicVars["VoteCost"].BaseValue;
+                decimal currentVote = base.Owner.Creature.GetPowerAmount<VotePower>();
+                if (currentVote >= voteCost)
                 {
                     await SakurabaEmaDogCmd.Summon(choiceContext, base.Owner, DynamicVars.Summon.BaseValue, this);
-                    await PowerCmd.Apply<VotePower>(base.Owner.Creature, -DynamicVars["VoteCost"].BaseValue, player.Creature, null);
+                    if (voteCost > 0)
+                    {
+                        await PowerCmd.Apply<VotePower>(base.Owner.Creature, -voteCost, player.Creature, null);
+                    }
                 }
             }
+        }
+
+        protected override void OnRelicLevelChanged(int oldLevel, int newLevel)
+        {
+            ApplyRelicLevelEffects();
+        }
+
+        private void ApplyRelicLevelEffects()
+        {
+            // Pen of Hiro level effects are defined on this relic:
+            // Lv1: VoteCost 1 / Summon 7
+            // Lv2: VoteCost 1 / Summon 9
+            // Lv3: VoteCost 0 / Summon 11
+            int level = RelicLevel;
+            base.DynamicVars["VoteCost"].BaseValue = level >= 3 ? 0m : 1m;
+            base.DynamicVars.Summon.BaseValue = 7m + (level - 1) * 2m;
         }
     }
 }

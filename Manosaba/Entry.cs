@@ -1,6 +1,7 @@
 using BaseLib.Config;
 using Godot.Bridge;
 using HarmonyLib;
+using manosaba.Characters.NikaidoHiro.Relics;
 using Manosaba.Characters.JogasakiNoah.Potions;
 using Manosaba.Config;
 using MegaCrit.Sts2.Core.Logging;
@@ -22,6 +23,7 @@ public class Entry
         var harmony = new Harmony(ModId);
         harmony.PatchAll();
         SavedPropertiesTypeCache.InjectTypeIntoCache(typeof(DrawingBoard));
+        SavedPropertiesTypeCache.InjectTypeIntoCache(typeof(PenOfHiro));
         // 使得tscn可以加载自定义脚本
         ScriptManagerBridge.LookupScriptsInAssembly(typeof(Entry).Assembly);
         Log.Debug("Mod initialized!");
