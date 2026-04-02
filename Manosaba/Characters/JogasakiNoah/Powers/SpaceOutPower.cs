@@ -10,6 +10,7 @@ namespace Manosaba.Characters.JogasakiNoah.Powers
 {
     public class SpaceOutPower : PathCustomPowerModel
     {
+        private const string VfxScenePath = "res://Manosaba/scenes/jogasaki_noah/vfx/ink_spectrum_screen_fill.tscn";
         public override PowerType Type => PowerType.Buff;
         public override PowerStackType StackType => PowerStackType.Single;
 
@@ -40,6 +41,7 @@ namespace Manosaba.Characters.JogasakiNoah.Powers
                     .Count();
                 if (distinctColorCount < 8)
                     return;
+                await ManosabaVfxCmd.PlaySceneAtCombatCenterAndWait(VfxScenePath, fitCoverViewport: true);
                 await ManosabaCombatCmd.ForceWinWithoutDeathOrEscape(Owner.Player.Creature.CombatState);
             }
         }

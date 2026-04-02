@@ -41,7 +41,7 @@
   "MANOSABA-LIQUID_MANIPULATION_POWER.title": "液體操縱",
   "MANOSABA-LIQUID_MANIPULATION_POWER.description": "給予相等於層數的百分比減傷，每回合減少 1 層。",
   "MANOSABA-LIQUID_MANIPULATION_POWER.smartDescription": "給予相等於層數的百分比減傷，每回合減少 1 層。",
-  "MANOSABA-SPACE_OUT_POWER.title": "放空",
+  "MANOSABA-SPACE_OUT_POWER.title": "色彩化",
   "MANOSABA-SPACE_OUT_POWER.description": "回合開始時，若你擁有紅、橙、黃、綠、藍、紫、黑、白八種顏料球則直接勝利。若未湊齊則隨機生成 1 顆顏料球。",
   "MANOSABA-SPACE_OUT_POWER.smartDescription": "回合開始：八色齊全則直接勝利；否則隨機生成 1 顆顏料球。",
 

@@ -148,6 +148,15 @@
   "MANOSABA-BAD_DRAW_C.description": "If played on [gold]Jogasaki Noah[/gold], she gains 100 [gold]Majoka[/gold]. [gold]Exhaust[/gold] the other two [gold]Bad Draw[/gold] cards.",
   "MANOSABA-SPACE_OUT.title": "Space Out",
   "MANOSABA-SPACE_OUT.description": "Gain [gold]Space Out[/gold].",
+  "MANOSABA-INK_PAINTING.title": "Ink Painting",
+  "MANOSABA-INK_PAINTING.description": "Choose 1 of 2 tokens and play it {Repeat:diff()} time(s).",
+  "MANOSABA-INK_PAINTING.selectionScreenPrompt": "Choose a token to play.",
+  "MANOSABA-INK_PAINTING_BLACK_PAINT_ORB_TOKEN.title": "Black Paint Orb",
+  "MANOSABA-INK_PAINTING_BLACK_PAINT_ORB_TOKEN.description": "Channel 1 [gold]Black Paint Orb[/gold].",
+  "MANOSABA-INK_PAINTING_WHITE_PAINT_ORB_TOKEN.title": "White Paint Orb",
+  "MANOSABA-INK_PAINTING_WHITE_PAINT_ORB_TOKEN.description": "Channel 1 [gold]White Paint Orb[/gold].",
+  "MANOSABA-ORB_FULL_SPECTRUM_TEST.title": "Orb Full Spectrum Test",
+  "MANOSABA-ORB_FULL_SPECTRUM_TEST.description": "Gain 2 [gold]Orb Slots[/gold].\nChannel 1 each of [gold]Red[/gold], [gold]Orange[/gold], [gold]Yellow[/gold], [gold]Green[/gold], [gold]Blue[/gold], [gold]Purple[/gold], [gold]Black[/gold], and [gold]White Paint Orb[/gold].",
 
   "MANOSABA-STRIKE_TACHIBANA_SHERRY.title": "Strike",
   "MANOSABA-STRIKE_TACHIBANA_SHERRY.description": "Deal {Damage:diff()} damage.",
@@ -205,4 +214,5 @@
   "MANOSABA-DATE_TIME.description": "{IfUpgraded:show:[gold]Retain[/gold].\n}If you have no [gold]Majoka[/gold], heal {Heal:diff()} HP plus 1 HP per point of [gold]Strength[/gold].\nYou cannot gain [gold]Majoka[/gold] this turn.",
   "MANOSABA-SUPER_PUNCH.title": "Epic Iron Fist",
   "MANOSABA-SUPER_PUNCH.description": "{IfUpgraded:show:[gold]Retain[/gold].\n}Draw {Cards:diff()} cards.\nIf you have at least 100 [gold]Majoka[/gold], deal {Damage:diff()} damage to all enemies and gain {StrengthPower:diff()} [gold]Strength[/gold]."
+
 }
