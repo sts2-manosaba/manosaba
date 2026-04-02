@@ -21,7 +21,7 @@
   "MANOSABA-LESSER_STRENGTH_POTION.description": "Gain {StrengthPower:diff()} [gold]Strength[/gold]. Lose {StrengthPower:diff()} [gold]Strength[/gold] at the end of your turn.",
   "MANOSABA-LESSER_STRENGTH_POTION.selectionScreenPrompt": "",
   "MANOSABA-GREATER_BEETLE_JUICE.title": "Greater Beetle Juice",
-  "MANOSABA-GREATER_BEETLE_JUICE.description": "",
+  "MANOSABA-GREATER_BEETLE_JUICE.description": "All enemies deal {DamageDecrease}% less attack damage for the next {Repeat} turn(s).",
   "MANOSABA-GREATER_BEETLE_JUICE.selectionScreenPrompt": "",
   "MANOSABA-GREATER_ENERGY_POTION.title": "Greater Energy Potion",
   "MANOSABA-GREATER_ENERGY_POTION.description": "Gain {Energy:energyIcons()}.",
