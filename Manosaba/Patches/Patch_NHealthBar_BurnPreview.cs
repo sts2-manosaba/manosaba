@@ -1,4 +1,4 @@
-using System;
+using Godot;
 using HarmonyLib;
 using Manosaba.Characters.Common.Powers;
 using MegaCrit.Sts2.addons.mega_text;
@@ -7,7 +7,6 @@ using MegaCrit.Sts2.Core.Helpers;
 using MegaCrit.Sts2.Core.Localization;
 using MegaCrit.Sts2.Core.Models.Powers;
 using MegaCrit.Sts2.Core.Nodes.Combat;
-using Godot;
 
 namespace Manosaba.Patches;
 
@@ -47,7 +46,7 @@ public static class Patch_NHealthBar_BurnPreview
     private static readonly Color _defaultFontOutlineColor = new("900000");
     private static readonly Color _blockOutlineColor = new("1B3045");
     private static readonly Color _invincibleForegroundColor = new("C5BBED");
-    private static readonly Color _burnPreviewColor = new("FF9A2E");
+    private static readonly Color _burnPreviewColor = new("6C0000");
 
     [HarmonyPatch("RefreshForeground")]
     [HarmonyPrefix]

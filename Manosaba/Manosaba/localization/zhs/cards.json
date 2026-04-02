@@ -91,6 +91,8 @@
   "MANOSABA-COLLECT_DATA.description": "抽 {Cards:diff()} 張牌。",
   "MANOSABA-COLLECT_POTIONS.title": "藥水蒐集",
   "MANOSABA-COLLECT_POTIONS.description": "隨機生成 {Cards:diff()} 瓶基礎藥水。",
+  "MANOSABA-DRUG_DEALER.title": "藥頭",
+  "MANOSABA-DRUG_DEALER.description": "所有隊友各獲得 1 瓶隨機基礎藥水。{IfUpgraded:show:\n有 50% 機率使你獲得 1 瓶[gold]催化劑[/gold]。}",
   "MANOSABA-POTION_FACTORY.title": "藥水工廠",
   "MANOSABA-POTION_FACTORY.description": "給予自身 {PotionFactoryPower:diff()} 層[gold]藥水工廠[/gold]。",
   "MANOSABA-QUICK_HEAL.title": "快速治療",

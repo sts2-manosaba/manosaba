@@ -22,6 +22,9 @@ namespace Manosaba.Characters.HikamiMeruru.Cards
         private const TargetType TargetTypeValue = TargetType.None;
         private const bool ShouldShowInCardLibrary = false;
 
+        public override bool CanBeGeneratedInCombat => false;
+        public override bool CanBeGeneratedByModifiers => false;
+
         public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Unplayable, CardKeyword.Innate, CardKeyword.Retain];
 
         protected NanokaPuzzleQuestTokenBase() : base(EnergyCost, CardTypeValue, Rarity, TargetTypeValue, ShouldShowInCardLibrary)

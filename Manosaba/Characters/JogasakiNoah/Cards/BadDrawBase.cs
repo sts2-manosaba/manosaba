@@ -20,6 +20,9 @@ public abstract class BadDrawBase : PathCustomCardModel
     private const TargetType TargetTypeValue = TargetType.AnyAlly;
     private const bool ShouldShowInCardLibrary = false;
 
+    public override bool CanBeGeneratedInCombat => false;
+    public override bool CanBeGeneratedByModifiers => false;
+
     protected abstract Type[] SiblingTypes { get; }
 
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<MajokaPower>()];

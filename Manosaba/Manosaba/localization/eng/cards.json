@@ -91,6 +91,8 @@
   "MANOSABA-COLLECT_DATA.description": "Draw {Cards:diff()} cards.",
   "MANOSABA-COLLECT_POTIONS.title": "Potion Haul",
   "MANOSABA-COLLECT_POTIONS.description": "Create {Cards:diff()} random basic potions.",
+  "MANOSABA-DRUG_DEALER.title": "Drug Dealer",
+  "MANOSABA-DRUG_DEALER.description": "Each ally gains 1 random basic potion.{IfUpgraded:show:\\n50% chance to gain 1 [gold]Catalyst[/gold].}",
   "MANOSABA-POTION_FACTORY.title": "Potion Factory",
   "MANOSABA-POTION_FACTORY.description": "Gain {PotionFactoryPower:diff()} [gold]Potion Factory[/gold].",
   "MANOSABA-QUICK_HEAL.title": "Quick Heal",

@@ -18,6 +18,9 @@ namespace Manosaba.Characters.Common.Cards
         private const TargetType targetType = TargetType.None;
         private const bool shouldShowInCardLibrary = false;
 
+        public override bool CanBeGeneratedInCombat => false;
+        public override bool CanBeGeneratedByModifiers => false;
+
         protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromCard<SimpleSpear>()];
         public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Unplayable, CardKeyword.Retain];
 

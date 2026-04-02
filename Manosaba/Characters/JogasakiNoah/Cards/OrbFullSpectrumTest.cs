@@ -15,9 +15,12 @@ public class OrbFullSpectrumTest : PathCustomCardModel
 {
     private const int EnergyCost = 0;
     private const CardType CardTypeValue = CardType.Skill;
-    private const CardRarity Rarity = CardRarity.Uncommon;
+    private const CardRarity Rarity = CardRarity.Quest;
     private const TargetType TargetTypeValue = TargetType.Self;
-    private const bool ShouldShowInCardLibrary = true;
+    private const bool ShouldShowInCardLibrary = false;
+
+    public override bool CanBeGeneratedInCombat => false;
+    public override bool CanBeGeneratedByModifiers => false;
 
     protected override IEnumerable<IHoverTip> ExtraHoverTips =>
     [
