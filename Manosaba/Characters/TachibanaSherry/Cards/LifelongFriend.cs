@@ -1,5 +1,4 @@
 using BaseLib.Utils;
-using System;
 using manosaba.Characters.TachibanaSherry;
 using Manosaba.Characters.TachibanaSherry.Powers;
 using Manosaba.Extensions;
@@ -13,6 +12,7 @@ namespace Manosaba.Characters.TachibanaSherry.Cards
     [Pool(typeof(TachibanaSherryCardPool))]
     public class LifelongFriend : PathCustomCardModel
     {
+        public override CardMultiplayerConstraint MultiplayerConstraint => CardMultiplayerConstraint.MultiplayerOnly;
         private const int energyCost = 1;
         private const CardType type = CardType.Skill;
         private const CardRarity rarity = CardRarity.Rare;

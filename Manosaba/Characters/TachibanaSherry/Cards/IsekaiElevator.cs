@@ -1,9 +1,7 @@
 using BaseLib.Utils;
-using System;
 using manosaba.Characters.TachibanaSherry;
 using Manosaba.Characters.Common.Powers;
 using Manosaba.Extensions;
-using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
@@ -15,6 +13,7 @@ namespace Manosaba.Characters.TachibanaSherry.Cards
     [Pool(typeof(TachibanaSherryCardPool))]
     public class IsekaiElevator : PathCustomCardModel
     {
+        public override CardMultiplayerConstraint MultiplayerConstraint => CardMultiplayerConstraint.MultiplayerOnly;
         private const int energyCost = 1;
         private const CardType type = CardType.Skill;
         private const CardRarity rarity = CardRarity.Uncommon;
