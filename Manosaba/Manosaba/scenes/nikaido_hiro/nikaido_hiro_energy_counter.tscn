@@ -1,7 +1,8 @@
-[gd_scene load_steps=8 format=3 uid="uid://c3xusef6aalag"]
+[gd_scene load_steps=9 format=3 uid="uid://c3xusef6aalag"]
 
 [ext_resource type="Script" uid="uid://d3r08absyhcvw" path="res://Characters/Common/Overrides/ManosabaEnergyCounter.cs" id="1_2kivs"]
 [ext_resource type="Texture2D" uid="uid://fhxi5qi7bf2l" path="res://Manosaba/images/characters/nikaido_hiro/nikaido_hiro_energy.png" id="2_2kivs"]
+[ext_resource type="Script" uid="uid://cte8o8b1ap336" path="res://Characters/Common/Overrides/ManosabaParticlesContainer.cs" id="2_h721s"]
 [ext_resource type="FontFile" uid="uid://dntfn4rajubna" path="res://Manosaba/font/kreon_bold.ttf" id="4_h721s"]
 [ext_resource type="Script" uid="uid://cyusfwpr67vv6" path="res://Characters/Common/Overrides/ManosabaLabel.cs" id="4_y7hfs"]
 
@@ -26,7 +27,7 @@ pivot_offset = Vector2(64, 64)
 script = ExtResource("1_2kivs")
 metadata/_edit_lock_ = true
 
-[node name="BurstBack" type="CPUParticles2D" parent="."]
+[node name="EnergyVfxBack" type="CPUParticles2D" parent="."]
 unique_name_in_owner = true
 position = Vector2(65, 62)
 emitting = false
@@ -43,6 +44,7 @@ scale_amount_max = 0.45
 scale_amount_curve = SubResource("Curve_umldk")
 color = Color(0.894118, 0.654902, 0.215686, 0.6)
 color_ramp = SubResource("Gradient_4pfys")
+script = ExtResource("2_h721s")
 
 [node name="Layers" type="Control" parent="."]
 unique_name_in_owner = true
@@ -78,7 +80,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="BurstFront" type="CPUParticles2D" parent="."]
+[node name="EnergyVfxFront" type="CPUParticles2D" parent="."]
 unique_name_in_owner = true
 position = Vector2(65, 62)
 emitting = false
@@ -96,6 +98,7 @@ scale_amount_max = 0.45
 scale_amount_curve = SubResource("Curve_1sepv")
 color = Color(0.894118, 0.654902, 0.215686, 0.6)
 color_ramp = SubResource("Gradient_4pfys")
+script = ExtResource("2_h721s")
 
 [node name="Label" type="Label" parent="."]
 layout_mode = 1

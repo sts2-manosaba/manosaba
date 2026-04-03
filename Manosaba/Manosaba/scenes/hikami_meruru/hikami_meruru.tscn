@@ -1,8 +1,10 @@
-[gd_scene load_steps=2 format=3 uid="uid://rpe1tmhnm50q"]
+[gd_scene load_steps=3 format=3 uid="uid://rpe1tmhnm50q"]
 
 [ext_resource type="Texture2D" uid="uid://cafq7jwr2qry0" path="res://Manosaba/images/characters/hikami_meruru/HikamiMeruru.png" id="1_dp3un"]
+[ext_resource type="Script" uid="uid://bycfwwoe0784d" path="res://Characters/Common/Overrides/ManosabaCharacterVisuals.cs" id="1_pybll"]
 
 [node name="HikamiMeruru" type="Node2D"]
+script = ExtResource("1_pybll")
 
 [node name="Visuals" type="Sprite2D" parent="."]
 unique_name_in_owner = true

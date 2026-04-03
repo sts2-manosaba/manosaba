@@ -45,8 +45,8 @@ namespace Manosaba.Characters.JogasakiNoah.Potions
             NCreature node = NCombatRoom.Instance?.GetCreatureNode(pet);
             if (node != null)
             {
-                Vector2 s = node.Visuals.Body.Scale;
-                node.Visuals.Body.Scale = new Vector2(-Mathf.Abs(s.X), s.Y);
+                Vector2 s = node.Visuals.GetCurrentBody().Scale;
+                node.Visuals.GetCurrentBody().Scale = new Vector2(-Mathf.Abs(s.X), s.Y);
             }
 
             Creature perspective = pet.PetOwner?.Creature ?? Owner.Creature;

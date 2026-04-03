@@ -1,8 +1,10 @@
-[gd_scene load_steps=2 format=3 uid="uid://dxdkw7pfbhjo"]
+[gd_scene load_steps=3 format=3 uid="uid://dxdkw7pfbhjo"]
 
 [ext_resource type="Texture2D" uid="uid://bj24xiubvyi2m" path="res://Manosaba/images/characters/jogasaki_noah/JogasakiNoah.png" id="1_j6v0e"]
+[ext_resource type="Script" uid="uid://bycfwwoe0784d" path="res://Characters/Common/Overrides/ManosabaCharacterVisuals.cs" id="1_y6r6b"]
 
 [node name="JogasakiNoa" type="Node2D"]
+script = ExtResource("1_y6r6b")
 
 [node name="Visuals" type="Sprite2D" parent="."]
 unique_name_in_owner = true

@@ -1,8 +1,10 @@
-[gd_scene load_steps=2 format=3 uid="uid://cmga8c7gre6nd"]
+[gd_scene load_steps=3 format=3 uid="uid://cmga8c7gre6nd"]
 
 [ext_resource type="Texture2D" uid="uid://ruqq23dj0ed3" path="res://Manosaba/images/characters/nikaido_hiro/NikaidoHiro.png" id="1_d3nqd"]
+[ext_resource type="Script" uid="uid://bycfwwoe0784d" path="res://Characters/Common/Overrides/ManosabaCharacterVisuals.cs" id="1_t78i5"]
 
 [node name="NikaidoHiro" type="Node2D"]
+script = ExtResource("1_t78i5")
 
 [node name="Visuals" type="Sprite2D" parent="."]
 unique_name_in_owner = true

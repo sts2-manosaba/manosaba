@@ -247,8 +247,8 @@ public static class Patch_NHealthBar_BurnPreview
 
         if (creature.CurrentHp <= 0)
         {
-            hpLabel.AddThemeColorOverride(ThemeConstants.Label.fontColor, _defaultFontColor);
-            hpLabel.AddThemeColorOverride(ThemeConstants.Label.fontOutlineColor, _defaultFontOutlineColor);
+            hpLabel.AddThemeColorOverride(ThemeConstants.Label.FontColor, _defaultFontColor);
+            hpLabel.AddThemeColorOverride(ThemeConstants.Label.FontOutlineColor, _defaultFontOutlineColor);
             hpLabel.SetTextAutoSize(_healthBarDeadRef(__instance).GetRawText());
             return false;
         }
@@ -287,8 +287,8 @@ public static class Patch_NHealthBar_BurnPreview
             outlineColor = hasBlockOutline ? _blockOutlineColor : _defaultFontOutlineColor;
         }
 
-        hpLabel.AddThemeColorOverride(ThemeConstants.Label.fontColor, fontColor);
-        hpLabel.AddThemeColorOverride(ThemeConstants.Label.fontOutlineColor, outlineColor);
+        hpLabel.AddThemeColorOverride(ThemeConstants.Label.FontColor, fontColor);
+        hpLabel.AddThemeColorOverride(ThemeConstants.Label.FontOutlineColor, outlineColor);
         hpLabel.SetTextAutoSize($"{creature.CurrentHp}/{creature.MaxHp}");
         return false;
     }

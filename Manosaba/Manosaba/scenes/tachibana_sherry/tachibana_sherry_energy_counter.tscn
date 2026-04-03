@@ -1,10 +1,10 @@
-[gd_scene load_steps=8 format=3 uid="uid://bjimwkgg3ljib"]
+[gd_scene load_steps=9 format=3 uid="uid://bjimwkgg3ljib"]
 
 [ext_resource type="Script" uid="uid://d3r08absyhcvw" path="res://Characters/Common/Overrides/ManosabaEnergyCounter.cs" id="1_6ft4v"]
 [ext_resource type="Texture2D" uid="uid://j4o8ejact08p" path="res://Manosaba/images/characters/tachibana_sherry/tachibana_sherry_energy.png" id="2_glhp1"]
+[ext_resource type="Script" uid="uid://cte8o8b1ap336" path="res://Characters/Common/Overrides/ManosabaParticlesContainer.cs" id="2_loc06"]
 [ext_resource type="FontFile" uid="uid://dntfn4rajubna" path="res://Manosaba/font/kreon_bold.ttf" id="3_0r3ug"]
 [ext_resource type="Script" uid="uid://cyusfwpr67vv6" path="res://Characters/Common/Overrides/ManosabaLabel.cs" id="4_mjhjb"]
-
 
 [sub_resource type="Curve" id="Curve_umldk"]
 _data = [Vector2(0.00596422, 0.0309963), 0.0, 4.46389, 0, 0, Vector2(0.298211, 0.736162), 0.832039, 0.832039, 0, 0, Vector2(0.99006, 0.932841), -0.247478, 0.0, 0, 0]
@@ -27,7 +27,7 @@ pivot_offset = Vector2(64, 64)
 script = ExtResource("1_6ft4v")
 metadata/_edit_lock_ = true
 
-[node name="BurstBack" type="CPUParticles2D" parent="."]
+[node name="EnergyVfxBack" type="CPUParticles2D" parent="."]
 unique_name_in_owner = true
 position = Vector2(65, 62)
 emitting = false
@@ -44,6 +44,7 @@ scale_amount_max = 0.45
 scale_amount_curve = SubResource("Curve_umldk")
 color = Color(0.894118, 0.654902, 0.215686, 0.6)
 color_ramp = SubResource("Gradient_4pfys")
+script = ExtResource("2_loc06")
 
 [node name="Layers" type="Control" parent="."]
 unique_name_in_owner = true
@@ -80,7 +81,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="BurstFront" type="CPUParticles2D" parent="."]
+[node name="EnergyVfxFront" type="CPUParticles2D" parent="."]
 unique_name_in_owner = true
 position = Vector2(65, 62)
 emitting = false
@@ -98,6 +99,7 @@ scale_amount_max = 0.45
 scale_amount_curve = SubResource("Curve_1sepv")
 color = Color(0.894118, 0.654902, 0.215686, 0.6)
 color_ramp = SubResource("Gradient_4pfys")
+script = ExtResource("2_loc06")
 
 [node name="Label" type="Label" parent="."]
 layout_mode = 1
