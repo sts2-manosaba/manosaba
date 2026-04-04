@@ -22,6 +22,9 @@ namespace Manosaba.Characters.Common.Cards
         private const TargetType targetType = TargetType.AnyAlly;
         private const bool shouldShowInCardLibrary = false;
 
+        public override bool CanBeGeneratedInCombat => false;
+        public override bool CanBeGeneratedByModifiers => false;
+
         protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<VotePower>()];
         public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
         protected override IEnumerable<DynamicVar> CanonicalVars => [new CardsVar(1), new DynamicVar("VotePower", 1)];
