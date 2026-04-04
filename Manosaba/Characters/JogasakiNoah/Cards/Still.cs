@@ -1,7 +1,6 @@
 ﻿using BaseLib.Utils;
 using Godot;
 using manosaba.Characters.JogasakiNoah;
-using Manosaba.Characters.JogasakiNoah.Potions;
 using Manosaba.Characters.JogasakiNoah.Powers;
 using Manosaba.Extensions;
 using MegaCrit.Sts2.Core.Combat;
@@ -9,7 +8,6 @@ using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
-using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Nodes.Combat;
 using MegaCrit.Sts2.Core.Nodes.Rooms;
@@ -29,7 +27,6 @@ namespace Manosaba.Characters.JogasakiNoah.Cards
 
         protected override bool IsPlayable => Owner.Creature.CombatState.Encounter.RoomType == RoomType.Monster;
 
-        protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPotion<DrawingBoard>()];
         public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
 
         public Still() : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)
@@ -55,7 +52,11 @@ namespace Manosaba.Characters.JogasakiNoah.Cards
                 }
 
                 Creature perspective = pet.PetOwner?.Creature ?? Owner.Creature;
-                pet.PrepareForNextTurn(pet.CombatState.GetOpponentsOf(perspective), true);
+                List<Creature> petTargets = pet.CombatState.GetOpponentsOf(perspective)
+                    .Where(c => c != null && c.IsAlive)
+                    .ToList();
+                pet.PrepareForNextTurn(petTargets, true);
+                PetEnemyAiPower.TryAdvanceToAttackOnlyMove(pet, petTargets);
                 await PowerCmd.Apply<PetEnemyAiPower>(pet, 1m, Owner.Creature, null);
             }
             else

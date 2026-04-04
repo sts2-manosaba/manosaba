@@ -14,14 +14,14 @@ namespace Manosaba.Characters.JogasakiNoah.Cards;
 public class JudgeJogasakiNoah : PathCustomCardModel
 {
     public override CardMultiplayerConstraint MultiplayerConstraint => CardMultiplayerConstraint.MultiplayerOnly;
-    private const int EnergyCost = 1;
+    private const int energyCost = 3;
     private const CardType CardTypeValue = CardType.Skill;
     private const CardRarity Rarity = CardRarity.Rare;
     private const TargetType TargetTypeValue = TargetType.None;
     private const bool ShouldShowInCardLibrary = true;
 
     public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
-    public JudgeJogasakiNoah() : base(EnergyCost, CardTypeValue, Rarity, TargetTypeValue, ShouldShowInCardLibrary)
+    public JudgeJogasakiNoah() : base(energyCost, CardTypeValue, Rarity, TargetTypeValue, ShouldShowInCardLibrary)
     {
     }
 
@@ -65,5 +65,9 @@ public class JudgeJogasakiNoah : PathCustomCardModel
     {
         string id = player.Character.Id.ToString().RemovePrefix().ToLowerInvariant();
         return id == "nikaido_hiro";
+    }
+    protected override void OnUpgrade()
+    {
+        EnergyCost.UpgradeBy(-1);
     }
 }

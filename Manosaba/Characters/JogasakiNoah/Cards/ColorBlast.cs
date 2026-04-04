@@ -13,7 +13,7 @@ namespace Manosaba.Characters.JogasakiNoah.Cards
     [Pool(typeof(JogasakiNoahCardPool))]
     public class ColorBlast : PathCustomCardModel
     {
-        private const int energyCost = 2;
+        private const int energyCost = 3;
         public override OrbEvokeType OrbEvokeType => OrbEvokeType.All;
         private const CardType type = CardType.Skill;
         private const CardRarity rarity = CardRarity.Rare;

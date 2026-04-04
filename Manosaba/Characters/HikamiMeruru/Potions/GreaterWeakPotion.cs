@@ -26,8 +26,13 @@ namespace Manosaba.Characters.HikamiMeruru.Potions
 
         protected override async Task OnUse(PlayerChoiceContext choiceContext, Creature? target)
         {
-            PotionModel.AssertValidForTargetedPotion(target);
-            await PowerCmd.Apply<WeakPower>(target, base.DynamicVars.Weak.BaseValue, base.Owner.Creature, null);
+            Creature player = base.Owner.Creature;
+            IReadOnlyList<Creature> targets = player.CombatState.HittableEnemies;
+            foreach (Creature item in targets)
+            {
+                PotionModel.AssertValidForTargetedPotion(item);
+                await PowerCmd.Apply<WeakPower>(item, base.DynamicVars.Weak.BaseValue, base.Owner.Creature, null);
+            }
         }
     }
 }

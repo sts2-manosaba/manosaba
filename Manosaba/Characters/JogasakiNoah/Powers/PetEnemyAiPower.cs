@@ -12,6 +12,7 @@ namespace Manosaba.Characters.JogasakiNoah.Powers;
 public sealed class PetEnemyAiPower : PathCustomPowerModel
 {
     private bool _skipFirstTrigger = false;
+    private const int MaxMoveAdvanceAttempts = 8;
 
     public override PowerType Type => PowerType.Buff;
 
@@ -53,11 +54,44 @@ public sealed class PetEnemyAiPower : PathCustomPowerModel
             owner.PrepareForNextTurn(targets, rollNewMove: true);
         }
 
+        if (!TryAdvanceToAttackOnlyMove(owner, targets))
+        {
+            return;
+        }
+
         MoveState move = owner.Monster.NextMove;
-        if (move.Intents.Any(i => i.IntentType == IntentType.Attack || i.IntentType == IntentType.Debuff))
-            await move.PerformMove(targets);
+        await move.PerformMove(targets);
         owner.Monster.MoveStateMachine?.OnMovePerformed(move);
         owner.PrepareForNextTurn(targets, rollNewMove: true);
+    }
+
+    public static bool TryAdvanceToAttackOnlyMove(Creature owner, IReadOnlyList<Creature> targets)
+    {
+        for (int i = 0; i < MaxMoveAdvanceAttempts; i++)
+        {
+            MoveState currentMove = owner.Monster!.NextMove;
+            bool hasAnyIntents = currentMove.Intents.Count > 0;
+            bool allIntentsAreAttack = hasAnyIntents && currentMove.Intents.All(intent => intent.IntentType == IntentType.Attack);
+            if (allIntentsAreAttack)
+            {
+                return true;
+            }
+
+            string oldMoveId = currentMove.Id;
+            owner.Monster.MoveStateMachine?.OnMovePerformed(currentMove);
+            owner.PrepareForNextTurn(targets, rollNewMove: true);
+            MoveState nextMove = owner.Monster.NextMove;
+
+            bool nextHasAnyIntents = nextMove.Intents.Count > 0;
+            bool nextAllIntentsAreAttack = nextHasAnyIntents && nextMove.Intents.All(intent => intent.IntentType == IntentType.Attack);
+            if (nextMove.Id == oldMoveId && !nextAllIntentsAreAttack)
+            {
+                // Cannot advance away from this non-attack move (e.g. forced/follow-up state).
+                return false;
+            }
+        }
+
+        return false;
     }
 
     public override decimal ModifyMaxEnergy(Player player, decimal amount)

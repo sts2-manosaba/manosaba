@@ -15,7 +15,7 @@ public class ComplementaryColor : PathCustomCardModel
 {
     private const int EnergyCostValue = 1;
     private const CardType CardTypeValue = CardType.Skill;
-    private const CardRarity Rarity = CardRarity.Common;
+    private const CardRarity Rarity = CardRarity.Uncommon;
     private const TargetType TargetTypeValue = TargetType.Self;
     private const bool ShouldShowInCardLibrary = true;
 
@@ -61,11 +61,6 @@ public class ComplementaryColor : PathCustomCardModel
 
             await OrbCmd.Channel(choiceContext, complementaryOrb.ToMutable(), Owner);
         }
-    }
-
-    protected override void OnUpgrade()
-    {
-        EnergyCost.UpgradeBy(-1);
     }
 
     private static OrbModel? GetComplementaryOrb(OrbModel orb)
