@@ -4,7 +4,7 @@ namespace Manosaba.Extensions
     {
         // Cumulative exp needed to reach each level (1-indexed levels).
         // Index 0 => Level 1, index 1 => Level 2, etc.
-        private static readonly int[] CumulativeExpPerLevel = [0, 2, 5, 9, 14, 20];
+        private static readonly int[] CumulativeExpPerLevel = [0, 2, 7, 15, 30, 50];
 
         public static int MaxLevel => CumulativeExpPerLevel.Length;
 

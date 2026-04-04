@@ -136,6 +136,8 @@
   "MANOSABA-LIQUID_MANIPULATION.description": "給予全部隊友最大 {LiquidManipulationPower:diff()} 層[gold]液體操作[/gold]。",
   "MANOSABA-CONFUSION.title": "困惑",
   "MANOSABA-CONFUSION.description": "隨機生成 {Repeat:diff()} 顆顏料球。",
+  "MANOSABA-COMPLEMENTARY_COLOR.title": "互補色",
+  "MANOSABA-COMPLEMENTARY_COLOR.description": "根據你的顏料球列表最後一顆顏料球，生成其互補色顏料球。{IfUpgraded:show:\\n再對倒數第二顆顏料球也生成一顆互補色顏料球。}",
   "MANOSABA-COLOR_MIX.title": "混色",
   "MANOSABA-COLOR_MIX.description": "造成 {CalculatedDamage:diff()} 點傷害。\n若你擁有至少3種不同顏色的顏料球額外增加 5 點傷害、4 種則額外增加 10 點、5 種則額外增加 25 點、6 種則額外增加 45 點。",
   "MANOSABA-COLOR_BLAST.title": "色彩迸發",

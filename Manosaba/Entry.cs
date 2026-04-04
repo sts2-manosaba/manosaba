@@ -1,6 +1,7 @@
 using BaseLib.Config;
 using Godot.Bridge;
 using HarmonyLib;
+using manosaba.Characters.HikamiMeruru.Relics;
 using manosaba.Characters.JogasakiNoah.Relics;
 using manosaba.Characters.NikaidoHiro.Relics;
 using Manosaba.Characters.JogasakiNoah.Potions;
@@ -24,6 +25,7 @@ public class Entry
         var harmony = new Harmony(ModId);
         harmony.PatchAll();
         SavedPropertiesTypeCache.InjectTypeIntoCache(typeof(DrawingBoard));
+        SavedPropertiesTypeCache.InjectTypeIntoCache(typeof(PhotoOfTheGreatWitch));
         SavedPropertiesTypeCache.InjectTypeIntoCache(typeof(PenOfHiro));
         SavedPropertiesTypeCache.InjectTypeIntoCache(typeof(SprayCanOfNoah));
         // 使得tscn可以加载自定义脚本

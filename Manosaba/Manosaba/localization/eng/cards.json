@@ -136,6 +136,8 @@
   "MANOSABA-LIQUID_MANIPULATION.description": "All allies gain up to {LiquidManipulationPower:diff()} stacks of [gold]Liquid Manipulation[/gold].",
   "MANOSABA-CONFUSION.title": "Confusion",
   "MANOSABA-CONFUSION.description": "Randomly channel {Repeat:diff()} paint orb(s).",
+  "MANOSABA-COMPLEMENTARY_COLOR.title": "Complementary Color",
+  "MANOSABA-COMPLEMENTARY_COLOR.description": "Channel the complementary paint orb of the last orb in your orb list.{IfUpgraded:show:\\nThen do this for the second-last orb as well.}",
   "MANOSABA-COLOR_MIX.title": "Color Mix",
   "MANOSABA-COLOR_MIX.description": "Deal {CalculatedDamage:diff()} damage.\nIf you have at least 3 different paint orb colors, gain +5 damage; at 4 colors, +10; at 5, +25; at 6, +45.",
   "MANOSABA-COLOR_BLAST.title": "Color Blast",
