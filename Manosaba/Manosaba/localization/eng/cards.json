@@ -217,6 +217,31 @@
   "MANOSABA-DATE_TIME.title": "Date Time",
   "MANOSABA-DATE_TIME.description": "{IfUpgraded:show:[gold]Retain[/gold].\n}If you have no [gold]Majoka[/gold], heal {Heal:diff()} HP plus 1 HP per point of [gold]Strength[/gold].\nYou cannot gain [gold]Majoka[/gold] this turn.",
   "MANOSABA-SUPER_PUNCH.title": "Epic Iron Fist",
-  "MANOSABA-SUPER_PUNCH.description": "{IfUpgraded:show:[gold]Retain[/gold].\n}Draw {Cards:diff()} cards.\nIf you have at least 100 [gold]Majoka[/gold], deal {Damage:diff()} damage to all enemies and gain {StrengthPower:diff()} [gold]Strength[/gold]."
+  "MANOSABA-SUPER_PUNCH.description": "{IfUpgraded:show:[gold]Retain[/gold].\n}Draw {Cards:diff()} cards.\nIf you have at least 100 [gold]Majoka[/gold], deal {Damage:diff()} damage to all enemies and gain {StrengthPower:diff()} [gold]Strength[/gold].",
 
+
+  "MANOSABA-STRIKE_SAEKI_MIRIA.title": "",
+  "MANOSABA-STRIKE_SAEKI_MIRIA.description": "",
+  "MANOSABA-DEFEND_SAEKI_MIRIA.title": "",
+  "MANOSABA-DEFEND_SAEKI_MIRIA.description": "",
+  "MANOSABA-TRAUMA_SAEKI_MIRIA.title": "",
+  "MANOSABA-TRAUMA_SAEKI_MIRIA.description": "",
+  "MANOSABA-MIND_SHARING.title": "",
+  "MANOSABA-MIND_SHARING.description": "",
+  "MANOSABA-EXCHANGE.title": "",
+  "MANOSABA-EXCHANGE.description": "。",
+  "MANOSABA-TRAUMA_SHARING.title": "",
+  "MANOSABA-TRAUMA_SHARING.description": "。",
+  "MANOSABA-SNS_EXCHANGE.title": "",
+  "MANOSABA-SNS_EXCHANGE.description": "",
+  "MANOSABA-EVIDENCE_LOOTING.title": "",
+  "MANOSABA-EVIDENCE_LOOTING.description": "",
+  "MANOSABA-SCAPE_GOAT.title": "",
+  "MANOSABA-SCAPE_GOAT.description": "",
+  "MANOSABA-OBJECTION.title": "",
+  "MANOSABA-OBJECTION.description": "",
+  "MANOSABA-FRIENDLY.title": "",
+  "MANOSABA-FRIENDLY.description": "20%。",
+  "MANOSABA-CLEAN_UP.title": "",
+  "MANOSABA-CLEAN_UP.description": ""
 }

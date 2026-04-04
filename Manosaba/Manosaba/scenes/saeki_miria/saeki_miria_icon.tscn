@@ -1,0 +1,15 @@
+[gd_scene load_steps=2 format=3 uid="uid://dip5c4y6a0ctt"]
+
+[ext_resource type="Texture2D" uid="uid://c45a7s08smspd" path="res://Manosaba/images/characters/saeki_miria/saeki_miria_map.png" id="1_crrds"]
+
+[node name="HikamiMeruruIcon" type="TextureRect"]
+anchors_preset = -1
+anchor_top = -0.004
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 2.592
+offset_right = 1.0
+offset_bottom = -4.0
+texture = ExtResource("1_crrds")
+expand_mode = 1
+stretch_mode = 5

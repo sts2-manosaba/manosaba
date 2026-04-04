@@ -1,0 +1,32 @@
+[gd_scene load_steps=3 format=3 uid="uid://cieaw6o3rxb4p"]
+
+[ext_resource type="Script" uid="uid://ci5rydvtx3dwt" path="res://Characters/Common/Overrides/ManosabaCharacterVisuals.cs" id="1_68yyg"]
+[ext_resource type="Texture2D" uid="uid://xscfh7r54nn5" path="res://Manosaba/images/characters/saeki_miria/SaekiMiria.png" id="1_kkxvc"]
+
+[node name="NikaidoHiro" type="Node2D"]
+script = ExtResource("1_68yyg")
+
+[node name="Visuals" type="Sprite2D" parent="."]
+unique_name_in_owner = true
+
+[node name="Sprite2D" type="Sprite2D" parent="Visuals"]
+position = Vector2(-10, -174)
+scale = Vector2(0.37646484, 0.37646484)
+texture = ExtResource("1_kkxvc")
+
+[node name="Bounds" type="Control" parent="."]
+unique_name_in_owner = true
+layout_mode = 3
+anchors_preset = 0
+offset_left = -82.0
+offset_top = -346.0
+offset_right = 77.0
+offset_bottom = 20.0
+
+[node name="IntentPos" type="Marker2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(0, -361)
+
+[node name="CenterPos" type="Marker2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(-6, -157)

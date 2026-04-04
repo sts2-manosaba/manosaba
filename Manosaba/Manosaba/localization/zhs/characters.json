@@ -55,5 +55,20 @@
   "MANOSABA-TACHIBANA_SHERRY.cardsModifierTitle": "",
   "MANOSABA-TACHIBANA_SHERRY.cardsModifierDescription": "",
   "MANOSABA-TACHIBANA_SHERRY.banter.alive.endTurnPing": "",
-  "MANOSABA-TACHIBANA_SHERRY.banter.dead.endTurnPing": ""
+  "MANOSABA-TACHIBANA_SHERRY.banter.dead.endTurnPing": "",
+
+  "MANOSABA-SAEKI_MIRIA.title": "佐伯米莉亞",
+  "MANOSABA-SAEKI_MIRIA.titleObject": "",
+  "MANOSABA-SAEKI_MIRIA.description": "呃......我是佐伯米莉亞喔?請多多關照~阿哈哈~",
+  "MANOSABA-SAEKI_MIRIA.pronounObject": "她",
+  "MANOSABA-SAEKI_MIRIA.possessiveAdjective": "她的",
+  "MANOSABA-SAEKI_MIRIA.pronounPossessive": "她的",
+  "MANOSABA-SAEKI_MIRIA.pronounSubject": "她",
+  "MANOSABA-SAEKI_MIRIA.goldMonologue": "",
+  "MANOSABA-SAEKI_MIRIA.eventDeathPrevention": "",
+  "MANOSABA-SAEKI_MIRIA.aromaPrinciple": "",
+  "MANOSABA-SAEKI_MIRIA.cardsModifierTitle": "",
+  "MANOSABA-SAEKI_MIRIA.cardsModifierDescription": "",
+  "MANOSABA-SAEKI_MIRIA.banter.alive.endTurnPing": "大、大叔沒關係你們慢慢來。",
+  "MANOSABA-SAEKI_MIRIA.banter.dead.endTurnPing": "..."
 }

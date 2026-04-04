@@ -56,5 +56,10 @@
   "MANOSABA-LIFELONG_FRIEND_POWER.smartDescription": "每回合失去20點魔女化並獲得0費落石；對象死亡時你也會死亡。",
   "MANOSABA-DATE_TIME_NO_MAJOKA_POWER.title": "約會時光",
   "MANOSABA-DATE_TIME_NO_MAJOKA_POWER.description": "本回合內你無法獲得[gold]魔女化[/gold]。",
-  "MANOSABA-DATE_TIME_NO_MAJOKA_POWER.smartDescription": "本回合內你無法獲得魔女化。"
+  "MANOSABA-DATE_TIME_NO_MAJOKA_POWER.smartDescription": "本回合內你無法獲得魔女化。",
+
+  "MANOSABA-FRIENDLY_POWER.title": "親和力",
+  "MANOSABA-FRIENDLY_POWER.description": "降低從攻擊受到的傷害20%。",
+  "MANOSABA-FRIENDLY_POWER.smartDescription": "降低從攻擊受到的傷害20%。"
+
 }

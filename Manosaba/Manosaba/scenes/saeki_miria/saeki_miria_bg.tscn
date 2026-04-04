@@ -1,0 +1,23 @@
+[gd_scene load_steps=2 format=3 uid="uid://cors84o87m2k4"]
+
+[ext_resource type="Texture2D" uid="uid://d07b87lxf2x8o" path="res://Manosaba/images/characters/saeki_miria/SaekiMiriaBg.png" id="1_m7coh"]
+
+[node name="HikamiMeruruBg" type="Control"]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -576.0
+offset_top = -307.0
+offset_right = 1984.0
+offset_bottom = 893.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(1280, 600)
+
+[node name="Sprite2D2" type="Sprite2D" parent="."]
+position = Vector2(696.8907, 224.44534)
+scale = Vector2(0.56586456, 0.56586456)
+texture = ExtResource("1_m7coh")
