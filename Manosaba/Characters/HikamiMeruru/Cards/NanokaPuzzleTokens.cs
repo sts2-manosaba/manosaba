@@ -170,6 +170,9 @@ namespace Manosaba.Characters.HikamiMeruru.Cards
         private const TargetType TargetTypeValue = TargetType.Self;
         private const bool ShouldShowInCardLibrary = false;
 
+        public override bool CanBeGeneratedInCombat => false;
+        public override bool CanBeGeneratedByModifiers => false;
+
         public NanokaComplete() : base(EnergyCost, CardTypeValue, Rarity, TargetTypeValue, ShouldShowInCardLibrary)
         {
         }

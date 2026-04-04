@@ -25,7 +25,7 @@ namespace Manosaba.Characters.JogasakiNoah.Cards
         private const TargetType targetType = TargetType.AnyEnemy;
         private const bool shouldShowInCardLibrary = true;
 
-        protected override bool IsPlayable => Owner.Creature.CombatState.Encounter.RoomType == RoomType.Monster;
+        protected override bool IsPlayable => Owner.Creature.CombatState.Encounter.RoomType == RoomType.Monster && Owner.PlayerCombatState.MaxEnergy >= 1;
 
         public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
 
@@ -56,7 +56,8 @@ namespace Manosaba.Characters.JogasakiNoah.Cards
                     .Where(c => c != null && c.IsAlive)
                     .ToList();
                 pet.PrepareForNextTurn(petTargets, true);
-                PetEnemyAiPower.TryAdvanceToAttackOnlyMove(pet, petTargets);
+                PetEnemyAiPower.TryAdvanceToValidMove(pet, petTargets);
+                _ = NCombatRoom.Instance?.GetCreatureNode(pet)?.UpdateIntent(petTargets);
                 await PowerCmd.Apply<PetEnemyAiPower>(pet, 1m, Owner.Creature, null);
             }
             else

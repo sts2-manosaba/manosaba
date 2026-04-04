@@ -44,7 +44,7 @@ public abstract class BadDrawBase : PathCustomCardModel
 
         IEnumerable<CardModel> siblings = CardPile
             .GetCards(Owner, PileType.Hand, PileType.Draw, PileType.Discard, PileType.Play, PileType.Exhaust)
-            .Where(c => c != this && SiblingTypes.Contains(c.GetType()))
+            .Where(c => SiblingTypes.Contains(c.GetType()))
             .Distinct()
             .ToList();
 
