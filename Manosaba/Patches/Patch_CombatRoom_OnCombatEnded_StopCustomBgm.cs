@@ -11,4 +11,5 @@ public static class Patch_CombatRoom_OnCombatEnded_StopCustomBgm
     {
         GodotSfxRouter.StopCustomBgmAndResumeVanilla();
     }
+
 }

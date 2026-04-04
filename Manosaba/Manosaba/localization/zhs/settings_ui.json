@@ -1,6 +1,13 @@
 {
-  "MANOSABA-LABOURS_OF_HIRO_SETTINGS.title": "十二試煉",
-  "MANOSABA-LABOURS_OF_HIRO_EFFECT_FREQUENCY.title": "十二試煉 SFX/VFX",
+  "MANOSABA-SFX_SETTINGS.title": "特效設定",
+  "MANOSABA-LABOURS_OF_HIRO_EFFECT_FREQUENCY.title": "十二試煉",
   "MANOSABA-LABOURS_OF_HIRO_EFFECT_FREQUENCY.hover.title": "播放頻率",
-  "MANOSABA-LABOURS_OF_HIRO_EFFECT_FREQUENCY.hover.desc": "設定十二試煉的專屬 SFX/VFX 播放頻率：每次、每場 Run 一次，或永不播放。"
+  "MANOSABA-LABOURS_OF_HIRO_EFFECT_FREQUENCY.hover.desc": "設定十二試煉的專屬 SFX/VFX 播放頻率：每次、每場 Run 一次，或永不播放。",
+  "MANOSABA-DIFFICULTY_SETTINGS.title": "難度 (多人必須配置一樣！)",
+  "MANOSABA-ENABLE_ENEMY_HP_MULTIPLIER.title": "啟用敵人血量倍率",
+  "MANOSABA-ENABLE_ENEMY_HP_MULTIPLIER.hover.title": "敵人血量調整",
+  "MANOSABA-ENABLE_ENEMY_HP_MULTIPLIER.hover.desc": "啟用後，敵人的最大生命值會乘上設定的倍率百分比。",
+  "MANOSABA-ENEMY_HP_MULTIPLIER_PERCENT.title": "敵人血量倍率",
+  "MANOSABA-ENEMY_HP_MULTIPLIER_PERCENT.hover.title": "敵人血量百分比",
+  "MANOSABA-ENEMY_HP_MULTIPLIER_PERCENT.hover.desc": "套用到敵人最大生命值的倍率。100% 代表不變。"
 }

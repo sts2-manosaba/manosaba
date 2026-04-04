@@ -17,7 +17,7 @@ namespace manosaba.Characters.NikaidoHiro.Relics
     {
         public override RelicRarity Rarity => RelicRarity.Starter;
         protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<VotePower>()];
-        protected override int MaxRelicLevel => 3;
+        protected override int MaxRelicLevel => 5;
 
         protected override IEnumerable<DynamicVar> CanonicalVars => [new DynamicVar("VoteCost", 1m), new SummonVar(7)];
 
@@ -54,12 +54,14 @@ namespace manosaba.Characters.NikaidoHiro.Relics
         private void ApplyRelicLevelEffects()
         {
             // Pen of Hiro level effects are defined on this relic:
-            // Lv1: VoteCost 1 / Summon 7
-            // Lv2: VoteCost 1 / Summon 9
-            // Lv3: VoteCost 0 / Summon 11
+            // Lv1: Summon 6
+            // Lv2: Summon 8
+            // Lv3: Summon 10
+            // Lv4: Summon 12
+            // Lv5: Summon 15
             int level = RelicLevel;
-            base.DynamicVars["VoteCost"].BaseValue = level >= 3 ? 0m : 1m;
-            base.DynamicVars.Summon.BaseValue = 7m + (level - 1) * 2m;
+            base.DynamicVars.Summon.BaseValue = 6m + (level - 1) * 2m;
+            base.DynamicVars.Summon.BaseValue += level == 5 ? 1m : 0m;
         }
     }
 }

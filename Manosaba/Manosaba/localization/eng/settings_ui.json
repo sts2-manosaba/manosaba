@@ -1,6 +1,13 @@
 {
-  "MANOSABA-LABOURS_OF_HIRO_SETTINGS.title": "Labours of Hiro",
-  "MANOSABA-LABOURS_OF_HIRO_EFFECT_FREQUENCY.title": "Labours of Hiro SFX/VFX",
+  "MANOSABA-SFX_SETTINGS.title": "SFX Settings",
+  "MANOSABA-LABOURS_OF_HIRO_EFFECT_FREQUENCY.title": "Labours of Hiro",
   "MANOSABA-LABOURS_OF_HIRO_EFFECT_FREQUENCY.hover.title": "Playback Frequency",
-  "MANOSABA-LABOURS_OF_HIRO_EFFECT_FREQUENCY.hover.desc": "Choose how often Labours of Hiro plays its special SFX/VFX: every time, once per run, or never."
+  "MANOSABA-LABOURS_OF_HIRO_EFFECT_FREQUENCY.hover.desc": "Choose how often Labours of Hiro plays its special SFX/VFX: every time, once per run, or never.",
+  "MANOSABA-DIFFICULTY_SETTINGS.title": "Difficulty (Settings must be same for multiplayer!)",
+  "MANOSABA-ENABLE_ENEMY_HP_MULTIPLIER.title": "Enable Enemy HP Multiplier",
+  "MANOSABA-ENABLE_ENEMY_HP_MULTIPLIER.hover.title": "Enemy HP Scaling",
+  "MANOSABA-ENABLE_ENEMY_HP_MULTIPLIER.hover.desc": "When enabled, enemy max HP is multiplied by the configured percentage.",
+  "MANOSABA-ENEMY_HP_MULTIPLIER_PERCENT.title": "Enemy HP Multiplier",
+  "MANOSABA-ENEMY_HP_MULTIPLIER_PERCENT.hover.title": "Enemy HP Percentage",
+  "MANOSABA-ENEMY_HP_MULTIPLIER_PERCENT.hover.desc": "Multiplier applied to enemy max HP. 100% means unchanged."
 }
