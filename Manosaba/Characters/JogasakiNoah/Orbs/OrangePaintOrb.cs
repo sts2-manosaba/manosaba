@@ -14,9 +14,9 @@ public sealed class OrangePaintOrb : ManosabaOrbModel
 {
     public override Color DarkenedColor => new("9A5E2F");
 
-    public override decimal PassiveVal => ModifyOrbValue(3m);
+    public override decimal PassiveVal => ModifyPaintOrbValue(3m);
 
-    public override decimal EvokeVal => ModifyOrbValue(5m);
+    public override decimal EvokeVal => ModifyPaintOrbValue(5m);
 
     public override Task BeforeTurnEndOrbTrigger(PlayerChoiceContext choiceContext)
     {
