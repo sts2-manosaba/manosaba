@@ -1,6 +1,8 @@
+using BaseLib.Config;
 using Godot.Bridge;
 using HarmonyLib;
 using Manosaba.Characters.JogasakiNoah.Potions;
+using Manosaba.Config;
 using MegaCrit.Sts2.Core.Logging;
 using MegaCrit.Sts2.Core.Modding;
 using MegaCrit.Sts2.Core.Saves.Runs;
@@ -15,6 +17,8 @@ public class Entry
     // 初始化函数
     public static void Init()
     {
+        ModConfigRegistry.Register(ModId, new ManosabaConfig());
+
         var harmony = new Harmony(ModId);
         harmony.PatchAll();
         SavedPropertiesTypeCache.InjectTypeIntoCache(typeof(DrawingBoard));

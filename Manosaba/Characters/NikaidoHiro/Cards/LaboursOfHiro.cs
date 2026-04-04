@@ -3,6 +3,7 @@ using manosaba.Characters.NikaidoHiro;
 using Manosaba.Characters.Common.Commands;
 using Manosaba.Characters.Common.Overrides;
 using Manosaba.Characters.NikaidoHiro.Powers;
+using Manosaba.Config;
 using Manosaba.Extensions;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
@@ -36,10 +37,23 @@ namespace Manosaba.Characters.NikaidoHiro.Cards
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
             await PowerCmd.Apply<LaboursOfHiroPower>(Owner.Creature, 1m, Owner.Creature, this);
-            if (!_vfxPlayedThisSession)
+
+            LaboursOfHiroFxPlayMode fxPlayMode = ManosabaConfig.LaboursOfHiroEffectFrequency;
+            if (fxPlayMode == LaboursOfHiroFxPlayMode.Never)
             {
-                ManosabaVfxCmd.PlaySceneAtCombatCenter(VfxScenePath, fitCoverViewport: true);
-                SfxCmd.Play("event:/Manosaba/audio/bgm/ai_no_zanshi.mp3", 0.8f);
+                return;
+            }
+
+            if (fxPlayMode == LaboursOfHiroFxPlayMode.OncePerRun && _vfxPlayedThisSession)
+            {
+                return;
+            }
+
+            ManosabaVfxCmd.PlaySceneAtCombatCenter(VfxScenePath, fitCoverViewport: true);
+            SfxCmd.Play("event:/Manosaba/audio/bgm/ai_no_zanshi.mp3", 0.8f);
+
+            if (fxPlayMode == LaboursOfHiroFxPlayMode.OncePerRun)
+            {
                 _vfxPlayedThisSession = true;
             }
         }
