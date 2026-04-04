@@ -64,9 +64,13 @@ namespace Manosaba.Characters.SaekiMiria.Cards
 
         private static void DoHackyThingsForSpecificPowers(PowerModel power)
         {
-            if (power is ITemporaryPower temporaryPower)
+            if (power is ITemporaryPower temporaryPower )
             {
                 temporaryPower.IgnoreNextInstance();
+            }
+            else if(power is ManosabaTemporaryStrengthPower temporaryStrengthPower)
+            {
+                temporaryStrengthPower.IgnoreNextInstance();
             }
         }
 

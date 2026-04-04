@@ -1,17 +1,18 @@
-using System;
-
 using BaseLib.Utils;
 using manosaba.Characters.SaekiMiria;
 using manosaba.Characters.TachibanaSherry;
+using Manosaba.Characters.Common.Cards;
 using Manosaba.Characters.Common.Powers;
 using Manosaba.Extensions;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Creatures;
+using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models.Powers;
 using MegaCrit.Sts2.Core.ValueProps;
+using System;
 
 namespace Manosaba.Characters.SaekiMiria.Cards
 {
@@ -41,6 +42,8 @@ namespace Manosaba.Characters.SaekiMiria.Cards
                 .Targeting(target)
                 .WithHitCount(hitCount)
                 .Execute(choiceContext);
+
+            await PowerCmd.Apply<VotePower>(base.Owner.Creature, -voteStacks, base.Owner.Creature, null);
         }
 
         protected override void OnUpgrade()

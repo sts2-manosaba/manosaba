@@ -1,5 +1,6 @@
 ﻿using BaseLib.Utils;
 using manosaba.Characters.Common;
+using manosaba.Characters.SaekiMiria;
 using Manosaba.Extensions;
 using MegaCrit.Sts2.Core.CardSelection;
 using MegaCrit.Sts2.Core.Commands;
@@ -12,7 +13,7 @@ using MegaCrit.Sts2.Core.Models.Powers;
 
 namespace Manosaba.Characters.SaekiMiria.Cards
 {
-    [Pool(typeof(CommonCardPool))]
+    [Pool(typeof(SaekiMiriaCardPool))]
     public class CleanUp : PathCustomCardModel
     {
 
@@ -35,7 +36,7 @@ namespace Manosaba.Characters.SaekiMiria.Cards
             {
                 await CardCmd.Exhaust(choiceContext, cardModel);
             }
-            await CardPileCmd.Draw(choiceContext, base.DynamicVars.Cards.BaseValue, base.Owner);
+            await PowerCmd.Apply<DrawCardsNextTurnPower>(base.Owner.Creature, base.DynamicVars.Cards.IntValue, base.Owner.Creature, this);
         }
 
         protected override void OnUpgrade()

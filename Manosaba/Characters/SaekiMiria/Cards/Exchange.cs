@@ -15,6 +15,7 @@ using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.Cards;
+using Manosaba.Characters.SaekiMiria.Helper;
 
 namespace Manosaba.Characters.SaekiMiria.Cards
 {
@@ -39,13 +40,38 @@ namespace Manosaba.Characters.SaekiMiria.Cards
             var target = cardPlay.Target.Player;
 
 
-            //var pool = target.Character.CardPool;
-            var pool = target.PlayerCombatState.PlayPile.Cards;
-            var cards = pool.Where(c => c.Type != CardType.Quest && c.Type != CardType.Status)
-                .Where(c => c.Rarity != CardRarity.Ancient && c.Rarity != CardRarity.Token);
+            var pool = target.Character.CardPool.AllCards;
+            var deck = CardPile.GetCards(target, PileType.Deck);
 
-            var generatedList = CardFactory
-                .GetDistinctForCombat(base.Owner, cards, 1, base.Owner.RunState.Rng.CombatCardGeneration)
+            Console.WriteLine("Pool:");
+            foreach (var c in pool)
+            {
+                Console.WriteLine(c.Id);
+            }
+            Console.WriteLine("Deck:");
+            foreach (var c in deck)
+            {
+                Console.WriteLine(c.Id);
+            }
+
+            var deckIds = deck
+                .Select(c => c.Id)
+                .ToHashSet();
+
+            var cards = pool
+                .Where(c => c.Type != CardType.Quest && c.Type != CardType.Status)
+                .Where(c => c.Rarity != CardRarity.Ancient && c.Rarity != CardRarity.Token)
+                .Where(c => deckIds.Contains(c.Id))
+                .ToList();
+
+            Console.WriteLine("Cards:");
+            foreach (var c in cards)
+            {
+                Console.WriteLine(c.Id);
+            }
+
+            var generatedList = CardHelperService
+                .GetAvailableCards(base.Owner, cards, 1, base.Owner.RunState.Rng.CombatCardGeneration)
                 .ToList();
 
             var card = generatedList.FirstOrDefault();
@@ -66,13 +92,21 @@ namespace Manosaba.Characters.SaekiMiria.Cards
             }
 
 
-            //var pool2 = base.Owner.Character.CardPool;
-            var pool2 = base.Owner.PlayerCombatState.PlayPile.Cards;
-            var cards2 = pool2.Where(c => c.Type != CardType.Quest && c.Type != CardType.Status)
-                .Where(c => c.Rarity != CardRarity.Ancient && c.Rarity != CardRarity.Token);
+            var pool2 = base.Owner.Character.CardPool.AllCards;
+            var deck2 = CardPile.GetCards(Owner, PileType.Deck);
 
-            var generatedList2 = CardFactory
-                .GetDistinctForCombat(target, cards2, 1, target.RunState.Rng.CombatCardGeneration)
+            var deckIds2 = deck2
+                .Select(c => c.Id)
+                .ToHashSet();
+
+            var cards2 = pool2
+                .Where(c => c.Type != CardType.Quest && c.Type != CardType.Status)
+                .Where(c => c.Rarity != CardRarity.Ancient && c.Rarity != CardRarity.Token)
+                .Where(c => deckIds2.Contains(c.Id))
+                .ToList();
+
+            var generatedList2 = CardHelperService
+                .GetAvailableCards(target, cards2, 1, target.RunState.Rng.CombatCardGeneration)
                 .ToList();
 
             var card2 = generatedList2.FirstOrDefault(); 
@@ -80,7 +114,7 @@ namespace Manosaba.Characters.SaekiMiria.Cards
             {
                 if (base.IsUpgraded)
                 {
-                    CardCmd.Upgrade(card);
+                    CardCmd.Upgrade(card2);
                 }
                 var copy2 = card2.CreateClone(); 
 

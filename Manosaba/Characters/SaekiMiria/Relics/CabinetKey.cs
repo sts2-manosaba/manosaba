@@ -17,7 +17,7 @@ namespace manosaba.Characters.SaekiMiria.Relics
     {
         public override RelicRarity Rarity => RelicRarity.Starter;
 
-        protected override IEnumerable<DynamicVar> CanonicalVars => [new BlockVar(2m, ValueProp.Unpowered)];
+        protected override IEnumerable<DynamicVar> CanonicalVars => [new BlockVar(1m, ValueProp.Unpowered)];
 
         public override async Task AfterPlayerTurnStart(PlayerChoiceContext choiceContext, Player player)
         {
@@ -28,7 +28,7 @@ namespace manosaba.Characters.SaekiMiria.Relics
             if (vote > 0) {
                 Flash();
                 await CreatureCmd.GainBlock(base.Owner.Creature, new BlockVar(base.DynamicVars.Block.BaseValue*vote, ValueProp.Unpowered), null);
-                await PowerCmd.Apply<VotePower>(base.Owner.Creature, -1, player.Creature, null);
+                await PowerCmd.Apply<VotePower>(base.Owner.Creature, -vote/2, player.Creature, null);
             }
         }
     }
