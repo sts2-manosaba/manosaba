@@ -1,5 +1,7 @@
 using Godot;
 using MegaCrit.Sts2.Core.Nodes;
+using MegaCrit.Sts2.Core.Nodes.Audio;
+using MegaCrit.Sts2.Core.Saves;
 
 namespace Manosaba.Audio;
 
@@ -9,6 +11,8 @@ public static class GodotSfxRouter
     private const string BgmEventPrefix = "event:/Manosaba/audio/bgm/";
     private static AudioStreamPlayer? _customBgmPlayer;
     private static string? _currentBgmEvent;
+    private static float _currentBgmBaseVolume = 1f;
+    private static bool _vanillaBgmDucked;
 
     public static bool TryPlay(string eventPath, float volume = 1f)
     {
@@ -84,10 +88,15 @@ public static class GodotSfxRouter
 
     private static void PlayCustomBgm(NGame game, string eventPath, AudioStream stream, float volume)
     {
+        PauseVanillaBgm();
+        _currentBgmBaseVolume = volume;
+        float effectiveVolume = volume * GetConfiguredBgmVolume();
+
         if (_customBgmPlayer != null && GodotObject.IsInstanceValid(_customBgmPlayer))
         {
             if (_currentBgmEvent == eventPath && _customBgmPlayer.IsPlaying())
             {
+                _customBgmPlayer.VolumeLinear = effectiveVolume;
                 return;
             }
 
@@ -101,7 +110,7 @@ public static class GodotSfxRouter
         {
             Name = "ManosabaCustomBgmPlayer",
             Stream = stream,
-            VolumeLinear = volume,
+            VolumeLinear = effectiveVolume,
             Bus = "Master"
         };
         _customBgmPlayer.Finished += () =>
@@ -109,11 +118,27 @@ public static class GodotSfxRouter
             _customBgmPlayer?.QueueFree();
             _customBgmPlayer = null;
             _currentBgmEvent = null;
+            _currentBgmBaseVolume = 1f;
+            ResumeVanillaBgm();
         };
 
         game.AddChild(_customBgmPlayer);
         _customBgmPlayer.Play();
         _currentBgmEvent = eventPath;
+    }
+
+    private static float GetConfiguredBgmVolume()
+    {
+        try
+        {
+            // Mirror NAudioManager.SetBgmVol's response curve.
+            float bgm = SaveManager.Instance.SettingsSave.VolumeBgm;
+            return Mathf.Pow(Mathf.Clamp(bgm, 0f, 1f), 2f);
+        }
+        catch
+        {
+            return 1f;
+        }
     }
 
     public static void StopCustomBgmAndResumeVanilla()
@@ -125,5 +150,49 @@ public static class GodotSfxRouter
             _customBgmPlayer = null;
         }
         _currentBgmEvent = null;
+        _currentBgmBaseVolume = 1f;
+        ResumeVanillaBgm();
+    }
+
+    public static void RefreshCustomBgmVolumeFromSettings()
+    {
+        if (_customBgmPlayer != null && GodotObject.IsInstanceValid(_customBgmPlayer))
+        {
+            _customBgmPlayer.VolumeLinear = _currentBgmBaseVolume * GetConfiguredBgmVolume();
+        }
+    }
+
+    private static void PauseVanillaBgm()
+    {
+        if (_vanillaBgmDucked)
+        {
+            return;
+        }
+
+        NAudioManager.Instance?.SetBgmVol(0f);
+        _vanillaBgmDucked = true;
+    }
+
+    private static void ResumeVanillaBgm()
+    {
+        if (!_vanillaBgmDucked)
+        {
+            return;
+        }
+
+        NAudioManager.Instance?.SetBgmVol(GetConfiguredBgmVolumeRaw());
+        _vanillaBgmDucked = false;
+    }
+
+    private static float GetConfiguredBgmVolumeRaw()
+    {
+        try
+        {
+            return Mathf.Clamp(SaveManager.Instance.SettingsSave.VolumeBgm, 0f, 1f);
+        }
+        catch
+        {
+            return 1f;
+        }
     }
 }

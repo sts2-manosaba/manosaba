@@ -14,6 +14,7 @@ namespace Manosaba.Characters.NikaidoHiro.Cards
     [Pool(typeof(NikaidoHiroCardPool))]
     public class LaboursOfHiro : PathCustomCardModel
     {
+        private static bool _vfxPlayedThisSession = false;
         private const string VfxScenePath = "res://Manosaba/scenes/nikaido_hiro/vfx/labours_of_hiro.tscn";
         private const int energyCost = 2;
         private const CardType type = CardType.Power;
@@ -27,11 +28,20 @@ namespace Manosaba.Characters.NikaidoHiro.Cards
         {
         }
 
+        public static void ResetVfxForNewRun()
+        {
+            _vfxPlayedThisSession = false;
+        }
+
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
             await PowerCmd.Apply<LaboursOfHiroPower>(Owner.Creature, 1m, Owner.Creature, this);
-            ManosabaVfxCmd.PlaySceneAtCombatCenter(VfxScenePath, fitCoverViewport: true);
-            SfxCmd.Play("event:/Manosaba/audio/bgm/ai_no_zanshi.mp3", 0.2f);
+            if (!_vfxPlayedThisSession)
+            {
+                ManosabaVfxCmd.PlaySceneAtCombatCenter(VfxScenePath, fitCoverViewport: true);
+                SfxCmd.Play("event:/Manosaba/audio/bgm/ai_no_zanshi.mp3", 0.8f);
+                _vfxPlayedThisSession = true;
+            }
         }
 
         protected override void OnUpgrade()

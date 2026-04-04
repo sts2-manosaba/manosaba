@@ -96,7 +96,7 @@ namespace Manosaba.Characters.Common.Cards
                 int playerTimesCost = combatState.Creatures.Count(c => c.IsPlayer) * DynamicVars["MajokaPower"].IntValue;
                 if (totalMajoka >= playerTimesCost)
                 {
-                    SfxCmd.Play("event:/Manosaba/audio/bgm/world_vanquisher.mp3", 0.2f);
+                    SfxCmd.Play("event:/Manosaba/audio/bgm/world_vanquisher.mp3", 0.8f);
                 }
             }
         }
