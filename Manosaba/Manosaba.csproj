@@ -28,9 +28,9 @@
 		<AutoSteamPath>$(registry:HKEY_CURRENT_USER\Software\Valve\Steam@SteamPath)\steamapps</AutoSteamPath>
 		<SteamLibraryPath Condition="Exists('$(AutoSteamPath)/common/Slay the Spire 2')">$(AutoSteamPath)</SteamLibraryPath>
 
-		<GodotPath Condition="'$(GodotPath)' == ''">Z:\Godot_v4.5.1-stable_mono_win64\Godot_v4.5.1-stable_mono_win64.exe</GodotPath>
+		<GodotPath Condition="'$(GodotPath)' == ''">E:\STS2Mod\Godot_v4.5.1-stable_mono_win64\Godot_v4.5.1-stable_mono_win64.exe</GodotPath>
 		<!-- If on Windows and Slay the Spire 2 is not installed in your default steam library, adjust the following.-->
-		<SteamLibraryPath Condition="'$(SteamLibraryPath)' == ''">Z:\SteamLibrary\steamapps</SteamLibraryPath>
+		<SteamLibraryPath Condition="'$(SteamLibraryPath)' == ''">D:\SteamLibrary\steamapps</SteamLibraryPath>
 
 		<!-- The below should not need to be changed. -->
 		<Sts2Path>$(SteamLibraryPath)/common/Slay the Spire 2</Sts2Path>
@@ -109,7 +109,7 @@
 	<ItemGroup>
 		<None Remove="Manosaba\mod_image.png.import" />
 	</ItemGroup>
-	
+
 	<Target Name="CheckDependencyPaths">
 		<Error Text=" Slay the Spire 2 data not found at path '$(Sts2DataDir)'" Condition="'$(Sts2DataDir)' == '' or !Exists('$(Sts2DataDir)')" />
 		<Error Text=" Godot not found at path '$(GodotPath)'" Condition="'$(GodotPath)' == '' or !Exists('$(GodotPath)')" />
