@@ -18,7 +18,7 @@ colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0)
 _data = [Vector2(0.00596422, 0.0309963), 0.0, 2.09119, 0, 0, Vector2(1, 0.995203), 0.241291, 0.0, 0, 0]
 point_count = 2
 
-[node name="NikaidoHiroEnergyCounter" type="Control"]
+[node name="TachibanaSherryEnergyCounter" type="Control"]
 layout_mode = 3
 anchors_preset = 0
 offset_right = 128.0
@@ -125,3 +125,6 @@ text = "3/3"
 horizontal_alignment = 1
 vertical_alignment = 1
 script = ExtResource("4_mjhjb")
+AutoSizeEnabled = null
+MinFontSize = null
+MaxFontSize = null

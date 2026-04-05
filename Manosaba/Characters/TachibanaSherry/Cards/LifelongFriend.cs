@@ -20,7 +20,7 @@ namespace Manosaba.Characters.TachibanaSherry.Cards
         private const bool shouldShowInCardLibrary = true;
         public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
 
-        protected override IEnumerable<DynamicVar> CanonicalVars => [];
+        protected override IEnumerable<DynamicVar> CanonicalVars => [new PowerVar<LifelongFriendPower>(1)];
 
         public LifelongFriend() : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)
         {
@@ -30,8 +30,9 @@ namespace Manosaba.Characters.TachibanaSherry.Cards
         {
             ArgumentNullException.ThrowIfNull(cardPlay.Target, "cardPlay.Target");
 
-            LifelongFriendPower? selfPower = await PowerCmd.Apply<LifelongFriendPower>(base.Owner.Creature, 1m, base.Owner.Creature, this);
-            LifelongFriendPower? allyPower = await PowerCmd.Apply<LifelongFriendPower>(cardPlay.Target, 1m, base.Owner.Creature, this);
+            decimal stack = DynamicVars["LifelongFriendPower"].BaseValue;
+            LifelongFriendPower? selfPower = await PowerCmd.Apply<LifelongFriendPower>(base.Owner.Creature, stack, base.Owner.Creature, this);
+            LifelongFriendPower? allyPower = await PowerCmd.Apply<LifelongFriendPower>(cardPlay.Target, stack, base.Owner.Creature, this);
             selfPower?.SetPartner(cardPlay.Target);
             allyPower?.SetPartner(base.Owner.Creature);
         }

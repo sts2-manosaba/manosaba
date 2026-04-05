@@ -16,7 +16,7 @@ namespace Manosaba.Characters.TachibanaSherry.Powers
     public class QuickWitPower : PathCustomPowerModel
     {
         public override PowerType Type => PowerType.Buff;
-        public override PowerStackType StackType => PowerStackType.Single;
+        public override PowerStackType StackType => PowerStackType.Counter;
 
         private static readonly IReadOnlyList<int> StrengthGainValues = new List<int> { 1, 2, 3 };
         private static readonly IReadOnlyList<int> DexterityDeltaValues = new List<int> { -2, -1, 0, 1, 2 };
@@ -31,40 +31,43 @@ namespace Manosaba.Characters.TachibanaSherry.Powers
 
             var rng = Owner.Player.RunState.Rng.CombatTargets;
 
-            int strengthGain = rng.NextItem(StrengthGainValues);
-            int dexDelta = rng.NextItem(DexterityDeltaValues);
-            int hpDelta = rng.NextItem(HpDeltaValues);
-            int vulnerableStacks = rng.NextItem(VulnerableValues);
-            int weakStacks = rng.NextItem(WeakValues);
-
-            await PowerCmd.Apply<StrengthPower>(Owner, strengthGain, Owner, null);
-            if (dexDelta != 0)
-                await PowerCmd.Apply<DexterityPower>(Owner, dexDelta, Owner, null);
-
-            if (hpDelta >= 0)
+            for (int stack = 0; stack < (int)Amount; stack++)
             {
-                await CreatureCmd.Heal(Owner, hpDelta);
-            }
-            else
-            {
-                await CreatureCmd.Damage(choiceContext, Owner, -hpDelta, ValueProp.Unpowered, Owner);
-            }
+                int strengthGain = rng.NextItem(StrengthGainValues);
+                int dexDelta = rng.NextItem(DexterityDeltaValues);
+                int hpDelta = rng.NextItem(HpDeltaValues);
+                int vulnerableStacks = rng.NextItem(VulnerableValues);
+                int weakStacks = rng.NextItem(WeakValues);
 
-            var combatState = Owner.CombatState;
-            if (combatState == null)
-                return;
+                await PowerCmd.Apply<StrengthPower>(Owner, strengthGain, Owner, null);
+                if (dexDelta != 0)
+                    await PowerCmd.Apply<DexterityPower>(Owner, dexDelta, Owner, null);
 
-            IEnumerable<Creature> enemies = combatState.GetOpponentsOf(Owner);
-            foreach (Creature enemy in enemies)
-            {
-                if (!enemy.IsAlive)
-                    continue;
+                if (hpDelta >= 0)
+                {
+                    await CreatureCmd.Heal(Owner, hpDelta);
+                }
+                else
+                {
+                    await CreatureCmd.Damage(choiceContext, Owner, -hpDelta, ValueProp.Unpowered, Owner);
+                }
 
-                if (vulnerableStacks > 0)
-                    await PowerCmd.Apply<VulnerablePower>(enemy, vulnerableStacks, Owner, null);
+                var combatState = Owner.CombatState;
+                if (combatState == null)
+                    return;
 
-                if (weakStacks > 0)
-                    await PowerCmd.Apply<WeakPower>(enemy, weakStacks, Owner, null);
+                IEnumerable<Creature> enemies = combatState.GetOpponentsOf(Owner);
+                foreach (Creature enemy in enemies)
+                {
+                    if (!enemy.IsAlive)
+                        continue;
+
+                    if (vulnerableStacks > 0)
+                        await PowerCmd.Apply<VulnerablePower>(enemy, vulnerableStacks, Owner, null);
+
+                    if (weakStacks > 0)
+                        await PowerCmd.Apply<WeakPower>(enemy, weakStacks, Owner, null);
+                }
             }
         }
     }

@@ -8,7 +8,6 @@ using MegaCrit.Sts2.Core.Entities.Powers;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models.Powers;
-using MegaCrit.Sts2.Core.ValueProps;
 
 using Manosaba.Characters.TachibanaSherry.Powers;
 
@@ -24,6 +23,7 @@ namespace Manosaba.Characters.TachibanaSherry.Cards
         private const bool shouldShowInCardLibrary = true;
 
         protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<QuickWitPower>()];
+        protected override IEnumerable<DynamicVar> CanonicalVars => [new PowerVar<QuickWitPower>(1)];
 
         public QuickWit() : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)
         {
@@ -31,7 +31,7 @@ namespace Manosaba.Characters.TachibanaSherry.Cards
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
-            await PowerCmd.Apply<QuickWitPower>(Owner.Creature, 1m, Owner.Creature, this);
+            await PowerCmd.Apply<QuickWitPower>(Owner.Creature, DynamicVars["QuickWitPower"].BaseValue, Owner.Creature, this);
         }
 
         protected override void OnUpgrade()

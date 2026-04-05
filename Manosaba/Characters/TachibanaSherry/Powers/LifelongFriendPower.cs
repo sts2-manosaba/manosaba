@@ -17,7 +17,7 @@ namespace Manosaba.Characters.TachibanaSherry.Powers
         private Creature? _partner;
 
         public override PowerType Type => PowerType.Buff;
-        public override PowerStackType StackType => PowerStackType.Single;
+        public override PowerStackType StackType => PowerStackType.Counter;
 
         public void SetPartner(Creature partner)
         {
@@ -29,19 +29,22 @@ namespace Manosaba.Characters.TachibanaSherry.Powers
             if (player.Creature != Owner)
                 return;
 
-            decimal current = Owner.GetPowerAmount<MajokaPower>();
-            if (current > 0)
+            for (int stack = 0; stack < (int)Amount; stack++)
             {
-                decimal remove = Math.Min(10m, current);
-                await PowerCmd.Apply<MajokaPower>(Owner, -remove, Owner, null);
-            }
+                decimal current = Owner.GetPowerAmount<MajokaPower>();
+                if (current > 0)
+                {
+                    decimal remove = Math.Min(10m, current);
+                    await PowerCmd.Apply<MajokaPower>(Owner, -remove, Owner, null);
+                }
 
-            if (Owner.CombatState != null)
-            {
-                CardModel boulder = Owner.CombatState.CreateCard(ModelDb.Card<Boulders>(), Owner.Player);
-                boulder.EnergyCost.SetThisTurnOrUntilPlayed(0);
-                CardCmd.ApplyKeyword(boulder, CardKeyword.Exhaust);
-                await CardPileCmd.AddGeneratedCardToCombat(boulder, PileType.Hand, true);
+                if (Owner.CombatState != null)
+                {
+                    CardModel boulder = Owner.CombatState.CreateCard(ModelDb.Card<Boulders>(), Owner.Player);
+                    boulder.EnergyCost.SetThisTurnOrUntilPlayed(0);
+                    CardCmd.ApplyKeyword(boulder, CardKeyword.Exhaust);
+                    await CardPileCmd.AddGeneratedCardToCombat(boulder, PileType.Hand, true);
+                }
             }
         }
 

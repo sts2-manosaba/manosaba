@@ -3,10 +3,10 @@
 [ext_resource type="Script" uid="uid://cnvmx0lgyr8bh" path="res://Characters/Common/Overrides/ManosabaMerchantCharacter.cs" id="1_tvilr"]
 [ext_resource type="Texture2D" uid="uid://cw7vnnk8bm5wx" path="res://Manosaba/images/characters/tachibana_sherry/TachibanaSherryThink.png" id="2_vv0ff"]
 
-[node name="NikaidoHiroMerchant" type="Node2D"]
+[node name="TachibanaSherryMerchant" type="Node2D"]
 script = ExtResource("1_tvilr")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(-2.0828311, -220.642)
-scale = Vector2(0.33709538, 0.33709547)
+position = Vector2(10.000013, -202.50336)
+scale = Vector2(0.36579573, 0.36579585)
 texture = ExtResource("2_vv0ff")
