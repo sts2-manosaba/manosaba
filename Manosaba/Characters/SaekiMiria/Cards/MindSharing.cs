@@ -175,7 +175,6 @@ namespace Manosaba.Characters.NikaidoHiro.Cards
 
         protected override void OnUpgrade()
         {
-            AddKeyword(CardKeyword.Retain);
         }
     }
 }
