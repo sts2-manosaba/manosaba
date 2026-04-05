@@ -60,6 +60,9 @@
 
   "MANOSABA-FRIENDLY_POWER.title": "親和力",
   "MANOSABA-FRIENDLY_POWER.description": "降低從攻擊受到的傷害20%。",
-  "MANOSABA-FRIENDLY_POWER.smartDescription": "降低從攻擊受到的傷害20%。"
+  "MANOSABA-FRIENDLY_POWER.smartDescription": "降低從攻擊受到的傷害20%。",
+  "MANOSABA-MEMORY_SHARING_POWER.title": "記憶共享",
+  "MANOSABA-MEMORY_SHARING_POWER.description": "每回合開始時根據[gold]魔女化[/gold]獲得隨機一張隊友的卡片。",
+  "MANOSABA-MEMORY_SHARING_POWER.smartDescription": "每回合開始時獲得隨機一張隊友的卡片。"
 
 }

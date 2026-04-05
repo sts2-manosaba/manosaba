@@ -30,8 +30,8 @@ namespace manosaba.Characters.SaekiMiria
             ModelDb.Card<DefendSaekiMiria>(),
             ModelDb.Card<DefendSaekiMiria>(),
             ModelDb.Card<DefendSaekiMiria>(),
+            ModelDb.Card<DefendSaekiMiria>(),
             ModelDb.Card<TraumaSaekiMiria>(),
-            ModelDb.Card<Exchange>(),
             ModelDb.Card<Exchange>(),
         ];
 

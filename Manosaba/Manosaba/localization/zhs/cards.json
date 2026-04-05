@@ -243,5 +243,7 @@
   "MANOSABA-FRIENDLY.title": "親和力",
   "MANOSABA-FRIENDLY.description": "降低從攻擊受到的傷害20%。",
   "MANOSABA-CLEAN_UP.title": "收拾善後",
-  "MANOSABA-CLEAN_UP.description": "[gold]消耗[/gold]1張牌。下一回合開始時\n抽{Cards:diff()}張牌。"
+  "MANOSABA-CLEAN_UP.description": "[gold]消耗[/gold]1張牌。下一回合開始時\n抽{Cards:diff()}張牌。",
+  "MANOSABA-MEMORY_SHARING.title": "記憶共享",
+  "MANOSABA-MEMORY_SHARING.description": "所有角色獲得一層[gold]記憶共享[/gold]。"
 }

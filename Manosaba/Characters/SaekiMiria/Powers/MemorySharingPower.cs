@@ -1,0 +1,138 @@
+using BaseLib.Utils;
+using Manosaba.Characters.Common.Cards;
+using Manosaba.Characters.Common.Powers;
+using Manosaba.Characters.SaekiMiria.Cards;
+using Manosaba.Characters.SaekiMiria.Helper;
+using Manosaba.Extensions;
+using MegaCrit.Sts2.Core.Combat;
+using MegaCrit.Sts2.Core.Commands;
+using MegaCrit.Sts2.Core.Entities.Cards;
+using MegaCrit.Sts2.Core.Entities.Creatures;
+using MegaCrit.Sts2.Core.Entities.Players;
+using MegaCrit.Sts2.Core.Entities.Powers;
+using MegaCrit.Sts2.Core.Factories;
+using MegaCrit.Sts2.Core.GameActions.Multiplayer;
+using MegaCrit.Sts2.Core.Models;
+using MegaCrit.Sts2.Core.Models.CardPools;
+using MegaCrit.Sts2.Core.Models.Cards;
+using MegaCrit.Sts2.Core.Nodes.CommonUi;
+using System;
+
+namespace Manosaba.Characters.SaekiMiria.Powers
+{
+    public sealed class MemorySharingPower : PathCustomPowerModel
+    {
+        private Creature? _applier;
+        private bool _upgraded;
+
+        public override PowerType Type => PowerType.Buff;
+        public override PowerStackType StackType => PowerStackType.Single;
+
+        public void SetApplier(Creature applier)
+        {
+            _applier = applier;
+        }
+
+        public void SetUpgraded()
+        {
+            _upgraded = true;
+        }
+
+        public override async Task BeforeHandDraw(Player player, PlayerChoiceContext choiceContext, CombatState combatState)
+        {
+            if (player.Creature != Owner)
+                return;
+
+
+            decimal majoka = 0m;
+            if (_applier != null && !_applier.IsDead)
+            {
+                majoka = _applier.GetPowerAmount<MajokaPower>();
+            }
+
+            List<CardModel> pool = new List<CardModel>();
+
+            IEnumerable<Player> enumerable = from c in base.CombatState.GetTeammatesOf(base.Owner)
+                                             where c != null && c.IsAlive && c.IsPlayer
+                                             select c.Player;
+            
+            foreach (Player item in enumerable)
+            {
+                var playerPool = item.Character.CardPool.AllCards;
+                if (majoka < 100)
+                {
+                    if(player == item)
+                    {
+                        continue;
+                    }
+                    var playerDeck = CardPile.GetCards(item, PileType.Deck);
+                    var deckIds = playerDeck
+                        .Select(c => c.Id)
+                        .ToHashSet();
+                    playerPool = playerPool.Where(c => deckIds.Contains(c.Id)).ToList();
+                }
+                pool.AddRange(playerPool);
+            }
+
+            HashSet<Type> IgnoredCards = new()
+            {
+                typeof(Exchange)
+            };
+            //filter out quest and status cards, and token rarity cards
+            pool = pool
+                .Where(c => c.Type != CardType.Quest && c.Type != CardType.Status)
+                .Where(c => c.Rarity != CardRarity.Ancient && c.Rarity != CardRarity.Token)
+                .Where(c => !IgnoredCards.Contains(c.GetType()))
+                .ToList();
+
+            if (majoka < 30)
+            {
+                pool = pool.Where(c => c.Rarity == CardRarity.Basic || c.Rarity == CardRarity.Common).ToList();
+            }
+            else if (majoka < 70)
+            {
+                pool = pool.Where(c => c.Rarity == CardRarity.Basic || c.Rarity == CardRarity.Common || c.Rarity == CardRarity.Uncommon).ToList();
+            }
+            else
+            {
+                pool = pool.Where(c => c.Rarity == CardRarity.Basic || c.Rarity == CardRarity.Common || c.Rarity == CardRarity.Uncommon || c.Rarity == CardRarity.Rare).ToList();
+            }
+
+
+            //List<CardModel> cards = CardFactory.GetDistinctForCombat(player, pool, 1, player.RunState.Rng.CombatCardGeneration).ToList();
+
+
+            var generatedList = CardHelperService
+                .GetAvailableCards(base.Owner.Player, pool, 1, base.Owner.Player.RunState.Rng.CombatCardGeneration)
+                .ToList();
+
+            var card = generatedList.FirstOrDefault();
+
+            if (card != null)
+            {
+                if (_upgraded)
+                {
+                    CardCmd.Upgrade(card);
+                }
+                var copy = card.CreateClone();
+
+                if (majoka < 50)
+                {
+                    copy.AddKeyword(CardKeyword.Exhaust);
+
+                }
+                if (majoka < 100)
+                {
+                    copy.AddKeyword(CardKeyword.Ethereal);
+                }
+
+                await CardPileCmd.AddGeneratedCardToCombat(copy, PileType.Hand, addedByPlayer: true);
+
+                
+
+            }
+
+
+        }
+    }
+}
