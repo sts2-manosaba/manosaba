@@ -1,16 +1,29 @@
-[gd_scene load_steps=5 format=3 uid="uid://dmo4o1r6q5wuw"]
+[gd_scene load_steps=6 format=3 uid="uid://dmo4o1r6q5wuw"]
 
 [ext_resource type="Texture2D" uid="uid://cfi1o87kssaqk" path="res://Manosaba/images/characters/hikami_meruru/stills/Still_310_001.png" id="1_still"]
+[ext_resource type="Texture2D" uid="uid://9s8v8pt58wgr" path="res://Manosaba/images/characters/hikami_meruru/stills/Still_310_000.png" id="2_still_intro"]
 
 [sub_resource type="Animation" id="Animation_reset"]
 length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Still:modulate:a")
+tracks/0/path = NodePath("Still:texture")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("2_still_intro")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Still:modulate:a")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
@@ -19,27 +32,39 @@ tracks/0/keys = {
 
 [sub_resource type="Animation" id="Animation_once"]
 resource_name = "still_fade_once"
-length = 2.4
+length = 4.8
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Still:modulate:a")
+tracks/0/path = NodePath("Still:texture")
 tracks/0/interp = 1
 tracks/0/loop_wrap = false
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.4, 2, 2.4),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 0,
-"values": [0.0, 1.0, 1.0, 0.0]
+"times": PackedFloat32Array(0, 2.4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [ExtResource("2_still_intro"), ExtResource("1_still")]
 }
-tracks/1/type = "method"
+tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath(".")
+tracks/1/path = NodePath("Still:modulate:a")
 tracks/1/interp = 1
 tracks/1/loop_wrap = false
 tracks/1/keys = {
-"times": PackedFloat32Array(2.4),
+"times": PackedFloat32Array(0, 0.4, 2, 2.4, 2.4, 2.8, 4.4, 4.8),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [0.0, 1.0, 1.0, 0.0, 0.0, 1.0, 1.0, 0.0]
+}
+tracks/2/type = "method"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".")
+tracks/2/interp = 1
+tracks/2/loop_wrap = false
+tracks/2/keys = {
+"times": PackedFloat32Array(4.8),
 "transitions": PackedFloat32Array(1),
 "values": [{
 "args": [],
@@ -57,7 +82,7 @@ _data = {
 
 [node name="Still" type="Sprite2D" parent="."]
 modulate = Color(1, 1, 1, 0)
-texture = ExtResource("1_still")
+texture = ExtResource("2_still_intro")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {

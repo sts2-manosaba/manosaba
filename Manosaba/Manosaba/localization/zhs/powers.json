@@ -42,8 +42,8 @@
   "MANOSABA-LIQUID_MANIPULATION_POWER.description": "給予相等於層數的百分比減傷，每回合減少 1 層。",
   "MANOSABA-LIQUID_MANIPULATION_POWER.smartDescription": "給予相等於層數的百分比減傷，每回合減少 1 層。",
   "MANOSABA-SPACE_OUT_POWER.title": "色彩化",
-  "MANOSABA-SPACE_OUT_POWER.description": "回合開始時，若你擁有紅、橙、黃、綠、藍、紫、黑、白八種顏料球則直接勝利。若未湊齊則隨機生成 1 顆顏料球。",
-  "MANOSABA-SPACE_OUT_POWER.smartDescription": "回合開始：八色齊全則直接勝利；否則隨機生成 1 顆顏料球。",
+  "MANOSABA-SPACE_OUT_POWER.description": "回合結束時，若你擁有紅、橙、黃、綠、藍、紫、黑、白八種顏料球則直接勝利。回合開始時，隨機生成 1 顆顏料球。",
+  "MANOSABA-SPACE_OUT_POWER.smartDescription": "回合結束：八色齊全則直接勝利；回合開始時生成 1 顆顏料球。",
 
   "MANOSABA-QUICK_WIT_POWER.title": "靈機一動",
   "MANOSABA-QUICK_WIT_POWER.description": "每回合開始，獲得以下全部效果（數值在區間中隨機）：\n獲得1~3點力量、\n獲得-2~2點敏捷、\n血量-10~+10、\n全體敵人獲得易傷0~2層、\n全體敵人獲得虛弱0~2層。",
