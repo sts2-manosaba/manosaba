@@ -49,6 +49,7 @@ namespace Manosaba.Characters.SaekiMiria.Powers
             {
                 majoka = _applier.GetPowerAmount<MajokaPower>();
             }
+            Console.WriteLine($"Majoka amount: {majoka}");
 
             List<CardModel> pool = new List<CardModel>();
 
@@ -76,7 +77,8 @@ namespace Manosaba.Characters.SaekiMiria.Powers
 
             HashSet<Type> IgnoredCards = new()
             {
-                typeof(Exchange)
+                typeof(Exchange),
+                typeof(EmaDogAttack)
             };
             //filter out quest and status cards, and token rarity cards
             pool = pool

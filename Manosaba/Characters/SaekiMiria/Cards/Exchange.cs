@@ -1,5 +1,6 @@
 ﻿using BaseLib.Utils;
 using manosaba.Characters.SaekiMiria;
+using Manosaba.Characters.Common.Cards;
 using Manosaba.Characters.Common.Overrides;
 using Manosaba.Characters.Common.Powers;
 using Manosaba.Characters.NikaidoHiro.Powers;
@@ -42,7 +43,8 @@ namespace Manosaba.Characters.SaekiMiria.Cards
             var target = cardPlay.Target.Player;
             HashSet<Type> IgnoredCards = new()
             {
-                typeof(Exchange)
+                typeof(Exchange),
+                typeof(EmaDogAttack)
             };
 
             var pool = target.Character.CardPool.AllCards;

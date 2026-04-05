@@ -44,7 +44,7 @@ namespace Manosaba.Characters.NikaidoHiro.Cards
             {
                 Console.WriteLine($"Applying MemorySharingPower to {item.Creature.Name}");
                 MemorySharingPower? selfPower = await PowerCmd.Apply<MemorySharingPower>(item.Creature, 1m, base.Owner.Creature, this);
-                selfPower?.SetApplier(cardPlay.Target);
+                selfPower?.SetApplier(base.Owner.Creature);
                 if (base.IsUpgraded) selfPower?.SetUpgraded();
             }
             
