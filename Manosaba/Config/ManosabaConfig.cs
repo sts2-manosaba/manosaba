@@ -2,7 +2,7 @@ using BaseLib.Config;
 
 namespace Manosaba.Config;
 
-public enum LaboursOfHiroFxPlayMode
+public enum ManosabaFxPlayMode
 {
     EveryTime,
     OncePerRun,
@@ -13,7 +13,10 @@ public sealed class ManosabaConfig : SimpleModConfig
 {
     [ConfigSection("SFXSettings")]
     [ConfigHoverTip]
-    public static LaboursOfHiroFxPlayMode LaboursOfHiroEffectFrequency { get; set; } = LaboursOfHiroFxPlayMode.OncePerRun;
+    public static ManosabaFxPlayMode LaboursOfHiroEffectFrequency { get; set; } = ManosabaFxPlayMode.EveryTime;
+
+    [ConfigHoverTip]
+    public static ManosabaFxPlayMode HikamiMeruruExaidEffectFrequency { get; set; } = ManosabaFxPlayMode.EveryTime;
 
     [ConfigSection("DifficultySettings")]
     [ConfigHoverTip]

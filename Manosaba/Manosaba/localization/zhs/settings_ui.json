@@ -9,5 +9,8 @@
   "MANOSABA-ENABLE_ENEMY_HP_MULTIPLIER.hover.desc": "啟用後，敵人的最大生命值會乘上設定的倍率百分比。",
   "MANOSABA-ENEMY_HP_MULTIPLIER_PERCENT.title": "敵人血量倍率",
   "MANOSABA-ENEMY_HP_MULTIPLIER_PERCENT.hover.title": "敵人血量百分比",
-  "MANOSABA-ENEMY_HP_MULTIPLIER_PERCENT.hover.desc": "套用到敵人最大生命值的倍率。100% 代表不變。"
+  "MANOSABA-ENEMY_HP_MULTIPLIER_PERCENT.hover.desc": "套用到敵人最大生命值的倍率。100% 代表不變。",
+  "MANOSABA-HIKAMI_MERURU_EXAID_EFFECT_FREQUENCY.title": "冰↗上↘梅↗露↘露",
+  "MANOSABA-HIKAMI_MERURU_EXAID_EFFECT_FREQUENCY.hover.title": "播放頻率",
+  "MANOSABA-HIKAMI_MERURU_EXAID_EFFECT_FREQUENCY.hover.desc": "設定冰↗上↘梅↗露↘露專屬 SFX 播放頻率：每次、每場 Run 一次，或永不播放。"
 }

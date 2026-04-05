@@ -112,7 +112,7 @@
   "MANOSABA-WORLD_VANQUISHER.description": "Draw {Cards:diff()} cards.\nAt end of turn, if total [gold]Majoka[/gold] in combat is greater than [gold]players[/gold] x {MajokaPower}, this card auto-plays from your deck and you win.",
   "MANOSABA-EMA_DOG_ATTACK.title": "Ema, Attack!",
   "MANOSABA-EMA_DOG_ATTACK.description": "Give your [gold]Sakuraba Ema?[/gold] the [gold]Ema, Attack![/gold] power.",
-  "MANOSABA-HIKAMI_MERURU_EXAID.title": "Hi↗ka↘mi↗ Me↘ru↗ru↘",
+  "MANOSABA-HIKAMI_MERURU_EXAID.title": "Hi↗ka↘mi↗ Me↘ru↗ru",
   "MANOSABA-HIKAMI_MERURU_EXAID.description": "End your turn.\nGain {MajokaPower:diff()} [gold]Majoka[/gold].",
   "MANOSABA-NANOKA_PUZZLE.title": "Nanoka Puzzle",
   "MANOSABA-NANOKA_PUZZLE.description": "Exhaust your entire hand. Transform your [gold]draw pile[/gold] into {NanokaPieces:diff()} [gold]Nanoka Piece[/gold], then add 1 each of [gold]Nanoka Head[/gold], [gold]Nanoka Right Arm[/gold], [gold]Nanoka Right Leg[/gold], [gold]Nanoka Left Arm[/gold], and [gold]Nanoka Left Leg[/gold].",

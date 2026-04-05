@@ -9,5 +9,8 @@
   "MANOSABA-ENABLE_ENEMY_HP_MULTIPLIER.hover.desc": "When enabled, enemy max HP is multiplied by the configured percentage.",
   "MANOSABA-ENEMY_HP_MULTIPLIER_PERCENT.title": "Enemy HP Multiplier",
   "MANOSABA-ENEMY_HP_MULTIPLIER_PERCENT.hover.title": "Enemy HP Percentage",
-  "MANOSABA-ENEMY_HP_MULTIPLIER_PERCENT.hover.desc": "Multiplier applied to enemy max HP. 100% means unchanged."
+  "MANOSABA-ENEMY_HP_MULTIPLIER_PERCENT.hover.desc": "Multiplier applied to enemy max HP. 100% means unchanged.",
+  "MANOSABA-HIKAMI_MERURU_EXAID_EFFECT_FREQUENCY.title": "Hi↗ka↘mi↗ Me↘ru↗ru",
+  "MANOSABA-HIKAMI_MERURU_EXAID_EFFECT_FREQUENCY.hover.title": "Playback Frequency",
+  "MANOSABA-HIKAMI_MERURU_EXAID_EFFECT_FREQUENCY.hover.desc": "Choose how often Hi↗ka↘mi↗ Me↘ru↗ru plays its special SFX: every time, once per run, or never."
 }

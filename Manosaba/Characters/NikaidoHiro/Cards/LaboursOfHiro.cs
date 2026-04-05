@@ -38,13 +38,13 @@ namespace Manosaba.Characters.NikaidoHiro.Cards
         {
             await PowerCmd.Apply<LaboursOfHiroPower>(Owner.Creature, 1m, Owner.Creature, this);
 
-            LaboursOfHiroFxPlayMode fxPlayMode = ManosabaConfig.LaboursOfHiroEffectFrequency;
-            if (fxPlayMode == LaboursOfHiroFxPlayMode.Never)
+            ManosabaFxPlayMode fxPlayMode = ManosabaConfig.LaboursOfHiroEffectFrequency;
+            if (fxPlayMode == ManosabaFxPlayMode.Never)
             {
                 return;
             }
 
-            if (fxPlayMode == LaboursOfHiroFxPlayMode.OncePerRun && _vfxPlayedThisSession)
+            if (fxPlayMode == ManosabaFxPlayMode.OncePerRun && _vfxPlayedThisSession)
             {
                 return;
             }
@@ -52,7 +52,7 @@ namespace Manosaba.Characters.NikaidoHiro.Cards
             ManosabaVfxCmd.PlaySceneAtCombatCenter(VfxScenePath, fitCoverViewport: true);
             SfxCmd.Play("event:/Manosaba/audio/bgm/ai_no_zanshi.mp3", 0.8f);
 
-            if (fxPlayMode == LaboursOfHiroFxPlayMode.OncePerRun)
+            if (fxPlayMode == ManosabaFxPlayMode.OncePerRun)
             {
                 _vfxPlayedThisSession = true;
             }

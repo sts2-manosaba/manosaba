@@ -112,7 +112,7 @@
   "MANOSABA-WORLD_VANQUISHER.description": "抽 {Cards:diff()} 張牌。\n回合結束時，若場上總[gold]魔女化[/gold]層數大於[gold]玩家[/gold] x {MajokaPower} 層則自動從牌堆打出並獲得勝利。",
   "MANOSABA-EMA_DOG_ATTACK.title": "艾瑪出擊",
   "MANOSABA-EMA_DOG_ATTACK.description": "給予你的[gold]櫻羽艾瑪？[/gold]能力：[gold]艾瑪出擊[/gold]",
-  "MANOSABA-HIKAMI_MERURU_EXAID.title": "冰↗上↘梅↗露↘露↗",
+  "MANOSABA-HIKAMI_MERURU_EXAID.title": "冰↗上↘梅↗露↘露",
   "MANOSABA-HIKAMI_MERURU_EXAID.description": "結束你的回合。\n獲得 {MajokaPower:diff()} 層[gold]魔女化[/gold]。",
   "MANOSABA-NANOKA_PUZZLE.title": "超級拼裝",
   "MANOSABA-NANOKA_PUZZLE.description": "消耗所有手牌，將你的[gold]抽牌堆[/gold]變為 {NanokaPieces:diff()} 張[gold]垃圾殘渣[/gold]，並各加入 1 張[gold]奈葉香的頭[/gold]、[gold]奈葉香的右手[/gold]、[gold]奈葉香的右腳[/gold]、[gold]奈葉香的左手[/gold]、[gold]奈葉香的左腳[/gold]。",

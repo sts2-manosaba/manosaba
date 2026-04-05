@@ -1,4 +1,5 @@
 using HarmonyLib;
+using Manosaba.Characters.HikamiMeruru.Cards;
 using Manosaba.Characters.NikaidoHiro.Cards;
 using MegaCrit.Sts2.Core.Runs;
 
@@ -11,5 +12,6 @@ public static class Patch_RunState_CreateForNewRun_ResetLaboursVfx
     private static void Postfix()
     {
         LaboursOfHiro.ResetVfxForNewRun();
+        HikamiMeruruExaid.ResetSfxForNewRun();
     }
 }
