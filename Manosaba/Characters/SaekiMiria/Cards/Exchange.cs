@@ -63,7 +63,14 @@ namespace Manosaba.Characters.SaekiMiria.Cards
                 .Where(c => !IgnoredCards.Contains(c.GetType()))
                 .ToList();
 
-            
+
+            if (!base.IsUpgraded)
+            {
+                pool = pool
+                .Where(c => c.Rarity != CardRarity.Rare)
+                .ToList();
+            }
+
 
             var generatedList = CardHelperService
                 .GetAvailableCards(base.Owner, cards, 1, base.Owner.RunState.Rng.CombatCardGeneration)
@@ -73,10 +80,6 @@ namespace Manosaba.Characters.SaekiMiria.Cards
             
             if (card != null)
             {
-                if (base.IsUpgraded)
-                {
-                    CardCmd.Upgrade(card);
-                }
                 var copy = card.CreateClone(); 
 
                 copy.SetToFreeThisTurn();
@@ -101,6 +104,13 @@ namespace Manosaba.Characters.SaekiMiria.Cards
                 .Where(c => !IgnoredCards.Contains(c.GetType()))
                 .ToList();
 
+            if (!base.IsUpgraded)
+            {
+                pool2 = pool2
+                .Where(c => c.Rarity != CardRarity.Rare)
+                .ToList();
+            }
+
             var generatedList2 = CardHelperService
                 .GetAvailableCards(target, cards2, 1, target.RunState.Rng.CombatCardGeneration)
                 .ToList();
@@ -108,10 +118,6 @@ namespace Manosaba.Characters.SaekiMiria.Cards
             var card2 = generatedList2.FirstOrDefault(); 
             if (card2 != null)
             {
-                if (base.IsUpgraded)
-                {
-                    CardCmd.Upgrade(card2);
-                }
                 var copy2 = card2.CreateClone(); 
 
                 copy2.SetToFreeThisTurn();
