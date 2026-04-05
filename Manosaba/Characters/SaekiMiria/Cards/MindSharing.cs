@@ -33,66 +33,118 @@ namespace Manosaba.Characters.NikaidoHiro.Cards
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
-            List<PowerModel> powers = new List<PowerModel>();
+            // PowerId -> max amount
+            Dictionary<string, int> powerMap = new();
 
-            List<Creature> teammates = CombatState.GetTeammatesOf(Owner.Creature)
-            .Where(c => c != null && c.IsAlive && c.IsPlayer)
-            .ToList();
+            var teammates = CombatState?.GetTeammatesOf(Owner.Creature)
+                ?.Where(c => c != null && c.IsAlive && c.IsPlayer)
+                .ToList();
 
-            foreach (Creature teammate in teammates)
+            if (teammates == null || teammates.Count == 0)
             {
-                foreach(PowerModel item in teammate.Powers)
-                {
-                    AddPowerToList(powers, item);
-                }
+                Console.WriteLine("No valid teammates found for Mind Sharing.");
+                return;
             }
-            foreach (Creature teammate in teammates)
+
+            // ===== Collect powers (DATA ONLY) =====
+            foreach (var teammate in teammates)
             {
-                foreach (PowerModel item in powers)
+                if (teammate?.Powers == null) continue;
+
+                foreach (var item in teammate.Powers)
                 {
-                    Console.WriteLine($"Processing power {item.GetType().Name} with amount {item.Amount} for teammate {teammate.Name}");
-                    PowerModel? powerById = teammate.GetPowerById(item.Id);
+                    if (item == null) continue;
                     if (ShouldIgnoreThisPower(item)) continue;
-                    if (powerById != null && !powerById.IsInstanced)
+
+                    Console.WriteLine($"Collected power {item.GetType().Name} amount {item.Amount} from {teammate.Name}");
+
+                    if (!powerMap.ContainsKey(item.Id.ToString()))
                     {
-                        DoHackyThingsForSpecificPowers(powerById);
-                        if (item.Amount > powerById.Amount)
-                        {
-                            await PowerCmd.ModifyAmount(powerById, item.Amount - powerById.Amount, base.Owner.Creature, this);
-                        }
-                        
+                        powerMap[item.Id.ToString()] = item.Amount;
                     }
                     else
                     {
-                        PowerModel power = (PowerModel)item.ClonePreservingMutability();
-                        DoHackyThingsForSpecificPowers(power);
-                        await PowerCmd.Apply(power, teammate, item.Amount, base.Owner.Creature, this);
+                        powerMap[item.Id.ToString()] = Math.Max(powerMap[item.Id.ToString()], item.Amount);
                     }
                 }
             }
 
+            // ===== Apply powers =====
+            foreach (var teammate in teammates)
+            {
+                if (teammate == null) continue;
+
+                foreach (var kvp in powerMap)
+                {
+                    var powerId = ModelId.Deserialize(kvp.Key);
+                    int targetAmount = kvp.Value;
+
+                    PowerModel? existing = null;
+
+                    try
+                    {
+                        existing = teammate.GetPowerById(powerId);
+                    }
+                    catch
+                    {
+                        continue;
+                    }
+
+                    if (existing != null && !existing.IsInstanced)
+                    {
+                        Console.WriteLine($"Updating existing power {powerId} on {teammate.Name}");
+
+                        DoHackyThingsForSpecificPowers(existing);
+
+                        if (targetAmount > existing.Amount)
+                        {
+                            await PowerCmd.ModifyAmount(
+                                existing,
+                                targetAmount - existing.Amount,
+                                Owner.Creature,
+                                this
+                            );
+                        }
+                    }
+                    else
+                    {
+                        // Find a source power to clone from (any teammate)
+                        var source = teammates
+                            .SelectMany(t => t.Powers ?? Enumerable.Empty<PowerModel>())
+                            .FirstOrDefault(p => p != null && p.Id == powerId);
+
+                        if (source == null) continue;
+
+                        var clone = source.ClonePreservingMutability() as PowerModel;
+                        if (clone == null) continue;
+
+                        Console.WriteLine($"Applying new power {powerId} to {teammate.Name}");
+
+                        DoHackyThingsForSpecificPowers(clone);
+
+                        await PowerCmd.Apply(
+                            clone,
+                            teammate,
+                            targetAmount,
+                            Owner.Creature,
+                            this
+                        );
+                    }
+                }
+            }
         }
 
-        private static void AddPowerToList(List<PowerModel> powers, PowerModel power)
+        private static void AddPowerToList(Dictionary<string, int> powers, PowerModel power)
         {
-            var existing = powers.FirstOrDefault(p => p.GetType() == power.GetType());
-            if (existing == null)
+            if (power == null) return;
+
+            if (!powers.ContainsKey(power.Id.ToString()))
             {
-                powers.Add(power);
+                powers[power.Id.ToString()] = power.Amount;
             }
             else
             {
-                // if amount is different, take the higher one
-                if (existing.Amount != power.Amount)
-                {
-                    // PowerModel.Amount is read-only, so create a new instance with the higher amount
-                    int maxAmount = Math.Max(existing.Amount, power.Amount);
-                    // Remove the old instance and add a clone with the higher amount
-                    powers.Remove(existing);
-                    PowerModel newPower = (PowerModel)power.ClonePreservingMutability();
-                    newPower.SetAmount(maxAmount);
-                    powers.Add(newPower);
-                }
+                powers[power.Id.ToString()] = Math.Max(powers[power.Id.ToString()], power.Amount);
             }
         }
 
@@ -114,6 +166,10 @@ namespace Manosaba.Characters.NikaidoHiro.Cards
             if (power is ITemporaryPower temporaryPower)
             {
                 temporaryPower.IgnoreNextInstance();
+            }
+            if (power is ManosabaTemporaryStrengthPower manosabaTemporaryStrengthPower)
+            {
+                manosabaTemporaryStrengthPower.IgnoreNextInstance();
             }
         }
 
