@@ -2,6 +2,8 @@
 using manosaba.Characters.SaekiMiria;
 using Manosaba.Characters.Common.Overrides;
 using Manosaba.Characters.Common.Powers;
+using Manosaba.Characters.NikaidoHiro.Powers;
+using Manosaba.Characters.SaekiMiria.Helper;
 using Manosaba.Extensions;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Context;
@@ -15,7 +17,7 @@ using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.Cards;
-using Manosaba.Characters.SaekiMiria.Helper;
+using MegaCrit.Sts2.Core.Models.Powers;
 
 namespace Manosaba.Characters.SaekiMiria.Cards
 {
@@ -38,37 +40,28 @@ namespace Manosaba.Characters.SaekiMiria.Cards
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
             var target = cardPlay.Target.Player;
-
+            HashSet<Type> IgnoredCards = new()
+            {
+                typeof(Exchange)
+            };
 
             var pool = target.Character.CardPool.AllCards;
             var deck = CardPile.GetCards(target, PileType.Deck);
 
-            Console.WriteLine("Pool:");
-            foreach (var c in pool)
-            {
-                Console.WriteLine(c.Id);
-            }
-            Console.WriteLine("Deck:");
-            foreach (var c in deck)
-            {
-                Console.WriteLine(c.Id);
-            }
 
             var deckIds = deck
                 .Select(c => c.Id)
                 .ToHashSet();
 
+            
             var cards = pool
                 .Where(c => c.Type != CardType.Quest && c.Type != CardType.Status)
                 .Where(c => c.Rarity != CardRarity.Ancient && c.Rarity != CardRarity.Token)
                 .Where(c => deckIds.Contains(c.Id))
+                .Where(c => !IgnoredCards.Contains(c.GetType()))
                 .ToList();
 
-            Console.WriteLine("Cards:");
-            foreach (var c in cards)
-            {
-                Console.WriteLine(c.Id);
-            }
+            
 
             var generatedList = CardHelperService
                 .GetAvailableCards(base.Owner, cards, 1, base.Owner.RunState.Rng.CombatCardGeneration)
@@ -103,6 +96,7 @@ namespace Manosaba.Characters.SaekiMiria.Cards
                 .Where(c => c.Type != CardType.Quest && c.Type != CardType.Status)
                 .Where(c => c.Rarity != CardRarity.Ancient && c.Rarity != CardRarity.Token)
                 .Where(c => deckIds2.Contains(c.Id))
+                .Where(c => !IgnoredCards.Contains(c.GetType()))
                 .ToList();
 
             var generatedList2 = CardHelperService

@@ -2,6 +2,7 @@
 using manosaba.Characters.SaekiMiria;
 using Manosaba.Characters.Common.Overrides;
 using Manosaba.Characters.Common.Powers;
+using Manosaba.Characters.NikaidoHiro.Powers;
 using Manosaba.Extensions;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
@@ -16,13 +17,16 @@ namespace Manosaba.Characters.NikaidoHiro.Cards
     [Pool(typeof(SaekiMiriaCardPool))]
     public class MindSharing : PathCustomCardModel
     {
-        private const int energyCost = 3;
+        private const int energyCost = 2;
         private const CardType type = CardType.Skill;
-        private const CardRarity rarity = CardRarity.Ancient;
+        private const CardRarity rarity = CardRarity.Rare;
         private const TargetType targetType = TargetType.AllAllies;
         private const bool shouldShowInCardLibrary = true;
+        public override CardMultiplayerConstraint MultiplayerConstraint => CardMultiplayerConstraint.MultiplayerOnly;
         //protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<DeathLoopPower>()];
-        public override IEnumerable<CardKeyword> CanonicalKeywords => [ManosabaKeywords.Mahou, CardKeyword.Eternal];
+        public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
+
+        
         public MindSharing() : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)
         {
         }
@@ -46,6 +50,7 @@ namespace Manosaba.Characters.NikaidoHiro.Cards
             {
                 foreach (PowerModel item in powers)
                 {
+                    Console.WriteLine($"Processing power {item.GetType().Name} with amount {item.Amount} for teammate {teammate.Name}");
                     PowerModel? powerById = teammate.GetPowerById(item.Id);
                     if (ShouldIgnoreThisPower(item)) continue;
                     if (powerById != null && !powerById.IsInstanced)
@@ -93,11 +98,15 @@ namespace Manosaba.Characters.NikaidoHiro.Cards
 
         private static bool ShouldIgnoreThisPower(PowerModel power)
         {
-            if (power is MajokaPower || power is VotePower || power is CoveredPower || power is InterceptPower)
+            HashSet<Type> IgnoredPowers = new()
             {
-                return true;
-            }
-            return false;
+                typeof(MajokaPower),
+                typeof(VotePower),
+                typeof(CoveredPower),
+                typeof(InterceptPower),
+                typeof(DeathLoopPower)
+            };
+            return power != null && IgnoredPowers.Contains(power.GetType());
         }
 
         private static void DoHackyThingsForSpecificPowers(PowerModel power)

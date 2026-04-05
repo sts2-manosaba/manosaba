@@ -26,7 +26,7 @@ namespace Manosaba.Characters.Common.Powers
             { "hikami_meruru", typeof(GrandHeal)},
             { "jogasaki_noah", typeof(LiquidManipulation)},
             { "tachibana_sherry", typeof(SuperPunch)},
-            { "saeki_miria", typeof(MindSharing)},
+            { "saeki_miria", typeof(MemorySharing)},
         };
 
         public override decimal ModifyDamageMultiplicative(Creature? target, decimal amount, ValueProp props, Creature? dealer, CardModel? cardSource)

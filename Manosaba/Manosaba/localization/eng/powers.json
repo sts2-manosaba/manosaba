@@ -60,5 +60,8 @@
 
   "MANOSABA-FRIENDLY_POWER.title": "",
   "MANOSABA-FRIENDLY_POWER.description": "20%。",
-  "MANOSABA-FRIENDLY_POWER.smartDescription": "20%。"
+  "MANOSABA-FRIENDLY_POWER.smartDescription": "20%。",
+  "MANOSABA-MEMORY_SHARING_POWER.title": "",
+  "MANOSABA-MEMORY_SHARING_POWER.description": "",
+  "MANOSABA-MEMORY_SHARING_POWER.smartDescription": ""
 }
