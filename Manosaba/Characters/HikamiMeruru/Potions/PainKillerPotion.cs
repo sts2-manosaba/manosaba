@@ -18,7 +18,7 @@ namespace Manosaba.Characters.HikamiMeruru.Potions
         public override PotionRarity Rarity => PotionRarity.Uncommon;
         public override TargetType TargetType => TargetType.AnyPlayer;
 
-        public override bool CanBeGeneratedInCombat => true;
+        public override bool CanBeGeneratedInCombat => false;
 
         protected override IEnumerable<DynamicVar> CanonicalVars => [new HealVar(5m)];
         protected override async Task OnUse(PlayerChoiceContext choiceContext, Creature? target)

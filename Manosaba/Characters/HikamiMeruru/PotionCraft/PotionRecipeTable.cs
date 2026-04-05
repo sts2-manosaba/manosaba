@@ -77,6 +77,15 @@ namespace Manosaba.Characters.HikamiMeruru.PotionCraft
                 },
                 ModelDb.Potion<GreaterBeetleJuice>()
             ),
+               new PotionRecipe(
+                new Dictionary<Type, int>
+                {
+                    { typeof(GreaterBlockPotion), 1 },
+                    { typeof(GreaterWeakPotion), 1  },
+                    { typeof(Catalyst), 1  }
+                },
+                ModelDb.Potion<LuckyTonic>()
+            ),
             // new PotionRecipe(
             //     new Dictionary<Type, int>
             //     {

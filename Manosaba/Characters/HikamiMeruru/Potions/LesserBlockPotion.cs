@@ -23,7 +23,7 @@ namespace Manosaba.Characters.HikamiMeruru.Potions
 
         public override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.Static(StaticHoverTip.Block)];
 
-        public override bool CanBeGeneratedInCombat => true;
+        public override bool CanBeGeneratedInCombat => false;
         protected override async Task OnUse(PlayerChoiceContext choiceContext, Creature? target)
         {
             PotionModel.AssertValidForTargetedPotion(target);

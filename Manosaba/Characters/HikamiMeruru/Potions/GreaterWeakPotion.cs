@@ -20,7 +20,7 @@ namespace Manosaba.Characters.HikamiMeruru.Potions
         public override PotionRarity Rarity => PotionRarity.Token;
         public override TargetType TargetType => TargetType.AllEnemies;
 
-        public override bool CanBeGeneratedInCombat => true;
+        public override bool CanBeGeneratedInCombat => false;
         protected override IEnumerable<DynamicVar> CanonicalVars => [new PowerVar<WeakPower>(5m)];
         public override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<WeakPower>()];
 

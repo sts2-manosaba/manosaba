@@ -22,7 +22,7 @@ namespace Manosaba.Characters.HikamiMeruru.Potions
         public override TargetType TargetType => TargetType.AllEnemies;
         protected override IEnumerable<DynamicVar> CanonicalVars => [new DynamicVar("DamageDecrease", 30m), new RepeatVar(4)];
 
-        public override bool CanBeGeneratedInCombat => true;
+        public override bool CanBeGeneratedInCombat => false;
         protected override async Task OnUse(PlayerChoiceContext choiceContext, Creature? target)
         {
             Creature player = base.Owner.Creature;
