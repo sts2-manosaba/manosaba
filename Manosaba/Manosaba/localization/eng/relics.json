@@ -1,24 +1,17 @@
 {
   "MANOSABA-PEN_OF_HIRO.title": "Hiro's Pen",
-  "MANOSABA-PEN_OF_HIRO.description": "At the start of each turn, if you have at least {VoteCost} [gold]Suspicion[/gold], spend it to gain [gold]Summon[/gold]: {Summon}.\n[gray](Upgradeable Relic: higher levels increase Summon)[/gray]",
+  "MANOSABA-PEN_OF_HIRO.description": "At the start of each turn, if you have {VoteCost} [gold]Suspicion[/gold], consume [gold]Suspicion[/gold] to gain [gold]Summon[/gold]: {Summon}.\nUpgrading increases the summon value.",
   "MANOSABA-PEN_OF_HIRO.flavor": "Exclusive to the mysterious perjury girl",
   "MANOSABA-PHOTO_OF_THE_GREAT_WITCH.title": "Photo of the Great Witch",
   "MANOSABA-PHOTO_OF_THE_GREAT_WITCH.description": "Gain {PotionSlots} additional potion slot(s).\nAt Lv2, whenever you procure a potion, 10% chance to gain a [gold]Catalyst[/gold] if you have an empty slot.\nAt Lv4, this chance becomes 20%.",
   "MANOSABA-PHOTO_OF_THE_GREAT_WITCH.flavor": "I miss you so much... Great Witch...",
   "MANOSABA-SPRAY_CAN_OF_NOAH.title": "Noah's Spray Can",
-  "MANOSABA-SPRAY_CAN_OF_NOAH.description": "Gain {OrbSlots} [gold]Orb Slot(s)[/gold].\nAt Lv2, at the start of your turn, channel 1 random paint orb.\nAt Lv4, channel 2 instead.",
+  "MANOSABA-SPRAY_CAN_OF_NOAH.description": "Gain {OrbSlots} orb slots. Upgrades increase the number of slots.\nFrom Lv2, at the start of your turn, randomly generate 1 paint orb.\nFrom Lv4, generate 2 instead.",
   "MANOSABA-SPRAY_CAN_OF_NOAH.flavor": "Need a spray, huh?",
   "MANOSABA-FAIRY_HEART.title": "Fairy Heart",
   "MANOSABA-FAIRY_HEART.description": "At the start of your turn, lose all [gold]Majoka[/gold].\nWhenever you are hit by an enemy attack, reduce that damage by 50% of your [gold]Strength[/gold] stacks.",
   "MANOSABA-FAIRY_HEART.flavor": "I've become the perfect detective Sherry! I definitely won't go Majoka again.",
-
-  "MANOSABA-BROKEN_CROSSBOW.title": "Broken Crossbow",
-  "MANOSABA-BROKEN_CROSSBOW.description": "Just testing if it works, so it turned out like this. Hehe ✰",
-  "MANOSABA-BROKEN_CROSSBOW.flavor": "Exclusively for the mysterious powerhouse girl",
-  "MANOSABA-BROKEN_CROSSBOW_TEMP.title": "Broken Crossbow",
-  "MANOSABA-BROKEN_CROSSBOW_TEMP.description": "Just testing if it works, so it turned out like this. Hehe ✰",
-  "MANOSABA-BROKEN_CROSSBOW_TEMP.flavor": "Exclusively for the mysterious powerhouse girl",
-  "MANOSABA-CABINET_KEY.title": "",
-  "MANOSABA-CABINET_KEY.description": "",
-  "MANOSABA-CABINET_KEY.flavor": ""
+  "MANOSABA-CABINET_KEY.title": "Small Key",
+  "MANOSABA-CABINET_KEY.description": "At the start of your turn, gain {Block} [gold]Block[/gold] for each [gold]Suspicion[/gold] you have.\nThen lose half of your current [gold]Suspicion[/gold].",
+  "MANOSABA-CABINET_KEY.flavor": "What lock is this key for?"
 }

@@ -33,7 +33,7 @@
   "MANOSABA-EMA_DOG_ATTACK_POWER.description": "At the end of your turn, [gold]Sakuraba Ema?[/gold] deals damage to a random enemy equal to her current HP.",
   "MANOSABA-EMA_DOG_ATTACK_POWER.smartDescription": "At the end of your turn, [gold]Sakuraba Ema?[/gold] deals damage to a random enemy equal to her current HP.",
   "MANOSABA-DOUBLE_SUICIDE_POWER.title": "Lovers' Pact",
-  "MANOSABA-DOUBLE_SUICIDE_POWER.description": "You take {ExtraDamage} additional damage. At the end of the enemy turn, heal HP equal to your stacks (as a percent) and remove this power.",
+  "MANOSABA-DOUBLE_SUICIDE_POWER.description": "Take 3 additional damage. At the end of the enemy turn, heal HP equal to a percentage of your stacks, then remove this power.",
   "MANOSABA-DOUBLE_SUICIDE_POWER.smartDescription": "Take extra damage; at the end of the enemy turn, heal by a percent of HP based on stacks and remove this power.",
   "MANOSABA-PET_ENEMY_AI_POWER.title": "Pseudo-Beast Painting",
   "MANOSABA-PET_ENEMY_AI_POWER.description": "Summoned monsters act in their original order (attacks and buffs/debuffs only). While one exists, the summoner has 1 less max energy.",
@@ -44,7 +44,6 @@
   "MANOSABA-SPACE_OUT_POWER.title": "Space Out",
   "MANOSABA-SPACE_OUT_POWER.description": "At the start of your turn, if you have all six paint orb colors (Red, Orange, Yellow, Green, Blue, Purple), deal 50 damage to all enemies, then evoke all orbs. Otherwise, channel 1 missing color orb at random.",
   "MANOSABA-SPACE_OUT_POWER.smartDescription": "Start of turn: if all six paint colors are present, deal 50 to all enemies and evoke all orbs; otherwise channel a random missing color orb.",
-
   "MANOSABA-QUICK_WIT_POWER.title": "Quick Wit",
   "MANOSABA-QUICK_WIT_POWER.description": "At the start of each turn, gain all of the following (values roll within each range):\nGain 1–3 Strength,\nGain −2–2 Dexterity,\nHP changes by −10–+10,\nAll enemies gain 0–2 Vulnerable,\nAll enemies gain 0–2 Weak.",
   "MANOSABA-QUICK_WIT_POWER.smartDescription": "At the start of each turn, randomly shift Strength, Dexterity, and HP, and give all enemies Vulnerable and Weak.",
@@ -57,11 +56,10 @@
   "MANOSABA-DATE_TIME_NO_MAJOKA_POWER.title": "Date Time",
   "MANOSABA-DATE_TIME_NO_MAJOKA_POWER.description": "You cannot gain [gold]Majoka[/gold] this turn.",
   "MANOSABA-DATE_TIME_NO_MAJOKA_POWER.smartDescription": "You cannot gain Majoka this turn.",
-
-  "MANOSABA-FRIENDLY_POWER.title": "",
+  "MANOSABA-FRIENDLY_POWER.title": "Affinity",
   "MANOSABA-FRIENDLY_POWER.description": "20%。",
   "MANOSABA-FRIENDLY_POWER.smartDescription": "20%。",
-  "MANOSABA-MEMORY_SHARING_POWER.title": "",
-  "MANOSABA-MEMORY_SHARING_POWER.description": "",
-  "MANOSABA-MEMORY_SHARING_POWER.smartDescription": ""
+  "MANOSABA-MEMORY_SHARING_POWER.title": "Memory Sharing",
+  "MANOSABA-MEMORY_SHARING_POWER.description": "At the start of each turn, gain a random teammate card based on your [gold]Majoka[/gold].",
+  "MANOSABA-MEMORY_SHARING_POWER.smartDescription": "At the start of each turn, gain a random teammate card."
 }
