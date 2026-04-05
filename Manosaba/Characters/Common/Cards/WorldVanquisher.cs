@@ -66,7 +66,7 @@ namespace Manosaba.Characters.Common.Cards
         public override async Task AfterTurnEnd(PlayerChoiceContext choiceContext, CombatSide side)
         {
             CardPile? pile = base.Pile;
-            if (pile != null && (pile.Type == PileType.Discard || pile.Type == PileType.Hand || pile.Type == PileType.Draw) && side == CombatSide.Player)
+            if (pile != null && (pile.Type == PileType.Discard || pile.Type == PileType.Hand || pile.Type == PileType.Draw || pile.Type == PileType.Exhaust) && side == CombatSide.Player)
             {
                 CombatState combatState = Owner.Creature.CombatState;
                 int totalMajoka = 0;
