@@ -367,3 +367,4 @@ FodyWeavers.xsd
 *.uid
 *.pck
 *.import
+.codex
