@@ -1,0 +1,16 @@
+{
+  "MANOSABA-SFX_SETTINGS.title": "특수 효과 설정",
+  "MANOSABA-LABOURS_OF_HIRO_EFFECT_FREQUENCY.title": "열두 번의 재판",
+  "MANOSABA-LABOURS_OF_HIRO_EFFECT_FREQUENCY.hover.title": "재생 빈도",
+  "MANOSABA-LABOURS_OF_HIRO_EFFECT_FREQUENCY.hover.desc": "Twelve Trials의 독점 SFX/VFX 재생 빈도를 매번, 실행당 한 번 또는 전혀 재생하지 않도록 설정하세요.",
+  "MANOSABA-DIFFICULTY_SETTINGS.title": "난이도 (여러명이 동일한 구성을 가지고 있어야 합니다!)",
+  "MANOSABA-ENABLE_ENEMY_HP_MULTIPLIER.title": "적의 체력 승수 활성화",
+  "MANOSABA-ENABLE_ENEMY_HP_MULTIPLIER.hover.title": "적 HP 조정",
+  "MANOSABA-ENABLE_ENEMY_HP_MULTIPLIER.hover.desc": "활성화되면 적의 최대 체력에 설정된 배율 백분율이 곱해집니다.",
+  "MANOSABA-ENEMY_HP_MULTIPLIER_PERCENT.title": "적 HP 배수",
+  "MANOSABA-ENEMY_HP_MULTIPLIER_PERCENT.hover.title": "적 체력 비율",
+  "MANOSABA-ENEMY_HP_MULTIPLIER_PERCENT.hover.desc": "적의 최대 체력에 적용되는 배수입니다.100%는 변화가 없음을 의미합니다.",
+  "MANOSABA-HIKAMI_MERURU_EXAID_EFFECT_FREQUENCY.title": "얼음 ↗ 위 ↘ 자두 ↗ 이슬 ↘ 이슬",
+  "MANOSABA-HIKAMI_MERURU_EXAID_EFFECT_FREQUENCY.hover.title": "재생 빈도",
+  "MANOSABA-HIKAMI_MERURU_EXAID_EFFECT_FREQUENCY.hover.desc": "Ice↗Shang↘Mei↗Lulu↘Lu 전용 SFX의 재생 빈도를 매번, 실행당 한 번 또는 전혀 재생하지 않도록 설정합니다."
+}

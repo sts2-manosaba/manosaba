@@ -1,0 +1,17 @@
+{
+  "MANOSABA-PEN_OF_HIRO.title": "영웅의 펜",
+  "MANOSABA-PEN_OF_HIRO.description": "각 라운드가 시작될 때{VoteCost}층[gold]의심하다[/gold]그런 다음 소비하다[gold]의심하다[/gold]얻다[gold]소환[/gold]:{Summon}.\n업그레이드하면 소환 가치가 증가합니다.",
+  "MANOSABA-PEN_OF_HIRO.flavor": "신비한 위증 여성전용",
+  "MANOSABA-PHOTO_OF_THE_GREAT_WITCH.title": "위대한 마녀의 사진",
+  "MANOSABA-PHOTO_OF_THE_GREAT_WITCH.description": "물약 슬롯이 추가되었습니다.{PotionSlots}그리드, 업그레이드하면 그리드 수가 늘어납니다.\nLv2부터는 물약을 얻을 때마다 공간이 있을 경우 10% 확률로 추가 병을 얻을 수 있습니다.[gold]촉매[/gold].\nLv4부터 확률이 20%로 증가합니다.",
+  "MANOSABA-PHOTO_OF_THE_GREAT_WITCH.flavor": "너무 보고싶다... 대마녀...",
+  "MANOSABA-SPRAY_CAN_OF_NOAH.title": "노아의 스프레이 페인트 캔",
+  "MANOSABA-SPRAY_CAN_OF_NOAH.description": "얻다{OrbSlots}그리드 충전 볼 슬롯, 업그레이드하면 그리드 수가 늘어납니다.\nLv2부터 자신의 턴이 시작될 때 페인트볼 1개가 무작위로 생성됩니다.\nLv4부터 무작위로 2개가 생성됩니다.",
+  "MANOSABA-SPRAY_CAN_OF_NOAH.flavor": "뿌리기엔 너무 늦었지요?",
+  "MANOSABA-FAIRY_HEART.title": "요정의 마음",
+  "MANOSABA-FAIRY_HEART.description": "당신의 차례가 시작될 때 모든 것을 잃습니다.[gold]마녀[/gold].\n적의 공격을 받을 때마다 감소[gold]힘[/gold]레이어 수만큼 데미지가 50% 증가합니다.",
+  "MANOSABA-FAIRY_HEART.flavor": "나는 완벽한 탐정 셜리로 거듭났다!그녀는 확실히 마녀가 되지는 않을 것이다.",
+  "MANOSABA-CABINET_KEY.title": "작은 열쇠",
+  "MANOSABA-CABINET_KEY.description": "당신의 차례가 시작될 때, 모든 포인트에 대해[gold]의심하다[/gold]얻다{Block}가리키다[gold]차단하다[/gold].\n그런 다음 현재의 절반을 잃습니다.[gold]의심하다[/gold].",
+  "MANOSABA-CABINET_KEY.flavor": "잠금을 해제하는 데 사용되는 이 열쇠는 무엇입니까?"
+}
