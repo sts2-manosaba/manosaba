@@ -21,15 +21,8 @@ namespace Manosaba.Characters.SaekiMiria.Helper
     {
         public static IEnumerable<CardModel> GetAvailableCards(Player player, IEnumerable<CardModel> cards, int count, Rng rng)
         {
-            Player player2 = player;
-            List<CardModel> list = TestRngInjector.ConsumeCombatCardGenerationOverride();
-            if (list != null)
-            {
-                return list;
-            }
-
             return from c in cards.TakeRandom(count, rng)
-                   select player2.Creature.CombatState.CreateCard(c, player2);
+                   select player.Creature.CombatState.CreateCard(c, player);
         }
     }
 }
