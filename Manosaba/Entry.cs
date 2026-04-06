@@ -10,7 +10,7 @@ using MegaCrit.Sts2.Core.Logging;
 using MegaCrit.Sts2.Core.Modding;
 using MegaCrit.Sts2.Core.Saves.Runs;
 
-namespace Manosaba.Scripts;
+namespace Manosaba;
 
 // 必须要加的属性，用于注册Mod。字符串和初始化函数命名一致。
 [ModInitializer("Init")]

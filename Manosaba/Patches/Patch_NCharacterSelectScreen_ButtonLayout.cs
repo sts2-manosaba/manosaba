@@ -1,7 +1,5 @@
-using System.Collections.Generic;
-using System.Linq;
-using HarmonyLib;
 using Godot;
+using HarmonyLib;
 using MegaCrit.Sts2.Core.Nodes.CommonUi;
 using MegaCrit.Sts2.Core.Nodes.GodotExtensions;
 using MegaCrit.Sts2.Core.Nodes.Screens.CharacterSelect;
@@ -58,7 +56,7 @@ public static class Patch_NCharacterSelectScreen_ButtonLayout
     private static void Postfix_UpdateRandomCharacterVisibility(NCharacterSelectScreen __instance)
     {
         SyncRandomBaseVisibility(__instance);
-        ApplyPagination(__instance, selectionMayBeInvalid: true);
+        ApplyPagination(__instance, selectionMayBeInvalid: false);
     }
 
     private static PaginationState GetState(NCharacterSelectScreen screen)

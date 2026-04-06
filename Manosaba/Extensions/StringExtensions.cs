@@ -1,4 +1,4 @@
-﻿using Manosaba.Scripts;
+﻿using Manosaba;
 
 namespace manosaba.Extensions;
 

@@ -1,4 +1,3 @@
-using MegaCrit.Sts2.Core.Entities.Relics;
 using MegaCrit.Sts2.Core.Rooms;
 using MegaCrit.Sts2.Core.Saves.Runs;
 
@@ -6,7 +5,7 @@ namespace Manosaba.Extensions
 {
     public abstract class LevelingPathCustomRelicModel : PathCustomRelicModel
     {
-        private int _relicExp;
+        private int _manosaba_relicExp;
 
         protected virtual int MaxRelicLevel => RelicLevelExpTable.MaxLevel;
         protected virtual int GetCombatVictoryExpGain(CombatRoom room)
@@ -19,7 +18,7 @@ namespace Manosaba.Extensions
             };
         }
 
-        public int RelicLevel => RelicLevelExpTable.GetLevelForExp(_relicExp, MaxRelicLevel);
+        public int RelicLevel => RelicLevelExpTable.GetLevelForExp(_manosaba_relicExp, MaxRelicLevel);
 
         public override bool ShowCounter => true;
         public override int DisplayAmount => RelicLevel;
@@ -27,7 +26,7 @@ namespace Manosaba.Extensions
         [SavedProperty]
         public int RelicExp
         {
-            get => _relicExp;
+            get => _manosaba_relicExp;
             set
             {
                 AssertMutable();
@@ -35,7 +34,7 @@ namespace Manosaba.Extensions
                 int oldLevel = RelicLevel;
                 int cappedExp = value < 0 ? 0 : value;
                 int maxExp = RelicLevelExpTable.GetMaxExpForLevel(MaxRelicLevel);
-                _relicExp = cappedExp > maxExp ? maxExp : cappedExp;
+                _manosaba_relicExp = cappedExp > maxExp ? maxExp : cappedExp;
 
                 int newLevel = RelicLevel;
                 if (newLevel != oldLevel)

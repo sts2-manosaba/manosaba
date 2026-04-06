@@ -12,6 +12,10 @@ namespace Manosaba.Extensions
 
         protected override string ChannelSfx => "event:/sfx/characters/defect/defect_dark_channel";
 
+        protected override string PassiveSfx => "event:/sfx/characters/defect/defect_dark_passive";
+
+        protected override string EvokeSfx => "event:/sfx/characters/defect/defect_dark_evoke";
+
         protected decimal ModifyPaintOrbValue(decimal baseValue)
         {
             decimal orbModifiedValue = ModifyOrbValue(baseValue);
