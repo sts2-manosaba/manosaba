@@ -32,6 +32,9 @@
   "MANOSABA-GREATER_WEAK_POTION.title": "강한 나약함의 물약",
   "MANOSABA-GREATER_WEAK_POTION.description": "적 전체에게 준다{WeakPower:diff()}층[gold]약한[/gold].",
   "MANOSABA-GREATER_WEAK_POTION.selectionScreenPrompt": "",
+  "MANOSABA-TREDECIM.title": "마녀를 죽이는 약",
+  "MANOSABA-TREDECIM.description": "{Damage:diff()} 피해를 준다. 합성에 사용하면 상위 물약의 유형을 변화시킬 수 있다.",
+  "MANOSABA-TREDECIM.selectionScreenPrompt": "",
   "MANOSABA-DRAWING_BOARD.title": "화판",
   "MANOSABA-DRAWING_BOARD.description": "뽑은 크리쳐를 소환하며, 소환된 크리쳐가 죽을 때까지 소환 시 최대 에너지가 1포인트 감소합니다.",
   "MANOSABA-DRAWING_BOARD.selectionScreenPrompt": ""

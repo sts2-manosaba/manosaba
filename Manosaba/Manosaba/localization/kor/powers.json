@@ -120,5 +120,8 @@
   "MANOSABA-SHERRY_PUPPET_POWER.smartDescription": "이번 턴, 다음 [blue]{Amount}[/blue]장의 공격 카드가 한 번 더 플레이된다.",
   "MANOSABA-PUPPET_COLLECTION_SUMMARY_POWER.title": "인형 컬렉션",
   "MANOSABA-PUPPET_COLLECTION_SUMMARY_POWER.description": "스택은 이번 전투에서 모은 서로 다른 [gold]인형[/gold] 동료 수(캐릭터당 1회)와 같다. [blue]13[/blue] 스택이 되면 턴 종료 시 전투에서 승리한다.",
-  "MANOSABA-PUPPET_COLLECTION_SUMMARY_POWER.smartDescription": "서로 다른 인형 동료 [blue]{Amount}[/blue]종을 모았다. [blue]13[/blue] 스택이 되면 턴 종료 시 전투에서 승리한다."
+  "MANOSABA-PUPPET_COLLECTION_SUMMARY_POWER.smartDescription": "서로 다른 인형 동료 [blue]{Amount}[/blue]종을 모았다. [blue]13[/blue] 스택이 되면 턴 종료 시 전투에서 승리한다.",
+  "MANOSABA-CATALYST_POWER.title": "촉매",
+  "MANOSABA-CATALYST_POWER.description": "[gold]촉매[/gold]를 히카미 메루루에게 사용할 때마다 1스택을 얻는다. {Threshold}스택 이상이면 이 능력을 제거하고 [gold]마녀를 죽이는 약[/gold] 1개를 얻는다.",
+  "MANOSABA-CATALYST_POWER.smartDescription": "[gold]촉매[/gold]를 히카미 메루루에게 사용할 때마다 1스택을 얻는다. [blue]{Threshold}[/blue]스택 이상이면 이 능력을 제거하고 [gold]마녀를 죽이는 약[/gold] 1개를 얻는다."
 }

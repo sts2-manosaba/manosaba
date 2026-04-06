@@ -32,6 +32,9 @@
   "MANOSABA-GREATER_WEAK_POTION.title": "強力な弱さのポーション",
   "MANOSABA-GREATER_WEAK_POTION.description": "敵全員に与える{WeakPower:diff()}層[gold]弱い[/gold]。",
   "MANOSABA-GREATER_WEAK_POTION.selectionScreenPrompt": "",
+  "MANOSABA-TREDECIM.title": "魔女を殺す薬",
+  "MANOSABA-TREDECIM.description": "{Damage:diff()}ダメージを与える。合成に使うと、上位ポーションの種類を変化させることがある。",
+  "MANOSABA-TREDECIM.selectionScreenPrompt": "",
   "MANOSABA-DRAWING_BOARD.title": "製図板",
   "MANOSABA-DRAWING_BOARD.description": "引いたクリーチャーを召喚し、召喚されたクリーチャーが死ぬまで召喚時の最大エネルギーが1ポイント減算される。",
   "MANOSABA-DRAWING_BOARD.selectionScreenPrompt": ""

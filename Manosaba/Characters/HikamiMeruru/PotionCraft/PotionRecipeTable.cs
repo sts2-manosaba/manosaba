@@ -81,11 +81,42 @@ namespace Manosaba.Characters.HikamiMeruru.PotionCraft
                 new Dictionary<Type, int>
                 {
                     { typeof(GreaterBlockPotion), 1 },
-                    { typeof(GreaterWeakPotion), 1  },
-                    { typeof(Catalyst), 1  }
+                    { typeof(Tredecim), 1  }
+                },
+                ModelDb.Potion<Fortifier>()
+            ),
+               new PotionRecipe(
+                new Dictionary<Type, int>
+                {
+                    { typeof(GreaterStrengthPotion), 1 },
+                    { typeof(Tredecim), 1  }
+                },
+                ModelDb.Potion<MazalethsGift>()
+            ),
+               new PotionRecipe(
+                new Dictionary<Type, int>
+                {
+                    { typeof(GreaterWeakPotion), 1 },
+                    { typeof(Tredecim), 1  }
+                },
+                ModelDb.Potion<ShacklingPotion>()
+            ),
+               new PotionRecipe(
+                new Dictionary<Type, int>
+                {
+                    { typeof(GreaterEnergyPotion), 1 },
+                    { typeof(Tredecim), 1  }
+                },
+                ModelDb.Potion<OrobicAcid>()
+            ),
+               new PotionRecipe(
+                new Dictionary<Type, int>
+                {
+                    { typeof(GreaterBeetleJuice), 1 },
+                    { typeof(Tredecim), 1  }
                 },
                 ModelDb.Potion<LuckyTonic>()
-            ),
+             ),
             // new PotionRecipe(
             //     new Dictionary<Type, int>
             //     {

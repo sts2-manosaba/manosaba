@@ -131,6 +131,9 @@
   "MANOSABA-SHERRY_PUPPET_POWER.smartDescription": "本回合，你的下[blue]{Amount}[/blue]張攻擊牌會多打出一次。",
   "MANOSABA-PUPPET_COLLECTION_SUMMARY_POWER.title": "人偶收藏",
   "MANOSABA-PUPPET_COLLECTION_SUMMARY_POWER.description": "層數等於本場戰鬥中已收集的不同 [gold]人偶[/gold] 同伴種類（每位角色只算一次）。疊至 [blue]13[/blue] 層時，在你回合結束時立即獲勝。",
-  "MANOSABA-PUPPET_COLLECTION_SUMMARY_POWER.smartDescription": "目前已收集 [blue]{Amount}[/blue] 種不同的人偶。疊至 [blue]13[/blue] 層時，在你回合結束時立即獲勝。"
+  "MANOSABA-PUPPET_COLLECTION_SUMMARY_POWER.smartDescription": "目前已收集 [blue]{Amount}[/blue] 種不同的人偶。疊至 [blue]13[/blue] 層時，在你回合結束時立即獲勝。",
+  "MANOSABA-CATALYST_POWER.title": "催化劑",
+  "MANOSABA-CATALYST_POWER.description": "當[gold]催化劑[/gold]對冰上梅露露使用時，獲得 1 層。達到 {Threshold} 層時，移除本能力並獲得 1 瓶[gold]殺死魔女的藥[/gold]。",
+  "MANOSABA-CATALYST_POWER.smartDescription": "當[gold]催化劑[/gold]對冰上梅露露使用時，獲得 1 層。達到 [blue]{Threshold}[/blue] 層時，移除本能力並獲得 1 瓶[gold]殺死魔女的藥[/gold]。"
 
 }

@@ -32,6 +32,9 @@
   "MANOSABA-GREATER_WEAK_POTION.title": "Greater Weak Potion",
   "MANOSABA-GREATER_WEAK_POTION.description": "Apply {WeakPower:diff()} [gold]Weak[/gold].",
   "MANOSABA-GREATER_WEAK_POTION.selectionScreenPrompt": "",
+  "MANOSABA-TREDECIM.title": "Tredecim",
+  "MANOSABA-TREDECIM.description": "Deal {Damage:diff()} damage. When used for crafting, it can alter the resulting high-tier potion type.",
+  "MANOSABA-TREDECIM.selectionScreenPrompt": "",
   "MANOSABA-DRAWING_BOARD.title": "Drawing Board",
   "MANOSABA-DRAWING_BOARD.description": "Something inside keeps moving...",
   "MANOSABA-DRAWING_BOARD.selectionScreenPrompt": ""

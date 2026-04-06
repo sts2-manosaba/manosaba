@@ -120,5 +120,8 @@
   "MANOSABA-SHERRY_PUPPET_POWER.smartDescription": "このターン、次の[blue]{Amount}[/blue]枚の攻撃カードがもう1回プレイされる。",
   "MANOSABA-PUPPET_COLLECTION_SUMMARY_POWER.title": "人形コレクション",
   "MANOSABA-PUPPET_COLLECTION_SUMMARY_POWER.description": "スタックはこの戦闘で集めた異なる[gold]人形[/gold]仲間の数（キャラクターごとに1回）に等しい。[blue]13[/blue]スタックで、あなたのターン終了時に戦闘に勝利する。",
-  "MANOSABA-PUPPET_COLLECTION_SUMMARY_POWER.smartDescription": "異なる人形仲間を[blue]{Amount}[/blue]種集めた。[blue]13[/blue]スタックで、あなたのターン終了時に戦闘に勝利する。"
+  "MANOSABA-PUPPET_COLLECTION_SUMMARY_POWER.smartDescription": "異なる人形仲間を[blue]{Amount}[/blue]種集めた。[blue]13[/blue]スタックで、あなたのターン終了時に戦闘に勝利する。",
+  "MANOSABA-CATALYST_POWER.title": "触媒",
+  "MANOSABA-CATALYST_POWER.description": "[gold]触媒[/gold]を氷上メルルに使用するたび1スタック得る。{Threshold}スタック以上でこれを取り除き、[gold]魔女を殺す薬[/gold]を1本得る。",
+  "MANOSABA-CATALYST_POWER.smartDescription": "[gold]触媒[/gold]を氷上メルルに使用するたび1スタック得る。[blue]{Threshold}[/blue]スタック以上でこれを取り除き、[gold]魔女を殺す薬[/gold]を1本得る。"
 }
