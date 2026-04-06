@@ -127,4 +127,7 @@
   "MANOSABA-PUPPET_COLLECTION_SUMMARY_POWER.title": "Puppet Collection",
   "MANOSABA-PUPPET_COLLECTION_SUMMARY_POWER.description": "Stacks equal the number of different [gold]Puppet[/gold] companions you have collected this combat (each character counts once). At [blue]13[/blue] stacks, you win the combat at the end of your turn.",
   "MANOSABA-PUPPET_COLLECTION_SUMMARY_POWER.smartDescription": "You have collected [blue]{Amount}[/blue] different puppet companion(s). At [blue]13[/blue] stacks, you win the combat at the end of your turn."
+  "MANOSABA-POWERED_REFLECT_POWER.title": "",
+  "MANOSABA-POWERED_REFLECT_POWER.description": "",
+  "MANOSABA-POWERED_REFLECT_POWER.smartDescription": ""
 }
