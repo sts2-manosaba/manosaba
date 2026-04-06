@@ -1,3 +1,4 @@
+using System;
 using Godot;
 using MegaCrit.Sts2.Core.Nodes;
 using MegaCrit.Sts2.Core.Nodes.Audio;
@@ -9,10 +10,14 @@ public static class GodotSfxRouter
 {
     private static readonly string[] AudioExtensions = [".ogg", ".wav", ".mp3"];
     private const string BgmEventPrefix = "event:/Manosaba/audio/bgm/";
+    private const string CharacterSelectEventPrefix = "event:/Manosaba/audio/characters/";
+    /// <summary>Added on top of the game's requested linear volume (converted to dB). +6 dB ≈ ~2× perceived loudness.</summary>
+    private const float CharacterSelectExtraDb = 12f;
     private static AudioStreamPlayer? _customBgmPlayer;
     private static string? _currentBgmEvent;
     private static float _currentBgmBaseVolume = 1f;
     private static bool _vanillaBgmDucked;
+    private static AudioStreamPlayer? _characterSelectPlayer;
 
     public static bool TryPlay(string eventPath, float volume = 1f)
     {
@@ -40,18 +45,70 @@ public static class GodotSfxRouter
             return true;
         }
 
+        if (eventPath.StartsWith(CharacterSelectEventPrefix))
+        {
+            StopCharacterSelectSfx();
+        }
+
         var player = new AudioStreamPlayer
         {
             Name = "ManosabaSfxPlayer",
             Stream = stream,
-            VolumeLinear = volume,
             Bus = "SFX"
         };
+        ApplyManosabaOneShotVolume(player, eventPath, volume);
 
         game.AddChild(player);
-        player.Finished += () => player.QueueFree();
+        if (eventPath.StartsWith(CharacterSelectEventPrefix))
+        {
+            _characterSelectPlayer = player;
+            player.Finished += () =>
+            {
+                if (_characterSelectPlayer == player)
+                {
+                    _characterSelectPlayer = null;
+                }
+
+                if (GodotObject.IsInstanceValid(player))
+                {
+                    player.QueueFree();
+                }
+            };
+        }
+        else
+        {
+            player.Finished += () => player.QueueFree();
+        }
+
         player.Play();
         return true;
+    }
+
+    /// <summary>Stops the current custom character-select clip so rapid switching does not stack voices.</summary>
+    private static void StopCharacterSelectSfx()
+    {
+        if (_characterSelectPlayer == null || !GodotObject.IsInstanceValid(_characterSelectPlayer))
+        {
+            _characterSelectPlayer = null;
+            return;
+        }
+
+        AudioStreamPlayer p = _characterSelectPlayer;
+        _characterSelectPlayer = null;
+        p.Stop();
+        p.QueueFree();
+    }
+
+    private static void ApplyManosabaOneShotVolume(AudioStreamPlayer player, string eventPath, float volume)
+    {
+        float linear = Mathf.Max(volume, 0.0001f);
+        if (eventPath.StartsWith(CharacterSelectEventPrefix))
+        {
+            player.VolumeDb = 20f * MathF.Log10(linear) + CharacterSelectExtraDb;
+            return;
+        }
+
+        player.VolumeLinear = volume;
     }
 
     private static bool TryResolveAudioPath(string eventPath, out string? audioPath)
