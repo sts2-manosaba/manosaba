@@ -68,5 +68,19 @@
   "MANOSABA-SAEKI_MIRIA.cardsModifierTitle": "",
   "MANOSABA-SAEKI_MIRIA.cardsModifierDescription": "",
   "MANOSABA-SAEKI_MIRIA.banter.alive.endTurnPing": "だ、大丈夫です…おじさんは……ゆっくりでいいです。",
-  "MANOSABA-SAEKI_MIRIA.banter.dead.endTurnPing": "..."
+  "MANOSABA-SAEKI_MIRIA.banter.dead.endTurnPing": "...",
+  "MANOSABA-TONO_HANNA.title": "遠野ハンナ",
+  "MANOSABA-TONO_HANNA.titleObject": "",
+  "MANOSABA-TONO_HANNA.description": "情けないわね…諦めた方がいいと思う。",
+  "MANOSABA-TONO_HANNA.pronounObject": "",
+  "MANOSABA-TONO_HANNA.possessiveAdjective": "",
+  "MANOSABA-TONO_HANNA.pronounPossessive": "",
+  "MANOSABA-TONO_HANNA.pronounSubject": "",
+  "MANOSABA-TONO_HANNA.goldMonologue": "",
+  "MANOSABA-TONO_HANNA.eventDeathPrevention": "",
+  "MANOSABA-TONO_HANNA.aromaPrinciple": "",
+  "MANOSABA-TONO_HANNA.cardsModifierTitle": "",
+  "MANOSABA-TONO_HANNA.cardsModifierDescription": "",
+  "MANOSABA-TONO_HANNA.banter.alive.endTurnPing": "",
+  "MANOSABA-TONO_HANNA.banter.dead.endTurnPing": ""
 }

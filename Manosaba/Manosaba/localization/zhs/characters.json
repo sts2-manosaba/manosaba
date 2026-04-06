@@ -70,5 +70,20 @@
   "MANOSABA-SAEKI_MIRIA.cardsModifierTitle": "",
   "MANOSABA-SAEKI_MIRIA.cardsModifierDescription": "",
   "MANOSABA-SAEKI_MIRIA.banter.alive.endTurnPing": "大、大叔沒關係你們慢慢來。",
-  "MANOSABA-SAEKI_MIRIA.banter.dead.endTurnPing": "..."
+  "MANOSABA-SAEKI_MIRIA.banter.dead.endTurnPing": "...",
+
+  "MANOSABA-TONO_HANNA.title": "遠野漢娜",
+  "MANOSABA-TONO_HANNA.titleObject": "",
+  "MANOSABA-TONO_HANNA.description": "真是落魄啊~！我勸你還是放棄好了！？",
+  "MANOSABA-TONO_HANNA.pronounObject": "",
+  "MANOSABA-TONO_HANNA.possessiveAdjective": "",
+  "MANOSABA-TONO_HANNA.pronounPossessive": "",
+  "MANOSABA-TONO_HANNA.pronounSubject": "",
+  "MANOSABA-TONO_HANNA.goldMonologue": "",
+  "MANOSABA-TONO_HANNA.eventDeathPrevention": "",
+  "MANOSABA-TONO_HANNA.aromaPrinciple": "",
+  "MANOSABA-TONO_HANNA.cardsModifierTitle": "",
+  "MANOSABA-TONO_HANNA.cardsModifierDescription": "",
+  "MANOSABA-TONO_HANNA.banter.alive.endTurnPing": "",
+  "MANOSABA-TONO_HANNA.banter.dead.endTurnPing": ""
 }

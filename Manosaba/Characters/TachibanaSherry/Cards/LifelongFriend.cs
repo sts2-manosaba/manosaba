@@ -5,6 +5,7 @@ using Manosaba.Extensions;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
+using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 
 namespace Manosaba.Characters.TachibanaSherry.Cards
@@ -21,6 +22,8 @@ namespace Manosaba.Characters.TachibanaSherry.Cards
         public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
 
         protected override IEnumerable<DynamicVar> CanonicalVars => [new PowerVar<LifelongFriendPower>(1)];
+
+        protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<LifelongFriendPower>()];
 
         public LifelongFriend() : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)
         {

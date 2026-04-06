@@ -4,6 +4,7 @@ using Manosaba.Characters.JogasakiNoahCard.Cards;
 using Manosaba.Characters.NikaidoHiro.Cards;
 using Manosaba.Characters.TachibanaSherry.Cards;
 using Manosaba.Characters.SaekiMiria.Cards;
+using Manosaba.Characters.TonoHanna.Cards;
 using Manosaba.Extensions;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
@@ -28,6 +29,7 @@ namespace Manosaba.Characters.Common.Powers
             { "jogasaki_noah", typeof(LiquidManipulation)},
             { "tachibana_sherry", typeof(SuperPunch)},
             { "saeki_miria", typeof(MemorySharing)},
+            { "tono_hanna", typeof(SkyIsland)},
         };
 
         public override decimal ModifyDamageMultiplicative(Creature? target, decimal amount, ValueProp props, Creature? dealer, CardModel? cardSource)

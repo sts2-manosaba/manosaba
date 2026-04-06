@@ -68,5 +68,19 @@
   "MANOSABA-SAEKI_MIRIA.cardsModifierTitle": "",
   "MANOSABA-SAEKI_MIRIA.cardsModifierDescription": "",
   "MANOSABA-SAEKI_MIRIA.banter.alive.endTurnPing": "삼촌, 상관없어요. 시간을 투자하세요.",
-  "MANOSABA-SAEKI_MIRIA.banter.dead.endTurnPing": "..."
+  "MANOSABA-SAEKI_MIRIA.banter.dead.endTurnPing": "...",
+  "MANOSABA-TONO_HANNA.title": "토노 한나",
+  "MANOSABA-TONO_HANNA.titleObject": "",
+  "MANOSABA-TONO_HANNA.description": "한심하네… 그만두는 게 좋을 거야.",
+  "MANOSABA-TONO_HANNA.pronounObject": "",
+  "MANOSABA-TONO_HANNA.possessiveAdjective": "",
+  "MANOSABA-TONO_HANNA.pronounPossessive": "",
+  "MANOSABA-TONO_HANNA.pronounSubject": "",
+  "MANOSABA-TONO_HANNA.goldMonologue": "",
+  "MANOSABA-TONO_HANNA.eventDeathPrevention": "",
+  "MANOSABA-TONO_HANNA.aromaPrinciple": "",
+  "MANOSABA-TONO_HANNA.cardsModifierTitle": "",
+  "MANOSABA-TONO_HANNA.cardsModifierDescription": "",
+  "MANOSABA-TONO_HANNA.banter.alive.endTurnPing": "",
+  "MANOSABA-TONO_HANNA.banter.dead.endTurnPing": ""
 }

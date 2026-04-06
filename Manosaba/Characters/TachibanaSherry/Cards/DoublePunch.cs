@@ -16,7 +16,6 @@ namespace Manosaba.Characters.TachibanaSherry.Cards
     [Pool(typeof(TachibanaSherryCardPool))]
     public class DoublePunch : PathCustomCardModel
     {
-        protected override HashSet<CardTag> CanonicalTags => new HashSet<CardTag> { CardTag.Strike };
         private const int energyCost = 1;
         private const CardType type = CardType.Attack;
         private const CardRarity rarity = CardRarity.Rare;

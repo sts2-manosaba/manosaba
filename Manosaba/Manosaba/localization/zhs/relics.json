@@ -13,5 +13,9 @@
   "MANOSABA-FAIRY_HEART.flavor": "我變成完美名偵探雪莉了！肯定不會魔女化了。",
   "MANOSABA-CABINET_KEY.title": "小鑰匙",
   "MANOSABA-CABINET_KEY.description": "在你的回合開始時，每有一點[gold]嫌疑[/gold]獲得{Block}點[gold]格檔[/gold]。\n然後失去當前一半的[gold]嫌疑[/gold]。",
-  "MANOSABA-CABINET_KEY.flavor": "這是用來開啟什麼用的鑰匙?"
+  "MANOSABA-CABINET_KEY.flavor": "這是用來開啟什麼用的鑰匙?",
+
+  "MANOSABA-FRUGAL.title": "節儉",
+  "MANOSABA-FRUGAL.description": "在你的回合結束時，每有1點未使用的能量，獲得 {GoldPerEnergy} 金幣。",
+  "MANOSABA-FRUGAL.flavor": "剩下一點能量，就多存一點錢。"
 }

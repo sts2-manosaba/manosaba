@@ -20,7 +20,6 @@ namespace Manosaba.Characters.TachibanaSherry.Cards
         private const CardRarity rarity = CardRarity.Uncommon;
         private const TargetType targetType = TargetType.RandomEnemy;
         private const bool shouldShowInCardLibrary = true;
-        protected override HashSet<CardTag> CanonicalTags => [CardTag.Strike];
 
         protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(10m, ValueProp.Move)];
 

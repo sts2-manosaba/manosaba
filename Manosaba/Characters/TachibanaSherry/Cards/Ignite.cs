@@ -13,7 +13,6 @@ namespace Manosaba.Characters.TachibanaSherry.Cards
     [Pool(typeof(TachibanaSherryCardPool))]
     public class Ignite : PathCustomCardModel
     {
-        protected override HashSet<CardTag> CanonicalTags => [CardTag.Strike];
         private const int energyCost = 2;
         private const CardType type = CardType.Attack;
         private const CardRarity rarity = CardRarity.Rare;
