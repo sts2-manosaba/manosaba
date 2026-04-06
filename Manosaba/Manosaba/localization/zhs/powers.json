@@ -70,7 +70,10 @@
   "MANOSABA-LAW_KNOWER_POWER.title": "法律知識",
   "MANOSABA-LAW_KNOWER_POWER.description": "獲得嫌疑時，獲得格擋。",
   "MANOSABA-LAW_KNOWER_POWER.smartDescription": "獲得嫌疑時獲得格擋。",
-  
+  "MANOSABA-POWERED_REFLECT_POWER.title": "充能反擊",
+  "MANOSABA-POWERED_REFLECT_POWER.description": "將格擋下來的傷害返還給攻擊者。",
+  "MANOSABA-POWERED_REFLECT_POWER.smartDescription": "將格擋下來的傷害返還給攻擊者。",
+
   "MANOSABA-MARGO_PUPPET_POWER.title": "人偶模仿",
   "MANOSABA-MARGO_PUPPET_POWER.description": "在你的回合開始時，將你棄牌堆的一張隨機名字中含有\"人偶\"的牌放入你的手牌。",
   "MANOSABA-MARGO_PUPPET_POWER.smartDescription": "在你的回合開始時，將你棄牌堆的一張隨機名字中含有\"人偶\"的牌放入你的手牌。",
@@ -129,8 +132,5 @@
   "MANOSABA-PUPPET_COLLECTION_SUMMARY_POWER.title": "人偶收藏",
   "MANOSABA-PUPPET_COLLECTION_SUMMARY_POWER.description": "層數等於本場戰鬥中已收集的不同 [gold]人偶[/gold] 同伴種類（每位角色只算一次）。疊至 [blue]13[/blue] 層時，在你回合結束時立即獲勝。",
   "MANOSABA-PUPPET_COLLECTION_SUMMARY_POWER.smartDescription": "目前已收集 [blue]{Amount}[/blue] 種不同的人偶。疊至 [blue]13[/blue] 層時，在你回合結束時立即獲勝。"
-  "MANOSABA-POWERED_REFLECT_POWER.title": "充能反擊",
-  "MANOSABA-POWERED_REFLECT_POWER.description": "將格擋下來的傷害返還給攻擊者。",
-  "MANOSABA-POWERED_REFLECT_POWER.smartDescription": "將格擋下來的傷害返還給攻擊者。"
 
 }
