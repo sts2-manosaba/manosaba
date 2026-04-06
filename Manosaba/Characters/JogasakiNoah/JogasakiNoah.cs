@@ -1,4 +1,4 @@
-﻿using BaseLib.Abstracts;
+using BaseLib.Abstracts;
 using Godot;
 using manosaba.Characters.JogasakiNoah.Relics;
 using manosaba.Extensions;
@@ -57,5 +57,7 @@ namespace manosaba.Characters.JogasakiNoah
         public override string CustomArmPaperTexturePath => (CharacterId + "_arm_paper.png").CharacterImgPath(CharacterId);
         public override string CustomArmScissorsTexturePath => (CharacterId + "_arm_scissors.png").CharacterImgPath(CharacterId);
         public override string CustomEnergyCounterPath => (CharacterId + "_energy_counter.tscn").CharacterScenePath(CharacterId);
+
+        public override string CharacterTransitionSfx => "event:/sfx/ui/wipe_ironclad";
     }
 }
