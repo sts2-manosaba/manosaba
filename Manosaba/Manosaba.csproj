@@ -22,6 +22,9 @@
 		<IsOSX Condition="$([MSBuild]::IsOSPlatform('OSX'))">true</IsOSX>
 	</PropertyGroup>
 
+	<!-- Local overrides (ignored by git): copy Local.Build.props.example to Local.Build.props -->
+	<Import Project="Local.Build.props" Condition="Exists('Local.Build.props')" />
+
 	<!-- // NOTE: Megadot is version 4.5.1, and the game won't load your .pck if the Godot version used is newer. -->
 
 	<!-- Windows -->

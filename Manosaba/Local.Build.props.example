@@ -1,0 +1,22 @@
+<Project>
+  <!--
+    Copy this file to Local.Build.props (same folder as Manosaba.csproj).
+    Local.Build.props is gitignored and intended for machine-specific paths.
+  -->
+  <PropertyGroup>
+    <!-- Example (Windows):
+    <SteamLibraryPath>D:\SteamLibrary\steamapps</SteamLibraryPath>
+    <GodotPath>E:\STS2Mod\Godot_v4.5.1-stable_mono_win64\Godot_v4.5.1-stable_mono_win64.exe</GodotPath>
+    -->
+
+    <!-- Example (Linux):
+    <SteamLibraryPath>/home/you/.local/share/Steam/steamapps</SteamLibraryPath>
+    <GodotPath>/home/you/.local/share/Steam/steamapps/common/Godot Engine/godot.x11.opt.tools.64</GodotPath>
+    -->
+
+    <!-- Example (macOS):
+    <SteamLibraryPath>/Users/you/Library/Application Support/Steam/steamapps</SteamLibraryPath>
+    <GodotPath>/Users/you/Applications/Godot_mono.app/Contents/MacOS/Godot</GodotPath>
+    -->
+  </PropertyGroup>
+</Project>

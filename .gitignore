@@ -368,3 +368,4 @@ FodyWeavers.xsd
 *.pck
 *.import
 .codex
+Manosaba/Local.Build.props
