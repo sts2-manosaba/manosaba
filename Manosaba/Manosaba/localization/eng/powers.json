@@ -61,5 +61,11 @@
   "MANOSABA-FRIENDLY_POWER.smartDescription": "20%。",
   "MANOSABA-MEMORY_SHARING_POWER.title": "Memory Sharing",
   "MANOSABA-MEMORY_SHARING_POWER.description": "At the start of each turn, gain a random teammate card based on your [gold]Majoka[/gold].",
-  "MANOSABA-MEMORY_SHARING_POWER.smartDescription": "At the start of each turn, gain a random teammate card."
+  "MANOSABA-MEMORY_SHARING_POWER.smartDescription": "At the start of each turn, gain a random teammate card.",
+  "MANOSABA-DYING_MESSAGE_POWER.title": "",
+  "MANOSABA-DYING_MESSAGE_POWER.description": "",
+  "MANOSABA-DYING_MESSAGE_POWER.smartDescription": "",
+  "MANOSABA-LAW_KNOWER_POWER.title": "",
+  "MANOSABA-LAW_KNOWER_POWER.description": "",
+  "MANOSABA-LAW_KNOWER_POWER.smartDescription": "。"
 }

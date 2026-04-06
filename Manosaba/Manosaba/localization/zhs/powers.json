@@ -63,6 +63,12 @@
   "MANOSABA-FRIENDLY_POWER.smartDescription": "降低從攻擊受到的傷害20%。",
   "MANOSABA-MEMORY_SHARING_POWER.title": "記憶共享",
   "MANOSABA-MEMORY_SHARING_POWER.description": "每回合開始時根據[gold]魔女化[/gold]獲得隨機一張隊友的卡片。",
-  "MANOSABA-MEMORY_SHARING_POWER.smartDescription": "每回合開始時獲得隨機一張隊友的卡片。"
+  "MANOSABA-MEMORY_SHARING_POWER.smartDescription": "每回合開始時獲得隨機一張隊友的卡片。",
+  "MANOSABA-DYING_MESSAGE_POWER.title": "死亡訊息",
+  "MANOSABA-DYING_MESSAGE_POWER.description": "如果在這回合死亡，下一回合所有隊友抽牌並獲得能量。",
+  "MANOSABA-DYING_MESSAGE_POWER.smartDescription": "該角色在這回合死亡時，下一回合隊友獲得卡片及能量。",
+  "MANOSABA-LAW_KNOWER_POWER.title": "法律知識",
+  "MANOSABA-LAW_KNOWER_POWER.description": "獲得嫌疑時，獲得格擋。",
+  "MANOSABA-LAW_KNOWER_POWER.smartDescription": "獲得嫌疑時獲得格擋。"
 
 }

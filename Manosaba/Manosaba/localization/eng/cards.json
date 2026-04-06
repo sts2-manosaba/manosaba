@@ -244,5 +244,17 @@
   "MANOSABA-CLEAN_UP.title": "Clean Up",
   "MANOSABA-CLEAN_UP.description": "[gold]Exhaust[/gold] 1 card. At the start of next turn,\ndraw {Cards:diff()} cards.",
   "MANOSABA-MEMORY_SHARING.title": "Memory Sharing",
-  "MANOSABA-MEMORY_SHARING.description": "All characters gain 1 stack of [gold]Memory Sharing[/gold]."
+  "MANOSABA-MEMORY_SHARING.description": "All characters gain 1 stack of [gold]Memory Sharing[/gold].",
+  "MANOSABA-CLUMSY.title": "",
+  "MANOSABA-CLUMSY.description": "",
+  "MANOSABA-FALL_GUY.title": "",
+  "MANOSABA-FALL_GUY.description": "",
+  "MANOSABA-DYING_MESSAGE.title": "",
+  "MANOSABA-DYING_MESSAGE.description": "",
+  "MANOSABA-LAW_KNOWER.title": "",
+  "MANOSABA-LAW_KNOWER.description": "",
+  "MANOSABA-PREPARE.title": "",
+  "MANOSABA-PREPARE.description": "",
+  "MANOSABA-KEY_EVIDENCE.title": "",
+  "MANOSABA-KEY_EVIDENCE.description": ""
 }

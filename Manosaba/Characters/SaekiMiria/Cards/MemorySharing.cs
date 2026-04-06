@@ -15,7 +15,7 @@ using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.Powers;
 
-namespace Manosaba.Characters.NikaidoHiro.Cards
+namespace Manosaba.Characters.SaekiMiria.Cards
 {
     [Pool(typeof(SaekiMiriaCardPool))]
     public class MemorySharing : PathCustomCardModel

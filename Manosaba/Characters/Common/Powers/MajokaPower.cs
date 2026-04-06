@@ -3,6 +3,7 @@ using Manosaba.Characters.HikamiMeruru.Cards;
 using Manosaba.Characters.JogasakiNoahCard.Cards;
 using Manosaba.Characters.NikaidoHiro.Cards;
 using Manosaba.Characters.TachibanaSherry.Cards;
+using Manosaba.Characters.SaekiMiria.Cards;
 using Manosaba.Extensions;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
