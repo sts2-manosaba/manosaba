@@ -202,6 +202,8 @@
   "MANOSABA-DIRTY_EHE.description": "對自己造成{Damage}點傷害。\n獲得{ThornsPower:diff()}點[gold]荊棘[/gold]。\n獲得{VulnerablePower}層[gold]易傷[/gold]。",
   "MANOSABA-SLEEPING_PILL.title": "安眠藥",
   "MANOSABA-SLEEPING_PILL.description": "抽{Cards}張牌。\n失去{VotePower}層[gold]嫌疑[/gold]。",
+  "MANOSABA-YUKI_BACKFLIP.title": "後空翻",
+  "MANOSABA-YUKI_BACKFLIP.description": "獲得 {Block:diff()} 點[gold]格檔[/gold]。\n抽 {Cards} 張牌。",
   "MANOSABA-ACHUBA.title": "阿秋霸",
   "MANOSABA-ACHUBA.description": "對隨機敵人造成{Damage:diff()}點傷害。\n每有一名敵人被擊殺，就重複此效果。\n無法對擁有[gold]翱翔[/gold]的敵人造成傷害。",
   "MANOSABA-ISEKAI_ELEVATOR.title": "異世界電梯",

@@ -201,6 +201,8 @@
   "MANOSABA-DIRTY_EHE.description": "自身に{Damage}ダメージを与える。\n{ThornsPower:diff()}点の[gold]荊棘[/gold]を得る。\n{VulnerablePower}層の[gold]脆弱[/gold]を得る。",
   "MANOSABA-SLEEPING_PILL.title": "安眠薬",
   "MANOSABA-SLEEPING_PILL.description": "{Cards}枚引く。\n{VotePower}層の[gold]嫌疑[/gold]を失う。",
+  "MANOSABA-YUKI_BACKFLIP.title": "バク転",
+  "MANOSABA-YUKI_BACKFLIP.description": "{Block:diff()}[gold]ブロック[/gold]を得る。\n{Cards}枚引く。",
   "MANOSABA-ACHUBA.title": "力比べ",
   "MANOSABA-ACHUBA.description": "ランダムな敵に{Damage:diff()}ダメージを与える。\n敵を1体倒すたび、この効果を繰り返す。\n[gold]飛翔[/gold]を持つ敵にはダメージを与えられない。",
   "MANOSABA-ISEKAI_ELEVATOR.title": "異世界エレベーター",

@@ -201,6 +201,8 @@
   "MANOSABA-DIRTY_EHE.description": "Take {Damage} damage.\nGain {ThornsPower:diff()} [gold]Thorns[/gold].\nGain {VulnerablePower} [gold]Vulnerable[/gold].",
   "MANOSABA-SLEEPING_PILL.title": "Sleeping Pill",
   "MANOSABA-SLEEPING_PILL.description": "Draw {Cards} cards.\nLose {VotePower} [gold]Suspicion[/gold].",
+  "MANOSABA-YUKI_BACKFLIP.title": "Backflip",
+  "MANOSABA-YUKI_BACKFLIP.description": "Gain {Block:diff()} [gold]Block[/gold].\nDraw {Cards} cards.",
   "MANOSABA-ACHUBA.title": "Achoo—bah!",
   "MANOSABA-ACHUBA.description": "Deal {Damage:diff()} damage to a random enemy.\nWhenever this kills an enemy, repeat this effect.\nCannot damage enemies with [gold]Soar[/gold].",
   "MANOSABA-ISEKAI_ELEVATOR.title": "Isekai Elevator",

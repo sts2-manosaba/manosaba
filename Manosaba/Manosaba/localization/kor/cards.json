@@ -201,6 +201,8 @@
   "MANOSABA-DIRTY_EHE.description": "스스로에게 원인이 된다{Damage}손상 지점.\n얻다{ThornsPower:diff()}가리키다[gold]가시[/gold].\n얻다{VulnerablePower}층[gold]쉽게 부상당함[/gold].",
   "MANOSABA-SLEEPING_PILL.title": "수면제",
   "MANOSABA-SLEEPING_PILL.description": "연기{Cards}카드 놀이.\n잃다{VotePower}층[gold]의심하다[/gold].",
+  "MANOSABA-YUKI_BACKFLIP.title": "백플립",
+  "MANOSABA-YUKI_BACKFLIP.description": "얻다 {Block:diff()} [gold]차단하다[/gold].\n연기 {Cards} 카드.",
   "MANOSABA-ACHUBA.title": "아키우바",
   "MANOSABA-ACHUBA.description": "무작위 적에게 발생{Damage:diff()}손상 지점.\n이 효과는 적을 죽일 때마다 반복됩니다.\n소유할 수 없다[gold]날기[/gold]피해를 입히는 적.",
   "MANOSABA-ISEKAI_ELEVATOR.title": "또 다른 세계 엘리베이터",
