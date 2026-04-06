@@ -1,5 +1,6 @@
 using Manosaba.Characters.Common.Commands;
 using Manosaba.Extensions;
+using manosaba.Characters.TonoHanna.Relics;
 using manosaba.Extensions;
 using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Commands;
@@ -20,7 +21,7 @@ public sealed class PuppetCollectionSummaryPower : PathCustomPowerModel
 {
     private const string SharedIconFile = "puppet_collection_power.png";
     private const string WinVfxScenePath = "res://Manosaba/scenes/tono_hanna/vfx/puppet_collection.tscn";
-    private const string WinBgmEventPath = "event:/Manosaba/audio/bgm/world_vanquisher.mp3";
+    private const string WinBgmEventPath = "event:/Manosaba/audio/bgm/puppet_collection.mp3";
     private const int CollectionWinThreshold = 13;
 
     public override PowerType Type => PowerType.Buff;
@@ -51,7 +52,11 @@ public sealed class PuppetCollectionSummaryPower : PathCustomPowerModel
             return;
         }
 
-        await PowerCmd.Apply<PuppetCollectionSummaryPower>(owner, target - (decimal)current, owner, null, silent: true);
+        int gainedDistinctKinds = target - current;
+        await PowerCmd.Apply<PuppetCollectionSummaryPower>(owner, gainedDistinctKinds, owner, null, silent: true);
+
+        if (gainedDistinctKinds > 0)
+            await Frugal.OnPuppetCollectionIncreasedAsync(owner, gainedDistinctKinds);
     }
 
     private static int CountActiveCollectionKinds(Creature owner)

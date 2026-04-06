@@ -5,6 +5,8 @@ using manosaba.Characters.HikamiMeruru.Relics;
 using manosaba.Characters.JogasakiNoah.Relics;
 using manosaba.Characters.NikaidoHiro.Relics;
 using manosaba.Characters.SaekiMiria.Relics;
+using manosaba.Characters.TachibanaSherry.Relics;
+using manosaba.Characters.TonoHanna.Relics;
 using Manosaba.Characters.JogasakiNoah.Potions;
 using Manosaba.Config;
 using MegaCrit.Sts2.Core.Logging;
@@ -30,6 +32,8 @@ public class Entry
         SavedPropertiesTypeCache.InjectTypeIntoCache(typeof(PenOfHiro));
         SavedPropertiesTypeCache.InjectTypeIntoCache(typeof(SprayCanOfNoah));
         SavedPropertiesTypeCache.InjectTypeIntoCache(typeof(CabinetKey));
+        SavedPropertiesTypeCache.InjectTypeIntoCache(typeof(FairyHeart));
+        SavedPropertiesTypeCache.InjectTypeIntoCache(typeof(Frugal));
         // 使得tscn可以加载自定义脚本
         ScriptManagerBridge.LookupScriptsInAssembly(typeof(Entry).Assembly);
         Log.Debug("Mod initialized!");

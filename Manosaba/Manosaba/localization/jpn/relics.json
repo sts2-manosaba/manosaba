@@ -9,9 +9,13 @@
   "MANOSABA-SPRAY_CAN_OF_NOAH.description": "チャージオーブ枠を{OrbSlots}増やす。アップグレードで枠数が増加する。\nLv2以降、自分のターン開始時にランダムなペイントボールを1個生成。\nLv4以降、2個生成に強化される。",
   "MANOSABA-SPRAY_CAN_OF_NOAH.flavor": "スプレーしてほしいの？",
   "MANOSABA-FAIRY_HEART.title": "小妖精の心",
-  "MANOSABA-FAIRY_HEART.description": "自分のターン開始時、すべての[gold]魔女化[/gold]を失う。\n敵から攻撃を受けるたび、現在の[gold]筋力[/gold]の50%分だけ受けるダメージを軽減する。",
+  "MANOSABA-FAIRY_HEART.description": "自分のターン開始時、すべての[gold]魔女化[/gold]を失う。\n敵の攻撃を受けるたび、現在の[gold]筋力[/gold]の層数の50%に相当する分だけ受けるダメージを軽減する。\n戦闘開始時、この遺物のレベルと同じ層数の[gold]筋力[/gold]を得る。\nLv2以降、自分のターン開始時にHPを1失い、[gold]筋力[/gold]を1得る。\nLv4以降、戦闘に勝利したとき、現在の[gold]筋力[/gold]の層数と同じ量だけHPを回復する。",
   "MANOSABA-FAIRY_HEART.flavor": "私は完璧な名探偵シェリーになった！もう魔女化なんてしない！",
   "MANOSABA-CABINET_KEY.title": "小さな鍵",
   "MANOSABA-CABINET_KEY.description": "自分のターン開始時、前のターンに失ったHPの10%に等しい{singleStarIcon}エナジーを得る。\nレベルごとに5%増加。",
-  "MANOSABA-CABINET_KEY.flavor": "これは何を開ける鍵なんだろう？"
+  "MANOSABA-CABINET_KEY.flavor": "これは何を開ける鍵なんだろう？",
+
+  "MANOSABA-FRUGAL.title": "倹約",
+  "MANOSABA-FRUGAL.description": "ターン終了時、未使用のエネルギー1につき{GoldPerEnergy}ゴールドを得る。アップグレードで量が増える。\nLv2以降、人形コレクションを得るたび、[gold]魔女化[/gold]を5得る。\nLv4以降、10得る。",
+  "MANOSABA-FRUGAL.flavor": "残ったエネルギーは、ちりつもで財布に。"
 }
