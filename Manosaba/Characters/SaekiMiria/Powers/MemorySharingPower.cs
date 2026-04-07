@@ -28,6 +28,8 @@ namespace Manosaba.Characters.SaekiMiria.Powers
         public override PowerType Type => PowerType.Buff;
         public override PowerStackType StackType => PowerStackType.Single;
 
+        public override bool IsInstanced => true;
+
         public void SetApplier(Creature applier)
         {
             if (_appliers == null)
@@ -80,11 +82,7 @@ namespace Manosaba.Characters.SaekiMiria.Powers
                     pool.AddRange(playerPool);
                 }
 
-                HashSet<Type> IgnoredCards = new()
-            {
-                typeof(Exchange),
-                typeof(EmaDogAttack)
-            };
+                HashSet<Type> IgnoredCards = MiriaConstants.IgnoredCards;
                 //filter out quest and status cards, and token rarity cards
                 pool = pool
                     .Where(c => c.Type != CardType.Quest && c.Type != CardType.Status)

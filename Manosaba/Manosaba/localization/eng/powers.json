@@ -71,6 +71,12 @@
   "MANOSABA-POWERED_REFLECT_POWER.title": "",
   "MANOSABA-POWERED_REFLECT_POWER.description": "",
   "MANOSABA-POWERED_REFLECT_POWER.smartDescription": "",
+  "MANOSABA-INCOME_DAMAGE_MULTIPLY_POWER.title": "",
+  "MANOSABA-INCOME_DAMAGE_MULTIPLY_POWER.description": "",
+  "MANOSABA-INCOME_DAMAGE_MULTIPLY_POWER.smartDescription": "",
+  "MANOSABA-PEACEMAKER_POWER.title": "和平使者",
+  "MANOSABA-PEACEMAKER_POWER.description": "每回合開始時失去 X 點力量。",
+  "MANOSABA-PEACEMAKER_POWER.smartDescription": "每回合開始時失去 X 點力量。",
 
   "MANOSABA-MARGO_PUPPET_POWER.title": "Puppet Mimicry",
   "MANOSABA-MARGO_PUPPET_POWER.description": "At the start of your turn, move a random card with the [gold]Puppet[/gold] tag from your discard pile to your hand.",

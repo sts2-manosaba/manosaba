@@ -21,7 +21,7 @@ namespace Manosaba.Characters.Common.Cards
         private const bool shouldShowInCardLibrary = true;
         public override CardMultiplayerConstraint MultiplayerConstraint => CardMultiplayerConstraint.MultiplayerOnly;
         protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<PrisonPower>()];
-        protected override IEnumerable<DynamicVar> CanonicalVars => [new EnergyVar(3), new CardsVar(3)];
+        protected override IEnumerable<DynamicVar> CanonicalVars => [new EnergyVar(10), new CardsVar(5)];
         public DyingMessage() : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)
         {
         }
@@ -35,8 +35,7 @@ namespace Manosaba.Characters.Common.Cards
 
         protected override void OnUpgrade()
         {
-            base.DynamicVars.Cards.UpgradeValueBy(2m);
-            base.DynamicVars.Energy.UpgradeValueBy(2m); 
+            EnergyCost.UpgradeBy(-1);
         }
     }
 }

@@ -3,6 +3,7 @@ using manosaba.Characters.SaekiMiria;
 using Manosaba.Characters.Common.Overrides;
 using Manosaba.Characters.Common.Powers;
 using Manosaba.Characters.NikaidoHiro.Powers;
+using Manosaba.Characters.SaekiMiria.Helper;
 using Manosaba.Extensions;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
@@ -23,7 +24,6 @@ namespace Manosaba.Characters.NikaidoHiro.Cards
         private const TargetType targetType = TargetType.AllAllies;
         private const bool shouldShowInCardLibrary = true;
         public override CardMultiplayerConstraint MultiplayerConstraint => CardMultiplayerConstraint.MultiplayerOnly;
-        //protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<DeathLoopPower>()];
         public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
 
         
@@ -150,14 +150,7 @@ namespace Manosaba.Characters.NikaidoHiro.Cards
 
         private static bool ShouldIgnoreThisPower(PowerModel power)
         {
-            HashSet<Type> IgnoredPowers = new()
-            {
-                typeof(MajokaPower),
-                typeof(VotePower),
-                typeof(CoveredPower),
-                typeof(InterceptPower),
-                typeof(DeathLoopPower)
-            };
+            HashSet<Type> IgnoredPowers = MiriaConstants.IgnoredPowers;
             return power != null && IgnoredPowers.Contains(power.GetType());
         }
 

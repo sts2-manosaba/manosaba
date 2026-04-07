@@ -41,11 +41,7 @@ namespace Manosaba.Characters.SaekiMiria.Cards
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
             var target = cardPlay.Target.Player;
-            HashSet<Type> IgnoredCards = new()
-            {
-                typeof(Exchange),
-                typeof(EmaDogAttack)
-            };
+            HashSet<Type> IgnoredCards = MiriaConstants.IgnoredCards;
 
             var pool = target.Character.CardPool.AllCards;
             var deck = CardPile.GetCards(target, PileType.Deck);

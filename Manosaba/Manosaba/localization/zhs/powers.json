@@ -73,6 +73,12 @@
   "MANOSABA-POWERED_REFLECT_POWER.title": "充能反擊",
   "MANOSABA-POWERED_REFLECT_POWER.description": "將格擋下來的傷害返還給攻擊者。",
   "MANOSABA-POWERED_REFLECT_POWER.smartDescription": "將格擋下來的傷害返還給攻擊者。",
+  "MANOSABA-INCOME_DAMAGE_MULTIPLY_POWER.title": "不當判決",
+  "MANOSABA-INCOME_DAMAGE_MULTIPLY_POWER.description": "本回合受到的傷害 X 倍。",
+  "MANOSABA-INCOME_DAMAGE_MULTIPLY_POWER.smartDescription": "本回合受到的傷害 X 倍。",
+  "MANOSABA-PEACEMAKER_POWER.title": "和平使者",
+  "MANOSABA-PEACEMAKER_POWER.description": "每回合開始時失去 X 點力量。",
+  "MANOSABA-PEACEMAKER_POWER.smartDescription": "每回合開始時失去 X 點力量。",
 
   "MANOSABA-MARGO_PUPPET_POWER.title": "人偶模仿",
   "MANOSABA-MARGO_PUPPET_POWER.description": "在你的回合開始時，將你棄牌堆的一張隨機名字中含有\"人偶\"的牌放入你的手牌。",

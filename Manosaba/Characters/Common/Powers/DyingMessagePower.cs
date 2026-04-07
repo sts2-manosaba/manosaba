@@ -7,7 +7,9 @@ using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.Entities.Powers;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
+using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.Powers;
+using MegaCrit.Sts2.Core.ValueProps;
 
 namespace Manosaba.Characters.NikaidoHiro.Powers
 {
@@ -23,17 +25,11 @@ namespace Manosaba.Characters.NikaidoHiro.Powers
             buffToApply += 2;
         }
 
-        public override async Task AfterDeath(PlayerChoiceContext choiceContext, Creature creature, bool wasRemovalPrevented, float deathAnimLength)
+        public override async Task BeforeDamageReceived(PlayerChoiceContext choiceContext, Creature target, decimal amount, ValueProp props, Creature? dealer, CardModel? cardSource)
         {
-            if (wasRemovalPrevented)
-                return;
-
-            if (creature != Owner)
-            {
-                return;
-            }
-
-            IEnumerable<Creature> enumerable = from c in base.CombatState.GetTeammatesOf(creature)
+            if(target != base.Owner) return;
+            if(amount < base.Owner.CurrentHp ) return;
+            IEnumerable<Creature> enumerable = from c in base.CombatState.GetTeammatesOf(base.Owner)
                                                where c != null && c.IsAlive && c.IsPlayer
                                                select c;
             foreach (Creature item in enumerable)
@@ -42,10 +38,12 @@ namespace Manosaba.Characters.NikaidoHiro.Powers
                 {
                     return;
                 }
-                await PowerCmd.Apply<DrawCardsNextTurnPower>(item, buffToApply , base.Owner, null);
-                await PowerCmd.Apply<EnergyNextTurnPower>(item, buffToApply, base.Owner, null);
+                await PowerCmd.Apply<DrawCardsNextTurnPower>(item, 5, base.Owner, null);
+                await PowerCmd.Apply<EnergyNextTurnPower>(item, 10, base.Owner, null);
             }
+            return;
         }
+
 
         public override async Task AfterTurnEnd(PlayerChoiceContext choiceContext, CombatSide side)
         {

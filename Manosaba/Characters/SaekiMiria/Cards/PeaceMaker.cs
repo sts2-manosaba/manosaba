@@ -1,0 +1,53 @@
+﻿using BaseLib.Utils;
+using manosaba.Characters.SaekiMiria;
+using Manosaba.Characters.Common.Overrides;
+using Manosaba.Characters.Common.Powers;
+using Manosaba.Characters.NikaidoHiro.Powers;
+using Manosaba.Characters.SaekiMiria.Powers;
+using Manosaba.Characters.TachibanaSherry.Powers;
+using Manosaba.Extensions;
+using MegaCrit.Sts2.Core.Combat;
+using MegaCrit.Sts2.Core.Commands;
+using MegaCrit.Sts2.Core.Entities.Cards;
+using MegaCrit.Sts2.Core.Entities.Creatures;
+using MegaCrit.Sts2.Core.Entities.Players;
+using MegaCrit.Sts2.Core.GameActions.Multiplayer;
+using MegaCrit.Sts2.Core.HoverTips;
+using MegaCrit.Sts2.Core.Models;
+using MegaCrit.Sts2.Core.Models.Powers;
+
+namespace Manosaba.Characters.SaekiMiria.Cards
+{
+    [Pool(typeof(SaekiMiriaCardPool))]
+    public class Peacemaker : PathCustomCardModel
+    {
+        private const int energyCost = 2;
+        private const CardType type = CardType.Power;
+        private const CardRarity rarity = CardRarity.Rare;
+        private const TargetType targetType = TargetType.AllEnemies;
+        private const bool shouldShowInCardLibrary = true;
+        protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<StrengthPower>(), HoverTipFactory.FromPower<PeacemakerPower>()];
+
+        
+        public Peacemaker() : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)
+        {
+        }
+
+        protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
+        {
+            await PowerCmd.Apply<StrengthPower>(base.Owner.Creature, -2, base.Owner.Creature, this);
+
+            List<Creature> enemies = CombatState.GetOpponentsOf(Owner.Creature).ToList();
+            foreach (Creature creature in enemies)
+            {
+                await PowerCmd.Apply<StrengthPower>(creature, -1, Owner.Creature, null);
+            }
+            await PowerCmd.Apply<PeacemakerPower>(base.Owner.Creature, 1, base.Owner.Creature, this);
+        }
+
+        protected override void OnUpgrade()
+        {
+            EnergyCost.UpgradeBy(-1);
+        }
+    }
+}
