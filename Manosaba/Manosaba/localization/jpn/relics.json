@@ -12,6 +12,6 @@
   "MANOSABA-FAIRY_HEART.description": "自分のターン開始時、すべての[gold]魔女化[/gold]を失う。\n敵から攻撃を受けるたび、現在の[gold]筋力[/gold]の50%分だけ受けるダメージを軽減する。",
   "MANOSABA-FAIRY_HEART.flavor": "私は完璧な名探偵シェリーになった！もう魔女化なんてしない！",
   "MANOSABA-CABINET_KEY.title": "小さな鍵",
-  "MANOSABA-CABINET_KEY.description": "自分のターン開始時、[gold]嫌疑[/gold]1につき{Block}点の[gold]ブロック[/gold]を得る。\nその後、現在の[gold]嫌疑[/gold]を半分失う。",
+  "MANOSABA-CABINET_KEY.description": "自分のターン開始時、前のターンに失ったHPの10%に等しい{singleStarIcon}エナジーを得る。\nレベルごとに5%増加。",
   "MANOSABA-CABINET_KEY.flavor": "これは何を開ける鍵なんだろう？"
 }

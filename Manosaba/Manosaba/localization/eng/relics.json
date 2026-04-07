@@ -12,7 +12,7 @@
   "MANOSABA-FAIRY_HEART.description": "At the start of your turn, lose all [gold]Majoka[/gold].\nWhenever you are hit by an enemy attack, reduce that damage by 50% of your [gold]Strength[/gold] stacks.",
   "MANOSABA-FAIRY_HEART.flavor": "I've become the perfect detective Sherry! I definitely won't go Majoka again.",
   "MANOSABA-CABINET_KEY.title": "Small Key",
-  "MANOSABA-CABINET_KEY.description": "At the start of your turn, gain {Block} [gold]Block[/gold] for each [gold]Suspicion[/gold] you have.\nThen lose half of your current [gold]Suspicion[/gold].",
+  "MANOSABA-CABINET_KEY.description": "At the start of your turn, gain {singleStarIcon} energy equal to 10% of HP lost during the previous turn.\nIncreases by 5% per level.",
   "MANOSABA-CABINET_KEY.flavor": "What lock is this key for?",
 
   "MANOSABA-FRUGAL.title": "Frugal",

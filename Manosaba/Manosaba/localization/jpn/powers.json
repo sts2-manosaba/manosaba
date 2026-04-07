@@ -62,6 +62,12 @@
   "MANOSABA-MEMORY_SHARING_POWER.title": "記憶共有",
   "MANOSABA-MEMORY_SHARING_POWER.description": "毎ターン開始時、[gold]魔女化[/gold]に応じて味方カードをランダムに1枚得る。",
   "MANOSABA-MEMORY_SHARING_POWER.smartDescription": "毎ターン開始時、味方カードをランダムに1枚得る。",
+  "MANOSABA-INCOME_DAMAGE_MULTIPLY_POWER.title": "不当判決",
+  "MANOSABA-INCOME_DAMAGE_MULTIPLY_POWER.description": "このターン受けるダメージがX倍になる。",
+  "MANOSABA-INCOME_DAMAGE_MULTIPLY_POWER.smartDescription": "このターン受けるダメージがX倍になる。",
+  "MANOSABA-PEACEMAKER_POWER.title": "平和の使者",
+  "MANOSABA-PEACEMAKER_POWER.description": "毎ターン開始時に筋力をX失う。",
+  "MANOSABA-PEACEMAKER_POWER.smartDescription": "毎ターン開始時に筋力をX失う。",
 
   "MANOSABA-MARGO_PUPPET_POWER.title": "人形まね",
   "MANOSABA-MARGO_PUPPET_POWER.description": "ターン開始時、捨て札から[gold]人形[/gold]タグのカードをランダムに1枚手札に移す。",
