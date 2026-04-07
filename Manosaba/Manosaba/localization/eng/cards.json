@@ -207,7 +207,7 @@
   "MANOSABA-SLEEPING_PILL.description": "Draw {Cards} cards.\nLose {VotePower} [gold]Suspicion[/gold].",
   "MANOSABA-YUKI_BACKFLIP.title": "Backflip",
   "MANOSABA-YUKI_BACKFLIP.description": "Gain {Block:diff()} [gold]Block[/gold].\nDraw {Cards} cards.",
-  "MANOSABA-ACHUBA.title": "Achoo—bah!",
+  "MANOSABA-ACHUBA.title": "Arm Wrestling",
   "MANOSABA-ACHUBA.description": "Deal {Damage:diff()} damage to a random enemy.\nWhenever this kills an enemy, repeat this effect.\nCannot damage enemies with [gold]Soar[/gold].",
   "MANOSABA-ISEKAI_ELEVATOR.title": "Isekai Elevator",
   "MANOSABA-ISEKAI_ELEVATOR.description": "An ally gains {MajokaPower:diff()} [gold]Majoka[/gold].\nYou gain {MajokaPower:diff()} [gold]Majoka[/gold].\nTake {Damage} damage.",
