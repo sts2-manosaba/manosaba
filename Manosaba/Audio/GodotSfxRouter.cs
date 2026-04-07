@@ -19,7 +19,7 @@ public static class GodotSfxRouter
     private static bool _vanillaBgmDucked;
     private static AudioStreamPlayer? _characterSelectPlayer;
 
-    public static bool TryPlay(string eventPath, float volume = 1f)
+    public static bool TryPlay(string? eventPath, float volume = 1f)
     {
         if (!TryResolveAudioPath(eventPath, out string? audioPath))
         {
@@ -111,9 +111,15 @@ public static class GodotSfxRouter
         player.VolumeLinear = volume;
     }
 
-    private static bool TryResolveAudioPath(string eventPath, out string? audioPath)
+    private static bool TryResolveAudioPath(string? eventPath, out string? audioPath)
     {
         const string eventPrefix = "event:/Manosaba";
+        if (string.IsNullOrWhiteSpace(eventPath))
+        {
+            audioPath = null;
+            return false;
+        }
+
         if (!eventPath.StartsWith(eventPrefix))
         {
             audioPath = null;
