@@ -26,7 +26,7 @@ namespace Manosaba.Characters.NikaidoHiro.Cards
             new CalculationBaseVar(8m),
             new ExtraDamageVar(4m),
             new CalculatedDamageVar(ValueProp.Move).WithMultiplier(delegate(CardModel card, Creature? _){
-                if (card.Owner.Creature.GetPowerAmount<VotePower>() > 1)
+                if (card.Owner.Creature.GetPowerAmount<VotePower>() >= 1)
                 {
                     return 1;
                 }
@@ -50,7 +50,7 @@ namespace Manosaba.Characters.NikaidoHiro.Cards
                  .FromCard(this)
                  .Targeting(target)
                  .Execute(choiceContext);
-            if (base.Owner.Creature.GetPowerAmount<VotePower>() > 1)
+            if (base.Owner.Creature.GetPowerAmount<VotePower>() >= 1)
             {
                 await PowerCmd.Apply<VotePower>(base.Owner.Creature, -DynamicVars["VotePowerCost"].BaseValue, base.Owner.Creature, this);
             }
