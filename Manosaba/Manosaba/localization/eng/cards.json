@@ -57,6 +57,8 @@
   "MANOSABA-WITCHES_SABBATH.description": "Requires {MajokaPower:diff()} [gold]Majoka[/gold] to play.\nConsume all [gold]Majoka[/gold] and [gold]Suspicion[/gold] to deal {CalculatedDamage:diff()} damage to all enemies, and increase damage based on [gold]Suspicion[/gold] spent. This attack cannot be blocked.",
   "MANOSABA-EMA_NIKAIDO_HIRO.title": "💢Sakuraba Ema💢",
   "MANOSABA-EMA_NIKAIDO_HIRO.description": "Draw {Cards} cards and gain {MajokaPower:diff()} [gold]Majoka[/gold].",
+  "MANOSABA-BATHROOM_TALK.title": "Bathroom Talk",
+  "MANOSABA-BATHROOM_TALK.description": "Gain [gold]Summon[/gold]: {Summon:diff()}. Gain {VotePower:diff()} [gold]Suspicion[/gold].",
   "MANOSABA-BULLSEYE.title": "Bullseye",
   "MANOSABA-BULLSEYE.description": "Deal {Damage:diff()} damage and apply {VulnerablePower:diff()} [gold]Vulnerable[/gold].",
   "MANOSABA-DRIFT_APART.title": "Drift Apart",

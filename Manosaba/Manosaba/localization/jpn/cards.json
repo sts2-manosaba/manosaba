@@ -57,6 +57,8 @@
   "MANOSABA-WITCHES_SABBATH.description": "発動には{MajokaPower:diff()}層の[gold]魔女化[/gold]が必要。\nすべての[gold]魔女化[/gold]と[gold]嫌疑[/gold]を消費し、敵全体に{CalculatedDamage:diff()}ダメージを与える。消費した[gold]嫌疑[/gold]層数に応じてダメージが増加する。この攻撃はブロックされない。",
   "MANOSABA-EMA_NIKAIDO_HIRO.title": "💢桜羽エマ💢",
   "MANOSABA-EMA_NIKAIDO_HIRO.description": "{Cards}枚引き、{MajokaPower:diff()}層の[gold]魔女化[/gold]を得る。",
+  "MANOSABA-BATHROOM_TALK.title": "シャワールーム会談",
+  "MANOSABA-BATHROOM_TALK.description": "[gold]召喚[/gold]：{Summon:diff()}を得る。{VotePower:diff()}層の[gold]嫌疑[/gold]を得る。",
   "MANOSABA-BULLSEYE.title": "ブルズアイ",
   "MANOSABA-BULLSEYE.description": "{Damage:diff()}ダメージを与え、敵に{VulnerablePower:diff()}層の[gold]脆弱[/gold]を与える。",
   "MANOSABA-DRIFT_APART.title": "すれ違い",
