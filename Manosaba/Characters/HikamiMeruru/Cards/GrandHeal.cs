@@ -1,4 +1,4 @@
-﻿using BaseLib.Utils;
+using BaseLib.Utils;
 using manosaba.Characters.HikamiMeruru;
 using Manosaba.Characters.Common.Overrides;
 using Manosaba.Characters.Common.Powers;
@@ -26,7 +26,13 @@ namespace Manosaba.Characters.HikamiMeruru.Cards
         private const bool shouldShowInCardLibrary = true;
         protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<RegenPower>(), HoverTipFactory.FromPower<InhibitionPower>()];
         public override IEnumerable<CardKeyword> CanonicalKeywords => [ManosabaKeywords.Mahou, CardKeyword.Eternal];
-        protected override IEnumerable<DynamicVar> CanonicalVars => [new HealVar(20), new PowerVar<RegenPower>(10), new PowerVar<InhibitionPower>(5)];
+        protected override IEnumerable<DynamicVar> CanonicalVars => [
+            new HealVar(20),
+            new PowerVar<RegenPower>(10),
+            new CalculationBaseVar(0m),
+            new CalculationExtraVar(5m),
+            new CalculatedVar("InhibitionPower").WithMultiplier(GetMajokaFactor)
+        ];
         public GrandHeal() : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)
         {
         }
@@ -39,8 +45,9 @@ namespace Manosaba.Characters.HikamiMeruru.Cards
             foreach (Creature item in enumerable)
             {
                 await CreatureCmd.Heal(item, base.DynamicVars.Heal.BaseValue);
-                if (DynamicVars["InhibitionPower"].BaseValue * (Owner.Creature.GetPowerAmount<MajokaPower>() / 100m) >= 1)
-                    await PowerCmd.Apply<InhibitionPower>(item, DynamicVars["InhibitionPower"].BaseValue * Math.Min(Owner.Creature.GetPowerAmount<MajokaPower>() / 100m, 1m), Owner.Creature, this);
+                decimal inhibition = ((CalculatedVar)DynamicVars["InhibitionPower"]).Calculate(null);
+                if (inhibition >= 1m)
+                    await PowerCmd.Apply<InhibitionPower>(item, inhibition, Owner.Creature, this);
 
                 if (item.Player != null)
                 {
@@ -57,6 +64,9 @@ namespace Manosaba.Characters.HikamiMeruru.Cards
         {
             base.EnergyCost.UpgradeBy(-1);
         }
+
+        private static decimal GetMajokaFactor(CardModel card, Creature? _)
+            => Math.Min(card.Owner.Creature.GetPowerAmount<MajokaPower>() / 100m, 1m);
 
         private static IEnumerable<CardModel> GetStatuses(Player owner)
         {

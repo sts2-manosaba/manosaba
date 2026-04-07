@@ -1,4 +1,4 @@
-﻿using BaseLib.Utils;
+using BaseLib.Utils;
 using manosaba.Characters.JogasakiNoah;
 using Manosaba.Characters.Common.Overrides;
 using Manosaba.Characters.Common.Powers;
@@ -10,6 +10,7 @@ using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
+using MegaCrit.Sts2.Core.Models;
 
 namespace Manosaba.Characters.JogasakiNoahCard.Cards
 {
@@ -23,7 +24,11 @@ namespace Manosaba.Characters.JogasakiNoahCard.Cards
         private const bool shouldShowInCardLibrary = true;
         protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<LiquidManipulationPower>()];
         public override IEnumerable<CardKeyword> CanonicalKeywords => [ManosabaKeywords.Mahou, CardKeyword.Eternal];
-        protected override IEnumerable<DynamicVar> CanonicalVars => [new PowerVar<LiquidManipulationPower>(20)];
+        protected override IEnumerable<DynamicVar> CanonicalVars => [
+            new CalculationBaseVar(0m),
+            new CalculationExtraVar(20m),
+            new CalculatedVar("LiquidManipulationPower").WithMultiplier(GetMajokaFactor)
+        ];
         public LiquidManipulation() : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)
         {
         }
@@ -35,7 +40,8 @@ namespace Manosaba.Characters.JogasakiNoahCard.Cards
                                                select c;
             foreach (Creature item in enumerable)
             {
-                await PowerCmd.Apply<LiquidManipulationPower>(item, DynamicVars["LiquidManipulationPower"].BaseValue * Math.Min(Owner.Creature.GetPowerAmount<MajokaPower>() / 100m, 1m), Owner.Creature, this);
+                decimal amount = ((CalculatedVar)DynamicVars["LiquidManipulationPower"]).Calculate(null);
+                await PowerCmd.Apply<LiquidManipulationPower>(item, amount, Owner.Creature, this);
             }
         }
 
@@ -43,5 +49,8 @@ namespace Manosaba.Characters.JogasakiNoahCard.Cards
         {
             base.EnergyCost.UpgradeBy(-1);
         }
+
+        private static decimal GetMajokaFactor(CardModel card, Creature? _)
+            => Math.Min(card.Owner.Creature.GetPowerAmount<MajokaPower>() / 100m, 1m);
     }
 }
