@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Godot.NET.Sdk/4.5.1" InitialTargets="CheckDependencyPaths">
 	<PropertyGroup>
-		<Version>1.2.0</Version>
+		<Version>1.2.1</Version>
 		<TargetFramework>net9.0</TargetFramework>
 		<ImplicitUsings>true</ImplicitUsings>
 		<Nullable>enable</Nullable>
@@ -32,9 +32,10 @@
 		<AutoSteamPath>$(registry:HKEY_CURRENT_USER\Software\Valve\Steam@SteamPath)\steamapps</AutoSteamPath>
 		<SteamLibraryPath Condition="Exists('$(AutoSteamPath)/common/Slay the Spire 2')">$(AutoSteamPath)</SteamLibraryPath>
 
-		<GodotPath Condition="'$(GodotPath)' == ''">Z:\Godot_v4.5.1-stable_mono_win64\Godot_v4.5.1-stable_mono_win64.exe</GodotPath>
+		<GodotPath Condition="'$(GodotPath)' == ''">E:\STS2Mod\Godot_v4.5.1-stable_mono_win64\Godot_v4.5.1-stable_mono_win64.exe</GodotPath>
 		<!-- If on Windows and Slay the Spire 2 is not installed in your default steam library, adjust the following.-->
-		<SteamLibraryPath Condition="'$(SteamLibraryPath)' == ''">Z:\SteamLibrary\steamapps</SteamLibraryPath>
+		<SteamLibraryPath Condition="'$(SteamLibraryPath)' == ''">D:\SteamLibrary\steamapps</SteamLibraryPath>
+
 
 		<!-- The below should not need to be changed. -->
 		<Sts2Path>$(SteamLibraryPath)/common/Slay the Spire 2</Sts2Path>

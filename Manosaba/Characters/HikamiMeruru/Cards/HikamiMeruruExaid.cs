@@ -20,7 +20,7 @@ namespace Manosaba.Characters.HikamiMeruru.Cards
         private const TargetType targetType = TargetType.Self;
         private const bool shouldShowInCardLibrary = true;
 
-        protected override IEnumerable<DynamicVar> CanonicalVars => [new PowerVar<MajokaPower>(70)];
+        protected override IEnumerable<DynamicVar> CanonicalVars => [new PowerVar<MajokaPower>(100)];
 
         public HikamiMeruruExaid() : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)
         {
@@ -57,7 +57,7 @@ namespace Manosaba.Characters.HikamiMeruru.Cards
 
         protected override void OnUpgrade()
         {
-            DynamicVars["MajokaPower"].UpgradeValueBy(30);
+            EnergyCost.UpgradeBy(-1);
         }
     }
 }
