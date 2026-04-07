@@ -298,7 +298,7 @@
   "MANOSABA-BORROWED_KNIFE.title": "Borrowed Blade",
   "MANOSABA-BORROWED_KNIFE.description": "Another player draws {Cards:diff()} cards and gains {Energy:energyIcons()}.",
   "MANOSABA-SKY_ISLAND.title": "Sky Island",
-  "MANOSABA-SKY_ISLAND.description": "Deal {Damage:diff()} damage to all enemies X times. Damage is multiplied by the lesser of your [gold]Majoka[/gold] stacks divided by 100 and 1.",
+  "MANOSABA-SKY_ISLAND.description": "Deal {CalculatedDamage:diff()} damage to all enemies X times. Damage is multiplied by the lesser of your [gold]Majoka[/gold] stacks divided by 100 and 1.",
   "MANOSABA-EMA_PUPPET.title": "Ema Puppet",
   "MANOSABA-EMA_PUPPET.description": "Whenever you play a card with the [gold]Puppet[/gold] tag, deal {Damage:diff()} damage to all enemies.",
   "MANOSABA-HIRO_PUPPET.title": "Hiro Puppet",

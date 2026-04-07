@@ -24,6 +24,11 @@ namespace Manosaba.Characters.TachibanaSherry.Cards
         private const TargetType targetType = TargetType.AnyEnemy;
         private const bool shouldShowInCardLibrary = true;
 
+        protected override IEnumerable<IHoverTip> ExtraHoverTips => [
+            HoverTipFactory.FromPower<VotePower>(),
+            HoverTipFactory.FromPower<HangingKillPower>()
+        ];
+
         protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(15m, ValueProp.Move), new PowerVar<VotePower>(2m)];
 
         public HangingKill() : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)

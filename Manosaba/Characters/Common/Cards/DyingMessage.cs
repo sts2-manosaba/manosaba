@@ -20,7 +20,6 @@ namespace Manosaba.Characters.Common.Cards
         private const TargetType targetType = TargetType.Self;
         private const bool shouldShowInCardLibrary = true;
         public override CardMultiplayerConstraint MultiplayerConstraint => CardMultiplayerConstraint.MultiplayerOnly;
-        protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<PrisonPower>()];
         protected override IEnumerable<DynamicVar> CanonicalVars => [new EnergyVar(10), new CardsVar(5)];
         public DyingMessage() : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)
         {

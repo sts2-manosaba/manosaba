@@ -286,7 +286,7 @@
   "MANOSABA-BORROWED_KNIFE.title": "借りた刃",
   "MANOSABA-BORROWED_KNIFE.description": "もう1人のプレイヤーが{Cards:diff()}枚引き、{Energy:energyIcons()}を得る。",
   "MANOSABA-SKY_ISLAND.title": "空島",
-  "MANOSABA-SKY_ISLAND.description": "すべての敵に{Damage:diff()}ダメージをX回与える。ダメージは[gold]魔女化[/gold]を100で割った値と1のうち小さい方を掛ける。",
+  "MANOSABA-SKY_ISLAND.description": "すべての敵に{CalculatedDamage:diff()}ダメージをX回与える。ダメージは[gold]魔女化[/gold]を100で割った値と1のうち小さい方を掛ける。",
   "MANOSABA-EMA_PUPPET.title": "エマの人形",
   "MANOSABA-EMA_PUPPET.description": "[gold]人形[/gold]タグのカードをプレイするたび、すべての敵に{Damage:diff()}ダメージを与える。",
   "MANOSABA-HIRO_PUPPET.title": "ヒロの人形",

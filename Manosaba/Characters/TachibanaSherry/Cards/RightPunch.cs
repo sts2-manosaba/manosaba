@@ -1,9 +1,10 @@
-﻿using BaseLib.Utils;
+using BaseLib.Utils;
 using manosaba.Characters.TachibanaSherry;
 using Manosaba.Extensions;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
+using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models.Powers;
 using MegaCrit.Sts2.Core.ValueProps;
@@ -18,6 +19,8 @@ namespace Manosaba.Characters.TachibanaSherry.Cards
         private const CardRarity rarity = CardRarity.Basic;
         private const TargetType targetType = TargetType.AllEnemies;
         private const bool shouldShowInCardLibrary = true;
+
+        protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<StrengthPower>()];
 
         protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(4m, ValueProp.Move),new PowerVar<StrengthPower>(1m)];
 

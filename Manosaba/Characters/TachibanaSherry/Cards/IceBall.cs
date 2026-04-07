@@ -19,7 +19,7 @@ namespace Manosaba.Characters.TachibanaSherry.Cards
     [Pool(typeof(TachibanaSherryCardPool))]
     public class IceBall : PathCustomCardModel
     {
-        protected override IEnumerable<IHoverTip> ExtraHoverTips => [];
+        protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromKeyword(CardKeyword.Exhaust)];
         private const int energyCost = 0;
         private const CardType type = CardType.Attack;
         private const CardRarity rarity = CardRarity.Token;

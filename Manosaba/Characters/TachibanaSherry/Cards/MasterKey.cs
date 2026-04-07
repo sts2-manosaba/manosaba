@@ -22,7 +22,10 @@ namespace Manosaba.Characters.TachibanaSherry.Cards
         private const TargetType targetType = TargetType.Self;
         private const bool shouldShowInCardLibrary = true;
         public override IEnumerable<CardKeyword> CanonicalKeywords => [];
-        protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromCard<BrokenLock>(base.IsUpgraded)];
+        protected override IEnumerable<IHoverTip> ExtraHoverTips => [
+            HoverTipFactory.FromCard<BrokenLock>(base.IsUpgraded),
+            HoverTipFactory.FromPower<StrengthPower>()
+        ];
 
         protected override IEnumerable<DynamicVar> CanonicalVars => [new PowerVar<StrengthPower>(1)];
 

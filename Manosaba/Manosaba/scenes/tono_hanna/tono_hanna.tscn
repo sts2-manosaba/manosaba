@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://cg0l24e2hdkko"]
 
 [ext_resource type="Script" uid="uid://ci5rydvtx3dwt" path="res://Characters/Common/Overrides/ManosabaCharacterVisuals.cs" id="1_a1inm"]
-[ext_resource type="Texture2D" uid="uid://b0ave66lb4adh" path="res://Manosaba/images/characters/tono_hanna/TonoHanna.png" id="1_cnldr"]
+[ext_resource type="Texture2D" uid="uid://ke50pdfqeib1" path="res://Manosaba/images/characters/tono_hanna/TonoHanna.png" id="1_cnldr"]
 
 [node name="Tonohanna" type="Node2D"]
 script = ExtResource("1_a1inm")
@@ -10,17 +10,17 @@ script = ExtResource("1_a1inm")
 unique_name_in_owner = true
 
 [node name="Tonohanna" type="Sprite2D" parent="Visuals"]
-position = Vector2(7.500002, -128.24341)
-scale = Vector2(0.36379611, 0.36379614)
+position = Vector2(-1.4999845, -138.73727)
+scale = Vector2(0.38840073, 0.38840076)
 texture = ExtResource("1_cnldr")
 
 [node name="Bounds" type="Control" parent="."]
 unique_name_in_owner = true
 layout_mode = 3
 anchors_preset = 0
-offset_left = -82.0
-offset_top = -282.0
-offset_right = 77.0
+offset_left = -94.0
+offset_top = -293.0
+offset_right = 87.0
 offset_bottom = 20.0
 
 [node name="IntentPos" type="Marker2D" parent="."]

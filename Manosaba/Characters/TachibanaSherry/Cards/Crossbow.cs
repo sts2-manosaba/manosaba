@@ -21,7 +21,11 @@ namespace Manosaba.Characters.TachibanaSherry.Cards
         private const TargetType targetType = TargetType.Self;
         private const bool shouldShowInCardLibrary = true;
         public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
-        protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromCard<BrokenCrossbow>(base.IsUpgraded)];
+        protected override IEnumerable<IHoverTip> ExtraHoverTips => [
+            HoverTipFactory.FromCard<BrokenCrossbow>(base.IsUpgraded),
+            HoverTipFactory.FromPower<StrengthPower>(),
+            HoverTipFactory.FromKeyword(CardKeyword.Exhaust)
+        ];
         protected override IEnumerable<DynamicVar> CanonicalVars => [new PowerVar<StrengthPower>(1)];
 
         public Crossbow() : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)

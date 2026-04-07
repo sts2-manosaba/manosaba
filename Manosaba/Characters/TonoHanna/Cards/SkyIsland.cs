@@ -26,10 +26,9 @@ public class SkyIsland : PathCustomCardModel
     protected override bool HasEnergyCostX => true;
 
     protected override IEnumerable<DynamicVar> CanonicalVars => [
-        new DynamicVar("SkyIslandBaseDamage", 8m),
         new CalculationBaseVar(0m),
-        new CalculationExtraVar(1m),
-        new CalculatedVar("Damage").WithMultiplier(GetFinalDamageFromMajoka)
+        new ExtraDamageVar(8m),
+        new CalculatedDamageVar(ValueProp.Move).WithMultiplier(GetMajokaPercentMultiplier)
     ];
 
     protected override bool ShouldGlowGoldInternal => Owner.Creature.GetPowerAmount<MajokaPower>() >= 100;
@@ -44,10 +43,8 @@ public class SkyIsland : PathCustomCardModel
         if (hits <= 0 || CombatState == null)
             return;
 
-        decimal hitDamage = ((CalculatedVar)DynamicVars["Damage"]).Calculate(null);
-        await DamageCmd.Attack(hitDamage)
+        await DamageCmd.Attack(DynamicVars.CalculatedDamage)
             .WithHitCount(hits)
-            .Unpowered()
             .FromCard(this)
             .TargetingAllOpponents(CombatState)
             .Execute(choiceContext);
@@ -55,20 +52,13 @@ public class SkyIsland : PathCustomCardModel
 
     protected override void OnUpgrade()
     {
-        DynamicVars["SkyIslandBaseDamage"].UpgradeValueBy(2m);
+        DynamicVars.ExtraDamage.UpgradeValueBy(2m);
     }
 
-    private static decimal GetFinalDamageFromMajoka(CardModel card, Creature? _)
+    /// <summary>Maps current Majoka stacks to a 0–1 factor (stacks / 100, capped at 1).</summary>
+    private static decimal GetMajokaPercentMultiplier(CardModel card, Creature? _)
     {
-        decimal baseDamage = card.DynamicVars["SkyIslandBaseDamage"].BaseValue;
-        if (baseDamage <= 0m)
-            return 0m;
-
         decimal majoka = card.Owner.Creature.GetPowerAmount<MajokaPower>();
-        decimal mahouScale = Math.Min(majoka / 100m, 1m);
-        decimal multiplicativeBonus = 1m + majoka / 100m;
-        decimal scaledDamage = Math.Floor(baseDamage * mahouScale);
-        decimal additiveBonus = Math.Floor(majoka / 25m);
-        return Math.Floor((scaledDamage + additiveBonus) * multiplicativeBonus);
+        return Math.Min(majoka / 100m, 1m);
     }
 }

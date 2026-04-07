@@ -23,6 +23,11 @@ namespace Manosaba.Characters.TachibanaSherry.Cards
         private const TargetType targetType = TargetType.AnyEnemy;
         private const bool shouldShowInCardLibrary = true;
 
+        protected override IEnumerable<IHoverTip> ExtraHoverTips => [
+            HoverTipFactory.FromPower<DontRushPower>(),
+            HoverTipFactory.FromPower<StrengthPower>()
+        ];
+
         protected override IEnumerable<DynamicVar> CanonicalVars => [new PowerVar<StrengthPower>(1m)];
 
         public DontRush() : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)
