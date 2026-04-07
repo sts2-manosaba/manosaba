@@ -97,6 +97,8 @@
   "MANOSABA-DRUG_DEALER.description": "모든 아군이 무작위 기본 포션을 1병씩 얻습니다. {IfUpgraded:show:\n50% 확률로 자신도 [gold]촉매[/gold] 1병을 얻습니다.}",
   "MANOSABA-POTION_FACTORY.title": "포션 공장",
   "MANOSABA-POTION_FACTORY.description": "자신에게 [gold]포션 공장[/gold]을 {PotionFactoryPower:diff()} 줍니다.",
+  "MANOSABA-MERURU_INFIRMARY.title": "메루루 의무실",
+  "MANOSABA-MERURU_INFIRMARY.description": "자신에게 {MeruruInfirmaryPower:diff()}중첩의 [gold]메루루 의무실[/gold]을 부여한다.{IfUpgraded:show:\\n대신 모든 아군에게 부여한다.}",
   "MANOSABA-QUICK_HEAL.title": "신속 치료",
   "MANOSABA-QUICK_HEAL.description": "모든 플레이어의 체력을 {Heal:diff()} 회복하고 [gold]방어도[/gold]를 {Block:diff()} 줍니다.",
   "MANOSABA-IMMOLATION.title": "화형",

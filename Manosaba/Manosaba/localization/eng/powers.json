@@ -138,5 +138,8 @@
   "MANOSABA-PUPPET_COLLECTION_SUMMARY_POWER.smartDescription": "You have collected [blue]{Amount}[/blue] different puppet companion(s). At [blue]13[/blue] stacks, you win the combat at the end of your turn.",
   "MANOSABA-CATALYST_POWER.title": "Catalyst",
   "MANOSABA-CATALYST_POWER.description": "When [gold]Catalyst[/gold] is used on Hikami Meruru, gain 1 stack. At {Threshold} stacks, remove this and gain 1 [gold]Tredecim[/gold].",
-  "MANOSABA-CATALYST_POWER.smartDescription": "When [gold]Catalyst[/gold] is used on Hikami Meruru, gain 1 stack. At [blue]{Threshold}[/blue] stacks, remove this and gain 1 [gold]Tredecim[/gold]."
+  "MANOSABA-CATALYST_POWER.smartDescription": "When [gold]Catalyst[/gold] is used on Hikami Meruru, gain 1 stack. At [blue]{Threshold}[/blue] stacks, remove this and gain 1 [gold]Tredecim[/gold].",
+  "MANOSABA-MERURU_INFIRMARY_POWER.title": "Meruru Infirmary",
+  "MANOSABA-MERURU_INFIRMARY_POWER.description": "When you take damage, gain stacks equal to damage taken. At the start of your turn, gain 1 [gold]Painkiller[/gold] potion with healing equal to half your stacks (tier can be Lesser/Painkiller/Greater), then reset this power to 1 stack.",
+  "MANOSABA-MERURU_INFIRMARY_POWER.smartDescription": "Taking damage grants that many stacks. Start of turn: gain 1 [gold]Painkiller[/gold] potion that heals for half your current stacks, then reset this power to 1 stack."
 }

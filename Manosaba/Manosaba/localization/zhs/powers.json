@@ -140,6 +140,9 @@
   "MANOSABA-PUPPET_COLLECTION_SUMMARY_POWER.smartDescription": "目前已收集 [blue]{Amount}[/blue] 種不同的人偶。疊至 [blue]13[/blue] 層時，在你回合結束時立即獲勝。",
   "MANOSABA-CATALYST_POWER.title": "催化劑",
   "MANOSABA-CATALYST_POWER.description": "當[gold]催化劑[/gold]對冰上梅露露使用時，獲得 1 層。達到 {Threshold} 層時，移除本能力並獲得 1 瓶[gold]殺死魔女的藥[/gold]。",
-  "MANOSABA-CATALYST_POWER.smartDescription": "當[gold]催化劑[/gold]對冰上梅露露使用時，獲得 1 層。達到 [blue]{Threshold}[/blue] 層時，移除本能力並獲得 1 瓶[gold]殺死魔女的藥[/gold]。"
+  "MANOSABA-CATALYST_POWER.smartDescription": "當[gold]催化劑[/gold]對冰上梅露露使用時，獲得 1 層。達到 [blue]{Threshold}[/blue] 層時，移除本能力並獲得 1 瓶[gold]殺死魔女的藥[/gold]。",
+  "MANOSABA-MERURU_INFIRMARY_POWER.title": "梅露露醫護室",
+  "MANOSABA-MERURU_INFIRMARY_POWER.description": "受到傷害時，依照實際受傷值獲得等量層數。回合開始時，獲得 1 瓶回復量等於層數一半的 [gold]止痛藥[/gold] 藥水（可能為輕效止痛藥／止痛藥／強效止痛藥），然後重置為 1 層。",
+  "MANOSABA-MERURU_INFIRMARY_POWER.smartDescription": "受傷會累積等量層數。回合開始時獲得 1 瓶回復量為當前層數一半的 [gold]止痛藥[/gold] 藥水，再重置為 1 層。"
 
 }

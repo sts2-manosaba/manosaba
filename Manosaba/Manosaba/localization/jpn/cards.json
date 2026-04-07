@@ -97,6 +97,8 @@
   "MANOSABA-DRUG_DEALER.description": "味方全員はそれぞれランダムな基本ポーションを1本得る。{IfUpgraded:show:\n50%の確率で[gold]触媒[/gold]を1本得る。}",
   "MANOSABA-POTION_FACTORY.title": "ポーション工場",
   "MANOSABA-POTION_FACTORY.description": "自身に{PotionFactoryPower:diff()}層の[gold]ポーション工場[/gold]を与える。",
+  "MANOSABA-MERURU_INFIRMARY.title": "メルル診療所",
+  "MANOSABA-MERURU_INFIRMARY.description": "自身に{MeruruInfirmaryPower:diff()}層の[gold]メルル診療所[/gold]を与える。{IfUpgraded:show:\\n代わりに味方全員に与える。}",
   "MANOSABA-QUICK_HEAL.title": "応急治療",
   "MANOSABA-QUICK_HEAL.description": "全プレイヤーのHPを{Heal:diff()}回復し、{Block:diff()}[gold]ブロック[/gold]を与える。",
   "MANOSABA-IMMOLATION.title": "火刑",

@@ -97,6 +97,8 @@
   "MANOSABA-DRUG_DEALER.description": "Each ally gains 1 random basic potion.{IfUpgraded:show:\n50% chance to gain 1 [gold]Catalyst[/gold].}",
   "MANOSABA-POTION_FACTORY.title": "Potion Factory",
   "MANOSABA-POTION_FACTORY.description": "Gain {PotionFactoryPower:diff()} [gold]Potion Factory[/gold].",
+  "MANOSABA-MERURU_INFIRMARY.title": "Meruru Infirmary",
+  "MANOSABA-MERURU_INFIRMARY.description": "Gain {MeruruInfirmaryPower:diff()} [gold]Meruru Infirmary[/gold].{IfUpgraded:show:\\nApply this to all allies instead.}",
   "MANOSABA-QUICK_HEAL.title": "Quick Heal",
   "MANOSABA-QUICK_HEAL.description": "Heal all players {Heal:diff()} HP and gain {Block:diff()} [gold]Block[/gold].",
   "MANOSABA-IMMOLATION.title": "Immolation",

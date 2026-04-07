@@ -137,5 +137,8 @@
   "MANOSABA-PUPPET_COLLECTION_SUMMARY_POWER.smartDescription": "현재 [blue]{Amount}[/blue]종의 서로 다른 인형을 수집했습니다. [blue]13[/blue]중첩이 되면 자신의 턴 종료 시 즉시 승리합니다.",
   "MANOSABA-CATALYST_POWER.title": "촉매",
   "MANOSABA-CATALYST_POWER.description": "[gold]촉매[/gold]를 히카미 메루루에게 사용할 때마다 1중첩을 얻습니다. {Threshold}중첩에 도달하면 이 능력이 제거되고 [gold]마녀를 죽이는 약[/gold] 1병을 얻습니다.",
-  "MANOSABA-CATALYST_POWER.smartDescription": "[gold]촉매[/gold]를 히카미 메루루에게 사용할 때마다 1중첩을 얻습니다. [blue]{Threshold}[/blue]중첩에 도달하면 이 능력이 제거되고 [gold]마녀를 죽이는 약[/gold] 1병을 얻습니다."
+  "MANOSABA-CATALYST_POWER.smartDescription": "[gold]촉매[/gold]를 히카미 메루루에게 사용할 때마다 1중첩을 얻습니다. [blue]{Threshold}[/blue]중첩에 도달하면 이 능력이 제거되고 [gold]마녀를 죽이는 약[/gold] 1병을 얻습니다.",
+  "MANOSABA-MERURU_INFIRMARY_POWER.title": "메루루 의무실",
+  "MANOSABA-MERURU_INFIRMARY_POWER.description": "피해를 받을 때마다 실제 피해량만큼 스택을 얻는다. 턴 시작 시 스택의 절반만큼 회복하는 [gold]진통제[/gold] 물약 1개(가벼운 진통제/진통제/강력한 진통제 중 하나)를 얻고, 이 능력을 1중첩으로 리셋한다.",
+  "MANOSABA-MERURU_INFIRMARY_POWER.smartDescription": "피해를 받으면 그만큼 스택을 얻는다. 턴 시작 시 현재 스택의 절반만큼 회복하는 [gold]진통제[/gold] 물약 1개를 얻고, 이 능력을 1중첩으로 리셋한다."
 }

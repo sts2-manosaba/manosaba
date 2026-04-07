@@ -129,5 +129,8 @@
   "MANOSABA-PUPPET_COLLECTION_SUMMARY_POWER.smartDescription": "異なる人形仲間を[blue]{Amount}[/blue]種集めた。[blue]13[/blue]スタックで、あなたのターン終了時に戦闘に勝利する。",
   "MANOSABA-CATALYST_POWER.title": "触媒",
   "MANOSABA-CATALYST_POWER.description": "[gold]触媒[/gold]を氷上メルルに使用するたび1スタック得る。{Threshold}スタック以上でこれを取り除き、[gold]魔女を殺す薬[/gold]を1本得る。",
-  "MANOSABA-CATALYST_POWER.smartDescription": "[gold]触媒[/gold]を氷上メルルに使用するたび1スタック得る。[blue]{Threshold}[/blue]スタック以上でこれを取り除き、[gold]魔女を殺す薬[/gold]を1本得る。"
+  "MANOSABA-CATALYST_POWER.smartDescription": "[gold]触媒[/gold]を氷上メルルに使用するたび1スタック得る。[blue]{Threshold}[/blue]スタック以上でこれを取り除き、[gold]魔女を殺す薬[/gold]を1本得る。",
+  "MANOSABA-MERURU_INFIRMARY_POWER.title": "メルル診療所",
+  "MANOSABA-MERURU_INFIRMARY_POWER.description": "ダメージを受けるたび、受けたダメージ量と同じスタックを得る。ターン開始時、スタックの半分に等しい回復量の [gold]鎮痛剤[/gold] ポーション（軽い鎮痛剤／鎮痛剤／強力な鎮痛剤のいずれか）を1本獲得し、この能力を1スタックにリセットする。",
+  "MANOSABA-MERURU_INFIRMARY_POWER.smartDescription": "受けたダメージ分スタックを得る。ターン開始時、現在スタックの半分回復する [gold]鎮痛剤[/gold] ポーションを1本得て、この能力を1スタックにリセットする。"
 }

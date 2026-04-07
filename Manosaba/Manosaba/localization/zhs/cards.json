@@ -97,6 +97,8 @@
   "MANOSABA-DRUG_DEALER.description": "所有隊友各獲得 1 瓶隨機基礎藥水。{IfUpgraded:show:\n有 50% 機率使你獲得 1 瓶[gold]催化劑[/gold]。}",
   "MANOSABA-POTION_FACTORY.title": "藥水工廠",
   "MANOSABA-POTION_FACTORY.description": "給予自身 {PotionFactoryPower:diff()} 層[gold]藥水工廠[/gold]。",
+  "MANOSABA-MERURU_INFIRMARY.title": "梅露露醫護室",
+  "MANOSABA-MERURU_INFIRMARY.description": "給予自身 {MeruruInfirmaryPower:diff()} 層[gold]梅露露醫護室[/gold]。{IfUpgraded:show:\\n改為給予全體隊友。}",
   "MANOSABA-QUICK_HEAL.title": "快速治療",
   "MANOSABA-QUICK_HEAL.description": "回復所有玩家 {Heal:diff()} 點生命，並給予 {Block:diff()} 點[gold]格檔[/gold]。",
   "MANOSABA-IMMOLATION.title": "火刑",
