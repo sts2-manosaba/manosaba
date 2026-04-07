@@ -21,7 +21,7 @@ namespace Manosaba.Characters.Common.Cards
         private const bool shouldShowInCardLibrary = true;
 
         protected string EvokeSfx => "event:/sfx/characters/defect/defect_lightning_evoke";
-        protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(12, ValueProp.Unpowered | ValueProp.Unblockable)];
+        protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(10, ValueProp.Move)];
 
         public Electrocution() : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)
         {
@@ -52,7 +52,7 @@ namespace Manosaba.Characters.Common.Cards
             VfxCmd.PlayOnCreature(target, "vfx/vfx_attack_lightning");
 
             PlayEvokeSfx();
-            await CreatureCmd.Damage(choiceContext, target, value, ValueProp.Unpowered, base.Owner.Creature);
+            await CreatureCmd.Damage(choiceContext, target, value, ValueProp.Move, base.Owner.Creature);
             return;
         }
 
@@ -66,7 +66,7 @@ namespace Manosaba.Characters.Common.Cards
 
         protected override void OnUpgrade()
         {
-            base.DynamicVars.Damage.UpgradeValueBy(6m);
+            base.DynamicVars.Damage.UpgradeValueBy(5m);
         }
     }
 }
