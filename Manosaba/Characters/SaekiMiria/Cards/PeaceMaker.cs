@@ -35,12 +35,10 @@ namespace Manosaba.Characters.SaekiMiria.Cards
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
-            await PowerCmd.Apply<StrengthPower>(base.Owner.Creature, -2, base.Owner.Creature, this);
 
             List<Creature> enemies = CombatState.GetOpponentsOf(Owner.Creature).ToList();
             foreach (Creature creature in enemies)
             {
-                await PowerCmd.Apply<StrengthPower>(creature, -1, Owner.Creature, null);
             }
             await PowerCmd.Apply<PeacemakerPower>(base.Owner.Creature, 1, base.Owner.Creature, this);
         }

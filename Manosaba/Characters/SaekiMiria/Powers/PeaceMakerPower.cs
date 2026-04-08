@@ -27,7 +27,7 @@ namespace Manosaba.Characters.SaekiMiria.Powers
         public override PowerStackType StackType => PowerStackType.Counter;
 
 
-        public override async Task BeforeHandDraw(Player player, PlayerChoiceContext choiceContext, CombatState combatState)
+        /*public override async Task BeforeHandDraw(Player player, PlayerChoiceContext choiceContext, CombatState combatState)
         {
             if (player.Creature != Owner)
                 return;
@@ -39,6 +39,21 @@ namespace Manosaba.Characters.SaekiMiria.Powers
             }
 
             
+        }*/
+
+        public override decimal ModifyPowerAmountGiven(
+            PowerModel power,
+            Creature giver,
+            decimal amount,
+            Creature? target,
+            CardModel? cardSource)
+        {
+            if (power is StrengthPower && target != null && target.IsMonster && amount > 0)
+            {
+                return Math.Max(0, amount - Amount);
+            }
+
+            return amount;
         }
     }
 }

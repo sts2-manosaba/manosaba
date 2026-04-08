@@ -20,7 +20,7 @@ namespace Manosaba.Characters.SaekiMiria.Cards
     public class Clumsy : PathCustomCardModel
     {
         public override bool GainsBlock => true;
-        private const int energyCost = 1;
+        private const int energyCost = 0;
         private const CardType type = CardType.Skill;
         private const CardRarity rarity = CardRarity.Basic;
         private const TargetType targetType = TargetType.Self;

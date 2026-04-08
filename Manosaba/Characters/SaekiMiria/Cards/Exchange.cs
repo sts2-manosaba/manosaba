@@ -25,10 +25,10 @@ namespace Manosaba.Characters.SaekiMiria.Cards
     [Pool(typeof(SaekiMiriaCardPool))]
     public class Exchange : PathCustomCardModel
     {
-        private const int energyCost = 1;
+        private const int energyCost = 0;
         private const CardType type = CardType.Skill;
         private const CardRarity rarity = CardRarity.Basic;
-        private const TargetType targetType = TargetType.AnyAlly;
+        private const TargetType targetType = TargetType.AnyPlayer;
         private const bool shouldShowInCardLibrary = true;
         public override CardMultiplayerConstraint MultiplayerConstraint => CardMultiplayerConstraint.MultiplayerOnly;
         protected override IEnumerable<DynamicVar> CanonicalVars => [new CardsVar(1)];
@@ -40,6 +40,18 @@ namespace Manosaba.Characters.SaekiMiria.Cards
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
+            if (cardPlay.Target == null || cardPlay.Target.Player == null) {
+                await CardPileCmd.Draw(choiceContext, 1, base.Owner);
+                await CardCmd.Exhaust(choiceContext, this);
+                return;
+            }
+
+            /*if (cardPlay.Target.Player == base.Owner) {
+
+                await CardPileCmd.Draw(choiceContext, 1, base.Owner);
+                return;
+            }*/
+
             var target = cardPlay.Target.Player;
             HashSet<Type> IgnoredCards = MiriaConstants.IgnoredCards;
 
@@ -78,7 +90,7 @@ namespace Manosaba.Characters.SaekiMiria.Cards
             {
                 var copy = card.CreateClone(); 
 
-                copy.SetToFreeThisTurn();
+                //copy.SetToFreeThisTurn();
                 copy.AddKeyword(CardKeyword.Exhaust);
                 copy.AddKeyword(CardKeyword.Ethereal);
 
@@ -116,7 +128,7 @@ namespace Manosaba.Characters.SaekiMiria.Cards
             {
                 var copy2 = card2.CreateClone(); 
 
-                copy2.SetToFreeThisTurn();
+                //copy2.SetToFreeThisTurn();
                 copy2.AddKeyword(CardKeyword.Exhaust);
                 copy2.AddKeyword(CardKeyword.Ethereal);
 

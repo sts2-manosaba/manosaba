@@ -52,7 +52,7 @@ namespace Manosaba.Characters.SaekiMiria.Powers
             foreach (var applier in _appliers)
             {
                 decimal majoka = 0m;
-                if (applier != null && !applier.IsDead)
+                if (applier != null)
                 {
                     majoka = applier.GetPowerAmount<MajokaPower>();
                 }
@@ -69,10 +69,6 @@ namespace Manosaba.Characters.SaekiMiria.Powers
                     var playerPool = item.Character.CardPool.AllCards;
                     if (majoka < 100)
                     {
-                        if (player == item)
-                        {
-                            continue;
-                        }
                         var playerDeck = CardPile.GetCards(item, PileType.Deck);
                         var deckIds = playerDeck
                             .Select(c => c.Id)

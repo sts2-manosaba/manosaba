@@ -18,7 +18,7 @@ namespace Manosaba.Characters.NikaidoHiro.Cards
     [Pool(typeof(SaekiMiriaCardPool))]
     public class MindSharing : PathCustomCardModel
     {
-        private const int energyCost = 2;
+        private const int energyCost = 3;
         private const CardType type = CardType.Skill;
         private const CardRarity rarity = CardRarity.Rare;
         private const TargetType targetType = TargetType.AllAllies;
@@ -168,6 +168,7 @@ namespace Manosaba.Characters.NikaidoHiro.Cards
 
         protected override void OnUpgrade()
         {
+            base.AddKeyword(CardKeyword.Retain);
         }
     }
 }

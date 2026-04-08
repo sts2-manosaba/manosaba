@@ -51,7 +51,8 @@ namespace manosaba.Characters.SaekiMiria.Relics
 
         public override Task AfterPlayerTurnStart(PlayerChoiceContext choiceContext, Player player)
         {
-            PlayerCmd.GainEnergy(dmgTakenThisTurn * basePercentage, base.Owner);
+            int energyToGain = (int)decimal.Ceiling(dmgTakenThisTurn * basePercentage);
+            PlayerCmd.GainEnergy(energyToGain, base.Owner);
             dmgTakenThisTurn = 0m;
             return Task.CompletedTask;
         }

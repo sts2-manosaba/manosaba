@@ -18,11 +18,11 @@ namespace Manosaba.Characters.SaekiMiria.Cards
         public override bool GainsBlock => true;
         private const int energyCost = 1;
         private const CardType type = CardType.Skill;
-        private const CardRarity rarity = CardRarity.Rare;
+        private const CardRarity rarity = CardRarity.Uncommon;
         private const TargetType targetType = TargetType.AnyAlly;
         private const bool shouldShowInCardLibrary = true;
 
-        protected override IEnumerable<DynamicVar> CanonicalVars => [new BlockVar(14, ValueProp.Move)];
+        protected override IEnumerable<DynamicVar> CanonicalVars => [new BlockVar(11, ValueProp.Move)];
 
         public ScapeGoat() : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)
         {
@@ -37,7 +37,7 @@ namespace Manosaba.Characters.SaekiMiria.Cards
 
         protected override void OnUpgrade()
         {
-            base.DynamicVars.Block.UpgradeValueBy(6m);
+            base.DynamicVars.Block.UpgradeValueBy(3m);
         }
     }
 }

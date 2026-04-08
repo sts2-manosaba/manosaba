@@ -11,11 +11,12 @@ using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
+using MegaCrit.Sts2.Core.Models.CardPools;
 using MegaCrit.Sts2.Core.Models.Powers;
 
 namespace Manosaba.Characters.SaekiMiria.Cards
 {
-    [Pool(typeof(SaekiMiriaCardPool))]
+    [Pool(typeof(DeprecatedCardPool))]
     public class UnjustSentence : PathCustomCardModel
     {
         private const int energyCost = 2;
