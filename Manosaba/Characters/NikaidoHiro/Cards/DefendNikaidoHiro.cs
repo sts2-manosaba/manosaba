@@ -19,7 +19,6 @@ namespace Manosaba.Characters.NikaidoHiro.Cards
         private const CardRarity rarity = CardRarity.Basic;
         private const TargetType targetType = TargetType.Self;
         private const bool shouldShowInCardLibrary = true;
-
         protected override IEnumerable<DynamicVar> CanonicalVars => [new BlockVar(5, ValueProp.Move)];
 
         public DefendNikaidoHiro() : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)

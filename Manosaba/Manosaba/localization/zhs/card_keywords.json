@@ -2,5 +2,11 @@
   "MANOSABA-UNIQUE.title": "唯一",
   "MANOSABA-UNIQUE.description": "卡組中只能有一張同名牌。",
   "MANOSABA-MAHOU.title": "魔法",
-  "MANOSABA-MAHOU.description": "因感染魔女因子而產生的魔法，會隨魔女化程度增加而影響威力。"
+  "MANOSABA-MAHOU.description": "因感染魔女因子而產生的魔法，會隨魔女化程度增加而影響威力。",
+  "MANOSABA-HIGH_STANCE.title": "上段架式",
+  "MANOSABA-HIGH_STANCE.description": "切換到上段架式。",
+  "MANOSABA-MID_STANCE.title": "中段架式",
+  "MANOSABA-MID_STANCE.description": "切換到中段架式。",
+  "MANOSABA-LOW_STANCE.title": "下段架式",
+  "MANOSABA-LOW_STANCE.description": "切換到下段架式。"
 }

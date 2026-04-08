@@ -2,5 +2,11 @@
   "MANOSABA-UNIQUE.title": "Unique",
   "MANOSABA-UNIQUE.description": "You can only have one copy of this card in your deck.",
   "MANOSABA-MAHOU.title": "Mahou",
-  "MANOSABA-MAHOU.description": "Magic born from witch infection; its potency scales with your Majoka."
+  "MANOSABA-MAHOU.description": "Magic born from witch infection; its potency scales with your Majoka.",
+  "MANOSABA-HIGH_STANCE.title": "High Stance",
+  "MANOSABA-HIGH_STANCE.description": "Switch to High Stance.",
+  "MANOSABA-MID_STANCE.title": "Mid Stance",
+  "MANOSABA-MID_STANCE.description": "Switch to Mid Stance.",
+  "MANOSABA-LOW_STANCE.title": "Low Stance",
+  "MANOSABA-LOW_STANCE.description": "Switch to Low Stance."
 }

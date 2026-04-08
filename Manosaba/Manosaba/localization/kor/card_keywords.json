@@ -2,5 +2,11 @@
   "MANOSABA-UNIQUE.title": "고유",
   "MANOSABA-UNIQUE.description": "덱에 같은 이름의 카드는 한 장만 넣을 수 있습니다.",
   "MANOSABA-MAHOU.title": "마법",
-  "MANOSABA-MAHOU.description": "마녀 인자에 감염되어 발현되는 마법으로, 마녀화 정도에 따라 위력이 달라집니다."
+  "MANOSABA-MAHOU.description": "마녀 인자에 감염되어 발현되는 마법으로, 마녀화 정도에 따라 위력이 달라집니다.",
+  "MANOSABA-HIGH_STANCE.title": "상단 자세",
+  "MANOSABA-HIGH_STANCE.description": "상단 자세로 전환합니다.",
+  "MANOSABA-MID_STANCE.title": "중단 자세",
+  "MANOSABA-MID_STANCE.description": "중단 자세로 전환합니다.",
+  "MANOSABA-LOW_STANCE.title": "하단 자세",
+  "MANOSABA-LOW_STANCE.description": "하단 자세로 전환합니다."
 }

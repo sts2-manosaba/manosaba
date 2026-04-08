@@ -2,5 +2,11 @@
   "MANOSABA-UNIQUE.title": "唯一",
   "MANOSABA-UNIQUE.description": "同名のカードはデッキに1枚しか入れられません。",
   "MANOSABA-MAHOU.title": "魔法",
-  "MANOSABA-MAHOU.description": "魔女因子に感染することで生み出される魔法は、魔女化度が上がるほど威力に影響を与える。"
+  "MANOSABA-MAHOU.description": "魔女因子に感染することで生み出される魔法は、魔女化度が上がるほど威力に影響を与える。",
+  "MANOSABA-HIGH_STANCE.title": "上段の構え",
+  "MANOSABA-HIGH_STANCE.description": "上段の構えに切り替える。",
+  "MANOSABA-MID_STANCE.title": "中段の構え",
+  "MANOSABA-MID_STANCE.description": "中段の構えに切り替える。",
+  "MANOSABA-LOW_STANCE.title": "下段の構え",
+  "MANOSABA-LOW_STANCE.description": "下段の構えに切り替える。"
 }

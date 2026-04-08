@@ -1,6 +1,7 @@
 ﻿using BaseLib.Utils;
 using Manosaba.Characters.Common.Monsters;
 using Manosaba.Characters.Common.Powers;
+using Manosaba.Characters.NikaidoHiro.Powers;
 using Manosaba.Extensions;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Players;
@@ -25,6 +26,14 @@ namespace manosaba.Characters.NikaidoHiro.Relics
         {
             ApplyRelicLevelEffects();
             return Task.CompletedTask;
+        }
+
+        public override async Task BeforeCombatStart()
+        {
+            if (Owner.Creature == null)
+                return;
+
+            await PowerCmd.Apply<MidStancePower>(Owner.Creature, 1m, Owner.Creature, null);
         }
 
         public override async Task AfterPlayerTurnStart(PlayerChoiceContext choiceContext, Player player)
