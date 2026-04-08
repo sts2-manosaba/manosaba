@@ -9,6 +9,7 @@ using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
+using MegaCrit.Sts2.Core.Models.Powers;
 
 namespace Manosaba.Characters.TonoHanna.Cards
 {
@@ -17,7 +18,6 @@ namespace Manosaba.Characters.TonoHanna.Cards
     {
         public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
         protected override HashSet<CardTag> CanonicalTags => [ManosabaCardTags.Puppet];
-        protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<AnAnPuppetPower>()];
 
         private const int energyCost = 1;
         private const CardType type = CardType.Skill;
@@ -26,6 +26,7 @@ namespace Manosaba.Characters.TonoHanna.Cards
         private const bool shouldShowInCardLibrary = true;
 
         protected override IEnumerable<DynamicVar> CanonicalVars => [new DynamicVar("StrengthLoss", 6m)];
+        protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<StrengthPower>()];
 
         public AnAnPuppet() : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)
         {

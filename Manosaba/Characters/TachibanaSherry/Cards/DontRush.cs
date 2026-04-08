@@ -24,7 +24,6 @@ namespace Manosaba.Characters.TachibanaSherry.Cards
         private const bool shouldShowInCardLibrary = true;
 
         protected override IEnumerable<IHoverTip> ExtraHoverTips => [
-            HoverTipFactory.FromPower<DontRushPower>(),
             HoverTipFactory.FromPower<StrengthPower>()
         ];
 

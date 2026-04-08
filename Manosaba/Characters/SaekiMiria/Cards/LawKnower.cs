@@ -1,4 +1,4 @@
-﻿using BaseLib.Utils;
+using BaseLib.Utils;
 using manosaba.Characters.SaekiMiria;
 using Manosaba.Characters.Common.Overrides;
 using Manosaba.Characters.Common.Powers;
@@ -25,7 +25,7 @@ namespace Manosaba.Characters.SaekiMiria.Cards
         private const CardRarity rarity = CardRarity.Uncommon;
         private const TargetType targetType = TargetType.Self;
         private const bool shouldShowInCardLibrary = true;
-        protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<VotePower>(), HoverTipFactory.FromPower<LawKnowerPower>()];
+        protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<VotePower>(), HoverTipFactory.Static(StaticHoverTip.Block)];
 
         
         public LawKnower() : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)

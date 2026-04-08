@@ -1,4 +1,4 @@
-﻿using BaseLib.Utils;
+using BaseLib.Utils;
 using manosaba.Characters.HikamiMeruru;
 using Manosaba.Characters.Common.Powers;
 using Manosaba.Config;
@@ -6,6 +6,7 @@ using Manosaba.Extensions;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
+using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 
 namespace Manosaba.Characters.HikamiMeruru.Cards
@@ -21,6 +22,7 @@ namespace Manosaba.Characters.HikamiMeruru.Cards
         private const bool shouldShowInCardLibrary = true;
 
         protected override IEnumerable<DynamicVar> CanonicalVars => [new PowerVar<MajokaPower>(100)];
+        protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<MajokaPower>()];
 
         public HikamiMeruruExaid() : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)
         {

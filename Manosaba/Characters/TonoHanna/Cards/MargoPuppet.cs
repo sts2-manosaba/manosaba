@@ -27,7 +27,6 @@ namespace Manosaba.Characters.TonoHanna.Cards
             new PowerVar<MargoPuppetPower>(1),
         ];
 
-        protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<MargoPuppetPower>()];
 
         public MargoPuppet() : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)
         {

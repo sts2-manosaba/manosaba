@@ -32,7 +32,6 @@ namespace Manosaba.Characters.TonoHanna.Cards
         protected override IEnumerable<IHoverTip> ExtraHoverTips =>
         [
             HoverTipFactory.FromPower<SoarPower>(),
-            HoverTipFactory.FromPower<HannaPuppetPower>(),
         ];
 
         public HannaPuppet() : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)

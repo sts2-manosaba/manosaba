@@ -26,7 +26,7 @@ namespace Manosaba.Characters.TonoHanna.Cards
 
         protected override IEnumerable<DynamicVar> CanonicalVars => [new EnergyVar(1)];
 
-        protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromCard<Wound>()];
+        protected override IEnumerable<IHoverTip> ExtraHoverTips => [base.EnergyHoverTip, HoverTipFactory.FromCard<Wound>()];
 
         public HiroPuppet() : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)
         {

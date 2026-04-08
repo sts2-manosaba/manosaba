@@ -1,4 +1,4 @@
-﻿using BaseLib.Utils;
+using BaseLib.Utils;
 using manosaba.Characters.SaekiMiria;
 using Manosaba.Characters.Common.Cards;
 using Manosaba.Characters.Common.Overrides;
@@ -32,7 +32,7 @@ namespace Manosaba.Characters.SaekiMiria.Cards
         private const bool shouldShowInCardLibrary = true;
         public override CardMultiplayerConstraint MultiplayerConstraint => CardMultiplayerConstraint.MultiplayerOnly;
         protected override IEnumerable<DynamicVar> CanonicalVars => [new CardsVar(1)];
-        //protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<DeathLoopPower>()];
+        protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromKeyword(CardKeyword.Exhaust), HoverTipFactory.FromKeyword(CardKeyword.Ethereal)];
         public override IEnumerable<CardKeyword> CanonicalKeywords => [];
         public Exchange() : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)
         {

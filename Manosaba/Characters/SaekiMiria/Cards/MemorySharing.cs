@@ -1,4 +1,4 @@
-﻿using BaseLib.Utils;
+using BaseLib.Utils;
 using manosaba.Characters.SaekiMiria;
 using Manosaba.Characters.Common.Overrides;
 using Manosaba.Characters.Common.Powers;
@@ -25,7 +25,7 @@ namespace Manosaba.Characters.SaekiMiria.Cards
         private const CardRarity rarity = CardRarity.Ancient;
         private const TargetType targetType = TargetType.AllAllies;
         private const bool shouldShowInCardLibrary = true;
-        protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<MemorySharingPower>()];
+        protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<MemorySharingPower>(), HoverTipFactory.FromPower<MajokaPower>()];
         public override IEnumerable<CardKeyword> CanonicalKeywords => [ManosabaKeywords.Mahou, CardKeyword.Eternal];
 
         

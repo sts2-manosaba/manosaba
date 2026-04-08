@@ -22,7 +22,7 @@ namespace Manosaba.Characters.JogasakiNoahCard.Cards
         private const CardRarity rarity = CardRarity.Ancient;
         private const TargetType targetType = TargetType.AllAllies;
         private const bool shouldShowInCardLibrary = true;
-        protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<LiquidManipulationPower>()];
+        protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<LiquidManipulationPower>(), HoverTipFactory.FromPower<MajokaPower>()];
         public override IEnumerable<CardKeyword> CanonicalKeywords => [ManosabaKeywords.Mahou, CardKeyword.Eternal];
         protected override IEnumerable<DynamicVar> CanonicalVars => [
             new CalculationBaseVar(0m),

@@ -25,7 +25,6 @@ public class FlyingBroom : PathCustomCardModel
     protected override IEnumerable<IHoverTip> ExtraHoverTips =>
     [
         HoverTipFactory.FromPower<SoarPower>(),
-        HoverTipFactory.FromPower<HannaPuppetPower>(),
     ];
 
     public FlyingBroom() : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)

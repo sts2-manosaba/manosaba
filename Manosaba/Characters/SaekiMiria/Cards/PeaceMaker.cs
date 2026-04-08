@@ -1,4 +1,4 @@
-﻿using BaseLib.Utils;
+using BaseLib.Utils;
 using manosaba.Characters.SaekiMiria;
 using Manosaba.Characters.Common.Overrides;
 using Manosaba.Characters.Common.Powers;
@@ -26,7 +26,7 @@ namespace Manosaba.Characters.SaekiMiria.Cards
         private const CardRarity rarity = CardRarity.Rare;
         private const TargetType targetType = TargetType.AllEnemies;
         private const bool shouldShowInCardLibrary = true;
-        protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<StrengthPower>(), HoverTipFactory.FromPower<PeacemakerPower>()];
+        protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<StrengthPower>()];
 
         
         public Peacemaker() : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)

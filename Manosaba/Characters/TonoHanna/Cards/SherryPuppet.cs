@@ -24,7 +24,6 @@ namespace Manosaba.Characters.TonoHanna.Cards
 
         protected override IEnumerable<DynamicVar> CanonicalVars => [new DynamicVar("Attacks", 1m)];
 
-        protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<SherryPuppetPower>()];
 
         public SherryPuppet() : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)
         {

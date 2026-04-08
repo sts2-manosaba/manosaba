@@ -1,5 +1,6 @@
 using BaseLib.Utils;
 using manosaba.Characters.TachibanaSherry;
+using Manosaba.Characters.Common.Cards;
 using Manosaba.Characters.TachibanaSherry.Powers;
 using Manosaba.Extensions;
 using MegaCrit.Sts2.Core.Commands;
@@ -23,7 +24,7 @@ namespace Manosaba.Characters.TachibanaSherry.Cards
 
         protected override IEnumerable<DynamicVar> CanonicalVars => [new PowerVar<LifelongFriendPower>(1)];
 
-        protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<LifelongFriendPower>()];
+        protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<LifelongFriendPower>(), HoverTipFactory.FromCard<Boulders>()];
 
         public LifelongFriend() : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)
         {

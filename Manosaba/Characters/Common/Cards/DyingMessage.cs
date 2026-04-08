@@ -1,4 +1,4 @@
-﻿using BaseLib.Utils;
+using BaseLib.Utils;
 using manosaba.Characters.Common;
 using Manosaba.Characters.Common.Powers;
 using Manosaba.Characters.NikaidoHiro.Powers;
@@ -21,6 +21,7 @@ namespace Manosaba.Characters.Common.Cards
         private const bool shouldShowInCardLibrary = true;
         public override CardMultiplayerConstraint MultiplayerConstraint => CardMultiplayerConstraint.MultiplayerOnly;
         protected override IEnumerable<DynamicVar> CanonicalVars => [new EnergyVar(10), new CardsVar(5)];
+        protected override IEnumerable<IHoverTip> ExtraHoverTips => [base.EnergyHoverTip];
         public DyingMessage() : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)
         {
         }

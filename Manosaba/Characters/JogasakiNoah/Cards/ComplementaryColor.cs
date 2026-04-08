@@ -19,18 +19,6 @@ public class ComplementaryColor : PathCustomCardModel
     private const TargetType TargetTypeValue = TargetType.Self;
     private const bool ShouldShowInCardLibrary = true;
 
-    protected override IEnumerable<IHoverTip> ExtraHoverTips =>
-    [
-        HoverTipFactory.FromOrb<RedPaintOrb>(),
-        HoverTipFactory.FromOrb<OrangePaintOrb>(),
-        HoverTipFactory.FromOrb<YellowPaintOrb>(),
-        HoverTipFactory.FromOrb<GreenPaintOrb>(),
-        HoverTipFactory.FromOrb<BluePaintOrb>(),
-        HoverTipFactory.FromOrb<PurplePaintOrb>(),
-        HoverTipFactory.FromOrb<BlackPaintOrb>(),
-        HoverTipFactory.FromOrb<WhitePaintOrb>()
-    ];
-
     public ComplementaryColor() : base(EnergyCostValue, CardTypeValue, Rarity, TargetTypeValue, ShouldShowInCardLibrary)
     {
     }

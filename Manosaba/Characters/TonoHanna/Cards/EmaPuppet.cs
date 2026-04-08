@@ -25,7 +25,6 @@ namespace Manosaba.Characters.TonoHanna.Cards
 
         protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(9m, ValueProp.Move), new PowerVar<EmaPuppetCollectionPower>(1)];
 
-        protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<EmaPuppetPower>()];
 
         public EmaPuppet() : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)
         {

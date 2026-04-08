@@ -28,6 +28,7 @@ public class RefuseMajo : PathCustomCardModel
     [
         HoverTipFactory.FromPower<MajokaPower>(),
         HoverTipFactory.FromCard<Boulders>(),
+        HoverTipFactory.FromCard<Wound>(),
     ];
 
     public RefuseMajo() : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)

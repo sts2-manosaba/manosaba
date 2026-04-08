@@ -24,7 +24,6 @@ namespace Manosaba.Characters.TonoHanna.Cards
 
         protected override IEnumerable<DynamicVar> CanonicalVars => [new GoldVar(10)];
 
-        protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<LeiaPuppetPower>()];
 
         public LeiaPuppet() : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)
         {

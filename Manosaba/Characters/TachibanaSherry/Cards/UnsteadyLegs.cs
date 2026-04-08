@@ -21,7 +21,7 @@ namespace Manosaba.Characters.TachibanaSherry.Cards
         private const TargetType targetType = TargetType.Self;
         private const bool shouldShowInCardLibrary = true;
 
-        protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<VotePower>()];
+        protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<VotePower>(), HoverTipFactory.FromPower<StrengthPower>()];
 
         protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(5m, ValueProp.Unpowered), new PowerVar<VotePower>(2), new PowerVar<StrengthPower>(1)];
 

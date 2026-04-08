@@ -23,7 +23,7 @@ namespace Manosaba.Characters.HikamiMeruru.Cards
         private const bool ShouldShowInCardLibrary = true;
         private const int CatalystChanceOnUpgrade = 50;
 
-        protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPotion<Catalyst>()];
+        protected override IEnumerable<IHoverTip> ExtraHoverTips => IsUpgraded ? [HoverTipFactory.FromPotion<Catalyst>()] : [];
 
         private readonly List<PotionModel> _potionPool =
         [

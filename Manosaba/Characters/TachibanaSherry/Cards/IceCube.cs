@@ -23,7 +23,8 @@ namespace Manosaba.Characters.TachibanaSherry.Cards
         protected override IEnumerable<DynamicVar> CanonicalVars => [new CardsVar(1), new PowerVar<MegaCrit.Sts2.Core.Models.Powers.StrengthPower>(1m)];
         protected override IEnumerable<IHoverTip> ExtraHoverTips => [
             HoverTipFactory.FromCard<IceBall>(),
-            HoverTipFactory.FromPower<StrengthPower>()
+            HoverTipFactory.FromPower<StrengthPower>(),
+            HoverTipFactory.FromKeyword(CardKeyword.Exhaust)
         ];
 
         public IceCube() : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)

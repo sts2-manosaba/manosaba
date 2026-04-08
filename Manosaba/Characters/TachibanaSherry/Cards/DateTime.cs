@@ -25,7 +25,6 @@ namespace Manosaba.Characters.TachibanaSherry.Cards
 
         protected override IEnumerable<IHoverTip> ExtraHoverTips => [
             HoverTipFactory.FromPower<MajokaPower>(),
-            HoverTipFactory.FromPower<DateTimeNoMajokaPower>(),
             HoverTipFactory.FromPower<StrengthPower>()
         ];
 
