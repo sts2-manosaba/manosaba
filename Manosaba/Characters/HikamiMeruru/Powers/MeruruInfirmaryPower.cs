@@ -61,8 +61,6 @@ public sealed class MeruruInfirmaryPower : PathCustomPowerModel
             {
                 potion = ModelDb.Potion<LesserPainKillerPotion>().ToMutable();
             }
-
-            potion.DynamicVars.Heal.BaseValue = healAmount;
             await PotionCmd.TryToProcure(potion, Owner.Player);
         }
 
