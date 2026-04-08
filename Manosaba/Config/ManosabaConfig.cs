@@ -1,3 +1,4 @@
+using System;
 using BaseLib.Config;
 
 namespace Manosaba.Config;
@@ -12,6 +13,11 @@ public enum ManosabaFxPlayMode
 public sealed class ManosabaConfig : SimpleModConfig
 {
     [ConfigSection("SFXSettings")]
+    [SliderRange(0, 100, 1)]
+    [SliderLabelFormat("{0:0}%")]
+    [ConfigHoverTip]
+    public static double ManosabaSfxVolumePercent { get; set; } = 100d;
+
     [ConfigHoverTip]
     public static ManosabaFxPlayMode LaboursOfHiroEffectFrequency { get; set; } = ManosabaFxPlayMode.EveryTime;
 
@@ -41,5 +47,10 @@ public sealed class ManosabaConfig : SimpleModConfig
         }
 
         return (decimal)(percent / 100d);
+    }
+
+    public static float GetManosabaSfxVolume()
+    {
+        return (float)Math.Clamp(ManosabaSfxVolumePercent / 100d, 0d, 1d);
     }
 }

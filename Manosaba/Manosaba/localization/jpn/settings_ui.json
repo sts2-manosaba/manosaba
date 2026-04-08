@@ -1,5 +1,8 @@
 {
   "MANOSABA-SFX_SETTINGS.title": "特殊効果の設定",
+  "MANOSABA-MANOSABA_SFX_VOLUME_PERCENT.title": "Manosaba SFX 音量",
+  "MANOSABA-MANOSABA_SFX_VOLUME_PERCENT.hover.title": "音量",
+  "MANOSABA-MANOSABA_SFX_VOLUME_PERCENT.hover.desc": "Manosaba 独自の SFX/BGM 音量を調整します。ゲーム本体の BGM 音量には影響しません。",
   "MANOSABA-LABOURS_OF_HIRO_EFFECT_FREQUENCY.title": "十二の試練",
   "MANOSABA-LABOURS_OF_HIRO_EFFECT_FREQUENCY.hover.title": "再生頻度",
   "MANOSABA-LABOURS_OF_HIRO_EFFECT_FREQUENCY.hover.desc": "「十二の試練」の専用 SFX/VFX の再生頻度を設定します。毎回、Runごとに1回、または再生しない。",

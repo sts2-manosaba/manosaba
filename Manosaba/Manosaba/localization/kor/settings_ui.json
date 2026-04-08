@@ -1,5 +1,8 @@
 {
   "MANOSABA-SFX_SETTINGS.title": "효과음 설정",
+  "MANOSABA-MANOSABA_SFX_VOLUME_PERCENT.title": "Manosaba SFX 음량",
+  "MANOSABA-MANOSABA_SFX_VOLUME_PERCENT.hover.title": "음량",
+  "MANOSABA-MANOSABA_SFX_VOLUME_PERCENT.hover.desc": "Manosaba 전용 SFX/BGM 음량만 조절합니다. 원본 게임 BGM 음량에는 영향이 없습니다.",
   "MANOSABA-LABOURS_OF_HIRO_EFFECT_FREQUENCY.title": "12 시련",
   "MANOSABA-LABOURS_OF_HIRO_EFFECT_FREQUENCY.hover.title": "재생 빈도",
   "MANOSABA-LABOURS_OF_HIRO_EFFECT_FREQUENCY.hover.desc": "12 시련 전용 SFX/VFX의 재생 빈도를 설정한다: 매번, 1판당 한 번, 또는 재생 안 함.",

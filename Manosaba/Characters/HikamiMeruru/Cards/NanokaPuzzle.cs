@@ -22,12 +22,7 @@ namespace Manosaba.Characters.HikamiMeruru.Cards
         protected override IEnumerable<DynamicVar> CanonicalVars => [new DynamicVar("NanokaPieces", 35)];
 
         protected override IEnumerable<IHoverTip> ExtraHoverTips => [
-            HoverTipFactory.FromCard<NanokaPiece>(),
-            HoverTipFactory.FromCard<NanokaHead>(),
-            HoverTipFactory.FromCard<NanokaRightArm>(),
-            HoverTipFactory.FromCard<NanokaRightLeg>(),
-            HoverTipFactory.FromCard<NanokaLeftArm>(),
-            HoverTipFactory.FromCard<NanokaLeftLeg>()
+            HoverTipFactory.FromCard<NanokaComplete>()
         ];
 
         public NanokaPuzzle() : base(EnergyCost, CardTypeValue, Rarity, TargetTypeValue, ShouldShowInCardLibrary)

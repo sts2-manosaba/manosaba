@@ -1,5 +1,6 @@
 using System;
 using Godot;
+using Manosaba.Config;
 using MegaCrit.Sts2.Core.Nodes;
 using MegaCrit.Sts2.Core.Nodes.Audio;
 using MegaCrit.Sts2.Core.Saves;
@@ -153,7 +154,7 @@ public static class GodotSfxRouter
     {
         PauseVanillaBgm();
         _currentBgmBaseVolume = volume;
-        float effectiveVolume = volume * GetConfiguredBgmVolume();
+        float effectiveVolume = volume * GetConfiguredManosabaSfxVolume();
 
         if (_customBgmPlayer != null && GodotObject.IsInstanceValid(_customBgmPlayer))
         {
@@ -190,13 +191,11 @@ public static class GodotSfxRouter
         _currentBgmEvent = eventPath;
     }
 
-    private static float GetConfiguredBgmVolume()
+    private static float GetConfiguredManosabaSfxVolume()
     {
         try
         {
-            // Mirror NAudioManager.SetBgmVol's response curve.
-            float bgm = SaveManager.Instance.SettingsSave.VolumeBgm;
-            return Mathf.Pow(Mathf.Clamp(bgm, 0f, 1f), 2f);
+            return ManosabaConfig.GetManosabaSfxVolume();
         }
         catch
         {
@@ -221,7 +220,7 @@ public static class GodotSfxRouter
     {
         if (_customBgmPlayer != null && GodotObject.IsInstanceValid(_customBgmPlayer))
         {
-            _customBgmPlayer.VolumeLinear = _currentBgmBaseVolume * GetConfiguredBgmVolume();
+            _customBgmPlayer.VolumeLinear = _currentBgmBaseVolume * GetConfiguredManosabaSfxVolume();
         }
     }
 

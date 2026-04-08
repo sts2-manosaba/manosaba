@@ -1,5 +1,8 @@
 {
   "MANOSABA-SFX_SETTINGS.title": "SFX Settings",
+  "MANOSABA-MANOSABA_SFX_VOLUME_PERCENT.title": "Manosaba SFX Volume",
+  "MANOSABA-MANOSABA_SFX_VOLUME_PERCENT.hover.title": "Volume",
+  "MANOSABA-MANOSABA_SFX_VOLUME_PERCENT.hover.desc": "Adjust volume for Manosaba custom SFX/BGM only. Does not affect base-game BGM volume.",
   "MANOSABA-LABOURS_OF_HIRO_EFFECT_FREQUENCY.title": "Labours of Hiro",
   "MANOSABA-LABOURS_OF_HIRO_EFFECT_FREQUENCY.hover.title": "Playback Frequency",
   "MANOSABA-LABOURS_OF_HIRO_EFFECT_FREQUENCY.hover.desc": "Choose how often Labours of Hiro plays its special SFX/VFX: every time, once per run, or never.",
