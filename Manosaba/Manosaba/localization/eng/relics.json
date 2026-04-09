@@ -14,8 +14,10 @@
   "MANOSABA-CABINET_KEY.title": "Small Key",
   "MANOSABA-CABINET_KEY.description": "Before the enemies end their turn, add 1 random Movie card to your draw pile for every {BlockPerMovie} [gold]Block[/gold] you have (round up).\nUpgrading reduces the required Block by 1.",
   "MANOSABA-CABINET_KEY.flavor": "What lock is this key for?",
-
   "MANOSABA-FRUGAL.title": "Frugal",
   "MANOSABA-FRUGAL.description": "At the end of your turn, gain {GoldPerEnergy} gold for each unspent Energy; upgrades increase this amount.\nFrom Lv2, whenever you gain a puppet collection charge, gain 5 [gold]Majoka[/gold].\nFrom Lv4, gain 10 instead.",
-  "MANOSABA-FRUGAL.flavor": "Every leftover spark becomes pocket change."
+  "MANOSABA-FRUGAL.flavor": "Every leftover spark becomes pocket change.",
+  "MANOSABA-TAROT_DECK.title": "Tarot Deck",
+  "MANOSABA-TAROT_DECK.description": "Card rewards and shop cards are replaced with Tarot cards (excluding [gold]The World[/gold]).\nWhen this relic levels up, add 1 random Tarot card you do not already have in your deck (excluding [gold]The World[/gold]).\nWhen you collect all 21 Tarot cards other than [gold]The World[/gold], add [gold]The World[/gold] to your deck.",
+  "MANOSABA-TAROT_DECK.flavor": ""
 }

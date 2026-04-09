@@ -6,7 +6,7 @@ namespace Manosaba.Characters.Common.Overrides
 {
 	public partial class ManosabaCreatureVisuals : NCreatureVisuals
 	{
-		private Creature _creature;
+		private Creature? _creature;
 		private Sprite2D _alive;
 		private Sprite2D _dead;
 		public override void _Ready()
@@ -25,9 +25,29 @@ namespace Manosaba.Characters.Common.Overrides
 			ApplyVisualByHp(_creature.CurrentHp);
 		}
 
-		private void OnHpChanged(int _, int __) => ApplyVisualByHp(_creature.CurrentHp);
+		public override void _ExitTree()
+		{
+			if (_creature != null)
+			{
+				_creature.CurrentHpChanged -= OnHpChanged;
+				_creature.Died -= OnDied;
+				_creature.Revived -= OnRevived;
+			}
+
+			base._ExitTree();
+		}
+
+		private void OnHpChanged(int _, int __)
+		{
+			if (_creature == null) return;
+			ApplyVisualByHp(_creature.CurrentHp);
+		}
 		private void OnDied(Creature _) => ApplyVisualByHp(0);
-		private void OnRevived(Creature _) => ApplyVisualByHp(_creature.CurrentHp);
+		private void OnRevived(Creature _)
+		{
+			if (_creature == null) return;
+			ApplyVisualByHp(_creature.CurrentHp);
+		}
 
 		private void ApplyVisualByHp(int hp)
 		{

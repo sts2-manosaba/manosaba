@@ -3,6 +3,7 @@ using HarmonyLib;
 using MegaCrit.Sts2.Core.Nodes.CommonUi;
 using MegaCrit.Sts2.Core.Nodes.GodotExtensions;
 using MegaCrit.Sts2.Core.Nodes.Screens.CharacterSelect;
+using System.Runtime.CompilerServices;
 
 [HarmonyPatch]
 public static class Patch_NCharacterSelectScreen_ButtonLayout
@@ -30,7 +31,7 @@ public static class Patch_NCharacterSelectScreen_ButtonLayout
         public NGoldArrowButton? RightArrow;
     }
 
-    private static readonly Dictionary<ulong, PaginationState> _states = new();
+    private static readonly ConditionalWeakTable<NCharacterSelectScreen, PaginationState> _states = new();
 
     [HarmonyPatch(typeof(NCharacterSelectScreen), nameof(NCharacterSelectScreen._Ready))]
     [HarmonyPostfix]
@@ -61,13 +62,7 @@ public static class Patch_NCharacterSelectScreen_ButtonLayout
 
     private static PaginationState GetState(NCharacterSelectScreen screen)
     {
-        ulong key = screen.GetInstanceId();
-        if (!_states.TryGetValue(key, out PaginationState? state))
-        {
-            state = new PaginationState();
-            _states[key] = state;
-        }
-        return state;
+        return _states.GetOrCreateValue(screen);
     }
 
     private static void SnapshotBaseVisibility(NCharacterSelectScreen screen)
@@ -77,6 +72,14 @@ public static class Patch_NCharacterSelectScreen_ButtonLayout
         if (container == null)
         {
             return;
+        }
+
+        foreach (NCharacterSelectButton button in state.BaseVisible.Keys.ToArray())
+        {
+            if (!GodotObject.IsInstanceValid(button))
+            {
+                state.BaseVisible.Remove(button);
+            }
         }
 
         foreach (NCharacterSelectButton button in container.GetChildren().OfType<NCharacterSelectButton>())

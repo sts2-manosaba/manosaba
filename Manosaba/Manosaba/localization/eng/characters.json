@@ -41,7 +41,6 @@
   "MANOSABA-JOGASAKI_NOAH.cardsModifierDescription": "",
   "MANOSABA-JOGASAKI_NOAH.banter.alive.endTurnPing": "Hurry up!",
   "MANOSABA-JOGASAKI_NOAH.banter.dead.endTurnPing": "......",
-
   "MANOSABA-TACHIBANA_SHERRY.title": "Tachibana Sherry",
   "MANOSABA-TACHIBANA_SHERRY.titleObject": "",
   "MANOSABA-TACHIBANA_SHERRY.description": "Standing on the interesting side—that's my creed!",
@@ -56,7 +55,6 @@
   "MANOSABA-TACHIBANA_SHERRY.cardsModifierDescription": "",
   "MANOSABA-TACHIBANA_SHERRY.banter.alive.endTurnPing": "",
   "MANOSABA-TACHIBANA_SHERRY.banter.dead.endTurnPing": "",
-
   "MANOSABA-SAEKI_MIRIA.title": "Saeki Miria",
   "MANOSABA-SAEKI_MIRIA.titleObject": "",
   "MANOSABA-SAEKI_MIRIA.description": "U-um... I'm Saeki Miria, okay? Nice to meet you~ Ahaha~",
@@ -71,7 +69,6 @@
   "MANOSABA-SAEKI_MIRIA.cardsModifierDescription": "",
   "MANOSABA-SAEKI_MIRIA.banter.alive.endTurnPing": "I-it's okay, mister... you can take your time.",
   "MANOSABA-SAEKI_MIRIA.banter.dead.endTurnPing": "...",
-
   "MANOSABA-TONO_HANNA.title": "Tono Hanna",
   "MANOSABA-TONO_HANNA.titleObject": "",
   "MANOSABA-TONO_HANNA.description": "You're pitiful... I'd recommend you give up.",
@@ -86,5 +83,19 @@
   "MANOSABA-TONO_HANNA.cardsModifierDescription": "",
   "MANOSABA-TONO_HANNA.banter.alive.endTurnPing": "",
   "MANOSABA-TONO_HANNA.banter.dead.endTurnPing": "",
+  "MANOSABA-HOSHO_MAGO.title": "Hosho Mago",
+  "MANOSABA-HOSHO_MAGO.titleObject": "",
+  "MANOSABA-HOSHO_MAGO.description": "So many cute little ones here... I can't help but lick my lips, hehe.",
+  "MANOSABA-HOSHO_MAGO.pronounObject": "her",
+  "MANOSABA-HOSHO_MAGO.possessiveAdjective": "her",
+  "MANOSABA-HOSHO_MAGO.pronounPossessive": "hers",
+  "MANOSABA-HOSHO_MAGO.pronounSubject": "she",
+  "MANOSABA-HOSHO_MAGO.goldMonologue": "",
+  "MANOSABA-HOSHO_MAGO.eventDeathPrevention": "",
+  "MANOSABA-HOSHO_MAGO.aromaPrinciple": "",
+  "MANOSABA-HOSHO_MAGO.cardsModifierTitle": "",
+  "MANOSABA-HOSHO_MAGO.cardsModifierDescription": "",
+  "MANOSABA-HOSHO_MAGO.banter.alive.endTurnPing": "How adorable!",
+  "MANOSABA-HOSHO_MAGO.banter.dead.endTurnPing": "...",
   "MANOSABA.mod_title": "Manosaba"
 }

@@ -29,10 +29,9 @@ public sealed class WallPower : PathCustomPowerModel
         if (!props.HasFlag(ValueProp.Move))
             return;
 
-        int attackedAmount = result.BlockedDamage + result.UnblockedDamage;
-        if (attackedAmount <= 0)
+        if (result.UnblockedDamage <= 0)
             return;
 
-        await PowerCmd.Apply<VigorPower>(Owner, attackedAmount, Owner, cardSource);
+        await PowerCmd.Apply<VigorPower>(Owner, result.UnblockedDamage, Owner, cardSource);
     }
 }

@@ -3,12 +3,14 @@ using Manosaba.Config;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Runs;
+using System.Runtime.CompilerServices;
 
 namespace Manosaba.Patches;
 
 public static class Patch_Difficulties
 {
-    private static readonly HashSet<Creature> _hpAppliedAfterAdded = new();
+    private static ConditionalWeakTable<Creature, object> _hpAppliedAfterAdded = new();
+    private static readonly object _hpAppliedMarker = new();
 
     private static bool ShouldApplyEnemyHpMultiplier(Creature creature)
     {
@@ -24,17 +26,18 @@ public static class Patch_Difficulties
     [HarmonyPatch(typeof(Creature), nameof(Creature.AfterAddedToRoom))]
     private static class Patch_Creature_AfterAddedToRoom_HpMultiplier
     {
-        private static void Prefix(Creature __instance)
+        private static void Postfix(Creature __instance)
         {
             if (!ShouldApplyEnemyHpMultiplier(__instance))
             {
                 return;
             }
 
-            if (!_hpAppliedAfterAdded.Add(__instance))
+            if (_hpAppliedAfterAdded.TryGetValue(__instance, out _))
             {
                 return;
             }
+            _hpAppliedAfterAdded.Add(__instance, _hpAppliedMarker);
 
             int newMaxHp = (int)ScaleEnemyHp(__instance.MaxHp);
             __instance.SetMaxHpInternal(newMaxHp);
@@ -61,7 +64,7 @@ public static class Patch_Difficulties
     {
         private static void Postfix()
         {
-            _hpAppliedAfterAdded.Clear();
+            _hpAppliedAfterAdded = new ConditionalWeakTable<Creature, object>();
         }
     }
 }

@@ -7,5 +7,8 @@ namespace Manosaba.Characters.Common.Overrides
     {
         [CustomEnum("puppet")]
         public static CardTag Puppet;
+
+        [CustomEnum("tarot")]
+        public static CardTag Tarot;
     }
 }

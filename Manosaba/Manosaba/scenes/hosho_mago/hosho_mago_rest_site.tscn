@@ -1,0 +1,51 @@
+[gd_scene load_steps=4 format=3 uid="uid://cewn3ieo5qloj"]
+
+[ext_resource type="Script" uid="uid://b2rnfe1rayfpi" path="res://Characters/Common/Overrides/ManosabaRestSiteCharacter.cs" id="1_q6vjb"]
+[ext_resource type="Texture2D" uid="uid://dw60wgyhpyady" path="res://Manosaba/images/characters/hosho_mago/HoshoMagoRest.png" id="2_gvtrp"]
+[ext_resource type="PackedScene" uid="uid://bgy88bk44xxvk" path="res://Manosaba/scenes/selection_reticle.tscn" id="3_221gh"]
+
+[node name="HoshoMagoRestSite" type="Node2D"]
+script = ExtResource("1_q6vjb")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(130.00002, 12)
+scale = Vector2(0.503418, 0.503418)
+texture = ExtResource("2_gvtrp")
+
+[node name="ControlRoot" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="SelectionReticle" parent="ControlRoot" instance=ExtResource("3_221gh")]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = -78.0
+offset_top = -335.0
+offset_right = 342.0
+offset_bottom = 335.0
+
+[node name="Hitbox" type="Control" parent="ControlRoot"]
+unique_name_in_owner = true
+anchors_preset = 0
+offset_left = -73.0
+offset_top = -338.0
+offset_right = 348.0
+offset_bottom = 345.0
+
+[node name="ThoughtBubbleRight" type="Control" parent="ControlRoot"]
+unique_name_in_owner = true
+anchors_preset = 0
+offset_left = 194.0
+offset_top = -327.0
+offset_right = 194.0
+offset_bottom = -327.0
+
+[node name="ThoughtBubbleLeft" type="Control" parent="ControlRoot"]
+unique_name_in_owner = true
+anchors_preset = 0
+offset_left = -97.0
+offset_top = -289.0
+offset_right = -97.0
+offset_bottom = -289.0

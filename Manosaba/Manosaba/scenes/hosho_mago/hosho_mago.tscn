@@ -1,0 +1,32 @@
+[gd_scene load_steps=3 format=3 uid="uid://ckcurfrat6byh"]
+
+[ext_resource type="Script" path="res://Characters/Common/Overrides/ManosabaCharacterVisuals.cs" id="1_322dx"]
+[ext_resource type="Texture2D" uid="uid://cpa11q3wqguj3" path="res://Manosaba/images/characters/hosho_mago/HoshoMago.png" id="2_1wbbm"]
+
+[node name="HoshoMago" type="Node2D"]
+script = ExtResource("1_322dx")
+
+[node name="Visuals" type="Sprite2D" parent="."]
+unique_name_in_owner = true
+
+[node name="Sprite2D" type="Sprite2D" parent="Visuals"]
+position = Vector2(2.999999, -190)
+scale = Vector2(0.25274655, 0.25274652)
+texture = ExtResource("2_1wbbm")
+
+[node name="Bounds" type="Control" parent="."]
+unique_name_in_owner = true
+layout_mode = 3
+anchors_preset = 0
+offset_left = -82.0
+offset_top = -282.0
+offset_right = 77.0
+offset_bottom = 20.0
+
+[node name="IntentPos" type="Marker2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(-1, -397)
+
+[node name="CenterPos" type="Marker2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(2, -227)

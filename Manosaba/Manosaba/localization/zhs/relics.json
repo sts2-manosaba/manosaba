@@ -17,5 +17,9 @@
 
   "MANOSABA-FRUGAL.title": "節儉",
   "MANOSABA-FRUGAL.description": "在你的回合結束時，每有1點未使用的能量，獲得 {GoldPerEnergy} 金幣，升級會提高數量。\nLv2 起，每當獲得人偶收藏時，獲得 5 層[gold]魔女化[/gold]。\nLv4 起，改為獲得 10 層。",
-  "MANOSABA-FRUGAL.flavor": "剩下一點能量，就多存一點錢。"
+  "MANOSABA-FRUGAL.flavor": "剩下一點能量，就多存一點錢。",
+
+  "MANOSABA-TAROT_DECK.title": "塔羅牌組",
+  "MANOSABA-TAROT_DECK.description": "卡牌獎勵與商店卡牌改為提供塔羅牌（不含[gold]世界[/gold]）。\n遺物升級時，加入 1 張牌組中尚未擁有的隨機塔羅牌（不含[gold]世界[/gold]）。\n當你集齊 21 張非[gold]世界[/gold]塔羅牌時，將[gold]世界[/gold]加入牌組。",
+  "MANOSABA-TAROT_DECK.flavor": "不來占卜一下嗎？"
 }

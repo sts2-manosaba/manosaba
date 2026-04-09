@@ -43,11 +43,7 @@ public class InkPainting : PathCustomCardModel
                 Owner.Creature.CombatState.CreateCard<InkPaintingWhitePaintOrbToken>(Owner)
             ];
 
-            CardModel? selectedToken = (await CardSelectCmd.FromSimpleGrid(
-                choiceContext,
-                options,
-                Owner,
-                new CardSelectorPrefs(SelectionScreenPrompt, 1))).FirstOrDefault();
+            CardModel? selectedToken = await CardSelectCmd.FromChooseACardScreen(choiceContext, options, Owner);
             if (selectedToken == null)
             {
                 return;

@@ -14,8 +14,10 @@
   "MANOSABA-CABINET_KEY.title": "小さな鍵",
   "MANOSABA-CABINET_KEY.description": "敵のターン終了前、自身が持つ{BlockPerMovie}の[gold]ブロック[/gold]ごとに（切り上げ）ランダムな映画カードを1枚山札に加える。\nアップグレードするたびに必要なブロックが1減少。",
   "MANOSABA-CABINET_KEY.flavor": "これは何を開ける鍵なんだろう？",
-
   "MANOSABA-FRUGAL.title": "倹約",
   "MANOSABA-FRUGAL.description": "ターン終了時、未使用のエネルギー1につき{GoldPerEnergy}ゴールドを得る。アップグレードで量が増える。\nLv2以降、人形コレクションを得るたび、[gold]魔女化[/gold]を5得る。\nLv4以降、10得る。",
-  "MANOSABA-FRUGAL.flavor": "残ったエネルギーは、ちりつもで財布に。"
+  "MANOSABA-FRUGAL.flavor": "残ったエネルギーは、ちりつもで財布に。",
+  "MANOSABA-TAROT_DECK.title": "タロットデッキ",
+  "MANOSABA-TAROT_DECK.description": "カード報酬とショップカードは[gold]世界[/gold]を除くタロットカードに置き換わる。\nこのレリックがレベルアップするたび、デッキにまだない[gold]世界[/gold]以外のタロットカードをランダムで1枚デッキに加える。\n[gold]世界[/gold]を除く21種のタロットを集めると、[gold]世界[/gold]をデッキに加える。",
+  "MANOSABA-TAROT_DECK.flavor": ""
 }

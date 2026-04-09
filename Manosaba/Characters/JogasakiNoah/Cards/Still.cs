@@ -25,7 +25,7 @@ namespace Manosaba.Characters.JogasakiNoah.Cards
         private const TargetType targetType = TargetType.AnyEnemy;
         private const bool shouldShowInCardLibrary = true;
 
-        protected override bool IsPlayable => Owner.Creature.CombatState.Encounter.RoomType == RoomType.Monster && Owner.PlayerCombatState.MaxEnergy >= 1;
+        protected override bool IsPlayable => Owner.PlayerCombatState.MaxEnergy >= 1;
 
         public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
 
