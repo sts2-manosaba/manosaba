@@ -120,6 +120,8 @@
   "MANOSABA-FORTUNE_TELLING.selectionScreenPrompt": "손에 추가할 카드 {Cards:diff()}장을 선택하세요.",
   "MANOSABA-GUILLOTINE.title": "단두대",
   "MANOSABA-GUILLOTINE.description": "피해를 {Damage:diff()} 줍니다. 대상 적의 체력이 {BeheadedThreshold:diff()}% 미만이면 즉사시킵니다.",
+  "MANOSABA-WALL.title": "장벽",
+  "MANOSABA-WALL.description": "자신에게 [gold]장벽[/gold]을 {WallPower:diff()} 부여합니다.",
   "MANOSABA-PRISON.title": "감옥 저택",
   "MANOSABA-PRISON.description": "자신에게 [gold]감옥 저택[/gold]을 {PrisonPower:diff()} 줍니다.",
   "MANOSABA-WORLD_VANQUISHER.title": "세계 정복자",

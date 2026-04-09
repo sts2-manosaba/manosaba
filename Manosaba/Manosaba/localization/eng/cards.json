@@ -120,6 +120,8 @@
   "MANOSABA-FORTUNE_TELLING.selectionScreenPrompt": "Choose {Cards:diff()} cards to add to your hand.",
   "MANOSABA-GUILLOTINE.title": "Guillotine",
   "MANOSABA-GUILLOTINE.description": "Deal {Damage:diff()} damage. If the target monster is below {BeheadedThreshold:diff()}% HP, it dies instantly.",
+  "MANOSABA-WALL.title": "Wall",
+  "MANOSABA-WALL.description": "Gain {WallPower:diff()} [gold]Wall[/gold].",
   "MANOSABA-PRISON.title": "Witch Island Prison",
   "MANOSABA-PRISON.description": "Gain {PrisonPower:diff()} [gold]Witch Island Prison[/gold].",
   "MANOSABA-WORLD_VANQUISHER.title": "World Vanquisher",

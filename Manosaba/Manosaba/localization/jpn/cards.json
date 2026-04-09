@@ -120,6 +120,8 @@
   "MANOSABA-FORTUNE_TELLING.selectionScreenPrompt": "手札に加えるカードを{Cards:diff()}枚選ぶ。",
   "MANOSABA-GUILLOTINE.title": "ギロチン",
   "MANOSABA-GUILLOTINE.description": "{Damage:diff()}ダメージを与える。対象モンスターのHPが{BeheadedThreshold:diff()}%未満なら即死させる。",
+  "MANOSABA-WALL.title": "高壁",
+  "MANOSABA-WALL.description": "自身に{WallPower:diff()}層の[gold]高壁[/gold]を与える。",
   "MANOSABA-PRISON.title": "魔女島刑務所",
   "MANOSABA-PRISON.description": "自身に{PrisonPower:diff()}層の[gold]魔女島刑務所[/gold]を与える。",
   "MANOSABA-WORLD_VANQUISHER.title": "世界征服者",

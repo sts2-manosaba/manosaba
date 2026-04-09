@@ -120,6 +120,8 @@
   "MANOSABA-FORTUNE_TELLING.selectionScreenPrompt": "選擇 {Cards:diff()} 張牌加入手牌。",
   "MANOSABA-GUILLOTINE.title": "斷頭台",
   "MANOSABA-GUILLOTINE.description": "造成 {Damage:diff()} 點傷害，若目標怪物血量少於 {BeheadedThreshold:diff()}% 則直接死亡。",
+  "MANOSABA-WALL.title": "高牆",
+  "MANOSABA-WALL.description": "給予自身 {WallPower:diff()} 層[gold]高牆[/gold]。",
   "MANOSABA-PRISON.title": "魔女島監獄",
   "MANOSABA-PRISON.description": "給予自身 {PrisonPower:diff()} 層[gold]魔女島監獄[/gold]。",
   "MANOSABA-WORLD_VANQUISHER.title": "世界征服者",
