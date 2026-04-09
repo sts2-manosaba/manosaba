@@ -1,6 +1,7 @@
 ﻿using BaseLib.Utils;
 using Manosaba.Characters.Common.Monsters;
 using Manosaba.Characters.Common.Powers;
+using Manosaba.Characters.SaekiMiria.Cards;
 using Manosaba.Extensions;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
@@ -33,8 +34,11 @@ namespace manosaba.Characters.SaekiMiria.Relics
         public override Task AfterObtained()
         {
             ApplyRelicLevelEffects();
+            RemoveExchangeFromSinglePlayerStartingDeck();
+
             return Task.CompletedTask;
         }
+
 
         public override Task AfterDamageReceived(PlayerChoiceContext choiceContext, Creature target, DamageResult result, ValueProp props, Creature? dealer, CardModel? cardSource)
         {
@@ -74,6 +78,21 @@ namespace manosaba.Characters.SaekiMiria.Relics
             //  Lv5: 40% 
             int level = RelicLevel;
             basePercentage = 0.2m + (level - 1) * 0.05m; // Increases by 5% each level, starting at 20% at level 1
+        }
+
+        private void RemoveExchangeFromSinglePlayerStartingDeck()
+        {
+            if (Owner.RunState.Players.Count > 1 || Owner.Deck?.Cards == null)
+                return;
+
+            List<CardModel> exchangeCards = Owner.Deck.Cards
+                .Where(card => card is Exchange)
+                .ToList();
+
+            foreach (CardModel exchangeCard in exchangeCards)
+            {
+                Owner.Deck.RemoveInternal(exchangeCard);
+            }
         }
     }
 }

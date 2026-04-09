@@ -28,7 +28,7 @@ namespace Manosaba.Characters.SaekiMiria.Cards
         private const int energyCost = 0;
         private const CardType type = CardType.Skill;
         private const CardRarity rarity = CardRarity.Basic;
-        private const TargetType targetType = TargetType.AnyPlayer;
+        private const TargetType targetType = TargetType.AnyAlly;
         private const bool shouldShowInCardLibrary = true;
         public override CardMultiplayerConstraint MultiplayerConstraint => CardMultiplayerConstraint.MultiplayerOnly;
         protected override IEnumerable<DynamicVar> CanonicalVars => [new CardsVar(1)];
@@ -40,11 +40,7 @@ namespace Manosaba.Characters.SaekiMiria.Cards
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
-            if (cardPlay.Target == null || cardPlay.Target.Player == null) {
-                await CardPileCmd.Draw(choiceContext, 1, base.Owner);
-                await CardCmd.Exhaust(choiceContext, this);
-                return;
-            }
+            ArgumentNullException.ThrowIfNull(cardPlay.Target, "cardPlay.Target");
 
             /*if (cardPlay.Target.Player == base.Owner) {
 
