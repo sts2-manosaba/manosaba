@@ -14,6 +14,11 @@
   "MANOSABA-CABINET_KEY.title": "小鑰匙",
   "MANOSABA-CABINET_KEY.description": "在敵方回合結束前，你每擁有 {BlockPerMovie} 點[gold]格擋[/gold]（無條件進位）便將 1 張隨機電影牌加入抽牌堆。\n每升級一次，所需格擋減少 1。",
   "MANOSABA-CABINET_KEY.flavor": "這是用來開啟什麼用的鑰匙?",
+
+  "MANOSABA-RAPIER.title": "細劍",
+  "MANOSABA-RAPIER.description": "受到攻擊者，對攻擊者造成格檔傷害量的120%的傷害。此傷害可以被其他效果影響。每次升級提高20%",
+  "MANOSABA-RAPIER.flavor": "為什麼有人有武器阿?",
+
   "MANOSABA-FRUGAL.title": "節儉",
   "MANOSABA-FRUGAL.description": "在你的回合結束時，每有1點未使用的能量，獲得 {GoldPerEnergy} 金幣，升級會提高數量。\nLv2 起，每當獲得人偶收藏時，獲得 5 層[gold]魔女化[/gold]。\nLv4 起，改為獲得 10 層。",
   "MANOSABA-FRUGAL.flavor": "剩下一點能量，就多存一點錢。",

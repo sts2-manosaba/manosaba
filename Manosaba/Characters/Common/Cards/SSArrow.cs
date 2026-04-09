@@ -1,5 +1,7 @@
 ﻿using BaseLib.Utils;
 using manosaba.Characters.Common;
+using Manosaba.Characters.Common.Overrides;
+using Manosaba.Characters.HasumiLeia.Powers;
 using Manosaba.Extensions;
 using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Commands;
@@ -48,6 +50,7 @@ namespace Manosaba.Characters.Common.Cards
             await CardPileCmd.RemoveFromCombat(token3);
             await CardPileCmd.RemoveFromCombat(token4);
             await CardPileCmd.AddToCombatAndPreview<SimpleSpear>(Owner.Creature, PileType.Hand, 1, true);
+            await CheckForAdditionalEffect();
         }
 
 
@@ -60,6 +63,26 @@ namespace Manosaba.Characters.Common.Cards
             }
 
             return list;
+        }
+
+        public async Task CheckForAdditionalEffect()
+        {
+            if (Owner?.Creature == null)
+                return;
+
+
+            int portableFletchingStationAmount = (int)Owner.Creature.GetPowerAmount<PortableFletchingStationPower>();
+            if (portableFletchingStationAmount <= 0)
+                return;
+
+            for (int i = 0; i < portableFletchingStationAmount; i++)
+            {
+                if (Owner.RunState.Rng.CombatCardGeneration.NextInt(5) != 0)
+                    continue;
+
+                CardModel bonusSpear = Owner.Creature.CombatState.CreateCard<SimpleSpear>(Owner);
+                await CardPileCmd.AddGeneratedCardToCombat(bonusSpear, PileType.Hand, addedByPlayer: true);
+            }
         }
     }
 }
