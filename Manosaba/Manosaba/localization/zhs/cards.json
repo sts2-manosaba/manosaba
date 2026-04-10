@@ -310,7 +310,7 @@
   "MANOSABA-BORROWED_KNIFE.title": "借刀殺人",
   "MANOSABA-BORROWED_KNIFE.description": "另一名玩家抽 {Cards:diff()} 張牌並獲得 {Energy:energyIcons()}。",
   "MANOSABA-SKY_ISLAND.title": "空島",
-  "MANOSABA-SKY_ISLAND.description": "根據[gold]魔女化[/gold]程度，對所有敵人造成 {CalculatedDamage:diff()} 點傷害 X 次（最大8點）。",
+  "MANOSABA-SKY_ISLAND.description": "根據[gold]魔女化[/gold]程度，對所有敵人造成 {CalculatedDamage:diff()} 點傷害 X 次（最大{ExtraDamage:diff()}點）。",
   "MANOSABA-EMA_PUPPET.title": "艾瑪人偶",
   "MANOSABA-EMA_PUPPET.description": "每當你打出一張名字中含有\"人偶\"的牌時，對所有敵人造成{Damage:diff()}點傷害。",
   "MANOSABA-HIRO_PUPPET.title": "希羅人偶",

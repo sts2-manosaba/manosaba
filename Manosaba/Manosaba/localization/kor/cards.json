@@ -309,7 +309,7 @@
   "MANOSABA-BORROWED_KNIFE.title": "빌린 칼",
   "MANOSABA-BORROWED_KNIFE.description": "다른 아군 한 명이 {Cards:diff()}장을 뽑고 {Energy:energyIcons()}을 얻습니다.",
   "MANOSABA-SKY_ISLAND.title": "하늘 섬",
-  "MANOSABA-SKY_ISLAND.description": "[gold]마녀화[/gold] 정도에 따라 모든 적에게 {CalculatedDamage:diff()} 피해를 X번 줍니다(최대 8 피해).",
+  "MANOSABA-SKY_ISLAND.description": "[gold]마녀화[/gold] 정도에 따라 모든 적에게 {CalculatedDamage:diff()} 피해를 X번 줍니다(최대 {ExtraDamage:diff()} 피해).",
   "MANOSABA-EMA_PUPPET.title": "에마 인형",
   "MANOSABA-EMA_PUPPET.description": "[gold]인형[/gold] 카드를 사용할 때마다 모든 적에게 피해를 {Damage:diff()} 줍니다.",
   "MANOSABA-HIRO_PUPPET.title": "히로 인형",
