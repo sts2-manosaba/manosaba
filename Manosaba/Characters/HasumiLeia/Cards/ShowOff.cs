@@ -19,12 +19,13 @@ namespace Manosaba.Characters.SaekiMiria.Cards
     [Pool(typeof(HasumiLeiaCardPool))]
     public class ShowOff : PathCustomCardModel
     {
+        public override bool GainsBlock => true;
         private const int energyCost = 1;
         private const CardType type = CardType.Skill;
-        private const CardRarity rarity = CardRarity.Common;
+        private const CardRarity rarity = CardRarity.Uncommon;
         private const TargetType targetType = TargetType.Self;
         private const bool shouldShowInCardLibrary = true;
-        protected override IEnumerable<DynamicVar> CanonicalVars => [new PowerVar<StrengthPower>(1m)];
+        protected override IEnumerable<DynamicVar> CanonicalVars => [new PowerVar<StrengthPower>(1m),new BlockVar(8, ValueProp.Move)];
         protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<StrengthPower>()];
 
         public ShowOff() : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)
@@ -34,11 +35,12 @@ namespace Manosaba.Characters.SaekiMiria.Cards
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
             await PowerCmd.Apply<ShowOffPower>(base.Owner.Creature, base.DynamicVars.Strength.BaseValue, base.Owner.Creature, this);
+            await CreatureCmd.GainBlock(Owner.Creature, DynamicVars.Block, cardPlay);
         }
 
         protected override void OnUpgrade()
         {
-            base.DynamicVars.Cards.UpgradeValueBy(1m);
+            DynamicVars.Block.UpgradeValueBy(3);
         }
     }
 }
