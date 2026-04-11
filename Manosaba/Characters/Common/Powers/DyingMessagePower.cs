@@ -1,15 +1,12 @@
-﻿using Manosaba.Characters.Common.Powers;
+using Manosaba.Characters.Common.Powers;
 using Manosaba.Extensions;
 using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Creatures;
-using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.Entities.Powers;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
-using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.Powers;
-using MegaCrit.Sts2.Core.ValueProps;
 
 namespace Manosaba.Characters.NikaidoHiro.Powers
 {
@@ -25,23 +22,25 @@ namespace Manosaba.Characters.NikaidoHiro.Powers
             buffToApply += 2;
         }
 
-        public override async Task BeforeDamageReceived(PlayerChoiceContext choiceContext, Creature target, decimal amount, ValueProp props, Creature? dealer, CardModel? cardSource)
+        /// <summary>
+        /// 在持有者進入死亡結算時觸發一次：<b>無論</b>最後是否真的退場。
+        /// 真正死亡時 <paramref name="wasRemovalPrevented"/> 為 <c>false</c>；
+        /// 若被 <c>ShouldDie</c> / <c>ShouldDieLate</c> 擋下（蜥蜴尾巴、死亡迴歸等），引擎會先以 <c>true</c> 呼叫本方法，再執行擋死方的 <c>AfterPreventingDeath</c>。
+        /// 其他「致死觸發一次再復活」的效果可沿用同一寫法，無需逐一套件白名單。
+        /// </summary>
+        public override async Task AfterDeath(PlayerChoiceContext choiceContext, Creature creature, bool wasRemovalPrevented, float deathAnimLength)
         {
-            if(target != base.Owner) return;
-            if(amount < base.Owner.CurrentHp ) return;
-            IEnumerable<Creature> enumerable = from c in base.CombatState.GetTeammatesOf(base.Owner)
-                                               where c != null && c.IsAlive && c.IsPlayer
-                                               select c;
-            foreach (Creature item in enumerable)
+            if (creature != base.Owner || base.CombatState == null)
+                return;
+
+            foreach (Creature item in base.CombatState.GetTeammatesOf(base.Owner))
             {
-                if (item == Owner)
-                {
-                    return;
-                }
+                if (item == null || !item.IsAlive || !item.IsPlayer || item == Owner)
+                    continue;
+
                 await PowerCmd.Apply<DrawCardsNextTurnPower>(item, 5, base.Owner, null);
                 await PowerCmd.Apply<EnergyNextTurnPower>(item, 10, base.Owner, null);
             }
-            return;
         }
 
 
