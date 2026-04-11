@@ -13,6 +13,7 @@ using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
+using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.Powers;
 
@@ -27,6 +28,7 @@ namespace Manosaba.Characters.SaekiMiria.Cards
         private const TargetType targetType = TargetType.AllEnemies;
         private const bool shouldShowInCardLibrary = true;
         protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<StrengthPower>()];
+        protected override IEnumerable<DynamicVar> CanonicalVars => [new PowerVar<PeacemakerPower>(1m)];
 
         
         public Peacemaker() : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)
@@ -35,12 +37,7 @@ namespace Manosaba.Characters.SaekiMiria.Cards
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
-
-            List<Creature> enemies = CombatState.GetOpponentsOf(Owner.Creature).ToList();
-            foreach (Creature creature in enemies)
-            {
-            }
-            await PowerCmd.Apply<PeacemakerPower>(base.Owner.Creature, 1, base.Owner.Creature, this);
+            await PowerCmd.Apply<PeacemakerPower>(base.Owner.Creature, DynamicVars["PeacemakerPower"].BaseValue, base.Owner.Creature, this);
         }
 
         protected override void OnUpgrade()

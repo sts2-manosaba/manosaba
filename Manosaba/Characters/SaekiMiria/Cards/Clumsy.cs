@@ -27,7 +27,7 @@ namespace Manosaba.Characters.SaekiMiria.Cards
         private const bool shouldShowInCardLibrary = true;
         protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<WeakPower>()];
         
-        protected override IEnumerable<DynamicVar> CanonicalVars => [new BlockVar(8, ValueProp.Move)];
+        protected override IEnumerable<DynamicVar> CanonicalVars => [new BlockVar(8, ValueProp.Move), new PowerVar<WeakPower>(1)];
 
         public Clumsy() : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)
         {
@@ -37,7 +37,7 @@ namespace Manosaba.Characters.SaekiMiria.Cards
         {
             await CreatureCmd.GainBlock(Owner.Creature, DynamicVars.Block, cardPlay);
 
-            await PowerCmd.Apply<WeakPower>(base.Owner.Creature, 2m, base.Owner.Creature, this);
+            await PowerCmd.Apply<WeakPower>(base.Owner.Creature, DynamicVars.Weak.BaseValue, base.Owner.Creature, this);
 
         }
 

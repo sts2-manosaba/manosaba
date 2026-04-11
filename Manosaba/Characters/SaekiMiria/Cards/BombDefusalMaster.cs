@@ -31,7 +31,7 @@ namespace Manosaba.Characters.SaekiMiria.Cards
         public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
 
         public BombDefusalMaster()
-            : base(0, CardType.Skill, CardRarity.Rare, TargetType.AnyEnemy,true)
+            : base(0, CardType.Skill, CardRarity.Uncommon, TargetType.AnyEnemy,true)
         {
         }
 

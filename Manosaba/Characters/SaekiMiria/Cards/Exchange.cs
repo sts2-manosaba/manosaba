@@ -70,9 +70,9 @@ namespace Manosaba.Characters.SaekiMiria.Cards
 
             if (!base.IsUpgraded)
             {
-                pool = pool
-                .Where(c => c.Rarity != CardRarity.Rare)
-                .ToList();
+                cards = cards
+                    .Where(c => c.Rarity != CardRarity.Rare)
+                    .ToList();
             }
 
 
@@ -110,9 +110,9 @@ namespace Manosaba.Characters.SaekiMiria.Cards
 
             if (!base.IsUpgraded)
             {
-                pool2 = pool2
-                .Where(c => c.Rarity != CardRarity.Rare)
-                .ToList();
+                cards2 = cards2
+                    .Where(c => c.Rarity != CardRarity.Rare)
+                    .ToList();
             }
 
             var generatedList2 = CardHelperService

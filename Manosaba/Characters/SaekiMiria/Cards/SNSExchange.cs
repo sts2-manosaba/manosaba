@@ -15,13 +15,13 @@ namespace Manosaba.Characters.SaekiMiria.Cards
     [Pool(typeof(SaekiMiriaCardPool))]
     public class SnsExchange : PathCustomCardModel
     {
-        public override CardMultiplayerConstraint MultiplayerConstraint => CardMultiplayerConstraint.MultiplayerOnly;
+        //public override CardMultiplayerConstraint MultiplayerConstraint => CardMultiplayerConstraint.MultiplayerOnly;
         private const int energyCost = 1;
         private const CardType type = CardType.Skill;
         private const CardRarity rarity = CardRarity.Uncommon;
         private const TargetType targetType = TargetType.AllAllies;
         private const bool shouldShowInCardLibrary = true;
-        protected override IEnumerable<DynamicVar> CanonicalVars => [new PowerVar<MajokaPower>(8m), new CardsVar(1)];
+        protected override IEnumerable<DynamicVar> CanonicalVars => [new PowerVar<MajokaPower>(10m), new CardsVar(2)];
         protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<MajokaPower>()];
         public SnsExchange() : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)
         {
@@ -41,7 +41,7 @@ namespace Manosaba.Characters.SaekiMiria.Cards
 
         protected override void OnUpgrade()
         {
-            DynamicVars["MajokaPower"].UpgradeValueBy(4);
+            DynamicVars["MajokaPower"].UpgradeValueBy(5);
             base.DynamicVars.Cards.UpgradeValueBy(1m);
         }
     }

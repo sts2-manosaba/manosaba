@@ -23,7 +23,6 @@ namespace Manosaba.Characters.SaekiMiria.Cards
         private const TargetType targetType = TargetType.AnyEnemy;
         private const bool shouldShowInCardLibrary = true;
         protected override IEnumerable<DynamicVar> CanonicalVars => [new CardsVar(1)];
-        //protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<DeathLoopPower>()];
         public override IEnumerable<CardKeyword> CanonicalKeywords => [];
         public TraumaSharing() : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)
         {

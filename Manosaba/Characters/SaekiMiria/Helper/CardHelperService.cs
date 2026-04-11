@@ -21,7 +21,12 @@ namespace Manosaba.Characters.SaekiMiria.Helper
     {
         public static IEnumerable<CardModel> GetAvailableCards(Player player, IEnumerable<CardModel> cards, int count, Rng rng)
         {
-            return from c in cards.TakeRandom(count, rng)
+            bool isMultiplayer = player.RunState.Players.Count > 1;
+            IEnumerable<CardModel> availableCards = isMultiplayer
+                ? cards
+                : cards.Where(c => c.MultiplayerConstraint != CardMultiplayerConstraint.MultiplayerOnly);
+
+            return from c in availableCards.TakeRandom(count, rng)
                    select player.Creature.CombatState.CreateCard(c, player);
         }
     }

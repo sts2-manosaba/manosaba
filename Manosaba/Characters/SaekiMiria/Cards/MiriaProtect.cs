@@ -24,7 +24,7 @@ namespace Manosaba.Characters.SaekiMiria.Cards
         private const TargetType targetType = TargetType.AnyAlly;
         private const bool shouldShowInCardLibrary = true;
         protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<VotePower>()];
-        protected override IEnumerable<DynamicVar> CanonicalVars => [new BlockVar(3, ValueProp.Move), new PowerVar<VotePower>(1)];
+        protected override IEnumerable<DynamicVar> CanonicalVars => [new DynamicVar("BaseBlock", 8m), new BlockVar(3, ValueProp.Move), new PowerVar<VotePower>(1)];
 
         public MiriaProtect() : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)
         {
@@ -34,7 +34,7 @@ namespace Manosaba.Characters.SaekiMiria.Cards
         {
             ArgumentNullException.ThrowIfNull(cardPlay.Target, "cardPlay.Target");
             var votePower = cardPlay.Target.GetPowerAmount<VotePower>();
-            var blockAmt = base.DynamicVars.Block.BaseValue * votePower + 5m;
+            var blockAmt = base.DynamicVars.Block.BaseValue * votePower + base.DynamicVars["BaseBlock"].BaseValue;
             await CreatureCmd.GainBlock(cardPlay.Target, new BlockVar(blockAmt,ValueProp.Move), cardPlay);
             await PowerCmd.Apply<VotePower>(base.Owner.Creature, DynamicVars["VotePower"].BaseValue, base.Owner.Creature, this);
         }

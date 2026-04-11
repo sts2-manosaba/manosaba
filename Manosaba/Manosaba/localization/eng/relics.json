@@ -9,10 +9,10 @@
   "MANOSABA-SPRAY_CAN_OF_NOAH.description": "Gain {OrbSlots} orb slots. Upgrades increase the number of slots.\nFrom Lv2, at the start of your turn, randomly generate 1 paint orb.\nFrom Lv4, generate 2 instead.",
   "MANOSABA-SPRAY_CAN_OF_NOAH.flavor": "Need a spray, huh?",
   "MANOSABA-FAIRY_HEART.title": "Fairy Heart",
-  "MANOSABA-FAIRY_HEART.description": "At the start of your turn, lose all [gold]Majoka[/gold].\nWhenever you are hit by an enemy attack, reduce that damage by an amount equal to 50% of your [gold]Strength[/gold] stacks.\nAt the start of combat, gain [gold]Strength[/gold] equal to this relic's level.\nFrom Lv2, at the start of your turn, lose 1 HP and gain 1 [gold]Strength[/gold].\nFrom Lv4, when you win combat, heal HP equal to your current [gold]Strength[/gold] stacks.",
+  "MANOSABA-FAIRY_HEART.description": "At the start of your turn, lose all [gold]Majoka[/gold].\nAt the start of combat, gain [gold]Strength[/gold] equal to this relic's level.\nWhenever you are hit by an enemy attack, reduce that damage by an amount equal to 50% of your [gold]Strength[/gold] stacks.\nFrom Lv2, 60%. From Lv4, 70%.",
   "MANOSABA-FAIRY_HEART.flavor": "I've become the perfect detective Sherry! I definitely won't go Majoka again.",
   "MANOSABA-CABINET_KEY.title": "Small Key",
-  "MANOSABA-CABINET_KEY.description": "At the start of your turn, gain {energyPrefix:energyIcons(1)} energy equal to 10% of HP lost during the previous turn.\nIncreases by 5% per level.",
+  "MANOSABA-CABINET_KEY.description": "Before the enemies end their turn, add 1 random Movie card to your draw pile for every {BlockPerMovie} [gold]Block[/gold] you have (round up).\nUpgrading reduces the required Block by 1.",
   "MANOSABA-CABINET_KEY.flavor": "What lock is this key for?",
 
   "MANOSABA-FRUGAL.title": "Frugal",

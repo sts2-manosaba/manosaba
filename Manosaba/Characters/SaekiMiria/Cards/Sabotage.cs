@@ -1,4 +1,5 @@
-﻿using BaseLib.Utils;
+﻿using BaseLib.Extensions;
+using BaseLib.Utils;
 using manosaba.Characters.Common;
 using manosaba.Characters.SaekiMiria;
 using Manosaba.Characters.Common.Powers;
@@ -21,8 +22,8 @@ namespace Manosaba.Characters.SaekiMiria.Cards
         private const CardRarity rarity = CardRarity.Common;
         private const TargetType targetType = TargetType.AnyEnemy;
         private const bool shouldShowInCardLibrary = true;
-        protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(4, ValueProp.Move), new PowerVar<VulnerablePower>(1), new PowerVar<VotePower>(1)];
-        protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<VulnerablePower>(), HoverTipFactory.FromPower<VotePower>()];
+        protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(4, ValueProp.Move), new PowerVar<VulnerablePower>(1), new PowerVar<WeakPower>(1), new PowerVar<VotePower>(1)];
+        protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<VulnerablePower>(), HoverTipFactory.FromPower<WeakPower>(), HoverTipFactory.FromPower<VotePower>()];
 
         public Sabotage() : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)
         {
@@ -39,13 +40,15 @@ namespace Manosaba.Characters.SaekiMiria.Cards
             .Targeting(target)
             .Execute(choiceContext);
             await PowerCmd.Apply<VulnerablePower>(target, DynamicVars.Vulnerable.BaseValue, base.Owner.Creature, this);
-            await PowerCmd.Apply<VotePower>(base.Owner.Creature, DynamicVars.Vulnerable.BaseValue, base.Owner.Creature, this);
+            await PowerCmd.Apply<WeakPower>(target, DynamicVars.Weak.BaseValue, base.Owner.Creature, this);
+            await PowerCmd.Apply<VotePower>(base.Owner.Creature, DynamicVars["VotePower"].BaseValue, base.Owner.Creature, this);
         }
 
         protected override void OnUpgrade()
         {
             base.DynamicVars.Damage.UpgradeValueBy(2m);
             base.DynamicVars.Vulnerable.UpgradeValueBy(1m);
+            base.DynamicVars.Weak.UpgradeValueBy(1m);
         }
     }
 }

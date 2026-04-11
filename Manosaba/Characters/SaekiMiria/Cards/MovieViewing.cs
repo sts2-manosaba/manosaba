@@ -1,0 +1,78 @@
+using BaseLib.Utils;
+using MegaCrit.Sts2.Core.Combat;
+using MegaCrit.Sts2.Core.Commands;
+using MegaCrit.Sts2.Core.Entities.Cards;
+using MegaCrit.Sts2.Core.Entities.Players;
+using MegaCrit.Sts2.Core.GameActions.Multiplayer;
+using MegaCrit.Sts2.Core.HoverTips;
+using MegaCrit.Sts2.Core.Localization.DynamicVars;
+using manosaba.Characters.SaekiMiria;
+using Manosaba.Extensions;
+
+namespace Manosaba.Characters.SaekiMiria.Cards;
+
+[Pool(typeof(SaekiMiriaCardPool))]
+public class MovieViewing : PathCustomCardModel
+{
+    private const int EnergyCost = 1;
+    private const CardType CardTypeValue = CardType.Skill;
+    private const CardRarity Rarity = CardRarity.Uncommon;
+    private const TargetType TargetTypeValue = TargetType.Self;
+    private const bool ShouldShowInCardLibrary = true;
+
+    private static readonly IReadOnlyList<Func<Player, CombatState, MovieBase>> MovieFactories =
+    [
+        static (player, combatState) => combatState.CreateCard<HorrorMovie>(player),
+        static (player, combatState) => combatState.CreateCard<ComedyMovie>(player),
+        static (player, combatState) => combatState.CreateCard<FantasyMovie>(player),
+        static (player, combatState) => combatState.CreateCard<ActionMovie>(player),
+        static (player, combatState) => combatState.CreateCard<RomanticMovie>(player),
+        static (player, combatState) => combatState.CreateCard<SpyMovie>(player),
+    ];
+
+    protected override IEnumerable<IHoverTip> ExtraHoverTips =>
+    [
+        HoverTipFactory.FromCard<HorrorMovie>(),
+        HoverTipFactory.FromCard<ComedyMovie>(),
+        HoverTipFactory.FromCard<FantasyMovie>(),
+        HoverTipFactory.FromCard<ActionMovie>(),
+        HoverTipFactory.FromCard<RomanticMovie>(),
+        HoverTipFactory.FromCard<SpyMovie>(),
+    ];
+
+    protected override IEnumerable<DynamicVar> CanonicalVars => [new CardsVar(1)];
+
+    public MovieViewing()
+        : base(EnergyCost, CardTypeValue, Rarity, TargetTypeValue, ShouldShowInCardLibrary)
+    {
+    }
+
+    protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
+    {
+        if (CombatState == null)
+            return;
+
+        int count = DynamicVars.Cards.IntValue;
+        if (count <= 0)
+            return;
+
+        var rng = Owner.RunState.Rng.CombatCardSelection;
+        List<MovieBase> movies = new(count);
+        for (int i = 0; i < count; i++)
+        {
+            movies.Add(rng.NextItem(MovieFactories)(Owner, CombatState));
+        }
+
+        IReadOnlyList<CardPileAddResult> results = await CardPileCmd.AddGeneratedCardsToCombat(
+            movies,
+            PileType.Hand,
+            addedByPlayer: true,
+            CardPilePosition.Random);
+        CardCmd.PreviewCardPileAdd(results);
+    }
+
+    protected override void OnUpgrade()
+    {
+        DynamicVars.Cards.UpgradeValueBy(1m);
+    }
+}

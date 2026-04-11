@@ -21,7 +21,7 @@ namespace Manosaba.Characters.SaekiMiria.Cards
         private const TargetType targetType = TargetType.Self;
         private const bool shouldShowInCardLibrary = true;
         protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<VotePower>()];
-        protected override IEnumerable<DynamicVar> CanonicalVars => [new CardsVar(2), new PowerVar<VotePower>(1)];
+        protected override IEnumerable<DynamicVar> CanonicalVars => [new CardsVar(3), new PowerVar<VotePower>(2)];
 
         public EvidenceLooting() : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)
         {

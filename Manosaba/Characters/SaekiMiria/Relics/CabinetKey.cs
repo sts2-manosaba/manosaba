@@ -1,8 +1,7 @@
 ﻿using BaseLib.Utils;
-using Manosaba.Characters.Common.Monsters;
-using Manosaba.Characters.Common.Powers;
 using Manosaba.Characters.SaekiMiria.Cards;
 using Manosaba.Extensions;
+using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Creatures;
@@ -12,7 +11,8 @@ using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
-using MegaCrit.Sts2.Core.ValueProps;
+using System;
+using System.Reflection;
 
 namespace manosaba.Characters.SaekiMiria.Relics
 {
@@ -23,13 +23,29 @@ namespace manosaba.Characters.SaekiMiria.Relics
         public override RelicRarity Rarity => RelicRarity.Starter;
         protected override int MaxRelicLevel => 5;
 
-        protected decimal basePercentage = 0.1m;
+        private int blockPerMovieCard = 9;
 
-        protected decimal dmgTakenThisTurn = 0m;
+        protected override IEnumerable<DynamicVar> CanonicalVars => [new DynamicVar("BlockPerMovie", 9m)];
 
-        protected override IEnumerable<DynamicVar> CanonicalVars => [new EnergyVar(1)];
+        private static readonly IReadOnlyList<Func<Player, CombatState, MovieBase>> MovieFactories =
+        [
+            static (player, combatState) => combatState.CreateCard<HorrorMovie>(player),
+            static (player, combatState) => combatState.CreateCard<ComedyMovie>(player),
+            static (player, combatState) => combatState.CreateCard<FantasyMovie>(player),
+            static (player, combatState) => combatState.CreateCard<ActionMovie>(player),
+            static (player, combatState) => combatState.CreateCard<RomanticMovie>(player),
+            static (player, combatState) => combatState.CreateCard<SpyMovie>(player),
+        ];
 
-        protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.ForEnergy(this)];
+        protected override IEnumerable<IHoverTip> ExtraHoverTips =>
+        [
+            HoverTipFactory.FromCard<HorrorMovie>(),
+            HoverTipFactory.FromCard<ComedyMovie>(),
+            HoverTipFactory.FromCard<FantasyMovie>(),
+            HoverTipFactory.FromCard<ActionMovie>(),
+            HoverTipFactory.FromCard<RomanticMovie>(),
+            HoverTipFactory.FromCard<SpyMovie>(),
+        ];
 
         public override Task AfterObtained()
         {
@@ -39,26 +55,41 @@ namespace manosaba.Characters.SaekiMiria.Relics
             return Task.CompletedTask;
         }
 
-
-        public override Task AfterDamageReceived(PlayerChoiceContext choiceContext, Creature target, DamageResult result, ValueProp props, Creature? dealer, CardModel? cardSource)
+        public override async Task BeforeTurnEnd(PlayerChoiceContext choiceContext, CombatSide side)
         {
-            ApplyRelicLevelEffects();
-            if (base.Owner.Creature == target)
+            if (side != CombatSide.Enemy)
+                return;
+
+            if (!Owner.Creature.IsAlive)
+                return;
+
+            CombatState? combatState = Owner.Creature.CombatState;
+            if (combatState == null)
+                return;
+
+            int requiredBlock = Math.Max(1, blockPerMovieCard);
+            decimal blockRemaining = GetCreatureBlock(Owner.Creature);
+            if (blockRemaining <= 0m)
+                return;
+
+            int moviesToAdd = (int)decimal.Ceiling(blockRemaining / requiredBlock);
+            if (moviesToAdd <= 0)
+                return;
+
+            Flash();
+            var rng = Owner.RunState.Rng.CombatCardSelection;
+            List<MovieBase> movies = new(moviesToAdd);
+            for (int i = 0; i < moviesToAdd; i++)
             {
-                if(result.UnblockedDamage > 0)
-                {
-                    dmgTakenThisTurn += result.UnblockedDamage;
-                }
+                movies.Add(rng.NextItem(MovieFactories)(Owner, combatState));
             }
-            return Task.CompletedTask;
-        }
 
-        public override Task AfterPlayerTurnStart(PlayerChoiceContext choiceContext, Player player)
-        {
-            int energyToGain = (int)decimal.Ceiling(dmgTakenThisTurn * basePercentage);
-            PlayerCmd.GainEnergy(energyToGain, base.Owner);
-            dmgTakenThisTurn = 0m;
-            return Task.CompletedTask;
+            IReadOnlyList<CardPileAddResult> results = await CardPileCmd.AddGeneratedCardsToCombat(
+                movies,
+                PileType.Draw,
+                addedByPlayer: true,
+                CardPilePosition.Random);
+            CardCmd.PreviewCardPileAdd(results);
         }
 
 
@@ -70,14 +101,38 @@ namespace manosaba.Characters.SaekiMiria.Relics
 
         private void ApplyRelicLevelEffects()
         {
-            // Pen of Hiro level effects are defined on this relic:
-            // Lv1: 20% 
-            // Lv2: 25% 
-            // Lv3: 30% 
-            //  Lv4: 35% 
-            //  Lv5: 40% 
-            int level = RelicLevel;
-            basePercentage = 0.2m + (level - 1) * 0.05m; // Increases by 5% each level, starting at 20% at level 1
+            // Lv1: 9 Block per card
+            // Lv2: 8
+            // Lv3: 7
+            // Lv4: 6
+            // Lv5: 5
+            blockPerMovieCard = Math.Max(1, 10 - RelicLevel);
+            DynamicVars["BlockPerMovie"].BaseValue = blockPerMovieCard;
+        }
+
+        private static decimal GetCreatureBlock(Creature creature)
+        {
+            const BindingFlags flags = BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic;
+            Type type = creature.GetType();
+
+            foreach (string name in new[] { "Block", "CurrentBlock", "BlockAmount" })
+            {
+                PropertyInfo? prop = type.GetProperty(name, flags);
+                if (prop != null)
+                {
+                    object? value = prop.GetValue(creature);
+                    return value == null ? 0m : Convert.ToDecimal(value);
+                }
+
+                FieldInfo? field = type.GetField(name, flags);
+                if (field != null)
+                {
+                    object? value = field.GetValue(creature);
+                    return value == null ? 0m : Convert.ToDecimal(value);
+                }
+            }
+
+            return 0m;
         }
 
         private void RemoveExchangeFromSinglePlayerStartingDeck()

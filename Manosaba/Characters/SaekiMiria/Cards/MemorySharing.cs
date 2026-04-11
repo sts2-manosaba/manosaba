@@ -20,7 +20,7 @@ namespace Manosaba.Characters.SaekiMiria.Cards
     [Pool(typeof(SaekiMiriaCardPool))]
     public class MemorySharing : PathCustomCardModel
     {
-        private const int energyCost = 3;
+        private const int energyCost = 1;
         private const CardType type = CardType.Power;
         private const CardRarity rarity = CardRarity.Ancient;
         private const TargetType targetType = TargetType.AllAllies;
@@ -52,7 +52,7 @@ namespace Manosaba.Characters.SaekiMiria.Cards
 
         protected override void OnUpgrade()
         {
-            AddKeyword(CardKeyword.Retain);
+            AddKeyword(CardKeyword.Innate);
         }
     }
 }
