@@ -2,6 +2,7 @@
 using BaseLib.Utils;
 using Manosaba.Characters.Common.Monsters;
 using Manosaba.Characters.Common.Powers;
+using Manosaba.Characters.HasumiLeia.Powers;
 using Manosaba.Extensions;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
@@ -38,7 +39,17 @@ namespace manosaba.Characters.HasumiLeia.Relics
         {
             if (target == base.Owner.Creature && result.BlockedDamage > 0 && props.IsPoweredAttack_() && dealer != null)
             {
-                await CreatureCmd.Damage(choiceContext, dealer, decimal.Ceiling(result.BlockedDamage * basePercentage) , ValueProp.Move, base.Owner.Creature, null);
+                decimal damage = decimal.Ceiling(result.BlockedDamage * basePercentage);
+                int extraHits = target.GetPowerAmount<RapierMasteryPower>();
+                int hits = 1 + Math.Max(0, extraHits);
+
+                for (int i = 0; i < hits; i++)
+                {
+                    if (!dealer.IsAlive)
+                        return;
+
+                    await CreatureCmd.Damage(choiceContext, dealer, damage, ValueProp.Move, base.Owner.Creature, null);
+                }
             }
         }
 
