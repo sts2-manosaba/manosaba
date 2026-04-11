@@ -15,7 +15,7 @@ namespace Manosaba.Characters.TonoHanna.Powers
         public override PowerType Type => PowerType.Buff;
         public override PowerStackType StackType => PowerStackType.Counter;
 
-        protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(9m, ValueProp.Move)];
+        protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(9m, ValueProp.Unpowered)];
 
         public override async Task AfterCardPlayed(PlayerChoiceContext context, CardPlay cardPlay)
         {

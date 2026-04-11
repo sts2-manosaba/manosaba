@@ -23,7 +23,7 @@ namespace Manosaba.Characters.TonoHanna.Cards
         private const TargetType targetType = TargetType.Self;
         private const bool shouldShowInCardLibrary = true;
 
-        protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(9m, ValueProp.Move), new PowerVar<EmaPuppetCollectionPower>(1)];
+        protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(9m, ValueProp.Unpowered), new PowerVar<EmaPuppetCollectionPower>(1)];
 
 
         public EmaPuppet() : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)
