@@ -240,7 +240,7 @@
   "MANOSABA-STAND_OUT.title": "引人注目",
   "MANOSABA-STAND_OUT.description": "獲得 {Block:diff()} 點[gold]格檔[/gold]。，替一名隊友承受下一次攻擊受到的傷害。",
   "MANOSABA-COMEDIAN.title": "諧星",
-  "MANOSABA-COMEDIAN.description": "抽到[gold]Token[/gold]牌時，獲得 {ComedianPower:diff()} 點[gold]格檔[/gold]。",
+  "MANOSABA-COMEDIAN.description": "抽到[gold]衍生物、狀態、詛咒以及任務[/gold]牌時，獲得 {ComedianPower:diff()} 點[gold]格檔[/gold]。",
   "MANOSABA-DANCING.title": "舞動",
   "MANOSABA-DANCING.description": "獲得 {Block:diff()} 點[gold]格檔[/gold]。\n下一回合獲得 {Energy:energyIcons()}。",
   "MANOSABA-UNLIMITED_SPEAR_WORK.title": "無限矛製",

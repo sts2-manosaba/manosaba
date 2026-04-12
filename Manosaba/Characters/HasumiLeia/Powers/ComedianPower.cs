@@ -21,7 +21,7 @@ public sealed class ComedianPower : PathCustomPowerModel
             return;
         if (card.Owner != Owner.Player)
             return;
-        if (card.Rarity != CardRarity.Token)
+        if (card.Rarity == CardRarity.Basic || card.Rarity == CardRarity.Common || card.Rarity == CardRarity.Uncommon || card.Rarity == CardRarity.Rare || card.Rarity == CardRarity.Ancient)
             return;
 
         Flash();
