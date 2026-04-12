@@ -43,7 +43,7 @@ namespace Manosaba.Characters.TonoHanna.Cards
 
         protected override void OnUpgrade()
         {
-            RemoveKeyword(CardKeyword.Exhaust);
+            DynamicVars["StrengthLoss"].UpgradeValueBy(2m);
         }
     }
 }
