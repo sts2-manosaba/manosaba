@@ -7,8 +7,6 @@ namespace Manosaba.Characters.HoshoMago.Powers;
 
 public sealed class TemperancePower : PathCustomPowerModel
 {
-    private const int GoldPerStack = 30;
-
     public override PowerType Type => PowerType.Buff;
     public override PowerStackType StackType => PowerStackType.Counter;
 
@@ -19,7 +17,7 @@ public sealed class TemperancePower : PathCustomPowerModel
             return Task.CompletedTask;
         }
 
-        int gold = (int)(Amount * GoldPerStack);
+        int gold = (int)Amount;
         if (gold > 0)
         {
             room.AddExtraReward(Owner.Player, new GoldReward(gold, Owner.Player));

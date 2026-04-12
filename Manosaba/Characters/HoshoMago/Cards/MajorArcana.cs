@@ -76,6 +76,7 @@ public sealed class TheMagician : HoshoMagoArcanaBase
     }
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<MajokaPower>()];
     public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
+    protected override IEnumerable<DynamicVar> CanonicalVars => [new PowerVar<MajokaPower>(3)];
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
@@ -85,7 +86,7 @@ public sealed class TheMagician : HoshoMagoArcanaBase
         }
 
         int tarotCardsInDeck = Owner.Deck.Cards.Count(card => card.Tags.Contains(ManosabaCardTags.Tarot));
-        int majokaToGain = tarotCardsInDeck * 5;
+        decimal majokaToGain = tarotCardsInDeck * DynamicVars["MajokaPower"].BaseValue;
         if (majokaToGain <= 0)
         {
             return;
@@ -95,7 +96,7 @@ public sealed class TheMagician : HoshoMagoArcanaBase
     }
     protected override void OnUpgrade()
     {
-        AddKeyword(CardKeyword.Innate);
+        DynamicVars["MajokaPower"].UpgradeValueBy(2m);
     }
 }
 
@@ -149,7 +150,7 @@ public sealed class TheEmpress : HoshoMagoArcanaBase
         }
 
         bool hasTheEmperorInDeck = Owner?.Deck?.Cards.Any(card => card is TheEmperor) == true;
-        decimal damage = DynamicVars.Damage.BaseValue * (hasTheEmperorInDeck ? 2m : 1m);
+        decimal damage = DynamicVars.Damage.BaseValue * (hasTheEmperorInDeck ? 1.5m : 1m);
 
         IEnumerable<DamageResult> results = await CreatureCmd.Damage(
             choiceContext,
@@ -188,7 +189,7 @@ public sealed class TheEmperor : HoshoMagoArcanaBase
         }
 
         bool hasTheEmpressInDeck = Owner?.Deck?.Cards.Any(card => card is TheEmpress) == true;
-        decimal damage = DynamicVars.Damage.BaseValue * (hasTheEmpressInDeck ? 2m : 1m);
+        decimal damage = DynamicVars.Damage.BaseValue * (hasTheEmpressInDeck ? 1.5m : 1m);
 
         await DamageCmd.Attack(damage)
             .FromCard(this)
@@ -486,7 +487,7 @@ public sealed class Death : HoshoMagoArcanaBase
 [Pool(typeof(HoshoMagoCardPool))]
 public sealed class Temperance : HoshoMagoArcanaBase
 {
-    protected override IEnumerable<DynamicVar> CanonicalVars => [new PowerVar<TemperancePower>(1)];
+    protected override IEnumerable<DynamicVar> CanonicalVars => [new PowerVar<TemperancePower>(30)];
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<TemperancePower>()];
 
     public Temperance() : base(3, CardType.Power, TargetType.Self)
