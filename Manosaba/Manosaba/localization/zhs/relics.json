@@ -16,7 +16,7 @@
   "MANOSABA-CABINET_KEY.flavor": "這是用來開啟什麼用的鑰匙?",
 
   "MANOSABA-RAPIER.title": "細劍",
-  "MANOSABA-RAPIER.description": "受到攻擊者，對攻擊者造成格檔傷害量的60%的傷害。此傷害可以被其他效果影響。每次升級提高10%",
+  "MANOSABA-RAPIER.description": "受到攻擊時，對攻擊者造成格檔傷害量的60%的傷害。\n此傷害可以被其他效果影響。每次升級提高10%",
   "MANOSABA-RAPIER.flavor": "為什麼有人有武器阿?",
 
   "MANOSABA-FRUGAL.title": "節儉",

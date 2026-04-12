@@ -191,5 +191,27 @@
   "MANOSABA-THE_STAR_POWER.smartDescription": "このターン、受ける攻撃ダメージを[blue]{Amount}[/blue]軽減する。",
   "MANOSABA-THE_SUN_POWER.title": "太陽",
   "MANOSABA-THE_SUN_POWER.description": "最大[gold]エナジー[/gold]を増やす。",
-  "MANOSABA-THE_SUN_POWER.smartDescription": "最大[gold]エナジー[/gold]を[blue]{Amount}[/blue]増やす。"
+  "MANOSABA-THE_SUN_POWER.smartDescription": "最大[gold]エナジー[/gold]を[blue]{Amount}[/blue]増やす。",
+
+  "MANOSABA-PORTABLE_FLETCHING_STATION_POWER.title": "携帯式製作ステーション",
+  "MANOSABA-PORTABLE_FLETCHING_STATION_POWER.description": "[gold]簡易ランス[/gold]の作成に成功したとき、50%の確率で追加の[gold]簡易ランス[/gold]を1枚得る。抽選をX回行う。",
+  "MANOSABA-PORTABLE_FLETCHING_STATION_POWER.smartDescription": "[gold]簡易ランス[/gold]の作成に成功したとき、50%の確率で追加の[gold]簡易ランス[/gold]を1枚得る。抽選をX回行う。",
+  "MANOSABA-UNLIMITED_SPEAR_WORK_POWER.title": "Unlimited Spear Works",
+  "MANOSABA-UNLIMITED_SPEAR_WORK_POWER.description": "ターン開始時、手札にX枚の[gold]槍の鋳造[/gold]を加える。",
+  "MANOSABA-UNLIMITED_SPEAR_WORK_POWER.smartDescription": "ターン開始時、手札にX枚の[gold]槍の鋳造[/gold]を加える。",
+  "MANOSABA-RAPIER_MASTERY_POWER.title": "レイピア精通",
+  "MANOSABA-RAPIER_MASTERY_POWER.description": "あなたの[gold]レイピア[/gold]のブロック反撃が追加で{Amount}回発動する。",
+  "MANOSABA-RAPIER_MASTERY_POWER.smartDescription": "あなたの[gold]レイピア[/gold]のブロック反撃が追加で[blue]{Amount}[/blue]回発動する。",
+  "MANOSABA-STAND_OUT_POWER.title": "注目の的",
+  "MANOSABA-STAND_OUT_POWER.description": "受けるダメージが2倍になり、味方が受けるダメージが半減する。",
+  "MANOSABA-STAND_OUT_POWER.smartDescription": "受けるダメージが2倍になり、味方が受けるダメージが半減する。",
+  "MANOSABA-GAZE_GUIDING_POWER.title": "視線誘導",
+  "MANOSABA-GAZE_GUIDING_POWER.description": "攻撃してきた敵があなたに与えるダメージが減少する。\n現在の[gold]魔女化[/gold]スタックに応じて効果が増加する。\n最大50%。",
+  "MANOSABA-GAZE_GUIDING_POWER.smartDescription": "攻撃してきた敵があなたに与えるダメージが減少する。\n現在の[gold]魔女化[/gold]スタックに応じて効果が増加する。\n最大50%。",
+  "MANOSABA-COMEDIAN_POWER.title": "コメディアン",
+  "MANOSABA-COMEDIAN_POWER.description": "[gold]トークン[/gold]カードを引いたとき、{Amount}[gold]ブロック[/gold]を得る。",
+  "MANOSABA-COMEDIAN_POWER.smartDescription": "[gold]トークン[/gold]カードを引いたとき、[blue]{Amount}[/blue][gold]ブロック[/gold]を得る。",
+  "MANOSABA-SHOW_OFF_POWER.title": "見せつける",
+  "MANOSABA-SHOW_OFF_POWER.description": "このターン攻撃をブロックしたとき、次のターン終了までX点の[gold]筋力[/gold]を得る。",
+  "MANOSABA-SHOW_OFF_POWER.smartDescription": "このターン攻撃をブロックしたとき、次のターン終了までX点の[gold]筋力[/gold]を得る。"
 }

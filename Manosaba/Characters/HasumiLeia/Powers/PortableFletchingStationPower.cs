@@ -10,4 +10,9 @@ public class PortableFletchingStationPower : PathCustomPowerModel
 
     public override bool AllowNegative => false;
 
+    public async Task TriggerFlash()
+    {
+               Flash();
+        await Task.CompletedTask;
+    }
 }

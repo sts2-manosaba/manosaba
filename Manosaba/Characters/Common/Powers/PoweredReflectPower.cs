@@ -9,6 +9,7 @@ using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Creatures;
+using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.Entities.Powers;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Models;
@@ -25,12 +26,33 @@ namespace Manosaba.Characters.Common.Powers
 
         public override PowerStackType StackType => PowerStackType.Counter;
 
+        private bool _reflectedSinceLastTurnStart;
+
         public override async Task AfterDamageReceived(PlayerChoiceContext choiceContext, Creature target, DamageResult result, ValueProp props, Creature? dealer, CardModel? cardSource)
         {
+            if (ReflectionDamageGuard.IsActive)
+                return;
+
             if (target == base.Owner && result.BlockedDamage > 0 && props.IsPoweredAttack_() && dealer != null)
             {
-                await CreatureCmd.Damage(choiceContext, dealer, result.BlockedDamage, ValueProp.Move, base.Owner, null);
+                _reflectedSinceLastTurnStart = true;
+                await ReflectionDamageGuard.Run(() => CreatureCmd.Damage(choiceContext, dealer, result.BlockedDamage, ValueProp.Move, base.Owner, null));
             }
+        }
+
+        public override async Task AfterPlayerTurnStart(PlayerChoiceContext choiceContext, Player player)
+        {
+            if (player.Creature != base.Owner)
+                return;
+
+            if (!_reflectedSinceLastTurnStart)
+                return;
+
+            _reflectedSinceLastTurnStart = false;
+
+            decimal vigor = base.Owner.GetPowerAmount<VigorPower>();
+            if (vigor > 0m)
+                await PowerCmd.Apply<VigorPower>(base.Owner, -vigor, base.Owner, null);
         }
 
         public override async Task AfterSideTurnStart(CombatSide side, CombatState combatState)

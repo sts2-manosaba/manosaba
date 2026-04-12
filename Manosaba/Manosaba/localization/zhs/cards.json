@@ -237,7 +237,7 @@
   "MANOSABA-PROJECTION.description": "將一張[gold]鑄矛[/gold]加入手牌。",
   "MANOSABA-GATE_OF_BABYLON.title": "王之財寶",
   "MANOSABA-GATE_OF_BABYLON.description": "將消耗牌堆所有的[gold]簡易長矛[/gold]向一名敵人打出。",
-  "MANOSABA-STAND_OUT.title": "引人注目",
+  "MANOSABA-STAND_OUT.title": "吸引目光",
   "MANOSABA-STAND_OUT.description": "獲得 {Block:diff()} 點[gold]格檔[/gold]。，替一名隊友承受下一次攻擊受到的傷害。",
   "MANOSABA-COMEDIAN.title": "諧星",
   "MANOSABA-COMEDIAN.description": "抽到[gold]衍生物、狀態、詛咒以及任務[/gold]牌時，獲得 {ComedianPower:diff()} 點[gold]格檔[/gold]。",

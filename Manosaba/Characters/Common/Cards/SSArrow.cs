@@ -80,6 +80,7 @@ namespace Manosaba.Characters.Common.Cards
                 if (Owner.RunState.Rng.CombatCardGeneration.NextInt(5) != 0)
                     continue;
 
+                await Owner.Creature.GetPower<PortableFletchingStationPower>()?.TriggerFlash();
                 CardModel bonusSpear = Owner.Creature.CombatState.CreateCard<SimpleSpear>(Owner);
                 await CardPileCmd.AddGeneratedCardToCombat(bonusSpear, PileType.Hand, addedByPlayer: true);
             }

@@ -191,5 +191,27 @@
   "MANOSABA-THE_STAR_POWER.smartDescription": "Reduce incoming attack damage by [blue]{Amount}[/blue] this turn.",
   "MANOSABA-THE_SUN_POWER.title": "The Sun",
   "MANOSABA-THE_SUN_POWER.description": "Increase max [gold]Energy[/gold].",
-  "MANOSABA-THE_SUN_POWER.smartDescription": "Increase max [gold]Energy[/gold] by [blue]{Amount}[/blue]."
+  "MANOSABA-THE_SUN_POWER.smartDescription": "Increase max [gold]Energy[/gold] by [blue]{Amount}[/blue].",
+
+  "MANOSABA-PORTABLE_FLETCHING_STATION_POWER.title": "Portable Fletching Station",
+  "MANOSABA-PORTABLE_FLETCHING_STATION_POWER.description": "When you successfully craft a [gold]Simple Spear[/gold], you have a 50% chance to gain an additional [gold]Simple Spear[/gold]. Roll X time(s).",
+  "MANOSABA-PORTABLE_FLETCHING_STATION_POWER.smartDescription": "When you successfully craft a [gold]Simple Spear[/gold], you have a 50% chance to gain an additional [gold]Simple Spear[/gold]. Roll X time(s).",
+  "MANOSABA-UNLIMITED_SPEAR_WORK_POWER.title": "Unlimited Spear Work",
+  "MANOSABA-UNLIMITED_SPEAR_WORK_POWER.description": "At the start of your turn, add X [gold]Forge Spear[/gold](s) to your hand.",
+  "MANOSABA-UNLIMITED_SPEAR_WORK_POWER.smartDescription": "At the start of your turn, add X [gold]Forge Spear[/gold](s) to your hand.",
+  "MANOSABA-RAPIER_MASTERY_POWER.title": "Rapier Mastery",
+  "MANOSABA-RAPIER_MASTERY_POWER.description": "Your [gold]Rapier[/gold]'s block counterattack triggers {Amount} additional time(s).",
+  "MANOSABA-RAPIER_MASTERY_POWER.smartDescription": "Your [gold]Rapier[/gold]'s block counterattack triggers [blue]{Amount}[/blue] additional time(s).",
+  "MANOSABA-STAND_OUT_POWER.title": "Stand Out",
+  "MANOSABA-STAND_OUT_POWER.description": "You take double damage; allies take half damage.",
+  "MANOSABA-STAND_OUT_POWER.smartDescription": "You take double damage; allies take half damage.",
+  "MANOSABA-GAZE_GUIDING_POWER.title": "Gaze Guiding",
+  "MANOSABA-GAZE_GUIDING_POWER.description": "Enemies that attack you deal less damage to you.\nScales with your current [gold]Majoka[/gold] stacks.\nMax 50%.",
+  "MANOSABA-GAZE_GUIDING_POWER.smartDescription": "Enemies that attack you deal less damage to you.\nScales with your current [gold]Majoka[/gold] stacks.\nMax 50%.",
+  "MANOSABA-COMEDIAN_POWER.title": "Comedian",
+  "MANOSABA-COMEDIAN_POWER.description": "Whenever you draw a [gold]Token[/gold] card, gain {Amount} [gold]Block[/gold].",
+  "MANOSABA-COMEDIAN_POWER.smartDescription": "Whenever you draw a [gold]Token[/gold] card, gain [blue]{Amount}[/blue] [gold]Block[/gold].",
+  "MANOSABA-SHOW_OFF_POWER.title": "Show Off",
+  "MANOSABA-SHOW_OFF_POWER.description": "When you successfully block damage this turn, gain X [gold]Strength[/gold] until the end of next turn.",
+  "MANOSABA-SHOW_OFF_POWER.smartDescription": "When you successfully block damage this turn, gain X [gold]Strength[/gold] until the end of next turn."
 }

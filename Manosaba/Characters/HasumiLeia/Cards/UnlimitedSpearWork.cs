@@ -43,6 +43,7 @@ namespace Manosaba.Characters.HasumiLeia.Cards
 
         protected override void OnUpgrade()
         {
+            base.AddKeyword(CardKeyword.Innate);
         }
     }
 }
