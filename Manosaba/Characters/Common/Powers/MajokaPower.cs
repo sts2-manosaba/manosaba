@@ -1,5 +1,7 @@
 using BaseLib.Extensions;
+using Manosaba.Characters.HasumiLeia.Cards;
 using Manosaba.Characters.HikamiMeruru.Cards;
+using Manosaba.Characters.HoshoMago.Cards;
 using Manosaba.Characters.JogasakiNoahCard.Cards;
 using Manosaba.Characters.NikaidoHiro.Cards;
 using Manosaba.Characters.SaekiMiria.Cards;
@@ -13,7 +15,6 @@ using MegaCrit.Sts2.Core.Entities.Powers;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Nodes.CommonUi;
 using MegaCrit.Sts2.Core.ValueProps;
-using Manosaba.Characters.HasumiLeia.Cards;
 
 namespace Manosaba.Characters.Common.Powers
 {
@@ -39,6 +40,7 @@ namespace Manosaba.Characters.Common.Powers
             { "tachibana_sherry", typeof(SuperPunch)},
             { "saeki_miria", typeof(MemorySharing)},
             { "tono_hanna", typeof(SkyIsland)},
+            { "hosho_mago", typeof(Echoes)},
             { "hasumi_leia", typeof(GazeGuiding)},
         };
 

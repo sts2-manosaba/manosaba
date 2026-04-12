@@ -388,6 +388,8 @@
   "MANOSABA-THE_DEVIL_AWAKENED_MADNESS_POWER_TOKEN.description": "すべてのプレイヤーと敵に {AwakenedMadnessPower:diff()} ターンの[gold]発狂の力[/gold]を付与する。\nブロックされなかった攻撃は、与えたダメージに等しい[gold]発狂[/gold]を付与する。",
   "MANOSABA-THE_DEVIL_BESTOW_TRIAL_TOKEN.title": "試練を与える",
   "MANOSABA-THE_DEVIL_BESTOW_TRIAL_TOKEN.description": "すべてのプレイヤーと敵のHPを最大HPの50%まで減少させる。すでに50%未満の場合は変化しない。ボスには無効。",
+  "MANOSABA-ECHOES.title": "模倣魔法",
+  "MANOSABA-ECHOES.description": "[gold]山札[/gold]にあるランダムなカード1枚が[gold]リプレイ[/gold]{Replay:diff()}を得る。",
   "MANOSABA-ALIBI.title": "アリバイ",
   "MANOSABA-ALIBI.description": "{Cards}枚引き、{VotePower:diff()}層の[gold]嫌疑[/gold]を取り除く。",
   "MANOSABA-BAD_END.title": "バッドエンド",

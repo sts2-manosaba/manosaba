@@ -386,6 +386,8 @@
   "MANOSABA-THE_DEVIL_AWAKENED_MADNESS_POWER_TOKEN.description": "모든 플레이어와 적에게 [gold]각성한 발광의 힘[/gold]을 {AwakenedMadnessPower:diff()}턴 부여합니다.\n막히지 않은 공격은 피해량만큼 [gold]발광[/gold]을 부여합니다.",
   "MANOSABA-THE_DEVIL_BESTOW_TRIAL_TOKEN.title": "시련 부여",
   "MANOSABA-THE_DEVIL_BESTOW_TRIAL_TOKEN.description": "모든 플레이어와 적의 체력을 최대 체력의 50%까지 낮춥니다. 이미 50% 미만이면 그대로 유지됩니다. 보스에게는 적용되지 않습니다.",
+  "MANOSABA-ECHOES.title": "모방 마법",
+  "MANOSABA-ECHOES.description": "[gold]뽑을 카드 더미[/gold]에 있는 무작위 카드 1장이 [gold]재사용[/gold]을 {Replay:diff()} 얻습니다.",
   "MANOSABA-ALIBI.title": "알리바이",
   "MANOSABA-ALIBI.description": "카드 {Cards}장을 뽑고 [gold]의심[/gold]을 {VotePower:diff()} 제거합니다.",
   "MANOSABA-BAD_END.title": "배드 엔딩",

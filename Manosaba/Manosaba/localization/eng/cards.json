@@ -388,6 +388,8 @@
   "MANOSABA-THE_DEVIL_AWAKENED_MADNESS_POWER_TOKEN.description": "Apply {AwakenedMadnessPower:diff()} turns of [gold]Awakened Madness Power[/gold] to all players and enemies.\nAll unblocked attacks apply [gold]Madness[/gold] equal to damage dealt.",
   "MANOSABA-THE_DEVIL_BESTOW_TRIAL_TOKEN.title": "Bestow Trial",
   "MANOSABA-THE_DEVIL_BESTOW_TRIAL_TOKEN.description": "Reduce all players and enemies to 50% of their max HP; if already below, they remain unchanged. No effect on bosses.",
+  "MANOSABA-ECHOES.title": "Imitation Magic",
+  "MANOSABA-ECHOES.description": "A random card in your [gold]Draw Pile[/gold] gains [gold]Replay[/gold] {Replay:diff()}.",
   "MANOSABA-ALIBI.title": "Alibi",
   "MANOSABA-ALIBI.description": "Draw {Cards} cards and remove {VotePower:diff()} [gold]Suspicion[/gold].",
   "MANOSABA-BAD_END.title": "Bad End",

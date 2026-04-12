@@ -387,6 +387,9 @@
   "MANOSABA-THE_DEVIL_AWAKENED_MADNESS_POWER_TOKEN.description": "給全場玩家及敵人 {AwakenedMadnessPower:diff()} 回合的[gold]發狂力量[/gold]。\n所有未被格擋的攻擊會給予相應的[gold]發狂[/gold]層數。",
   "MANOSABA-THE_DEVIL_BESTOW_TRIAL_TOKEN.title": "賦予試煉",
   "MANOSABA-THE_DEVIL_BESTOW_TRIAL_TOKEN.description": "所有玩家與敵人的生命降為其最大生命值的 50%，若已低於則不變。對 boss 無效。",
+  "MANOSABA-ECHOES.title": "模仿魔法",
+  "MANOSABA-ECHOES.description": "你[gold]抽牌堆[/gold]中的一張隨機牌獲得 {Replay:diff()} 層[gold]重放[/gold]。",
+
   "MANOSABA-ALIBI.title": "不在場證明",
   "MANOSABA-ALIBI.description": "抽 {Cards} 張牌，並消除 {VotePower:diff()} 層[gold]嫌疑[/gold]。",
   "MANOSABA-BAD_END.title": "壞結局",
