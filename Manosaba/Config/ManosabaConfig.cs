@@ -10,8 +10,26 @@ public enum ManosabaFxPlayMode
     Never
 }
 
+/// <summary>角色選擇畫面「隨機」按鈕抽籤範圍。</summary>
+/// <remarks>
+/// <b>必須讓「僅 Mod」為數值 0。</b>BaseLib 在設定檔缺欄位時會以 0 回填 enum；若 0 代表全角色，缺欄位時會變成原版隨機。
+/// 多人連線時<b>所有玩家</b>必須選同一選項，否則開局同步可能失敗（與敵人血量等難度設定相同要求）。
+/// </remarks>
+public enum RandomCharacterPoolMode
+{
+    /// <summary>僅從本 Mod 自機（<c>manosaba.Characters</c> 命名空間下的角色類型）抽籤。</summary>
+    ManosabaCharactersOnly = 0,
+
+    /// <summary>與原版相同，從遊戲內全部可選角色抽籤。</summary>
+    AllCharacters = 1,
+}
+
 public sealed class ManosabaConfig : SimpleModConfig
 {
+    [ConfigSection("CharacterSelect")]
+    [ConfigHoverTip]
+    public static RandomCharacterPoolMode RandomCharacterPool { get; set; } = RandomCharacterPoolMode.ManosabaCharactersOnly;
+
     [ConfigSection("SFXSettings")]
     [SliderRange(0, 100, 1)]
     [SliderLabelFormat("{0:0}%")]
