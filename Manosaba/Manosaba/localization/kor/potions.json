@@ -18,7 +18,7 @@
   "MANOSABA-CATALYST.description": "직접적인 효과는 없는 물약. 다른 물약과 합성하여 고급 물약을 만들 수 있습니다.",
   "MANOSABA-CATALYST.selectionScreenPrompt": "",
   "MANOSABA-LESSER_STRENGTH_POTION.title": "약한 힘 물약",
-  "MANOSABA-LESSER_STRENGTH_POTION.description": "[gold]힘[/gold] {StrengthPower:diff()}중첩을 얻습니다. 자신의 턴 종료 시 [gold]힘[/gold] {StrengthPower:diff()}중첩을 잃습니다.",
+  "MANOSABA-LESSER_STRENGTH_POTION.description": "[gold]힘[/gold]을 {StrengthPower:diff()} 얻습니다. 자신의 턴 종료 시 [gold]힘[/gold]을 {StrengthPower:diff()} 잃습니다.",
   "MANOSABA-LESSER_STRENGTH_POTION.selectionScreenPrompt": "",
   "MANOSABA-GREATER_BEETLE_JUICE.title": "강한 딱정벌레 물약",
   "MANOSABA-GREATER_BEETLE_JUICE.description": "모든 적이 다음 {Repeat}턴 동안 입히는 피해를 {DamageDecrease}% 감소시킵니다.",
