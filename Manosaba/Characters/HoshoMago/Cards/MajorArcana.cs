@@ -452,7 +452,11 @@ public sealed class TheHangedMan : HoshoMagoArcanaBase
 [Pool(typeof(HoshoMagoCardPool))]
 public sealed class Death : HoshoMagoArcanaBase
 {
-    protected override IEnumerable<DynamicVar> CanonicalVars => [new PowerVar<DoomPower>(10)];
+    protected override IEnumerable<DynamicVar> CanonicalVars =>
+    [
+        new DynamicVar("AllyDoom", 5m),
+        new DynamicVar("EnemyDoom", 20m)
+    ];
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<DoomPower>()];
 
     public Death() : base(1, CardType.Attack, TargetType.AllEnemies)
@@ -461,8 +465,9 @@ public sealed class Death : HoshoMagoArcanaBase
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        decimal enemyBaseDoom = DynamicVars["DoomPower"].BaseValue + (IsUpgraded ? 5m : 0m);
-        decimal allyBaseDoom = DynamicVars["DoomPower"].BaseValue;
+        decimal enemyBaseDoom = DynamicVars["EnemyDoom"].BaseValue;
+        decimal allyBaseDoom = DynamicVars["AllyDoom"].BaseValue;
+        bool hasTheMagicianInDeck = Owner?.Deck?.Cards?.Any(card => card is TheMagician) == true;
 
         List<Creature> enemies = CombatState.GetOpponentsOf(Owner.Creature)
             .Where(creature => creature != null && creature.IsAlive)
@@ -481,14 +486,26 @@ public sealed class Death : HoshoMagoArcanaBase
             await PowerCmd.Apply<DoomPower>(allies, allyBaseDoom, Owner.Creature, this);
         }
 
+        if (!hasTheMagicianInDeck || enemies.Count <= 0)
+        {
+            return;
+        }
+
         foreach (Creature enemy in enemies)
         {
-            decimal doomAmount = enemy.GetPowerAmount<DoomPower>();
-            if (doomAmount > 0)
+            decimal currentDoom = enemy.GetPowerAmount<DoomPower>();
+            if (currentDoom <= 0m)
             {
-                await PowerCmd.Apply<DoomPower>(enemy, doomAmount, Owner.Creature, this);
+                continue;
             }
+
+            await PowerCmd.Apply<DoomPower>(enemy, currentDoom * 0.5m, Owner.Creature, this);
         }
+    }
+
+    protected override void OnUpgrade()
+    {
+        DynamicVars["EnemyDoom"].UpgradeValueBy(10m);
     }
 }
 

@@ -10,6 +10,7 @@ using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
+using MegaCrit.Sts2.Core.Rooms;
 
 namespace Manosaba.Characters.HoshoMago.Cards;
 
@@ -100,6 +101,7 @@ public sealed class TheDevilBestowTrialToken : PathCustomCardModel
         _ = choiceContext;
         _ = cardPlay;
 
+        bool isBossRoom = CombatState.Encounter.RoomType == RoomType.Boss;
         List<Creature> targets = CombatState.GetTeammatesOf(Owner.Creature)
             .Concat(CombatState.GetOpponentsOf(Owner.Creature))
             .Where(creature => creature != null && creature.IsAlive)
@@ -108,6 +110,11 @@ public sealed class TheDevilBestowTrialToken : PathCustomCardModel
 
         foreach (Creature creature in targets)
         {
+            if (isBossRoom && creature.Monster != null)
+            {
+                continue;
+            }
+
             int hpThreshold = creature.MaxHp / 2;
             if (creature.CurrentHp <= hpThreshold)
             {

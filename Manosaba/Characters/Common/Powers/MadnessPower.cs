@@ -23,7 +23,7 @@ public sealed class MadnessPower : PathCustomPowerModel
 
     public override async Task AfterPowerAmountChanged(PowerModel power, decimal amount, Creature? applier, CardModel? cardSource)
     {
-        if (power != this || _isResolvingThreshold || Amount < TriggerThreshold)
+        if (power != this || _isResolvingThreshold || Amount < GetTriggerThreshold())
         {
             return;
         }
@@ -33,7 +33,22 @@ public sealed class MadnessPower : PathCustomPowerModel
         {
             Creature effectSource = applier ?? Owner;
             await TriggerMadness(effectSource, cardSource);
-            await PowerCmd.Remove(this);
+
+            if (!Owner.IsAlive)
+            {
+                await PowerCmd.Remove(this);
+                return;
+            }
+
+            if (Owner.Player != null)
+            {
+                await PowerCmd.Remove(this);
+            }
+            else
+            {
+                await PowerCmd.Apply<FrenziedPower>(Owner, 1, Owner, null);
+                await PowerCmd.Remove(this);
+            }
         }
         finally
         {
@@ -44,12 +59,37 @@ public sealed class MadnessPower : PathCustomPowerModel
     public override async Task AfterTurnEnd(PlayerChoiceContext choiceContext, CombatSide side)
     {
         _ = choiceContext;
+
         if (side != Owner.Side || Amount <= 0)
         {
             return;
         }
 
         await PowerCmd.Apply<MadnessPower>(Owner, -DecayPerTurn, Owner, null);
+    }
+
+    private decimal GetTriggerThreshold()
+    {
+        if (Owner.Player != null)
+        {
+            return TriggerThreshold;
+        }
+
+        int playerCount = 0;
+        foreach (Creature ally in Owner.CombatState.Allies)
+        {
+            if (ally.IsPlayer)
+            {
+                playerCount++;
+            }
+        }
+
+        if (playerCount < 1)
+        {
+            playerCount = 1;
+        }
+
+        return TriggerThreshold * playerCount;
     }
 
     private async Task TriggerMadness(Creature effectSource, CardModel? cardSource)
