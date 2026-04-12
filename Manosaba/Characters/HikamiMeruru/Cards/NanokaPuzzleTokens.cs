@@ -85,15 +85,6 @@ namespace Manosaba.Characters.HikamiMeruru.Cards
             CardCmd.PreviewCardPileAdd(completeResult, 1.2f, CardPreviewStyle.HorizontalLayout);
             await ManosabaVfxCmd.PlaySceneAtCombatCenterAndWait(VfxScenePath, fitCoverViewport: true);
             await CardCmd.AutoPlay(choiceContext, complete, null);
-            IReadOnlyList<Creature> hittableEnemies = combatState.GetOpponentsOf(ownerCreature)
-                .Where(e => e.IsHittable)
-                .ToList();
-            if (hittableEnemies.Count == 0)
-            {
-                return;
-            }
-
-            await ManosabaCombatCmd.ForceWinWithoutDeathOrEscape(combatState);
         }
 
         protected override void OnUpgrade()
@@ -164,6 +155,7 @@ namespace Manosaba.Characters.HikamiMeruru.Cards
     [Pool(typeof(HikamiMeruruCardPool))]
     public class NanokaComplete : PathCustomCardModel
     {
+
         private const int energyCost = 0;
         private const CardType cardTypeValue = CardType.Skill;
         private const CardRarity rarity = CardRarity.Token;
@@ -177,9 +169,10 @@ namespace Manosaba.Characters.HikamiMeruru.Cards
         {
         }
 
-        protected override Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
+        protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
-            return Task.CompletedTask;
+
+            await ManosabaCombatCmd.ForceWinWithoutDeathOrEscape(CombatState);
         }
 
         protected override void OnUpgrade()

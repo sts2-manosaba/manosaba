@@ -68,6 +68,6 @@ public class JudgeJogasakiNoah : PathCustomCardModel
     }
     protected override void OnUpgrade()
     {
-        energyCost.UpgradeBy(-1);
+        EnergyCost.UpgradeBy(-1);
     }
 }

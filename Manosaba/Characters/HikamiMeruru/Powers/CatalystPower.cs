@@ -16,7 +16,7 @@ namespace Manosaba.Characters.HikamiMeruru.Powers
 
         public override PowerType Type => PowerType.Buff;
         public override PowerStackType StackType => PowerStackType.Counter;
-        protected override IEnumerable<DynamicVar> CanonicalVars => [new DynamicVar(ThresholdVar, 5m)];
+        protected override IEnumerable<DynamicVar> CanonicalVars => [new DynamicVar(ThresholdVar, 3m)];
         protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPotion<Tredecim>()];
 
         public override async Task AfterPowerAmountChanged(PowerModel power, decimal amount, Creature? applier, CardModel? cardSource)

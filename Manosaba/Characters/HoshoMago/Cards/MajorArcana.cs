@@ -163,7 +163,7 @@ public sealed class TheEmpress : HoshoMagoArcanaBase
             DynamicVars.CalculatedDamage.Props,
             Owner.Creature,
             this);
-        int totalUnblockedDamage = results.Sum(result => result.UnblockedDamage);
+        int totalUnblockedDamage = results.Where(result => result.Receiver.IsEnemy).Sum(result => result.UnblockedDamage);
         if (totalUnblockedDamage > 0)
         {
             await CreatureCmd.Heal(Owner.Creature, totalUnblockedDamage * 0.5m);

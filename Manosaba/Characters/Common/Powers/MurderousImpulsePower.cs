@@ -25,9 +25,9 @@ namespace Manosaba.Characters.Common.Powers
                 if (creature != null && creature != base.Owner.Player.Creature && Owner.GetPowerAmount<InhibitionPower>() < 1)
                 {
                     if (cardPlay.Card.DynamicVars.ContainsKey("Damage"))
-                        await CreatureCmd.Damage(context, creature, cardPlay.Card.DynamicVars.Damage.BaseValue * base.Amount * 0.25m, ValueProp.Move, Owner.Player.Creature);
+                        await CreatureCmd.Damage(context, creature, cardPlay.Card.DynamicVars.Damage.BaseValue * base.Amount * 0.125m, ValueProp.Move, Owner.Player.Creature);
                     else if (cardPlay.Card.DynamicVars.ContainsKey("CalculatedDamage"))
-                        await CreatureCmd.Damage(context, creature, cardPlay.Card.DynamicVars.CalculatedDamage.BaseValue * base.Amount * 0.25m, ValueProp.Move, Owner.Player.Creature);
+                        await CreatureCmd.Damage(context, creature, cardPlay.Card.DynamicVars.CalculatedDamage.BaseValue * base.Amount * 0.125m, ValueProp.Move, Owner.Player.Creature);
                 }
             }
         }
