@@ -17,16 +17,16 @@ namespace Manosaba.Characters.SaekiMiria.Cards;
 public sealed class Aspiration : PathCustomCardModel
 {
     public override CardMultiplayerConstraint MultiplayerConstraint => CardMultiplayerConstraint.MultiplayerOnly;
-    private const int EnergyCost = 2;
-    private const CardType CardTypeValue = CardType.Skill;
-    private const CardRarity Rarity = CardRarity.Rare;
-    private const TargetType TargetTypeValue = TargetType.AllAllies;
-    private const bool ShouldShowInCardLibrary = true;
+    private const int energyCost = 2;
+    private const CardType cardTypeValue = CardType.Skill;
+    private const CardRarity rarity = CardRarity.Rare;
+    private const TargetType targetTypeValue = TargetType.AllAllies;
+    private const bool shouldShowInCardLibrary = true;
 
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.Static(StaticHoverTip.Block)];
 
     public Aspiration()
-        : base(EnergyCost, CardTypeValue, Rarity, TargetTypeValue, ShouldShowInCardLibrary)
+        : base(energyCost, cardTypeValue, rarity, targetTypeValue, shouldShowInCardLibrary)
     {
     }
 

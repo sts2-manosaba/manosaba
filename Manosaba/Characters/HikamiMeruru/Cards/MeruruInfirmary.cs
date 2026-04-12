@@ -14,17 +14,17 @@ namespace Manosaba.Characters.HikamiMeruru.Cards;
 [Pool(typeof(HikamiMeruruCardPool))]
 public class MeruruInfirmary : PathCustomCardModel
 {
-    private const int EnergyCost = 2;
+    private const int energyCost = 2;
     private const CardType TypeValue = CardType.Power;
-    private const CardRarity Rarity = CardRarity.Uncommon;
-    private const TargetType TargetTypeValue = TargetType.Self;
-    private const bool ShouldShowInCardLibrary = true;
+    private const CardRarity rarity = CardRarity.Uncommon;
+    private const TargetType targetTypeValue = TargetType.Self;
+    private const bool shouldShowInCardLibrary = true;
 
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<MeruruInfirmaryPower>()];
 
     protected override IEnumerable<DynamicVar> CanonicalVars => [new PowerVar<MeruruInfirmaryPower>(1)];
 
-    public MeruruInfirmary() : base(EnergyCost, TypeValue, Rarity, TargetTypeValue, ShouldShowInCardLibrary)
+    public MeruruInfirmary() : base(energyCost, TypeValue, rarity, targetTypeValue, shouldShowInCardLibrary)
     {
     }
 

@@ -13,16 +13,16 @@ namespace Manosaba.Characters.SaekiMiria.Cards;
 [Pool(typeof(SaekiMiriaCardPool))]
 public sealed class MovieNoise : PathCustomCardModel
 {
-    private const int EnergyCost = 1;
-    private const CardType CardTypeValue = CardType.Power;
-    private const CardRarity Rarity = CardRarity.Uncommon;
-    private const TargetType TargetTypeValue = TargetType.Self;
-    private const bool ShouldShowInCardLibrary = true;
+    private const int energyCost = 1;
+    private const CardType cardTypeValue = CardType.Power;
+    private const CardRarity rarity = CardRarity.Uncommon;
+    private const TargetType targetTypeValue = TargetType.Self;
+    private const bool shouldShowInCardLibrary = true;
 
     protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(2m, ValueProp.Unpowered)];
 
     public MovieNoise()
-        : base(EnergyCost, CardTypeValue, Rarity, TargetTypeValue, ShouldShowInCardLibrary)
+        : base(energyCost, cardTypeValue, rarity, targetTypeValue, shouldShowInCardLibrary)
     {
     }
 

@@ -14,18 +14,18 @@ namespace Manosaba.Characters.TonoHanna.Cards;
 [Pool(typeof(TonoHannaCardPool))]
 public class PuppetFellTest : PathCustomCardModel
 {
-    private const int EnergyCost = 0;
-    private const CardType CardTypeValue = CardType.Skill;
-    private const CardRarity Rarity = CardRarity.Quest;
-    private const TargetType TargetTypeValue = TargetType.Self;
-    private const bool ShouldShowInCardLibrary = false;
+    private const int energyCost = 0;
+    private const CardType cardTypeValue = CardType.Skill;
+    private const CardRarity rarity = CardRarity.Quest;
+    private const TargetType targetTypeValue = TargetType.Self;
+    private const bool shouldShowInCardLibrary = false;
 
     public override bool CanBeGeneratedInCombat => false;
     public override bool CanBeGeneratedByModifiers => false;
 
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<PuppetCollectionSummaryPower>()];
 
-    public PuppetFellTest() : base(EnergyCost, CardTypeValue, Rarity, TargetTypeValue, ShouldShowInCardLibrary)
+    public PuppetFellTest() : base(energyCost, cardTypeValue, rarity, targetTypeValue, shouldShowInCardLibrary)
     {
     }
 

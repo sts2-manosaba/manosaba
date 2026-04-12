@@ -16,11 +16,11 @@ namespace Manosaba.Characters.HikamiMeruru.Cards
     {
         public override CardMultiplayerConstraint MultiplayerConstraint => CardMultiplayerConstraint.MultiplayerOnly;
 
-        private const int EnergyCost = 2;
-        private const CardType CardTypeValue = CardType.Skill;
-        private const CardRarity Rarity = CardRarity.Uncommon;
-        private const TargetType TargetTypeValue = TargetType.Self;
-        private const bool ShouldShowInCardLibrary = true;
+        private const int energyCost = 2;
+        private const CardType cardTypeValue = CardType.Skill;
+        private const CardRarity rarity = CardRarity.Uncommon;
+        private const TargetType targetTypeValue = TargetType.Self;
+        private const bool shouldShowInCardLibrary = true;
         private const int CatalystChanceOnUpgrade = 50;
 
         protected override IEnumerable<IHoverTip> ExtraHoverTips => IsUpgraded ? [HoverTipFactory.FromPotion<Catalyst>()] : [];
@@ -32,7 +32,7 @@ namespace Manosaba.Characters.HikamiMeruru.Cards
             ModelDb.Potion<LesserStrengthPotion>(),
         ];
 
-        public DrugDealer() : base(EnergyCost, CardTypeValue, Rarity, TargetTypeValue, ShouldShowInCardLibrary)
+        public DrugDealer() : base(energyCost, cardTypeValue, rarity, targetTypeValue, shouldShowInCardLibrary)
         {
         }
 

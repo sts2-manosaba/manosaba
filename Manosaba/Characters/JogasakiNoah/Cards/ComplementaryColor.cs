@@ -14,12 +14,12 @@ namespace Manosaba.Characters.JogasakiNoah.Cards;
 public class ComplementaryColor : PathCustomCardModel
 {
     private const int EnergyCostValue = 1;
-    private const CardType CardTypeValue = CardType.Skill;
-    private const CardRarity Rarity = CardRarity.Uncommon;
-    private const TargetType TargetTypeValue = TargetType.Self;
-    private const bool ShouldShowInCardLibrary = true;
+    private const CardType cardTypeValue = CardType.Skill;
+    private const CardRarity rarity = CardRarity.Uncommon;
+    private const TargetType targetTypeValue = TargetType.Self;
+    private const bool shouldShowInCardLibrary = true;
 
-    public ComplementaryColor() : base(EnergyCostValue, CardTypeValue, Rarity, TargetTypeValue, ShouldShowInCardLibrary)
+    public ComplementaryColor() : base(EnergyCostValue, cardTypeValue, rarity, targetTypeValue, shouldShowInCardLibrary)
     {
     }
 
