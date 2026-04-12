@@ -3,7 +3,6 @@ using manosaba.Characters.HoshoMago;
 using Manosaba.Characters.Common.Overrides;
 using Manosaba.Characters.Common.Powers;
 using Manosaba.Extensions;
-using MegaCrit.Sts2.Core.CardSelection;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
@@ -110,16 +109,16 @@ public class TraumaHoshoMago : PathCustomCardModel
 [Pool(typeof(HoshoMagoCardPool))]
 public class DreamInterpretation : PathCustomCardModel
 {
-    private const int EnergyCost = 0;
-    private const CardType Type = CardType.Skill;
-    private const CardRarity Rarity = CardRarity.Basic;
-    private const TargetType TargetType = TargetType.Self;
-    private const bool ShouldShowInCardLibrary = true;
+    private const int energyCost = 0;
+    private const CardType type = CardType.Skill;
+    private const CardRarity rarity = CardRarity.Basic;
+    private const TargetType targetType = TargetType.Self;
+    private const bool shouldShowInCardLibrary = true;
     private const int Choices = 3;
 
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromKeyword(CardKeyword.Exhaust)];
 
-    public DreamInterpretation() : base(EnergyCost, Type, Rarity, TargetType, ShouldShowInCardLibrary)
+    public DreamInterpretation() : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)
     {
     }
 
