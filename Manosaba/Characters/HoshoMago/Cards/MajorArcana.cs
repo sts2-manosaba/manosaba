@@ -551,7 +551,7 @@ public sealed class TheDevil : HoshoMagoArcanaBase
 [Pool(typeof(HoshoMagoCardPool))]
 public sealed class TheTower : HoshoMagoArcanaBase
 {
-    protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(9m, ValueProp.Move)];
+    protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(9m, ValueProp.Move), new PowerVar<TheTowerPower>(1)];
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<ArtifactPower>(), HoverTipFactory.FromPower<TheTowerPower>()];
 
     public TheTower() : base(2, CardType.Attack, TargetType.AllEnemies)
@@ -580,7 +580,7 @@ public sealed class TheTower : HoshoMagoArcanaBase
             }
 
             await PowerCmd.Remove<ArtifactPower>(enemy);
-            await PowerCmd.Apply<TheTowerPower>(enemy, 1m, Owner.Creature, this);
+            await PowerCmd.Apply<TheTowerPower>(enemy, DynamicVars["TheTowerPower"].BaseValue, Owner.Creature, this);
         }
     }
 

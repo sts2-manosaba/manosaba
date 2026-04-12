@@ -2,12 +2,12 @@
   "MANOSABA-PEN_OF_HIRO.title": "ヒロの万年筆",
   "MANOSABA-PEN_OF_HIRO.description": "各ターン開始時、{VoteCost}層の[gold]嫌疑[/gold]がある場合、[gold]嫌疑[/gold]を消費して[gold]召喚[/gold]：{Summon}を得る。\nアップグレードで召喚値が上昇する。",
   "MANOSABA-PEN_OF_HIRO.flavor": "ミステリアス偽証女専用",
-  "MANOSABA-PHOTO_OF_THE_GREAT_WITCH.title": "大魔女の写真",
-  "MANOSABA-PHOTO_OF_THE_GREAT_WITCH.description": "ポーション枠を{PotionSlots}増やす。アップグレードで枠数が増加する。\nLv2以降、ポーション獲得時に空き枠があれば10%で追加の[gold]触媒[/gold]を1本獲得。\nLv4以降、確率は20%に上昇。",
-  "MANOSABA-PHOTO_OF_THE_GREAT_WITCH.flavor": "会いたいです…大魔女さま…",
   "MANOSABA-SPRAY_CAN_OF_NOAH.title": "ノアのスプレー缶",
   "MANOSABA-SPRAY_CAN_OF_NOAH.description": "チャージオーブ枠を{OrbSlots}増やす。アップグレードで枠数が増加する。\nLv2以降、自分のターン開始時にランダムなペイントボールを1個生成。\nLv4以降、2個生成に強化される。",
   "MANOSABA-SPRAY_CAN_OF_NOAH.flavor": "スプレーしてほしいの？",
+  "MANOSABA-PHOTO_OF_THE_GREAT_WITCH.title": "大魔女の写真",
+  "MANOSABA-PHOTO_OF_THE_GREAT_WITCH.description": "ポーション枠を{PotionSlots}増やす。アップグレードで枠数が増加する。\nLv2以降、ポーション獲得時に空き枠があれば10%で追加の[gold]触媒[/gold]を1本獲得。\nLv4以降、確率は20%に上昇。",
+  "MANOSABA-PHOTO_OF_THE_GREAT_WITCH.flavor": "会いたいです…大魔女さま…",
   "MANOSABA-FAIRY_HEART.title": "小妖精の心",
   "MANOSABA-FAIRY_HEART.description": "自分のターン開始時、すべての[gold]魔女化[/gold]を失う。\n戦闘開始時、この遺物のレベルと同じ層数の[gold]筋力[/gold]を得る。\n敵の攻撃を受けるたび、現在の[gold]筋力[/gold]の層数の50%に相当する分だけ受けるダメージを軽減する。\nLv2以降は60%、Lv4以降は70%。",
   "MANOSABA-FAIRY_HEART.flavor": "私は完璧な名探偵シェリーになった！もう魔女化なんてしない！",
@@ -19,5 +19,5 @@
   "MANOSABA-FRUGAL.flavor": "残ったエネルギーは、ちりつもで財布に。",
   "MANOSABA-TAROT_DECK.title": "タロットデッキ",
   "MANOSABA-TAROT_DECK.description": "カード報酬とショップカードは[gold]世界[/gold]を除くタロットカードに置き換わる。\nこのレリックがレベルアップするたび、デッキにまだない[gold]世界[/gold]以外のタロットカードをランダムで1枚デッキに加える。\n[gold]世界[/gold]を除く21種のタロットを集めると、[gold]世界[/gold]をデッキに加える。",
-  "MANOSABA-TAROT_DECK.flavor": ""
+  "MANOSABA-TAROT_DECK.flavor": "その一枚ごとに、運命の針路が定まる。"
 }

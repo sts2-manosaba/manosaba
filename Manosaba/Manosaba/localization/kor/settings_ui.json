@@ -1,19 +1,19 @@
 {
+  "MANOSABA-HIKAMI_MERURU_EXAID_EFFECT_FREQUENCY.title": "히↗카↘미↗메↘루루",
+  "MANOSABA-HIKAMI_MERURU_EXAID_EFFECT_FREQUENCY.hover.title": "재생 빈도",
+  "MANOSABA-HIKAMI_MERURU_EXAID_EFFECT_FREQUENCY.hover.desc": "히↗카↘미↗메↘루루 전용 SFX의 재생 빈도를 설정한다: 매번, 1판당 한 번, 또는 재생 안 함.",
+  "MANOSABA-LABOURS_OF_HIRO_EFFECT_FREQUENCY.title": "12 시련",
+  "MANOSABA-LABOURS_OF_HIRO_EFFECT_FREQUENCY.hover.title": "재생 빈도",
+  "MANOSABA-LABOURS_OF_HIRO_EFFECT_FREQUENCY.hover.desc": "12 시련 전용 SFX/VFX의 재생 빈도를 설정한다: 매번, 1판당 한 번, 또는 재생 안 함.",
   "MANOSABA-SFX_SETTINGS.title": "효과음 설정",
   "MANOSABA-MANOSABA_SFX_VOLUME_PERCENT.title": "Manosaba SFX 음량",
   "MANOSABA-MANOSABA_SFX_VOLUME_PERCENT.hover.title": "음량",
   "MANOSABA-MANOSABA_SFX_VOLUME_PERCENT.hover.desc": "Manosaba 전용 SFX/BGM 음량만 조절합니다. 원본 게임 BGM 음량에는 영향이 없습니다.",
-  "MANOSABA-LABOURS_OF_HIRO_EFFECT_FREQUENCY.title": "12 시련",
-  "MANOSABA-LABOURS_OF_HIRO_EFFECT_FREQUENCY.hover.title": "재생 빈도",
-  "MANOSABA-LABOURS_OF_HIRO_EFFECT_FREQUENCY.hover.desc": "12 시련 전용 SFX/VFX의 재생 빈도를 설정한다: 매번, 1판당 한 번, 또는 재생 안 함.",
   "MANOSABA-DIFFICULTY_SETTINGS.title": "난이도 (멀티플레이 시 모두 동일하게 설정해야 함!)",
   "MANOSABA-ENABLE_ENEMY_HP_MULTIPLIER.title": "적 체력 배율 활성화",
   "MANOSABA-ENABLE_ENEMY_HP_MULTIPLIER.hover.title": "적 체력 조정",
   "MANOSABA-ENABLE_ENEMY_HP_MULTIPLIER.hover.desc": "활성화 시, 적의 최대 체력에 설정한 배율이 곱해진다.",
   "MANOSABA-ENEMY_HP_MULTIPLIER_PERCENT.title": "적 체력 배율",
   "MANOSABA-ENEMY_HP_MULTIPLIER_PERCENT.hover.title": "적 체력 백분율",
-  "MANOSABA-ENEMY_HP_MULTIPLIER_PERCENT.hover.desc": "적의 최대 체력에 적용되는 배율. 100%는 변화 없음을 의미한다.",
-  "MANOSABA-HIKAMI_MERURU_EXAID_EFFECT_FREQUENCY.title": "히↗카↘미↗메↘루루",
-  "MANOSABA-HIKAMI_MERURU_EXAID_EFFECT_FREQUENCY.hover.title": "재생 빈도",
-  "MANOSABA-HIKAMI_MERURU_EXAID_EFFECT_FREQUENCY.hover.desc": "히↗카↘미↗메↘루루 전용 SFX의 재생 빈도를 설정한다: 매번, 1판당 한 번, 또는 재생 안 함."
+  "MANOSABA-ENEMY_HP_MULTIPLIER_PERCENT.hover.desc": "적의 최대 체력에 적용되는 배율. 100%는 변화 없음을 의미한다."
 }
