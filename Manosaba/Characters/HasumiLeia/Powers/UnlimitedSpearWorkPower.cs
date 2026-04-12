@@ -32,7 +32,9 @@ namespace Manosaba.Characters.HasumiLeia.Powers
             List<ForgeSpear> list = new List<ForgeSpear>();
             for (int i = 0; i < Amount; i++)
             {
-                list.Add(player.Creature.CombatState.CreateCard<ForgeSpear>(player));
+                var card = player.Creature.CombatState.CreateCard<ForgeSpear>(player);
+                card.AddKeyword(CardKeyword.Ethereal);
+                list.Add(card);
             }
 
             await CardPileCmd.AddGeneratedCardsToCombat(list, PileType.Hand, true);

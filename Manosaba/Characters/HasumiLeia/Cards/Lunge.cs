@@ -22,8 +22,8 @@ namespace Manosaba.Characters.SaekiMiria.Cards
         private const TargetType targetType = TargetType.AnyEnemy;
         private const bool shouldShowInCardLibrary = true;
 
-        protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(8, ValueProp.Move), new PowerVar<VulnerablePower>(2)];
-        protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<VulnerablePower>()];
+        protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(8, ValueProp.Move), new PowerVar<WeakPower>(2)];
+        protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<WeakPower>()];
 
         public Lunge() : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)
         {
@@ -39,7 +39,7 @@ namespace Manosaba.Characters.SaekiMiria.Cards
             .FromCard(this)
             .Targeting(target)
             .Execute(choiceContext);
-            await PowerCmd.Apply<VulnerablePower>(target, DynamicVars.Vulnerable.BaseValue, base.Owner.Creature, this);
+            await PowerCmd.Apply<WeakPower>(target, DynamicVars["WeakPower"].BaseValue, base.Owner.Creature, this);
         }
 
         protected override void OnUpgrade()
