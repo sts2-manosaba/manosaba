@@ -136,7 +136,12 @@ public sealed class TheHighPriestess : HoshoMagoArcanaBase
 [Pool(typeof(HoshoMagoCardPool))]
 public sealed class TheEmpress : HoshoMagoArcanaBase
 {
-    protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(6m, ValueProp.Move)];
+    protected override IEnumerable<DynamicVar> CanonicalVars => [
+        new CalculationBaseVar(6m),
+        new ExtraDamageVar(3m),
+        new CalculatedDamageVar(ValueProp.Move).WithMultiplier(static (CardModel card, Creature? _) =>
+            card.Owner?.Deck?.Cards.Any(deckCard => deckCard is TheEmperor) == true ? 1m : 0m)
+    ];
 
     public TheEmpress() : base(1, CardType.Attack, TargetType.AnyEnemy)
     {
@@ -149,14 +154,13 @@ public sealed class TheEmpress : HoshoMagoArcanaBase
             return;
         }
 
-        bool hasTheEmperorInDeck = Owner?.Deck?.Cards.Any(card => card is TheEmperor) == true;
-        decimal damage = DynamicVars.Damage.BaseValue * (hasTheEmperorInDeck ? 1.5m : 1m);
+        decimal damage = DynamicVars.CalculatedDamage.Calculate(cardPlay.Target);
 
         IEnumerable<DamageResult> results = await CreatureCmd.Damage(
             choiceContext,
             cardPlay.Target,
             damage,
-            ValueProp.Move,
+            DynamicVars.CalculatedDamage.Props,
             Owner.Creature,
             this);
         int totalUnblockedDamage = results.Sum(result => result.UnblockedDamage);
@@ -168,14 +172,20 @@ public sealed class TheEmpress : HoshoMagoArcanaBase
 
     protected override void OnUpgrade()
     {
-        DynamicVars.Damage.UpgradeValueBy(3m);
+        DynamicVars.CalculationBase.UpgradeValueBy(3m);
+        DynamicVars.ExtraDamage.UpgradeValueBy(1.5m);
     }
 }
 
 [Pool(typeof(HoshoMagoCardPool))]
 public sealed class TheEmperor : HoshoMagoArcanaBase
 {
-    protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(25m, ValueProp.Move)];
+    protected override IEnumerable<DynamicVar> CanonicalVars => [
+        new CalculationBaseVar(20m),
+        new ExtraDamageVar(10m),
+        new CalculatedDamageVar(ValueProp.Move).WithMultiplier(static (CardModel card, Creature? _) =>
+            card.Owner?.Deck?.Cards.Any(deckCard => deckCard is TheEmpress) == true ? 1m : 0m)
+    ];
 
     public TheEmperor() : base(2, CardType.Attack, TargetType.AnyEnemy)
     {
@@ -188,10 +198,7 @@ public sealed class TheEmperor : HoshoMagoArcanaBase
             return;
         }
 
-        bool hasTheEmpressInDeck = Owner?.Deck?.Cards.Any(card => card is TheEmpress) == true;
-        decimal damage = DynamicVars.Damage.BaseValue * (hasTheEmpressInDeck ? 1.5m : 1m);
-
-        await DamageCmd.Attack(damage)
+        await DamageCmd.Attack(DynamicVars.CalculatedDamage)
             .FromCard(this)
             .Targeting(cardPlay.Target)
             .Execute(choiceContext);
@@ -199,7 +206,8 @@ public sealed class TheEmperor : HoshoMagoArcanaBase
 
     protected override void OnUpgrade()
     {
-        DynamicVars.Damage.UpgradeValueBy(10m);
+        DynamicVars.CalculationBase.UpgradeValueBy(10m);
+        DynamicVars.ExtraDamage.UpgradeValueBy(5m);
     }
 }
 
@@ -595,10 +603,10 @@ public sealed class TheTower : HoshoMagoArcanaBase
 [Pool(typeof(HoshoMagoCardPool))]
 public sealed class TheStar : HoshoMagoArcanaBase
 {
-    private const int InterceptPerExtraTeammate = 7;
+    private const int InterceptPerTeammate = 7;
     private const decimal BlockAmount = 10m;
 
-    protected override IEnumerable<DynamicVar> CanonicalVars => [new DynamicVar("InterceptPower", InterceptPerExtraTeammate)];
+    protected override IEnumerable<DynamicVar> CanonicalVars => [new DynamicVar("InterceptPower", InterceptPerTeammate)];
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.Static(StaticHoverTip.Block), HoverTipFactory.FromPower<CoveredPower>(), HoverTipFactory.FromPower<TheStarPower>()];
 
     public TheStar() : base(2, CardType.Skill, TargetType.Self)
@@ -618,13 +626,13 @@ public sealed class TheStar : HoshoMagoArcanaBase
             await PowerCmd.Apply<CoveredPower>(teammate, 1m, Owner.Creature, this);
         }
 
-        int extraTeammates = Math.Max(0, teammates.Count - 1);
-        if (extraTeammates <= 0)
+        int teammateCount = teammates.Count;
+        if (teammateCount <= 0)
         {
             return;
         }
 
-        decimal interceptAmount = extraTeammates * DynamicVars["InterceptPower"].BaseValue;
+        decimal interceptAmount = teammateCount * DynamicVars["InterceptPower"].BaseValue;
         bool hasSunMoonStar = Owner?.Deck?.Cards.Any(card => card is TheSun)
             == true
             && Owner.Deck.Cards.Any(card => card is TheMoon)
@@ -646,7 +654,33 @@ public sealed class TheStar : HoshoMagoArcanaBase
 [Pool(typeof(HoshoMagoCardPool))]
 public sealed class TheMoon : HoshoMagoArcanaBase
 {
-    protected override IEnumerable<DynamicVar> CanonicalVars => [new DynamicVar("Rate", 50m)];
+    protected override IEnumerable<DynamicVar> CanonicalVars => [
+        new CalculationBaseVar(0m),
+        new ExtraDamageVar(50m),
+        new CalculatedDamageVar(ValueProp.Move).WithMultiplier(static (CardModel card, Creature? target) =>
+        {
+            if (target == null)
+            {
+                return 0m;
+            }
+
+            decimal totalStacks = target.GetPowerAmount<PoisonPower>()
+                + target.GetPowerAmount<DoomPower>()
+                + target.GetPowerAmount<BurnPower>();
+            if (totalStacks <= 0m)
+            {
+                return 0m;
+            }
+
+            bool hasSunMoonStar = card.Owner?.Deck?.Cards.Any(deckCard => deckCard is TheSun)
+                == true
+                && card.Owner.Deck.Cards.Any(deckCard => deckCard is TheMoon)
+                && card.Owner.Deck.Cards.Any(deckCard => deckCard is TheStar);
+            decimal synergyMultiplier = hasSunMoonStar ? 2m : 1m;
+
+            return totalStacks * synergyMultiplier / 100m;
+        })
+    ];
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [
         HoverTipFactory.FromPower<PoisonPower>(),
         HoverTipFactory.FromPower<DoomPower>(),
@@ -665,26 +699,7 @@ public sealed class TheMoon : HoshoMagoArcanaBase
             return;
         }
 
-        decimal totalStacks = target.GetPowerAmount<PoisonPower>()
-            + target.GetPowerAmount<DoomPower>()
-            + target.GetPowerAmount<BurnPower>();
-        if (totalStacks <= 0)
-        {
-            return;
-        }
-
-        decimal damage = totalStacks * (DynamicVars["Rate"].BaseValue / 100m);
-
-        bool hasSunMoonStar = Owner?.Deck?.Cards.Any(card => card is TheSun)
-            == true
-            && Owner.Deck.Cards.Any(card => card is TheMoon)
-            && Owner.Deck.Cards.Any(card => card is TheStar);
-        if (hasSunMoonStar)
-        {
-            damage *= 2m;
-        }
-
-        await DamageCmd.Attack(damage)
+        await DamageCmd.Attack(DynamicVars.CalculatedDamage)
             .FromCard(this)
             .Targeting(target)
             .Execute(choiceContext);
@@ -692,7 +707,7 @@ public sealed class TheMoon : HoshoMagoArcanaBase
 
     protected override void OnUpgrade()
     {
-        DynamicVars["Rate"].UpgradeValueBy(25m);
+        DynamicVars.ExtraDamage.UpgradeValueBy(25m);
     }
 }
 

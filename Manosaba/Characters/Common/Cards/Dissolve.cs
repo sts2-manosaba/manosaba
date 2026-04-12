@@ -23,8 +23,8 @@ namespace Manosaba.Characters.Common.Cards
         private const bool shouldShowInCardLibrary = true;
 
         protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<StrengthPower>()];
-        protected override IEnumerable<DynamicVar> CanonicalVars => [new DynamicVar("StrengthLoss", 4m)];
-        public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Ethereal];
+        protected override IEnumerable<DynamicVar> CanonicalVars => [new DynamicVar("StrengthLoss", 8m)];
+        public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
 
         public Dissolve() : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)
         {
@@ -39,7 +39,7 @@ namespace Manosaba.Characters.Common.Cards
         }
         protected override void OnUpgrade()
         {
-            base.DynamicVars["StrengthLoss"].UpgradeValueBy(2m);
+            base.DynamicVars["StrengthLoss"].UpgradeValueBy(4m);
         }
     }
 }

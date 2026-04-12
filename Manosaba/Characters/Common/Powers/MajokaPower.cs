@@ -2,8 +2,8 @@ using BaseLib.Extensions;
 using Manosaba.Characters.HikamiMeruru.Cards;
 using Manosaba.Characters.JogasakiNoahCard.Cards;
 using Manosaba.Characters.NikaidoHiro.Cards;
-using Manosaba.Characters.TachibanaSherry.Cards;
 using Manosaba.Characters.SaekiMiria.Cards;
+using Manosaba.Characters.TachibanaSherry.Cards;
 using Manosaba.Characters.TonoHanna.Cards;
 using Manosaba.Extensions;
 using MegaCrit.Sts2.Core.Commands;
@@ -18,6 +18,14 @@ namespace Manosaba.Characters.Common.Powers
 {
     public class MajokaPower : PathCustomPowerModel
     {
+        // Damage scaling follows a saturating curve (Hill function) that approaches 4x total damage.
+        private const decimal MaxTotalDamageMultiplier = 4m;
+        // Tuned anchors:
+        // - ~2.75x at 200 stacks
+        // - ~3.5x at 400 stacks
+        private const decimal CurveHalfSaturationStacks = 166.6m;
+        private const decimal CurveExponent = 1.8365m;
+
         public override PowerType Type => PowerType.Buff;
         public override PowerStackType StackType => PowerStackType.Counter;
         public override bool AllowNegative => false;
@@ -44,22 +52,26 @@ namespace Manosaba.Characters.Common.Powers
                 return 1m;
             }
 
-            return 1m + base.Amount / 100m;
+            return GetMajokaDamageMultiplier(base.Amount);
         }
 
-        public override decimal ModifyDamageAdditive(Creature? target, decimal amount, ValueProp props, Creature? dealer, CardModel? cardSource)
+        private static decimal GetMajokaDamageMultiplier(decimal stacks)
         {
-            if (base.Owner != dealer)
+            if (stacks <= 0m)
             {
-                return 0m;
+                return 1m;
             }
 
-            if (props.HasFlag(ValueProp.Unpowered))
-            {
-                return 0m;
-            }
-
-            return base.Amount / 25;
+            // ratio = s^p / (s^p + k^p), where:
+            // - s = stacks
+            // - p = CurveExponent
+            // - k = CurveHalfSaturationStacks
+            // This yields a smooth monotonic curve that asymptotically approaches the cap.
+            double sPow = Math.Pow((double)stacks, (double)CurveExponent);
+            double kPow = Math.Pow((double)CurveHalfSaturationStacks, (double)CurveExponent);
+            double ratio = sPow / (sPow + kPow);
+            decimal maxBonus = MaxTotalDamageMultiplier - 1m;
+            return 1m + maxBonus * (decimal)ratio;
         }
 
         public override async Task AfterPowerAmountChanged(PowerModel power, decimal amount, Creature? applier, CardModel? cardSource)
