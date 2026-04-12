@@ -14,7 +14,7 @@ using MegaCrit.Sts2.Core.Models.Events;
 using MegaCrit.Sts2.Core.Models.Powers;
 using MegaCrit.Sts2.Core.ValueProps;
 
-namespace Manosaba.Characters.Common.Powers;
+namespace Manosaba.Characters.HasumiLeia.Powers;
 
 public class ShowOffPower : PathCustomPowerModel
 {

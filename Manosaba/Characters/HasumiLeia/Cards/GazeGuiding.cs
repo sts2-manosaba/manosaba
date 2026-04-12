@@ -1,6 +1,9 @@
 using BaseLib.Utils;
 using manosaba.Characters.HasumiLeia;
+using Manosaba.Characters.Common.Overrides;
+using Manosaba.Characters.Common.Powers;
 using Manosaba.Characters.HasumiLeia.Powers;
+using Manosaba.Characters.NikaidoHiro.Powers;
 using Manosaba.Extensions;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
@@ -18,7 +21,8 @@ public sealed class GazeGuiding : PathCustomCardModel
     private const CardRarity Rarity = CardRarity.Ancient;
     private const TargetType TargetTypeValue = TargetType.Self;
     private const bool ShouldShowInCardLibrary = true;
-
+    protected override IEnumerable<IHoverTip> ExtraHoverTips => [ HoverTipFactory.FromPower<MajokaPower>()];
+    public override IEnumerable<CardKeyword> CanonicalKeywords => [ManosabaKeywords.Mahou, CardKeyword.Eternal];
     protected override IEnumerable<DynamicVar> CanonicalVars => [new PowerVar<GazeGuidingPower>(1m)];
 
     public GazeGuiding()

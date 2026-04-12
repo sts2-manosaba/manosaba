@@ -1,5 +1,7 @@
 ﻿using Manosaba.Characters.Common.Cards;
 using Manosaba.Characters.Common.Powers;
+using Manosaba.Characters.HasumiLeia.Powers;
+using Manosaba.Characters.JogasakiNoah.Powers;
 using Manosaba.Characters.NikaidoHiro.Powers;
 using Manosaba.Characters.SaekiMiria.Cards;
 using MegaCrit.Sts2.Core.Models.Powers;
@@ -25,7 +27,11 @@ namespace Manosaba.Characters.SaekiMiria.Helper
                 typeof(VotePower),
                 typeof(CoveredPower),
                 typeof(InterceptPower),
-                typeof(DeathLoopPower)
+                typeof(DeathLoopPower),
+                typeof(GazeGuidingPower),
+                typeof(StandOutPower),
+                typeof(TankPower),
+                typeof(LiquidManipulationPower),
             };
     }
 }

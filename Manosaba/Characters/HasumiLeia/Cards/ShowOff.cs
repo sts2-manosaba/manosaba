@@ -2,7 +2,7 @@
 using manosaba.Characters.HasumiLeia;
 using manosaba.Characters.HikamiMeruru;
 using manosaba.Characters.SaekiMiria;
-using Manosaba.Characters.Common.Powers;
+using Manosaba.Characters.HasumiLeia.Powers;
 using Manosaba.Extensions;
 using MegaCrit.Sts2.Core.CardSelection;
 using MegaCrit.Sts2.Core.Commands;
@@ -14,7 +14,7 @@ using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.Powers;
 using MegaCrit.Sts2.Core.ValueProps;
 
-namespace Manosaba.Characters.SaekiMiria.Cards
+namespace Manosaba.Characters.HasumiLeia.Cards
 {
     [Pool(typeof(HasumiLeiaCardPool))]
     public class ShowOff : PathCustomCardModel

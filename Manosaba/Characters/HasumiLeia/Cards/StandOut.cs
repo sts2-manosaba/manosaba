@@ -11,27 +11,35 @@ using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.Powers;
 using MegaCrit.Sts2.Core.ValueProps;
 
-namespace Manosaba.Characters.SaekiMiria.Cards
+namespace Manosaba.Characters.HasumiLeia.Cards
 {
     [Pool(typeof(HasumiLeiaCardPool))]
     public sealed class StandOut : PathCustomCardModel
     {
         public override CardMultiplayerConstraint MultiplayerConstraint => CardMultiplayerConstraint.MultiplayerOnly;
+        public override bool GainsBlock => true;
+        private const int energyCost = 1;
+        private const CardType type = CardType.Skill;
+        private const CardRarity rarity = CardRarity.Rare;
+        private const TargetType targetType = TargetType.AnyAlly;
+        private const bool shouldShowInCardLibrary = true;
 
-        public StandOut()
-            : base(1, CardType.Power, CardRarity.Rare, TargetType.Self, true)
+        protected override IEnumerable<DynamicVar> CanonicalVars => [new BlockVar(14, ValueProp.Move)];
+
+        public StandOut() : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)
         {
         }
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
-            await CreatureCmd.TriggerAnim(base.Owner.Creature, "Cast", base.Owner.Character.CastAnimDelay);
-            await PowerCmd.Apply<TankPower>(base.Owner.Creature, 1m, base.Owner.Creature, this);
+            ArgumentNullException.ThrowIfNull(cardPlay.Target, "cardPlay.Target");
+            await CreatureCmd.GainBlock(base.Owner.Creature, base.DynamicVars.Block, cardPlay);
+            await PowerCmd.Apply<CoveredPower>(cardPlay.Target, 1m, base.Owner.Creature, this);
         }
 
         protected override void OnUpgrade()
         {
-            base.EnergyCost.UpgradeBy(-1);
+            base.DynamicVars.Block.UpgradeValueBy(3m);
         }
     }
 }

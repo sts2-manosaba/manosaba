@@ -14,7 +14,7 @@ using MegaCrit.Sts2.Core.ValueProps;
 namespace Manosaba.Characters.HasumiLeia.Cards
 {
     [Pool(typeof(HasumiLeiaCardPool))]
-    public class Dancing : PathCustomCardModel
+    public class Shrug : PathCustomCardModel
     {
         public override bool GainsBlock => true;
         private const int energyCost = 1;
@@ -23,16 +23,16 @@ namespace Manosaba.Characters.HasumiLeia.Cards
         private const TargetType targetType = TargetType.Self;
         private const bool shouldShowInCardLibrary = true;
         protected override IEnumerable<IHoverTip> ExtraHoverTips => [base.EnergyHoverTip];
-        protected override IEnumerable<DynamicVar> CanonicalVars => [new BlockVar(8, ValueProp.Move), new EnergyVar(1)];
+        protected override IEnumerable<DynamicVar> CanonicalVars => [new BlockVar(8, ValueProp.Move), new CardsVar(1)];
 
-        public Dancing() : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)
+        public Shrug() : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)
         {
         }
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
             await CreatureCmd.GainBlock(Owner.Creature, DynamicVars.Block, cardPlay);
-            await PowerCmd.Apply<EnergyNextTurnPower>(base.Owner.Creature, base.DynamicVars.Energy.BaseValue, base.Owner.Creature, this);
+            await CardPileCmd.Draw(choiceContext, base.DynamicVars.Cards.BaseValue, base.Owner);
 
         }
 

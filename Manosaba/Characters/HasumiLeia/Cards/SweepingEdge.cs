@@ -1,7 +1,6 @@
 ﻿using BaseLib.Utils;
+using manosaba.Characters.Common;
 using manosaba.Characters.HasumiLeia;
-using manosaba.Characters.HikamiMeruru;
-using manosaba.Characters.SaekiMiria;
 using Manosaba.Extensions;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
@@ -14,37 +13,40 @@ using MegaCrit.Sts2.Core.ValueProps;
 namespace Manosaba.Characters.HasumiLeia.Cards
 {
     [Pool(typeof(HasumiLeiaCardPool))]
-    public class Lunge : PathCustomCardModel
+    public class SweepingEdge : PathCustomCardModel
     {
+
         private const int energyCost = 1;
         private const CardType type = CardType.Attack;
-        private const CardRarity rarity = CardRarity.Basic;
-        private const TargetType targetType = TargetType.AnyEnemy;
+        private const CardRarity rarity = CardRarity.Uncommon;
+        private const TargetType targetType = TargetType.AllEnemies;
         private const bool shouldShowInCardLibrary = true;
-
-        protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(8, ValueProp.Move), new PowerVar<WeakPower>(2)];
+        protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(9m, ValueProp.Move), new PowerVar<WeakPower>(2)];
         protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<WeakPower>()];
 
-        public Lunge() : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)
+        public SweepingEdge() : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)
         {
         }
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
-            var target = cardPlay.Target;
-            if (target == null)
+            var combatState = base.CombatState;
+            if (combatState == null)
                 return;
 
-            await DamageCmd.Attack(base.DynamicVars.Damage.BaseValue)
-            .FromCard(this)
-            .Targeting(target)
+            await DamageCmd.Attack(base.DynamicVars.Damage.BaseValue).FromCard(this)
+            .TargetingAllOpponents(combatState)
             .Execute(choiceContext);
-            await PowerCmd.Apply<WeakPower>(target, DynamicVars["WeakPower"].BaseValue, base.Owner.Creature, this);
+
+            foreach (var enemy in combatState.Enemies)
+            {
+                await PowerCmd.Apply<WeakPower>(enemy, DynamicVars["WeakPower"].BaseValue, base.Owner.Creature, this);
+            }
         }
 
         protected override void OnUpgrade()
         {
-            DynamicVars.Damage.UpgradeValueBy(3);
+            base.DynamicVars.Damage.UpgradeValueBy(4m);
         }
     }
 }

@@ -34,12 +34,33 @@ public sealed class GazeGuidingPower : PathCustomPowerModel
 
     public override decimal ModifyDamageMultiplicative(Creature? target, decimal amount, ValueProp props, Creature? dealer, CardModel? cardSource)
     {
-        if (target != Owner)
+        if (target == null)
             return 1m;
 
         decimal majoka = Math.Min(100m, Owner.GetPowerAmount<MajokaPower>());
         decimal reduction = majoka / 200m; // 0..0.5
-        return 1m - reduction;
+
+        bool isMultiplayerGame = CombatState != null
+            && CombatState.GetTeammatesOf(Owner).Any(c => c != Owner && c.IsPlayer);
+
+        if (!isMultiplayerGame)
+        {
+            if (target != Owner)
+                return 1m;
+
+            return 1m - reduction;
+        }
+
+        if (target == Owner)
+        {
+            decimal increase = majoka / 100m; // 0..1
+            return 1m + increase;
+        }
+
+        if (target.IsPlayer && target != Owner && CombatState.GetTeammatesOf(Owner).Contains(target))
+            return 1m - reduction;
+
+        return 1m;
     }
 
     private void SyncDamageReductionPercent()

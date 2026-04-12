@@ -10,7 +10,7 @@ using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 
-namespace Manosaba.Characters.SaekiMiria.Cards
+namespace Manosaba.Characters.HasumiLeia.Cards
 {
     [Pool(typeof(HasumiLeiaCardPool))]
     public class TraumaHasumiLeia : PathCustomCardModel

@@ -3,6 +3,7 @@ using Godot;
 using manosaba.Characters.HasumiLeia.Relics;
 using manosaba.Extensions;
 using Manosaba.Characters.SaekiMiria.Cards;
+using Manosaba.Characters.HasumiLeia.Cards;
 using MegaCrit.Sts2.Core.Entities.Characters;
 using MegaCrit.Sts2.Core.Models;
 
@@ -23,7 +24,7 @@ public class HasumiLeia : PlaceholderCharacterModel
 		ModelDb.Card<StrikeHasumiLeia>(),
 		ModelDb.Card<StrikeHasumiLeia>(),
 		ModelDb.Card<StrikeHasumiLeia>(),
-        ModelDb.Card<StrikeHasumiLeia>(),
+        ModelDb.Card<Voiding>(),
         ModelDb.Card<DefendHasumiLeia>(),
 		ModelDb.Card<DefendHasumiLeia>(),
 		ModelDb.Card<DefendHasumiLeia>(),
