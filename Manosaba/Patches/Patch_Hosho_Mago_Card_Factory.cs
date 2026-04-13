@@ -1,4 +1,3 @@
-using System.Reflection;
 using HarmonyLib;
 using manosaba.Characters.HoshoMago;
 using Manosaba.Characters.HoshoMago.Cards;
@@ -7,6 +6,7 @@ using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.Factories;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Random;
+using System.Reflection;
 
 namespace Manosaba.Patches;
 
@@ -180,7 +180,7 @@ public static class Patch_Hosho_Mago_Card_Factory
             .Where(c => excludeCardId == null || c.Id != excludeCardId)
             .Where(c => c.Rarity != CardRarity.Token)
             .Where(c => includeBasic || c.Rarity != CardRarity.Basic)
-            .Where(c => c is not TheWorld)
+            .Where(c => c is not TheWorld && c is not Echoes)
             .Where(c => !isInCombat || c.CanBeGeneratedInCombat);
 
         return query.ToList();

@@ -21,7 +21,7 @@ namespace Manosaba.Characters.NikaidoHiro.Cards
 
         protected override bool IsPlayable => base.IsPlayable && Owner.Creature.HasPower<HighStancePower>();
 
-        protected override IEnumerable<DynamicVar> CanonicalVars => [new PowerVar<MusouKenPower>(35m)];
+        protected override IEnumerable<DynamicVar> CanonicalVars => [new PowerVar<MusouKenPower>(50m)];
         protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<MusouKenPower>(), HoverTipFactory.FromPower<HighStancePower>()];
 
         public MusouKen() : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)
@@ -45,7 +45,7 @@ namespace Manosaba.Characters.NikaidoHiro.Cards
 
         protected override void OnUpgrade()
         {
-            DynamicVars["MusouKenPower"].UpgradeValueBy(15m);
+            DynamicVars["MusouKenPower"].UpgradeValueBy(25m);
         }
     }
 }

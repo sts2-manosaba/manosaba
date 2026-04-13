@@ -28,7 +28,6 @@ namespace Manosaba.Characters.NikaidoHiro.Cards
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
-            await ManosabaKeywords.ResolveLowStance(Owner.Creature, Owner.Creature, this);
 
             var target = cardPlay.Target;
             if (target == null)
@@ -39,6 +38,8 @@ namespace Manosaba.Characters.NikaidoHiro.Cards
                 .Targeting(target)
                 .Execute(choiceContext);
             await CardPileCmd.Draw(choiceContext, DynamicVars.Cards.BaseValue, Owner);
+            await ManosabaKeywords.ResolveLowStance(Owner.Creature, Owner.Creature, this);
+
         }
 
         protected override void OnUpgrade()

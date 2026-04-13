@@ -269,14 +269,14 @@ public sealed class TheLovers : HoshoMagoArcanaBase
 
     protected override void OnUpgrade()
     {
-        DynamicVars["TheLoversPower"].UpgradeValueBy(25m);
+        EnergyCost.UpgradeBy(-1);
     }
 }
 
 [Pool(typeof(HoshoMagoCardPool))]
 public sealed class TheChariot : HoshoMagoArcanaBase
 {
-    protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(3m, ValueProp.Move), new RepeatVar(4)];
+    protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(3m, ValueProp.Move), new RepeatVar(5)];
 
     public TheChariot() : base(2, CardType.Attack, TargetType.AllEnemies)
     {
@@ -342,7 +342,7 @@ public sealed class TheHermit : HoshoMagoArcanaBase
 [Pool(typeof(HoshoMagoCardPool))]
 public sealed class WheelOfFortune : HoshoMagoArcanaBase
 {
-    protected override IEnumerable<DynamicVar> CanonicalVars => [new CardsVar(3)];
+    protected override IEnumerable<DynamicVar> CanonicalVars => [new CardsVar(4)];
     public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Retain];
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
@@ -620,7 +620,7 @@ public sealed class TheTower : HoshoMagoArcanaBase
 [Pool(typeof(HoshoMagoCardPool))]
 public sealed class TheStar : HoshoMagoArcanaBase
 {
-    private const int InterceptPerTeammate = 7;
+    private const int InterceptPerTeammate = 4;
     private const decimal BlockAmount = 10m;
 
     protected override IEnumerable<DynamicVar> CanonicalVars => [new DynamicVar("InterceptPower", InterceptPerTeammate)];
@@ -664,7 +664,7 @@ public sealed class TheStar : HoshoMagoArcanaBase
 
     protected override void OnUpgrade()
     {
-        DynamicVars["InterceptPower"].UpgradeValueBy(3m);
+        DynamicVars["InterceptPower"].UpgradeValueBy(2m);
     }
 }
 
@@ -672,7 +672,7 @@ public sealed class TheStar : HoshoMagoArcanaBase
 public sealed class TheMoon : HoshoMagoArcanaBase
 {
     protected override IEnumerable<DynamicVar> CanonicalVars => [
-        new CalculationBaseVar(0m),
+        new CalculationBaseVar(5m),
         new ExtraDamageVar(50m),
         new CalculatedDamageVar(ValueProp.Move).WithMultiplier(static (CardModel card, Creature? target) =>
         {
@@ -790,6 +790,15 @@ public sealed class Judgement : HoshoMagoArcanaBase
             .ToList();
 
         foreach (PowerModel debuff in debuffs)
+        {
+            await PowerCmd.Remove(debuff);
+        }
+
+        List<PowerModel> negBuffs = Owner.Creature.Powers
+            .Where(power => power != null && power.Type == PowerType.Buff && power.Amount < 0)
+            .ToList();
+
+        foreach (PowerModel debuff in negBuffs)
         {
             await PowerCmd.Remove(debuff);
         }
