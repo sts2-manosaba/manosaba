@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Linq;
 using BaseLib.Utils;
 using manosaba.Characters.TonoHanna;
@@ -7,10 +8,13 @@ using Manosaba.Extensions;
 using MegaCrit.Sts2.Core.CardSelection;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
+using MegaCrit.Sts2.Core.Factories;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
+using MegaCrit.Sts2.Core.Nodes.CommonUi;
+using MegaCrit.Sts2.Core.Random;
 
 namespace Manosaba.Characters.TonoHanna.Cards
 {
@@ -42,9 +46,21 @@ namespace Manosaba.Characters.TonoHanna.Cards
                 filter: null,
                 source: this);
 
+            Rng rng = Owner.RunState.Rng.CombatCardSelection;
             foreach (CardModel card in selected.ToList())
             {
-                await CardCmd.TransformToRandom(card, Owner.RunState.Rng.CombatCardSelection);
+                List<CardModel> puppetPool = CardFactory.GetDefaultTransformationOptions(card, isInCombat: true)
+                    .Where(c => c.Tags.Contains(ManosabaCardTags.Puppet))
+                    .ToList();
+                if (puppetPool.Count == 0)
+                {
+                    await CardCmd.TransformToRandom(card, rng);
+                }
+                else
+                {
+                    CardTransformation transformation = new(card, puppetPool);
+                    await CardCmd.Transform(transformation.Yield(), rng, CardPreviewStyle.HorizontalLayout);
+                }
             }
         }
 

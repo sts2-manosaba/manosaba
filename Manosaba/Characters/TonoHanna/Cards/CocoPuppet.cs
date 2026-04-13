@@ -7,39 +7,39 @@ using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
-using MegaCrit.Sts2.Core.Models.Powers;
 using MegaCrit.Sts2.Core.ValueProps;
 
-namespace Manosaba.Characters.TonoHanna.Cards
+namespace Manosaba.Characters.TonoHanna.Cards;
+
+[Pool(typeof(TonoHannaCardPool))]
+public class CocoPuppet : PathCustomCardModel
 {
-    [Pool(typeof(TonoHannaCardPool))]
-    public class CocoPuppet : PathCustomCardModel
+    protected override HashSet<CardTag> CanonicalTags => [ManosabaCardTags.Puppet];
+
+    private const int energyCost = 1;
+    private const CardType type = CardType.Power;
+    private const CardRarity rarity = CardRarity.Uncommon;
+    private const TargetType targetType = TargetType.Self;
+    private const bool shouldShowInCardLibrary = true;
+
+    protected override IEnumerable<DynamicVar> CanonicalVars =>
+    [
+        new BlockVar(2m, ValueProp.Move),
+        new PowerVar<CocoPuppetCollectionPower>(1),
+    ];
+
+    public CocoPuppet() : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)
     {
-        public override bool GainsBlock => true;
-        protected override HashSet<CardTag> CanonicalTags => [ManosabaCardTags.Puppet];
+    }
 
-        private const int energyCost = 1;
-        private const CardType type = CardType.Skill;
-        private const CardRarity rarity = CardRarity.Common;
-        private const TargetType targetType = TargetType.Self;
-        private const bool shouldShowInCardLibrary = true;
+    protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
+    {
+        await PowerCmd.Apply<CocoPuppetPower>(Owner.Creature, DynamicVars.Block.BaseValue, Owner.Creature, this);
+        await PowerCmd.Apply<CocoPuppetCollectionPower>(Owner.Creature, DynamicVars["CocoPuppetCollectionPower"].BaseValue, Owner.Creature, this);
+    }
 
-        protected override IEnumerable<DynamicVar> CanonicalVars => [new BlockVar(4m, ValueProp.Move)];
-
-        public CocoPuppet() : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)
-        {
-        }
-
-        protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
-        {
-            await PowerCmd.Apply<CocoPuppetCollectionPower>(Owner.Creature, 1m, Owner.Creature, this);
-            decimal amount = await CreatureCmd.GainBlock(Owner.Creature, DynamicVars.Block, cardPlay);
-            await PowerCmd.Apply<BlockNextTurnPower>(Owner.Creature, amount, Owner.Creature, this);
-        }
-
-        protected override void OnUpgrade()
-        {
-            DynamicVars.Block.UpgradeValueBy(2m);
-        }
+    protected override void OnUpgrade()
+    {
+        DynamicVars.Block.UpgradeValueBy(1m);
     }
 }

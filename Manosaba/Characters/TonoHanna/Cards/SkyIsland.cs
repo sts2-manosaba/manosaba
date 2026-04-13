@@ -2,6 +2,7 @@ using BaseLib.Utils;
 using manosaba.Characters.TonoHanna;
 using Manosaba.Characters.Common.Overrides;
 using Manosaba.Characters.Common.Powers;
+using Manosaba.Characters.TonoHanna.Powers;
 using Manosaba.Extensions;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
@@ -17,50 +18,68 @@ namespace Manosaba.Characters.TonoHanna.Cards;
 [Pool(typeof(TonoHannaCardPool))]
 public class SkyIsland : PathCustomCardModel
 {
+    private const int EnergyCost = 3;
     private const CardType type = CardType.Attack;
     private const CardRarity rarity = CardRarity.Ancient;
     private const TargetType targetType = TargetType.AllEnemies;
     private const bool shouldShowInCardLibrary = true;
-
     public override IEnumerable<CardKeyword> CanonicalKeywords => [ManosabaKeywords.Mahou, CardKeyword.Eternal];
-    protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<MajokaPower>()];
 
-    protected override bool HasEnergyCostX => true;
-
-    protected override IEnumerable<DynamicVar> CanonicalVars => [
-        new CalculationBaseVar(0m),
-        new ExtraDamageVar(8m),
-        new CalculatedDamageVar(ValueProp.Move).WithMultiplier(GetMajokaPercentMultiplier)
+    protected override IEnumerable<IHoverTip> ExtraHoverTips =>
+    [
+        HoverTipFactory.FromPower<MajokaPower>(),
+        HoverTipFactory.FromPower<SkyIslandPower>()
     ];
 
-    protected override bool ShouldGlowGoldInternal => Owner.Creature.GetPowerAmount<MajokaPower>() >= 100;
+    protected override IEnumerable<DynamicVar> CanonicalVars =>
+    [
+        new DamageVar(36m, ValueProp.Move),
+        new CalculationBaseVar(0m),
+        new CalculationExtraVar(5m),
+        new CalculatedVar("SkyIslandPower").WithMultiplier(GetMajokaFactor)
+    ];
 
-    public SkyIsland() : base(0, type, rarity, targetType, shouldShowInCardLibrary)
+    public SkyIsland() : base(EnergyCost, type, rarity, targetType, shouldShowInCardLibrary)
     {
     }
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        int hits = ResolveEnergyXValue();
-        if (hits <= 0 || CombatState == null)
+        _ = cardPlay;
+        if (CombatState == null)
+        {
             return;
+        }
 
-        await DamageCmd.Attack(DynamicVars.CalculatedDamage)
-            .WithHitCount(hits)
+        await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
             .FromCard(this)
             .TargetingAllOpponents(CombatState)
             .Execute(choiceContext);
+
+        decimal layersDecimal = ((CalculatedVar)DynamicVars["SkyIslandPower"]).Calculate(null);
+        int grant = Math.Max(0, (int)layersDecimal);
+        if (grant <= 0)
+        {
+            return;
+        }
+
+        foreach (Creature teammate in CombatState.GetTeammatesOf(Owner.Creature))
+        {
+            if (!teammate.IsAlive || !teammate.CanReceivePowers)
+            {
+                continue;
+            }
+
+            await PowerCmd.Apply<SkyIslandPower>(teammate, grant, Owner.Creature, this);
+        }
     }
 
     protected override void OnUpgrade()
     {
-        DynamicVars.ExtraDamage.UpgradeValueBy(2m);
+        DynamicVars.Damage.UpgradeValueBy(6m);
     }
 
-    /// <summary>Maps current Majoka stacks to a 0–1 factor (stacks / 100, capped at 1).</summary>
-    private static decimal GetMajokaPercentMultiplier(CardModel card, Creature? _)
-    {
-        decimal majoka = card.Owner.Creature.GetPowerAmount<MajokaPower>();
-        return Math.Min(majoka / 100m, 1m);
-    }
+    /// <summary>Majoka factor: min(stacks / 100, 1); pairs with <see cref="CalculationExtraVar"/> for up to 5 layers.</summary>
+    private static decimal GetMajokaFactor(CardModel card, Creature? _)
+        => Math.Min(card.Owner.Creature.GetPowerAmount<MajokaPower>() / 100m, 1m);
 }
