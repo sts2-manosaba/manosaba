@@ -51,6 +51,11 @@ public sealed class ManosabaConfig : SimpleModConfig
     [ConfigHoverTip]
     public static double EnemyHpMultiplierPercent { get; set; } = 135d;
 
+    [SliderRange(0, 100, 5)]
+    [SliderLabelFormat("{0:0}%")]
+    [ConfigHoverTip]
+    public static double MurderousImpulseAllyDamageMultiplierPercent { get; set; } = 10d;
+
     public static decimal GetEnemyHpMultiplier()
     {
         if (!EnableEnemyHpMultiplier)
@@ -64,6 +69,13 @@ public sealed class ManosabaConfig : SimpleModConfig
             percent = 1d;
         }
 
+        return (decimal)(percent / 100d);
+    }
+
+    public static decimal GetMurderousImpulseAllyDamageMultiplier()
+    {
+        double percent = MurderousImpulseAllyDamageMultiplierPercent;
+        percent = Math.Clamp(percent, 0d, 100d);
         return (decimal)(percent / 100d);
     }
 

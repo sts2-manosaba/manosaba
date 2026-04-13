@@ -19,5 +19,8 @@
   "MANOSABA-ENABLE_ENEMY_HP_MULTIPLIER.hover.desc": "有効化すると、敵の最大HPに設定した倍率（％）が適用されます。",
   "MANOSABA-ENEMY_HP_MULTIPLIER_PERCENT.title": "敵のHP倍率",
   "MANOSABA-ENEMY_HP_MULTIPLIER_PERCENT.hover.title": "敵HP倍率（％）",
-  "MANOSABA-ENEMY_HP_MULTIPLIER_PERCENT.hover.desc": "敵の最大HPに適用する倍率。100% は変化なし。"
+  "MANOSABA-ENEMY_HP_MULTIPLIER_PERCENT.hover.desc": "敵の最大HPに適用する倍率。100% は変化なし。",
+  "MANOSABA-MURDEROUS_IMPULSE_ALLY_DAMAGE_MULTIPLIER_PERCENT.title": "殺人衝動の味方ダメージ倍率",
+  "MANOSABA-MURDEROUS_IMPULSE_ALLY_DAMAGE_MULTIPLIER_PERCENT.hover.title": "1スタックあたり倍率",
+  "MANOSABA-MURDEROUS_IMPULSE_ALLY_DAMAGE_MULTIPLIER_PERCENT.hover.desc": "殺人衝動の味方ダメージに対する、1スタックあたりの倍率。0%〜100%（5%刻み）。"
 }

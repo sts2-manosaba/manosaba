@@ -17,7 +17,7 @@ namespace Manosaba.Characters.Common.Cards
         private const CardRarity rarity = CardRarity.Rare;
         private const TargetType targetType = TargetType.AnyEnemy;
         private const bool shouldShowInCardLibrary = true;
-        protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(2, ValueProp.Move), new RepeatVar(5)];
+        protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(1, ValueProp.Move), new RepeatVar(10)];
 
         public ConcentratedFire() : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)
         {
@@ -36,7 +36,7 @@ namespace Manosaba.Characters.Common.Cards
 
         protected override void OnUpgrade()
         {
-            base.DynamicVars.Repeat.UpgradeValueBy(2m);
+            base.DynamicVars.Repeat.UpgradeValueBy(5m);
         }
     }
 }

@@ -19,5 +19,8 @@
   "MANOSABA-ENABLE_ENEMY_HP_MULTIPLIER.hover.desc": "When enabled, enemy max HP is multiplied by the configured percentage.",
   "MANOSABA-ENEMY_HP_MULTIPLIER_PERCENT.title": "Enemy HP Multiplier",
   "MANOSABA-ENEMY_HP_MULTIPLIER_PERCENT.hover.title": "Enemy HP Percentage",
-  "MANOSABA-ENEMY_HP_MULTIPLIER_PERCENT.hover.desc": "Multiplier applied to enemy max HP. 100% means unchanged."
+  "MANOSABA-ENEMY_HP_MULTIPLIER_PERCENT.hover.desc": "Multiplier applied to enemy max HP. 100% means unchanged.",
+  "MANOSABA-MURDEROUS_IMPULSE_ALLY_DAMAGE_MULTIPLIER_PERCENT.title": "Murderous Impulse Ally Damage Multiplier",
+  "MANOSABA-MURDEROUS_IMPULSE_ALLY_DAMAGE_MULTIPLIER_PERCENT.hover.title": "Per-Stack Multiplier",
+  "MANOSABA-MURDEROUS_IMPULSE_ALLY_DAMAGE_MULTIPLIER_PERCENT.hover.desc": "Damage multiplier granted per stack of Murderous Impulse when hitting an ally. Range 0% to 100%, in 5% steps."
 }

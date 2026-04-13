@@ -23,7 +23,7 @@ namespace Manosaba.Characters.Common.Cards
         private const bool shouldShowInCardLibrary = true;
 
         protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<BurnPower>()];
-        protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(15m, ValueProp.Move), new PowerVar<BurnPower>(10m)];
+        protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(5m, ValueProp.Move), new PowerVar<BurnPower>(5m)];
 
         public Immolation() : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)
         {
@@ -49,7 +49,6 @@ namespace Manosaba.Characters.Common.Cards
         protected override void OnUpgrade()
         {
             base.DynamicVars.Damage.UpgradeValueBy(5m);
-            base.DynamicVars["BurnPower"].UpgradeValueBy(5m);
         }
     }
 }
