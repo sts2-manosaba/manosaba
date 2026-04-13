@@ -30,6 +30,7 @@ namespace Manosaba.Characters.NikaidoHiro.Cards
             new ExtraDamageVar(3m),
             new CalculatedDamageVar(ValueProp.Move).WithMultiplier(delegate(CardModel card, Creature? _){
                 int voteAmount = card.Owner.Creature.GetPowerAmount<VotePower>();
+
                 return voteAmount;
             }),
             new PowerVar<MajokaPower>(100)
