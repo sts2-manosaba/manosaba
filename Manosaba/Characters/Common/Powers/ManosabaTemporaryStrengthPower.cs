@@ -11,7 +11,7 @@ using MegaCrit.Sts2.Core.Models.Powers;
 
 namespace Manosaba.Characters.Common.Powers;
 
-public abstract class ManosabaTemporaryStrengthPower : PathCustomPowerModel
+public abstract class ManosabaTemporaryStrengthPower : PathCustomPowerModel, ITemporaryPower
 {
     private bool _shouldIgnoreNextInstance;
 
