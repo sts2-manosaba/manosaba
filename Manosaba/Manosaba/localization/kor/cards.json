@@ -373,7 +373,7 @@
   "MANOSABA-THE_TOWER.title": "탑",
   "MANOSABA-THE_TOWER.description": "모든 적에게 {Damage:diff()}의 피해를 주고, [gold]인공물[/gold]을 제거한 뒤 [gold]탑[/gold] 1중첩을 부여합니다.",
   "MANOSABA-THE_STAR.title": "별",
-  "MANOSABA-THE_STAR.description": "[gold]방어도[/gold] 10을 얻습니다.\n이번 턴, 모든 아군 대신 피해를 받습니다.\n추가 아군 1명당 피해 감소를 +{InterceptPower:diff()} 얻습니다.\n덱에 [gold]태양[/gold], [gold]달[/gold], [gold]별[/gold]이 모두 있으면 이 피해 감소가 2배가 됩니다.",
+  "MANOSABA-THE_STAR.description": "[gold]방어도[/gold]를 {Block:diff()} 얻습니다.\n이번 턴, 모든 아군 대신 피해를 받습니다.\n추가 아군 1명당 피해 감소를 +{InterceptPower:diff()} 얻습니다.\n덱에 [gold]태양[/gold], [gold]달[/gold], [gold]별[/gold]이 모두 있으면 이 피해 감소가 2배가 됩니다.",
   "MANOSABA-THE_MOON.title": "달",
   "MANOSABA-THE_MOON.description": "대상의 [gold]중독[/gold], [gold]종말[/gold], [gold]화상[/gold] 총 중첩의 {IfUpgraded:show:75|50}%만큼 피해를 줍니다.\n덱에 [gold]태양[/gold], [gold]달[/gold], [gold]별[/gold]이 모두 있으면 이 피해가 2배가 됩니다.",
   "MANOSABA-THE_SUN.title": "태양",

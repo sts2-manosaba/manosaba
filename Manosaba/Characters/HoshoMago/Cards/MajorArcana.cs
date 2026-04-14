@@ -76,7 +76,7 @@ public sealed class TheMagician : HoshoMagoArcanaBase
     }
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<MajokaPower>()];
     public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
-    protected override IEnumerable<DynamicVar> CanonicalVars => [new PowerVar<MajokaPower>(3)];
+    protected override IEnumerable<DynamicVar> CanonicalVars => [new PowerVar<MajokaPower>(4)];
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
@@ -300,7 +300,7 @@ public sealed class TheChariot : HoshoMagoArcanaBase
 [Pool(typeof(HoshoMagoCardPool))]
 public sealed class Strength : HoshoMagoArcanaBase
 {
-    protected override IEnumerable<DynamicVar> CanonicalVars => [new PowerVar<StrengthPower>(3)];
+    protected override IEnumerable<DynamicVar> CanonicalVars => [new PowerVar<StrengthPower>(4)];
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<StrengthPower>()];
 
     public Strength() : base(1, CardType.Power, TargetType.Self)
@@ -335,7 +335,7 @@ public sealed class TheHermit : HoshoMagoArcanaBase
 
     protected override void OnUpgrade()
     {
-        EnergyCost.UpgradeBy(-1);
+        AddKeyword(CardKeyword.Retain);
     }
 }
 
@@ -621,9 +621,9 @@ public sealed class TheTower : HoshoMagoArcanaBase
 public sealed class TheStar : HoshoMagoArcanaBase
 {
     private const int InterceptPerTeammate = 4;
-    private const decimal BlockAmount = 10m;
 
-    protected override IEnumerable<DynamicVar> CanonicalVars => [new DynamicVar("InterceptPower", InterceptPerTeammate)];
+    public override bool GainsBlock => true;
+    protected override IEnumerable<DynamicVar> CanonicalVars => [new BlockVar(16m, ValueProp.Move), new DynamicVar("InterceptPower", InterceptPerTeammate)];
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.Static(StaticHoverTip.Block), HoverTipFactory.FromPower<CoveredPower>(), HoverTipFactory.FromPower<TheStarPower>()];
 
     public TheStar() : base(2, CardType.Skill, TargetType.Self)
@@ -632,7 +632,7 @@ public sealed class TheStar : HoshoMagoArcanaBase
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        await CreatureCmd.GainBlock(Owner.Creature, BlockAmount, ValueProp.Move, cardPlay);
+        await CreatureCmd.GainBlock(Owner.Creature, DynamicVars.Block, cardPlay);
 
         List<Creature> teammates = CombatState.GetTeammatesOf(Owner.Creature)
             .Where(creature => creature != null && creature.IsAlive && creature.IsPlayer && creature != Owner.Creature)
@@ -664,6 +664,7 @@ public sealed class TheStar : HoshoMagoArcanaBase
 
     protected override void OnUpgrade()
     {
+        DynamicVars.Block.UpgradeValueBy(8);
         DynamicVars["InterceptPower"].UpgradeValueBy(2m);
     }
 }
@@ -766,7 +767,7 @@ public sealed class TheSun : HoshoMagoArcanaBase
 
     protected override void OnUpgrade()
     {
-        EnergyCost.UpgradeBy(-1);
+        AddKeyword(CardKeyword.Innate);
     }
 }
 

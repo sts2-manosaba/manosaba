@@ -20,7 +20,7 @@ namespace Manosaba.Characters.HikamiMeruru.Cards
         private const TargetType targetType = TargetType.AllAllies;
         private const bool shouldShowInCardLibrary = true;
         protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.Static(StaticHoverTip.Block)];
-        protected override IEnumerable<DynamicVar> CanonicalVars => [new HealVar(5), new BlockVar(8m, ValueProp.Move)];
+        protected override IEnumerable<DynamicVar> CanonicalVars => [new HealVar(5), new BlockVar(7m, ValueProp.Move)];
         public QuickHeal() : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)
         {
         }
@@ -39,8 +39,8 @@ namespace Manosaba.Characters.HikamiMeruru.Cards
 
         protected override void OnUpgrade()
         {
-            base.DynamicVars.Heal.UpgradeValueBy(3);
-            base.DynamicVars.Block.UpgradeValueBy(4);
+            base.DynamicVars.Heal.UpgradeValueBy(2);
+            base.DynamicVars.Block.UpgradeValueBy(2);
         }
     }
 }

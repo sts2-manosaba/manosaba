@@ -375,7 +375,7 @@
   "MANOSABA-THE_TOWER.title": "塔",
   "MANOSABA-THE_TOWER.description": "すべての敵に{Damage:diff()}ダメージを与え、[gold]アーティファクト[/gold]を取り除き、1層の[gold]塔[/gold]を付与する。",
   "MANOSABA-THE_STAR.title": "星",
-  "MANOSABA-THE_STAR.description": "10の[gold]ブロック[/gold]を得る。\nこのターン、すべての味方へのダメージを肩代わりする。\n味方1人ごとに、ダメージ軽減+{InterceptPower:diff()}を得る。\nデッキに[gold]太陽[/gold]・[gold]月[/gold]・[gold]星[/gold]が揃っている場合、この軽減量は2倍になる。",
+  "MANOSABA-THE_STAR.description": "{Block:diff()}[gold]ブロック[/gold]を得る。\nこのターン、すべての味方へのダメージを肩代わりする。\n味方1人ごとに、ダメージ軽減+{InterceptPower:diff()}を得る。\nデッキに[gold]太陽[/gold]・[gold]月[/gold]・[gold]星[/gold]が揃っている場合、この軽減量は2倍になる。",
   "MANOSABA-THE_MOON.title": "月",
   "MANOSABA-THE_MOON.description": "敵1体に{CalculatedDamage:diff()}ダメージを与える。\n対象の[gold]毒[/gold]・[gold]破滅[/gold]・[gold]燃焼[/gold]の合計スタックの {IfUpgraded:show:75|50}% 分のダメージを与える。\nデッキに[gold]太陽[/gold]・[gold]月[/gold]・[gold]星[/gold]が揃っている場合、このダメージは2倍になる。",
   "MANOSABA-THE_SUN.title": "太陽",

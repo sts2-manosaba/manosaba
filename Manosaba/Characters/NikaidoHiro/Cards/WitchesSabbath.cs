@@ -27,11 +27,12 @@ namespace Manosaba.Characters.NikaidoHiro.Cards
         public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
         protected override IEnumerable<DynamicVar> CanonicalVars => [
             new CalculationBaseVar(50m),
-            new ExtraDamageVar(3m),
-            new CalculatedDamageVar(ValueProp.Move).WithMultiplier(delegate(CardModel card, Creature? _){
+            new ExtraDamageVar(1m),
+            new CalculatedDamageVar(ValueProp.Unpowered).WithMultiplier(delegate(CardModel card, Creature? _){
                 int voteAmount = card.Owner.Creature.GetPowerAmount<VotePower>();
+                int majokaAmount = card.Owner.Creature.GetPowerAmount<MajokaPower>();
 
-                return voteAmount;
+                return (50m + voteAmount * 3 + majokaAmount / 25) * (1 + 0.01m * majokaAmount) - 50m;
             }),
             new PowerVar<MajokaPower>(100)
             ];

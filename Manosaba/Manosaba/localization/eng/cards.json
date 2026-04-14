@@ -375,7 +375,7 @@
   "MANOSABA-THE_TOWER.title": "The Tower",
   "MANOSABA-THE_TOWER.description": "Deal {Damage:diff()} damage to all enemies, remove their [gold]Artifact[/gold], then apply 1 [gold]Tower[/gold].",
   "MANOSABA-THE_STAR.title": "The Star",
-  "MANOSABA-THE_STAR.description": "Gain 10 [gold]Block[/gold].\nThis turn, take damage for all teammates.\nFor each teammate, gain +{InterceptPower:diff()} damage reduction.\nIf your deck contains [gold]The Sun[/gold], [gold]The Moon[/gold], and [gold]The Star[/gold], double this damage reduction.",
+  "MANOSABA-THE_STAR.description": "Gain {Block:diff()} [gold]Block[/gold].\nThis turn, take damage for all teammates.\nFor each teammate, gain +{InterceptPower:diff()} damage reduction.\nIf your deck contains [gold]The Sun[/gold], [gold]The Moon[/gold], and [gold]The Star[/gold], double this damage reduction.",
   "MANOSABA-THE_MOON.title": "The Moon",
   "MANOSABA-THE_MOON.description": "Deal {CalculatedDamage:diff()} damage to 1 enemy.\nDeal damage equal to {IfUpgraded:show:75|50}% of the target's total [gold]Poison[/gold], [gold]Doom[/gold], and [gold]Burn[/gold] stacks.\nIf your deck contains [gold]The Sun[/gold], [gold]The Moon[/gold], and [gold]The Star[/gold], double this damage.",
   "MANOSABA-THE_SUN.title": "The Sun",
