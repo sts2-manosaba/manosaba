@@ -374,7 +374,7 @@
   "MANOSABA-THE_DEVIL.description": "從下列 3 張牌中選擇 1 張並打出：\n[gold]無從逃離之眼[/gold]、[gold]覺醒發狂力量[/gold]、[gold]賦予試煉[/gold]。",
   "MANOSABA-THE_DEVIL.selectionScreenPrompt": "做出選擇！",
   "MANOSABA-THE_TOWER.title": "高塔",
-  "MANOSABA-THE_TOWER.description": "對所有敵人造成 {Damage:diff()} 點傷害，移除其[gold]人工制品[/gold]，並賦予 1 層[gold]高塔[/gold]。",
+  "MANOSABA-THE_TOWER.description": "對所有敵人造成 {Damage:diff()} 點傷害，移除其[gold]人工制品[/gold]，並賦予 {TheTowerPower:diff()} 層[gold]高塔[/gold]。",
   "MANOSABA-THE_STAR.title": "星星",
   "MANOSABA-THE_STAR.description": "獲得 {Block:diff()} 點[gold]格檔[/gold]。\n本回合替所有隊友承受傷害。\n每有 1 名隊友，減傷 +{InterceptPower:diff()}。\n若牌組中同時有[gold]太陽[/gold]、[gold]月亮[/gold]、[gold]星星[/gold]，此減傷加倍。",
   "MANOSABA-THE_MOON.title": "月亮",

@@ -10,8 +10,8 @@ public class TonoHannaCardPool : CustomCardPoolModel
 {
     public override string Title => TonoHanna.CharacterId;
 
-    public override string BigEnergyIconPath => "charui/big_energy.png".ImagePath();
-    public override string TextEnergyIconPath => "charui/text_energy.png".ImagePath();
+    public override string BigEnergyIconPath => "charui/manosaba_energy.png".ImagePath();
+    public override string TextEnergyIconPath => "charui/manosaba_energy_text.png".ImagePath();
 
     public override float H => 1f;
     public override float S => 1f;

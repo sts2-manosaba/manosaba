@@ -10,8 +10,8 @@ public class TachibanaSherryCardPool : CustomCardPoolModel
 {
     public override string Title => TachibanaSherry.CharacterId; //This is not a display name.
 
-    public override string BigEnergyIconPath => "charui/big_energy.png".ImagePath();
-    public override string TextEnergyIconPath => "charui/text_energy.png".ImagePath();
+    public override string BigEnergyIconPath => "charui/manosaba_energy.png".ImagePath();
+    public override string TextEnergyIconPath => "charui/manosaba_energy_text.png".ImagePath();
 
 
     /* These HSV values will determine the color of your card back.

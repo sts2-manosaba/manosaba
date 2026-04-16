@@ -373,7 +373,7 @@
   "MANOSABA-THE_DEVIL.description": "次の3枚から1枚を選んでプレイする：\n[gold]逃れられぬ眼[/gold]、[gold]覚醒した狂気の力[/gold]、[gold]試練を与える[/gold]。",
   "MANOSABA-THE_DEVIL.selectionScreenPrompt": "選択せよ！",
   "MANOSABA-THE_TOWER.title": "塔",
-  "MANOSABA-THE_TOWER.description": "すべての敵に{Damage:diff()}ダメージを与え、[gold]アーティファクト[/gold]を取り除き、1層の[gold]塔[/gold]を付与する。",
+  "MANOSABA-THE_TOWER.description": "すべての敵に{Damage:diff()}ダメージを与え、[gold]アーティファクト[/gold]を取り除き、{TheTowerPower:diff()}層の[gold]塔[/gold]を付与する。",
   "MANOSABA-THE_STAR.title": "星",
   "MANOSABA-THE_STAR.description": "{Block:diff()}[gold]ブロック[/gold]を得る。\nこのターン、すべての味方へのダメージを肩代わりする。\n味方1人ごとに、ダメージ軽減+{InterceptPower:diff()}を得る。\nデッキに[gold]太陽[/gold]・[gold]月[/gold]・[gold]星[/gold]が揃っている場合、この軽減量は2倍になる。",
   "MANOSABA-THE_MOON.title": "月",
