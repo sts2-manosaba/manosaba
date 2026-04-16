@@ -56,29 +56,12 @@ public static class Patch_Hosho_Mago_Card_Factory
             return true;
         }
 
-        IEnumerable<CardModel> unlocked = original.Pool.GetUnlockedCards(original.Owner.UnlockState, original.RunState.CardMultiplayerConstraint);
-
-        bool usesVanillaRarityBand = original.Rarity != CardRarity.Ancient && original.Rarity != CardRarity.Token;
-        IEnumerable<CardModel> vanillaCandidates = unlocked
-            .Where(c => c.Id != original.Id)
-            .Where(c => !isInCombat || c.CanBeGeneratedInCombat);
-        if (usesVanillaRarityBand)
-        {
-            vanillaCandidates = vanillaCandidates.Where(c => c.Rarity == CardRarity.Common || c.Rarity == CardRarity.Uncommon || c.Rarity == CardRarity.Rare);
-        }
-
-        if (vanillaCandidates.Any())
+        if (!ManosabaTransformHelper.TryCreateTransformResult(original, isInCombat, rng, out CardModel replacement))
         {
             return true;
         }
 
-        List<CardModel> fallbackCandidates = BuildHoshoFallbackPool(unlocked, isInCombat, includeBasic: false, excludeCardId: original.Id);
-        if (fallbackCandidates.Count == 0)
-        {
-            return true;
-        }
-
-        result = original.CardScope.CreateCard(rng.NextItem(fallbackCandidates), original.Owner);
+        result = replacement;
         return false;
     }
 
