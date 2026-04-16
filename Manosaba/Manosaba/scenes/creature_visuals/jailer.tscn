@@ -1,0 +1,38 @@
+[gd_scene load_steps=3 format=3 uid="uid://dmm41w86obsyb"]
+
+[ext_resource type="Script" uid="uid://f8ry0xni3etf" path="res://Characters/Common/Overrides/ManosabaCreatureVisuals.cs" id="1_vlroq"]
+[ext_resource type="Texture2D" uid="uid://b8fe565kicwpc" path="res://Manosaba/images/monsters/jailer.png" id="2_jkjie"]
+
+[node name="Jailer" type="Node2D"]
+script = ExtResource("1_vlroq")
+
+[node name="Visuals" type="Node2D" parent="."]
+unique_name_in_owner = true
+
+[node name="Alive" type="Sprite2D" parent="Visuals"]
+unique_name_in_owner = true
+position = Vector2(-14.000002, -212)
+scale = Vector2(0.1336786, 0.13367856)
+texture = ExtResource("2_jkjie")
+
+[node name="Dead" type="Sprite2D" parent="Visuals"]
+unique_name_in_owner = true
+visible = false
+position = Vector2(10.000001, -65)
+scale = Vector2(0.23689136, 0.23689137)
+
+[node name="Bounds" type="Control" parent="."]
+unique_name_in_owner = true
+layout_mode = 3
+anchors_preset = 0
+offset_left = -211.0
+offset_top = -445.0
+offset_right = 177.0
+
+[node name="CenterPos" type="Marker2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(-1, -230)
+
+[node name="IntentPos" type="Marker2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(-2, -444)

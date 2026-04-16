@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://dcmntftcj2mv0"]
 
-[ext_resource type="Texture2D" uid="uid://2h1isk35a2cc" path="res://Manosaba/images/characters/hasumi_leia/hasumi_leia_bg.png" id="1_cn4y2"]
+[ext_resource type="Texture2D" uid="uid://hasumileiabg01" path="res://Manosaba/images/characters/hasumi_leia/hasumi_leia_bg.png" id="1_cn4y2"]
 
 [node name="HasumiLeiaBg" type="Control"]
 layout_mode = 3

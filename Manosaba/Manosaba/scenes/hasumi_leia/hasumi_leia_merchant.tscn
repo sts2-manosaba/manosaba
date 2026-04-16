@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://dqrfuoxdxj6ck"]
 
 [ext_resource type="Script" uid="uid://cnvmx0lgyr8bh" path="res://Characters/Common/Overrides/ManosabaMerchantCharacter.cs" id="1_qjeox"]
-[ext_resource type="Texture2D" uid="uid://d1tqj2bmc7t1r" path="res://Manosaba/images/characters/hasumi_leia/hasumi_leia_merchant.png" id="2_tcvtr"]
+[ext_resource type="Texture2D" uid="uid://hasumileiamrch" path="res://Manosaba/images/characters/hasumi_leia/hasumi_leia_merchant.png" id="2_tcvtr"]
 
 [node name="HasumiLeiaMerchant" type="Node2D"]
 script = ExtResource("1_qjeox")

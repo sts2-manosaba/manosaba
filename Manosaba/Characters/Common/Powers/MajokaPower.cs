@@ -15,6 +15,8 @@ using MegaCrit.Sts2.Core.Entities.Powers;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Nodes.CommonUi;
 using MegaCrit.Sts2.Core.ValueProps;
+using Manosaba.Characters.HasumiLeia.Cards;
+using Manosaba.Characters.KurobeNanoka.Cards;
 
 namespace Manosaba.Characters.Common.Powers
 {
@@ -42,6 +44,7 @@ namespace Manosaba.Characters.Common.Powers
             { "tono_hanna", typeof(SkyIsland)},
             { "hosho_mago", typeof(Echoes)},
             { "hasumi_leia", typeof(GazeGuiding)},
+            { "kurobe_nanoka", typeof(HallucinationMagic)},
         };
 
         public override decimal ModifyDamageMultiplicative(Creature? target, decimal amount, ValueProp props, Creature? dealer, CardModel? cardSource)

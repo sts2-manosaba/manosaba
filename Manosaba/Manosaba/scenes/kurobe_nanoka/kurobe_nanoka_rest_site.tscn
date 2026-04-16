@@ -1,0 +1,51 @@
+[gd_scene load_steps=4 format=3 uid="uid://0fn54b1q21o4"]
+
+[ext_resource type="Script" uid="uid://bb347yvm0u14b" path="res://Characters/Common/Overrides/ManosabaRestSiteCharacter.cs" id="1_vlqf0"]
+[ext_resource type="Texture2D" uid="uid://c4uhnp1y3nlh5" path="res://Manosaba/images/characters/kurobe_nanoka/kurobe_nanoka_rest.png" id="2_mnjo7"]
+[ext_resource type="PackedScene" uid="uid://bgy88bk44xxvk" path="res://Manosaba/scenes/selection_reticle.tscn" id="3_0jw6i"]
+
+[node name="KurobeNanokaRestSite" type="Node2D"]
+script = ExtResource("1_vlqf0")
+
+[node name="Sprite2D3" type="Sprite2D" parent="."]
+position = Vector2(-46, 3.0000036)
+scale = Vector2(0.69216055, 0.6921605)
+texture = ExtResource("2_mnjo7")
+
+[node name="ControlRoot" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="SelectionReticle" parent="ControlRoot" instance=ExtResource("3_0jw6i")]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = -256.0
+offset_top = -397.0
+offset_right = 239.0
+offset_bottom = 391.0
+
+[node name="Hitbox" type="Control" parent="ControlRoot"]
+unique_name_in_owner = true
+anchors_preset = 0
+offset_left = -155.0
+offset_top = -351.0
+offset_right = 266.0
+offset_bottom = 332.0
+
+[node name="ThoughtBubbleRight" type="Control" parent="ControlRoot"]
+unique_name_in_owner = true
+anchors_preset = 0
+offset_left = 209.0
+offset_top = -317.0
+offset_right = 209.0
+offset_bottom = -317.0
+
+[node name="ThoughtBubbleLeft" type="Control" parent="ControlRoot"]
+unique_name_in_owner = true
+anchors_preset = 0
+offset_left = -151.0
+offset_top = -268.0
+offset_right = -151.0
+offset_bottom = -268.0

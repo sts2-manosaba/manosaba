@@ -1,0 +1,15 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Texture2D" uid="uid://byjkp7t4rduua" path="res://Manosaba/images/characters/kurobe_nanoka/kurobe_nanoka.png" id="1_tex"]
+
+[node name="KurobeNanokaDarkSight" type="Node2D"]
+
+[node name="Visuals" type="Sprite2D" parent="."]
+unique_name_in_owner = true
+
+[node name="Sprite" type="Sprite2D" parent="Visuals"]
+position = Vector2(-1.0738096, -147.14761)
+scale = Vector2(0.2640939, 0.2640939)
+texture = ExtResource("1_tex")
+modulate = Color(0.3, 0.3, 0.45, 0.75)
+

@@ -29,6 +29,10 @@ namespace Manosaba.Characters.Common.Overrides
         [KeywordProperties(AutoKeywordPosition.Before)]
         public static CardKeyword LowStance;
 
+        [CustomEnum("gun_shot")]
+        [KeywordProperties(AutoKeywordPosition.Before)]
+        public static CardKeyword GunShot;
+
         public readonly record struct StanceBonus(decimal BonusDamage, decimal BonusBlock);
 
         public static async Task<StanceBonus> ResolveHighStance(Creature owner, Creature? applier, CardModel? source)

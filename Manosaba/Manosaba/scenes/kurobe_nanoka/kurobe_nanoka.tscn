@@ -1,0 +1,32 @@
+[gd_scene load_steps=3 format=3 uid="uid://c8a111bipxxo4"]
+
+[ext_resource type="Script" path="res://Characters/KurobeNanoka/Visuals/KurobeNanokaCharacterVisuals.cs" id="1_68yyg"]
+[ext_resource type="Texture2D" uid="uid://byjkp7t4rduua" path="res://Manosaba/images/characters/kurobe_nanoka/kurobe_nanoka.png" id="2_niwa1"]
+
+[node name="KurobeNanoka" type="Node2D"]
+script = ExtResource("1_68yyg")
+
+[node name="Visuals" type="Sprite2D" parent="."]
+unique_name_in_owner = true
+
+[node name="Sprite2D2" type="Sprite2D" parent="Visuals"]
+position = Vector2(-1.0738096, -147.14761)
+scale = Vector2(0.2640939, 0.2640939)
+texture = ExtResource("2_niwa1")
+
+[node name="Bounds" type="Control" parent="."]
+unique_name_in_owner = true
+layout_mode = 3
+anchors_preset = 0
+offset_left = -82.0
+offset_top = -346.0
+offset_right = 77.0
+offset_bottom = 20.0
+
+[node name="IntentPos" type="Marker2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(0, -361)
+
+[node name="CenterPos" type="Marker2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(-6, -157)

@@ -24,14 +24,14 @@ public class HasumiLeia : PlaceholderCharacterModel
 		ModelDb.Card<StrikeHasumiLeia>(),
 		ModelDb.Card<StrikeHasumiLeia>(),
 		ModelDb.Card<StrikeHasumiLeia>(),
-        ModelDb.Card<Voiding>(),
-        ModelDb.Card<DefendHasumiLeia>(),
+		ModelDb.Card<Voiding>(),
 		ModelDb.Card<DefendHasumiLeia>(),
 		ModelDb.Card<DefendHasumiLeia>(),
-        ModelDb.Card<DefendHasumiLeia>(),
-        ModelDb.Card<TraumaHasumiLeia>(),
-        ModelDb.Card<Lunge>(),
-    ];
+		ModelDb.Card<DefendHasumiLeia>(),
+		ModelDb.Card<DefendHasumiLeia>(),
+		ModelDb.Card<TraumaHasumiLeia>(),
+		ModelDb.Card<Lunge>(),
+	];
 
 	public override IReadOnlyList<RelicModel> StartingRelics =>
 	[

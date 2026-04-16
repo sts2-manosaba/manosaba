@@ -1,0 +1,15 @@
+[gd_scene load_steps=2 format=3 uid="uid://cq6dg81jfhk3"]
+
+[ext_resource type="Texture2D" uid="uid://c5gi8tvwdejkg" path="res://images/ui/top_panel/character_icon_manosaba-kurobe_nanoka_outline.png" id="1_crrds"]
+
+[node name="KurobeNanokaIcon" type="TextureRect"]
+anchors_preset = -1
+anchor_top = -0.004
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 2.592
+offset_right = 1.0
+offset_bottom = -4.0
+texture = ExtResource("1_crrds")
+expand_mode = 1
+stretch_mode = 5

@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://0fn54b1q21o4"]
 
 [ext_resource type="Script" uid="uid://bb347yvm0u14b" path="res://Characters/Common/Overrides/ManosabaRestSiteCharacter.cs" id="1_vlqf0"]
-[ext_resource type="Texture2D" uid="uid://bifoq0kn1ejor" path="res://Manosaba/images/characters/hasumi_leia/hasumi_leia_rest_site.png" id="2_nsp4p"]
+[ext_resource type="Texture2D" uid="uid://c1yji5b4tf0k6" path="res://Manosaba/images/characters/hasumi_leia/hasumi_leia_rest_site.png" id="2_nsp4p"]
 [ext_resource type="PackedScene" uid="uid://bgy88bk44xxvk" path="res://Manosaba/scenes/selection_reticle.tscn" id="3_0jw6i"]
 
 [node name="HasumiLeiaRestSite" type="Node2D"]

@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=3 uid="uid://b82scvd0vpamw"]
+
+[ext_resource type="Script" uid="uid://cnvmx0lgyr8bh" path="res://Characters/Common/Overrides/ManosabaMerchantCharacter.cs" id="1_qjeox"]
+[ext_resource type="Texture2D" uid="uid://u2jjk5dysvsm" path="res://Manosaba/images/characters/kurobe_nanoka/kurobe_nanoka_merchant.png" id="2_tcvtr"]
+
+[node name="HoshoMagoMerchant" type="Node2D"]
+script = ExtResource("1_qjeox")
+
+[node name="Sprite2D2" type="Sprite2D" parent="."]
+position = Vector2(-3, -237)
+scale = Vector2(0.3358663, 0.33586627)
+texture = ExtResource("2_tcvtr")

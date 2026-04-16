@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Manosaba.Characters.KurobeNanoka.Cards;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Ascension;
 using MegaCrit.Sts2.Core.Entities.Cards;
@@ -24,7 +25,8 @@ namespace Manosaba.Characters.SaekiMiria.Helper
             bool isMultiplayer = player.RunState.Players.Count > 1;
             IEnumerable<CardModel> availableCards = isMultiplayer
                 ? cards
-                : cards.Where(c => c.MultiplayerConstraint != CardMultiplayerConstraint.MultiplayerOnly);
+                : cards.Where(c => c.MultiplayerConstraint != CardMultiplayerConstraint.MultiplayerOnly)
+                .Where(c => c is not GunBase);
 
             return from c in availableCards.TakeRandom(count, rng)
                    select player.Creature.CombatState.CreateCard(c, player);
