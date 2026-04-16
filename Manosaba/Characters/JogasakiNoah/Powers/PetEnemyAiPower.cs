@@ -50,9 +50,9 @@ public sealed class PetEnemyAiPower : PathCustomPowerModel
             return;
         }
 
-        if (owner.Monster.NextMove.Id == "UNSET_MOVE")
+        if (owner.Monster.NextMove.Id == "UNSET_MOVE" && !TryPrepareForNextTurnWithTargets(owner, targets, rollNewMove: true))
         {
-            PrepareForNextTurnWithTargets(owner, targets, rollNewMove: true);
+            return;
         }
 
         if (!TryAdvanceToValidMove(owner, targets))
@@ -63,14 +63,24 @@ public sealed class PetEnemyAiPower : PathCustomPowerModel
         MoveState move = owner.Monster.NextMove;
         await move.PerformMove(targets);
         owner.Monster.MoveStateMachine?.OnMovePerformed(move);
-        PrepareForNextTurnWithTargets(owner, targets, rollNewMove: true);
+        _ = TryPrepareForNextTurnWithTargets(owner, targets, rollNewMove: true);
     }
 
     public static bool TryAdvanceToValidMove(Creature owner, IReadOnlyList<Creature> targets)
     {
+        if (owner.Monster == null)
+        {
+            return false;
+        }
+
         for (int i = 0; i < MaxMoveAdvanceAttempts; i++)
         {
-            MoveState currentMove = owner.Monster!.NextMove;
+            MoveState currentMove = owner.Monster.NextMove;
+            if (currentMove == null)
+            {
+                return false;
+            }
+
             bool isAllowedMove = IsAllowedMove(currentMove);
             if (isAllowedMove)
             {
@@ -79,8 +89,15 @@ public sealed class PetEnemyAiPower : PathCustomPowerModel
 
             string oldMoveId = currentMove.Id;
             owner.Monster.MoveStateMachine?.OnMovePerformed(currentMove);
-            PrepareForNextTurnWithTargets(owner, targets, rollNewMove: true);
+            if (!TryPrepareForNextTurnWithTargets(owner, targets, rollNewMove: true))
+            {
+                return false;
+            }
             MoveState nextMove = owner.Monster.NextMove;
+            if (nextMove == null)
+            {
+                return false;
+            }
 
             bool nextIsAllowedMove = IsAllowedMove(nextMove);
             if (nextMove.Id == oldMoveId && !nextIsAllowedMove)
@@ -106,14 +123,28 @@ public sealed class PetEnemyAiPower : PathCustomPowerModel
             or IntentType.Sleep;
     }
 
-    private static void PrepareForNextTurnWithTargets(Creature owner, IReadOnlyList<Creature> targets, bool rollNewMove)
+    public static bool TryPrepareForNextTurnWithTargets(Creature owner, IReadOnlyList<Creature> targets, bool rollNewMove)
     {
+        if (owner.Monster == null)
+        {
+            return false;
+        }
+
         if (rollNewMove)
         {
-            owner.Monster?.RollMove(targets.ToArray());
+            try
+            {
+                owner.Monster.RollMove(targets.ToArray());
+            }
+            catch (NullReferenceException)
+            {
+                // Some enemy-only move checks (e.g. summon checks) can dereference null when used as a player pet.
+                return false;
+            }
         }
 
         _ = NCombatRoom.Instance?.GetCreatureNode(owner)?.UpdateIntent(targets);
+        return true;
     }
 
     public override decimal ModifyMaxEnergy(Player player, decimal amount)

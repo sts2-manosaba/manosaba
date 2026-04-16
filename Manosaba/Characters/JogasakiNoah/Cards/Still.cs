@@ -55,9 +55,10 @@ namespace Manosaba.Characters.JogasakiNoah.Cards
                 List<Creature> petTargets = pet.CombatState.GetOpponentsOf(perspective)
                     .Where(c => c != null && c.IsAlive)
                     .ToList();
-                pet.PrepareForNextTurn(petTargets, true);
-                PetEnemyAiPower.TryAdvanceToValidMove(pet, petTargets);
-                _ = NCombatRoom.Instance?.GetCreatureNode(pet)?.UpdateIntent(petTargets);
+                if (PetEnemyAiPower.TryPrepareForNextTurnWithTargets(pet, petTargets, rollNewMove: true))
+                {
+                    PetEnemyAiPower.TryAdvanceToValidMove(pet, petTargets);
+                }
                 await PowerCmd.Apply<PetEnemyAiPower>(pet, 1m, Owner.Creature, null);
             }
             else

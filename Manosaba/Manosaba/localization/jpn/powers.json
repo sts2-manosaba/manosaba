@@ -222,5 +222,8 @@
   "MANOSABA-COMEDIAN_POWER.smartDescription": "[gold]トークン[/gold]カードを引いたとき、[blue]{Amount}[/blue][gold]ブロック[/gold]を得る。",
   "MANOSABA-SHOW_OFF_POWER.title": "見せつける",
   "MANOSABA-SHOW_OFF_POWER.description": "このターン攻撃をブロックしたとき、次のターン終了までX点の[gold]筋力[/gold]を得る。",
-  "MANOSABA-SHOW_OFF_POWER.smartDescription": "このターン攻撃をブロックしたとき、次のターン終了までX点の[gold]筋力[/gold]を得る。"
+  "MANOSABA-SHOW_OFF_POWER.smartDescription": "このターン攻撃をブロックしたとき、次のターン終了までX点の[gold]筋力[/gold]を得る。",
+  "MANOSABA-RELIC_LEVELING_HOVER_TIP_POWER.title": "成長",
+  "MANOSABA-RELIC_LEVELING_HOVER_TIP_POWER.description": "この遺物は戦闘勝利で経験値を獲得し、レベルアップします。",
+  "MANOSABA-RELIC_LEVELING_HOVER_TIP_POWER.smartDescription": "この遺物は戦闘勝利で経験値を獲得し、レベルアップします。"
 }

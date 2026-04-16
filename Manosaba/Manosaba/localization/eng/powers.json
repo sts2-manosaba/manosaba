@@ -222,5 +222,8 @@
   "MANOSABA-COMEDIAN_POWER.smartDescription": "Whenever you draw a [gold]Token[/gold] card, gain [blue]{Amount}[/blue] [gold]Block[/gold].",
   "MANOSABA-SHOW_OFF_POWER.title": "Show Off",
   "MANOSABA-SHOW_OFF_POWER.description": "When you successfully block damage this turn, gain X [gold]Strength[/gold] until the end of next turn.",
-  "MANOSABA-SHOW_OFF_POWER.smartDescription": "When you successfully block damage this turn, gain X [gold]Strength[/gold] until the end of next turn."
+  "MANOSABA-SHOW_OFF_POWER.smartDescription": "When you successfully block damage this turn, gain X [gold]Strength[/gold] until the end of next turn.",
+  "MANOSABA-RELIC_LEVELING_HOVER_TIP_POWER.title": "Leveling",
+  "MANOSABA-RELIC_LEVELING_HOVER_TIP_POWER.description": "This relic gains experience from combat victories and levels up.",
+  "MANOSABA-RELIC_LEVELING_HOVER_TIP_POWER.smartDescription": "This relic gains experience from combat victories and levels up."
 }

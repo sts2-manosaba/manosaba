@@ -17,10 +17,10 @@ namespace manosaba.Characters.NikaidoHiro.Relics
     public sealed class PenOfHiro : LevelingPathCustomRelicModel
     {
         public override RelicRarity Rarity => RelicRarity.Starter;
-        protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<VotePower>()];
+        protected override IEnumerable<IHoverTip> ExtraHoverTips => [.. base.ExtraHoverTips, HoverTipFactory.FromPower<VotePower>()];
         protected override int MaxRelicLevel => 5;
 
-        protected override IEnumerable<DynamicVar> CanonicalVars => [new DynamicVar("VoteCost", 1m), new SummonVar(7)];
+        protected override IEnumerable<DynamicVar> CanonicalVars => [new DynamicVar("VoteCost", 1m), new SummonVar(6)];
 
         public override Task AfterObtained()
         {

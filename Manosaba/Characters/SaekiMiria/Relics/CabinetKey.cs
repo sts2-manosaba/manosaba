@@ -39,6 +39,7 @@ namespace manosaba.Characters.SaekiMiria.Relics
 
         protected override IEnumerable<IHoverTip> ExtraHoverTips =>
         [
+            .. base.ExtraHoverTips,
             HoverTipFactory.FromCard<HorrorMovie>(),
             HoverTipFactory.FromCard<ComedyMovie>(),
             HoverTipFactory.FromCard<FantasyMovie>(),

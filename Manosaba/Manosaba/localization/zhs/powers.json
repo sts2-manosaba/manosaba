@@ -223,5 +223,8 @@
   "MANOSABA-THE_STAR_POWER.smartDescription": "本回合受到的攻擊傷害減少 [blue]{Amount}[/blue]。",
   "MANOSABA-THE_SUN_POWER.title": "太陽",
   "MANOSABA-THE_SUN_POWER.description": "最大[gold]能量[/gold]增加。",
-  "MANOSABA-THE_SUN_POWER.smartDescription": "最大[gold]能量[/gold]增加 [blue]{Amount}[/blue]。"
+  "MANOSABA-THE_SUN_POWER.smartDescription": "最大[gold]能量[/gold]增加 [blue]{Amount}[/blue]。",
+  "MANOSABA-RELIC_LEVELING_HOVER_TIP_POWER.title": "成長",
+  "MANOSABA-RELIC_LEVELING_HOVER_TIP_POWER.description": "此遺物會在戰鬥勝利後獲得經驗並升級。",
+  "MANOSABA-RELIC_LEVELING_HOVER_TIP_POWER.smartDescription": "此遺物會在戰鬥勝利後獲得經驗並升級。"
 }

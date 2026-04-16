@@ -50,7 +50,13 @@ namespace Manosaba.Characters.JogasakiNoah.Potions
             }
 
             Creature perspective = pet.PetOwner?.Creature ?? Owner.Creature;
-            pet.PrepareForNextTurn(pet.CombatState.GetOpponentsOf(perspective), true);
+            List<Creature> petTargets = pet.CombatState.GetOpponentsOf(perspective)
+                .Where(c => c != null && c.IsAlive)
+                .ToList();
+            if (PetEnemyAiPower.TryPrepareForNextTurnWithTargets(pet, petTargets, rollNewMove: true))
+            {
+                PetEnemyAiPower.TryAdvanceToValidMove(pet, petTargets);
+            }
             await PowerCmd.Apply<PetEnemyAiPower>(pet, 1m, Owner.Creature, null);
         }
     }

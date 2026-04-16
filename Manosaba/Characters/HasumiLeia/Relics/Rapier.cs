@@ -31,7 +31,7 @@ namespace manosaba.Characters.HasumiLeia.Relics
         private bool _reflectedSinceLastTurnStart;
         protected override IEnumerable<DynamicVar> CanonicalVars => [new EnergyVar(1)];
 
-        protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.ForEnergy(this)];
+        protected override IEnumerable<IHoverTip> ExtraHoverTips => [.. base.ExtraHoverTips, HoverTipFactory.ForEnergy(this)];
 
         public override Task AfterObtained()
         {

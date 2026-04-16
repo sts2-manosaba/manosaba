@@ -1,3 +1,4 @@
+using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Rooms;
 using MegaCrit.Sts2.Core.Saves.Runs;
 
@@ -22,6 +23,7 @@ namespace Manosaba.Extensions
 
         public override bool ShowCounter => true;
         public override int DisplayAmount => RelicLevel;
+        protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<RelicLevelingHoverTipPower>()];
 
         [SavedProperty]
         public int RelicExp

@@ -30,14 +30,16 @@ namespace Manosaba.Characters.Common.Cards
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
             int num = ResolveEnergyXValue();
-            for (int i = 0; i < num; i++)
-            {
-                await Cmd.Wait(0.15f);
-                Strike(choiceContext, DynamicVars.Damage.BaseValue);
-            }
+            await DamageCmd
+                .Attack(DynamicVars.Damage.BaseValue)
+                .WithHitCount(num)
+                .WithHitFx(vfx: "vfx/vfx_attack_lightning", sfx: EvokeSfx)
+                .FromCard(this)
+                .TargetingRandomOpponents(CombatState)
+                .Execute(choiceContext);
         }
 
-        private async void Strike(PlayerChoiceContext choiceContext, Decimal value)
+        private async void Strike(PlayerChoiceContext choiceContext)
         {
             List<Creature> list = (from e in base.CombatState.GetOpponentsOf(base.Owner.Creature)
                                    where e.IsHittable
@@ -52,7 +54,7 @@ namespace Manosaba.Characters.Common.Cards
             VfxCmd.PlayOnCreature(target, "vfx/vfx_attack_lightning");
 
             PlayEvokeSfx();
-            await CreatureCmd.Damage(choiceContext, target, value, ValueProp.Move, base.Owner.Creature);
+            await DamageCmd.Attack(DynamicVars.Damage.BaseValue).FromCard(this).Targeting(target).Execute(choiceContext);
             return;
         }
 
