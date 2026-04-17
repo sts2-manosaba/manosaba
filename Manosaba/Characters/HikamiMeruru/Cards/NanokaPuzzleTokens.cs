@@ -100,6 +100,8 @@ namespace Manosaba.Characters.HikamiMeruru.Cards
         private const CardRarity rarity = CardRarity.Token;
         private const TargetType targetTypeValue = TargetType.Self;
         private const bool shouldShowInCardLibrary = false;
+        public override bool CanBeGeneratedInCombat => false;
+        public override bool CanBeGeneratedByModifiers => false;
 
         public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
 
