@@ -1,11 +1,14 @@
 using HarmonyLib;
 using manosaba.Characters.HoshoMago;
+using Manosaba.Characters.Common.Overrides;
 using Manosaba.Characters.HoshoMago.Cards;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.Factories;
 using MegaCrit.Sts2.Core.Models;
+using MegaCrit.Sts2.Core.Models.Relics;
 using MegaCrit.Sts2.Core.Random;
+using MegaCrit.Sts2.Core.Runs;
 using System.Reflection;
 
 namespace Manosaba.Patches;
@@ -26,10 +29,16 @@ public static class Patch_Hosho_Mago_Card_Factory
         {
             yield return method;
         }
+
+        MethodInfo? lastingCandy = AccessTools.Method(typeof(LastingCandy), nameof(LastingCandy.TryModifyCardRewardOptions));
+        if (lastingCandy != null)
+        {
+            yield return lastingCandy;
+        }
     }
 
     [HarmonyPrefix]
-    private static bool Prefix(MethodBase __originalMethod, object[] __args, ref object? __result)
+    private static bool Prefix(MethodBase __originalMethod, object[] __args, ref object? __result, object? __instance = null)
     {
         if (__originalMethod.Name == nameof(CardFactory.CreateRandomCardForTransform))
         {
@@ -41,7 +50,21 @@ public static class Patch_Hosho_Mago_Card_Factory
             return PrefixGetDistinctForCombat(__args, ref __result);
         }
 
+        if (__originalMethod.Name == nameof(LastingCandy.TryModifyCardRewardOptions))
+        {
+            return PrefixLastingCandyTryModifyCardRewardOptions(__args, ref __result, __instance);
+        }
+
         return true;
+    }
+
+    [HarmonyPostfix]
+    private static void Postfix(MethodBase __originalMethod, object[] __args, ref object? __result, object? __instance = null)
+    {
+        if (__originalMethod.Name == nameof(LastingCandy.TryModifyCardRewardOptions))
+        {
+            PostfixLastingCandyTryModifyCardRewardOptions(__args, ref __result, __instance);
+        }
     }
 
     private static bool PrefixCreateRandomCardForTransform(object[] args, ref object? result)
@@ -116,6 +139,119 @@ public static class Patch_Hosho_Mago_Card_Factory
 
         result = picked;
         return false;
+    }
+
+    private static bool PrefixLastingCandyTryModifyCardRewardOptions(object[] args, ref object? result, object? instance)
+    {
+        if (instance is not LastingCandy lastingCandy || args.Length < 3 || args[0] is not Player player || args[1] is not List<CardCreationResult> options || args[2] is not CardCreationOptions creationOptions)
+        {
+            return true;
+        }
+
+        if (player.Character?.CardPool is not HoshoMagoCardPool)
+        {
+            return true;
+        }
+
+        if (lastingCandy.Owner != player)
+        {
+            return true;
+        }
+
+        if (creationOptions.Source != CardCreationSource.Encounter)
+        {
+            return true;
+        }
+
+        bool isInTriggeringCombat = lastingCandy.CombatsSeen > 0 && lastingCandy.CombatsSeen % 2 == 0;
+        if (!isInTriggeringCombat)
+        {
+            return true;
+        }
+
+        IEnumerable<CardModel> powerPool = creationOptions.GetPossibleCards(player)
+            .Where(c => c.Type == CardType.Power && options.TrueForAll(o => o.Card.CanonicalInstance.Id != c.Id));
+        if (!powerPool.Any())
+        {
+            powerPool = creationOptions.GetPossibleCards(player).Where(c => c.Type == CardType.Power);
+        }
+
+        List<CardModel> powerCards = powerPool.ToList();
+        if (powerCards.Count == 0)
+        {
+            result = false;
+            return false;
+        }
+
+        bool singleRarity = powerCards.Select(c => c.Rarity).Distinct().Count() == 1;
+        if (!singleRarity)
+        {
+            return true;
+        }
+
+        CardCreationOptions safeOptions = new CardCreationOptions(powerCards, CardCreationSource.Other, CardRarityOddsType.Uniform)
+            .WithFlags(CardCreationFlags.NoModifyHooks | CardCreationFlags.NoCardPoolModifications);
+        CardModel? cardModel = CardFactory.CreateForReward(lastingCandy.Owner, 1, safeOptions).FirstOrDefault()?.Card;
+        if (cardModel != null)
+        {
+            CardCreationResult cardCreationResult = new(cardModel);
+            cardCreationResult.ModifyCard(cardModel, lastingCandy);
+            options.Add(cardCreationResult);
+        }
+
+        result = cardModel != null;
+        return false;
+    }
+
+    private static void PostfixLastingCandyTryModifyCardRewardOptions(object[] args, ref object? result, object? instance)
+    {
+        if (instance is not LastingCandy lastingCandy || args.Length < 3 || args[0] is not Player player || args[1] is not List<CardCreationResult> options || result is not bool modified || !modified)
+        {
+            return;
+        }
+
+        if (player.Character?.CardPool is not HoshoMagoCardPool)
+        {
+            return;
+        }
+
+        CardCreationResult? candyResult = options.FirstOrDefault(o => o.ModifyingRelics.Contains(lastingCandy));
+        if (candyResult == null)
+        {
+            return;
+        }
+
+        if (candyResult.Card.Tags.Contains(ManosabaCardTags.Tarot) && candyResult.Card is not TheWorld)
+        {
+            return;
+        }
+
+        List<CardModel> tarotPool = ModelDb.CardPool<HoshoMagoCardPool>()
+            .GetUnlockedCards(player.UnlockState, player.RunState.CardMultiplayerConstraint)
+            .Where(card => card.Tags.Contains(ManosabaCardTags.Tarot) && card is not TheWorld)
+            .ToList();
+        if (tarotPool.Count == 0)
+        {
+            return;
+        }
+
+        HashSet<ModelId> existingTarotIds = options
+            .Select(o => o.Card)
+            .Where(card => card.Tags.Contains(ManosabaCardTags.Tarot) && card is not TheWorld)
+            .Select(card => card.Id)
+            .ToHashSet();
+
+        List<CardModel> available = tarotPool
+            .Where(card => !existingTarotIds.Contains(card.Id))
+            .ToList();
+        if (available.Count == 0)
+        {
+            available = tarotPool;
+        }
+
+        CardModel canonical = player.RunState.Rng.Niche.NextItem(available);
+        CardModel replacement = player.RunState.CreateCard(canonical, player);
+        candyResult.ModifyCard(replacement, lastingCandy);
     }
 
     private static bool TryGetPoolCards(object poolArg, Player player, out List<CardModel>? cards)

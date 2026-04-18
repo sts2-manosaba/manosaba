@@ -5,8 +5,11 @@ using manosaba.Extensions;
 using Manosaba.Characters.Common.Commands;
 using Manosaba.Characters.Common.Overrides;
 using Manosaba.Characters.Common.Powers;
+using Manosaba.Characters.HikamiMeruru.Powers;
 using Manosaba.Characters.HoshoMago.Powers;
 using Manosaba.Extensions;
+using MegaCrit.Sts2.Core.CardSelection;
+using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Creatures;
@@ -17,7 +20,6 @@ using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.Powers;
 using MegaCrit.Sts2.Core.Nodes.Combat;
-using MegaCrit.Sts2.Core.Nodes.CommonUi;
 using MegaCrit.Sts2.Core.Nodes.Rooms;
 using MegaCrit.Sts2.Core.ValueProps;
 
@@ -365,45 +367,37 @@ public sealed class WheelOfFortune : HoshoMagoArcanaBase
 [Pool(typeof(HoshoMagoCardPool))]
 public sealed class Justice : HoshoMagoArcanaBase
 {
+    protected override IEnumerable<DynamicVar> CanonicalVars => [new PowerVar<InhibitionPower>(1)];
+    protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<InhibitionPower>()];
+    public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
+
     public Justice() : base(1, CardType.Skill, TargetType.AllEnemies)
     {
     }
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        List<Creature> enemies = CombatState.GetOpponentsOf(Owner.Creature)
-            .Where(creature => creature != null && creature.IsAlive)
+        List<CardModel> cardsToExhaust = PileType.Hand.GetPile(Owner).Cards
             .ToList();
-        await RedistributeHpByLostHp(enemies);
+        int exhaustedCount = cardsToExhaust.Count;
 
-        if (!IsUpgraded)
+        foreach (CardModel card in cardsToExhaust)
+        {
+            await CardCmd.Exhaust(choiceContext, card);
+        }
+
+        if (exhaustedCount <= 0)
         {
             return;
         }
 
-        List<Creature> allies = CombatState.GetTeammatesOf(Owner.Creature)
-            .Where(creature => creature != null && creature.IsAlive && creature.IsPlayer)
-            .ToList();
-        await RedistributeHpByLostHp(allies);
+        decimal perCardInhibition = DynamicVars["InhibitionPower"].BaseValue;
+        await PowerCmd.Apply<InhibitionPower>(Owner.Creature, exhaustedCount * perCardInhibition, Owner.Creature, this);
     }
 
-    private static async Task RedistributeHpByLostHp(List<Creature> creatures)
+    protected override void OnUpgrade()
     {
-        if (creatures.Count <= 0)
-        {
-            return;
-        }
-
-        int totalLostHp = creatures.Sum(creature => Math.Max(0, creature.MaxHp - creature.CurrentHp));
-        decimal averageLostHp = (decimal)totalLostHp / creatures.Count;
-
-        for (int i = 0; i < creatures.Count; i++)
-        {
-            Creature creature = creatures[i];
-            int hp = (int)Math.Round(creature.MaxHp - averageLostHp, MidpointRounding.AwayFromZero);
-            hp = Math.Clamp(hp, 0, creature.MaxHp);
-            await CreatureCmd.SetCurrentHp(creature, hp);
-        }
+        EnergyCost.UpgradeBy(-1);
     }
 }
 
@@ -833,12 +827,11 @@ public sealed class TheWorld : HoshoMagoArcanaBase
     private const string VfxScenePath = "res://Manosaba/scenes/hosho_mago/vfx/the_world.tscn";
     public override bool CanBeGeneratedInCombat => false;
     public override bool CanBeGeneratedByModifiers => false;
+    protected override IEnumerable<DynamicVar> CanonicalVars => [new CardsVar(1)];
+
     public TheWorld() : base(0)
     {
     }
-
-    // Match Grand Finale style: only playable when the draw pile is empty.
-    protected override bool IsPlayable => base.IsPlayable && PileType.Draw.GetPile(Owner).Cards.Count == 0;
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
@@ -847,32 +840,37 @@ public sealed class TheWorld : HoshoMagoArcanaBase
             return;
         }
 
-        List<CardModel> tarotCards = ModelDb.CardPool<HoshoMagoCardPool>()
-            .AllCards
-            .Where(card => card.Tags.Contains(ManosabaCardTags.Tarot) && card is not TheWorld)
-            .ToList();
-        ManosabaVfxCmd.PlaySceneAtCombatCenter(VfxScenePath, fitCoverViewport: true, spriteNodeNames: ["StillA", "StillB"]);
-        if (tarotCards.Count > 0)
+        if (PileType.Draw.GetPile(Owner).Cards.Count == 0)
         {
-            List<CardModel> previews = tarotCards
-                .Select(card => CombatState.CreateCard(card, Owner))
-                .ToList();
-            IReadOnlyList<CardPileAddResult> previewResults = await CardPileCmd.AddGeneratedCardsToCombat(
-                previews,
-                PileType.Discard,
-                addedByPlayer: false,
-                CardPilePosition.Random);
-            CardCmd.PreviewCardPileAdd(previewResults, 1.2f, CardPreviewStyle.MessyLayout);
-            await Cmd.Wait(3.4f);
-
-            foreach (CardPileAddResult result in previewResults)
-            {
-                if (result.success && result.cardAdded != null)
-                {
-                    await CardPileCmd.RemoveFromCombat(result.cardAdded);
-                }
-            }
+            await ManosabaVfxCmd.PlaySceneAtCombatCenterAndWait(VfxScenePath, fitCoverViewport: true, spriteNodeNames: ["StillA", "StillB"]);
+            await ManosabaCombatCmd.ForceWinWithoutDeathOrEscape(CombatState);
+            return;
         }
-        await ManosabaCombatCmd.ForceWinWithoutDeathOrEscape(CombatState);
+
+        int count = DynamicVars.Cards.IntValue;
+        await CardPileCmd.Draw(choiceContext, count, Owner);
+
+        int exhaustCount = Math.Min(count, PileType.Hand.GetPile(Owner).Cards.Count);
+        if (exhaustCount <= 0)
+        {
+            return;
+        }
+
+        IEnumerable<CardModel> selectedCards = await CardSelectCmd.FromHand(
+            prefs: new CardSelectorPrefs(CardSelectorPrefs.ExhaustSelectionPrompt, exhaustCount),
+            context: choiceContext,
+            player: Owner,
+            filter: null,
+            source: this);
+
+        foreach (CardModel selectedCard in selectedCards.ToList())
+        {
+            await CardCmd.Exhaust(choiceContext, selectedCard);
+        }
+    }
+
+    protected override void OnUpgrade()
+    {
+        DynamicVars.Cards.UpgradeValueBy(1m);
     }
 }

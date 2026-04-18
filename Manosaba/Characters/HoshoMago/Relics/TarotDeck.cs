@@ -11,7 +11,6 @@ using MegaCrit.Sts2.Core.Entities.Relics;
 using MegaCrit.Sts2.Core.Helpers;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Nodes.CommonUi;
-using MegaCrit.Sts2.Core.Rewards;
 using MegaCrit.Sts2.Core.Runs;
 
 namespace manosaba.Characters.HoshoMago.Relics;
@@ -40,15 +39,20 @@ public sealed class TarotDeck : LevelingPathCustomRelicModel
 
         await TryAddWorldWhenCollectionCompleted();
     }
-
-    public override async Task AfterRewardTaken(Player player, Reward reward)
+    public override async Task AfterCardChangedPiles(CardModel card, PileType oldPileType, AbstractModel? source)
     {
-        _ = reward;
-
-        if (Owner == player)
+        _ = source;
+        if (Owner == null || card.Owner != Owner)
         {
-            await TryAddWorldWhenCollectionCompleted();
+            return;
         }
+
+        if (card.Pile?.Type != PileType.Deck)
+        {
+            return;
+        }
+
+        await TryAddWorldWhenCollectionCompleted();
     }
 
     public override CardCreationOptions ModifyCardRewardCreationOptions(Player player, CardCreationOptions options)
