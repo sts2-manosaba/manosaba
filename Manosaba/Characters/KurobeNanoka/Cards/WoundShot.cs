@@ -20,7 +20,7 @@ namespace Manosaba.Characters.KurobeNanoka.Cards;
 public class WoundShot : GunBase
 {
     private const int energyCost = 1;
-    private const CardType type = CardType.Skill;
+    private const CardType type = CardType.Attack;
     private const CardRarity rarity = CardRarity.Common;
     private const TargetType targetType = TargetType.AnyEnemy;
     private const bool shouldShowInCardLibrary = true;
@@ -28,7 +28,7 @@ public class WoundShot : GunBase
     public override IEnumerable<CardKeyword> CanonicalKeywords => [ManosabaKeywords.GunShot];
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
-        new DamageVar(12, ValueProp.Move),
+        new DamageVar(10, ValueProp.Move),
         new PowerVar<VulnerablePower>(2m),
         new DynamicVar("BulletCost", 1m),
     ];
@@ -47,10 +47,7 @@ public class WoundShot : GunBase
         var target = cardPlay.Target;
         if (target == null)
             return;
-        decimal damage = DynamicVars.Damage.BaseValue;
-
-        NanokaHelper.PlayGunFireSfx();
-        await CreatureCmd.Damage(choiceContext, target, damage, ValueProp.Move, base.Owner.Creature, this);
+        await ExecuteGunAttack(choiceContext, target, DynamicVars.Damage.BaseValue);
         await PowerCmd.Apply<VulnerablePower>(target, DynamicVars.Vulnerable.BaseValue, base.Owner.Creature, this);
     }
 

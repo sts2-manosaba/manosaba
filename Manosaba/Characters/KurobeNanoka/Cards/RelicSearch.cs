@@ -39,7 +39,6 @@ public class RelicSearch : PathCustomCardModel
 
     protected override void OnUpgrade()
     {
-        base.AddKeyword(CardKeyword.Retain);
-        //DynamicVars["ExtraRolls"].UpgradeValueBy(1m);
+        EnergyCost.UpgradeBy(-1);
     }
 }

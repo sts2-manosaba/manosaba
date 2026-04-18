@@ -12,13 +12,38 @@ namespace Manosaba.Characters.KurobeNanoka.Powers;
 
 public sealed class SteadyShotPower : PathCustomPowerModel
 {
-    private const string GunsDealtVar = "GunsDealt";
+    private const string ExtraDamagePerShotVar = "ExtraDamagePerShot";
+    private const string NextShotBonusVar = "NextShotBonus";
 
     public override PowerType Type => PowerType.Buff;
     public override PowerStackType StackType => PowerStackType.Counter;
-    public override int DisplayAmount => DynamicVars[GunsDealtVar].IntValue;
+    public override int DisplayAmount => Amount;
 
-    protected override IEnumerable<DynamicVar> CanonicalVars => [new DynamicVar(GunsDealtVar, 0m)];
+    protected override IEnumerable<DynamicVar> CanonicalVars =>
+    [
+        new DynamicVar(ExtraDamagePerShotVar, 0m),
+        new DynamicVar(NextShotBonusVar, 0m),
+    ];
+
+    public override Task AfterApplied(Creature? applier, CardModel? cardSource)
+    {
+        _ = applier;
+        _ = cardSource;
+        RefreshDerivedValues();
+        return Task.CompletedTask;
+    }
+
+    public override async Task AfterPowerAmountChanged(PowerModel power, decimal amount, Creature? applier, CardModel? cardSource)
+    {
+        await base.AfterPowerAmountChanged(power, amount, applier, cardSource);
+
+        if (power != this)
+        {
+            return;
+        }
+
+        RefreshDerivedValues();
+    }
 
     public override decimal ModifyDamageAdditive(
         Creature? target,
@@ -45,10 +70,7 @@ public sealed class SteadyShotPower : PathCustomPowerModel
             return 0m;
         }
 
-        decimal bonusPerStack = SteadyShot.GetBonusDamagePerStack();
-
-        // Apply the same per-stack bonus to this shot and each prior qualifying shot while the power is active.
-        return (DynamicVars[GunsDealtVar].BaseValue + 1m) * bonusPerStack;
+        return DynamicVars[NextShotBonusVar].BaseValue;
     }
 
     public override async Task AfterCardPlayed(PlayerChoiceContext context, CardPlay cardPlay)
@@ -58,13 +80,19 @@ public sealed class SteadyShotPower : PathCustomPowerModel
             return;
         }
 
-        if (cardPlay.Card is not GunBase)
+        if (cardPlay.Card is not GunBase || cardPlay.Card.Type != CardType.Attack)
         {
             return;
         }
 
-        DynamicVars[GunsDealtVar].BaseValue += 1m;
-        InvokeDisplayAmountChanged();
+        DynamicVars[NextShotBonusVar].BaseValue += Amount;
+        RefreshDerivedValues();
         await Task.CompletedTask;
+    }
+
+    private void RefreshDerivedValues()
+    {
+        DynamicVars[ExtraDamagePerShotVar].BaseValue = Amount;
+        InvokeDisplayAmountChanged();
     }
 }

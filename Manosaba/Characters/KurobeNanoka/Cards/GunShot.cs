@@ -25,7 +25,7 @@ public class GunShot : GunBase
     public override IEnumerable<CardKeyword> CanonicalKeywords => [ManosabaKeywords.GunShot];
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
-        new DamageVar(12, ValueProp.Move),
+        new DamageVar(10, ValueProp.Move),
         new DynamicVar("BulletCost", 1m),
     ];
 
@@ -41,10 +41,7 @@ public class GunShot : GunBase
         var target = cardPlay.Target;
         if (target == null)
             return;
-        decimal damage = DynamicVars.Damage.BaseValue;
-
-        NanokaHelper.PlayGunFireSfx();
-        await CreatureCmd.Damage(choiceContext, target, damage, ValueProp.Move, base.Owner.Creature, this);
+        await ExecuteGunAttack(choiceContext, target, DynamicVars.Damage.BaseValue);
     }
 
     protected override void OnUpgrade()

@@ -1,3 +1,4 @@
+using Godot;
 using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Creatures;
@@ -53,6 +54,7 @@ public static class JailerCmd
         jailerNode?.TrackBlockStatus(summoner.Creature);
         if (jailerNode != null)
         {
+            PushJailerToBack(jailerNode);
             jailerNode.ToggleIsInteractable(true);
             jailerNode.OstyScaleToSize(jailer.MaxHp, 0.75f);
         }
@@ -64,5 +66,14 @@ public static class JailerCmd
         }
 
         return jailer;
+    }
+
+    private static void PushJailerToBack(NCreature jailerNode)
+    {
+        Node? parent = jailerNode.GetParent();
+        if (parent!= null)
+        {
+            parent.MoveChild(jailerNode, 0);
+        }
     }
 }

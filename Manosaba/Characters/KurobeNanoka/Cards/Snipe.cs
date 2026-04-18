@@ -16,16 +16,16 @@ namespace Manosaba.Characters.KurobeNanoka.Cards;
 [Pool(typeof(KurobeNanokaCardPool))]
 public class Snipe : GunBase
 {
-    private const int energyCost = 0;
+    private const int energyCost = 1;
     private const CardType type = CardType.Attack;
     private const CardRarity rarity = CardRarity.Rare;
     private const TargetType targetType = TargetType.AnyEnemy;
     private const bool shouldShowInCardLibrary = true;
 
-    public override IEnumerable<CardKeyword> CanonicalKeywords => [ManosabaKeywords.GunShot,  CardKeyword.Exhaust];
+    public override IEnumerable<CardKeyword> CanonicalKeywords => [ManosabaKeywords.GunShot, CardKeyword.Innate];
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
-        new DamageVar(20, ValueProp.Move),
+        new DamageVar(15m, ValueProp.Move),
         new DynamicVar("BulletCost", 1m),
     ];
 
@@ -41,15 +41,16 @@ public class Snipe : GunBase
         var target = cardPlay.Target;
         if (target == null)
             return;
-        decimal damage = DynamicVars.Damage.BaseValue;
-        if (CombatState.RoundNumber == 1) damage *= 2;
 
-        NanokaHelper.PlayGunFireSfx();
-        await CreatureCmd.Damage(choiceContext, target, damage, ValueProp.Move, base.Owner.Creature, this);
+        decimal damage = DynamicVars.Damage.BaseValue;
+
+        if ((CombatState?.RoundNumber ?? 0) == 1) damage *= 1.5m;
+
+        await ExecuteGunAttack(choiceContext, target, damage);
     }
 
     protected override void OnUpgrade()
     {
-        base.AddKeyword(CardKeyword.Innate);
+        DynamicVars.Damage.UpgradeValueBy(5m);
     }
 }

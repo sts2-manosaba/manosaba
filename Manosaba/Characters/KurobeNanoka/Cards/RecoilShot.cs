@@ -44,10 +44,7 @@ public class RecoilShot : GunBase
         var target = cardPlay.Target;
         if (target == null)
             return;
-        decimal damage = DynamicVars.Damage.BaseValue;
-
-        NanokaHelper.PlayGunFireSfx();
-        await CreatureCmd.Damage(choiceContext, target, damage, ValueProp.Move, base.Owner.Creature, this);
+        await ExecuteGunAttack(choiceContext, target, DynamicVars.Damage.BaseValue);
         await CreatureCmd.GainBlock(Owner.Creature, DynamicVars.Block, cardPlay);
     }
 

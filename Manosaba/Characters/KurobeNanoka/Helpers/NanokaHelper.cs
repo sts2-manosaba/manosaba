@@ -15,7 +15,7 @@ namespace Manosaba.Characters.KurobeNanoka.Helpers
     {
         public static string GUN_SHOT_SFX = "event:/Manosaba/audio/SFX/gun_shot.ogg";
 
-        public static void PlayGunFireSfx(float volume = 10)
+        public static void PlayGunFireSfx(float volume = 5)
         {
             SfxCmd.Play(GUN_SHOT_SFX, volume);
         }
@@ -29,7 +29,7 @@ namespace Manosaba.Characters.KurobeNanoka.Helpers
             SfxCmd.Play("event:/Manosaba/audio/SFX/glass_shatter.ogg", volume);
         }
 
-        public static void PlayAWPSfx(float volume = 5)
+        public static void PlayAWPSfx(float volume = 3)
         {
             SfxCmd.Play("event:/Manosaba/audio/SFX/AWP.mp3", volume);
         }

@@ -5,7 +5,9 @@ using Manosaba.Characters.KurobeNanoka.Powers;
 using Manosaba.Extensions;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
+using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
+using MegaCrit.Sts2.Core.Models;
 
 namespace Manosaba.Characters.KurobeNanoka.Cards;
 
@@ -27,6 +29,12 @@ public sealed class DarkSight : PathCustomCardModel
         _ = cardPlay;
 
         await PowerCmd.Apply<DarkSightPower>(Owner.Creature, 1m, Owner.Creature, this);
+
+        List<CardModel> handCards = PileType.Hand.GetPile(Owner).Cards.ToList();
+        if (handCards.Count > 0)
+        {
+            await CardCmd.Discard(choiceContext, handCards);
+        }
 
         // Immediately end the player's turn.
         PlayerCmd.EndTurn(Owner, canBackOut: false);

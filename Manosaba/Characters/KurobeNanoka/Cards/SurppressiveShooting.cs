@@ -6,7 +6,9 @@ using Manosaba.Extensions;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
+using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
+using MegaCrit.Sts2.Core.Models.Powers;
 using MegaCrit.Sts2.Core.ValueProps;
 
 namespace Manosaba.Characters.KurobeNanoka.Cards;
@@ -20,7 +22,8 @@ public sealed class SurppressiveShooting : GunBase
     private const TargetType targetType = TargetType.AnyEnemy;
     private const bool shouldShowInCardLibrary = true;
 
-    public override IEnumerable<CardKeyword> CanonicalKeywords => [ManosabaKeywords.GunShot];
+    public override IEnumerable<CardKeyword> CanonicalKeywords => [ManosabaKeywords.GunShot,CardKeyword.Exhaust];
+    protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.Static(StaticHoverTip.Stun)];
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
         new DamageVar(4, ValueProp.Move),
@@ -44,14 +47,11 @@ public sealed class SurppressiveShooting : GunBase
             return;
         }
 
-        NanokaHelper.PlayGunFireSfx();
-        await CreatureCmd.Damage(choiceContext, target, DynamicVars.Damage.BaseValue, ValueProp.Move, Owner.Creature, this);
+        await ExecuteGunAttack(choiceContext, target, DynamicVars.Damage.BaseValue);
         await Cmd.Wait(1.00f);
-        NanokaHelper.PlayGunFireSfx();
-        await CreatureCmd.Damage(choiceContext, target, DynamicVars.Damage.BaseValue, ValueProp.Move, Owner.Creature, this);
+        await ExecuteGunAttack(choiceContext, target, DynamicVars.Damage.BaseValue);
         await Cmd.Wait(1.00f);
-        NanokaHelper.PlayGunFireSfx();
-        await CreatureCmd.Damage(choiceContext, target, DynamicVars.Damage.BaseValue, ValueProp.Move, Owner.Creature, this);
+        await ExecuteGunAttack(choiceContext, target, DynamicVars.Damage.BaseValue);
         await CreatureCmd.Stun(target);
     }
 

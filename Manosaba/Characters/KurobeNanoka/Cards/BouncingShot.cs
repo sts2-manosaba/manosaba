@@ -68,8 +68,6 @@ public sealed class BouncingShot : GunBase
         }
 
         decimal damage = DynamicVars.Damage.BaseValue;
-        NanokaHelper.PlayGunFireSfx();
-
         foreach (Creature target in orderedTargets)
         {
             if (!target.IsHittable)
@@ -77,7 +75,7 @@ public sealed class BouncingShot : GunBase
                 continue;
             }
 
-            await CreatureCmd.Damage(choiceContext, target, damage, ValueProp.Move, Owner.Creature, this);
+            await ExecuteGunAttack(choiceContext, target, damage);
             damage *= BounceMultiplier;
         }
     }

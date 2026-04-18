@@ -29,7 +29,7 @@ public class WarningShot : GunBase
     public override IEnumerable<CardKeyword> CanonicalKeywords => [ManosabaKeywords.GunShot, CardKeyword.Exhaust];
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
-        new DynamicVar("StrengthLoss", 5m),
+        new DynamicVar("StrengthLoss", 8m),
         new DynamicVar("BulletCost", 1m),
     ];
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<StrengthPower>()];

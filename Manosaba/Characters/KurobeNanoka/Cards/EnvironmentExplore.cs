@@ -7,6 +7,7 @@ using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
+using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.Powers;
 
 namespace Manosaba.Characters.KurobeNanoka.Cards;
@@ -24,8 +25,9 @@ public sealed class EnvironmentExplore : PathCustomCardModel
 
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
+        new CardsVar(2),
+        new DynamicVar("BonusPerGun", 1),
         new EnergyVar(1),
-        new CardsVar(3),
     ];
 
     public EnvironmentExplore() : base(EnergyCost, Type, Rarity, TargetTypeValue, ShouldShowInCardLibrary)
@@ -34,11 +36,28 @@ public sealed class EnvironmentExplore : PathCustomCardModel
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        _ = choiceContext;
         _ = cardPlay;
 
-        await PowerCmd.Apply<EnergyNextTurnPower>(Owner.Creature, DynamicVars.Energy.IntValue, Owner.Creature, this);
-        await PowerCmd.Apply<DrawCardsNextTurnPower>(Owner.Creature, DynamicVars.Cards.IntValue, Owner.Creature, this);
+        List<CardModel> gunCardsInHand = PileType.Hand
+            .GetPile(Owner)
+            .Cards
+            .Where(card => card is GunBase)
+            .ToList();
+
+        if (gunCardsInHand.Count > 0)
+        {
+            await CardCmd.Discard(choiceContext, gunCardsInHand);
+        }
+
+        decimal bonusPerGun = DynamicVars["BonusPerGun"].BaseValue;
+        decimal discardedGunCount = gunCardsInHand.Count;
+
+        await CardPileCmd.Draw(choiceContext, DynamicVars.Cards.BaseValue + discardedGunCount * bonusPerGun, Owner);
+
+        if (discardedGunCount > 0)
+        {
+            await PlayerCmd.GainEnergy(discardedGunCount * bonusPerGun, Owner);
+        }
     }
 
     protected override void OnUpgrade()

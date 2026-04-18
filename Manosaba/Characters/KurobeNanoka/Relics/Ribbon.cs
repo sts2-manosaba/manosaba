@@ -6,6 +6,7 @@ using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Creatures;
+using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.Entities.Relics;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
@@ -20,10 +21,16 @@ namespace manosaba.Characters.KurobeNanoka.Relics;
 public sealed class Ribbon : LevelingPathCustomRelicModel
 {
     private const decimal GuardStartingHp = 10m;
-    private const decimal SummonMajokaGain = 20m;
-    private const decimal InterceptMajokaGain = 10m;
+    private const decimal GuardMaxHp = 30m;
+    private const decimal GuardSafeTurnMinHealAmount = 5m;
+    private const decimal GuardSafeTurnMaxHealAmount = 10m;
+    private const decimal SummonMajokaGain = 30m;
+    private const decimal InterceptMajokaGain = 15m;
 
     private bool _hasSummonedThisCombat;
+    private bool _redirectedDamageToGuard;
+    private bool _isTrackingEnemyTurn;
+    private bool _guardTookDamageThisEnemyTurn;
 
     public override RelicRarity Rarity => RelicRarity.Starter;
     protected override int MaxRelicLevel => 5;
@@ -48,7 +55,47 @@ public sealed class Ribbon : LevelingPathCustomRelicModel
     public override Task BeforeCombatStart()
     {
         _hasSummonedThisCombat = false;
+        _redirectedDamageToGuard = false;
+        _isTrackingEnemyTurn = false;
+        _guardTookDamageThisEnemyTurn = false;
         return Task.CompletedTask;
+    }
+
+    public override Task AfterSideTurnStart(CombatSide side, CombatState combatState)
+    {
+        _ = combatState;
+
+        if (side == CombatSide.Enemy)
+        {
+            _isTrackingEnemyTurn = true;
+            _guardTookDamageThisEnemyTurn = false;
+        }
+
+        return Task.CompletedTask;
+    }
+
+    public override async Task AfterPlayerTurnStart(PlayerChoiceContext choiceContext, Player player)
+    {
+        _ = choiceContext;
+
+        if (player != Owner)
+        {
+            return;
+        }
+
+        if (!_isTrackingEnemyTurn)
+        {
+            return;
+        }
+
+        _isTrackingEnemyTurn = false;
+
+        Creature? guard = Owner.PlayerCombatState?.GetPet<Jailer>();
+        if (guard is { IsAlive: true } && !_guardTookDamageThisEnemyTurn)
+        {
+            Flash();
+            await CreatureCmd.Heal(guard, GetGuardSafeTurnHealAmount());
+        }
     }
 
     public override Creature ModifyUnblockedDamageTarget(Creature target, decimal amount, ValueProp props, Creature? dealer)
@@ -61,6 +108,7 @@ public sealed class Ribbon : LevelingPathCustomRelicModel
         Creature? guard = Owner.PlayerCombatState?.GetPet<Jailer>();
         if (guard is { IsAlive: true })
         {
+            _redirectedDamageToGuard = true;
             return guard;
         }
 
@@ -70,7 +118,13 @@ public sealed class Ribbon : LevelingPathCustomRelicModel
         }
 
         guard = SummonGuard();
-        return guard is { IsAlive: true } ? guard : target;
+        if (guard is { IsAlive: true })
+        {
+            _redirectedDamageToGuard = true;
+            return guard;
+        }
+
+        return target;
     }
 
     public override async Task AfterDamageReceived(
@@ -84,14 +138,23 @@ public sealed class Ribbon : LevelingPathCustomRelicModel
         Creature? guard = Owner.PlayerCombatState?.GetPet<Jailer>();
         if (target != guard)
         {
+            _redirectedDamageToGuard = false;
+
             return;
+        }
+
+        if (_isTrackingEnemyTurn && result.UnblockedDamage > 0m)
+        {
+            _guardTookDamageThisEnemyTurn = true;
         }
 
         if (result.BlockedDamage <= 0m && result.UnblockedDamage <= 0m)
         {
+            _redirectedDamageToGuard = false;
             return;
         }
 
+        _redirectedDamageToGuard = false;
         Flash();
         await GainDefenseMajoka();
     }
@@ -127,7 +190,8 @@ public sealed class Ribbon : LevelingPathCustomRelicModel
 
     private void ApplyRelicLevelEffects()
     {
-        DynamicVars.Summon.BaseValue = GuardStartingHp + (RelicLevel - 1) * 5m;
+        decimal hpPerLevel = (GuardMaxHp - GuardStartingHp) / (MaxRelicLevel - 1);
+        DynamicVars.Summon.BaseValue = GuardStartingHp + (RelicLevel - 1) * hpPerLevel;
     }
 
     private Creature? SummonGuard()
@@ -149,5 +213,12 @@ public sealed class Ribbon : LevelingPathCustomRelicModel
     private Task<MajokaPower?> GainDefenseMajoka()
     {
         return PowerCmd.Apply<MajokaPower>(Owner.Creature, DynamicVars["InterceptMajoka"].BaseValue, Owner.Creature, null);
+    }
+
+    private decimal GetGuardSafeTurnHealAmount()
+    {
+        decimal majoka = Math.Clamp(Owner.Creature.GetPowerAmount<MajokaPower>(), 0m, 100m);
+        decimal majokaRatio = majoka / 100m;
+        return GuardSafeTurnMinHealAmount + (GuardSafeTurnMaxHealAmount - GuardSafeTurnMinHealAmount) * majokaRatio;
     }
 }

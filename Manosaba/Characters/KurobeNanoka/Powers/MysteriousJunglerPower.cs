@@ -9,7 +9,7 @@ namespace Manosaba.Characters.KurobeNanoka.Powers;
 public sealed class MysteriousJunglerPower : PathCustomPowerModel
 {
     public override PowerType Type => PowerType.Buff;
-    public override PowerStackType StackType => PowerStackType.Single;
+    public override PowerStackType StackType => PowerStackType.Counter;
 
     public override async Task AfterPlayerTurnStart(PlayerChoiceContext choiceContext, Player player)
     {
@@ -20,6 +20,6 @@ public sealed class MysteriousJunglerPower : PathCustomPowerModel
             return;
         }
 
-        await PlayerCmd.GainEnergy(1m, Owner.Player);
+        await PlayerCmd.GainEnergy(Amount, Owner.Player);
     }
 }

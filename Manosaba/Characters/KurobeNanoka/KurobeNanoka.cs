@@ -23,7 +23,7 @@ public class KurobeNanoka : PlaceholderCharacterModel
     [
         ModelDb.Card<StrikeKurobeNanoka>(),
         ModelDb.Card<StrikeKurobeNanoka>(),
-        ModelDb.Card<DefendKurobeNanoka>(),
+        ModelDb.Card<StrikeKurobeNanoka>(),
         ModelDb.Card<DefendKurobeNanoka>(),
         ModelDb.Card<DefendKurobeNanoka>(),
         ModelDb.Card<DefendKurobeNanoka>(),

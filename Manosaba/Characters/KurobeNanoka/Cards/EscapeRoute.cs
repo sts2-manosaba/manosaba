@@ -16,7 +16,7 @@ public sealed class EscapeRoute : PathCustomCardModel
 {
     private const int EnergyCost = 1;
     private const CardType Type = CardType.Skill;
-    private const CardRarity Rarity = CardRarity.Common;
+    private const CardRarity Rarity = CardRarity.Uncommon;
     private const TargetType TargetTypeValue = TargetType.Self;
     private const bool ShouldShowInCardLibrary = true;
 

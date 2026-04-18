@@ -22,7 +22,7 @@ namespace manosaba.Characters.KurobeNanoka.Relics
         public override bool ShowCounter => true;
         public override int DisplayAmount => CurrentBullets;
 
-        protected override IEnumerable<DynamicVar> CanonicalVars => [new EnergyVar(1), new DynamicVar(BulletsVarName, 0m)];
+        protected override IEnumerable<DynamicVar> CanonicalVars => [new DynamicVar(BulletsVarName, 0m)];
 
         protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.ForEnergy(this)];
 

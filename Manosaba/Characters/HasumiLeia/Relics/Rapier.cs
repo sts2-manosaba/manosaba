@@ -29,9 +29,7 @@ namespace manosaba.Characters.HasumiLeia.Relics
 
         protected decimal basePercentage = 0.6m;
         private bool _reflectedSinceLastTurnStart;
-        protected override IEnumerable<DynamicVar> CanonicalVars => [new EnergyVar(1)];
 
-        protected override IEnumerable<IHoverTip> ExtraHoverTips => [.. base.ExtraHoverTips, HoverTipFactory.ForEnergy(this)];
 
         public override Task AfterObtained()
         {

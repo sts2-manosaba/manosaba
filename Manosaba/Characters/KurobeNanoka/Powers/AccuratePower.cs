@@ -10,7 +10,7 @@ using MegaCrit.Sts2.Core.ValueProps;
 
 namespace Manosaba.Characters.KurobeNanoka.Powers;
 
-public sealed class SorryIMissedPower : PathCustomPowerModel
+public sealed class AccuratePower : PathCustomPowerModel
 {
     public override PowerType Type => PowerType.Buff;
     public override PowerStackType StackType => PowerStackType.Counter;
@@ -52,7 +52,7 @@ public sealed class SorryIMissedPower : PathCustomPowerModel
             return 1m;
         }
 
-        return 3m;
+        return 1m + Amount;
     }
 
     public override async Task AfterCardPlayed(PlayerChoiceContext context, CardPlay cardPlay)
@@ -67,12 +67,6 @@ public sealed class SorryIMissedPower : PathCustomPowerModel
             return;
         }
 
-        if (Amount <= 1m)
-        {
-            await PowerCmd.Remove(this);
-            return;
-        }
-
-        await PowerCmd.Apply<SorryIMissedPower>(Owner, -1m, Owner, null, silent: true);
+        await PowerCmd.Remove(this);
     }
 }

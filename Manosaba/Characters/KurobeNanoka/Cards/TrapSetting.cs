@@ -6,6 +6,7 @@ using Manosaba.Extensions;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
+using MegaCrit.Sts2.Core.HoverTips;
 
 namespace Manosaba.Characters.KurobeNanoka.Cards;
 
@@ -17,6 +18,8 @@ public class TrapSetting : PathCustomCardModel
     private const CardRarity rarity = CardRarity.Uncommon;
     private const TargetType targetType = TargetType.AnyEnemy;
     private const bool shouldShowInCardLibrary = true;
+
+    protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromKeyword(ManosabaKeywords.GunShot)];
 
     public TrapSetting() : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)
     {

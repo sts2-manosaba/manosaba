@@ -36,7 +36,7 @@ public class SorryIMissed : GunBase
             return;
 
         NanokaHelper.PlayGunFireSfx();
-        await PowerCmd.Apply<SorryIMissedPower>(Owner.Creature, 1m, Owner.Creature, this);
+        await PowerCmd.Apply<AccuratePower>(Owner.Creature, 2m, Owner.Creature, this);
     }
 
     protected override void OnUpgrade()

@@ -29,6 +29,7 @@ public sealed class ThreeSixtyNoScope : GunBase
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
         new DamageVar(10, ValueProp.Move),
+        new CardsVar(1),
         new DynamicVar("BulletCost", 1m)
     ];
 
@@ -48,7 +49,7 @@ public sealed class ThreeSixtyNoScope : GunBase
         {
             return;
         }
-        // 0.1% = 1 in 10000.
+        // 0.1% = 1 in 1000.
         int roll = Owner.RunState.Rng.Niche.NextInt(1000);
         if (roll == 0 && target.IsAlive)
         {
@@ -63,8 +64,8 @@ public sealed class ThreeSixtyNoScope : GunBase
             await CreatureCmd.Kill(target);
             return;
         }
-        NanokaHelper.PlayGunFireSfx();
-        await CreatureCmd.Damage(choiceContext, target, DynamicVars.Damage.BaseValue, ValueProp.Move, Owner.Creature, this);
+        await ExecuteGunAttack(choiceContext, target, DynamicVars.Damage.BaseValue);
+        await CardPileCmd.Draw(choiceContext, DynamicVars.Cards.BaseValue, Owner);
     }
 
     protected override void OnUpgrade()

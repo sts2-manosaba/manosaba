@@ -6,6 +6,7 @@ using Manosaba.Extensions;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
+using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
 
@@ -15,6 +16,7 @@ namespace Manosaba.Characters.KurobeNanoka.Cards;
 public class SteadyShot : PathCustomCardModel
 {
     public const string BonusDamagePerStackVar = "BonusDamagePerStack";
+    public const decimal BonusDamagePerStack = 2m;
 
     private const int energyCost = 1;
     private const CardType type = CardType.Power;
@@ -22,25 +24,24 @@ public class SteadyShot : PathCustomCardModel
     private const TargetType targetType = TargetType.Self;
     private const bool shouldShowInCardLibrary = true;
 
-    protected override IEnumerable<DynamicVar> CanonicalVars => [new DynamicVar(BonusDamagePerStackVar, 1m)];
+    protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromKeyword(ManosabaKeywords.GunShot)];
+    protected override IEnumerable<DynamicVar> CanonicalVars =>
+    [
+        new DynamicVar(BonusDamagePerStackVar, BonusDamagePerStack),
+        new PowerVar<SteadyShotPower>(2m),
+    ];
 
     public SteadyShot() : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)
     {
     }
 
-    public static decimal GetBonusDamagePerStack()
-    {
-        CardModel steadyShot = ModelDb.GetById<CardModel>(ModelDb.Card<SteadyShot>().Id);
-        return steadyShot.DynamicVars[BonusDamagePerStackVar].BaseValue;
-    }
-
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        await PowerCmd.Apply<SteadyShotPower>(Owner.Creature, 1m, Owner.Creature, this);
+        await PowerCmd.Apply<SteadyShotPower>(Owner.Creature, DynamicVars["SteadyShotPower"].BaseValue, Owner.Creature, this);
     }
 
     protected override void OnUpgrade()
     {
-        base.AddKeyword(CardKeyword.Innate);
+        DynamicVars["SteadyShotPower"].UpgradeValueBy(1m);
     }
 }
