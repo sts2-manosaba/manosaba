@@ -1,5 +1,5 @@
 ﻿using HarmonyLib;
-using Manosaba.Config;
+using Manosaba.Multiplayer;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Runs;
@@ -14,12 +14,12 @@ public static class Patch_Difficulties
 
     private static bool ShouldApplyEnemyHpMultiplier(Creature creature)
     {
-        return creature.IsEnemy && !creature.IsDead && ManosabaConfig.EnableEnemyHpMultiplier;
+        return creature.IsEnemy && !creature.IsDead && ManosabaLobbyDifficultyState.GetEnableEnemyHpMultiplierForGameplay();
     }
 
     private static decimal ScaleEnemyHp(decimal rawHp)
     {
-        decimal multiplier = ManosabaConfig.GetEnemyHpMultiplier();
+        decimal multiplier = ManosabaLobbyDifficultyState.GetEnemyHpMultiplierForGameplay();
         return Math.Max(1m, Math.Round(rawHp * multiplier, MidpointRounding.AwayFromZero));
     }
 
@@ -62,9 +62,15 @@ public static class Patch_Difficulties
     [HarmonyPatch(typeof(RunState), nameof(RunState.CreateForNewRun))]
     private static class Patch_RunState_CreateForNewRun_ResetEnemyHpMultiplierCache
     {
+        private static void Prefix()
+        {
+            ManosabaLobbyDifficultyState.ClearRunSnapshot();
+        }
+
         private static void Postfix()
         {
             _hpAppliedAfterAdded = new ConditionalWeakTable<Creature, object>();
+            ManosabaLobbyDifficultyState.FreezeForRun();
         }
     }
 }

@@ -1,5 +1,5 @@
 ﻿using Manosaba.Characters.HikamiMeruru.Powers;
-using Manosaba.Config;
+using Manosaba.Multiplayer;
 using Manosaba.Extensions;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Commands.Builders;
@@ -44,7 +44,7 @@ namespace Manosaba.Characters.Common.Powers
                 return;
             }
 
-            decimal perStackMultiplier = ManosabaConfig.GetMurderousImpulseAllyDamageMultiplier();
+            decimal perStackMultiplier = ManosabaLobbyDifficultyState.GetMurderousImpulseAllyDamageMultiplierForGameplay();
             decimal allyDamage = totalDamage * base.Amount * perStackMultiplier;
             if (allyDamage <= 0m)
             {

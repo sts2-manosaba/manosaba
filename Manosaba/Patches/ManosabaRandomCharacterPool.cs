@@ -2,6 +2,7 @@ using System.Linq;
 using System.Reflection;
 using Manosaba;
 using Manosaba.Config;
+using Manosaba.Multiplayer;
 using MegaCrit.Sts2.Core.Entities.Multiplayer;
 using MegaCrit.Sts2.Core.Logging;
 using MegaCrit.Sts2.Core.Models;
@@ -64,11 +65,11 @@ internal static class ManosabaRandomCharacterPool
     /// <remarks>
     /// 單人與多人皆用同一套映射：以「原版／UI 傳入的角色」在 <see cref="ModelDb.AllCharacters"/> 列舉中的索引，
     /// 對排序後的 Manosaba 池取模（與種子隨機在多人間一致，單機也不再額外使用 <c>Rng.Chaotic</c>）。
-    /// 多人時各玩家仍須在設定選同一項（僅 Manosaba / 全角色）；若一端 ManosabaOnly、一端 All，結算仍會不一致。
+    /// 多人時由 HOST 在選角畫面同步 <see cref="RandomCharacterPoolMode"/>。
     /// </remarks>
     internal static void TryReplaceVanillaPickWhenRandomSlot(ref CharacterModel incoming, CharacterModel? slotCurrent)
     {
-        if (ManosabaConfig.RandomCharacterPool != RandomCharacterPoolMode.ManosabaCharactersOnly)
+        if (ManosabaLobbyDifficultyState.GetRandomCharacterPoolModeForGameplay() != RandomCharacterPoolMode.ManosabaCharactersOnly)
         {
             return;
         }
