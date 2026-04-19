@@ -1,4 +1,5 @@
 using BaseLib.Utils;
+using System;
 using Manosaba.Characters.Common.Monsters;
 using Manosaba.Characters.Common.Powers;
 using Manosaba.Extensions;
@@ -31,7 +32,8 @@ public sealed class Ribbon : LevelingPathCustomRelicModel
     private bool _redirectedDamageToGuard;
     private bool _isTrackingEnemyTurn;
     private bool _guardTookDamageThisEnemyTurn;
-    private bool _guardSummonedThisEnemyTurn;
+    private Creature? _trackedGuardAtEnemyTurnStart;
+    private decimal _trackedGuardHpAtEnemyTurnStart;
 
     public override RelicRarity Rarity => RelicRarity.Starter;
     protected override int MaxRelicLevel => 5;
@@ -59,7 +61,8 @@ public sealed class Ribbon : LevelingPathCustomRelicModel
         _redirectedDamageToGuard = false;
         _isTrackingEnemyTurn = false;
         _guardTookDamageThisEnemyTurn = false;
-        _guardSummonedThisEnemyTurn = false;
+        _trackedGuardAtEnemyTurnStart = null;
+        _trackedGuardHpAtEnemyTurnStart = 0m;
         return Task.CompletedTask;
     }
 
@@ -71,7 +74,11 @@ public sealed class Ribbon : LevelingPathCustomRelicModel
         {
             _isTrackingEnemyTurn = true;
             _guardTookDamageThisEnemyTurn = false;
-            _guardSummonedThisEnemyTurn = false;
+            _trackedGuardAtEnemyTurnStart = GetGuard();
+            _trackedGuardHpAtEnemyTurnStart = _trackedGuardAtEnemyTurnStart?.CurrentHp ?? 0m;
+            Console.WriteLine(
+                $"[Ribbon] Enemy turn start. owner={DescribeOwner(Owner)} hasSummoned={_hasSummonedThisCombat} " +
+                $"guard={DescribeGuard(_trackedGuardAtEnemyTurnStart)} trackedHp={_trackedGuardHpAtEnemyTurnStart}");
         }
 
         return Task.CompletedTask;
@@ -86,12 +93,31 @@ public sealed class Ribbon : LevelingPathCustomRelicModel
             return;
         }
 
+        Console.WriteLine(
+            $"[Ribbon] Player turn start. owner={DescribeOwner(Owner)} trackingEnemyTurn={_isTrackingEnemyTurn} " +
+            $"guardTookDamage={_guardTookDamageThisEnemyTurn} currentGuard={DescribeGuard(GetGuard())} " +
+            $"trackedGuard={DescribeGuard(_trackedGuardAtEnemyTurnStart)} trackedHp={_trackedGuardHpAtEnemyTurnStart}");
+
         if (!_isTrackingEnemyTurn)
         {
             return;
         }
 
+        if (!_guardTookDamageThisEnemyTurn
+            && _trackedGuardAtEnemyTurnStart != null
+            && _trackedGuardHpAtEnemyTurnStart > 0m
+            && (!_trackedGuardAtEnemyTurnStart.IsAlive
+                || _trackedGuardAtEnemyTurnStart.CurrentHp < _trackedGuardHpAtEnemyTurnStart))
+        {
+            _guardTookDamageThisEnemyTurn = true;
+            Console.WriteLine(
+                $"[Ribbon] Marking guard damaged from turn-start snapshot. owner={DescribeOwner(Owner)} " +
+                $"trackedGuard={DescribeGuard(_trackedGuardAtEnemyTurnStart)} trackedHp={_trackedGuardHpAtEnemyTurnStart}");
+        }
+
         _isTrackingEnemyTurn = false;
+        _trackedGuardAtEnemyTurnStart = null;
+        _trackedGuardHpAtEnemyTurnStart = 0m;
 
         if (_guardSummonedThisEnemyTurn)
         {
@@ -101,13 +127,23 @@ public sealed class Ribbon : LevelingPathCustomRelicModel
 
         if (_hasSummonedThisCombat && !_guardTookDamageThisEnemyTurn)
         {
+            Console.WriteLine($"[Ribbon] Safe-turn heal triggered. owner={DescribeOwner(Owner)} heal={GetGuardSafeTurnHealAmount()}");
             Flash();
             await JailerCmd.Heal(choiceContext, Owner, GetGuardSafeTurnHealAmount(), DynamicVars.Summon.BaseValue);
+            return;
         }
+
+        Console.WriteLine(
+            $"[Ribbon] Safe-turn heal skipped. owner={DescribeOwner(Owner)} hasSummoned={_hasSummonedThisCombat} " +
+            $"guardTookDamage={_guardTookDamageThisEnemyTurn}");
     }
 
     public override Creature ModifyUnblockedDamageTarget(Creature target, decimal amount, ValueProp props, Creature? dealer)
     {
+        Console.WriteLine(
+            $"[Ribbon] ModifyUnblockedDamageTarget. owner={DescribeOwner(Owner)} target={DescribeGuard(target)} " +
+            $"amount={amount} redirectedFlag={_redirectedDamageToGuard} hasSummoned={_hasSummonedThisCombat}");
+
         if (target != Owner.Creature || amount <= 0m)
         {
             return target;
@@ -117,6 +153,7 @@ public sealed class Ribbon : LevelingPathCustomRelicModel
         if (guard is { IsAlive: true })
         {
             _redirectedDamageToGuard = true;
+            Console.WriteLine($"[Ribbon] Redirecting damage to existing guard. owner={DescribeOwner(Owner)} guard={DescribeGuard(guard)}");
             return guard;
         }
 
@@ -129,6 +166,7 @@ public sealed class Ribbon : LevelingPathCustomRelicModel
         if (guard is { IsAlive: true })
         {
             _redirectedDamageToGuard = true;
+            Console.WriteLine($"[Ribbon] Redirecting damage to newly summoned guard. owner={DescribeOwner(Owner)} guard={DescribeGuard(guard)}");
             return guard;
         }
 
@@ -143,8 +181,27 @@ public sealed class Ribbon : LevelingPathCustomRelicModel
         Creature? dealer,
         CardModel? cardSource)
     {
+        if (_isTrackingEnemyTurn && target == Owner.Creature && (result.UnblockedDamage > 0m || !target.IsAlive))
+        {
+            _guardTookDamageThisEnemyTurn = true;
+            Console.WriteLine(
+                $"[Ribbon] Owner damage recorded as unsafe turn. owner={DescribeOwner(Owner)} " +
+                $"target={DescribeGuard(target)} blocked={result.BlockedDamage} unblocked={result.UnblockedDamage} alive={target.IsAlive}");
+        }
+
+        if (_isTrackingEnemyTurn && IsOwnersGuard(target) && (result.UnblockedDamage > 0m || !target.IsAlive))
+        {
+            _guardTookDamageThisEnemyTurn = true;
+            Console.WriteLine(
+                $"[Ribbon] Guard damage recorded. owner={DescribeOwner(Owner)} target={DescribeGuard(target)} " +
+                $"blocked={result.BlockedDamage} unblocked={result.UnblockedDamage} alive={target.IsAlive}");
+        }
+
         if (!_redirectedDamageToGuard)
         {
+            Console.WriteLine(
+                $"[Ribbon] AfterDamageReceived without redirect flag. owner={DescribeOwner(Owner)} target={DescribeGuard(target)} " +
+                $"blocked={result.BlockedDamage} unblocked={result.UnblockedDamage} alive={target.IsAlive}");
             return;
         }
 
@@ -156,10 +213,15 @@ public sealed class Ribbon : LevelingPathCustomRelicModel
         if (result.BlockedDamage <= 0m && result.UnblockedDamage <= 0m)
         {
             _redirectedDamageToGuard = false;
+            Console.WriteLine(
+                $"[Ribbon] Redirected hit dealt no damage. owner={DescribeOwner(Owner)} target={DescribeGuard(target)}");
             return;
         }
 
         _redirectedDamageToGuard = false;
+        Console.WriteLine(
+            $"[Ribbon] Redirected hit granted majoka. owner={DescribeOwner(Owner)} target={DescribeGuard(target)} " +
+            $"blocked={result.BlockedDamage} unblocked={result.UnblockedDamage}");
         Flash();
         await GainDefenseMajoka();
     }
@@ -208,7 +270,7 @@ public sealed class Ribbon : LevelingPathCustomRelicModel
         }
 
         _hasSummonedThisCombat = true;
-        _guardSummonedThisEnemyTurn = _isTrackingEnemyTurn;
+        Console.WriteLine($"[Ribbon] Guard summoned. owner={DescribeOwner(Owner)} guard={DescribeGuard(guard)}");
         Flash();
 
         _ = PowerCmd.Apply<MajokaPower>(Owner.Creature, DynamicVars["MajokaPower"].BaseValue, Owner.Creature, null);
@@ -219,6 +281,37 @@ public sealed class Ribbon : LevelingPathCustomRelicModel
     private Task<MajokaPower?> GainDefenseMajoka()
     {
         return PowerCmd.Apply<MajokaPower>(Owner.Creature, DynamicVars["InterceptMajoka"].BaseValue, Owner.Creature, null);
+    }
+
+    private Creature? GetGuard()
+    {
+        return Owner.PlayerCombatState?.GetPet<Jailer>()
+               ?? Owner.Creature.CombatState?.Allies.FirstOrDefault(IsOwnersGuard);
+    }
+
+    private bool IsOwnersGuard(Creature creature)
+    {
+        return creature.Monster is Jailer && creature.PetOwner == Owner;
+    }
+
+    private static string DescribeGuard(Creature? creature)
+    {
+        if (creature == null)
+        {
+            return "null";
+        }
+
+        return $"id={creature.Name} alive={creature.IsAlive} hp={creature.CurrentHp}/{creature.MaxHp} side={creature.Side}";
+    }
+
+    private static string DescribeOwner(Player? player)
+    {
+        if (player == null)
+        {
+            return "null";
+        }
+
+        return $"netId={player.NetId} name={player.Creature.Name}";
     }
 
     private decimal GetGuardSafeTurnHealAmount()
