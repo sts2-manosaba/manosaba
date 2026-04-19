@@ -22,5 +22,7 @@
   "MANOSABA-FRUGAL.flavor": "Every leftover spark becomes pocket change.",
   "MANOSABA-TAROT_DECK.title": "Tarot Deck",
   "MANOSABA-TAROT_DECK.description": "Card rewards and shop cards are replaced with Tarot cards (excluding [gold]The World[/gold]).\nWhen this relic levels up, add 1 random Tarot card you do not already have in your deck (excluding [gold]The World[/gold]).\nWhen you collect all 21 Tarot cards other than [gold]The World[/gold], add [gold]The World[/gold] to your deck.",
-  "MANOSABA-TAROT_DECK.flavor": "The deck guides fate with every draw."
+  "MANOSABA-TAROT_DECK.flavor": "The deck guides fate with every draw.",
+  "MANOSABA-TAROT_DECK.missingHeader": "Missing:",
+  "MANOSABA-TAROT_DECK.completed": "Collection complete"
 }

@@ -22,5 +22,7 @@
   "MANOSABA-FRUGAL.flavor": "残ったエネルギーは、ちりつもで財布に。",
   "MANOSABA-TAROT_DECK.title": "タロットデッキ",
   "MANOSABA-TAROT_DECK.description": "カード報酬とショップカードは[gold]世界[/gold]を除くタロットカードに置き換わる。\nこのレリックがレベルアップするたび、デッキにまだない[gold]世界[/gold]以外のタロットカードをランダムで1枚デッキに加える。\n[gold]世界[/gold]を除く21種のタロットを集めると、[gold]世界[/gold]をデッキに加える。",
-  "MANOSABA-TAROT_DECK.flavor": "その一枚ごとに、運命の針路が定まる。"
+  "MANOSABA-TAROT_DECK.flavor": "その一枚ごとに、運命の針路が定まる。",
+  "MANOSABA-TAROT_DECK.missingHeader": "未所持：",
+  "MANOSABA-TAROT_DECK.completed": "収集完了"
 }
