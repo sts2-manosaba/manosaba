@@ -21,7 +21,7 @@ namespace Manosaba.Characters.Common.Cards
         private const TargetType targetType = TargetType.Self;
         private const bool shouldShowInCardLibrary = true;
         protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<MajokaPower>()];
-        protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(3, ValueProp.Unpowered), new PowerVar<MajokaPower>(15)];
+        protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(3, ValueProp.Unpowered), new PowerVar<MajokaPower>(20)];
 
         public Suicide() : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)
         {
@@ -35,7 +35,7 @@ namespace Manosaba.Characters.Common.Cards
 
         protected override void OnUpgrade()
         {
-            base.DynamicVars["MajokaPower"].UpgradeValueBy(8m);
+            base.DynamicVars["MajokaPower"].UpgradeValueBy(10m);
         }
     }
 }

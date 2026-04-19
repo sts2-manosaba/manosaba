@@ -40,7 +40,7 @@ namespace Manosaba.Characters.Common.Cards
 
         protected override void OnUpgrade()
         {
-            base.DynamicVars.Damage.UpgradeValueBy(100m);
+            base.DynamicVars.Damage.UpgradeValueBy(25m);
         }
     }
 }

@@ -34,7 +34,6 @@ namespace Manosaba.Characters.Common.Cards
 
         protected override void OnUpgrade()
         {
-            base.DynamicVars.Cards.UpgradeValueBy(1m);
             base.DynamicVars.Energy.UpgradeValueBy(1m);
         }
     }

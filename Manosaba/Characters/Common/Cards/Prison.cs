@@ -19,7 +19,7 @@ namespace Manosaba.Characters.Common.Cards
         private const TargetType targetType = TargetType.Self;
         private const bool shouldShowInCardLibrary = true;
         protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<PrisonPower>()];
-        protected override IEnumerable<DynamicVar> CanonicalVars => [new PowerVar<PrisonPower>(5)];
+        protected override IEnumerable<DynamicVar> CanonicalVars => [new PowerVar<PrisonPower>(10)];
         public Prison() : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)
         {
         }
@@ -31,7 +31,7 @@ namespace Manosaba.Characters.Common.Cards
 
         protected override void OnUpgrade()
         {
-            base.DynamicVars["PrisonPower"].UpgradeValueBy(3m);
+            base.DynamicVars["PrisonPower"].UpgradeValueBy(5m);
         }
     }
 }

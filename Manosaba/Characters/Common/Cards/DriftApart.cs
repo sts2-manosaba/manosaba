@@ -15,12 +15,12 @@ namespace Manosaba.Characters.Common.Cards
     {
         public override CardMultiplayerConstraint MultiplayerConstraint => CardMultiplayerConstraint.MultiplayerOnly;
         private const int energyCost = 1;
-        private const CardType type = CardType.Skill;
+        private const CardType type = CardType.Power;
         private const CardRarity rarity = CardRarity.Common;
         private const TargetType targetType = TargetType.AnyAlly;
         private const bool shouldShowInCardLibrary = true;
         protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<StrengthPower>(), HoverTipFactory.FromPower<DexterityPower>()];
-        protected override IEnumerable<DynamicVar> CanonicalVars => [new PowerVar<StrengthPower>(1), new PowerVar<DexterityPower>(1)];
+        protected override IEnumerable<DynamicVar> CanonicalVars => [new PowerVar<StrengthPower>(2), new PowerVar<DexterityPower>(2)];
 
         public DriftApart() : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)
         {

@@ -19,7 +19,7 @@ namespace Manosaba.Characters.Common.Cards
         private const CardRarity rarity = CardRarity.Common;
         private const TargetType targetType = TargetType.AnyEnemy;
         private const bool shouldShowInCardLibrary = true;
-        protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(8, ValueProp.Move), new PowerVar<VulnerablePower>(2)];
+        protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(7, ValueProp.Move), new PowerVar<VulnerablePower>(2)];
         protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<VulnerablePower>()];
 
         public Bullseye() : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)
