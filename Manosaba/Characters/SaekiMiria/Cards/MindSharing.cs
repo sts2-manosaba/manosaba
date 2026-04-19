@@ -33,8 +33,8 @@ namespace Manosaba.Characters.NikaidoHiro.Cards
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
-            // PowerId -> max amount
-            Dictionary<string, int> powerMap = new();
+            Dictionary<ModelId, int> powerAmounts = new();
+            Dictionary<ModelId, PowerModel> sourcePowers = new();
 
             var teammates = CombatState?.GetTeammatesOf(Owner.Creature)
                 ?.Where(c => c != null && c.IsAlive && c.IsPlayer)
@@ -46,7 +46,6 @@ namespace Manosaba.Characters.NikaidoHiro.Cards
                 return;
             }
 
-            // ===== Collect powers (DATA ONLY) =====
             foreach (var teammate in teammates)
             {
                 if (teammate?.Powers == null) continue;
@@ -58,37 +57,25 @@ namespace Manosaba.Characters.NikaidoHiro.Cards
 
                     Console.WriteLine($"Collected power {item.GetType().Name} amount {item.Amount} from {teammate.Name}");
 
-                    if (!powerMap.ContainsKey(item.Id.ToString()))
-                    {
-                        powerMap[item.Id.ToString()] = item.Amount;
-                    }
-                    else
-                    {
-                        powerMap[item.Id.ToString()] = Math.Max(powerMap[item.Id.ToString()], item.Amount);
-                    }
+                    AddPowerToList(powerAmounts, item);
+                    sourcePowers.TryAdd(item.Id, item);
                 }
             }
 
-            // ===== Apply powers =====
             foreach (var teammate in teammates)
             {
                 if (teammate == null) continue;
 
-                foreach (var kvp in powerMap)
+                Dictionary<ModelId, PowerModel> existingPowers = teammate.Powers?
+                    .Where(power => power != null)
+                    .GroupBy(power => power.Id)
+                    .ToDictionary(group => group.Key, group => group.First()) ?? [];
+
+                foreach (var kvp in powerAmounts)
                 {
-                    var powerId = ModelId.Deserialize(kvp.Key);
+                    ModelId powerId = kvp.Key;
                     int targetAmount = kvp.Value;
-
-                    PowerModel? existing = null;
-
-                    try
-                    {
-                        existing = teammate.GetPowerById(powerId);
-                    }
-                    catch
-                    {
-                        continue;
-                    }
+                    existingPowers.TryGetValue(powerId, out PowerModel? existing);
 
                     if (existing != null && !existing.IsInstanced)
                     {
@@ -108,12 +95,7 @@ namespace Manosaba.Characters.NikaidoHiro.Cards
                     }
                     else
                     {
-                        // Find a source power to clone from (any teammate)
-                        var source = teammates
-                            .SelectMany(t => t.Powers ?? Enumerable.Empty<PowerModel>())
-                            .FirstOrDefault(p => p != null && p.Id == powerId);
-
-                        if (source == null) continue;
+                        if (!sourcePowers.TryGetValue(powerId, out PowerModel? source)) continue;
 
                         var clone = source.ClonePreservingMutability() as PowerModel;
                         if (clone == null) continue;
@@ -134,18 +116,11 @@ namespace Manosaba.Characters.NikaidoHiro.Cards
             }
         }
 
-        private static void AddPowerToList(Dictionary<string, int> powers, PowerModel power)
+        private static void AddPowerToList(Dictionary<ModelId, int> powers, PowerModel power)
         {
-            if (power == null) return;
-
-            if (!powers.ContainsKey(power.Id.ToString()))
-            {
-                powers[power.Id.ToString()] = power.Amount;
-            }
-            else
-            {
-                powers[power.Id.ToString()] = Math.Max(powers[power.Id.ToString()], power.Amount);
-            }
+            powers[power.Id] = powers.TryGetValue(power.Id, out int existingAmount)
+                ? Math.Max(existingAmount, power.Amount)
+                : power.Amount;
         }
 
         private static bool ShouldIgnoreThisPower(PowerModel power)

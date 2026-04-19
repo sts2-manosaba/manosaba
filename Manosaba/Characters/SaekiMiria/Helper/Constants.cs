@@ -2,10 +2,14 @@
 using Manosaba.Characters.Common.Overrides;
 using Manosaba.Characters.Common.Powers;
 using Manosaba.Characters.HasumiLeia.Powers;
+using Manosaba.Characters.HikamiMeruru.Potions;
 using Manosaba.Characters.JogasakiNoah.Powers;
 using Manosaba.Characters.KurobeNanoka.Cards;
+using Manosaba.Characters.KurobeNanoka.Powers;
 using Manosaba.Characters.NikaidoHiro.Powers;
 using Manosaba.Characters.SaekiMiria.Cards;
+using Manosaba.Characters.TachibanaSherry.Powers;
+using Manosaba.Characters.TonoHanna.Powers;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.Powers;
@@ -43,6 +47,23 @@ namespace Manosaba.Characters.SaekiMiria.Helper
                 typeof(StandOutPower),
                 typeof(TankPower),
                 typeof(LiquidManipulationPower),
+
+                typeof(StrengthPower),
+                typeof(SherryPuppetPower),
+                typeof(AccuracyPower),
+                typeof(LaboursOfHiroPower),
+                typeof(SteadyShotPower),
+                typeof(MusouKenPower),
+                typeof(QuickWitPower),
+                typeof(HouseKeepingPower),
+                typeof(FlexPotionPower),
+                typeof(ReptileTrinketPower),
+                typeof(SetupStrikePower),
+                typeof(CoordinatePower),
+                typeof(FeedingFrenzyPower),
+                typeof(LesserStrengthPotionPower),
+                typeof(GigantificationPower),
+                typeof(RitualPower)
             };
 
         public static bool IsIgnoredCard(CardModel card)

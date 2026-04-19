@@ -31,6 +31,7 @@ public sealed class Ribbon : LevelingPathCustomRelicModel
     private bool _redirectedDamageToGuard;
     private bool _isTrackingEnemyTurn;
     private bool _guardTookDamageThisEnemyTurn;
+    private bool _guardSummonedThisEnemyTurn;
 
     public override RelicRarity Rarity => RelicRarity.Starter;
     protected override int MaxRelicLevel => 5;
@@ -58,6 +59,7 @@ public sealed class Ribbon : LevelingPathCustomRelicModel
         _redirectedDamageToGuard = false;
         _isTrackingEnemyTurn = false;
         _guardTookDamageThisEnemyTurn = false;
+        _guardSummonedThisEnemyTurn = false;
         return Task.CompletedTask;
     }
 
@@ -69,6 +71,7 @@ public sealed class Ribbon : LevelingPathCustomRelicModel
         {
             _isTrackingEnemyTurn = true;
             _guardTookDamageThisEnemyTurn = false;
+            _guardSummonedThisEnemyTurn = false;
         }
 
         return Task.CompletedTask;
@@ -89,6 +92,12 @@ public sealed class Ribbon : LevelingPathCustomRelicModel
         }
 
         _isTrackingEnemyTurn = false;
+
+        if (_guardSummonedThisEnemyTurn)
+        {
+            _guardSummonedThisEnemyTurn = false;
+            return;
+        }
 
         if (_hasSummonedThisCombat && !_guardTookDamageThisEnemyTurn)
         {
@@ -199,6 +208,7 @@ public sealed class Ribbon : LevelingPathCustomRelicModel
         }
 
         _hasSummonedThisCombat = true;
+        _guardSummonedThisEnemyTurn = _isTrackingEnemyTurn;
         Flash();
 
         _ = PowerCmd.Apply<MajokaPower>(Owner.Creature, DynamicVars["MajokaPower"].BaseValue, Owner.Creature, null);

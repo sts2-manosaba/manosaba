@@ -27,7 +27,7 @@ public sealed class TakeCover : PathCustomCardModel
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
         new BlockVar(7m, ValueProp.Move),
-        new PowerVar<AccuratePower>(50m),
+        new PowerVar<AccuratePower>(30m),
     ];
 
     public TakeCover() : base(EnergyCost, Type, Rarity, TargetTypeValue, ShouldShowInCardLibrary)

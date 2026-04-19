@@ -41,10 +41,8 @@ public sealed class Cooking : PathCustomCardModel
     {
         await CreatureCmd.GainBlock(Owner.Creature, DynamicVars.Block, cardPlay);
 
-        List<CardModel> statusCards = Owner.PlayerCombatState.AllCards
-            .Where(card => card.Owner == Owner)
+        List<CardModel> statusCards = PileType.Hand.GetPile(Owner).Cards
             .Where(card => card.Type == CardType.Status)
-            .Where(card => card.Pile?.Type != PileType.Exhaust)
             .ToList();
 
         foreach (CardModel statusCard in statusCards)

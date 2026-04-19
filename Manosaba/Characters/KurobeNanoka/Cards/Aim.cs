@@ -23,7 +23,7 @@ public sealed class Aim : PathCustomCardModel
 
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
-        new PowerVar<AccuratePower>(80m),
+        new PowerVar<AccuratePower>(60m),
     ];
 
     public Aim() : base(EnergyCost, Type, Rarity, TargetTypeValue, ShouldShowInCardLibrary)

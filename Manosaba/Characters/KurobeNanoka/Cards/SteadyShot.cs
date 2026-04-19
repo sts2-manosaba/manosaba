@@ -16,7 +16,7 @@ namespace Manosaba.Characters.KurobeNanoka.Cards;
 public class SteadyShot : PathCustomCardModel
 {
     public const string BonusDamagePerStackVar = "BonusDamagePerStack";
-    public const decimal BonusDamagePerStack = 2m;
+    public const decimal BonusDamagePerStack = 1m;
 
     private const int energyCost = 1;
     private const CardType type = CardType.Power;
@@ -28,7 +28,7 @@ public class SteadyShot : PathCustomCardModel
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
         new DynamicVar(BonusDamagePerStackVar, BonusDamagePerStack),
-        new PowerVar<SteadyShotPower>(2m),
+        new PowerVar<SteadyShotPower>(1m),
     ];
 
     public SteadyShot() : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)

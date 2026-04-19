@@ -42,6 +42,6 @@ public class SorryIMissed : GunBase
 
     protected override void OnUpgrade()
     {
-        DynamicVars["AccuratePower"].UpgradeValueBy(100m);
+        DynamicVars["AccuratePower"].UpgradeValueBy(50m);
     }
 }
