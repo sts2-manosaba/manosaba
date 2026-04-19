@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Manosaba.Characters.Common.Commands;
 using Manosaba.Extensions;
 using manosaba.Characters.TonoHanna.Relics;
@@ -8,11 +9,12 @@ using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Entities.Powers;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
+using MegaCrit.Sts2.Core.Localization;
+using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.TestSupport;
 
 namespace Manosaba.Characters.TonoHanna.Powers;
-
 /// <summary>
 /// Single visible buff: stack count = number of distinct puppet companions with a collection charge (Amount &gt; 0).
 /// Icons use <c>puppet_collection_power.png</c>; per-character collection powers stay hidden and only drive the ring + this tally.
@@ -23,6 +25,7 @@ public sealed class PuppetCollectionSummaryPower : PathCustomPowerModel
     private const string WinVfxScenePath = "res://Manosaba/scenes/tono_hanna/vfx/puppet_collection.tscn";
     private const string WinBgmEventPath = "event:/Manosaba/audio/bgm/puppet_collection.mp3";
     private const int CollectionWinThreshold = 13;
+    private const int ShowMissingPuppetListFromAmount = 10;
 
     public override PowerType Type => PowerType.Buff;
 
@@ -33,6 +36,75 @@ public sealed class PuppetCollectionSummaryPower : PathCustomPowerModel
     public override string CustomBigIconPath => SharedIconFile.PowerImagePath();
 
     public override string CustomBigBetaIconPath => SharedIconFile.PowerImagePath();
+
+    protected override IEnumerable<DynamicVar> CanonicalVars
+    {
+        get { yield return new MissingPuppetsLineVar(); }
+    }
+
+    private sealed class MissingPuppetsLineVar : DynamicVar
+    {
+        public MissingPuppetsLineVar()
+            : base("MissingPuppetsLine", 0m)
+        {
+        }
+
+        public override string ToString()
+        {
+            if (_owner is not PuppetCollectionSummaryPower summary || summary.Owner == null)
+            {
+                return string.Empty;
+            }
+
+            int amt = summary.Amount;
+            if (amt < ShowMissingPuppetListFromAmount || amt >= CollectionWinThreshold)
+            {
+                return string.Empty;
+            }
+
+            List<string> missing = CollectMissingPuppetTitles(summary.Owner);
+            if (missing.Count == 0)
+            {
+                return string.Empty;
+            }
+
+            string sep = new LocString("powers", "MANOSABA-PUPPET_COLLECTION_SUMMARY_POWER.missingListSeparator")
+                .GetRawText() ?? "、";
+            string prefix = new LocString("powers", "MANOSABA-PUPPET_COLLECTION_SUMMARY_POWER.missingListPrefix")
+                .GetFormattedText();
+            return "\n" + prefix + string.Join(sep, missing);
+        }
+    }
+
+    private static List<string> CollectMissingPuppetTitles(Creature owner)
+    {
+        List<string> missing = [];
+        AppendIfMissing<AlisaPuppetCollectionPower>(owner, missing);
+        AppendIfMissing<AnAnPuppetCollectionPower>(owner, missing);
+        AppendIfMissing<CocoPuppetCollectionPower>(owner, missing);
+        AppendIfMissing<EmaPuppetCollectionPower>(owner, missing);
+        AppendIfMissing<HannaPuppetCollectionPower>(owner, missing);
+        AppendIfMissing<HiroPuppetCollectionPower>(owner, missing);
+        AppendIfMissing<LeiaPuppetCollectionPower>(owner, missing);
+        AppendIfMissing<MargoPuppetCollectionPower>(owner, missing);
+        AppendIfMissing<MeruruPuppetCollectionPower>(owner, missing);
+        AppendIfMissing<MiriaPuppetCollectionPower>(owner, missing);
+        AppendIfMissing<NanokaPuppetCollectionPower>(owner, missing);
+        AppendIfMissing<NoahPuppetCollectionPower>(owner, missing);
+        AppendIfMissing<SherryPuppetCollectionPower>(owner, missing);
+        return missing;
+    }
+
+    private static void AppendIfMissing<T>(Creature owner, List<string> missing)
+        where T : PuppetCollectionPowerBase
+    {
+        if (owner.GetPower<T>() is { Amount: > 0 })
+        {
+            return;
+        }
+
+        missing.Add(ModelDb.Power<T>().Title.GetFormattedText());
+    }
 
     public static async Task SyncToRosterAsync(Creature owner)
     {
