@@ -3,7 +3,6 @@ using manosaba.Characters.HikamiMeruru;
 using Manosaba.Extensions;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
-using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
@@ -14,10 +13,10 @@ namespace Manosaba.Characters.HikamiMeruru.Cards
     [Pool(typeof(HikamiMeruruCardPool))]
     public class QuickHeal : PathCustomCardModel
     {
-        private const int energyCost = 2;
+        private const int energyCost = 1;
         private const CardType type = CardType.Skill;
         private const CardRarity rarity = CardRarity.Uncommon;
-        private const TargetType targetType = TargetType.AllAllies;
+        private const TargetType targetType = TargetType.AnyPlayer;
         private const bool shouldShowInCardLibrary = true;
         protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.Static(StaticHoverTip.Block)];
         protected override IEnumerable<DynamicVar> CanonicalVars => [new HealVar(5), new BlockVar(7m, ValueProp.Move)];
@@ -27,20 +26,17 @@ namespace Manosaba.Characters.HikamiMeruru.Cards
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
-            IEnumerable<Creature> enumerable = from c in base.CombatState.GetTeammatesOf(base.Owner.Creature)
-                                               where c != null && c.IsAlive && c.IsPlayer
-                                               select c;
-            foreach (Creature item in enumerable)
+            if (cardPlay.Target != null)
             {
-                await CreatureCmd.Heal(item, base.DynamicVars.Heal.BaseValue);
-                await CreatureCmd.GainBlock(item, DynamicVars.Block, cardPlay); ;
+                await CreatureCmd.Heal(cardPlay.Target, base.DynamicVars.Heal.BaseValue);
+                await CreatureCmd.GainBlock(cardPlay.Target, DynamicVars.Block, cardPlay);
             }
         }
 
         protected override void OnUpgrade()
         {
             base.DynamicVars.Heal.UpgradeValueBy(2);
-            base.DynamicVars.Block.UpgradeValueBy(2);
+            base.DynamicVars.Block.UpgradeValueBy(3);
         }
     }
 }

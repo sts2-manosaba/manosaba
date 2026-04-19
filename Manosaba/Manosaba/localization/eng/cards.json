@@ -80,7 +80,7 @@
   "MANOSABA-POTION_FACTORY.title": "Potion Factory",
   "MANOSABA-POTION_FACTORY.description": "Gain {PotionFactoryPower:diff()} [gold]Potion Factory[/gold].",
   "MANOSABA-QUICK_HEAL.title": "Quick Heal",
-  "MANOSABA-QUICK_HEAL.description": "Heal all players {Heal:diff()} HP and gain {Block:diff()} [gold]Block[/gold].",
+  "MANOSABA-QUICK_HEAL.description": "Heal target player for {Heal:diff()} HP and grant {Block:diff()} [gold]Block[/gold].",
   "MANOSABA-SHOTS_FIRED.title": "Shots Fired",
   "MANOSABA-SHOTS_FIRED.description": "Deal {Damage:diff()} damage. Super effective against Nahoka.",
   "MANOSABA-STRIKE_HIKAMI_MERURU.title": "Strike",

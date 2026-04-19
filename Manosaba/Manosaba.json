@@ -4,7 +4,7 @@
   "pck_name": "Manosaba",
   "author": "Clione",
   "description": "A mod inspired by Magical Girl Witch Trials.\n\nSPECIAL THANKS:\nDev: Fuhuo & Shiki\nQA: 游音殒梦 & zerozeroduck.\nKor Translation: merami7293 & MAKULEA",
-  "version": "v1.3.5",
+  "version": "v1.4.0",
   "has_pck": true,
   "has_dll": true,
   "dependencies": [ "BaseLib" ],

@@ -80,7 +80,7 @@
   "MANOSABA-POTION_FACTORY.title": "藥水工廠",
   "MANOSABA-POTION_FACTORY.description": "給予自身 {PotionFactoryPower:diff()} 層[gold]藥水工廠[/gold]。",
   "MANOSABA-QUICK_HEAL.title": "快速治療",
-  "MANOSABA-QUICK_HEAL.description": "回復所有玩家 {Heal:diff()} 點生命，並給予 {Block:diff()} 點[gold]格檔[/gold]。",
+  "MANOSABA-QUICK_HEAL.description": "回復指定玩家 {Heal:diff()} 點生命，並給予 {Block:diff()} 點[gold]格檔[/gold]。",
   "MANOSABA-SHOTS_FIRED.title": "槍擊",
   "MANOSABA-SHOTS_FIRED.description": "造成 {Damage:diff()} 點傷害。對奈葉香特攻。",
   "MANOSABA-STRIKE_HIKAMI_MERURU.title": "打擊",

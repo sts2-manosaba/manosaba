@@ -80,7 +80,7 @@
   "MANOSABA-POTION_FACTORY.title": "ポーション工場",
   "MANOSABA-POTION_FACTORY.description": "自身に{PotionFactoryPower:diff()}層の[gold]ポーション工場[/gold]を与える。",
   "MANOSABA-QUICK_HEAL.title": "応急治療",
-  "MANOSABA-QUICK_HEAL.description": "全プレイヤーのHPを{Heal:diff()}回復し、{Block:diff()}[gold]ブロック[/gold]を与える。",
+  "MANOSABA-QUICK_HEAL.description": "対象のプレイヤーのHPを{Heal:diff()}回復し、{Block:diff()}[gold]ブロック[/gold]を与える。",
   "MANOSABA-SHOTS_FIRED.title": "射撃",
   "MANOSABA-SHOTS_FIRED.description": "{Damage:diff()}ダメージを与える。ナノカへの特効。",
   "MANOSABA-STRIKE_HIKAMI_MERURU.title": "打撃",

@@ -80,7 +80,7 @@
   "MANOSABA-POTION_FACTORY.title": "포션 공장",
   "MANOSABA-POTION_FACTORY.description": "[gold]포션 공장[/gold]을 {PotionFactoryPower:diff()} 얻습니다.",
   "MANOSABA-QUICK_HEAL.title": "신속 치료",
-  "MANOSABA-QUICK_HEAL.description": "모든 플레이어의 체력을 {Heal:diff()} 회복하고 [gold]방어도[/gold]를 {Block:diff()} 줍니다.",
+  "MANOSABA-QUICK_HEAL.description": "지정한 플레이어의 체력을 {Heal:diff()} 회복시키고 [gold]방어도[/gold]를 {Block:diff()} 부여합니다.",
   "MANOSABA-SHOTS_FIRED.title": "총격",
   "MANOSABA-SHOTS_FIRED.description": "피해를 {Damage:diff()} 줍니다. 나노카에게 특효.",
   "MANOSABA-STRIKE_HIKAMI_MERURU.title": "타격",
