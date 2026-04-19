@@ -119,12 +119,6 @@ public sealed class Ribbon : LevelingPathCustomRelicModel
         _trackedGuardAtEnemyTurnStart = null;
         _trackedGuardHpAtEnemyTurnStart = 0m;
 
-        if (_guardSummonedThisEnemyTurn)
-        {
-            _guardSummonedThisEnemyTurn = false;
-            return;
-        }
-
         if (_hasSummonedThisCombat && !_guardTookDamageThisEnemyTurn)
         {
             Console.WriteLine($"[Ribbon] Safe-turn heal triggered. owner={DescribeOwner(Owner)} heal={GetGuardSafeTurnHealAmount()}");
