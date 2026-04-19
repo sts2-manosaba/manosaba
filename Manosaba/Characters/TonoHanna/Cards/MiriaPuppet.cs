@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using BaseLib.Utils;
@@ -8,6 +9,7 @@ using Manosaba.Extensions;
 using MegaCrit.Sts2.Core.CardSelection;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
+using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.Factories;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
@@ -49,19 +51,65 @@ namespace Manosaba.Characters.TonoHanna.Cards
             Rng rng = Owner.RunState.Rng.CombatCardSelection;
             foreach (CardModel card in selected.ToList())
             {
+                if (!IsEligibleSourceTypeForPuppetTransform(card))
+                {
+                    await CardCmd.TransformToRandom(card, rng);
+                    continue;
+                }
+
                 List<CardModel> puppetPool = CardFactory.GetDefaultTransformationOptions(card, isInCombat: true)
                     .Where(c => c.Tags.Contains(ManosabaCardTags.Puppet))
                     .ToList();
+                if (puppetPool.Count == 0)
+                {
+                    puppetPool = BuildFallbackPuppetTransformPool(card);
+                }
+
                 if (puppetPool.Count == 0)
                 {
                     await CardCmd.TransformToRandom(card, rng);
                 }
                 else
                 {
-                    CardTransformation transformation = new(card, puppetPool);
-                    await CardCmd.Transform(transformation.Yield(), rng, CardPreviewStyle.HorizontalLayout);
+                    try
+                    {
+                        CardTransformation transformation = new(card, puppetPool);
+                        await CardCmd.Transform(transformation.Yield(), rng, CardPreviewStyle.HorizontalLayout);
+                    }
+                    catch (InvalidOperationException)
+                    {
+                        await CardCmd.TransformToRandom(card, rng);
+                    }
                 }
             }
+        }
+
+        /// <summary>Only main-deck card types may be forced toward puppet outcomes; curses/status/etc. use vanilla transform.</summary>
+        private static bool IsEligibleSourceTypeForPuppetTransform(CardModel card) =>
+            card.Type is CardType.Attack or CardType.Skill or CardType.Power;
+
+        /// <summary>
+        /// Default transform options often omit puppets; Hanna puppet cards always come from
+        /// <see cref="TonoHannaCardPool"/> so prismatic / non-Hanna players can still roll a puppet outcome.
+        /// </summary>
+        private static List<CardModel> BuildFallbackPuppetTransformPool(CardModel original)
+        {
+            Player? player = original.Owner;
+            if (player == null)
+            {
+                return [];
+            }
+
+            // Puppets are defined on Hanna's pool; prismatic / other characters still need this list for MiriaPuppet.
+            IEnumerable<CardModel> q = ModelDb.CardPool<TonoHannaCardPool>()
+                .GetUnlockedCards(player.UnlockState, original.RunState.CardMultiplayerConstraint)
+                .Where(c => c.Tags.Contains(ManosabaCardTags.Puppet))
+                .Where(c => c.Id != original.Id)
+                .Where(c => original.RunState.Players.Count > 1
+                    ? c.MultiplayerConstraint != CardMultiplayerConstraint.SingleplayerOnly
+                    : c.MultiplayerConstraint != CardMultiplayerConstraint.MultiplayerOnly);
+
+            return q.GroupBy(c => c.Id).Select(g => g.First()).ToList();
         }
 
         protected override void OnUpgrade()

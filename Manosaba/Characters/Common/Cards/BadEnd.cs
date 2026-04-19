@@ -1,6 +1,6 @@
 ﻿using BaseLib.Utils;
-using manosaba.Characters.Common;
 using Manosaba.Extensions;
+using MegaCrit.Sts2.Core.Models.CardPools;
 using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
@@ -11,7 +11,7 @@ using MegaCrit.Sts2.Core.ValueProps;
 
 namespace Manosaba.Characters.Common.Cards
 {
-    [Pool(typeof(CommonCardPool))]
+    [Pool(typeof(StatusCardPool))]
     public class BadEnd : PathCustomCardModel
     {
         public override int MaxUpgradeLevel => 0;

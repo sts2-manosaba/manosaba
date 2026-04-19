@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using Manosaba.Characters.Common.Overrides;
 using Manosaba.Characters.HoshoMago.Cards;
 using manosaba.Characters.Common;
@@ -33,6 +34,22 @@ internal static class ManosabaTransformHelper
         }
 
         CommonCardPool commonPool = ModelDb.CardPool<CommonCardPool>();
+
+        // Manosaba-only tokens: same transform source as CommonCardPool cards (character pool + CommonCardPool),
+        // and restrict targets to Common/Uncommon/Rare like normal commons (vanilla skips that band when original is Token).
+        if (IsManosabaModToken(original))
+        {
+            IEnumerable<CardModel> tokenSource = GetSourcePoolForCommonCard(original, commonPool);
+            CardModel[] tokenCandidates = ApplyVanillaTransformFilters(original, tokenSource, isInCombat, forcePlayableRarityTargetBand: true);
+            if (tokenCandidates.Length == 0)
+            {
+                return false;
+            }
+
+            options = tokenCandidates;
+            return true;
+        }
+
         if (!commonPool.AllCardIds.Contains(original.Id))
         {
             return false;
@@ -84,11 +101,28 @@ internal static class ManosabaTransformHelper
             .Where(card => card.Tags.Contains(ManosabaCardTags.Tarot) && card is not TheWorld);
     }
 
-    private static CardModel[] ApplyVanillaTransformFilters(CardModel original, IEnumerable<CardModel> source, bool isInCombat)
+    private static bool IsManosabaModToken(CardModel original)
+    {
+        if (original.Rarity != CardRarity.Token)
+        {
+            return false;
+        }
+
+        Assembly modAssembly = typeof(ManosabaTransformHelper).Assembly;
+        return original.GetType().Assembly == modAssembly;
+    }
+
+    private static CardModel[] ApplyVanillaTransformFilters(
+        CardModel original,
+        IEnumerable<CardModel> source,
+        bool isInCombat,
+        bool forcePlayableRarityTargetBand = false)
     {
         IEnumerable<CardModel> query = source;
 
-        if (original.Rarity != CardRarity.Ancient && original.Rarity != CardRarity.Token)
+        bool narrowTargetRarities = forcePlayableRarityTargetBand
+            || (original.Rarity != CardRarity.Ancient && original.Rarity != CardRarity.Token);
+        if (narrowTargetRarities)
         {
             query = query.Where(card =>
                 card.Rarity == CardRarity.Common ||
