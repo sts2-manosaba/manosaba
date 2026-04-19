@@ -13,6 +13,7 @@ namespace Manosaba.Characters.Common.Cards
     [Pool(typeof(CommonCardPool))]
     public class Inhibition : PathCustomCardModel
     {
+        public override CardMultiplayerConstraint MultiplayerConstraint => CardMultiplayerConstraint.MultiplayerOnly;
         private const int energyCost = 0;
         private const CardType type = CardType.Power;
         private const CardRarity rarity = CardRarity.Rare;

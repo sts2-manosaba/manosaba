@@ -16,6 +16,7 @@ using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Entities.Powers;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
+using MegaCrit.Sts2.Core.Localization;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.Powers;
@@ -252,7 +253,7 @@ public sealed class TheHierophant : HoshoMagoArcanaBase
 [Pool(typeof(HoshoMagoCardPool))]
 public sealed class TheLovers : HoshoMagoArcanaBase
 {
-    protected override IEnumerable<DynamicVar> CanonicalVars => [new PowerVar<TheLoversPower>(50)];
+    protected override IEnumerable<DynamicVar> CanonicalVars => [new PowerVar<TheLoversPower>(25)];
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<TheLoversPower>()];
 
     public TheLovers() : base(1, CardType.Skill, TargetType.AnyEnemy)
@@ -345,17 +346,31 @@ public sealed class TheHermit : HoshoMagoArcanaBase
 public sealed class WheelOfFortune : HoshoMagoArcanaBase
 {
     protected override IEnumerable<DynamicVar> CanonicalVars => [new CardsVar(4)];
-    public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Retain];
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        foreach (CardModel card in PileType.Hand.GetPile(Owner).Cards.ToList())
+        int drawCount = DynamicVars.Cards.IntValue;
+        int handCount = PileType.Hand.GetPile(Owner).Cards.Count;
+        int maxSelect = Math.Min(drawCount, handCount);
+
+        if (maxSelect > 0)
         {
-            await CardPileCmd.Add(card, PileType.Draw);
+            CardSelectorPrefs prefs = new(new LocString("cards", "MANOSABA-WHEEL_OF_FORTUNE.selectionScreenPrompt"), 0, maxSelect);
+            IEnumerable<CardModel> selectedCards = await CardSelectCmd.FromHand(choiceContext, Owner, prefs, null, this);
+            List<CardModel> selectedList = selectedCards.ToList();
+
+            foreach (CardModel selectedCard in selectedList)
+            {
+                await CardPileCmd.Add(selectedCard, PileType.Draw);
+            }
+
+            if (selectedList.Count > 0)
+            {
+                await CardPileCmd.Shuffle(choiceContext, Owner);
+            }
         }
 
-        await CardPileCmd.Shuffle(choiceContext, Owner);
-        await CardPileCmd.Draw(choiceContext, DynamicVars.Cards.BaseValue, Owner);
+        await CardPileCmd.Draw(choiceContext, drawCount, Owner);
     }
 
     protected override void OnUpgrade()
@@ -668,7 +683,7 @@ public sealed class TheMoon : HoshoMagoArcanaBase
 {
     protected override IEnumerable<DynamicVar> CanonicalVars => [
         new CalculationBaseVar(5m),
-        new ExtraDamageVar(50m),
+        new ExtraDamageVar(25m),
         new CalculatedDamageVar(ValueProp.Move).WithMultiplier(static (CardModel card, Creature? target) =>
         {
             if (target == null)
@@ -719,7 +734,7 @@ public sealed class TheMoon : HoshoMagoArcanaBase
 
     protected override void OnUpgrade()
     {
-        DynamicVars.ExtraDamage.UpgradeValueBy(25m);
+        DynamicVars.ExtraDamage.UpgradeValueBy(15m);
     }
 }
 
@@ -825,6 +840,7 @@ public sealed class Judgement : HoshoMagoArcanaBase
 public sealed class TheWorld : HoshoMagoArcanaBase
 {
     private const string VfxScenePath = "res://Manosaba/scenes/hosho_mago/vfx/the_world.tscn";
+    public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Retain];
     public override bool CanBeGeneratedInCombat => false;
     public override bool CanBeGeneratedByModifiers => false;
     protected override IEnumerable<DynamicVar> CanonicalVars => [new CardsVar(1)];
