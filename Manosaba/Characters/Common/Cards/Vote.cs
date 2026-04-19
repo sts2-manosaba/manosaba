@@ -19,7 +19,7 @@ namespace Manosaba.Characters.Common.Cards
         private const int energyCost = 0;
         private const CardType type = CardType.Skill;
         private const CardRarity rarity = CardRarity.Token;
-        private const TargetType targetType = TargetType.AnyAlly;
+        private const TargetType targetType = TargetType.AnyPlayer;
         private const bool shouldShowInCardLibrary = false;
 
         public override bool CanBeGeneratedInCombat => false;
