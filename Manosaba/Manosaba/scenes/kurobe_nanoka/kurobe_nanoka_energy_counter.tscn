@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://bto65svuhs8eh"]
+[gd_scene load_steps=9 format=3 uid="uid://kurobenanokaenergy1"]
 
 [ext_resource type="Script" uid="uid://d3r08absyhcvw" path="res://Characters/Common/Overrides/ManosabaEnergyCounter.cs" id="1_yr3kq"]
 [ext_resource type="Script" uid="uid://cte8o8b1ap336" path="res://Characters/Common/Overrides/ManosabaParticlesContainer.cs" id="2_l17gy"]
