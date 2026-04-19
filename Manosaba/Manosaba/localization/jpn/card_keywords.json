@@ -8,5 +8,7 @@
   "MANOSABA-MID_STANCE.title": "中段の構え",
   "MANOSABA-MID_STANCE.description": "中段の構えに切り替える。",
   "MANOSABA-LOW_STANCE.title": "下段の構え",
-  "MANOSABA-LOW_STANCE.description": "下段の構えに切り替える。"
+  "MANOSABA-LOW_STANCE.description": "下段の構えに切り替える。",
+  "MANOSABA-GUN_SHOT.title": "銃撃",
+  "MANOSABA-GUN_SHOT.description": "弾丸を消費して攻撃する。残りの弾数は[gold]ナノカの銃[/gold]に表示される。"
 }

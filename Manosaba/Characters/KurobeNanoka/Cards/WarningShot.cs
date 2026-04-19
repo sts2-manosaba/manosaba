@@ -31,6 +31,7 @@ public class WarningShot : GunBase
     [
         new DynamicVar("StrengthLoss", 8m),
         new DynamicVar("BulletCost", 1m),
+        new PowerVar<AccuratePower>(30m),
     ];
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<StrengthPower>()];
     public WarningShot() : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)
@@ -48,7 +49,7 @@ public class WarningShot : GunBase
             await PowerCmd.Apply<WarningShotPower>(hittableEnemy, base.DynamicVars["StrengthLoss"].BaseValue, base.Owner.Creature, this);
         }
 
-        
+        await PowerCmd.Apply<AccuratePower>(Owner.Creature, DynamicVars["AccuratePower"].BaseValue, Owner.Creature, this);
     }
 
     protected override void OnUpgrade()

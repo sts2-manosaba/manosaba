@@ -20,6 +20,7 @@ using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
+using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
 using BaseLib.Extensions;
 using manosaba.Characters.KurobeNanoka;
@@ -55,6 +56,7 @@ public sealed class TraumaReveal : PathCustomCardModel
     private const bool ShouldShowInCardLibrary = true;
 
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromCard<TraumaKurobeNanoka>()];
+    protected override IEnumerable<DynamicVar> CanonicalVars => [new RepeatVar(2)];
 
     public TraumaReveal()
         : base(energyCost, CardTypeValue, Rarity, TargetTypeValue, ShouldShowInCardLibrary)
@@ -88,13 +90,16 @@ public sealed class TraumaReveal : PathCustomCardModel
                 continue;
             }
 
-            await CardCmd.AutoPlay(choiceContext, traumaCard, null);
+            for (int i = 0; i < DynamicVars.Repeat.IntValue; i++)
+            {
+                await CardCmd.AutoPlay(choiceContext, traumaCard, null);
+            }
         }
     }
 
     protected override void OnUpgrade()
     {
-        EnergyCost.UpgradeBy(-1);
+        DynamicVars.Repeat.UpgradeValueBy(1m);
     }
 
 

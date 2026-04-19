@@ -24,6 +24,7 @@ public class SorryIMissed : GunBase
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
         new DynamicVar("BulletCost", 1m),
+        new PowerVar<AccuratePower>(150m),
     ];
 
     public SorryIMissed() : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)
@@ -36,11 +37,11 @@ public class SorryIMissed : GunBase
             return;
 
         NanokaHelper.PlayGunFireSfx();
-        await PowerCmd.Apply<AccuratePower>(Owner.Creature, 2m, Owner.Creature, this);
+        await PowerCmd.Apply<AccuratePower>(Owner.Creature, DynamicVars["AccuratePower"].BaseValue, Owner.Creature, this);
     }
 
     protected override void OnUpgrade()
     {
-        EnergyCost.UpgradeBy(-1);
+        DynamicVars["AccuratePower"].UpgradeValueBy(100m);
     }
 }

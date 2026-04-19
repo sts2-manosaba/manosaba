@@ -26,7 +26,7 @@
   "MANOSABA-MAGICAL_BULLETS.description": "消耗子彈發動攻擊。",
   "MANOSABA-MAGICAL_BULLETS.flavor": "魔法的力量在於子彈的飛行速度。",
   "MANOSABA-RIBBON.title": "黑色緞帶",
-  "MANOSABA-RIBBON.description": "每場戰鬥第一次將要受到未被格擋的傷害時，改為召喚一名生命值為 {Summon} 的看守。\n召喚時獲得 {MajokaPower} 層[gold]魔女化[/gold]，每當看守受到傷害時再獲得 {InterceptMajoka} 層。\n升級會提高看守生命值。看守存活時，若該回合沒有受到傷害，則根據[gold]魔女化[/gold]回復 5 至 10 點生命值。",
+  "MANOSABA-RIBBON.description": "每場戰鬥第一次將要受到未被格擋的傷害時，改為召喚一名生命值為 {Summon} 的看守。\n召喚時獲得 {MajokaPower} 層[gold]魔女化[/gold]，每當看守受到傷害時再獲得 {InterceptMajoka} 層。\n升級會提高看守生命值。看守存活時，若該回合沒有受到傷害，則根據遺物等級回復 5 至 10 點生命值。",
   "MANOSABA-RIBBON.flavor": "奈葉香隨身攜帶的髮帶",
   "MANOSABA-HAND_GUN.title": "手槍",
   "MANOSABA-HAND_GUN.description": "每場戰鬥一次，即將受10點以上的生命傷害時，對該名敵人造成[blue]30[/blue]傷害。",

@@ -52,11 +52,13 @@ public sealed class EnvironmentExplore : PathCustomCardModel
         decimal bonusPerGun = DynamicVars["BonusPerGun"].BaseValue;
         decimal discardedGunCount = gunCardsInHand.Count;
 
-        await CardPileCmd.Draw(choiceContext, DynamicVars.Cards.BaseValue + discardedGunCount * bonusPerGun, Owner);
+        await CardPileCmd.Draw(choiceContext, DynamicVars.Cards.BaseValue, Owner);
 
         if (discardedGunCount > 0)
         {
-            await PlayerCmd.GainEnergy(discardedGunCount * bonusPerGun, Owner);
+            decimal totalBonus = discardedGunCount * bonusPerGun;
+            await PowerCmd.Apply<DrawCardsNextTurnPower>(Owner.Creature, totalBonus, Owner.Creature, this);
+            await PowerCmd.Apply<EnergyNextTurnPower>(Owner.Creature, totalBonus, Owner.Creature, this);
         }
     }
 

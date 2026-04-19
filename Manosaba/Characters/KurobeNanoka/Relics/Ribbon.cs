@@ -25,7 +25,7 @@ public sealed class Ribbon : LevelingPathCustomRelicModel
     private const decimal GuardSafeTurnMinHealAmount = 5m;
     private const decimal GuardSafeTurnMaxHealAmount = 10m;
     private const decimal SummonMajokaGain = 30m;
-    private const decimal InterceptMajokaGain = 15m;
+    private const decimal InterceptMajokaGain = 10m;
 
     private bool _hasSummonedThisCombat;
     private bool _redirectedDamageToGuard;
@@ -90,11 +90,10 @@ public sealed class Ribbon : LevelingPathCustomRelicModel
 
         _isTrackingEnemyTurn = false;
 
-        Creature? guard = Owner.PlayerCombatState?.GetPet<Jailer>();
-        if (guard is { IsAlive: true } && !_guardTookDamageThisEnemyTurn)
+        if (_hasSummonedThisCombat && !_guardTookDamageThisEnemyTurn)
         {
             Flash();
-            await CreatureCmd.Heal(guard, GetGuardSafeTurnHealAmount());
+            await JailerCmd.Heal(choiceContext, Owner, GetGuardSafeTurnHealAmount(), DynamicVars.Summon.BaseValue);
         }
     }
 
@@ -135,11 +134,8 @@ public sealed class Ribbon : LevelingPathCustomRelicModel
         Creature? dealer,
         CardModel? cardSource)
     {
-        Creature? guard = Owner.PlayerCombatState?.GetPet<Jailer>();
-        if (target != guard)
+        if (!_redirectedDamageToGuard)
         {
-            _redirectedDamageToGuard = false;
-
             return;
         }
 
@@ -217,8 +213,8 @@ public sealed class Ribbon : LevelingPathCustomRelicModel
 
     private decimal GetGuardSafeTurnHealAmount()
     {
-        decimal majoka = Math.Clamp(Owner.Creature.GetPowerAmount<MajokaPower>(), 0m, 100m);
-        decimal majokaRatio = majoka / 100m;
-        return GuardSafeTurnMinHealAmount + (GuardSafeTurnMaxHealAmount - GuardSafeTurnMinHealAmount) * majokaRatio;
+        decimal relicLevelRatio = MaxRelicLevel <= 1 ? 1m : (RelicLevel - 1m) / (MaxRelicLevel - 1m);
+        relicLevelRatio = Math.Clamp(relicLevelRatio, 0m, 1m);
+        return GuardSafeTurnMinHealAmount + (GuardSafeTurnMaxHealAmount - GuardSafeTurnMinHealAmount) * relicLevelRatio;
     }
 }

@@ -8,5 +8,7 @@
   "MANOSABA-MID_STANCE.title": "Mid Stance",
   "MANOSABA-MID_STANCE.description": "Switch to Mid Stance.",
   "MANOSABA-LOW_STANCE.title": "Low Stance",
-  "MANOSABA-LOW_STANCE.description": "Switch to Low Stance."
+  "MANOSABA-LOW_STANCE.description": "Switch to Low Stance.",
+  "MANOSABA-GUN_SHOT.title": "Gun Shot",
+  "MANOSABA-GUN_SHOT.description": "Spend bullets to attack. Your remaining bullets are shown on [gold]Nanoka's Gun[/gold]."
 }

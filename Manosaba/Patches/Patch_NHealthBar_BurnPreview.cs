@@ -48,10 +48,29 @@ public static class Patch_NHealthBar_BurnPreview
     private static readonly Color _invincibleForegroundColor = new("C5BBED");
     private static readonly Color _burnPreviewColor = new("6C0000");
 
+    [HarmonyPatch("RefreshValues")]
+    [HarmonyPrefix]
+    private static bool RefreshValuesPrefix(NHealthBar __instance)
+    {
+        return IsHealthBarUiAlive(__instance);
+    }
+
+    [HarmonyPatch("RefreshBlockUi")]
+    [HarmonyPrefix]
+    private static bool RefreshBlockUiPrefix(NHealthBar __instance)
+    {
+        return IsHealthBarUiAlive(__instance);
+    }
+
     [HarmonyPatch("RefreshForeground")]
     [HarmonyPrefix]
     private static bool RefreshForegroundPrefix(NHealthBar __instance)
     {
+        if (!IsHealthBarUiAlive(__instance))
+        {
+            return false;
+        }
+
         Creature creature = _creatureRef(__instance);
         Control hpForeground = _hpForegroundRef(__instance);
         Control poisonForeground = _poisonForegroundRef(__instance);
@@ -193,6 +212,11 @@ public static class Patch_NHealthBar_BurnPreview
     [HarmonyPrefix]
     private static bool RefreshMiddlegroundPrefix(NHealthBar __instance)
     {
+        if (!IsHealthBarUiAlive(__instance))
+        {
+            return false;
+        }
+
         Creature creature = _creatureRef(__instance);
         Control hpMiddleground = _hpMiddlegroundRef(__instance);
         Control hpForeground = _hpForegroundRef(__instance);
@@ -240,6 +264,11 @@ public static class Patch_NHealthBar_BurnPreview
     [HarmonyPrefix]
     private static bool RefreshTextPrefix(NHealthBar __instance)
     {
+        if (!IsHealthBarUiAlive(__instance))
+        {
+            return false;
+        }
+
         Creature creature = _creatureRef(__instance);
         MegaLabel hpLabel = _hpLabelRef(__instance);
         Control doomForeground = _doomForegroundRef(__instance);
@@ -325,23 +354,46 @@ public static class Patch_NHealthBar_BurnPreview
     private static Control GetOrCreateBurnForeground(NHealthBar healthBar)
     {
         Control hpForegroundContainer = _hpForegroundContainerRef(healthBar);
+        if (!GodotObject.IsInstanceValid(hpForegroundContainer))
+        {
+            return _poisonForegroundRef(healthBar);
+        }
+
         Control? existing = hpForegroundContainer.GetNodeOrNull<Control>("Mask/BurnForegroundPatched");
-        if (existing != null)
+        if (existing != null && GodotObject.IsInstanceValid(existing))
         {
             return existing;
         }
 
         NinePatchRect poisonForeground = (NinePatchRect)_poisonForegroundRef(healthBar);
+        if (!GodotObject.IsInstanceValid(poisonForeground))
+        {
+            return hpForegroundContainer;
+        }
+
         Node? parentNode = poisonForeground.GetParent();
-        if (parentNode == null)
+        if (parentNode == null || !GodotObject.IsInstanceValid(parentNode))
         {
             return poisonForeground;
         }
+
         NinePatchRect burnForeground = (NinePatchRect)poisonForeground.Duplicate();
         burnForeground.Name = "BurnForegroundPatched";
         burnForeground.Visible = false;
         parentNode.AddChild(burnForeground);
         parentNode.MoveChild(burnForeground, poisonForeground.GetIndex());
         return burnForeground;
+    }
+
+    private static bool IsHealthBarUiAlive(NHealthBar healthBar)
+    {
+        return GodotObject.IsInstanceValid(healthBar)
+            && GodotObject.IsInstanceValid(_hpForegroundContainerRef(healthBar))
+            && GodotObject.IsInstanceValid(_hpForegroundRef(healthBar))
+            && GodotObject.IsInstanceValid(_poisonForegroundRef(healthBar))
+            && GodotObject.IsInstanceValid(_doomForegroundRef(healthBar))
+            && GodotObject.IsInstanceValid(_hpMiddlegroundRef(healthBar))
+            && GodotObject.IsInstanceValid(_hpLabelRef(healthBar))
+            && GodotObject.IsInstanceValid(_infinityTexRef(healthBar));
     }
 }

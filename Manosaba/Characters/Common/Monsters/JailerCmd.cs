@@ -3,14 +3,58 @@ using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Entities.Players;
+using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Nodes.Combat;
 using MegaCrit.Sts2.Core.Nodes.Rooms;
+using Manosaba.Characters.Common.Powers;
 
 namespace Manosaba.Characters.Common.Monsters;
 
 public static class JailerCmd
 {
+    public static async Task<Creature?> Heal(PlayerChoiceContext choiceContext, Player summoner, decimal amount, decimal? reviveMaxHp = null)
+    {
+        _ = choiceContext;
+
+        if (summoner.Creature?.CombatState == null || summoner.PlayerCombatState == null || amount <= 0m)
+        {
+            return null;
+        }
+
+        Creature? jailer = GetExistingJailer(summoner);
+        if (jailer == null)
+        {
+            if (reviveMaxHp is null || reviveMaxHp <= 0m)
+            {
+                return null;
+            }
+
+            MonsterModel monster = ModelDb.GetById<MonsterModel>(ModelDb.Monster<Jailer>().Id).ToMutable();
+            jailer = summoner.Creature.CombatState.CreateCreature(monster, CombatSide.Player, null);
+            jailer.SetMaxHpInternal(Math.Max(1, (int)decimal.Round(reviveMaxHp.Value, MidpointRounding.AwayFromZero)));
+            jailer.SetCurrentHpInternal(0);
+            _ = PowerCmd.Apply<PersistentPetCorpsePower>(jailer, 1m, null, null);
+        }
+
+        bool isReviving = !jailer.IsAlive;
+        if (isReviving)
+        {
+            summoner.PlayerCombatState.AddPetInternal(jailer);
+        }
+
+        EnsureJailerNode(summoner, jailer);
+
+        decimal overheal = jailer.CurrentHp + amount - jailer.MaxHp;
+        if (overheal > 0m)
+        {
+            await CreatureCmd.GainMaxHp(jailer, overheal);
+        }
+
+        await CreatureCmd.Heal(jailer, amount, isReviving);
+        return jailer;
+    }
+
     public static Creature? Summon(Player summoner, decimal amount)
     {
         if (summoner.Creature?.CombatState == null || summoner.PlayerCombatState == null)
@@ -24,7 +68,7 @@ public static class JailerCmd
             return summoner.PlayerCombatState.GetPet<Jailer>();
         }
 
-        Creature? jailer = summoner.PlayerCombatState.GetPet<Jailer>();
+        Creature? jailer = GetExistingJailer(summoner);
         if (jailer is { IsAlive: true })
         {
             return jailer;
@@ -36,6 +80,7 @@ public static class JailerCmd
         {
             MonsterModel monster = ModelDb.GetById<MonsterModel>(ModelDb.Monster<Jailer>().Id).ToMutable();
             jailer = summoner.Creature.CombatState.CreateCreature(monster, CombatSide.Player, null);
+            _ = PowerCmd.Apply<PersistentPetCorpsePower>(jailer, 1m, null, null);
             didSummon = true;
         }
 
@@ -44,6 +89,25 @@ public static class JailerCmd
         summoner.PlayerCombatState.AddPetInternal(jailer);
         didSummon = true;
 
+        EnsureJailerNode(summoner, jailer);
+
+        if (didSummon && CombatManager.Instance.IsInProgress)
+        {
+            SfxCmd.Play("event:/sfx/characters/necrobinder/necrobinder_summon");
+            CombatManager.Instance.History.Summoned(summoner.Creature.CombatState, hpAmount, summoner);
+        }
+
+        return jailer;
+    }
+
+    private static Creature? GetExistingJailer(Player summoner)
+    {
+        return summoner.PlayerCombatState?.GetPet<Jailer>()
+               ?? summoner.Creature.CombatState?.Allies.FirstOrDefault(c => c.Monster is Jailer && c.PetOwner == summoner);
+    }
+
+    private static void EnsureJailerNode(Player summoner, Creature jailer)
+    {
         NCreature? jailerNode = NCombatRoom.Instance?.GetCreatureNode(jailer);
         if (jailerNode == null)
         {
@@ -58,14 +122,6 @@ public static class JailerCmd
             jailerNode.ToggleIsInteractable(true);
             jailerNode.OstyScaleToSize(jailer.MaxHp, 0.75f);
         }
-
-        if (didSummon && CombatManager.Instance.IsInProgress)
-        {
-            SfxCmd.Play("event:/sfx/characters/necrobinder/necrobinder_summon");
-            CombatManager.Instance.History.Summoned(summoner.Creature.CombatState, hpAmount, summoner);
-        }
-
-        return jailer;
     }
 
     private static void PushJailerToBack(NCreature jailerNode)

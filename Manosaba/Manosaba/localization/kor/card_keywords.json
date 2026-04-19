@@ -8,5 +8,7 @@
   "MANOSABA-MID_STANCE.title": "중단 자세",
   "MANOSABA-MID_STANCE.description": "중단 자세로 전환합니다.",
   "MANOSABA-LOW_STANCE.title": "하단 자세",
-  "MANOSABA-LOW_STANCE.description": "하단 자세로 전환합니다."
+  "MANOSABA-LOW_STANCE.description": "하단 자세로 전환합니다.",
+  "MANOSABA-GUN_SHOT.title": "총격",
+  "MANOSABA-GUN_SHOT.description": "탄환을 소모해 공격합니다. 남은 탄환 수는 [gold]나노카의 총[/gold]에 표시됩니다."
 }

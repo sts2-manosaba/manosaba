@@ -5,6 +5,7 @@ using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Entities.Powers;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
+using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.ValueProps;
 
@@ -12,14 +13,42 @@ namespace Manosaba.Characters.KurobeNanoka.Powers;
 
 public sealed class AccuratePower : PathCustomPowerModel
 {
+    private const decimal StackScale = 100m;
+    private const string MultiplierVar = "Multiplier";
+
     public override PowerType Type => PowerType.Buff;
     public override PowerStackType StackType => PowerStackType.Counter;
     public override int DisplayAmount => Amount;
     public override bool AllowNegative => false;
 
+    protected override IEnumerable<DynamicVar> CanonicalVars =>
+    [
+        new DynamicVar(MultiplierVar, 1m),
+    ];
+
     private static bool ShouldAffectDamage(ValueProp props)
     {
         return props.HasFlag(ValueProp.Move) && !props.HasFlag(ValueProp.Unpowered);
+    }
+
+    public override Task AfterApplied(Creature? applier, CardModel? cardSource)
+    {
+        _ = applier;
+        _ = cardSource;
+        RefreshDerivedValues();
+        return Task.CompletedTask;
+    }
+
+    public override async Task AfterPowerAmountChanged(PowerModel power, decimal amount, Creature? applier, CardModel? cardSource)
+    {
+        await base.AfterPowerAmountChanged(power, amount, applier, cardSource);
+
+        if (power != this)
+        {
+            return;
+        }
+
+        RefreshDerivedValues();
     }
 
     public override decimal ModifyDamageMultiplicative(
@@ -52,7 +81,7 @@ public sealed class AccuratePower : PathCustomPowerModel
             return 1m;
         }
 
-        return 1m + Amount;
+        return 1m + Amount / StackScale;
     }
 
     public override async Task AfterCardPlayed(PlayerChoiceContext context, CardPlay cardPlay)
@@ -68,5 +97,11 @@ public sealed class AccuratePower : PathCustomPowerModel
         }
 
         await PowerCmd.Remove(this);
+    }
+
+    private void RefreshDerivedValues()
+    {
+        DynamicVars[MultiplierVar].BaseValue = 1m + Amount / StackScale;
+        InvokeDisplayAmountChanged();
     }
 }
