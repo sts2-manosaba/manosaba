@@ -256,7 +256,7 @@
   "MANOSABA-RECOIL_SHOT.title": "反動射撃",
   "MANOSABA-RECOIL_SHOT.description": "{BulletCost:diff()}発の弾丸を消費する。\n{Damage:diff()}ダメージを与え、{Block:diff()}[gold]ブロック[/gold]を得る。",
   "MANOSABA-COOKING.title": "料理",
-  "MANOSABA-COOKING.description": "{Block:diff()}[gold]ブロック[/gold]を得る。\n自分の[gold]状態異常[/gold]カードをすべて[gold]精確クッキー[/gold]に変化させる。",
+  "MANOSABA-COOKING.description": "{Block:diff()}[gold]ブロック[/gold]を得る。\n[gold]手札[/gold]の[gold]状態異常[/gold]カードをすべて[gold]精確クッキー[/gold]に変化させる。",
   "MANOSABA-ACCURATE_COOKIE.title": "精確クッキー",
   "MANOSABA-ACCURATE_COOKIE.description": "次に使う[gold]銃撃[/gold]攻撃は追加で{AccuratePower:diff()}%ダメージを与える。\n{Cards:diff()}枚引く。",
   "MANOSABA-TAKE_COVER.title": "遮蔽を取る",

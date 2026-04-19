@@ -28,7 +28,7 @@ public class Snipe : GunBase
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
         new CalculationBaseVar(15m),
-        new ExtraDamageVar(0m),
+        new ExtraDamageVar(15m),
         new CalculatedDamageVar(ValueProp.Move).WithMultiplier((CardModel card, Creature? _) =>
             (card.CombatState?.RoundNumber ?? 0) == 1 ? 0.5m : 0m),
         new DynamicVar("BulletCost", 1m),
@@ -55,5 +55,6 @@ public class Snipe : GunBase
     protected override void OnUpgrade()
     {
         DynamicVars.CalculationBase.UpgradeValueBy(5m);
+        DynamicVars.ExtraDamage.UpgradeValueBy(5m);
     }
 }

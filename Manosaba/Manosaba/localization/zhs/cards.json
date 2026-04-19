@@ -248,7 +248,7 @@
   "MANOSABA-RECOIL_SHOT.title": "後座力射擊",
   "MANOSABA-RECOIL_SHOT.description": "消耗 {BulletCost:diff()} 發子彈。\n造成 {Damage:diff()} 點傷害，並獲得 {Block:diff()} 點[gold]格檔[/gold]。",
   "MANOSABA-COOKING.title": "料理",
-  "MANOSABA-COOKING.description": "獲得 {Block:diff()} 點[gold]格檔[/gold]。\n將你所有的[gold]狀態[/gold]牌轉化為[gold]精準餅乾[/gold]。",
+  "MANOSABA-COOKING.description": "獲得 {Block:diff()} 點[gold]格檔[/gold]。\n將[gold]手牌[/gold]中所有[gold]狀態[/gold]牌轉化為[gold]精準餅乾[/gold]。",
   "MANOSABA-ACCURATE_COOKIE.title": "精準餅乾",
   "MANOSABA-ACCURATE_COOKIE.description": "下一次[gold]槍擊[/gold]額外造成 {AccuratePower:diff()}% 傷害。\n抽 {Cards:diff()} 張牌。",
   "MANOSABA-TAKE_COVER.title": "尋找掩護",

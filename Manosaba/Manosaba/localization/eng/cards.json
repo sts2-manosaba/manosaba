@@ -256,7 +256,7 @@
   "MANOSABA-RECOIL_SHOT.title": "Recoil Shot",
   "MANOSABA-RECOIL_SHOT.description": "Spend {BulletCost:diff()} bullets.\nDeal {Damage:diff()} damage and gain {Block:diff()} [gold]Block[/gold].",
   "MANOSABA-COOKING.title": "Cooking",
-  "MANOSABA-COOKING.description": "Gain {Block:diff()} [gold]Block[/gold].\nTransform all your [gold]Status[/gold] cards into [gold]Accurate Cookie[/gold].",
+  "MANOSABA-COOKING.description": "Gain {Block:diff()} [gold]Block[/gold].\nTransform all [gold]Status[/gold] cards in your [gold]hand[/gold] into [gold]Accurate Cookie[/gold].",
   "MANOSABA-ACCURATE_COOKIE.title": "Accurate Cookie",
   "MANOSABA-ACCURATE_COOKIE.description": "Your next [gold]Gun Shot[/gold] attack deals an extra {AccuratePower:diff()}% damage.\nDraw {Cards:diff()} card.",
   "MANOSABA-TAKE_COVER.title": "Take Cover",

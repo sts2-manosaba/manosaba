@@ -9,7 +9,7 @@ namespace Manosaba.Characters.KurobeNanoka.Powers;
 
 public sealed class RelicSearchPower : PathCustomPowerModel
 {
-    private const int RelicChancePercentPerRoll = 30;
+    private const int RelicChancePercentPerRoll = 50;
 
     public override PowerType Type => PowerType.Buff;
     public override PowerStackType StackType => PowerStackType.Counter;

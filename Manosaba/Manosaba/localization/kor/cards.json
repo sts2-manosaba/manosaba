@@ -255,7 +255,7 @@
   "MANOSABA-RECOIL_SHOT.title": "반동 사격",
   "MANOSABA-RECOIL_SHOT.description": "탄환 {BulletCost:diff()}발을 소모합니다.\n피해를 {Damage:diff()} 주고 [gold]방어도[/gold]를 {Block:diff()} 얻습니다.",
   "MANOSABA-COOKING.title": "요리",
-  "MANOSABA-COOKING.description": "[gold]방어도[/gold]를 {Block:diff()} 얻습니다.\n자신의 모든 [gold]상태 이상[/gold] 카드를 [gold]정확 쿠키[/gold]로 변환합니다.",
+  "MANOSABA-COOKING.description": "[gold]방어도[/gold]를 {Block:diff()} 얻습니다.\n[gold]손패[/gold]의 모든 [gold]상태 이상[/gold] 카드를 [gold]정확 쿠키[/gold]로 변환합니다.",
   "MANOSABA-ACCURATE_COOKIE.title": "정확 쿠키",
   "MANOSABA-ACCURATE_COOKIE.description": "다음 [gold]총격[/gold] 공격이 추가로 {AccuratePower:diff()}% 피해를 줍니다.\n카드를 {Cards:diff()}장 뽑습니다.",
   "MANOSABA-TAKE_COVER.title": "엄폐",
