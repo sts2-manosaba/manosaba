@@ -57,13 +57,7 @@ namespace Manosaba.Characters.TonoHanna.Cards
                     continue;
                 }
 
-                List<CardModel> puppetPool = CardFactory.GetDefaultTransformationOptions(card, isInCombat: true)
-                    .Where(c => c.Tags.Contains(ManosabaCardTags.Puppet))
-                    .ToList();
-                if (puppetPool.Count == 0)
-                {
-                    puppetPool = BuildFallbackPuppetTransformPool(card);
-                }
+                List<CardModel> puppetPool = BuildMiriaPuppetTransformPool(card);
 
                 if (puppetPool.Count == 0)
                 {
@@ -87,6 +81,31 @@ namespace Manosaba.Characters.TonoHanna.Cards
         /// <summary>Only main-deck card types may be forced toward puppet outcomes; curses/status/etc. use vanilla transform.</summary>
         private static bool IsEligibleSourceTypeForPuppetTransform(CardModel card) =>
             card.Type is CardType.Attack or CardType.Skill or CardType.Power;
+
+        /// <summary>
+        /// Puppets tagged in <see cref="CardFactory.GetDefaultTransformationOptions"/> plus Hanna-pool fallback, merged by id.
+        /// Vanilla transform can throw for some Hosho <see cref="CardRarity.Basic"/> sources; fallback keeps outcomes deterministic for multiplayer.
+        /// </summary>
+        private static List<CardModel> BuildMiriaPuppetTransformPool(CardModel original)
+        {
+            List<CardModel> fromDefault = [];
+            try
+            {
+                fromDefault = CardFactory.GetDefaultTransformationOptions(original, isInCombat: true)
+                    .Where(c => c.Tags.Contains(ManosabaCardTags.Puppet))
+                    .ToList();
+            }
+            catch (InvalidOperationException)
+            {
+                // e.g. Hosho Basic + empty vanilla filter after ManosabaTransformHelper tarot branch misses
+            }
+
+            return fromDefault
+                .Concat(BuildFallbackPuppetTransformPool(original))
+                .GroupBy(c => c.Id)
+                .Select(g => g.First())
+                .ToList();
+        }
 
         /// <summary>
         /// Default transform options often omit puppets; Hanna puppet cards always come from
