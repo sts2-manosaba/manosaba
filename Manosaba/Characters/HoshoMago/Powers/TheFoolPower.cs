@@ -21,7 +21,7 @@ public sealed class TheFoolPower : PathCustomPowerModel
     public override PowerType Type => PowerType.Buff;
     public override PowerStackType StackType => PowerStackType.Single;
 
-    public override async Task BeforePlayPhaseStart(PlayerChoiceContext choiceContext, Player player)
+    public override async Task BeforePlayPhaseStartLate(PlayerChoiceContext choiceContext, Player player)
     {
         if (_armed || Owner?.Player == null || player != Owner.Player)
         {

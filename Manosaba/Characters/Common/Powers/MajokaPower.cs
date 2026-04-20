@@ -3,6 +3,7 @@ using Manosaba.Characters.HasumiLeia.Cards;
 using Manosaba.Characters.HikamiMeruru.Cards;
 using Manosaba.Characters.HoshoMago.Cards;
 using Manosaba.Characters.JogasakiNoahCard.Cards;
+using Manosaba.Characters.KurobeNanoka.Cards;
 using Manosaba.Characters.NikaidoHiro.Cards;
 using Manosaba.Characters.SaekiMiria.Cards;
 using Manosaba.Characters.TachibanaSherry.Cards;
@@ -15,8 +16,6 @@ using MegaCrit.Sts2.Core.Entities.Powers;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Nodes.CommonUi;
 using MegaCrit.Sts2.Core.ValueProps;
-using Manosaba.Characters.HasumiLeia.Cards;
-using Manosaba.Characters.KurobeNanoka.Cards;
 
 namespace Manosaba.Characters.Common.Powers
 {
@@ -83,10 +82,12 @@ namespace Manosaba.Characters.Common.Powers
 
         public override async Task AfterPowerAmountChanged(PowerModel power, decimal amount, Creature? applier, CardModel? cardSource)
         {
-
-            int toApplyMI = base.Amount / 100 - base.Owner.GetPowerAmount<MurderousImpulsePower>();
-            await PowerCmd.Apply<MurderousImpulsePower>(base.Owner.Player.Creature, toApplyMI, base.Owner.Player.Creature, null);
-            await CheckAndGiveMahouCards();
+            if (power is MajokaPower)
+            {
+                int toApplyMI = base.Amount / 100 - base.Owner.GetPowerAmount<MurderousImpulsePower>();
+                await PowerCmd.Apply<MurderousImpulsePower>(base.Owner.Player.Creature, toApplyMI, base.Owner.Player.Creature, null);
+                await CheckAndGiveMahouCards();
+            }
         }
 
         private async Task CheckAndGiveMahouCards()

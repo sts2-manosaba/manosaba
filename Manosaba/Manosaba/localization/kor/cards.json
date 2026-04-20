@@ -490,7 +490,7 @@
   "MANOSABA-PRISON.title": "감옥 저택",
   "MANOSABA-PRISON.description": "[gold]감옥 저택[/gold]을 {PrisonPower:diff()} 얻습니다.",
   "MANOSABA-INHIBITION.title": "억제",
-  "MANOSABA-INHIBITION.description": "[gold]억제력[/gold]을 {InhibitionPower:diff()} 얻습니다.",
+  "MANOSABA-INHIBITION.description": "대상 플레이어에게 [gold]억제력[/gold]을 {InhibitionPower:diff()} 부여합니다.",
   "MANOSABA-SIMPLE_SPEAR.title": "간이 창",
   "MANOSABA-SIMPLE_SPEAR.description": "피해를 {Damage:diff()} 줍니다.",
   "MANOSABA-SLEEPING_PILL.title": "수면제",

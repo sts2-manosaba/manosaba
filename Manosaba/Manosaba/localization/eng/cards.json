@@ -492,7 +492,7 @@
   "MANOSABA-PRISON.title": "Witch Island Prison",
   "MANOSABA-PRISON.description": "Gain {PrisonPower:diff()} [gold]Witch Island Prison[/gold].",
   "MANOSABA-INHIBITION.title": "Suppression",
-  "MANOSABA-INHIBITION.description": "Gain {InhibitionPower:diff()} [gold]Inhibition[/gold].",
+  "MANOSABA-INHIBITION.description": "Apply {InhibitionPower:diff()} [gold]Inhibition[/gold] to target player.",
   "MANOSABA-SIMPLE_SPEAR.title": "Simple Spear",
   "MANOSABA-SIMPLE_SPEAR.description": "Deal {Damage:diff()} damage.",
   "MANOSABA-SLEEPING_PILL.title": "Sleeping Pill",

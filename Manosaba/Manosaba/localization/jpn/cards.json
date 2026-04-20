@@ -492,7 +492,7 @@
   "MANOSABA-PRISON.title": "魔女島刑務所",
   "MANOSABA-PRISON.description": "自身に{PrisonPower:diff()}層の[gold]魔女島刑務所[/gold]を与える。",
   "MANOSABA-INHIBITION.title": "抑制",
-  "MANOSABA-INHIBITION.description": "自身に{InhibitionPower:diff()}層の[gold]抑制力[/gold]を与える。",
+  "MANOSABA-INHIBITION.description": "対象プレイヤーに{InhibitionPower:diff()}層の[gold]抑制力[/gold]を与える。",
   "MANOSABA-SIMPLE_SPEAR.title": "簡易ランス",
   "MANOSABA-SIMPLE_SPEAR.description": "{Damage:diff()}ダメージを与える。",
   "MANOSABA-SLEEPING_PILL.title": "安眠薬",

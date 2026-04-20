@@ -17,7 +17,7 @@ namespace Manosaba.Characters.Common.Cards
         private const int energyCost = 0;
         private const CardType type = CardType.Power;
         private const CardRarity rarity = CardRarity.Rare;
-        private const TargetType targetType = TargetType.Self;
+        private const TargetType targetType = TargetType.AnyPlayer;
         private const bool shouldShowInCardLibrary = true;
 
         protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<InhibitionPower>()];
@@ -29,7 +29,8 @@ namespace Manosaba.Characters.Common.Cards
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
-            await PowerCmd.Apply<InhibitionPower>(Owner.Creature, DynamicVars["InhibitionPower"].BaseValue, Owner.Creature, this);
+            ArgumentNullException.ThrowIfNull(cardPlay.Target, "cardPlay.Target");
+            await PowerCmd.Apply<InhibitionPower>(cardPlay.Target, DynamicVars["InhibitionPower"].BaseValue, Owner.Creature, this);
         }
 
         protected override void OnUpgrade()

@@ -495,7 +495,7 @@
   "MANOSABA-PRISON.title": "魔女島監獄",
   "MANOSABA-PRISON.description": "給予自身 {PrisonPower:diff()} 層[gold]魔女島監獄[/gold]。",
   "MANOSABA-INHIBITION.title": "抑制",
-  "MANOSABA-INHIBITION.description": "給予自身 {InhibitionPower:diff()} 層[gold]抑制力[/gold]。",
+  "MANOSABA-INHIBITION.description": "給予目標玩家 {InhibitionPower:diff()} 層[gold]抑制力[/gold]。",
   "MANOSABA-SIMPLE_SPEAR.title": "簡易長矛",
   "MANOSABA-SIMPLE_SPEAR.description": "造成 {Damage:diff()} 點傷害。",
   "MANOSABA-SLEEPING_PILL.title": "安眠藥",

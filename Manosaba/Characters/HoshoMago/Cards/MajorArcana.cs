@@ -11,6 +11,7 @@ using Manosaba.Extensions;
 using MegaCrit.Sts2.Core.CardSelection;
 using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Commands;
+using MegaCrit.Sts2.Core.Commands.Builders;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Entities.Powers;
@@ -159,13 +160,12 @@ public sealed class TheEmpress : HoshoMagoArcanaBase
 
         decimal damage = DynamicVars.CalculatedDamage.Calculate(cardPlay.Target);
 
-        IEnumerable<DamageResult> results = await CreatureCmd.Damage(
-            choiceContext,
-            cardPlay.Target,
-            damage,
-            DynamicVars.CalculatedDamage.Props,
-            Owner.Creature,
-            this);
+        AttackCommand attackCommand = await DamageCmd
+            .Attack(DynamicVars.CalculatedDamage.BaseValue)
+            .Targeting(cardPlay.Target)
+            .FromCard(this)
+            .Execute(choiceContext);
+        IEnumerable<DamageResult> results = attackCommand.Results;
         int totalUnblockedDamage = results.Where(result => result.Receiver.IsEnemy).Sum(result => result.UnblockedDamage);
         if (totalUnblockedDamage > 0)
         {
