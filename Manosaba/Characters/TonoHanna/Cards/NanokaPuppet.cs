@@ -1,14 +1,17 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using BaseLib.Utils;
 using manosaba.Characters.TonoHanna;
 using Manosaba.Characters.Common.Overrides;
 using Manosaba.Characters.TonoHanna.Powers;
 using Manosaba.Extensions;
+using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
+using MegaCrit.Sts2.Core.Hooks;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.ValueProps;
@@ -26,11 +29,89 @@ namespace Manosaba.Characters.TonoHanna.Cards
         private const TargetType targetType = TargetType.AnyEnemy;
         private const bool shouldShowInCardLibrary = true;
 
+        /// <summary>
+        /// Vanilla <see cref="CalculatedVar.Calculate"/> only applies the multiplier when <c>card.CombatState != null</c>;
+        /// cards in hand often have null <see cref="CardModel.CombatState"/>, so the printed damage was only the base (6).
+        /// </summary>
+        private sealed class NanokaPuppetCalculatedDamageVar : CalculatedDamageVar
+        {
+            public NanokaPuppetCalculatedDamageVar()
+                : base(ValueProp.Move)
+            {
+                WithMultiplier(PuppetMultiplier);
+            }
+
+            private static decimal PuppetMultiplier(CardModel card, Creature? _)
+            {
+                if (!CombatManager.Instance.IsInProgress || card.Owner?.PlayerCombatState == null)
+                {
+                    return 0m;
+                }
+
+                return card.Owner.PlayerCombatState.AllCards.Count(c => c.Tags.Contains(ManosabaCardTags.Puppet));
+            }
+
+            public override void UpdateCardPreview(CardModel card, CardPreviewMode previewMode, Creature? target, bool runGlobalHooks)
+            {
+                EnchantmentModel? enchantment = card.Enchantment;
+                if (enchantment != null)
+                {
+                    decimal baseValue = GetBaseVar().BaseValue;
+                    baseValue += enchantment.EnchantDamageAdditive(baseValue, Props);
+                    baseValue *= enchantment.EnchantDamageMultiplicative(baseValue, Props);
+                    baseValue = Math.Max(baseValue, 0m);
+                    if (card.IsEnchantmentPreview)
+                    {
+                        PreviewValue = baseValue;
+                    }
+                    else
+                    {
+                        EnchantedValue = baseValue;
+                    }
+                }
+
+                decimal num = GetBaseVar().BaseValue + GetExtraVar().BaseValue * PuppetMultiplier(card, target);
+                if (runGlobalHooks)
+                {
+                    CombatState? combatState = card.CombatState ?? card.Owner?.Creature?.CombatState;
+                    if (combatState == null)
+                    {
+                        PreviewValue = Math.Max(num, 0m);
+                    }
+                    else
+                    {
+                        PreviewValue = Hook.ModifyDamage(
+                            card.Owner.RunState,
+                            combatState,
+                            target,
+                            IsFromOsty ? card.Owner.Osty : card.Owner.Creature,
+                            num,
+                            Props,
+                            card,
+                            ModifyDamageHookType.All,
+                            previewMode,
+                            out IEnumerable<AbstractModel> _);
+                    }
+                }
+                else if (!card.IsEnchantmentPreview)
+                {
+                    if (enchantment != null)
+                    {
+                        num += enchantment.EnchantDamageAdditive(num, Props);
+                        num *= enchantment.EnchantDamageMultiplicative(num, Props);
+                    }
+
+                    PreviewValue = num;
+                }
+
+                PreviewValue = Math.Max(PreviewValue, 0m);
+            }
+        }
+
         protected override IEnumerable<DynamicVar> CanonicalVars => [
             new CalculationBaseVar(6m),
             new ExtraDamageVar(2m),
-            new CalculatedDamageVar(ValueProp.Move).WithMultiplier((CardModel card, Creature? _) =>
-                card.Owner.PlayerCombatState.AllCards.Count(c => c.Tags.Contains(ManosabaCardTags.Puppet))),
+            new NanokaPuppetCalculatedDamageVar(),
             new PowerVar<NanokaPuppetCollectionPower>(1),
         ];
 
@@ -42,7 +123,9 @@ namespace Manosaba.Characters.TonoHanna.Cards
         {
             await PowerCmd.Apply<NanokaPuppetCollectionPower>(Owner.Creature, DynamicVars["NanokaPuppetCollectionPower"].BaseValue, Owner.Creature, this);
             ArgumentNullException.ThrowIfNull(cardPlay.Target, nameof(cardPlay.Target));
-            await DamageCmd.Attack(DynamicVars.CalculatedDamage).FromCard(this).Targeting(cardPlay.Target).Execute(choiceContext);
+            int puppetCount = Owner.PlayerCombatState.AllCards.Count(c => c.Tags.Contains(ManosabaCardTags.Puppet));
+            decimal damage = DynamicVars.CalculationBase.BaseValue + DynamicVars.ExtraDamage.BaseValue * puppetCount;
+            await DamageCmd.Attack(damage).FromCard(this).Targeting(cardPlay.Target).Execute(choiceContext);
         }
 
         protected override void OnUpgrade()

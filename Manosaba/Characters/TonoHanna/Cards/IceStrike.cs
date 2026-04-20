@@ -4,6 +4,7 @@ using Manosaba.Characters.TonoHanna.Powers;
 using Manosaba.Extensions;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
+using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
@@ -22,7 +23,36 @@ public class IceStrike : PathCustomCardModel
     private const TargetType targetType = TargetType.AnyEnemy;
     private const bool shouldShowInCardLibrary = true;
 
-    protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(25m, ValueProp.Move)];
+    /// <summary>
+    /// Card UI uses <see cref="DamageVar.UpdateCardPreview"/>; bonus from <see cref="PuppetCollectionSummaryPower"/> was only applied in <see cref="OnPlay"/>, so the printed damage was too low in combat.
+    /// </summary>
+    private sealed class IceStrikeDamageVar : DamageVar
+    {
+        public IceStrikeDamageVar(decimal damage, ValueProp props)
+            : base(damage, props)
+        {
+        }
+
+        public override void UpdateCardPreview(CardModel card, CardPreviewMode previewMode, Creature? target, bool runGlobalHooks)
+        {
+            base.UpdateCardPreview(card, previewMode, target, runGlobalHooks);
+            if (card.Owner?.Creature == null)
+            {
+                return;
+            }
+
+            int collection = card.Owner.Creature.GetPower<PuppetCollectionSummaryPower>()?.Amount ?? 0;
+            if (collection == 0)
+            {
+                return;
+            }
+
+            decimal bonusPer = card.IsUpgraded ? 6m : 5m;
+            PreviewValue += collection * bonusPer;
+        }
+    }
+
+    protected override IEnumerable<DynamicVar> CanonicalVars => [new IceStrikeDamageVar(25m, ValueProp.Move)];
 
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<PuppetCollectionSummaryPower>()];
 
