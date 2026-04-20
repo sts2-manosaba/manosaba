@@ -12,6 +12,8 @@ namespace Manosaba.Characters.SaekiMiria.Cards;
 [Pool(typeof(SaekiMiriaCardPool))]
 public sealed class SmallPaper : MovieBase
 {
+    public override bool CanBeGeneratedInCombat => false;
+    public override bool CanBeGeneratedByModifiers => false;
 
     protected override async Task OnMovieEffect(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
