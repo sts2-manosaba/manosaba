@@ -12,9 +12,11 @@ public static class Patch_Difficulties
     private static ConditionalWeakTable<Creature, object> _hpAppliedAfterAdded = new();
     private static readonly object _hpAppliedMarker = new();
 
-    private static bool ShouldApplyEnemyHpMultiplier(Creature creature)
+    private static bool ShouldScaleEnemyHp(Creature creature)
     {
-        return creature.IsEnemy && !creature.IsDead && ManosabaLobbyDifficultyState.GetEnableEnemyHpMultiplierForGameplay();
+        return creature.IsEnemy
+            && !creature.IsDead
+            && ManosabaLobbyDifficultyState.GetEnemyHpMultiplierForGameplay() != 1m;
     }
 
     private static decimal ScaleEnemyHp(decimal rawHp)
@@ -28,7 +30,7 @@ public static class Patch_Difficulties
     {
         private static void Postfix(Creature __instance)
         {
-            if (!ShouldApplyEnemyHpMultiplier(__instance))
+            if (!ShouldScaleEnemyHp(__instance))
             {
                 return;
             }
@@ -37,6 +39,7 @@ public static class Patch_Difficulties
             {
                 return;
             }
+
             _hpAppliedAfterAdded.Add(__instance, _hpAppliedMarker);
 
             int newMaxHp = (int)ScaleEnemyHp(__instance.MaxHp);
@@ -50,7 +53,7 @@ public static class Patch_Difficulties
     {
         private static void Prefix(Creature creature, ref decimal amount)
         {
-            if (!ShouldApplyEnemyHpMultiplier(creature))
+            if (!ShouldScaleEnemyHp(creature))
             {
                 return;
             }

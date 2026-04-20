@@ -23,7 +23,7 @@ public readonly record struct LobbyDifficultyPanelLayout(
         OffsetLeft: -430f,
         OffsetRight: -12f,
         OffsetTop: 72f,
-        OffsetBottom: 360f);
+        OffsetBottom: 400f);
 
     /// <summary>Top-left strip so it does not cover vanilla top-right multiplayer UI on custom run.</summary>
     public static LobbyDifficultyPanelLayout CustomRunDefault { get; } = new(
@@ -31,14 +31,14 @@ public readonly record struct LobbyDifficultyPanelLayout(
         OffsetLeft: 12f,
         OffsetRight: 430f,
         OffsetTop: 72f,
-        OffsetBottom: 360f);
+        OffsetBottom: 400f);
 
     /// <summary>Bottom-right so daily timer / embark area stays readable.</summary>
     public static LobbyDifficultyPanelLayout DailyRunDefault { get; } = new(
         Control.LayoutPreset.BottomRight,
         OffsetLeft: -430f,
         OffsetRight: -12f,
-        OffsetTop: -312f,
+        OffsetTop: -340f,
         OffsetBottom: -12f);
 }
 
@@ -58,12 +58,14 @@ public static class ManosabaLobbyDifficultyUiHost
     {
         public PanelContainer? Root;
         public Label? TitleLabel;
-        public CheckBox? EnableEnemyHp;
         public Label? EnemyHpRowLabel;
         public HSlider? EnemyHpSlider;
+        public Label? EnemyAttackRowLabel;
+        public HSlider? EnemyAttackSlider;
         public HSlider? MurderousSlider;
         public Label? MurderousRowLabel;
         public Label? EnemyHpValueLabel;
+        public Label? EnemyAttackValueLabel;
         public Label? MurderousValueLabel;
         public Label? RandomPoolRowLabel;
         public OptionButton? RandomPoolOption;
@@ -72,8 +74,8 @@ public static class ManosabaLobbyDifficultyUiHost
         public bool HandlerRegistered;
 
         public int LastSentPlayerCount = int.MinValue;
-        public bool LastSentEnable;
         public double LastSentEnemyHpPercent;
+        public double LastSentEnemyAttackPercent;
         public double LastSentMurderousPercent;
         public byte LastSentRandomPool;
     }
@@ -156,12 +158,14 @@ public static class ManosabaLobbyDifficultyUiHost
             st.Root?.QueueFree();
             st.Root = null;
             st.TitleLabel = null;
-            st.EnableEnemyHp = null;
             st.EnemyHpRowLabel = null;
             st.EnemyHpSlider = null;
+            st.EnemyAttackRowLabel = null;
+            st.EnemyAttackSlider = null;
             st.MurderousSlider = null;
             st.MurderousRowLabel = null;
             st.EnemyHpValueLabel = null;
+            st.EnemyAttackValueLabel = null;
             st.MurderousValueLabel = null;
             st.RandomPoolRowLabel = null;
             st.RandomPoolOption = null;
@@ -181,14 +185,14 @@ public static class ManosabaLobbyDifficultyUiHost
             state.TitleLabel.Text = T("MANOSABA-LOBBY_SETTINGS.title");
         }
 
-        if (state.EnableEnemyHp != null)
-        {
-            state.EnableEnemyHp.Text = T("MANOSABA-LOBBY_SETTINGS.enable_enemy_hp");
-        }
-
         if (state.EnemyHpRowLabel != null)
         {
             state.EnemyHpRowLabel.Text = T("MANOSABA-LOBBY_SETTINGS.enemy_hp_percent");
+        }
+
+        if (state.EnemyAttackRowLabel != null)
+        {
+            state.EnemyAttackRowLabel.Text = T("MANOSABA-LOBBY_SETTINGS.enemy_attack_percent");
         }
 
         if (state.MurderousRowLabel != null)
@@ -246,10 +250,6 @@ public static class ManosabaLobbyDifficultyUiHost
         var title = new Label { AutowrapMode = TextServer.AutowrapMode.WordSmart };
         vbox.AddChild(title);
 
-        var enable = new CheckBox();
-        enable.Toggled += _ => MarkHostDirty(owner, ownerNode, getLobby);
-        vbox.AddChild(enable);
-
         var enemyRow = new HBoxContainer();
         enemyRow.AddThemeConstantOverride("separation", 8);
         vbox.AddChild(enemyRow);
@@ -266,6 +266,23 @@ public static class ManosabaLobbyDifficultyUiHost
         enemyRow.AddChild(enemySlider);
         var enemyVal = new Label { CustomMinimumSize = new Vector2(48, 0) };
         enemyRow.AddChild(enemyVal);
+
+        var attackRow = new HBoxContainer();
+        attackRow.AddThemeConstantOverride("separation", 8);
+        vbox.AddChild(attackRow);
+        var attackLbl = new Label { CustomMinimumSize = new Vector2(140, 0) };
+        attackRow.AddChild(attackLbl);
+        var attackSlider = new HSlider
+        {
+            MinValue = 100,
+            MaxValue = 400,
+            Step = 5,
+            SizeFlagsHorizontal = Control.SizeFlags.ExpandFill,
+        };
+        attackSlider.ValueChanged += _ => MarkHostDirty(owner, ownerNode, getLobby);
+        attackRow.AddChild(attackSlider);
+        var attackVal = new Label { CustomMinimumSize = new Vector2(48, 0) };
+        attackRow.AddChild(attackVal);
 
         var murderRow = new HBoxContainer();
         murderRow.AddThemeConstantOverride("separation", 8);
@@ -299,12 +316,14 @@ public static class ManosabaLobbyDifficultyUiHost
         attachParent.AddChild(panel);
         state.Root = panel;
         state.TitleLabel = title;
-        state.EnableEnemyHp = enable;
         state.EnemyHpRowLabel = enemyLbl;
         state.EnemyHpSlider = enemySlider;
+        state.EnemyAttackRowLabel = attackLbl;
+        state.EnemyAttackSlider = attackSlider;
         state.MurderousRowLabel = murderLbl;
         state.MurderousSlider = murderSlider;
         state.EnemyHpValueLabel = enemyVal;
+        state.EnemyAttackValueLabel = attackVal;
         state.MurderousValueLabel = murderVal;
         state.RandomPoolRowLabel = randomLbl;
         state.RandomPoolOption = randomOpt;
@@ -330,14 +349,14 @@ public static class ManosabaLobbyDifficultyUiHost
     {
         StartRunLobby? lobby = getLobby();
         bool editable = lobby != null && CanEditDifficulty(lobby);
-        if (state.EnableEnemyHp != null)
-        {
-            state.EnableEnemyHp.Disabled = !editable;
-        }
-
         if (state.EnemyHpSlider != null)
         {
             state.EnemyHpSlider.Editable = editable;
+        }
+
+        if (state.EnemyAttackSlider != null)
+        {
+            state.EnemyAttackSlider.Editable = editable;
         }
 
         if (state.MurderousSlider != null)
@@ -400,11 +419,11 @@ public static class ManosabaLobbyDifficultyUiHost
 
     private static ManosabaDifficultySettingsMessage BuildMessageFromLobby()
     {
-        (bool en, double hpPct, double murPct, RandomCharacterPoolMode pool) = ManosabaLobbyDifficultyState.GetLobbySnapshot();
+        (double hpPct, double atkPct, double murPct, RandomCharacterPoolMode pool) = ManosabaLobbyDifficultyState.GetLobbySnapshot();
         return new ManosabaDifficultySettingsMessage
         {
-            enableEnemyHpMultiplier = en,
             enemyHpMultiplierPercent = hpPct,
+            enemyAttackDamageMultiplierPercent = atkPct,
             murderousImpulseAllyDamageMultiplierPercent = murPct,
             randomCharacterPoolMode = (byte)pool,
         };
@@ -418,12 +437,12 @@ public static class ManosabaLobbyDifficultyUiHost
         }
 
         int players = lobby.Players.Count;
-        (bool en, double hpPct, double murPct, RandomCharacterPoolMode pool) = ManosabaLobbyDifficultyState.GetLobbySnapshot();
+        (double hpPct, double atkPct, double murPct, RandomCharacterPoolMode pool) = ManosabaLobbyDifficultyState.GetLobbySnapshot();
         byte poolByte = (byte)pool;
         bool changed = force
             || players != state.LastSentPlayerCount
-            || en != state.LastSentEnable
             || Math.Abs(hpPct - state.LastSentEnemyHpPercent) > 0.0001d
+            || Math.Abs(atkPct - state.LastSentEnemyAttackPercent) > 0.0001d
             || Math.Abs(murPct - state.LastSentMurderousPercent) > 0.0001d
             || poolByte != state.LastSentRandomPool;
 
@@ -433,8 +452,8 @@ public static class ManosabaLobbyDifficultyUiHost
         }
 
         state.LastSentPlayerCount = players;
-        state.LastSentEnable = en;
         state.LastSentEnemyHpPercent = hpPct;
+        state.LastSentEnemyAttackPercent = atkPct;
         state.LastSentMurderousPercent = murPct;
         state.LastSentRandomPool = poolByte;
 
@@ -451,7 +470,7 @@ public static class ManosabaLobbyDifficultyUiHost
 
     private static void PushUiToRuntime(object owner, Func<StartRunLobby?> getLobby, DifficultyUiState state)
     {
-        if (state.EnableEnemyHp == null || state.EnemyHpSlider == null || state.MurderousSlider == null)
+        if (state.EnemyHpSlider == null || state.EnemyAttackSlider == null || state.MurderousSlider == null)
         {
             return;
         }
@@ -464,14 +483,19 @@ public static class ManosabaLobbyDifficultyUiHost
         }
 
         ManosabaLobbyDifficultyState.ApplyFromHost(
-            state.EnableEnemyHp.ButtonPressed,
             state.EnemyHpSlider.Value,
+            state.EnemyAttackSlider.Value,
             state.MurderousSlider.Value,
             pool);
 
         if (state.EnemyHpValueLabel != null)
         {
             state.EnemyHpValueLabel.Text = $"{state.EnemyHpSlider.Value:0}%";
+        }
+
+        if (state.EnemyAttackValueLabel != null)
+        {
+            state.EnemyAttackValueLabel.Text = $"{state.EnemyAttackSlider.Value:0}%";
         }
 
         if (state.MurderousValueLabel != null)
@@ -482,18 +506,16 @@ public static class ManosabaLobbyDifficultyUiHost
 
     private static void RefreshUiFromState(object owner, Node ownerNode, Func<StartRunLobby?> getLobby, bool pushLocalToRuntime)
     {
-        if (!States.TryGetValue(owner, out DifficultyUiState? state) || state.EnableEnemyHp == null)
+        if (!States.TryGetValue(owner, out DifficultyUiState? state)
+            || state.EnemyHpSlider == null
+            || state.EnemyAttackSlider == null)
         {
             return;
         }
 
-        (bool en, double hpPct, double murPct, RandomCharacterPoolMode pool) = ManosabaLobbyDifficultyState.GetLobbySnapshot();
-        state.EnableEnemyHp.ButtonPressed = en;
-        if (state.EnemyHpSlider != null)
-        {
-            state.EnemyHpSlider.Value = hpPct;
-        }
-
+        (double hpPct, double atkPct, double murPct, RandomCharacterPoolMode pool) = ManosabaLobbyDifficultyState.GetLobbySnapshot();
+        state.EnemyHpSlider.Value = hpPct;
+        state.EnemyAttackSlider.Value = atkPct;
         if (state.MurderousSlider != null)
         {
             state.MurderousSlider.Value = murPct;
@@ -506,9 +528,14 @@ public static class ManosabaLobbyDifficultyUiHost
             state.RandomPoolOption.SetBlockSignals(false);
         }
 
-        if (state.EnemyHpValueLabel != null && state.EnemyHpSlider != null)
+        if (state.EnemyHpValueLabel != null)
         {
             state.EnemyHpValueLabel.Text = $"{state.EnemyHpSlider.Value:0}%";
+        }
+
+        if (state.EnemyAttackValueLabel != null)
+        {
+            state.EnemyAttackValueLabel.Text = $"{state.EnemyAttackSlider.Value:0}%";
         }
 
         if (state.MurderousValueLabel != null && state.MurderousSlider != null)
