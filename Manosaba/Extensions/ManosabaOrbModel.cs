@@ -1,5 +1,6 @@
 ﻿using manosaba.Extensions;
 using Manosaba.Characters.Common.Powers;
+using Manosaba.Characters.JogasakiNoah.Powers;
 using MegaCrit.Sts2.Core.Models;
 
 namespace Manosaba.Extensions
@@ -20,7 +21,8 @@ namespace Manosaba.Extensions
         {
             decimal orbModifiedValue = ModifyOrbValue(baseValue);
             decimal majokaAmount = Owner?.Creature?.GetPowerAmount<MajokaPower>() ?? 0m;
-            decimal amplified = orbModifiedValue * (1m + majokaAmount / 100m);
+            decimal zumaMultiplier = ZumaPower.GetCurrentEvokeMultiplier();
+            decimal amplified = orbModifiedValue * (1m + majokaAmount / 100m) * zumaMultiplier;
             return Math.Max(1m, Math.Floor(amplified));
         }
 
