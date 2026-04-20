@@ -1,3 +1,6 @@
 {
-  "MANOSABA-POTION_CRAFT_FORMULA.title": "藥水合成配方"
+  "MANOSABA-POTION_CRAFT_FORMULA.title": "藥水合成配方",
+  "MANOSABA-KOTODAMA_ENERGY.title": "言靈",
+  "MANOSABA-KOTODAMA_ENERGY.description": "透過安安魔法產生的文字力量。",
+  "MANOSABA-KOTODAMA_NOT_ENOUGH": "我沒有足夠的言靈。"
 }

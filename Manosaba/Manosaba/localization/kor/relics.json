@@ -39,5 +39,8 @@
   "MANOSABA-TAROT_DECK.description": "카드 보상과 상점 카드가 [gold]세계[/gold]를 제외한 타로 카드로 대체됩니다.\n이 유물이 레벨업할 때마다, 덱에 없는 [gold]세계[/gold] 제외 타로 카드 1장을 무작위로 덱에 추가합니다.\n[gold]세계[/gold]를 제외한 타로 21종을 모두 모으면, [gold]세계[/gold]를 덱에 추가합니다.",
   "MANOSABA-TAROT_DECK.flavor": "한 장을 뽑을 때마다 운명의 방향이 정해진다.",
   "MANOSABA-TAROT_DECK.missingHeader": "부족한 카드:",
-  "MANOSABA-TAROT_DECK.completed": "수집 완료"
+  "MANOSABA-TAROT_DECK.completed": "수집 완료",
+  "MANOSABA-CLIPBOARD.title": "클립보드",
+  "MANOSABA-CLIPBOARD.description": "전투 시작 시 [gold]언령[/gold]을 {KotodamaEnergy} 얻습니다.\n이 유물의 레벨이 1 오를 때마다 이 수치가 +1 됩니다.",
+  "MANOSABA-CLIPBOARD.flavor": "적어 내려간 모든 말은 힘이 된다."
 }

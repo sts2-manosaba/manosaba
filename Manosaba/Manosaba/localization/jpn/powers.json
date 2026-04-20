@@ -215,7 +215,6 @@
   "MANOSABA-THE_SUN_POWER.title": "太陽",
   "MANOSABA-THE_SUN_POWER.description": "最大[gold]エナジー[/gold]を増やす。",
   "MANOSABA-THE_SUN_POWER.smartDescription": "最大[gold]エナジー[/gold]を[blue]{Amount}[/blue]増やす。",
-
   "MANOSABA-PORTABLE_FLETCHING_STATION_POWER.title": "携帯式製作ステーション",
   "MANOSABA-PORTABLE_FLETCHING_STATION_POWER.description": "[gold]簡易ランス[/gold]の作成に成功したとき、{ProcChance}%の確率で追加の[gold]簡易ランス[/gold]を1枚得る。抽選を{Amount}回行う。",
   "MANOSABA-PORTABLE_FLETCHING_STATION_POWER.smartDescription": "[gold]簡易ランス[/gold]の作成に成功したとき、[blue]{ProcChance}[/blue]%の確率で追加の[gold]簡易ランス[/gold]を1枚得る。抽選を[blue]{Amount}[/blue]回行う。",
@@ -266,5 +265,20 @@
   "MANOSABA-SHOW_OFF_POWER.smartDescription": "このターン攻撃をブロックしたとき、次のターン終了まで[blue]{StrengthPower}[/blue]点の[gold]筋力[/gold]を得る。",
   "MANOSABA-RELIC_LEVELING_HOVER_TIP_POWER.title": "成長",
   "MANOSABA-RELIC_LEVELING_HOVER_TIP_POWER.description": "この遺物は戦闘勝利で経験値を獲得し、レベルアップします。",
-  "MANOSABA-RELIC_LEVELING_HOVER_TIP_POWER.smartDescription": "この遺物は戦闘勝利で経験値を獲得し、レベルアップします。"
+  "MANOSABA-RELIC_LEVELING_HOVER_TIP_POWER.smartDescription": "この遺物は戦闘勝利で経験値を獲得し、レベルアップします。",
+  "MANOSABA-CAT_POWER.title": "猫",
+  "MANOSABA-CAT_POWER.description": "攻撃を受けた時、25%の確率でそのダメージを回避する。",
+  "MANOSABA-CAT_POWER.smartDescription": "攻撃を受けた時、25%の確率でそのダメージを回避する。",
+  "MANOSABA-KOKORO_POWER.title": "こころ",
+  "MANOSABA-KOKORO_POWER.description": "[gold]切腹昇天[/gold]はあなたにダメージを与えない。",
+  "MANOSABA-KOKORO_POWER.smartDescription": "[gold]切腹昇天[/gold]はあなたにダメージを与えない。",
+  "MANOSABA-BOCCHAN_POWER.title": "坊っちゃん",
+  "MANOSABA-BOCCHAN_POWER.description": "あなたのターン開始時に[gold]言霊[/gold]を得る。",
+  "MANOSABA-BOCCHAN_POWER.smartDescription": "あなたのターン開始時に[blue]{Amount}[/blue][gold]言霊[/gold]を得る。",
+  "MANOSABA-MOVABLE_TYPE_PRINTING_POWER.title": "活字版印刷",
+  "MANOSABA-MOVABLE_TYPE_PRINTING_POWER.description": "[blue]2[/blue]点の[gold]エナジー[/gold]を消費するたびに、[gold]言霊[/gold]を得る。",
+  "MANOSABA-MOVABLE_TYPE_PRINTING_POWER.smartDescription": "[blue]{Energy}[/blue]点の[gold]エナジー[/gold]を消費するたびに、[blue]{Amount}[/blue]点の[gold]言霊[/gold]を得る。",
+  "MANOSABA-BRAINWASH_EXTRA_TURN_POWER.title": "洗脳",
+  "MANOSABA-BRAINWASH_EXTRA_TURN_POWER.description": "あなたは追加ターンを得る。",
+  "MANOSABA-BRAINWASH_EXTRA_TURN_POWER.smartDescription": "あなたは追加ターンを得る。"
 }

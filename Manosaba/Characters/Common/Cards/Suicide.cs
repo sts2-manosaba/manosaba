@@ -29,7 +29,13 @@ namespace Manosaba.Characters.Common.Cards
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
-            await CreatureCmd.Damage(choiceContext, Owner.Creature, DynamicVars.Damage.BaseValue, ValueProp.Unpowered, base.Owner.Creature);
+            await CreatureCmd.Damage(
+                choiceContext,
+                Owner.Creature,
+                DynamicVars.Damage.BaseValue,
+                ValueProp.Unpowered,
+                base.Owner.Creature,
+                this);
             await PowerCmd.Apply<MajokaPower>(base.Owner.Creature, DynamicVars["MajokaPower"].BaseValue, base.Owner.Creature, this);
         }
 

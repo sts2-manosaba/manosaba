@@ -1,3 +1,6 @@
 {
-  "MANOSABA-POTION_CRAFT_FORMULA.title": "Potion Craft Formula"
+  "MANOSABA-POTION_CRAFT_FORMULA.title": "Potion Craft Formula",
+  "MANOSABA-KOTODAMA_ENERGY.title": "Kotodama Energy",
+  "MANOSABA-KOTODAMA_ENERGY.description": "Textual power generated through Anan's magic.",
+  "MANOSABA-KOTODAMA_NOT_ENOUGH": "I don't have enough Kotodama."
 }

@@ -1,0 +1,37 @@
+[gd_scene load_steps=2 format=3 uid="uid://nwjsh36o0r0d"]
+
+[ext_resource type="Script" uid="uid://dnyerm31xia1x" path="res://Characters/Common/Overrides/ManosabaCreatureVisuals.cs" id="1_0naco"]
+
+[node name="CrimsonValstrax" type="Node2D"]
+script = ExtResource("1_0naco")
+
+[node name="Visuals" type="Node2D" parent="."]
+unique_name_in_owner = true
+
+[node name="Alive" type="Sprite2D" parent="Visuals"]
+unique_name_in_owner = true
+visible = false
+position = Vector2(-5, -72)
+scale = Vector2(0.3136893, 0.31368932)
+
+[node name="Dead" type="Sprite2D" parent="Visuals"]
+unique_name_in_owner = true
+visible = false
+position = Vector2(10.000001, -65)
+scale = Vector2(0.23689136, 0.23689137)
+
+[node name="Bounds" type="Control" parent="."]
+unique_name_in_owner = true
+layout_mode = 3
+anchors_preset = 0
+offset_left = -68.0
+offset_top = -149.0
+offset_right = 71.0
+
+[node name="CenterPos" type="Marker2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(3, -61)
+
+[node name="IntentPos" type="Marker2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(1, -151)

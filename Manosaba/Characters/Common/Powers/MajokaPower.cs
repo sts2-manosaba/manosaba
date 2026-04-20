@@ -1,4 +1,5 @@
 using BaseLib.Extensions;
+using manosaba.Characters.NatsumeAnan.Cards;
 using Manosaba.Characters.HasumiLeia.Cards;
 using Manosaba.Characters.HikamiMeruru.Cards;
 using Manosaba.Characters.HoshoMago.Cards;
@@ -44,6 +45,7 @@ namespace Manosaba.Characters.Common.Powers
             { "hosho_mago", typeof(Echoes)},
             { "hasumi_leia", typeof(GazeGuiding)},
             { "kurobe_nanoka", typeof(HallucinationMagic)},
+            { "natsume_anan", typeof(Brainwash)},
         };
 
         public override decimal ModifyDamageMultiplicative(Creature? target, decimal amount, ValueProp props, Creature? dealer, CardModel? cardSource)

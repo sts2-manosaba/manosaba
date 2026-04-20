@@ -39,5 +39,8 @@
   "MANOSABA-TAROT_DECK.description": "卡牌獎勵與商店卡牌改為提供塔羅牌（不含[gold]世界[/gold]）。\n遺物升級時，加入 1 張牌組中尚未擁有的隨機塔羅牌（不含[gold]世界[/gold]）。\n當你集齊 21 張非[gold]世界[/gold]塔羅牌時，將[gold]世界[/gold]加入牌組。",
   "MANOSABA-TAROT_DECK.flavor": "不來占卜一下嗎？",
   "MANOSABA-TAROT_DECK.missingHeader": "缺失：",
-  "MANOSABA-TAROT_DECK.completed": "已蒐集完成"
+  "MANOSABA-TAROT_DECK.completed": "已蒐集完成",
+  "MANOSABA-CLIPBOARD.title": "剪貼板",
+  "MANOSABA-CLIPBOARD.description": "戰鬥開始時，獲得 {KotodamaEnergy} 點[gold]言靈[/gold]。\n此遺物每升 1 級，數值 +1。",
+  "MANOSABA-CLIPBOARD.flavor": "寫下的每個字，都會變成力量。"
 }

@@ -1,0 +1,51 @@
+[gd_scene load_steps=4 format=3 uid="uid://b58kp2dnqwh2u"]
+
+[ext_resource type="Script" uid="uid://b2rnfe1rayfpi" path="res://Characters/Common/Overrides/ManosabaRestSiteCharacter.cs" id="1_4kgfr"]
+[ext_resource type="Texture2D" uid="uid://c8s7l0syra8wr" path="res://Manosaba/images/characters/natsume_anan/NatsumeAnanRest.png" id="2_o858m"]
+[ext_resource type="PackedScene" uid="uid://bgy88bk44xxvk" path="res://Manosaba/scenes/selection_reticle.tscn" id="3_08djp"]
+
+[node name="NatsumeAnanRestSite" type="Node2D"]
+script = ExtResource("1_4kgfr")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(31.99997, -68.99994)
+scale = Vector2(0.4351852, 0.4351852)
+texture = ExtResource("2_o858m")
+
+[node name="ControlRoot" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="SelectionReticle" parent="ControlRoot" instance=ExtResource("3_08djp")]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = -153.0
+offset_top = -350.0
+offset_right = 219.0
+offset_bottom = 199.0
+
+[node name="Hitbox" type="Control" parent="ControlRoot"]
+unique_name_in_owner = true
+anchors_preset = 0
+offset_left = -155.0
+offset_top = -351.0
+offset_right = 218.0
+offset_bottom = 199.0
+
+[node name="ThoughtBubbleRight" type="Control" parent="ControlRoot"]
+unique_name_in_owner = true
+anchors_preset = 0
+offset_left = 209.0
+offset_top = -317.0
+offset_right = 209.0
+offset_bottom = -317.0
+
+[node name="ThoughtBubbleLeft" type="Control" parent="ControlRoot"]
+unique_name_in_owner = true
+anchors_preset = 0
+offset_left = -151.0
+offset_top = -268.0
+offset_right = -151.0
+offset_bottom = -268.0

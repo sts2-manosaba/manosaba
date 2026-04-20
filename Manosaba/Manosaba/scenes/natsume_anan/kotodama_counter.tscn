@@ -1,0 +1,61 @@
+[gd_scene load_steps=4 format=3 uid="uid://bbw67f6yb0yr8"]
+
+[ext_resource type="Texture2D" uid="uid://o5mwk0w2xrxb" path="res://Manosaba/images/characters/natsume_anan/kotodama_energy.png" id="1_vc3j6"]
+[ext_resource type="Script" uid="uid://dkrdagwd1eq3f" path="res://Characters/NatsumeAnan/Visuals/NKotodamaCounter.cs" id="2_nkg4m"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_arupd"]
+
+[node name="KotodamaCounter" type="Control"]
+layout_mode = 3
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -648.0
+offset_right = 128.0
+offset_bottom = -519.9999
+grow_vertical = 0
+scale = Vector2(0.8, 0.8)
+script = ExtResource("2_nkg4m")
+metadata/_edit_group_ = true
+
+[node name="Icon" type="TextureRect" parent="."]
+material = SubResource("ShaderMaterial_arupd")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("1_vc3j6")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_constants/margin_top = 41
+
+[node name="CountLabel" type="RichTextLabel" parent="MarginContainer"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_colors/default_color = Color(1, 0.964706, 0.886275, 1)
+theme_override_colors/font_outline_color = Color(0, 0.245333, 0.46, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.12549)
+theme_override_constants/shadow_offset_x = 5
+theme_override_constants/shadow_offset_y = 5
+theme_override_constants/outline_size = 14
+theme_override_font_sizes/normal_font_size = 36
+theme_override_font_sizes/bold_font_size = 36
+theme_override_font_sizes/bold_italics_font_size = 36
+theme_override_font_sizes/italics_font_size = 36
+theme_override_font_sizes/mono_font_size = 36
+bbcode_enabled = true
+text = "[center]0[/center]"
+scroll_active = false
+autowrap_mode = 0

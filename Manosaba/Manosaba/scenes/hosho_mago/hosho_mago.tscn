@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://ckcurfrat6byh"]
 
 [ext_resource type="Script" path="res://Characters/Common/Overrides/ManosabaCharacterVisuals.cs" id="1_322dx"]
-[ext_resource type="Texture2D" uid="uid://cpa11q3wqguj3" path="res://Manosaba/images/characters/hosho_mago/HoshoMago.png" id="2_1wbbm"]
+[ext_resource type="Texture2D" uid="uid://bxlmwnw36rd7p" path="res://Manosaba/images/characters/hosho_mago/HoshoMago.png" id="2_1wbbm"]
 
 [node name="HoshoMago" type="Node2D"]
 script = ExtResource("1_322dx")
@@ -18,10 +18,10 @@ texture = ExtResource("2_1wbbm")
 unique_name_in_owner = true
 layout_mode = 3
 anchors_preset = 0
-offset_left = -82.0
-offset_top = -282.0
-offset_right = 77.0
-offset_bottom = 20.0
+offset_left = -81.0
+offset_top = -381.0
+offset_right = 87.0
+offset_bottom = 21.0
 
 [node name="IntentPos" type="Marker2D" parent="."]
 unique_name_in_owner = true

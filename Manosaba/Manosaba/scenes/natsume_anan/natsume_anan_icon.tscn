@@ -1,0 +1,15 @@
+[gd_scene load_steps=2 format=3 uid="uid://c6vyu8b0072la"]
+
+[ext_resource type="Texture2D" uid="uid://croprvn4vwk3x" path="res://Manosaba/images/characters/natsume_anan/natsume_anan_map.png" id="1_qska4"]
+
+[node name="NatsumeAnanIcon" type="TextureRect"]
+anchors_preset = -1
+anchor_top = -0.004
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 2.592
+offset_right = 1.0
+offset_bottom = -4.0
+texture = ExtResource("1_qska4")
+expand_mode = 1
+stretch_mode = 5

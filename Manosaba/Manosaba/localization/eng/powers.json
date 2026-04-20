@@ -266,5 +266,20 @@
   "MANOSABA-SHOW_OFF_POWER.smartDescription": "When you successfully block damage this turn, gain [blue]{StrengthPower}[/blue] [gold]Strength[/gold] until the end of next turn.",
   "MANOSABA-RELIC_LEVELING_HOVER_TIP_POWER.title": "Leveling",
   "MANOSABA-RELIC_LEVELING_HOVER_TIP_POWER.description": "This relic gains experience from combat victories and levels up.",
-  "MANOSABA-RELIC_LEVELING_HOVER_TIP_POWER.smartDescription": "This relic gains experience from combat victories and levels up."
+  "MANOSABA-RELIC_LEVELING_HOVER_TIP_POWER.smartDescription": "This relic gains experience from combat victories and levels up.",
+  "MANOSABA-CAT_POWER.title": "Cat",
+  "MANOSABA-CAT_POWER.description": "When attacked, you have a 25% chance to evade that damage.",
+  "MANOSABA-CAT_POWER.smartDescription": "When attacked, you have a 25% chance to evade that damage.",
+  "MANOSABA-KOKORO_POWER.title": "Kokoro",
+  "MANOSABA-KOKORO_POWER.description": "[gold]Seppuku to Heaven[/gold] cannot damage you.",
+  "MANOSABA-KOKORO_POWER.smartDescription": "[gold]Seppuku to Heaven[/gold] cannot damage you.",
+  "MANOSABA-BOCCHAN_POWER.title": "Bocchan",
+  "MANOSABA-BOCCHAN_POWER.description": "At the start of your turn, gain [gold]Kotodama[/gold].",
+  "MANOSABA-BOCCHAN_POWER.smartDescription": "At the start of your turn, gain [blue]{Amount}[/blue] [gold]Kotodama[/gold].",
+  "MANOSABA-MOVABLE_TYPE_PRINTING_POWER.title": "Movable Type Printing",
+  "MANOSABA-MOVABLE_TYPE_PRINTING_POWER.description": "Whenever you spend [blue]2[/blue] [gold]Energy[/gold], gain [gold]Kotodama[/gold].",
+  "MANOSABA-MOVABLE_TYPE_PRINTING_POWER.smartDescription": "Whenever you spend [blue]{Energy}[/blue] [gold]Energy[/gold], gain [blue]{Amount}[/blue] [gold]Kotodama[/gold].",
+  "MANOSABA-BRAINWASH_EXTRA_TURN_POWER.title": "Brainwash",
+  "MANOSABA-BRAINWASH_EXTRA_TURN_POWER.description": "You will take an extra turn.",
+  "MANOSABA-BRAINWASH_EXTRA_TURN_POWER.smartDescription": "You will take an extra turn."
 }

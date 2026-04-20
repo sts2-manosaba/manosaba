@@ -35,6 +35,40 @@ namespace Manosaba.Characters.Common.Commands
             return vfxNode;
         }
 
+        public static Node2D? PlaySceneAtCombatViewportPosition(
+            string scenePath,
+            float normalizedX,
+            float normalizedY,
+            float offsetX = 0f,
+            float offsetY = 0f,
+            bool fitCoverViewport = false,
+            string[]? spriteNodeNames = null)
+        {
+            NCombatRoom? combatRoom = NCombatRoom.Instance;
+            NGame? game = NGame.Instance;
+            if (combatRoom == null || game == null)
+            {
+                return null;
+            }
+
+            Node2D vfxNode = PreloadManager.Cache.GetScene(scenePath).Instantiate<Node2D>(PackedScene.GenEditState.Disabled);
+            combatRoom.CombatVfxContainer.AddChildSafely(vfxNode);
+
+            Vector2 viewportSize = game.GetViewportRect().Size;
+            float clampedX = Mathf.Clamp(normalizedX, 0f, 1f);
+            float clampedY = Mathf.Clamp(normalizedY, 0f, 1f);
+            vfxNode.GlobalPosition = new Vector2(
+                viewportSize.X * clampedX + offsetX,
+                viewportSize.Y * clampedY + offsetY);
+
+            if (fitCoverViewport)
+            {
+                FitSpriteToViewportCover(vfxNode, viewportSize, spriteNodeNames);
+            }
+
+            return vfxNode;
+        }
+
         public static async Task<Node2D?> PlaySceneAtCombatCenterAndWait(
             string scenePath,
             bool fitCoverViewport = false,
@@ -42,6 +76,39 @@ namespace Manosaba.Characters.Common.Commands
             float timeoutSeconds = DefaultWaitTimeoutSeconds)
         {
             Node2D? vfxNode = PlaySceneAtCombatCenter(scenePath, fitCoverViewport, spriteNodeNames);
+            if (vfxNode == null)
+            {
+                return null;
+            }
+
+            float elapsed = 0f;
+            while (elapsed < timeoutSeconds && GodotObject.IsInstanceValid(vfxNode) && vfxNode.IsInsideTree())
+            {
+                await Cmd.Wait(DefaultPollIntervalSeconds);
+                elapsed += DefaultPollIntervalSeconds;
+            }
+
+            return vfxNode;
+        }
+
+        public static async Task<Node2D?> PlaySceneAtCombatViewportPositionAndWait(
+            string scenePath,
+            float normalizedX,
+            float normalizedY,
+            float offsetX = 0f,
+            float offsetY = 0f,
+            bool fitCoverViewport = false,
+            string[]? spriteNodeNames = null,
+            float timeoutSeconds = DefaultWaitTimeoutSeconds)
+        {
+            Node2D? vfxNode = PlaySceneAtCombatViewportPosition(
+                scenePath,
+                normalizedX,
+                normalizedY,
+                offsetX,
+                offsetY,
+                fitCoverViewport,
+                spriteNodeNames);
             if (vfxNode == null)
             {
                 return null;

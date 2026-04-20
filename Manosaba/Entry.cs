@@ -4,6 +4,7 @@ using HarmonyLib;
 using manosaba.Characters.HikamiMeruru.Relics;
 using manosaba.Characters.JogasakiNoah.Relics;
 using manosaba.Characters.KurobeNanoka.Relics;
+using manosaba.Characters.NatsumeAnan.Relics;
 using manosaba.Characters.NikaidoHiro.Relics;
 using manosaba.Characters.SaekiMiria.Relics;
 using manosaba.Characters.TachibanaSherry.Relics;
@@ -36,6 +37,7 @@ public class Entry
         SavedPropertiesTypeCache.InjectTypeIntoCache(typeof(FairyHeart));
         SavedPropertiesTypeCache.InjectTypeIntoCache(typeof(Frugal));
         SavedPropertiesTypeCache.InjectTypeIntoCache(typeof(Ribbon));
+        SavedPropertiesTypeCache.InjectTypeIntoCache(typeof(Clipboard));
         // 使得tscn可以加载自定义脚本
         ScriptManagerBridge.LookupScriptsInAssembly(typeof(Entry).Assembly);
         Log.Debug("Mod initialized!");

@@ -155,8 +155,9 @@ public static class ManosabaLobbyDifficultyUiHost
         ManosabaLobbyDifficultyState.SetLobbySessionActive(false);
         if (States.TryGetValue(owner, out DifficultyUiState? st))
         {
-            st.Root?.QueueFree();
+            PanelContainer? root = st.Root;
             st.Root = null;
+            QueueFreeIfValid(root);
             st.TitleLabel = null;
             st.EnemyHpRowLabel = null;
             st.EnemyHpSlider = null;
@@ -170,6 +171,26 @@ public static class ManosabaLobbyDifficultyUiHost
             st.RandomPoolRowLabel = null;
             st.RandomPoolOption = null;
             st.HandlerRegistered = false;
+        }
+    }
+
+    private static void QueueFreeIfValid(Node? node)
+    {
+        if (node == null)
+        {
+            return;
+        }
+
+        try
+        {
+            if (GodotObject.IsInstanceValid(node))
+            {
+                node.QueueFree();
+            }
+        }
+        catch (ObjectDisposedException)
+        {
+            // Node wrapper was already disposed; treat as already cleaned up.
         }
     }
 

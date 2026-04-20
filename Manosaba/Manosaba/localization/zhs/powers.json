@@ -268,5 +268,20 @@
   "MANOSABA-THE_SUN_POWER.smartDescription": "最大[gold]能量[/gold]增加 [blue]{Amount}[/blue]。",
   "MANOSABA-RELIC_LEVELING_HOVER_TIP_POWER.title": "成長",
   "MANOSABA-RELIC_LEVELING_HOVER_TIP_POWER.description": "此遺物會在戰鬥勝利後獲得經驗並升級。",
-  "MANOSABA-RELIC_LEVELING_HOVER_TIP_POWER.smartDescription": "此遺物會在戰鬥勝利後獲得經驗並升級。"
+  "MANOSABA-RELIC_LEVELING_HOVER_TIP_POWER.smartDescription": "此遺物會在戰鬥勝利後獲得經驗並升級。",
+  "MANOSABA-CAT_POWER.title": "貓",
+  "MANOSABA-CAT_POWER.description": "當受到攻擊時，有 25% 機率閃避此次傷害。",
+  "MANOSABA-CAT_POWER.smartDescription": "當受到攻擊時，有 25% 機率閃避此次傷害。",
+  "MANOSABA-KOKORO_POWER.title": "心",
+  "MANOSABA-KOKORO_POWER.description": "[gold]自刎歸天[/gold]不會對你造成傷害。",
+  "MANOSABA-KOKORO_POWER.smartDescription": "[gold]自刎歸天[/gold]不會對你造成傷害。",
+  "MANOSABA-BOCCHAN_POWER.title": "少爺",
+  "MANOSABA-BOCCHAN_POWER.description": "在你的回合開始時，獲得[gold]言靈[/gold]。",
+  "MANOSABA-BOCCHAN_POWER.smartDescription": "在你的回合開始時，獲得 [blue]{Amount}[/blue] 點[gold]言靈[/gold]。",
+  "MANOSABA-MOVABLE_TYPE_PRINTING_POWER.title": "活字版印刷",
+  "MANOSABA-MOVABLE_TYPE_PRINTING_POWER.description": "每消耗 [blue]2[/blue] 點[gold]能量[/gold]，獲得[gold]言靈[/gold]。",
+  "MANOSABA-MOVABLE_TYPE_PRINTING_POWER.smartDescription": "每消耗 [blue]{Energy}[/blue] 點[gold]能量[/gold]，獲得 [blue]{Amount}[/blue] 點[gold]言靈[/gold]。",
+  "MANOSABA-BRAINWASH_EXTRA_TURN_POWER.title": "洗腦",
+  "MANOSABA-BRAINWASH_EXTRA_TURN_POWER.description": "你將獲得一個額外回合。",
+  "MANOSABA-BRAINWASH_EXTRA_TURN_POWER.smartDescription": "你將獲得一個額外回合。"
 }

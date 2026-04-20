@@ -1,3 +1,6 @@
 {
-  "MANOSABA-POTION_CRAFT_FORMULA.title": "Potion Craft Formula"
+  "MANOSABA-POTION_CRAFT_FORMULA.title": "Potion Craft Formula",
+  "MANOSABA-KOTODAMA_ENERGY.title": "言霊",
+  "MANOSABA-KOTODAMA_ENERGY.description": "安安の魔法によって生まれた文字の力。",
+  "MANOSABA-KOTODAMA_NOT_ENOUGH": "言霊が足りない。"
 }
