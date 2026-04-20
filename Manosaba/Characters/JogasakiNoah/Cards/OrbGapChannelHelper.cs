@@ -39,9 +39,16 @@ namespace Manosaba.Characters.JogasakiNoah.Cards
             orb.AssertMutable();
             orb.Owner = player;
 
-            if (orbQueue.Orbs.Count >= orbQueue.Capacity)
+            bool wasFull = orbQueue.Orbs.Count >= orbQueue.Capacity;
+            if (wasFull)
             {
                 await OrbCmd.EvokeNext(choiceContext, player);
+                if (insertIndex > 0)
+                {
+                    // We selected gap index against the pre-evoke queue.
+                    // After front orb is evoked, indices shift left by one.
+                    insertIndex--;
+                }
             }
 
             if (!await orbQueue.TryEnqueue(orb))
