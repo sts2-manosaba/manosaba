@@ -53,7 +53,7 @@ namespace Manosaba.Characters.Common.Powers
 
             await Cmd.CustomScaledWait(0.1f, 0.2f);
             Creature ally = base.Owner.Player.RunState.Rng.CombatTargets.NextItem(validAllies);
-            await CreatureCmd.Damage(new BlockingPlayerChoiceContext(), ally, allyDamage, ValueProp.Unpowered, Owner.Player.Creature);
+            await CreatureCmd.Damage(new ThrowingPlayerChoiceContext(), ally, allyDamage, ValueProp.Unpowered, Owner.Player.Creature);
         }
     }
 }
