@@ -24,7 +24,7 @@ namespace Manosaba.Characters.SaekiMiria.Cards
     {
         private const int energyCost = 2;
         private const CardType type = CardType.Power;
-        private const CardRarity rarity = CardRarity.Rare;
+        private const CardRarity rarity = CardRarity.Uncommon;
         private const TargetType targetType = TargetType.AllEnemies;
         private const bool shouldShowInCardLibrary = true;
         protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<StrengthPower>()];

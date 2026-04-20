@@ -9,7 +9,6 @@ using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
-using MegaCrit.Sts2.Core.Models.Powers;
 
 namespace Manosaba.Characters.SaekiMiria.Cards
 {
@@ -36,7 +35,7 @@ namespace Manosaba.Characters.SaekiMiria.Cards
             {
                 await CardCmd.Exhaust(choiceContext, cardModel);
             }
-            await PowerCmd.Apply<DrawCardsNextTurnPower>(base.Owner.Creature, base.DynamicVars.Cards.IntValue, base.Owner.Creature, this);
+            await CardPileCmd.Draw(choiceContext, DynamicVars.Cards.IntValue, Owner);
         }
 
         protected override void OnUpgrade()

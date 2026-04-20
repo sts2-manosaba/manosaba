@@ -1,8 +1,11 @@
 ﻿using BaseLib.Utils;
 using manosaba.Characters.Common;
+using Manosaba.Characters.HasumiLeia.Powers;
 using Manosaba.Extensions;
+using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
+using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.ValueProps;
@@ -24,6 +27,17 @@ namespace Manosaba.Characters.Common.Cards
 
         public SimpleSpear() : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)
         {
+        }
+
+        public static SimpleSpear Create(Player owner, CombatState combatState)
+        {
+            SimpleSpear card = combatState.CreateCard<SimpleSpear>(owner);
+            if (owner.Creature.GetPowerAmount<SpearMasteryPower>() > 0m && !card.IsUpgraded)
+            {
+                CardCmd.Upgrade(card);
+            }
+
+            return card;
         }
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)

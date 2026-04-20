@@ -10,9 +10,11 @@ using MegaCrit.Sts2.Core.Entities.Relics;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
-using MegaCrit.Sts2.Core.Models;
 using System;
 using System.Reflection;
+using Manosaba.Characters.SaekiMiria.Powers;
+using MegaCrit.Sts2.Core.Context;
+using MegaCrit.Sts2.Core.Models;
 
 namespace manosaba.Characters.SaekiMiria.Relics
 {
@@ -23,14 +25,15 @@ namespace manosaba.Characters.SaekiMiria.Relics
         public override RelicRarity Rarity => RelicRarity.Starter;
         protected override int MaxRelicLevel => 5;
 
-        private int blockPerMovieCard = 9;
+        private int blockPerMovieCard = 8;
 
-        protected override IEnumerable<DynamicVar> CanonicalVars => [new DynamicVar("BlockPerMovie", 9m)];
+        protected override IEnumerable<DynamicVar> CanonicalVars => [new DynamicVar("BlockPerMovie", 8m)];
 
         private static readonly IReadOnlyList<Func<Player, CombatState, MovieBase>> MovieFactories =
         [
             static (player, combatState) => combatState.CreateCard<HorrorMovie>(player),
             static (player, combatState) => combatState.CreateCard<ComedyMovie>(player),
+            static (player, combatState) => combatState.CreateCard<CassetteShapedRock>(player),
             static (player, combatState) => combatState.CreateCard<FantasyMovie>(player),
             static (player, combatState) => combatState.CreateCard<ActionMovie>(player),
             static (player, combatState) => combatState.CreateCard<RomanticMovie>(player),
@@ -42,10 +45,11 @@ namespace manosaba.Characters.SaekiMiria.Relics
             .. base.ExtraHoverTips,
             HoverTipFactory.FromCard<HorrorMovie>(),
             HoverTipFactory.FromCard<ComedyMovie>(),
+            HoverTipFactory.FromCard<CassetteShapedRock>(),
             HoverTipFactory.FromCard<FantasyMovie>(),
             HoverTipFactory.FromCard<ActionMovie>(),
             HoverTipFactory.FromCard<RomanticMovie>(),
-            HoverTipFactory.FromCard<SpyMovie>(),
+            HoverTipFactory.FromCard<SpyMovie>()
         ];
 
         public override Task AfterObtained()
@@ -78,15 +82,35 @@ namespace manosaba.Characters.SaekiMiria.Relics
                 return;
 
             Flash();
-            var rng = Owner.RunState.Rng.CombatCardSelection;
-            List<MovieBase> movies = new(moviesToAdd);
+            var rng = combatState.RunState.Rng.CombatCardSelection;
+            List<CardModel> generatedCards = new(moviesToAdd);
             for (int i = 0; i < moviesToAdd; i++)
             {
-                movies.Add(rng.NextItem(MovieFactories)(Owner, combatState));
+                generatedCards.Add(CreateRelicGeneratedCard(Owner, combatState, rng));
+            }
+
+            Player? invitedPlayer = Owner.Creature.GetPower<MovieInvitationPower>()?.ConsumeInvitedPlayerForRelicMovies();
+            if (invitedPlayer != null)
+            {
+                List<CardModel> invitedCards = new(generatedCards.Count);
+                foreach (CardModel card in generatedCards)
+                {
+                    invitedCards.Add(CreateRelicGeneratedCardCopyForPlayer(card, invitedPlayer, combatState));
+                }
+
+                IReadOnlyList<CardPileAddResult> invitedResults = await CardPileCmd.AddGeneratedCardsToCombat(
+                    invitedCards,
+                    PileType.Draw,
+                    addedByPlayer: true,
+                    CardPilePosition.Random);
+                if (LocalContext.IsMe(invitedPlayer.Creature))
+                {
+                    CardCmd.PreviewCardPileAdd(invitedResults);
+                }
             }
 
             IReadOnlyList<CardPileAddResult> results = await CardPileCmd.AddGeneratedCardsToCombat(
-                movies,
+                generatedCards,
                 PileType.Draw,
                 addedByPlayer: true,
                 CardPilePosition.Random);
@@ -102,14 +126,39 @@ namespace manosaba.Characters.SaekiMiria.Relics
 
         private void ApplyRelicLevelEffects()
         {
-            // Lv1: 9 Block per card
-            // Lv2: 8
-            // Lv3: 7
-            // Lv4: 6
-            // Lv5: 5
-            blockPerMovieCard = Math.Max(1, 10 - RelicLevel);
+            // Lv1: 8 Block per card
+            // Lv2: 7
+            // Lv3: 6
+            // Lv4: 5
+            // Lv5: 4
+            blockPerMovieCard = Math.Max(1, 8 - RelicLevel);
             DynamicVars["BlockPerMovie"].BaseValue = blockPerMovieCard;
         }
+
+        private static CardModel CreateRelicGeneratedCard(Player player, CombatState combatState, MegaCrit.Sts2.Core.Random.Rng rng)
+        {
+            // Very small chance to generate the secret card Small Paper (10000)
+            if (rng.NextInt(10000) == 0)
+            {
+                return combatState.CreateCard<SmallPaper>(player);
+            }
+
+            return rng.NextItem(MovieFactories)(player, combatState);
+        }
+
+        private static CardModel CreateRelicGeneratedCardCopyForPlayer(CardModel card, Player player, CombatState combatState) =>
+            card switch
+            {
+                HorrorMovie => combatState.CreateCard<HorrorMovie>(player),
+                ComedyMovie => combatState.CreateCard<ComedyMovie>(player),
+                CassetteShapedRock => combatState.CreateCard<CassetteShapedRock>(player),
+                FantasyMovie => combatState.CreateCard<FantasyMovie>(player),
+                ActionMovie => combatState.CreateCard<ActionMovie>(player),
+                RomanticMovie => combatState.CreateCard<RomanticMovie>(player),
+                SpyMovie => combatState.CreateCard<SpyMovie>(player),
+                SmallPaper => combatState.CreateCard<SmallPaper>(player),
+                _ => throw new InvalidOperationException($"Unsupported Cabinet Key copy: {card.GetType().Name}")
+            };
 
         private static decimal GetCreatureBlock(Creature creature)
         {

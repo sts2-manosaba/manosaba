@@ -60,7 +60,7 @@ namespace manosaba.Characters.HasumiLeia.Relics
                         if (dealer.IsPlayer && cardSource == null)
                             return;
 
-                        await CreatureCmd.Damage(choiceContext, dealer, damage, ValueProp.Move, base.Owner.Creature, null);
+                        await CreatureCmd.Damage(choiceContext, dealer, damage, ValueProp.Move, null, null);
                     }
                 });
             }

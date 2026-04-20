@@ -1,9 +1,9 @@
 ﻿using BaseLib.Utils;
-using System.Linq;
 using manosaba.Characters.HasumiLeia;
 using manosaba.Characters.HikamiMeruru;
 using manosaba.Characters.SaekiMiria;
 using Manosaba.Characters.Common.Cards;
+using Manosaba.Characters.Common.Overrides;
 using Manosaba.Extensions;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
@@ -15,6 +15,7 @@ using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.Cards;
 using MegaCrit.Sts2.Core.Nodes.CommonUi;
 using MegaCrit.Sts2.Core.ValueProps;
+using System.Linq;
 
 namespace Manosaba.Characters.HasumiLeia.Cards
 {
@@ -24,6 +25,7 @@ namespace Manosaba.Characters.HasumiLeia.Cards
         private const string _calculatedShivsKey = "CalculatedShivs";
 
         protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromCard<SimpleSpear>(base.IsUpgraded)];
+        public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Retain];
 
         protected override IEnumerable<DynamicVar> CanonicalVars => [
         new CalculationBaseVar(0m),

@@ -10,6 +10,7 @@ using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Models;
+using MegaCrit.Sts2.Core.Nodes.CommonUi;
 
 namespace Manosaba.Characters.Common.Cards
 {
@@ -49,7 +50,9 @@ namespace Manosaba.Characters.Common.Cards
             await CardPileCmd.RemoveFromCombat(token2);
             await CardPileCmd.RemoveFromCombat(token3);
             await CardPileCmd.RemoveFromCombat(token4);
-            await CardPileCmd.AddToCombatAndPreview<SimpleSpear>(Owner.Creature, PileType.Hand, 1, true);
+            CardModel craftedSpear = SimpleSpear.Create(Owner, Owner.Creature.CombatState);
+            CardPileAddResult result = await CardPileCmd.AddGeneratedCardToCombat(craftedSpear, PileType.Hand, addedByPlayer: true);
+            CardCmd.PreviewCardPileAdd(result, 1.2f, CardPreviewStyle.HorizontalLayout);
             await CheckForAdditionalEffect();
         }
 
@@ -71,17 +74,19 @@ namespace Manosaba.Characters.Common.Cards
                 return;
 
 
-            int portableFletchingStationAmount = (int)Owner.Creature.GetPowerAmount<PortableFletchingStationPower>();
+            PortableFletchingStationPower? portableFletchingStation = Owner.Creature.GetPower<PortableFletchingStationPower>();
+            int portableFletchingStationAmount = portableFletchingStation?.Amount ?? 0;
             if (portableFletchingStationAmount <= 0)
                 return;
 
+            int procChancePercent = portableFletchingStation!.DynamicVars[PortableFletchingStationPower.ProcChanceVar].IntValue;
             for (int i = 0; i < portableFletchingStationAmount; i++)
             {
-                if (Owner.RunState.Rng.CombatCardGeneration.NextInt(5) != 0)
+                if (Owner.RunState.Rng.CombatCardGeneration.NextInt(100) >= procChancePercent)
                     continue;
 
-                await Owner.Creature.GetPower<PortableFletchingStationPower>()?.TriggerFlash();
-                CardModel bonusSpear = Owner.Creature.CombatState.CreateCard<SimpleSpear>(Owner);
+                await portableFletchingStation.TriggerFlash();
+                CardModel bonusSpear = SimpleSpear.Create(Owner, Owner.Creature.CombatState);
                 await CardPileCmd.AddGeneratedCardToCombat(bonusSpear, PileType.Hand, addedByPlayer: true);
             }
         }

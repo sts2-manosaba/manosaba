@@ -24,6 +24,7 @@ public class MovieViewing : PathCustomCardModel
     [
         static (player, combatState) => combatState.CreateCard<HorrorMovie>(player),
         static (player, combatState) => combatState.CreateCard<ComedyMovie>(player),
+        static (player, combatState) => combatState.CreateCard<CassetteShapedRock>(player),
         static (player, combatState) => combatState.CreateCard<FantasyMovie>(player),
         static (player, combatState) => combatState.CreateCard<ActionMovie>(player),
         static (player, combatState) => combatState.CreateCard<RomanticMovie>(player),
@@ -34,13 +35,14 @@ public class MovieViewing : PathCustomCardModel
     [
         HoverTipFactory.FromCard<HorrorMovie>(),
         HoverTipFactory.FromCard<ComedyMovie>(),
+        HoverTipFactory.FromCard<CassetteShapedRock>(),
         HoverTipFactory.FromCard<FantasyMovie>(),
         HoverTipFactory.FromCard<ActionMovie>(),
         HoverTipFactory.FromCard<RomanticMovie>(),
         HoverTipFactory.FromCard<SpyMovie>(),
     ];
 
-    protected override IEnumerable<DynamicVar> CanonicalVars => [new CardsVar(1)];
+    protected override IEnumerable<DynamicVar> CanonicalVars => [new CardsVar(2)];
 
     public MovieViewing()
         : base(energyCost, cardTypeValue, rarity, targetTypeValue, shouldShowInCardLibrary)

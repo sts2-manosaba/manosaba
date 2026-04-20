@@ -22,6 +22,7 @@ namespace Manosaba.Characters.SaekiMiria.Cards
         private const TargetType targetType = TargetType.AnyAlly;
         private const bool shouldShowInCardLibrary = true;
         protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<VotePower>()];
+        protected override IEnumerable<DynamicVar> CanonicalVars => [new BlockVar(8m, MegaCrit.Sts2.Core.ValueProps.ValueProp.Move)];
         public FallGuy() : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)
         {
         }
@@ -33,11 +34,12 @@ namespace Manosaba.Characters.SaekiMiria.Cards
             var votePower = cardPlay.Target.GetPowerAmount<VotePower>();
             await PowerCmd.Apply<VotePower>(cardPlay.Target, -votePower, Owner.Creature, this);
             await PowerCmd.Apply<VotePower>(Owner.Creature, votePower, Owner.Creature, this);
+            await CreatureCmd.GainBlock(Owner.Creature, DynamicVars.Block, cardPlay);
         }
 
         protected override void OnUpgrade()
         {
-            EnergyCost.UpgradeBy(-1);
+            DynamicVars.Block.UpgradeValueBy(3m);
         }
     }
 }

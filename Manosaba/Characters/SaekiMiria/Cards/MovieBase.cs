@@ -14,9 +14,9 @@ namespace Manosaba.Characters.SaekiMiria.Cards;
 public abstract class MovieBase : PathCustomCardModel
 {
     private const int energyCost = 0;
-    private const CardType cardTypeValue = CardType.Skill;
+    private const CardType defaultCardTypeValue = CardType.Skill;
     private const CardRarity rarity = CardRarity.Token;
-    private const TargetType targetTypeValue = TargetType.Self;
+    private const TargetType defaultTargetTypeValue = TargetType.Self;
     private const bool shouldShowInCardLibrary = false;
 
     public override bool CanBeGeneratedInCombat => false;
@@ -30,7 +30,9 @@ public abstract class MovieBase : PathCustomCardModel
     protected override IEnumerable<DynamicVar> CanonicalVars => [new CardsVar(CardsToDraw), ..MovieVars];
     public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
 
-    protected MovieBase()
+    protected MovieBase(
+        TargetType targetTypeValue = defaultTargetTypeValue,
+        CardType cardTypeValue = defaultCardTypeValue)
         : base(energyCost, cardTypeValue, rarity, targetTypeValue, shouldShowInCardLibrary)
     {
     }

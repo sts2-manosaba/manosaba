@@ -24,6 +24,7 @@ public sealed class Aspiration : PathCustomCardModel
     private const bool shouldShowInCardLibrary = true;
 
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.Static(StaticHoverTip.Block)];
+    protected override IEnumerable<DynamicVar> CanonicalVars => [new BlockVar(6m, ValueProp.Move)];
 
     public Aspiration()
         : base(energyCost, cardTypeValue, rarity, targetTypeValue, shouldShowInCardLibrary)
@@ -34,6 +35,8 @@ public sealed class Aspiration : PathCustomCardModel
     {
         if (CombatState == null)
             return;
+
+        await CreatureCmd.GainBlock(Owner.Creature, DynamicVars.Block, cardPlay);
 
         decimal blockRemaining = GetCreatureBlock(Owner.Creature);
         if (blockRemaining <= 0m)

@@ -15,6 +15,7 @@ using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
+using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.Powers;
 
@@ -28,6 +29,12 @@ public class PortableFletchingStation : PathCustomCardModel
     private const CardRarity RarityValue = CardRarity.Uncommon;
     private const TargetType TargetTypeValue = TargetType.Self;
     private const bool ShowInCardLibrary = true;
+
+    protected override IEnumerable<DynamicVar> CanonicalVars =>
+    [
+        new PowerVar<PortableFletchingStationPower>(1m),
+        new DynamicVar(PortableFletchingStationPower.ProcChanceVar, PortableFletchingStationPower.ProcChancePercent),
+    ];
 
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromCard<SimpleSpear>()];
 
