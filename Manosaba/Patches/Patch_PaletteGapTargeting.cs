@@ -13,7 +13,6 @@ using MegaCrit.Sts2.Core.Nodes.Orbs;
 using MegaCrit.Sts2.Core.Nodes.Rooms;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 
@@ -40,7 +39,8 @@ namespace Manosaba.Patches
         [HarmonyPrefix]
         private static bool NMouseCardPlay_TargetSelection_Prefix(NMouseCardPlay __instance, TargetMode targetMode, ref Task __result)
         {
-            if (GetPaletteGapCard(__instance) == null)
+            PaletteGap? card = GetPaletteGapCard(__instance);
+            if (card == null)
             {
                 return true;
             }
@@ -54,8 +54,13 @@ namespace Manosaba.Patches
         private static bool NControllerCardPlay_Start_Prefix(NControllerCardPlay __instance)
         {
             PaletteGap? card = GetPaletteGapCard(__instance);
+            if (card == null)
+            {
+                return true;
+            }
+
             NCard? cardNode = GetCardNode(__instance);
-            if (card == null || cardNode == null)
+            if (cardNode == null)
             {
                 return true;
             }
