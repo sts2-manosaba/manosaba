@@ -15,7 +15,7 @@ namespace Manosaba.Characters.HikamiMeruru.Potions
     public class PainKillerPotion : PathCustomPotionModel
     {
         public override PotionUsage Usage => PotionUsage.CombatOnly;
-        public override PotionRarity Rarity => PotionRarity.Uncommon;
+        public override PotionRarity Rarity => PotionRarity.Token;
         public override TargetType TargetType => TargetType.AnyPlayer;
 
         public override bool CanBeGeneratedInCombat => false;

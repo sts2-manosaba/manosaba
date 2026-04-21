@@ -1,4 +1,6 @@
-﻿using MegaCrit.Sts2.Core.Commands;
+﻿using System;
+using System.Threading;
+using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.Models;
 
@@ -6,6 +8,10 @@ namespace Manosaba.Characters.HikamiMeruru.PotionCraft
 {
     public static class PotionCraftService
     {
+        private static readonly AsyncLocal<int> CraftDiscardDepth = new();
+
+        public static bool IsCraftDiscardSuppressed => CraftDiscardDepth.Value > 0;
+
         public static PotionRecipe? FindFirstCraftableRecipe(IEnumerable<PotionModel?> potionSlots)
         {
             return PotionRecipeTable.Recipes.FirstOrDefault(r => r.CanCraft(potionSlots));
@@ -20,20 +26,38 @@ namespace Manosaba.Characters.HikamiMeruru.PotionCraft
                 .OfType<PotionModel>()
                 .ToList();
 
-            foreach (var ingredient in recipe.Ingredients)
+            using (BeginCraftDiscardScope())
             {
-                for (int i = 0; i < ingredient.Value; i++)
+                foreach (var ingredient in recipe.Ingredients)
                 {
-                    var potion = potions.FirstOrDefault(p => p.GetType() == ingredient.Key);
-                    if (potion == null)
-                        return false;
+                    for (int i = 0; i < ingredient.Value; i++)
+                    {
+                        var potion = potions.FirstOrDefault(p => p.GetType() == ingredient.Key);
+                        if (potion == null)
+                            return false;
 
-                    potions.Remove(potion);
-                    await PotionCmd.Discard(potion);
+                        potions.Remove(potion);
+                        await PotionCmd.Discard(potion);
+                    }
                 }
             }
+
             await PotionCmd.TryToProcure(recipe.ResultPotionType.ToMutable(), owner);
             return true;
+        }
+
+        private static IDisposable BeginCraftDiscardScope()
+        {
+            CraftDiscardDepth.Value++;
+            return new ScopeGuard();
+        }
+
+        private sealed class ScopeGuard : IDisposable
+        {
+            public void Dispose()
+            {
+                CraftDiscardDepth.Value = Math.Max(0, CraftDiscardDepth.Value - 1);
+            }
         }
     }
 }

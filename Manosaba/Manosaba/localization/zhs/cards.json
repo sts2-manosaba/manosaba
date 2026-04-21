@@ -77,6 +77,8 @@
   "MANOSABA-NANOKA_COMPLETE.description": "本場戰鬥直接勝利。",
   "MANOSABA-PAIN_KILLER.title": "止痛藥",
   "MANOSABA-PAIN_KILLER.description": "獲得 {Cards:diff()} 瓶[gold]止痛藥[/gold]",
+  "MANOSABA-POTION_THROW.title": "藥水投擲",
+  "MANOSABA-POTION_THROW.description": "給予自身 {PotionThrowPower:diff()} 層[gold]藥水投擲[/gold]。",
   "MANOSABA-POTION_FACTORY.title": "藥水工廠",
   "MANOSABA-POTION_FACTORY.description": "給予自身 {PotionFactoryPower:diff()} 層[gold]藥水工廠[/gold]。",
   "MANOSABA-QUICK_HEAL.title": "快速治療",

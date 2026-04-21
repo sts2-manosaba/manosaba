@@ -77,6 +77,8 @@
   "MANOSABA-NANOKA_COMPLETE.description": "이번 전투에서 즉시 승리합니다.",
   "MANOSABA-PAIN_KILLER.title": "진통제",
   "MANOSABA-PAIN_KILLER.description": "[gold]진통제[/gold]를 {Cards:diff()}병을 얻습니다.",
+  "MANOSABA-POTION_THROW.title": "포션 투척",
+  "MANOSABA-POTION_THROW.description": "[gold]포션 투척[/gold]을 {PotionThrowPower:diff()} 얻습니다.",
   "MANOSABA-POTION_FACTORY.title": "포션 공장",
   "MANOSABA-POTION_FACTORY.description": "[gold]포션 공장[/gold]을 {PotionFactoryPower:diff()} 얻습니다.",
   "MANOSABA-QUICK_HEAL.title": "신속 치료",
