@@ -34,5 +34,6 @@ public class PotionThrow : PathCustomCardModel
 
     protected override void OnUpgrade()
     {
+        DynamicVars["PotionThrowPower"].UpgradeValueBy(1);
     }
 }
