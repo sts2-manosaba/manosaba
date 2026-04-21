@@ -1,8 +1,11 @@
-﻿using Manosaba.Extensions;
+﻿using System.Linq;
+using Manosaba.Extensions;
 using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Commands;
+using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Entities.Powers;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
+using MegaCrit.Sts2.Core.ValueProps;
 
 namespace Manosaba.Characters.NikaidoHiro.Powers
 {
@@ -16,7 +19,16 @@ namespace Manosaba.Characters.NikaidoHiro.Powers
         {
             if (side == CombatSide.Player && Owner.IsAlive)
             {
-                await DamageCmd.Attack(Owner.CurrentHp).FromOsty(Owner, null).TargetingRandomOpponents(CombatState).Execute(choiceContext);
+                List<Creature> targets = CombatState.GetOpponentsOf(Owner)
+                    .Where(c => c.IsHittable)
+                    .ToList();
+                if (targets.Count == 0)
+                {
+                    return;
+                }
+
+                Creature target = CombatState.RunState.Rng.CombatTargets.NextItem(targets);
+                await CreatureCmd.Damage(choiceContext, target, Owner.CurrentHp, ValueProp.Move, Owner, null);
             }
         }
 

@@ -46,7 +46,7 @@ namespace Manosaba.Characters.HikamiMeruru.Cards
                 return;
 
             Creature randomKurobeNanoka = Owner.RunState.Rng.CombatTargets.NextItem(kurobeNanokas);
-            await CreatureCmd.Damage(choiceContext, randomKurobeNanoka, 1m, ValueProp.Unpowered, Owner.Creature);
+            await CreatureCmd.Damage(new ThrowingPlayerChoiceContext(), randomKurobeNanoka, 1m, ValueProp.Unpowered, Owner.Creature);
         }
 
         protected override void OnUpgrade()
