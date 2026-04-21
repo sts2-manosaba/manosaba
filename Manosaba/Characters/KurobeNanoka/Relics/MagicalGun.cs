@@ -7,7 +7,6 @@ using MegaCrit.Sts2.Core.Entities.Relics;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
-using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Rooms;
 
 namespace manosaba.Characters.KurobeNanoka.Relics
@@ -48,11 +47,11 @@ namespace manosaba.Characters.KurobeNanoka.Relics
             return Task.CompletedTask;
         }
 
-        public override Task AfterSideTurnStart(CombatSide side, CombatState combatState)
+        public override Task AfterPlayerTurnStart(PlayerChoiceContext choiceContext, Player player)
         {
-            _ = combatState;
+            _ = choiceContext;
 
-            if (side != CombatSide.Player || Owner.Creature?.IsAlive != true)
+            if (Owner.Creature != player.Creature || Owner.Creature?.IsAlive != true)
                 return Task.CompletedTask;
 
             int bulletsToGain = Owner.Creature.GetPowerAmount<MajokaPower>() >= 100m ? 2 : 1;
