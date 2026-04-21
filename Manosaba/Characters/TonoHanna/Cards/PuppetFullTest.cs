@@ -12,7 +12,7 @@ using MegaCrit.Sts2.Core.Models;
 namespace Manosaba.Characters.TonoHanna.Cards;
 
 [Pool(typeof(TonoHannaCardPool))]
-public class PuppetFellTest : PathCustomCardModel
+public class PuppetFullTest : PathCustomCardModel
 {
     private const int energyCost = 0;
     private const CardType cardTypeValue = CardType.Skill;
@@ -25,7 +25,7 @@ public class PuppetFellTest : PathCustomCardModel
 
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<PuppetCollectionSummaryPower>()];
 
-    public PuppetFellTest() : base(energyCost, cardTypeValue, rarity, targetTypeValue, shouldShowInCardLibrary)
+    public PuppetFullTest() : base(energyCost, cardTypeValue, rarity, targetTypeValue, shouldShowInCardLibrary)
     {
     }
 

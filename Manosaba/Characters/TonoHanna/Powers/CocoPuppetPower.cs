@@ -26,6 +26,6 @@ public class CocoPuppetPower : PathCustomPowerModel
             return;
 
         Flash();
-        await CreatureCmd.GainBlock(Owner, Amount, ValueProp.Move, cardPlay);
+        await CreatureCmd.GainBlock(Owner, Amount, ValueProp.Move | ValueProp.Unpowered, cardPlay);
     }
 }
