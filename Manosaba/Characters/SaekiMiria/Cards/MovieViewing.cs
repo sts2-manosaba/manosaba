@@ -43,6 +43,7 @@ public class MovieViewing : PathCustomCardModel
     ];
 
     protected override IEnumerable<DynamicVar> CanonicalVars => [new CardsVar(2)];
+    public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
 
     public MovieViewing()
         : base(energyCost, cardTypeValue, rarity, targetTypeValue, shouldShowInCardLibrary)

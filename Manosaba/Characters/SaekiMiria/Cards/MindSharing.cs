@@ -97,6 +97,12 @@ namespace Manosaba.Characters.NikaidoHiro.Cards
                     {
                         if (!sourcePowers.TryGetValue(powerId, out PowerModel? source)) continue;
 
+                        if (existing?.IsInstanced == true)
+                        {
+                            Console.WriteLine($"Skipping instanced power {powerId} on {teammate.Name} because an instance already exists");
+                            continue;
+                        }
+
                         var clone = source.ClonePreservingMutability() as PowerModel;
                         if (clone == null) continue;
 

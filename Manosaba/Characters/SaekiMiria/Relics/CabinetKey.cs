@@ -22,6 +22,9 @@ namespace manosaba.Characters.SaekiMiria.Relics
     [Pool(typeof(SaekiMiriaRelicPool))]
     public sealed class CabinetKey : LevelingPathCustomRelicModel
     {
+        private const int MAX_MOVIE_CARD_GENERATED = 10;
+        private const int SMALL_PAPER_CHANCE = 1000;
+
         public override RelicRarity Rarity => RelicRarity.Starter;
         protected override int MaxRelicLevel => 5;
 
@@ -76,8 +79,8 @@ namespace manosaba.Characters.SaekiMiria.Relics
             decimal blockRemaining = GetCreatureBlock(Owner.Creature);
             if (blockRemaining <= 0m)
                 return;
-
             int moviesToAdd = (int)decimal.Ceiling(blockRemaining / requiredBlock);
+            moviesToAdd = Math.Min(moviesToAdd, MAX_MOVIE_CARD_GENERATED);
             if (moviesToAdd <= 0)
                 return;
 
@@ -137,8 +140,8 @@ namespace manosaba.Characters.SaekiMiria.Relics
 
         private static CardModel CreateRelicGeneratedCard(Player player, CombatState combatState, MegaCrit.Sts2.Core.Random.Rng rng)
         {
-            // Very small chance to generate the secret card Small Paper (10000)
-            if (rng.NextInt(10000) == 0)
+            // Very small chance to generate the secret card Small Paper 
+            if (rng.NextInt(SMALL_PAPER_CHANCE) == 0)
             {
                 return combatState.CreateCard<SmallPaper>(player);
             }

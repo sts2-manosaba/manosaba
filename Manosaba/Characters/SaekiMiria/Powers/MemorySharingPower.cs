@@ -117,12 +117,12 @@ namespace Manosaba.Characters.SaekiMiria.Powers
                     }
                     var copy = card.CreateClone();
 
-                    if (majoka < 50)
+                    if (majoka < 150)
                     {
                         copy.AddKeyword(CardKeyword.Exhaust);
 
                     }
-                    if (majoka < 100)
+                    if (majoka < 200)
                     {
                         copy.AddKeyword(CardKeyword.Ethereal);
                     }

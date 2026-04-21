@@ -8,7 +8,7 @@ namespace Manosaba.Characters.SaekiMiria.Cards;
 
 public sealed class CassetteShapedRock : MovieBase
 {
-    protected override IEnumerable<DynamicVar> MovieVars => [new DamageVar(15m, ValueProp.Move)];
+    protected override IEnumerable<DynamicVar> MovieVars => [new DamageVar(10m, ValueProp.Move)];
 
     public CassetteShapedRock()
         : base(TargetType.AnyEnemy, CardType.Attack)
