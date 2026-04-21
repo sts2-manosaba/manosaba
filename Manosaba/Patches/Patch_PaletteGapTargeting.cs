@@ -189,8 +189,8 @@ namespace Manosaba.Patches
 
         private static List<Control> CreateGapMarkers(IReadOnlyList<NOrb> orbSlots, int maxInsertIndex, Dictionary<Control, int> markerToIndex)
         {
-            List<Control> markers = new(maxInsertIndex + 1);
-            for (int i = 0; i <= maxInsertIndex; i++)
+            List<Control> markers = new(Math.Max(0, maxInsertIndex));
+            for (int i = 1; i <= maxInsertIndex; i++)
             {
                 Vector2 position = GetGapPosition(orbSlots, maxInsertIndex, i);
                 ColorRect marker = new()

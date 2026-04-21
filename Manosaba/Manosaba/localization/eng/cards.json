@@ -125,7 +125,7 @@
   "MANOSABA-SPACE_OUT.title": "Space Out",
   "MANOSABA-SPACE_OUT.description": "Gain [gold]Space Out[/gold].",
   "MANOSABA-ZUMA.title": "Zuma",
-  "MANOSABA-ZUMA.description": "Gain {ZumaPower:diff()} [gold]Zuma[/gold].",
+  "MANOSABA-ZUMA.description": "Gain {ZumaPower:diff()} [gold]Zuma[/gold]. Shuffle {Cards:diff()} [gold]Gap Palette[/gold] into your [gold]Draw pile[/gold].",
   "MANOSABA-STILL.title": "Still Frame",
   "MANOSABA-STILL.description": "Paint the target monster and summon an allied copy of it. (Cannot paint Elites or Bosses.)",
   "MANOSABA-STRIKE_JOGASAKI_NOAH.title": "Strike",

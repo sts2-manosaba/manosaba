@@ -2,7 +2,6 @@ using BaseLib.Utils;
 using manosaba.Characters.JogasakiNoah;
 using Manosaba.Characters.JogasakiNoa.Orbs;
 using Manosaba.Extensions;
-using MegaCrit.Sts2.Core.CardSelection;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
@@ -67,6 +66,8 @@ public class InkPaintingBlackPaintOrbToken : PathCustomCardModel
     private const CardRarity rarity = CardRarity.Token;
     private const TargetType targetTypeValue = TargetType.Self;
     private const bool shouldShowInCardLibrary = false;
+    public override bool CanBeGeneratedInCombat => false;
+    public override bool CanBeGeneratedByModifiers => false;
 
     public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromOrb<BlackPaintOrb>()];
@@ -93,6 +94,8 @@ public class InkPaintingWhitePaintOrbToken : PathCustomCardModel
     private const CardRarity rarity = CardRarity.Token;
     private const TargetType targetTypeValue = TargetType.Self;
     private const bool shouldShowInCardLibrary = false;
+    public override bool CanBeGeneratedInCombat => false;
+    public override bool CanBeGeneratedByModifiers => false;
 
     public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromOrb<WhitePaintOrb>()];

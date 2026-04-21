@@ -8,11 +8,6 @@ using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Hooks;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Nodes.Rooms;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace Manosaba.Characters.JogasakiNoah.Powers
 {
@@ -22,7 +17,7 @@ namespace Manosaba.Characters.JogasakiNoah.Powers
         private static readonly AsyncLocal<decimal> ActiveEvokeMultiplier = new();
 
         public override PowerType Type => PowerType.Buff;
-        public override PowerStackType StackType => PowerStackType.Counter;
+        public override PowerStackType StackType => PowerStackType.Single;
         public override bool AllowNegative => false;
 
         public static decimal GetCurrentEvokeMultiplier()
@@ -64,7 +59,7 @@ namespace Manosaba.Characters.JogasakiNoah.Powers
             ResolveDepth.Value++;
             try
             {
-                decimal multiplier = 2m;
+                int combo = 1;
                 int safety = 0;
                 while (safety++ < 24)
                 {
@@ -81,7 +76,7 @@ namespace Manosaba.Characters.JogasakiNoah.Powers
                     }
 
                     decimal previous = ActiveEvokeMultiplier.Value;
-                    ActiveEvokeMultiplier.Value = multiplier;
+                    ActiveEvokeMultiplier.Value = GetComboMultiplier(combo);
                     try
                     {
                         await EvokeTripleAt(choiceContext, player, tripleStart);
@@ -91,13 +86,23 @@ namespace Manosaba.Characters.JogasakiNoah.Powers
                         ActiveEvokeMultiplier.Value = previous;
                     }
 
-                    multiplier *= 2m;
+                    combo++;
                 }
             }
             finally
             {
                 ResolveDepth.Value--;
             }
+        }
+
+        private static decimal GetComboMultiplier(int combo)
+        {
+            return combo switch
+            {
+                <= 1 => 1.5m,
+                2 => 3m,
+                _ => 5m,
+            };
         }
 
         private static async Task EvokeTripleAt(PlayerChoiceContext choiceContext, Player player, int startIndex)

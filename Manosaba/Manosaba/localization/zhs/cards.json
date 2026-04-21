@@ -125,7 +125,7 @@
   "MANOSABA-SPACE_OUT.title": "放空",
   "MANOSABA-SPACE_OUT.description": "增加兩格顏料球格並獲得能力：[gold]色彩化[/gold]。",
   "MANOSABA-ZUMA.title": "祖瑪",
-  "MANOSABA-ZUMA.description": "給予自身 {ZumaPower:diff()} 層[gold]祖瑪[/gold]。",
+  "MANOSABA-ZUMA.description": "給予自身 {ZumaPower:diff()} 層[gold]祖瑪[/gold]。將 {Cards:diff()} 張[gold]縫隙調色[/gold]洗入[gold]抽牌堆[/gold]。",
   "MANOSABA-STILL.title": "定格畫面",
   "MANOSABA-STILL.description": "最大能量減 1，將目標怪物繪製，並生成一隻該生物的友軍。(不能繪製菁英或頭目)",
   "MANOSABA-STRIKE_JOGASAKI_NOAH.title": "打擊",

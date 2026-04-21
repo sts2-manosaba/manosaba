@@ -4,14 +4,10 @@ using manosaba.Extensions;
 using Manosaba.Characters.JogasakiNoa.Orbs;
 using Manosaba.Extensions;
 using MegaCrit.Sts2.Core.Entities.Cards;
-using MegaCrit.Sts2.Core.Entities.Orbs;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace Manosaba.Characters.JogasakiNoah.Cards
 {
@@ -27,9 +23,11 @@ namespace Manosaba.Characters.JogasakiNoah.Cards
 
         private const int EnergyCostValue = 1;
         private const CardType CardTypeValue = CardType.Skill;
-        private const CardRarity Rarity = CardRarity.Uncommon;
+        private const CardRarity Rarity = CardRarity.Token;
         private const TargetType TargetTypeValue = TargetType.TargetedNoCreature;
-        private const bool ShouldShowInCardLibrary = true;
+        private const bool ShouldShowInCardLibrary = false;
+        public override bool CanBeGeneratedInCombat => false;
+        public override bool CanBeGeneratedByModifiers => false;
 
         internal int? PendingInsertIndex { get; set; }
 

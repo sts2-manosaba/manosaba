@@ -7,8 +7,7 @@ using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
-using System.Collections.Generic;
-using System.Threading.Tasks;
+using MegaCrit.Sts2.Core.Models;
 
 namespace Manosaba.Characters.JogasakiNoah.Cards
 {
@@ -22,7 +21,7 @@ namespace Manosaba.Characters.JogasakiNoah.Cards
         private const bool shouldShowInCardLibrary = true;
 
         protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<ZumaPower>()];
-        protected override IEnumerable<DynamicVar> CanonicalVars => [new PowerVar<ZumaPower>(1)];
+        protected override IEnumerable<DynamicVar> CanonicalVars => [new PowerVar<ZumaPower>(1), new CardsVar(7)];
 
         public Zuma() : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)
         {
@@ -31,6 +30,12 @@ namespace Manosaba.Characters.JogasakiNoah.Cards
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
             await PowerCmd.Apply<ZumaPower>(Owner.Creature, DynamicVars["ZumaPower"].BaseValue, Owner.Creature, this);
+            List<CardModel> cards = Enumerable.Range(0, DynamicVars.Cards.IntValue)
+                .Select(_ => CombatState.CreateCard<PaletteGap>(Owner))
+                .Cast<CardModel>()
+                .ToList();
+            IReadOnlyList<CardPileAddResult> results = await CardPileCmd.AddGeneratedCardsToCombat(cards, PileType.Draw, addedByPlayer: true, CardPilePosition.Random);
+            CardCmd.PreviewCardPileAdd(results);
         }
 
         protected override void OnUpgrade()
