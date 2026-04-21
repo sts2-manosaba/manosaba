@@ -127,7 +127,7 @@
   "MANOSABA-SPACE_OUT.title": "멍 때리기",
   "MANOSABA-SPACE_OUT.description": "구슬 슬롯 2칸을 추가하고 능력: [gold]색채화[/gold]를 얻습니다.",
   "MANOSABA-ZUMA.title": "주마",
-  "MANOSABA-ZUMA.description": "[gold]주마[/gold]를 {ZumaPower:diff()} 얻습니다. [gold]틈새 조색[/gold] {Cards:diff()}장을 [gold]드로우 더미[/gold]에 섞어 넣습니다.",
+  "MANOSABA-ZUMA.description": "[gold]주마[/gold]를 {ZumaPower:diff()} 얻습니다. [gold]구슬 슬롯[/gold] 1칸을 추가합니다. [gold]틈새 조색[/gold] {Cards:diff()}장을 [gold]드로우 더미[/gold]에 섞어 넣습니다.",
   "MANOSABA-STILL.title": "정지 화면",
   "MANOSABA-STILL.description": "최대 에너지가 1 감소하고, 대상 적을 그려 해당 적의 아군 복사본을 소환합니다. (엘리트나 보스는 그릴 수 없습니다)",
   "MANOSABA-STRIKE_JOGASAKI_NOAH.title": "타격",

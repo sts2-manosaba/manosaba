@@ -148,7 +148,8 @@ namespace Manosaba.Patches
             }
 
             Dictionary<Control, int> markerToIndex = [];
-            List<Control> markers = CreateGapMarkers(orbSlots, maxInsertIndex, markerToIndex);
+            bool includeFirstGap = queueCount == 0;
+            List<Control> markers = CreateGapMarkers(orbSlots, maxInsertIndex, includeFirstGap, markerToIndex);
             if (markers.Count == 0)
             {
                 return null;
@@ -192,10 +193,16 @@ namespace Manosaba.Patches
             }
         }
 
-        private static List<Control> CreateGapMarkers(IReadOnlyList<NOrb> orbSlots, int maxInsertIndex, Dictionary<Control, int> markerToIndex)
+        private static List<Control> CreateGapMarkers(
+            IReadOnlyList<NOrb> orbSlots,
+            int maxInsertIndex,
+            bool includeFirstGap,
+            Dictionary<Control, int> markerToIndex)
         {
-            List<Control> markers = new(Math.Max(0, maxInsertIndex));
-            for (int i = 1; i <= maxInsertIndex; i++)
+            int startIndex = includeFirstGap ? 0 : 1;
+            int markerCount = Math.Max(0, maxInsertIndex - startIndex + 1);
+            List<Control> markers = new(markerCount);
+            for (int i = startIndex; i <= maxInsertIndex; i++)
             {
                 Vector2 position = GetGapPosition(orbSlots, maxInsertIndex, i);
                 ColorRect marker = new()

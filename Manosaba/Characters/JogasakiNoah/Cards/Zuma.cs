@@ -30,6 +30,7 @@ namespace Manosaba.Characters.JogasakiNoah.Cards
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
             await PowerCmd.Apply<ZumaPower>(Owner.Creature, DynamicVars["ZumaPower"].BaseValue, Owner.Creature, this);
+            await OrbCmd.AddSlots(Owner, 1);
             List<CardModel> cards = Enumerable.Range(0, DynamicVars.Cards.IntValue)
                 .Select(_ => CombatState.CreateCard<PaletteGap>(Owner))
                 .Cast<CardModel>()

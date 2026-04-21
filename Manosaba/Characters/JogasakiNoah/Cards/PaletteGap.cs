@@ -49,10 +49,10 @@ namespace Manosaba.Characters.JogasakiNoah.Cards
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
             int insertIndex = ConsumeInsertIndexOrDefault();
+            OrbModel randomOrb = RollOrbFromChanceTable();
 
             for (int i = 0; i < DynamicVars.Repeat.IntValue; i++)
             {
-                OrbModel randomOrb = RollOrbFromChanceTable();
                 await OrbGapChannelHelper.ChannelAt(choiceContext, randomOrb.ToMutable(), Owner, insertIndex);
                 insertIndex++;
             }

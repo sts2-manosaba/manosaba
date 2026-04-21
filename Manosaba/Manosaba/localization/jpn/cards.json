@@ -127,7 +127,7 @@
   "MANOSABA-SPACE_OUT.title": "ぼんやり",
   "MANOSABA-SPACE_OUT.description": "ペイントボール枠を2つ増やし、能力：[gold]色彩化[/gold]を得る。",
   "MANOSABA-ZUMA.title": "ズーマ",
-  "MANOSABA-ZUMA.description": "自身に{ZumaPower:diff()}層の[gold]ズーマ[/gold]を与える。[gold]隙間調色[/gold]を{Cards:diff()}枚、[gold]ドローパイル[/gold]に加えてシャッフルする。",
+  "MANOSABA-ZUMA.description": "自身に{ZumaPower:diff()}層の[gold]ズーマ[/gold]を与える。[gold]ペイントボール枠[/gold]を1つ増やす。[gold]隙間調色[/gold]を{Cards:diff()}枚、[gold]ドローパイル[/gold]に加えてシャッフルする。",
   "MANOSABA-STILL.title": "静止画面",
   "MANOSABA-STILL.description": "最大エナジー-1。対象のモンスターを描画し、そのモンスターの味方を1体生成する。（エリートとボスは対象外）",
   "MANOSABA-STRIKE_JOGASAKI_NOAH.title": "打撃",
