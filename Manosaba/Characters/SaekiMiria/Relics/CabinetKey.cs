@@ -30,7 +30,11 @@ namespace manosaba.Characters.SaekiMiria.Relics
 
         private int blockPerMovieCard = 8;
 
-        protected override IEnumerable<DynamicVar> CanonicalVars => [new DynamicVar("BlockPerMovie", 8m)];
+        protected override IEnumerable<DynamicVar> CanonicalVars =>
+        [
+            new DynamicVar("BlockPerMovie", 8m),
+            new DynamicVar("MaxMovieCards", MAX_MOVIE_CARD_GENERATED),
+        ];
 
         private static readonly IReadOnlyList<Func<Player, CombatState, MovieBase>> MovieFactories =
         [
