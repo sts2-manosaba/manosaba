@@ -1,11 +1,15 @@
 ﻿using BaseLib.Utils;
 using manosaba.Characters.HikamiMeruru;
+using manosaba.Characters.KurobeNanoka;
 using Manosaba.Extensions;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
+using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.ValueProps;
+using System.Linq;
+using KurobeNanokaCharacter = manosaba.Characters.KurobeNanoka.KurobeNanoka;
 
 namespace Manosaba.Characters.HikamiMeruru.Cards
 {
@@ -34,6 +38,15 @@ namespace Manosaba.Characters.HikamiMeruru.Cards
                 .FromCard(this)
                 .Targeting(target)
                 .Execute(choiceContext);
+
+            List<Creature> kurobeNanokas = CombatState.Creatures
+                .Where(c => c != null && c.IsAlive && c.IsPlayer && c.Player?.Character is KurobeNanokaCharacter)
+                .ToList();
+            if (kurobeNanokas.Count == 0)
+                return;
+
+            Creature randomKurobeNanoka = Owner.RunState.Rng.CombatTargets.NextItem(kurobeNanokas);
+            await CreatureCmd.Damage(choiceContext, randomKurobeNanoka, 1m, ValueProp.Unpowered, Owner.Creature);
         }
 
         protected override void OnUpgrade()
