@@ -8,6 +8,7 @@ using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Hooks;
 using MegaCrit.Sts2.Core.Models;
+using MegaCrit.Sts2.Core.Nodes.Combat;
 using MegaCrit.Sts2.Core.Nodes.Orbs;
 using MegaCrit.Sts2.Core.Nodes.Rooms;
 using System;
@@ -53,6 +54,8 @@ namespace Manosaba.Characters.JogasakiNoah.Cards
                 }
             }
 
+            await PlayPaletteGapInsertPreflight(orb, player, insertIndex);
+
             if (!await orbQueue.TryEnqueue(orb))
             {
                 return;
@@ -73,6 +76,66 @@ namespace Manosaba.Characters.JogasakiNoah.Cards
                 ApplyPartialInsertTween(player, insertIndex);
             }
             await Hook.AfterOrbChanneled(combatState, choiceContext, player, orb);
+        }
+
+        private static async Task PlayPaletteGapInsertPreflight(OrbModel orb, Player player, int insertIndex)
+        {
+            NCombatRoom? combatRoom = NCombatRoom.Instance;
+            NCreature? creatureNode = combatRoom?.GetCreatureNode(player.Creature);
+            NOrbManager? orbManager = creatureNode?.OrbManager;
+            if (combatRoom == null || creatureNode == null || orbManager == null)
+            {
+                return;
+            }
+
+            if (OrbManagerOrbsField?.GetValue(orbManager) is not List<NOrb> orbSlots || orbSlots.Count == 0)
+            {
+                return;
+            }
+
+            int queueCount = player.PlayerCombatState?.OrbQueue?.Orbs?.Count ?? 0;
+            int maxInsertIndex = Math.Min(queueCount, Math.Max(0, orbSlots.Count - 1));
+            if (maxInsertIndex < 0)
+            {
+                return;
+            }
+
+            int clampedInsertIndex = Math.Clamp(insertIndex, 0, maxInsertIndex);
+            Vector2 from = GetCreatureCenter(creatureNode);
+            Vector2 to = GetGapPosition(orbSlots, maxInsertIndex, clampedInsertIndex);
+
+            Node2D flyNode = orb.CreateSprite();
+            flyNode.TopLevel = true;
+            flyNode.GlobalPosition = from;
+            flyNode.ZIndex = 800;
+            combatRoom.AddChild(flyNode);
+
+            Tween tween = combatRoom.CreateTween().SetParallel(true);
+            tween
+                .TweenProperty(flyNode, "global_position", to, 0.24f)
+                .SetEase(Tween.EaseType.Out)
+                .SetTrans(Tween.TransitionType.Cubic);
+            tween
+                .TweenProperty(flyNode, "scale", Vector2.One * 0.9f, 0.24f)
+                .SetEase(Tween.EaseType.Out)
+                .SetTrans(Tween.TransitionType.Sine);
+            tween
+                .TweenProperty(flyNode, "modulate:a", 0.2f, 0.24f)
+                .SetEase(Tween.EaseType.In)
+                .SetTrans(Tween.TransitionType.Sine);
+
+            TaskCompletionSource<bool> completion = new();
+            void OnFinished() => completion.TrySetResult(true);
+            tween.Finished += OnFinished;
+            try
+            {
+                await completion.Task;
+            }
+            finally
+            {
+                tween.Finished -= OnFinished;
+                flyNode.QueueFree();
+            }
         }
 
         private static void MoveLastOrbToInsertIndex(OrbQueue queue, int insertIndex)
@@ -139,6 +202,54 @@ namespace Manosaba.Characters.JogasakiNoah.Cards
 
             newModel.Triggered -= flashHandler;
             newModel.Triggered += flashHandler;
+        }
+
+        private static Vector2 GetGapPosition(IReadOnlyList<NOrb> orbSlots, int maxInsertIndex, int insertIndex)
+        {
+            if (maxInsertIndex == 0)
+            {
+                return GetOrbSlotCenter(orbSlots[0]);
+            }
+
+            if (maxInsertIndex == 1)
+            {
+                Vector2 first = GetOrbSlotCenter(orbSlots[0]);
+                Vector2 second = GetOrbSlotCenter(orbSlots[1]);
+                Vector2 dir = (first - second).Normalized();
+                return insertIndex == 0 ? first + dir * 28f : first - dir * 28f;
+            }
+
+            if (insertIndex == 0)
+            {
+                Vector2 first = GetOrbSlotCenter(orbSlots[0]);
+                Vector2 second = GetOrbSlotCenter(orbSlots[1]);
+                return first + (first - second).Normalized() * 28f;
+            }
+
+            if (insertIndex == maxInsertIndex)
+            {
+                Vector2 last = GetOrbSlotCenter(orbSlots[maxInsertIndex - 1]);
+                Vector2 prev = GetOrbSlotCenter(orbSlots[Math.Max(0, maxInsertIndex - 2)]);
+                return last + (last - prev).Normalized() * 28f;
+            }
+
+            Vector2 left = GetOrbSlotCenter(orbSlots[insertIndex - 1]);
+            Vector2 right = GetOrbSlotCenter(orbSlots[insertIndex]);
+            return (left + right) * 0.5f;
+        }
+
+        private static Vector2 GetOrbSlotCenter(Control slot)
+        {
+            return slot.GlobalPosition + slot.Size * 0.5f;
+        }
+
+        private static Vector2 GetCreatureCenter(NCreature creatureNode)
+        {
+            return creatureNode switch
+            {
+                Control control => control.GlobalPosition + control.Size * 0.5f,
+                _ => Vector2.Zero
+            };
         }
 
         private static void ApplyPartialInsertTween(Player player, int insertIndex)
