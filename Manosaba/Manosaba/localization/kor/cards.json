@@ -208,6 +208,8 @@
   "MANOSABA-EXCHANGE.description": "플레이어 1명을 선택합니다.\n그 캐릭터의 무작위 카드 1장을 [gold]손[/gold]으로 가져옵니다.\n그 플레이어는 무작위 미리아 카드 1장을 [gold]손[/gold]에 추가합니다.\n이 방법으로 얻은 카드는 [gold]소멸[/gold]과 [gold]휘발성[/gold]를 가집니다. 아군이 없으면 대신 카드를 1장 뽑고 그 카드를 소멸시킵니다.{IfUpgraded:show:\n이 방법으로 희귀 카드도 받을 수 있습니다. | 받는 카드는 언커먼 이하입니다.}",
   "MANOSABA-FALL_GUY.title": "누명",
   "MANOSABA-FALL_GUY.description": "[gold]방어도[/gold]를 {Block:diff()} 얻습니다.\n아군 한 명의 [gold]의심[/gold]을 모두 가져옵니다.",
+  "MANOSABA-NAREHATE_FEEDING.title": "나레하테 먹이주기",
+  "MANOSABA-NAREHATE_FEEDING.description": "{Block:diff()} [gold]방어도[/gold]를 얻습니다.\n{DoomPower:diff()} [gold]파멸[/gold]을 얻습니다.\n사용 후, 이 카드를 [gold]손패[/gold]로 되돌립니다.",
   "MANOSABA-PEPPER_RAMEN.title": "후추 라면",
   "MANOSABA-PEPPER_RAMEN.description": "[gold]재생[/gold]을 {RegenPower:diff()} 얻습니다.\n[gold]중독[/gold]을 {PoisonPower:diff()} 얻습니다.",
   "MANOSABA-FRIENDLY.title": "친화력",

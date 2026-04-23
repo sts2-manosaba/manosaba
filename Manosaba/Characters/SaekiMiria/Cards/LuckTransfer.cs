@@ -86,7 +86,6 @@ public sealed class LuckTransfer : PathCustomCardModel
 
     protected override void OnUpgrade()
     {
-        DynamicVars["Multiplier"].UpgradeBy(2m);
-        EnergyCost.UpgradeBy(-1);
+        DynamicVars["Multiplier"].UpgradeValueBy(2m);
     }
 }

@@ -208,6 +208,8 @@
   "MANOSABA-EXCHANGE.description": "プレイヤーを1人選ぶ。\nそのキャラクターのカードをランダムに1枚、あなたの[gold]手札[/gold]に加える。\nそのプレイヤーはランダムなミリアのカード1枚を[gold]手札[/gold]に加える。\nこの方法で得たカードは[gold]消費[/gold]と[gold]虚無[/gold]を持つ。味方がいない場合は代わりにカードを1枚引き、それを消費する。{IfUpgraded:show:\nこの方法でレアカードも獲得できる。 | 獲得するカードはアンコモン以下。}",
   "MANOSABA-FALL_GUY.title": "濡れ衣",
   "MANOSABA-FALL_GUY.description": "{Block:diff()}[gold]ブロック[/gold]を得る。\n味方1人の[gold]嫌疑[/gold]をすべて引き受ける。",
+  "MANOSABA-NAREHATE_FEEDING.title": "なれはての餌やり",
+  "MANOSABA-NAREHATE_FEEDING.description": "{Block:diff()}[gold]ブロック[/gold]を得る。\n{DoomPower:diff()}層の[gold]破滅[/gold]を得る。\n使用後、このカードを[gold]手札[/gold]に戻す。",
   "MANOSABA-PEPPER_RAMEN.title": "胡椒ラーメン",
   "MANOSABA-PEPPER_RAMEN.description": "{RegenPower:diff()}層の[gold]再生[/gold]を得る。\n{PoisonPower:diff()}層の[gold]毒[/gold]を得る。",
   "MANOSABA-FRIENDLY.title": "アフィニティ",

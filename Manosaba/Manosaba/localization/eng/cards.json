@@ -208,6 +208,8 @@
   "MANOSABA-EXCHANGE.description": "Choose a player.\nAdd 1 random card of that character to your [gold]Hand[/gold].\nThat player adds 1 random Miria card to their [gold]Hand[/gold].\nCards gained this way have [gold]Exhaust[/gold] and [gold]Void[/gold]. If you have no teammates, draw 1 card and exhaust it instead.{IfUpgraded:show:\nCan receive rare cards this way. | cards received are uncommon or below.}",
   "MANOSABA-FALL_GUY.title": "Fall Guy",
   "MANOSABA-FALL_GUY.description": "Gain {Block:diff()} [gold]Block[/gold].\nTake all [gold]Suspicion[/gold] from one ally.",
+  "MANOSABA-NAREHATE_FEEDING.title": "Narehate Feeding",
+  "MANOSABA-NAREHATE_FEEDING.description": "Gain {Block:diff()} [gold]Block[/gold].\nGain {DoomPower:diff()} [gold]Doom[/gold].\nAfter use, return this card to your [gold]Hand[/gold].",
   "MANOSABA-PEPPER_RAMEN.title": "Pepper Ramen",
   "MANOSABA-PEPPER_RAMEN.description": "Gain {RegenPower:diff()} [gold]Regen[/gold].\nGain {PoisonPower:diff()} [gold]Poison[/gold].",
   "MANOSABA-FRIENDLY.title": "Affinity",
