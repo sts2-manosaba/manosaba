@@ -9,6 +9,9 @@ namespace Manosaba.Patches;
 
 public static class Patch_Difficulties
 {
+    private const decimal MinCreatureHp = 1m;
+    private static readonly decimal MaxCreatureHp = int.MaxValue;
+
     private static ConditionalWeakTable<Creature, object> _hpAppliedAfterAdded = new();
     private static readonly object _hpAppliedMarker = new();
 
@@ -22,7 +25,27 @@ public static class Patch_Difficulties
     private static decimal ScaleEnemyHp(decimal rawHp)
     {
         decimal multiplier = ManosabaLobbyDifficultyState.GetEnemyHpMultiplierForGameplay();
-        return Math.Max(1m, Math.Round(rawHp * multiplier, MidpointRounding.AwayFromZero));
+        decimal scaled;
+        try
+        {
+            scaled = Math.Round(rawHp * multiplier, MidpointRounding.AwayFromZero);
+        }
+        catch (OverflowException)
+        {
+            return MaxCreatureHp;
+        }
+
+        if (scaled < MinCreatureHp)
+        {
+            return MinCreatureHp;
+        }
+
+        if (scaled > MaxCreatureHp)
+        {
+            return MaxCreatureHp;
+        }
+
+        return scaled;
     }
 
     [HarmonyPatch(typeof(Creature), nameof(Creature.AfterAddedToRoom))]
