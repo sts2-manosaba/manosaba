@@ -2,7 +2,6 @@
 using Manosaba.Characters.Common.Overrides;
 using Manosaba.Characters.Common.Powers;
 using Manosaba.Characters.HasumiLeia.Powers;
-using Manosaba.Characters.HikamiMeruru.Potions;
 using Manosaba.Characters.JogasakiNoah.Powers;
 using Manosaba.Characters.KurobeNanoka.Cards;
 using Manosaba.Characters.KurobeNanoka.Powers;
@@ -13,10 +12,7 @@ using Manosaba.Characters.TachibanaSherry.Powers;
 using Manosaba.Characters.TonoHanna.Powers;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Models;
-using MegaCrit.Sts2.Core.Models.Cards;
 using MegaCrit.Sts2.Core.Models.Powers;
-using System;
-using System.Collections.Generic;
 
 namespace Manosaba.Characters.SaekiMiria.Helper
 {
@@ -66,7 +62,6 @@ namespace Manosaba.Characters.SaekiMiria.Helper
                 typeof(SetupStrikePower),
                 typeof(CoordinatePower),
                 typeof(FeedingFrenzyPower),
-                typeof(LesserStrengthPotionPower),
                 typeof(GigantificationPower),
                 typeof(RitualPower),
                 typeof(DoubleDamagePower),

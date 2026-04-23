@@ -14,20 +14,22 @@ using MegaCrit.Sts2.Core.Models.Powers;
 namespace Manosaba.Characters.HikamiMeruru.Potions
 {
     [Pool(typeof(HikamiMeruruPotionPool))]
-    public class GreaterStrengthPotion : PathCustomPotionModel
+    public class LesserFlexPotion : PathCustomPotionModel
     {
         public override PotionUsage Usage => PotionUsage.CombatOnly;
         public override PotionRarity Rarity => PotionRarity.Token;
         public override TargetType TargetType => TargetType.AnyPlayer;
 
         public override bool CanBeGeneratedInCombat => false;
-        protected override IEnumerable<DynamicVar> CanonicalVars => [new PowerVar<StrengthPower>(5m)];
+        protected override IEnumerable<DynamicVar> CanonicalVars => [new PowerVar<StrengthPower>(2m)];
+
         public override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<StrengthPower>()];
 
         protected override async Task OnUse(PlayerChoiceContext choiceContext, Creature? target)
         {
             PotionModel.AssertValidForTargetedPotion(target);
-            await PowerCmd.Apply<StrengthPower>(target, base.DynamicVars.Strength.BaseValue, base.Owner.Creature, null);
+            decimal baseValue = base.DynamicVars.Strength.BaseValue;
+            await PowerCmd.Apply<FlexPotionPower>(target, baseValue, base.Owner.Creature, null);
         }
     }
 }

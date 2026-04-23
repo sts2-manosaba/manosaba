@@ -41,7 +41,7 @@ namespace Manosaba.Characters.HikamiMeruru.PotionCraft
                new PotionRecipe(
                 new Dictionary<Type, int>
                 {
-                    { typeof(LesserStrengthPotion), 2 }
+                    { typeof(LesserFlexPotion), 2 }
                 },
                 ModelDb.Potion<FlexPotion>()
             ),
@@ -51,7 +51,7 @@ namespace Manosaba.Characters.HikamiMeruru.PotionCraft
                     { typeof(FlexPotion), 1 },
                     { typeof(Catalyst), 1  }
                 },
-                ModelDb.Potion<GreaterStrengthPotion>()
+                ModelDb.Potion<GreaterFlexPotion>()
             ),
                new PotionRecipe(
                 new Dictionary<Type, int>
@@ -88,7 +88,7 @@ namespace Manosaba.Characters.HikamiMeruru.PotionCraft
                new PotionRecipe(
                 new Dictionary<Type, int>
                 {
-                    { typeof(GreaterStrengthPotion), 1 },
+                    { typeof(GreaterFlexPotion), 1 },
                     { typeof(Tredecim), 1  }
                 },
                 ModelDb.Potion<MazalethsGift>()

@@ -29,7 +29,7 @@ namespace Manosaba.Characters.HikamiMeruru.Cards
         [
             ModelDb.Potion<LesserBlockPotion>(),
             ModelDb.Potion<LesserPainKillerPotion>(),
-            ModelDb.Potion<LesserStrengthPotion>(),
+            ModelDb.Potion<LesserFlexPotion>(),
         ];
 
         public DrugDealer() : base(energyCost, cardTypeValue, rarity, targetTypeValue, shouldShowInCardLibrary)
