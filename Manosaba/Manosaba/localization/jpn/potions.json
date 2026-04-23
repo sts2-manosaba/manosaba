@@ -35,6 +35,9 @@
   "MANOSABA-TREDECIM.title": "魔女を殺す薬",
   "MANOSABA-TREDECIM.description": "{Damage:diff()}ダメージを与える。合成に使うと、上位ポーションの種類を変化させることがある。",
   "MANOSABA-TREDECIM.selectionScreenPrompt": "",
+  "MANOSABA-VITAL_POTION.title": "バイタルポーション",
+  "MANOSABA-VITAL_POTION.description": "最大HPを5増やす。",
+  "MANOSABA-VITAL_POTION.selectionScreenPrompt": "",
   "MANOSABA-DRAWING_BOARD.title": "製図板",
   "MANOSABA-DRAWING_BOARD.description": "引いたクリーチャーを召喚し、召喚されたクリーチャーが死ぬまで召喚時の最大エネルギーが1ポイント減算される。",
   "MANOSABA-DRAWING_BOARD.selectionScreenPrompt": ""

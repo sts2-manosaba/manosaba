@@ -23,6 +23,14 @@ namespace Manosaba.Characters.HikamiMeruru.PotionCraft
                 },
                 ModelDb.Potion<GreaterPainKillerPotion>()
             ),
+            new PotionRecipe(
+                new Dictionary<Type, int>
+                {
+                    { typeof(GreaterPainKillerPotion), 1 },
+                    { typeof(Tredecim), 1 }
+                },
+                ModelDb.Potion<VitalPotion>()
+            ),
              new PotionRecipe(
                 new Dictionary<Type, int>
                 {

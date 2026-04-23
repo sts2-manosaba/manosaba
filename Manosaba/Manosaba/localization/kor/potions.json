@@ -35,6 +35,9 @@
   "MANOSABA-TREDECIM.title": "마녀를 죽이는 약",
   "MANOSABA-TREDECIM.description": "{Damage:diff()}의 피해를 줍니다. 합성에 사용 시 고급 포션이 형태를 바꿉니다.",
   "MANOSABA-TREDECIM.selectionScreenPrompt": "",
+  "MANOSABA-VITAL_POTION.title": "바이탈 포션",
+  "MANOSABA-VITAL_POTION.description": "최대 체력을 5 증가시킵니다.",
+  "MANOSABA-VITAL_POTION.selectionScreenPrompt": "",
   "MANOSABA-DRAWING_BOARD.title": "화판",
   "MANOSABA-DRAWING_BOARD.description": "그려진 대상을 소환합니다. 소환된 대상이 죽을 때까지 최대 에너지가 1 감소합니다.",
   "MANOSABA-DRAWING_BOARD.selectionScreenPrompt": ""

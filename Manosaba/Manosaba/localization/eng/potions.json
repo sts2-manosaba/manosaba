@@ -35,6 +35,9 @@
   "MANOSABA-TREDECIM.title": "Tredecim",
   "MANOSABA-TREDECIM.description": "Deal {Damage:diff()} damage. When used for crafting, it can alter the resulting high-tier potion type.",
   "MANOSABA-TREDECIM.selectionScreenPrompt": "",
+  "MANOSABA-VITAL_POTION.title": "Vital Potion",
+  "MANOSABA-VITAL_POTION.description": "Increase Max HP by 5.",
+  "MANOSABA-VITAL_POTION.selectionScreenPrompt": "",
   "MANOSABA-DRAWING_BOARD.title": "Drawing Board",
   "MANOSABA-DRAWING_BOARD.description": "Something inside keeps moving...",
   "MANOSABA-DRAWING_BOARD.selectionScreenPrompt": ""

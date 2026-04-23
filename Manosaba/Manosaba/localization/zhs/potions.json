@@ -35,6 +35,9 @@
   "MANOSABA-TREDECIM.title": "殺死魔女的藥",
   "MANOSABA-TREDECIM.description": "造成 {Damage:diff()} 點傷害。用於合成時，可使高階藥水發生型態改變。",
   "MANOSABA-TREDECIM.selectionScreenPrompt": "",
+  "MANOSABA-VITAL_POTION.title": "活力藥水",
+  "MANOSABA-VITAL_POTION.description": "提升 5 點最大生命值。",
+  "MANOSABA-VITAL_POTION.selectionScreenPrompt": "",
   "MANOSABA-DRAWING_BOARD.title": "繪畫板",
   "MANOSABA-DRAWING_BOARD.description": "召喚出繪製的生物，召喚時最大能量扣 1 點直到召喚的生物死亡。",
   "MANOSABA-DRAWING_BOARD.selectionScreenPrompt": ""
