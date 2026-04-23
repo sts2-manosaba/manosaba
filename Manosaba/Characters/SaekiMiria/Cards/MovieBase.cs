@@ -17,7 +17,7 @@ public abstract class MovieBase : PathCustomCardModel
     private const CardType defaultCardTypeValue = CardType.Skill;
     private const CardRarity rarity = CardRarity.Token;
     private const TargetType defaultTargetTypeValue = TargetType.Self;
-    private const bool shouldShowInCardLibrary = false;
+    private const bool defaultShouldShowInCardLibrary = true;
 
     public override bool CanBeGeneratedInCombat => false;
     public override bool CanBeGeneratedByModifiers => false;
@@ -32,7 +32,8 @@ public abstract class MovieBase : PathCustomCardModel
 
     protected MovieBase(
         TargetType targetTypeValue = defaultTargetTypeValue,
-        CardType cardTypeValue = defaultCardTypeValue)
+        CardType cardTypeValue = defaultCardTypeValue,
+        bool shouldShowInCardLibrary = defaultShouldShowInCardLibrary)
         : base(energyCost, cardTypeValue, rarity, targetTypeValue, shouldShowInCardLibrary)
     {
     }

@@ -15,6 +15,11 @@ public sealed class SmallPaper : MovieBase
     public override bool CanBeGeneratedInCombat => false;
     public override bool CanBeGeneratedByModifiers => false;
 
+    public SmallPaper()
+        : base(shouldShowInCardLibrary: false)
+    {
+    }
+
     protected override async Task OnMovieEffect(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         if (CombatState == null)

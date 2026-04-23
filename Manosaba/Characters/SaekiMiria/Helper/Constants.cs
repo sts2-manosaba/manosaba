@@ -38,6 +38,7 @@ namespace Manosaba.Characters.SaekiMiria.Helper
                 ManosabaKeywords.GunShot
             };
 
+        //For mind sharing
         public static HashSet<Type> IgnoredPowers = new()
             {
                 typeof(MajokaPower),
@@ -75,6 +76,12 @@ namespace Manosaba.Characters.SaekiMiria.Helper
                 typeof(ShowOffPower)
             };
 
+        public static HashSet<Type> BannedLuckTransferPowers = new()
+            {
+                typeof(VotePower),
+                typeof(TheGambitPower)
+            };
+
         public static bool IsIgnoredCard(CardModel card)
         {
             Type cardType = card.GetType();
@@ -101,6 +108,11 @@ namespace Manosaba.Characters.SaekiMiria.Helper
             }
 
             return false;
+        }
+
+        public static bool IsBannedLuckTransferPower(PowerModel power)
+        {
+            return power != null && BannedLuckTransferPowers.Contains(power.GetType());
         }
     }
 }

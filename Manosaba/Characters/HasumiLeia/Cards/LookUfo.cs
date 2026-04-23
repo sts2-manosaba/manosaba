@@ -22,7 +22,7 @@ namespace Manosaba.Characters.HasumiLeia.Cards
     {
         private const int energyCost = 2;
         private const CardType type = CardType.Skill;
-        private const CardRarity rarity = CardRarity.Uncommon;
+        private const CardRarity rarity = CardRarity.Rare;
         private const TargetType targetType = TargetType.AnyEnemy;
         private const bool shouldShowInCardLibrary = true;
         protected override IEnumerable<DynamicVar> CanonicalVars => [new CardsVar(1)];
