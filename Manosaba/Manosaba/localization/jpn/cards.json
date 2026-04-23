@@ -217,7 +217,7 @@
   "MANOSABA-LAW_KNOWER.title": "法律知識",
   "MANOSABA-LAW_KNOWER.description": "[gold]嫌疑[/gold]を得るたび、その獲得量 x {Block:diff()}の[gold]ブロック[/gold]を得る。",
   "MANOSABA-LUCK_TRANSFER.title": "幸運転移",
-  "MANOSABA-LUCK_TRANSFER.description": "自身にかかっているすべてのデバフをコピーし、{Multiplier:diff()}倍にしてすべての敵に付与する。",
+  "MANOSABA-LUCK_TRANSFER.description": "自身の[gold]脆弱[/gold]、[gold]弱体[/gold]、[gold]毒[/gold]、[gold]破滅[/gold]、[gold]終焉[/gold]、[gold]縮小[/gold]をコピーし、{Multiplier:diff()}倍にしてすべての敵に付与する。",
   "MANOSABA-WALKING_MISFORTUNE.title": "歩く不幸",
   "MANOSABA-WALKING_MISFORTUNE.description": "{DemisePower:diff()}層の[gold]終焉[/gold]を得る。\n最大[gold]エナジー[/gold]を{WalkingMisfortunePower:diff()}増加させる。",
   "MANOSABA-MEMORY_SHARING.title": "記憶共有",

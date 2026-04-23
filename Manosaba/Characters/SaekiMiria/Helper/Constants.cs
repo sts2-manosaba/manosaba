@@ -71,10 +71,14 @@ namespace Manosaba.Characters.SaekiMiria.Helper
                 typeof(ShowOffPower)
             };
 
-        public static HashSet<Type> BannedLuckTransferPowers = new()
+        public static HashSet<Type> AllowedLuckTransferPowers = new()
             {
-                typeof(VotePower),
-                typeof(TheGambitPower)
+                typeof(VulnerablePower),
+                typeof(WeakPower),
+                typeof(PoisonPower),
+                typeof(DoomPower),
+                typeof(DemisePower),
+                typeof(ShrinkPower)
             };
 
         public static bool IsIgnoredCard(CardModel card)
@@ -105,9 +109,9 @@ namespace Manosaba.Characters.SaekiMiria.Helper
             return false;
         }
 
-        public static bool IsBannedLuckTransferPower(PowerModel power)
+        public static bool IsAllowedLuckTransferPower(PowerModel power)
         {
-            return power != null && BannedLuckTransferPowers.Contains(power.GetType());
+            return power != null && AllowedLuckTransferPowers.Contains(power.GetType());
         }
     }
 }

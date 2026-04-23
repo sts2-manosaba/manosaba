@@ -217,7 +217,7 @@
   "MANOSABA-LAW_KNOWER.title": "Law Knower",
   "MANOSABA-LAW_KNOWER.description": "Whenever you gain [gold]Suspicion[/gold], gain [gold]Block[/gold] equal to the amount gained x {Block:diff()}.",
   "MANOSABA-LUCK_TRANSFER.title": "Luck Transfer",
-  "MANOSABA-LUCK_TRANSFER.description": "Copy all debuffs on yourself, multiply them by {Multiplier:diff()}, and apply them to all enemies.",
+  "MANOSABA-LUCK_TRANSFER.description": "Copy your [gold]Vulnerable[/gold], [gold]Weak[/gold], [gold]Poison[/gold], [gold]Doom[/gold], [gold]Demise[/gold], and [gold]Shrink[/gold], multiply them by {Multiplier:diff()}, and apply them to all enemies.",
   "MANOSABA-WALKING_MISFORTUNE.title": "Walking Misfortune",
   "MANOSABA-WALKING_MISFORTUNE.description": "Gain {DemisePower:diff()} [gold]Demise[/gold].\nIncrease max [gold]Energy[/gold] by {WalkingMisfortunePower:diff()}.",
   "MANOSABA-MEMORY_SHARING.title": "Memory Sharing",

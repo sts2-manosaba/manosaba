@@ -37,7 +37,7 @@ public sealed class LuckTransfer : PathCustomCardModel
 
         List<PowerModel> originalDebuffs = Owner.Creature.Powers
             .Where(p => p.TypeForCurrentAmount == PowerType.Debuff)
-            .Where(p => !MiriaConstants.IsBannedLuckTransferPower(p))
+            .Where(MiriaConstants.IsAllowedLuckTransferPower)
             .Select(p => (PowerModel)p.ClonePreservingMutability())
             .ToList();
 

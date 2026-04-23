@@ -217,7 +217,7 @@
   "MANOSABA-LAW_KNOWER.title": "법률 지식",
   "MANOSABA-LAW_KNOWER.description": "[gold]의심[/gold]을 얻을 때마다, 얻은 수치 x {Block:diff()}만큼 [gold]방어도[/gold]를 얻습니다.",
   "MANOSABA-LUCK_TRANSFER.title": "행운 전이",
-  "MANOSABA-LUCK_TRANSFER.description": "자신에게 걸린 모든 약화를 복사해 {Multiplier:diff()}배로 만든 뒤, 모든 적에게 부여합니다.",
+  "MANOSABA-LUCK_TRANSFER.description": "자신에게 걸린 [gold]취약[/gold], [gold]약화[/gold], [gold]중독[/gold], [gold]파멸[/gold], [gold]소멸[/gold], [gold]축소[/gold]를 복사해 {Multiplier:diff()}배로 만든 뒤, 모든 적에게 부여합니다.",
   "MANOSABA-WALKING_MISFORTUNE.title": "걸어다니는 불운",
   "MANOSABA-WALKING_MISFORTUNE.description": "[gold]파멸[/gold]을 {DemisePower:diff()} 얻습니다.\n최대 [gold]에너지[/gold]를 {WalkingMisfortunePower:diff()} 증가시킵니다.",
   "MANOSABA-MEMORY_SHARING.title": "기억 공유",
