@@ -129,7 +129,7 @@
   "MANOSABA-ZUMA.title": "Zuma",
   "MANOSABA-ZUMA.description": "Gain {ZumaPower:diff()} [gold]Zuma[/gold]. Gain 1 [gold]Orb Slot[/gold]. Shuffle {Cards:diff()} [gold]Gap Palette[/gold] into your [gold]Draw pile[/gold].",
   "MANOSABA-STILL.title": "Still Frame",
-  "MANOSABA-STILL.description": "Paint the target monster and summon an allied copy of it. (Cannot paint Elites or Bosses.)",
+  "MANOSABA-STILL.description": "Lose 1 Max Energy. Paint the target monster and summon an allied copy of it. (Cannot paint Elites or Bosses.)",
   "MANOSABA-STRIKE_JOGASAKI_NOAH.title": "Strike",
   "MANOSABA-STRIKE_JOGASAKI_NOAH.description": "Deal {Damage:diff()} damage.",
   "MANOSABA-TRAUMA_JOGASAKI_NOAH.title": "Trauma",
