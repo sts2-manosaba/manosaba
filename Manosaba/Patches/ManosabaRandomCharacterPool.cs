@@ -26,6 +26,16 @@ internal static class ManosabaRandomCharacterPool
             "id",
             BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic));
 
+    private static readonly Lazy<CharacterModel[]> SortedManosabaPool = new(
+        () => BuildManosabaOnlyPool()
+            .OrderBy(c => c.Id.Entry, StringComparer.Ordinal)
+            .ToArray());
+
+    private static readonly Lazy<Dictionary<ModelId, int>> AllCharacterIndexById = new(
+        () => ModelDb.AllCharacters
+            .Select((character, index) => new { character.Id, index })
+            .ToDictionary(x => x.Id, x => x.index));
+
     private static Assembly ModAssembly => typeof(Entry).Assembly;
 
     /// <summary>參考組件中的 <see cref="LobbyPlayer"/> 未必公開 <c>character</c> 欄位，改以反射讀取。</summary>
@@ -89,9 +99,7 @@ internal static class ManosabaRandomCharacterPool
             return;
         }
 
-        CharacterModel[] pool = BuildManosabaOnlyPool()
-            .OrderBy(c => c.Id.Entry, StringComparer.Ordinal)
-            .ToArray();
+        CharacterModel[] pool = SortedManosabaPool.Value;
         if (pool.Length == 0)
         {
             Log.Warn(
@@ -107,15 +115,10 @@ internal static class ManosabaRandomCharacterPool
     /// </summary>
     private static CharacterModel MapVanillaRandomPickToManosabaPool(CharacterModel vanillaPick, CharacterModel[] poolSorted)
     {
-        CharacterModel[] all = ModelDb.AllCharacters.ToArray();
         int idx = -1;
-        for (int j = 0; j < all.Length; j++)
+        if (AllCharacterIndexById.Value.TryGetValue(vanillaPick.Id, out int foundIndex))
         {
-            if (all[j].Id.Equals(vanillaPick.Id))
-            {
-                idx = j;
-                break;
-            }
+            idx = foundIndex;
         }
 
         if (idx < 0)

@@ -49,6 +49,74 @@ public abstract class HoshoMagoArcanaBase : PathCustomCardModel
     protected override void OnUpgrade()
     {
     }
+
+    protected static bool HasSunMoonStarSynergy(IEnumerable<CardModel>? deckCards)
+    {
+        if (deckCards == null)
+        {
+            return false;
+        }
+
+        bool hasSun = false;
+        bool hasMoon = false;
+        bool hasStar = false;
+        foreach (CardModel card in deckCards)
+        {
+            if (!hasSun && card is TheSun)
+            {
+                hasSun = true;
+            }
+            else if (!hasMoon && card is TheMoon)
+            {
+                hasMoon = true;
+            }
+            else if (!hasStar && card is TheStar)
+            {
+                hasStar = true;
+            }
+
+            if (hasSun && hasMoon && hasStar)
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    protected static bool HasHierophantPriestessJusticeSynergy(IEnumerable<CardModel>? deckCards)
+    {
+        if (deckCards == null)
+        {
+            return false;
+        }
+
+        bool hasHierophant = false;
+        bool hasPriestess = false;
+        bool hasJustice = false;
+        foreach (CardModel card in deckCards)
+        {
+            if (!hasHierophant && card is TheHierophant)
+            {
+                hasHierophant = true;
+            }
+            else if (!hasPriestess && card is TheHighPriestess)
+            {
+                hasPriestess = true;
+            }
+            else if (!hasJustice && card is Justice)
+            {
+                hasJustice = true;
+            }
+
+            if (hasHierophant && hasPriestess && hasJustice)
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
 }
 
 [Pool(typeof(HoshoMagoCardPool))]
@@ -659,10 +727,7 @@ public sealed class TheStar : HoshoMagoArcanaBase
         }
 
         decimal interceptAmount = teammateCount * DynamicVars["InterceptPower"].BaseValue;
-        bool hasSunMoonStar = Owner?.Deck?.Cards.Any(card => card is TheSun)
-            == true
-            && Owner.Deck.Cards.Any(card => card is TheMoon)
-            && Owner.Deck.Cards.Any(card => card is TheStar);
+        bool hasSunMoonStar = HasSunMoonStarSynergy(Owner?.Deck?.Cards);
         if (hasSunMoonStar)
         {
             interceptAmount *= 2m;
@@ -699,10 +764,7 @@ public sealed class TheMoon : HoshoMagoArcanaBase
                 return 0m;
             }
 
-            bool hasSunMoonStar = card.Owner?.Deck?.Cards.Any(deckCard => deckCard is TheSun)
-                == true
-                && card.Owner.Deck.Cards.Any(deckCard => deckCard is TheMoon)
-                && card.Owner.Deck.Cards.Any(deckCard => deckCard is TheStar);
+            bool hasSunMoonStar = HasSunMoonStarSynergy(card.Owner?.Deck?.Cards);
             decimal synergyMultiplier = hasSunMoonStar ? 2m : 1m;
 
             return totalStacks * synergyMultiplier / 100m;
@@ -753,10 +815,7 @@ public sealed class TheSun : HoshoMagoArcanaBase
         _ = choiceContext;
         _ = cardPlay;
 
-        bool hasSunMoonStar = Owner?.Deck?.Cards.Any(card => card is TheSun)
-            == true
-            && Owner.Deck.Cards.Any(card => card is TheMoon)
-            && Owner.Deck.Cards.Any(card => card is TheStar);
+        bool hasSunMoonStar = HasSunMoonStarSynergy(Owner?.Deck?.Cards);
 
         if (!hasSunMoonStar)
         {
@@ -815,10 +874,7 @@ public sealed class Judgement : HoshoMagoArcanaBase
 
         if (debuffs.Count > 0)
         {
-            bool hasHierophantPriestessJustice = Owner?.Deck?.Cards.Any(card => card is TheHierophant)
-                == true
-                && Owner.Deck.Cards.Any(card => card is TheHighPriestess)
-                && Owner.Deck.Cards.Any(card => card is Justice);
+            bool hasHierophantPriestessJustice = HasHierophantPriestessJusticeSynergy(Owner?.Deck?.Cards);
 
             int energyGain = debuffs.Count;
             if (hasHierophantPriestessJustice)

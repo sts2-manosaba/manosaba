@@ -1,6 +1,8 @@
 using Godot;
 using MegaCrit.Sts2.Core.Helpers;
 using MegaCrit.Sts2.Core.Nodes.Combat;
+using System;
+using System.Collections.Generic;
 
 namespace Manosaba.Characters.TonoHanna.Visuals;
 
@@ -52,11 +54,13 @@ public partial class PuppetBobSlot : Node2D
 {
     private const float BobAmplitude = 8f;
     private const float BobSpeed = 2.4f;
+    private static readonly Dictionary<string, Texture2D?> TextureCache = new(StringComparer.Ordinal);
 
     private readonly float _phase;
     private Sprite2D? _sprite;
     private bool _active;
     private Vector2 _basePos;
+    private string? _currentTexturePath;
 
     public PuppetBobSlot(int slotIndex)
     {
@@ -84,9 +88,15 @@ public partial class PuppetBobSlot : Node2D
             AddChild(_sprite);
         }
 
-        Texture2D? tex = ResourceLoader.Load<Texture2D>(textureResourcePath);
-        if (tex != null)
-            _sprite.Texture = tex;
+        if (!string.Equals(_currentTexturePath, textureResourcePath, StringComparison.Ordinal))
+        {
+            Texture2D? tex = GetCachedTexture(textureResourcePath);
+            if (tex != null)
+            {
+                _sprite.Texture = tex;
+                _currentTexturePath = textureResourcePath;
+            }
+        }
         _sprite.Scale = new Vector2(spriteScale, spriteScale);
         _sprite.Visible = true;
     }
@@ -98,5 +108,17 @@ public partial class PuppetBobSlot : Node2D
 
         float t = (float)Time.GetTicksMsec() / 1000f * BobSpeed + _phase;
         Position = new Vector2(_basePos.X, _basePos.Y + Mathf.Sin(t) * BobAmplitude);
+    }
+
+    private static Texture2D? GetCachedTexture(string textureResourcePath)
+    {
+        if (TextureCache.TryGetValue(textureResourcePath, out Texture2D? cached))
+        {
+            return cached;
+        }
+
+        Texture2D? loaded = ResourceLoader.Load<Texture2D>(textureResourcePath);
+        TextureCache[textureResourcePath] = loaded;
+        return loaded;
     }
 }
