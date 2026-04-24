@@ -15,12 +15,12 @@ public sealed class TheLoversPower : PathCustomPowerModel
     public override PowerStackType StackType => PowerStackType.Counter;
     public override bool IsInstanced => true;
 
-    public override async Task AfterDamageReceived(
+    public override async Task AfterDamageGiven(
         PlayerChoiceContext choiceContext,
-        Creature target,
+        Creature? dealer,
         DamageResult result,
         ValueProp props,
-        Creature? dealer,
+        Creature target,
         CardModel? cardSource)
     {
         if (target != Owner)
