@@ -12,6 +12,23 @@ public enum ManosabaFxPlayMode
 
 public sealed class ManosabaConfig : SimpleModConfig
 {
+    [ConfigHideInUI]
+    [SliderRange(100, 400, 5)]
+    [SliderLabelFormat("{0:0}%")]
+    public static double LobbyEnemyHpMultiplierPercent { get; set; } = 100d;
+
+    [ConfigHideInUI]
+    [SliderRange(100, 400, 5)]
+    [SliderLabelFormat("{0:0}%")]
+    public static double LobbyEnemyAttackDamageMultiplierPercent { get; set; } = 100d;
+
+    [ConfigHideInUI]
+    [SliderRange(0, 100, 5)]
+    [SliderLabelFormat("{0:0}%")]
+    public static double LobbyMurderousImpulseAllyDamageMultiplierPercent { get; set; } = 10d;
+
+    [ConfigHideInUI]
+    public static RandomCharacterPoolMode LobbyRandomCharacterPool { get; set; } = RandomCharacterPoolMode.ManosabaCharactersOnly;
 
     [ConfigSection("SFXSettings")]
     [SliderRange(0, 100, 1)]

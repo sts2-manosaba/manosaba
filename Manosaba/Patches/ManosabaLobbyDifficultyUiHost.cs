@@ -342,6 +342,7 @@ public static class ManosabaLobbyDifficultyUiHost
 
         DifficultyUiState st = GetState(owner);
         PushUiToRuntime(owner, getLobby, st);
+        ManosabaLobbyDifficultyState.SaveLobbySnapshotAsDefaults();
         TryHostWatchdogBroadcast(lobby, st, force: true);
     }
 

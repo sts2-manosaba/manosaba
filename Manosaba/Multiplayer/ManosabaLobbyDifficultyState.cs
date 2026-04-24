@@ -1,4 +1,5 @@
 using System;
+using BaseLib.Config;
 using Manosaba.Config;
 using Manosaba.Multiplayer.Messages.Lobby;
 
@@ -72,11 +73,25 @@ public static class ManosabaLobbyDifficultyState
     /// <summary>讀檔進入 run：無選角階段，以內建預設凍結。</summary>
     public static void FreezeForRunFromDefaults()
     {
+        _lobbyEnemyHpMultiplierPercent = ManosabaLobbyDefaults.EnemyHpMultiplierPercent;
+        _lobbyEnemyAttackDamageMultiplierPercent = ManosabaLobbyDefaults.EnemyAttackDamageMultiplierPercent;
+        _lobbyMurderousImpulseAllyDamageMultiplierPercent = ManosabaLobbyDefaults.MurderousImpulseAllyDamageMultiplierPercent;
+        _lobbyRandomCharacterPool = ManosabaLobbyDefaults.RandomCharacterPool;
+
         _runFrozen = true;
         _snapEnemyHpMultiplierPercent = ManosabaLobbyDefaults.EnemyHpMultiplierPercent;
         _snapEnemyAttackDamageMultiplierPercent = ManosabaLobbyDefaults.EnemyAttackDamageMultiplierPercent;
         _snapMurderousImpulseAllyDamageMultiplierPercent = ManosabaLobbyDefaults.MurderousImpulseAllyDamageMultiplierPercent;
         _snapRandomCharacterPool = ManosabaLobbyDefaults.RandomCharacterPool;
+    }
+
+    /// <summary>
+    /// Loaded multiplayer runs: apply host snapshot and freeze immediately so gameplay reads synchronized values.
+    /// </summary>
+    public static void FreezeForRunFromHost(ManosabaDifficultySettingsMessage message)
+    {
+        ApplyFromHost(message);
+        FreezeForRun();
     }
 
     public static decimal GetEnemyHpMultiplierForGameplay()
@@ -150,6 +165,22 @@ public static class ManosabaLobbyDifficultyState
             _lobbyEnemyAttackDamageMultiplierPercent,
             _lobbyMurderousImpulseAllyDamageMultiplierPercent,
             _lobbyRandomCharacterPool);
+    }
+
+    /// <summary>
+    /// Persist current lobby snapshot as next-session defaults in mod config.
+    /// Host/singleplayer only; clients should not call this.
+    /// </summary>
+    public static void SaveLobbySnapshotAsDefaults()
+    {
+        ManosabaConfig.LobbyEnemyHpMultiplierPercent = Math.Clamp(_lobbyEnemyHpMultiplierPercent, 100d, 400d);
+        ManosabaConfig.LobbyEnemyAttackDamageMultiplierPercent = Math.Clamp(_lobbyEnemyAttackDamageMultiplierPercent, 100d, 400d);
+        ManosabaConfig.LobbyMurderousImpulseAllyDamageMultiplierPercent = Math.Clamp(_lobbyMurderousImpulseAllyDamageMultiplierPercent, 0d, 100d);
+        ManosabaConfig.LobbyRandomCharacterPool = _lobbyRandomCharacterPool is RandomCharacterPoolMode.AllCharacters
+            ? RandomCharacterPoolMode.AllCharacters
+            : RandomCharacterPoolMode.ManosabaCharactersOnly;
+
+        ModConfig.SaveDebounced<ManosabaConfig>(250);
     }
 
     private static RandomCharacterPoolMode ClampRandomPoolMode(byte raw)
