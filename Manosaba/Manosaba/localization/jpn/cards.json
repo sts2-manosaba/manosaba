@@ -209,7 +209,7 @@
   "MANOSABA-FALL_GUY.title": "濡れ衣",
   "MANOSABA-FALL_GUY.description": "{Block:diff()}[gold]ブロック[/gold]を得る。\n味方1人の[gold]嫌疑[/gold]をすべて引き受ける。",
   "MANOSABA-NAREHATE_FEEDING.title": "なれはての餌やり",
-  "MANOSABA-NAREHATE_FEEDING.description": "{Block:diff()}[gold]ブロック[/gold]を得る。\n{DoomPower:diff()}層の[gold]破滅[/gold]を得る。\n使用後、このカードを[gold]手札[/gold]に戻す。",
+  "MANOSABA-NAREHATE_FEEDING.description": "{Block:diff()}[gold]ブロック[/gold]を得る。\n{DoomPower:diff()}層の[gold]破滅[/gold]を得る。",
   "MANOSABA-PEPPER_RAMEN.title": "胡椒ラーメン",
   "MANOSABA-PEPPER_RAMEN.description": "{RegenPower:diff()}層の[gold]再生[/gold]を得る。\n{PoisonPower:diff()}層の[gold]毒[/gold]を得る。",
   "MANOSABA-FRIENDLY.title": "アフィニティ",

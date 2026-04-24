@@ -17,9 +17,9 @@ namespace Manosaba.Characters.SaekiMiria.Cards;
 [Pool(typeof(SaekiMiriaCardPool))]
 public sealed class LuckTransfer : PathCustomCardModel
 {
-    private const int energyCost = 2;
+    private const int energyCost = 1;
     private const CardType CardTypeValue = CardType.Skill;
-    private const CardRarity Rarity = CardRarity.Rare;
+    private const CardRarity Rarity = CardRarity.Uncommon;
     private const TargetType TargetTypeValue = TargetType.Self;
     private const bool ShouldShowInCardLibrary = true;
     private const decimal DebuffMultiplier = 3m;
@@ -86,6 +86,6 @@ public sealed class LuckTransfer : PathCustomCardModel
 
     protected override void OnUpgrade()
     {
-        DynamicVars["Multiplier"].UpgradeValueBy(2m);
+        DynamicVars["Multiplier"].UpgradeValueBy(3m);
     }
 }

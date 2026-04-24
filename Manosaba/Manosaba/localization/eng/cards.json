@@ -209,7 +209,7 @@
   "MANOSABA-FALL_GUY.title": "Fall Guy",
   "MANOSABA-FALL_GUY.description": "Gain {Block:diff()} [gold]Block[/gold].\nTake all [gold]Suspicion[/gold] from one ally.",
   "MANOSABA-NAREHATE_FEEDING.title": "Narehate Feeding",
-  "MANOSABA-NAREHATE_FEEDING.description": "Gain {Block:diff()} [gold]Block[/gold].\nGain {DoomPower:diff()} [gold]Doom[/gold].\nAfter use, return this card to your [gold]Hand[/gold].",
+  "MANOSABA-NAREHATE_FEEDING.description": "Gain {Block:diff()} [gold]Block[/gold].\nGain {DoomPower:diff()} [gold]Doom[/gold].",
   "MANOSABA-PEPPER_RAMEN.title": "Pepper Ramen",
   "MANOSABA-PEPPER_RAMEN.description": "Gain {RegenPower:diff()} [gold]Regen[/gold].\nGain {PoisonPower:diff()} [gold]Poison[/gold].",
   "MANOSABA-FRIENDLY.title": "Affinity",

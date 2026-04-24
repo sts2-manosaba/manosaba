@@ -6,7 +6,7 @@ namespace Manosaba.Characters.SaekiMiria.Cards;
 
 public sealed class FantasyMovie : MovieBase
 {
-    protected override int CardsToDraw => 3;
+    protected override int CardsToDraw => 2;
 
     protected override Task OnMovieEffect(PlayerChoiceContext choiceContext, CardPlay cardPlay) => Task.CompletedTask;
 }

@@ -209,7 +209,7 @@
   "MANOSABA-FALL_GUY.title": "누명",
   "MANOSABA-FALL_GUY.description": "[gold]방어도[/gold]를 {Block:diff()} 얻습니다.\n아군 한 명의 [gold]의심[/gold]을 모두 가져옵니다.",
   "MANOSABA-NAREHATE_FEEDING.title": "나레하테 먹이주기",
-  "MANOSABA-NAREHATE_FEEDING.description": "{Block:diff()} [gold]방어도[/gold]를 얻습니다.\n{DoomPower:diff()} [gold]파멸[/gold]을 얻습니다.\n사용 후, 이 카드를 [gold]손패[/gold]로 되돌립니다.",
+  "MANOSABA-NAREHATE_FEEDING.description": "{Block:diff()} [gold]방어도[/gold]를 얻습니다.\n{DoomPower:diff()} [gold]파멸[/gold]을 얻습니다.",
   "MANOSABA-PEPPER_RAMEN.title": "후추 라면",
   "MANOSABA-PEPPER_RAMEN.description": "[gold]재생[/gold]을 {RegenPower:diff()} 얻습니다.\n[gold]중독[/gold]을 {PoisonPower:diff()} 얻습니다.",
   "MANOSABA-FRIENDLY.title": "친화력",

@@ -48,7 +48,7 @@ public sealed class NarehateFeeding : PathCustomCardModel
         await PowerCmd.Apply<DoomPower>(Owner.Creature, DynamicVars["DoomPower"].BaseValue, Owner.Creature, this);
     }
 
-    protected override PileType GetResultPileType()
+    /*protected override PileType GetResultPileType()
     {
         PileType resultPileType = base.GetResultPileType();
         if (resultPileType != PileType.Discard)
@@ -57,7 +57,7 @@ public sealed class NarehateFeeding : PathCustomCardModel
         }
 
         return PileType.Hand;
-    }
+    }*/
 
     protected override void OnUpgrade()
     {

@@ -27,7 +27,7 @@ public sealed class PepperRamen : PathCustomCardModel
 
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
-        new PowerVar<RegenPower>(5m),
+        new PowerVar<RegenPower>(6m),
         new PowerVar<PoisonPower>(4m),
     ];
 
@@ -43,5 +43,11 @@ public sealed class PepperRamen : PathCustomCardModel
 
         await PowerCmd.Apply<RegenPower>(Owner.Creature, DynamicVars["RegenPower"].BaseValue, Owner.Creature, this);
         await PowerCmd.Apply<PoisonPower>(Owner.Creature, DynamicVars.Poison.BaseValue, Owner.Creature, this);
+    }
+
+    protected override void OnUpgrade()
+    {
+        DynamicVars["RegenPower"].UpgradeValueBy(3m);
+        DynamicVars["PoisonPower"].UpgradeValueBy(3m);
     }
 }

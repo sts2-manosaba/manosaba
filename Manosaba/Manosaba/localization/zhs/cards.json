@@ -207,7 +207,7 @@
   "MANOSABA-FALL_GUY.title": "背鍋",
   "MANOSABA-FALL_GUY.description": "獲得 {Block:diff()} 點[gold]格檔[/gold]。\n獲得一名隊友所有的[gold]嫌疑[/gold]。",
   "MANOSABA-NAREHATE_FEEDING.title": "餵食殘骸",
-  "MANOSABA-NAREHATE_FEEDING.description": "獲得 {Block:diff()} 點[gold]格檔[/gold]。\n獲得 {DoomPower:diff()} 層[gold]災厄[/gold]。\n使用後，將此牌返回[gold]手牌[/gold]。",
+  "MANOSABA-NAREHATE_FEEDING.description": "獲得 {Block:diff()} 點[gold]格檔[/gold]。\n獲得 {DoomPower:diff()} 層[gold]災厄[/gold]。",
   "MANOSABA-PEPPER_RAMEN.title": "胡椒拉麵",
   "MANOSABA-PEPPER_RAMEN.description": "獲得 {RegenPower:diff()} 層[gold]再生[/gold]。\n獲得 {PoisonPower:diff()} 層[gold]中毒[/gold]。",
   "MANOSABA-FRIENDLY.title": "親和力",
