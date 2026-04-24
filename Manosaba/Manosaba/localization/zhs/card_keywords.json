@@ -1,14 +1,14 @@
 {
   "MANOSABA-UNIQUE.title": "唯一",
-  "MANOSABA-UNIQUE.description": "卡組中只能有一張同名牌。",
+  "MANOSABA-UNIQUE.description": "卡组中只能有一张同名牌。",
   "MANOSABA-MAHOU.title": "魔法",
-  "MANOSABA-MAHOU.description": "因感染魔女因子而產生的魔法，會隨魔女化程度增加而影響威力。",
+  "MANOSABA-MAHOU.description": "因感染魔女因子而产生的魔法，会随魔女化程度增加而影响威力。",
   "MANOSABA-HIGH_STANCE.title": "上段架式",
-  "MANOSABA-HIGH_STANCE.description": "切換到上段架式。",
+  "MANOSABA-HIGH_STANCE.description": "切换到上段架式。",
   "MANOSABA-MID_STANCE.title": "中段架式",
-  "MANOSABA-MID_STANCE.description": "切換到中段架式。",
+  "MANOSABA-MID_STANCE.description": "切换到中段架式。",
   "MANOSABA-LOW_STANCE.title": "下段架式",
-  "MANOSABA-LOW_STANCE.description": "切換到下段架式。",
-  "MANOSABA-GUN_SHOT.title": "槍擊",
-  "MANOSABA-GUN_SHOT.description": "消耗子彈發動攻擊。剩餘子彈數量顯示於[gold]奈葉香的槍[/gold]上。"
+  "MANOSABA-LOW_STANCE.description": "切换到下段架式。",
+  "MANOSABA-GUN_SHOT.title": "枪击",
+  "MANOSABA-GUN_SHOT.description": "消耗子弹发动攻击。剩余子弹数量显示于[gold]奈叶香的枪[/gold]上。"
 }
