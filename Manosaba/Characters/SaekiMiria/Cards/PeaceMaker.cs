@@ -28,7 +28,7 @@ namespace Manosaba.Characters.SaekiMiria.Cards
         private const TargetType targetType = TargetType.AllEnemies;
         private const bool shouldShowInCardLibrary = true;
         protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<StrengthPower>()];
-        protected override IEnumerable<DynamicVar> CanonicalVars => [new PowerVar<PeacemakerPower>(1m)];
+        protected override IEnumerable<DynamicVar> CanonicalVars => [new PowerVar<PeacemakerPower>(2m)];
 
         
         public Peacemaker() : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)
@@ -42,7 +42,7 @@ namespace Manosaba.Characters.SaekiMiria.Cards
 
         protected override void OnUpgrade()
         {
-            EnergyCost.UpgradeBy(-1);
+            DynamicVars["PeacemakerPower"].UpgradeValueBy(1m);
         }
     }
 }
