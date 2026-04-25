@@ -5,12 +5,10 @@ using Manosaba.Multiplayer.Messages.Lobby;
 
 namespace Manosaba.Multiplayer;
 
-/// <summary>
-/// 選角階段的大廳設定（HOST 權威）與開局後凍結快照；讀檔時使用 <see cref="ManosabaLobbyDefaults"/>。
-/// </summary>
 public static class ManosabaLobbyDifficultyState
 {
     private static bool _lobbySessionActive;
+    private static bool _lobbySnapshotInitialized;
 
     private static double _lobbyEnemyHpMultiplierPercent;
     private static double _lobbyEnemyAttackDamageMultiplierPercent;
@@ -30,18 +28,37 @@ public static class ManosabaLobbyDifficultyState
 
     public static void ResetToLobbyDefaults()
     {
-        _lobbyEnemyHpMultiplierPercent = ManosabaLobbyDefaults.EnemyHpMultiplierPercent;
-        _lobbyEnemyAttackDamageMultiplierPercent = ManosabaLobbyDefaults.EnemyAttackDamageMultiplierPercent;
-        _lobbyMurderousImpulseAllyDamageMultiplierPercent = ManosabaLobbyDefaults.MurderousImpulseAllyDamageMultiplierPercent;
-        _lobbyRandomCharacterPool = ManosabaLobbyDefaults.RandomCharacterPool;
+        SetLobbySnapshot(
+            ManosabaLobbyDefaults.EnemyHpMultiplierPercent,
+            ManosabaLobbyDefaults.EnemyAttackDamageMultiplierPercent,
+            ManosabaLobbyDefaults.MurderousImpulseAllyDamageMultiplierPercent,
+            ManosabaLobbyDefaults.RandomCharacterPool);
+    }
+
+    public static void ResetToSafeDefaults()
+    {
+        SetLobbySnapshot(
+            ManosabaLobbyDefaults.SafeEnemyHpMultiplierPercent,
+            ManosabaLobbyDefaults.SafeEnemyAttackDamageMultiplierPercent,
+            ManosabaLobbyDefaults.SafeMurderousImpulseAllyDamageMultiplierPercent,
+            ManosabaLobbyDefaults.SafeRandomCharacterPool);
+    }
+
+    public static void EnsureLobbySnapshotFromDefaults()
+    {
+        if (!_lobbySnapshotInitialized)
+        {
+            ResetToLobbyDefaults();
+        }
     }
 
     public static void ApplyFromHost(ManosabaDifficultySettingsMessage message)
     {
-        _lobbyEnemyHpMultiplierPercent = message.enemyHpMultiplierPercent;
-        _lobbyEnemyAttackDamageMultiplierPercent = message.enemyAttackDamageMultiplierPercent;
-        _lobbyMurderousImpulseAllyDamageMultiplierPercent = message.murderousImpulseAllyDamageMultiplierPercent;
-        _lobbyRandomCharacterPool = ClampRandomPoolMode(message.randomCharacterPoolMode);
+        SetLobbySnapshot(
+            message.enemyHpMultiplierPercent,
+            message.enemyAttackDamageMultiplierPercent,
+            message.murderousImpulseAllyDamageMultiplierPercent,
+            ClampRandomPoolMode(message.randomCharacterPoolMode));
     }
 
     public static void ApplyFromHost(
@@ -50,10 +67,7 @@ public static class ManosabaLobbyDifficultyState
         double murderousPercent,
         RandomCharacterPoolMode randomPool)
     {
-        _lobbyEnemyHpMultiplierPercent = enemyHpPercent;
-        _lobbyEnemyAttackDamageMultiplierPercent = enemyAttackPercent;
-        _lobbyMurderousImpulseAllyDamageMultiplierPercent = murderousPercent;
-        _lobbyRandomCharacterPool = randomPool;
+        SetLobbySnapshot(enemyHpPercent, enemyAttackPercent, murderousPercent, randomPool);
     }
 
     public static void ClearRunSnapshot()
@@ -63,6 +77,11 @@ public static class ManosabaLobbyDifficultyState
 
     public static void FreezeForRun()
     {
+        if (!_lobbySnapshotInitialized)
+        {
+            ResetToSafeDefaults();
+        }
+
         _runFrozen = true;
         _snapEnemyHpMultiplierPercent = _lobbyEnemyHpMultiplierPercent;
         _snapEnemyAttackDamageMultiplierPercent = _lobbyEnemyAttackDamageMultiplierPercent;
@@ -70,24 +89,18 @@ public static class ManosabaLobbyDifficultyState
         _snapRandomCharacterPool = _lobbyRandomCharacterPool;
     }
 
-    /// <summary>讀檔進入 run：無選角階段，以內建預設凍結。</summary>
     public static void FreezeForRunFromDefaults()
     {
-        _lobbyEnemyHpMultiplierPercent = ManosabaLobbyDefaults.EnemyHpMultiplierPercent;
-        _lobbyEnemyAttackDamageMultiplierPercent = ManosabaLobbyDefaults.EnemyAttackDamageMultiplierPercent;
-        _lobbyMurderousImpulseAllyDamageMultiplierPercent = ManosabaLobbyDefaults.MurderousImpulseAllyDamageMultiplierPercent;
-        _lobbyRandomCharacterPool = ManosabaLobbyDefaults.RandomCharacterPool;
-
-        _runFrozen = true;
-        _snapEnemyHpMultiplierPercent = ManosabaLobbyDefaults.EnemyHpMultiplierPercent;
-        _snapEnemyAttackDamageMultiplierPercent = ManosabaLobbyDefaults.EnemyAttackDamageMultiplierPercent;
-        _snapMurderousImpulseAllyDamageMultiplierPercent = ManosabaLobbyDefaults.MurderousImpulseAllyDamageMultiplierPercent;
-        _snapRandomCharacterPool = ManosabaLobbyDefaults.RandomCharacterPool;
+        ResetToLobbyDefaults();
+        FreezeForRun();
     }
 
-    /// <summary>
-    /// Loaded multiplayer runs: apply host snapshot and freeze immediately so gameplay reads synchronized values.
-    /// </summary>
+    public static void FreezeForRunFromSafeDefaults()
+    {
+        ResetToSafeDefaults();
+        FreezeForRun();
+    }
+
     public static void FreezeForRunFromHost(ManosabaDifficultySettingsMessage message)
     {
         ApplyFromHost(message);
@@ -101,12 +114,12 @@ public static class ManosabaLobbyDifficultyState
             return PercentToMultiplier(_snapEnemyHpMultiplierPercent);
         }
 
-        if (_lobbySessionActive)
+        if (_lobbySessionActive && _lobbySnapshotInitialized)
         {
             return PercentToMultiplier(_lobbyEnemyHpMultiplierPercent);
         }
 
-        return PercentToMultiplier(ManosabaLobbyDefaults.EnemyHpMultiplierPercent);
+        return PercentToMultiplier(ManosabaLobbyDefaults.SafeEnemyHpMultiplierPercent);
     }
 
     public static decimal GetEnemyAttackDamageMultiplierForGameplay()
@@ -116,12 +129,12 @@ public static class ManosabaLobbyDifficultyState
             return PercentToMultiplier(_snapEnemyAttackDamageMultiplierPercent);
         }
 
-        if (_lobbySessionActive)
+        if (_lobbySessionActive && _lobbySnapshotInitialized)
         {
             return PercentToMultiplier(_lobbyEnemyAttackDamageMultiplierPercent);
         }
 
-        return PercentToMultiplier(ManosabaLobbyDefaults.EnemyAttackDamageMultiplierPercent);
+        return PercentToMultiplier(ManosabaLobbyDefaults.SafeEnemyAttackDamageMultiplierPercent);
     }
 
     public static decimal GetMurderousImpulseAllyDamageMultiplierForGameplay()
@@ -131,12 +144,12 @@ public static class ManosabaLobbyDifficultyState
             return ComputeMurderousMultiplier(_snapMurderousImpulseAllyDamageMultiplierPercent);
         }
 
-        if (_lobbySessionActive)
+        if (_lobbySessionActive && _lobbySnapshotInitialized)
         {
             return ComputeMurderousMultiplier(_lobbyMurderousImpulseAllyDamageMultiplierPercent);
         }
 
-        return ComputeMurderousMultiplier(ManosabaLobbyDefaults.MurderousImpulseAllyDamageMultiplierPercent);
+        return ComputeMurderousMultiplier(ManosabaLobbyDefaults.SafeMurderousImpulseAllyDamageMultiplierPercent);
     }
 
     public static RandomCharacterPoolMode GetRandomCharacterPoolModeForGameplay()
@@ -146,12 +159,12 @@ public static class ManosabaLobbyDifficultyState
             return _snapRandomCharacterPool;
         }
 
-        if (_lobbySessionActive)
+        if (_lobbySessionActive && _lobbySnapshotInitialized)
         {
             return _lobbyRandomCharacterPool;
         }
 
-        return ManosabaLobbyDefaults.RandomCharacterPool;
+        return ManosabaLobbyDefaults.SafeRandomCharacterPool;
     }
 
     public static bool LobbySessionActive => _lobbySessionActive;
@@ -160,6 +173,15 @@ public static class ManosabaLobbyDifficultyState
 
     public static (double enemyHpPercent, double enemyAttackPercent, double murderousPercent, RandomCharacterPoolMode randomPool) GetLobbySnapshot()
     {
+        if (!_lobbySnapshotInitialized)
+        {
+            return (
+                ManosabaLobbyDefaults.SafeEnemyHpMultiplierPercent,
+                ManosabaLobbyDefaults.SafeEnemyAttackDamageMultiplierPercent,
+                ManosabaLobbyDefaults.SafeMurderousImpulseAllyDamageMultiplierPercent,
+                ManosabaLobbyDefaults.SafeRandomCharacterPool);
+        }
+
         return (
             _lobbyEnemyHpMultiplierPercent,
             _lobbyEnemyAttackDamageMultiplierPercent,
@@ -167,12 +189,13 @@ public static class ManosabaLobbyDifficultyState
             _lobbyRandomCharacterPool);
     }
 
-    /// <summary>
-    /// Persist current lobby snapshot as next-session defaults in mod config.
-    /// Host/singleplayer only; clients should not call this.
-    /// </summary>
     public static void SaveLobbySnapshotAsDefaults()
     {
+        if (!_lobbySnapshotInitialized)
+        {
+            return;
+        }
+
         ManosabaConfig.LobbyEnemyHpMultiplierPercent = Math.Clamp(_lobbyEnemyHpMultiplierPercent, 100d, 400d);
         ManosabaConfig.LobbyEnemyAttackDamageMultiplierPercent = Math.Clamp(_lobbyEnemyAttackDamageMultiplierPercent, 100d, 400d);
         ManosabaConfig.LobbyMurderousImpulseAllyDamageMultiplierPercent = Math.Clamp(_lobbyMurderousImpulseAllyDamageMultiplierPercent, 0d, 100d);
@@ -190,6 +213,21 @@ public static class ManosabaLobbyDifficultyState
             (byte)RandomCharacterPoolMode.AllCharacters => RandomCharacterPoolMode.AllCharacters,
             _ => RandomCharacterPoolMode.ManosabaCharactersOnly,
         };
+    }
+
+    private static void SetLobbySnapshot(
+        double enemyHpPercent,
+        double enemyAttackPercent,
+        double murderousPercent,
+        RandomCharacterPoolMode randomPool)
+    {
+        _lobbyEnemyHpMultiplierPercent = Math.Clamp(enemyHpPercent, 100d, 400d);
+        _lobbyEnemyAttackDamageMultiplierPercent = Math.Clamp(enemyAttackPercent, 100d, 400d);
+        _lobbyMurderousImpulseAllyDamageMultiplierPercent = Math.Clamp(murderousPercent, 0d, 100d);
+        _lobbyRandomCharacterPool = randomPool is RandomCharacterPoolMode.AllCharacters
+            ? RandomCharacterPoolMode.AllCharacters
+            : RandomCharacterPoolMode.ManosabaCharactersOnly;
+        _lobbySnapshotInitialized = true;
     }
 
     private static decimal PercentToMultiplier(double percent)

@@ -2,14 +2,16 @@ using System;
 
 namespace Manosaba.Config;
 
-/// <summary>未經選角同步時的內建預設（已不再寫入 mod 設定檔）。</summary>
 public static class ManosabaLobbyDefaults
 {
-    /// <summary>100% = 倍率 1（不調整敵人血量）。</summary>
+    public const double SafeEnemyHpMultiplierPercent = 100d;
+    public const double SafeEnemyAttackDamageMultiplierPercent = 100d;
+    public const double SafeMurderousImpulseAllyDamageMultiplierPercent = 10d;
+    public const RandomCharacterPoolMode SafeRandomCharacterPool = RandomCharacterPoolMode.ManosabaCharactersOnly;
+
     public static double EnemyHpMultiplierPercent =>
         Math.Clamp(ManosabaConfig.LobbyEnemyHpMultiplierPercent, 100d, 400d);
 
-    /// <summary>100% = 倍率 1（不調整敵人打在玩家側的傷害）。</summary>
     public static double EnemyAttackDamageMultiplierPercent =>
         Math.Clamp(ManosabaConfig.LobbyEnemyAttackDamageMultiplierPercent, 100d, 400d);
 

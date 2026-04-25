@@ -11,10 +11,6 @@ using MegaCrit.Sts2.Core.Saves.Runs;
 
 namespace Manosaba.Patches;
 
-/// <summary>
-/// Sync Manosaba lobby difficulty for loaded multiplayer runs.
-/// Character-select UI hooks are not active in this flow.
-/// </summary>
 [HarmonyPatch(typeof(LoadRunLobby))]
 public static class Patch_LoadRunLobby_ManosabaDifficultySync
 {
@@ -25,6 +21,11 @@ public static class Patch_LoadRunLobby_ManosabaDifficultySync
     private static void Postfix_Ctor_HostOrSingle(LoadRunLobby __instance)
     {
         ManosabaLobbyDifficultyState.SetLobbySessionActive(true);
+        if (__instance.NetService.Type != NetGameType.Client)
+        {
+            ManosabaLobbyDifficultyState.ResetToLobbyDefaults();
+        }
+
         EnsureHandlerRegistered(__instance);
         if (__instance.NetService.Type != NetGameType.Client)
         {
@@ -49,6 +50,7 @@ public static class Patch_LoadRunLobby_ManosabaDifficultySync
             return;
         }
 
+        ManosabaLobbyDifficultyState.EnsureLobbySnapshotFromDefaults();
         hostService.SendMessage(BuildMessageFromLobbySnapshot(), senderId);
     }
 
@@ -97,6 +99,11 @@ public static class Patch_LoadRunLobby_ManosabaDifficultySync
 
     private static void BroadcastCurrentDifficulty(INetGameService netService)
     {
+        if (netService.Type != NetGameType.Client)
+        {
+            ManosabaLobbyDifficultyState.EnsureLobbySnapshotFromDefaults();
+        }
+
         netService.SendMessage(BuildMessageFromLobbySnapshot());
     }
 
