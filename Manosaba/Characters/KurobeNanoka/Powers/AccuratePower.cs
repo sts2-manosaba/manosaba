@@ -91,7 +91,12 @@ public sealed class AccuratePower : PathCustomPowerModel
             return;
         }
 
-        if (cardPlay.Card is not GunBase || cardPlay.Card.Type != CardType.Attack)
+        if (cardPlay.Card is not GunBase gunCard || cardPlay.Card.Type != CardType.Attack)
+        {
+            return;
+        }
+
+        if (!gunCard.SpentBulletsThisPlay)
         {
             return;
         }

@@ -563,5 +563,7 @@
   "MANOSABA-HORROR_MOVIE.title": "恐怖電影",
   "MANOSABA-HORROR_MOVIE.description": "抽{Cards}張牌。\n獲得{MajokaPower}層[gold]魔女化[/gold]。",
   "MANOSABA-FANTASY_MOVIE.title": "奇幻電影",
-  "MANOSABA-FANTASY_MOVIE.description": "抽{Cards}張牌。"
+  "MANOSABA-FANTASY_MOVIE.description": "抽{Cards}張牌。",
+  "MANOSABA-TEST_WAIT.title": "test_wait",
+  "MANOSABA-TEST_WAIT.description": "等待15秒。"
 }

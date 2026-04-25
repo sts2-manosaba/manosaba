@@ -11,15 +11,30 @@ namespace Manosaba.Characters.KurobeNanoka.Cards;
 
 public abstract class GunBase : PathCustomCardModel
 {
+    public bool SpentBulletsThisPlay { get; private set; }
+
     protected GunBase(int energyCost, CardType type, CardRarity rarity, TargetType targetType, bool shouldShowInCardLibrary)
         : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)
     {
     }
 
-    protected bool TrySpendBulletsOnPlay()
+    private bool HasEnoughBulletsForPlay()
     {
         if (!DynamicVars.TryGetValue("BulletCost", out var bulletCostVar))
         {
+            return true;
+        }
+
+        return Owner.GetRelic<MagicalGun>()?.HasEnoughBullets(bulletCostVar.IntValue) == true;
+    }
+
+    protected bool TrySpendBulletsOnPlay()
+    {
+        SpentBulletsThisPlay = false;
+
+        if (!DynamicVars.TryGetValue("BulletCost", out var bulletCostVar))
+        {
+            SpentBulletsThisPlay = true;
             return true;
         }
 
@@ -35,6 +50,7 @@ public abstract class GunBase : PathCustomCardModel
             return false;
         }
 
+        SpentBulletsThisPlay = true;
         return true;
     }
 
@@ -50,6 +66,5 @@ public abstract class GunBase : PathCustomCardModel
             .Execute(choiceContext);
     }
 
-    protected override bool IsPlayable =>
-        Owner.GetRelic<MagicalGun>()?.HasEnoughBullets(DynamicVars["BulletCost"].IntValue) == true;
+    protected override bool IsPlayable => base.IsPlayable && HasEnoughBulletsForPlay();
 }

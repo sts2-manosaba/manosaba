@@ -560,5 +560,7 @@
   "MANOSABA-HORROR_MOVIE.title": "Horror Movie",
   "MANOSABA-HORROR_MOVIE.description": "Draw {Cards:diff()} cards.\nGain {MajokaPower:diff()} [gold]Majoka[/gold].",
   "MANOSABA-FANTASY_MOVIE.title": "Fantasy Movie",
-  "MANOSABA-FANTASY_MOVIE.description": "Draw {Cards:diff()} cards."
+  "MANOSABA-FANTASY_MOVIE.description": "Draw {Cards:diff()} cards.",
+  "MANOSABA-TEST_WAIT.title": "test_wait",
+  "MANOSABA-TEST_WAIT.description": "Wait 15 seconds."
 }
