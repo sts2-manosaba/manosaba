@@ -186,9 +186,9 @@ public sealed class TarotDeck : LevelingPathCustomRelicModel
         return decimal.Round(target, 0, MidpointRounding.AwayFromZero);
     }
 
-    protected override void OnRelicLevelChanged(int oldLevel, int newLevel)
+    protected override Task AfterRelicLevelChanged(int oldLevel, int newLevel)
     {
-        TaskHelper.RunSafely(OnRelicLevelChangedAsync(oldLevel, newLevel));
+        return OnRelicLevelChangedAsync(oldLevel, newLevel);
     }
 
     private async Task OnRelicLevelChangedAsync(int oldLevel, int newLevel)

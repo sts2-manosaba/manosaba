@@ -99,12 +99,11 @@ public sealed class Frugal : LevelingPathCustomRelicModel
         return Task.CompletedTask;
     }
 
-    protected override void OnRelicLevelChanged(int oldLevel, int newLevel)
+    protected override Task AfterRelicLevelChanged(int oldLevel, int newLevel)
     {
-        if (newLevel > oldLevel)
-        {
-            TaskHelper.RunSafely(OnRelicLevelIncreasedAsync(oldLevel, newLevel));
-        }
+        return newLevel > oldLevel
+            ? OnRelicLevelIncreasedAsync(oldLevel, newLevel)
+            : Task.CompletedTask;
     }
 
     private async Task OnRelicLevelIncreasedAsync(int oldLevel, int newLevel)
