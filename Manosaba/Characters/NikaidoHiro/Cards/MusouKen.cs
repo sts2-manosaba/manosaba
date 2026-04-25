@@ -30,14 +30,17 @@ namespace Manosaba.Characters.NikaidoHiro.Cards
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
-            ArgumentNullException.ThrowIfNull(cardPlay.Target, nameof(cardPlay.Target));
+            if (Owner.Creature is not { } ownerCreature || cardPlay.Target is not { } target)
+            {
+                return;
+            }
 
             MusouKenPower? power = await PowerCmd.Apply<MusouKenPower>(
-                Owner.Creature,
+                ownerCreature,
                 DynamicVars["MusouKenPower"].BaseValue,
-                Owner.Creature,
+                ownerCreature,
                 this);
-            power?.SetTarget(cardPlay.Target);
+            power?.SetTarget(target);
             power?.SetSourceCard(this);
 
             PlayerCmd.EndTurn(Owner, canBackOut: false);

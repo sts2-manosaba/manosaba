@@ -173,8 +173,12 @@ namespace Manosaba.Characters.HikamiMeruru.Cards
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
+            if (CombatState is not { } combatState)
+            {
+                return;
+            }
 
-            await ManosabaCombatCmd.ForceWinWithoutDeathOrEscape(CombatState);
+            await ManosabaCombatCmd.ForceWinWithoutDeathOrEscape(combatState);
         }
 
         protected override void OnUpgrade()

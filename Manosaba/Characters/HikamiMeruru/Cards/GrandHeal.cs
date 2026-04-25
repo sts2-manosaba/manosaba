@@ -39,7 +39,12 @@ namespace Manosaba.Characters.HikamiMeruru.Cards
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
-            IEnumerable<Creature> enumerable = from c in base.CombatState.GetTeammatesOf(base.Owner.Creature)
+            if (base.CombatState == null || base.Owner?.Creature is not { } ownerCreature)
+            {
+                return;
+            }
+
+            IEnumerable<Creature> enumerable = from c in base.CombatState.GetTeammatesOf(ownerCreature)
                                                where c != null && c.IsAlive && c.IsPlayer
                                                select c;
             foreach (Creature item in enumerable)
@@ -47,7 +52,7 @@ namespace Manosaba.Characters.HikamiMeruru.Cards
                 await CreatureCmd.Heal(item, base.DynamicVars.Heal.BaseValue);
                 decimal inhibition = ((CalculatedVar)DynamicVars["InhibitionPower"]).Calculate(null);
                 if (inhibition >= 1m)
-                    await PowerCmd.Apply<InhibitionPower>(item, inhibition, Owner.Creature, this);
+                    await PowerCmd.Apply<InhibitionPower>(item, inhibition, ownerCreature, this);
 
                 if (item.Player != null)
                 {
@@ -66,11 +71,11 @@ namespace Manosaba.Characters.HikamiMeruru.Cards
         }
 
         private static decimal GetMajokaFactor(CardModel card, Creature? _)
-            => Math.Min(card.Owner.Creature.GetPowerAmount<MajokaPower>() / 100m, 1m);
+            => Math.Min(card.Owner?.Creature?.GetPowerAmount<MajokaPower>() / 100m ?? 0m, 1m);
 
         private static IEnumerable<CardModel> GetStatuses(Player owner)
         {
-            return owner.PlayerCombatState.AllCards.Where((CardModel c) => c.Type == CardType.Status && c.Pile.Type != PileType.Exhaust);
+            return owner.PlayerCombatState?.AllCards.Where((CardModel c) => c.Type == CardType.Status && c.Pile?.Type != PileType.Exhaust) ?? [];
         }
     }
 }

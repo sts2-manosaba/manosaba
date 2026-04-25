@@ -38,7 +38,12 @@ namespace Manosaba.Characters.HikamiMeruru.Cards
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
-            List<Player> teammates = (from c in CombatState.GetTeammatesOf(Owner.Creature)
+            if (CombatState is not { } combatState || Owner?.Creature is not { } ownerCreature)
+            {
+                return;
+            }
+
+            List<Player> teammates = (from c in combatState.GetTeammatesOf(ownerCreature)
                                       where c != null && c.IsAlive && c.IsPlayer && c.Player != null
                                       select c.Player!)
                 .Append(Owner)

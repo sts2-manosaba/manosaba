@@ -17,7 +17,12 @@ namespace Manosaba.Characters.NikaidoHiro.Powers
         {
             if (cardPlay.Card.Type == CardType.Attack)
             {
-                await PowerCmd.Apply<MajokaPower>(Owner.Player.Creature, 10 * cardPlay.Card.EnergyCost.GetResolved(), Owner.Player.Creature, null);
+                if (Owner.Player?.Creature is not { } ownerCreature)
+                {
+                    return;
+                }
+
+                await PowerCmd.Apply<MajokaPower>(ownerCreature, 10 * cardPlay.Card.EnergyCost.GetResolved(), ownerCreature, null);
             }
         }
     }

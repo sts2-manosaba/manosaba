@@ -82,7 +82,10 @@ namespace Manosaba.Characters.NikaidoHiro.Cards
 
         public override async Task OnEnqueuePlayVfx(Creature? target)
         {
-            NCombatRoom.Instance?.CombatVfxContainer.AddChildSafely(NHellraiserVfx.Create(CombatState.Enemies[CombatState.Enemies.Count / 2]));
+            if (CombatState?.Enemies.Count > 0)
+            {
+                NCombatRoom.Instance?.CombatVfxContainer.AddChildSafely(NHellraiserVfx.Create(CombatState.Enemies[CombatState.Enemies.Count / 2]));
+            }
         }
 
         protected override void OnUpgrade()
