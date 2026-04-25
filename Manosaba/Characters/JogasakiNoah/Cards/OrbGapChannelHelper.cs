@@ -32,7 +32,11 @@ namespace Manosaba.Characters.JogasakiNoah.Cards
                 return;
             }
 
-            CombatState combatState = player.Creature.CombatState;
+            if (player.Creature?.CombatState is not { } combatState || player.PlayerCombatState == null)
+            {
+                return;
+            }
+
             OrbQueue orbQueue = player.PlayerCombatState.OrbQueue;
             if (player.Character.BaseOrbSlotCount == 0 && orbQueue.Capacity == 0)
             {
@@ -158,6 +162,11 @@ namespace Manosaba.Characters.JogasakiNoah.Cards
 
         private static void SyncOrbVisualOrder(Player player)
         {
+            if (player.Creature == null)
+            {
+                return;
+            }
+
             NOrbManager? orbManager = NCombatRoom.Instance?.GetCreatureNode(player.Creature)?.OrbManager;
             if (orbManager == null)
             {
@@ -169,7 +178,7 @@ namespace Manosaba.Characters.JogasakiNoah.Cards
                 return;
             }
 
-            IReadOnlyList<OrbModel> queueOrbs = player.PlayerCombatState.OrbQueue.Orbs;
+            IReadOnlyList<OrbModel> queueOrbs = player.PlayerCombatState?.OrbQueue?.Orbs ?? [];
             int count = Math.Min(queueOrbs.Count, orbNodes.Count);
             for (int i = 0; i < count; i++)
             {
@@ -314,6 +323,11 @@ namespace Manosaba.Characters.JogasakiNoah.Cards
 
         private static async Task EvokeNextWithoutVisualAnimation(PlayerChoiceContext choiceContext, Player player)
         {
+            if (player.Creature?.CombatState == null || player.PlayerCombatState == null)
+            {
+                return;
+            }
+
             OrbQueue orbQueue = player.PlayerCombatState.OrbQueue;
             if (orbQueue.Orbs.Count == 0)
             {

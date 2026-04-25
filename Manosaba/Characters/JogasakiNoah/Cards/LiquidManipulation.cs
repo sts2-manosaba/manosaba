@@ -35,13 +35,18 @@ namespace Manosaba.Characters.JogasakiNoahCard.Cards
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
-            IEnumerable<Creature> enumerable = from c in base.CombatState.GetTeammatesOf(base.Owner.Creature)
+            if (base.CombatState is not { } combatState || base.Owner.Creature is not { } ownerCreature)
+            {
+                return;
+            }
+
+            IEnumerable<Creature> enumerable = from c in combatState.GetTeammatesOf(ownerCreature)
                                                where c != null && c.IsAlive && c.IsPlayer
                                                select c;
             foreach (Creature item in enumerable)
             {
                 decimal amount = ((CalculatedVar)DynamicVars["LiquidManipulationPower"]).Calculate(null);
-                await PowerCmd.Apply<LiquidManipulationPower>(item, amount, Owner.Creature, this);
+                await PowerCmd.Apply<LiquidManipulationPower>(item, amount, ownerCreature, this);
             }
         }
 
@@ -51,6 +56,6 @@ namespace Manosaba.Characters.JogasakiNoahCard.Cards
         }
 
         private static decimal GetMajokaFactor(CardModel card, Creature? _)
-            => Math.Min(card.Owner.Creature.GetPowerAmount<MajokaPower>() / 100m, 1m);
+            => Math.Min(card.Owner?.Creature?.GetPowerAmount<MajokaPower>() / 100m ?? 0m, 1m);
     }
 }

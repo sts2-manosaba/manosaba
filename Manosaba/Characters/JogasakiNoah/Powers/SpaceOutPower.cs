@@ -17,7 +17,7 @@ namespace Manosaba.Characters.JogasakiNoah.Powers
 
         public override async Task AfterSideTurnStart(CombatSide side, CombatState combatState)
         {
-            if (side != CombatSide.Player || Owner?.Player == null)
+            if (side != CombatSide.Player || Owner?.Player == null || Owner.CombatState == null)
             {
                 return;
             }
@@ -29,12 +29,12 @@ namespace Manosaba.Characters.JogasakiNoah.Powers
 
         public override async Task AfterTurnEnd(PlayerChoiceContext choiceContext, CombatSide side)
         {
-            if (side == CombatSide.Player)
+            if (side == CombatSide.Player && Owner?.Player is { } ownerPlayer && ownerPlayer.Creature?.CombatState is { } combatState && ownerPlayer.PlayerCombatState != null)
             {
                 HashSet<Type> paintOrbTypes = JogasakiNoahOrbPool.AllOrbs
                     .Select(o => o.GetType())
                     .ToHashSet();
-                int distinctColorCount = Owner.Player.PlayerCombatState.OrbQueue.Orbs
+                int distinctColorCount = ownerPlayer.PlayerCombatState.OrbQueue.Orbs
                     .Select(o => o.GetType())
                     .Where(paintOrbTypes.Contains)
                     .Distinct()
@@ -42,7 +42,7 @@ namespace Manosaba.Characters.JogasakiNoah.Powers
                 if (distinctColorCount < 8)
                     return;
                 await ManosabaVfxCmd.PlaySceneAtCombatCenterAndWait(VfxScenePath, fitCoverViewport: true);
-                await ManosabaCombatCmd.ForceWinWithoutDeathOrEscape(Owner.Player.Creature.CombatState);
+                await ManosabaCombatCmd.ForceWinWithoutDeathOrEscape(combatState);
             }
         }
     }
