@@ -98,9 +98,11 @@ public sealed class AccuratePower : PathCustomPowerModel
 
         if (!gunCard.SpentBulletsThisPlay)
         {
+            Console.WriteLine($"[AccuratePower] Skipping consume because bullets were not spent. ownerNetId={Owner?.Player?.NetId} ownerName={Owner?.Name} card={cardPlay.Card.Id} amount={Amount}");
             return;
         }
 
+        Console.WriteLine($"[AccuratePower] Consuming after gun attack. ownerNetId={Owner?.Player?.NetId} ownerName={Owner?.Name} card={cardPlay.Card.Id} amount={Amount}");
         await PowerCmd.Remove(this);
     }
 

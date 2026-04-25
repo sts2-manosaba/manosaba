@@ -25,7 +25,14 @@ public abstract class GunBase : PathCustomCardModel
             return true;
         }
 
-        return Owner.GetRelic<MagicalGun>()?.HasEnoughBullets(bulletCostVar.IntValue) == true;
+        MagicalGun? magicalGun = Owner.GetRelic<MagicalGun>();
+        bool hasEnoughBullets = magicalGun?.HasEnoughBullets(bulletCostVar.IntValue) == true;
+        if (!hasEnoughBullets)
+        {
+            Console.WriteLine($"[GunBase] Bullet check failed. card={Id} ownerNetId={Owner?.NetId} ownerName={Owner?.Creature?.Name} cost={bulletCostVar.IntValue} currentBullets={magicalGun?.DisplayAmount ?? -1}");
+        }
+
+        return hasEnoughBullets;
     }
 
     protected bool TrySpendBulletsOnPlay()
@@ -41,21 +48,26 @@ public abstract class GunBase : PathCustomCardModel
         MagicalGun? magicalGun = Owner.GetRelic<MagicalGun>();
         if (magicalGun == null)
         {
+            Console.WriteLine($"[GunBase] Bullet spend failed: missing MagicalGun. card={Id} ownerNetId={Owner?.NetId} ownerName={Owner?.Creature?.Name}");
             return false;
         }
 
         int bulletCost = bulletCostVar.IntValue;
+        Console.WriteLine($"[GunBase] Attempting bullet spend. card={Id} ownerNetId={Owner?.NetId} ownerName={Owner?.Creature?.Name} cost={bulletCost} bulletsBefore={magicalGun.DisplayAmount}");
         if (!magicalGun.ConsumeBullets(bulletCost))
         {
+            Console.WriteLine($"[GunBase] Bullet spend rejected. card={Id} ownerNetId={Owner?.NetId} ownerName={Owner?.Creature?.Name} cost={bulletCost} bulletsAfter={magicalGun.DisplayAmount}");
             return false;
         }
 
         SpentBulletsThisPlay = true;
+        Console.WriteLine($"[GunBase] Bullet spend succeeded. card={Id} ownerNetId={Owner?.NetId} ownerName={Owner?.Creature?.Name} cost={bulletCost} bulletsAfter={magicalGun.DisplayAmount}");
         return true;
     }
 
     protected Task ExecuteGunAttack(PlayerChoiceContext choiceContext, Creature target, decimal damage)
     {
+        Console.WriteLine($"[GunBase] Executing gun attack. card={Id} ownerNetId={Owner?.NetId} ownerName={Owner?.Creature?.Name} target={target?.Name} damage={damage} spentBulletsThisPlay={SpentBulletsThisPlay}");
         return DamageCmd.Attack(damage)
             .WithAttackerFx(vfx: null, sfx: null)
             .WithHitFx(
