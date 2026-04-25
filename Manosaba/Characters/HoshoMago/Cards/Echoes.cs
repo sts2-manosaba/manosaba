@@ -59,7 +59,7 @@ namespace Manosaba.Characters.HoshoMago.Cards
                 return (uint)(type - 1) <= 2u;
             }).ToList();
             IEnumerable<CardModel> items = ((list3.Count == 0) ? list2 : list3);
-            CardModel cardModel = base.Owner.RunState.Rng.CombatCardSelection.NextItem(items);
+            CardModel? cardModel = base.Owner.RunState.Rng.CombatCardSelection.NextItem(items);
             if (cardModel != null)
             {
                 cardModel.BaseReplayCount += (int)((CalculatedVar)DynamicVars["Replay"]).Calculate(null);

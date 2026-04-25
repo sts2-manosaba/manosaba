@@ -143,7 +143,12 @@ public class DreamInterpretation : PathCustomCardModel
         List<CardModel> options = [];
         for (int i = 0; i < Choices && available.Count > 0; i++)
         {
-            CardModel canonical = Owner.RunState.Rng.CombatCardSelection.NextItem(available);
+            CardModel? canonical = Owner.RunState.Rng.CombatCardSelection.NextItem(available);
+            if (canonical == null)
+            {
+                continue;
+            }
+
             available.Remove(canonical);
             options.Add(CombatState.CreateCard(canonical, Owner));
         }
