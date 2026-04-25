@@ -36,6 +36,11 @@ namespace Manosaba.Characters.Common.Powers
                 return;
             }
 
+            if (Owner.CombatState == null)
+            {
+                return;
+            }
+
             Creature[] validAllies = Owner.CombatState.Allies
                 .Where(c => c != Owner && !c.IsDead)
                 .ToArray();
@@ -52,8 +57,18 @@ namespace Manosaba.Characters.Common.Powers
             }
 
             await Cmd.CustomScaledWait(0.1f, 0.2f);
-            Creature ally = base.Owner.Player.RunState.Rng.CombatTargets.NextItem(validAllies);
-            await CreatureCmd.Damage(new ThrowingPlayerChoiceContext(), ally, allyDamage, ValueProp.Unpowered, Owner.Player.Creature);
+            if (base.Owner.Player?.Creature is not { } ownerCreature)
+            {
+                return;
+            }
+
+            Creature? ally = base.Owner.Player.RunState.Rng.CombatTargets.NextItem(validAllies);
+            if (ally == null)
+            {
+                return;
+            }
+
+            await CreatureCmd.Damage(new ThrowingPlayerChoiceContext(), ally, allyDamage, ValueProp.Unpowered, ownerCreature);
         }
     }
 }

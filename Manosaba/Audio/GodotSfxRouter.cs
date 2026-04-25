@@ -22,6 +22,11 @@ public static class GodotSfxRouter
 
     public static bool TryPlay(string? eventPath, float volume = 1f)
     {
+        if (string.IsNullOrWhiteSpace(eventPath))
+        {
+            return false;
+        }
+
         if (!TryResolveAudioPath(eventPath, out string? audioPath))
         {
             return false;

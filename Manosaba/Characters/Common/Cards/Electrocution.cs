@@ -29,6 +29,11 @@ namespace Manosaba.Characters.Common.Cards
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
+            if (CombatState == null)
+            {
+                return;
+            }
+
             int num = ResolveEnergyXValue();
             await DamageCmd
                 .Attack(DynamicVars.Damage.BaseValue)
@@ -41,6 +46,11 @@ namespace Manosaba.Characters.Common.Cards
 
         private async void Strike(PlayerChoiceContext choiceContext)
         {
+            if (base.CombatState == null || base.Owner?.Creature == null)
+            {
+                return;
+            }
+
             List<Creature> list = (from e in base.CombatState.GetOpponentsOf(base.Owner.Creature)
                                    where e.IsHittable
                                    select e).ToList();
@@ -49,7 +59,11 @@ namespace Manosaba.Characters.Common.Cards
                 return;
             }
 
-            Creature target = base.Owner.RunState.Rng.CombatTargets.NextItem(list);
+            Creature? target = base.Owner.RunState.Rng.CombatTargets.NextItem(list);
+            if (target == null)
+            {
+                return;
+            }
 
             VfxCmd.PlayOnCreature(target, "vfx/vfx_attack_lightning");
 

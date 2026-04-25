@@ -5,7 +5,7 @@ namespace manosaba.Characters.Common;
 
 public partial class ManosabaLabel : MegaLabel
 {
-	private Font _font;
+	private Font? _font;
 	private int _fontSize;
 
 	private Color _fontColor;

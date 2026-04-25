@@ -16,7 +16,10 @@ public static class Patch_NEnergyCounter_RefreshLabel
         var label = __instance.GetNodeOrNull<ManosabaLabel>("Label");
         if (label == null) return;
 
-        int energy = _playerRef(__instance).PlayerCombatState.Energy;
+        Player? player = _playerRef(__instance);
+        if (player?.PlayerCombatState == null) return;
+
+        int energy = player.PlayerCombatState.Energy;
         label.RestoreStyleKeepingZeroEnergyColor(energy == 0);
     }
 }

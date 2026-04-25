@@ -29,8 +29,12 @@ namespace Manosaba.Characters.Common.Cards
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
-            ArgumentNullException.ThrowIfNull(cardPlay.Target, "cardPlay.Target");
-            await PowerCmd.Apply<InhibitionPower>(cardPlay.Target, DynamicVars["InhibitionPower"].BaseValue, Owner.Creature, this);
+            if (Owner.Creature is not { } ownerCreature || cardPlay.Target is not { } target)
+            {
+                return;
+            }
+
+            await PowerCmd.Apply<InhibitionPower>(target, DynamicVars["InhibitionPower"].BaseValue, ownerCreature, this);
         }
 
         protected override void OnUpgrade()

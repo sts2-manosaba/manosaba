@@ -43,11 +43,11 @@ namespace Manosaba.Characters.Common.Cards
             if (cardPlay.IsAutoPlay)
             {
                 int totalMajoka = 0;
-                foreach (Creature c in base.Owner.Creature.CombatState.Creatures)
+                foreach (Creature c in combatState.Creatures)
                 {
                     totalMajoka += c.GetPowerAmount<MajokaPower>();
                 }
-                int playerTimesCost = base.Owner.Creature.CombatState.Creatures.Count(c => c.IsPlayer) * DynamicVars["MajokaPower"].IntValue;
+                int playerTimesCost = combatState.Creatures.Count(c => c.IsPlayer) * DynamicVars["MajokaPower"].IntValue;
                 if (totalMajoka >= playerTimesCost)
                 {
                     IReadOnlyList<Creature> hittableEnemies = combatState.GetOpponentsOf(ownerCreature)
@@ -68,7 +68,11 @@ namespace Manosaba.Characters.Common.Cards
             CardPile? pile = base.Pile;
             if (pile != null && (pile.Type == PileType.Discard || pile.Type == PileType.Hand || pile.Type == PileType.Draw || pile.Type == PileType.Exhaust) && side == CombatSide.Player)
             {
-                CombatState combatState = Owner.Creature.CombatState;
+                if (Owner?.Creature?.CombatState is not { } combatState)
+                {
+                    return;
+                }
+
                 int totalMajoka = 0;
                 foreach (Creature c in combatState.Creatures)
                 {
@@ -87,7 +91,11 @@ namespace Manosaba.Characters.Common.Cards
         {
             if (power is MajokaPower)
             {
-                CombatState combatState = Owner.Creature.CombatState;
+                if (Owner?.Creature?.CombatState is not { } combatState)
+                {
+                    return;
+                }
+
                 int totalMajoka = 0;
                 foreach (Creature c in combatState.Creatures)
                 {

@@ -36,7 +36,12 @@ namespace Manosaba.Characters.Common.Cards
 
         public override async Task AfterCardDrawn(PlayerChoiceContext choiceContext, CardModel card, bool fromHandDraw)
         {
-            CardModel token1, token2, token3, token4;
+            if (Owner?.Creature?.CombatState is not { } combatState)
+            {
+                return;
+            }
+
+            CardModel? token1, token2, token3, token4;
 
             if ((token1 = PileType.Hand.GetPile(Owner).Cards.FirstOrDefault(c => c is SSArrow)) == null)
                 return;
@@ -50,7 +55,7 @@ namespace Manosaba.Characters.Common.Cards
             await CardPileCmd.RemoveFromCombat(token2);
             await CardPileCmd.RemoveFromCombat(token3);
             await CardPileCmd.RemoveFromCombat(token4);
-            CardModel craftedSpear = SimpleSpear.Create(Owner, Owner.Creature.CombatState);
+            CardModel craftedSpear = SimpleSpear.Create(Owner, combatState);
             CardPileAddResult result = await CardPileCmd.AddGeneratedCardToCombat(craftedSpear, PileType.Hand, addedByPlayer: true);
             CardCmd.PreviewCardPileAdd(result, 1.2f, CardPreviewStyle.HorizontalLayout);
             await CheckForAdditionalEffect();
@@ -70,7 +75,7 @@ namespace Manosaba.Characters.Common.Cards
 
         public async Task CheckForAdditionalEffect()
         {
-            if (Owner?.Creature == null)
+            if (Owner?.Creature?.CombatState is not { } combatState)
                 return;
 
 
@@ -86,7 +91,7 @@ namespace Manosaba.Characters.Common.Cards
                     continue;
 
                 await portableFletchingStation.TriggerFlash();
-                CardModel bonusSpear = SimpleSpear.Create(Owner, Owner.Creature.CombatState);
+                CardModel bonusSpear = SimpleSpear.Create(Owner, combatState);
                 await CardPileCmd.AddGeneratedCardToCombat(bonusSpear, PileType.Hand, addedByPlayer: true);
             }
         }

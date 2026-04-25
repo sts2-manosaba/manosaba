@@ -26,14 +26,19 @@ namespace Manosaba.Characters.Common.Cards
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
+            if (cardPlay.Target is not { } target)
+            {
+                return;
+            }
+
             await DamageCmd.Attack(base.DynamicVars.Damage.BaseValue)
             .FromCard(this)
-            .Targeting(cardPlay.Target)
+            .Targeting(target)
             .Execute(choiceContext);
 
-            if (cardPlay.Target.IsAlive && cardPlay.Target.GetHpPercentRemaining() < (double)(DynamicVars["BeheadedThreshold"].BaseValue / 100m))
+            if (target.IsAlive && target.GetHpPercentRemaining() < (double)(DynamicVars["BeheadedThreshold"].BaseValue / 100m))
             {
-                await DoomPower.DoomKill([cardPlay.Target]);
+                await DoomPower.DoomKill([target]);
             }
         }
 

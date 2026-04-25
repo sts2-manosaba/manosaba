@@ -17,6 +17,11 @@ public class PrisonPower : PathCustomPowerModel
             return;
         }
 
-        await PowerCmd.Apply<MajokaPower>(base.Owner.Player.Creature, base.Amount, base.Owner.Player.Creature, null);
+        if (base.Owner.Player?.Creature is not { } ownerCreature)
+        {
+            return;
+        }
+
+        await PowerCmd.Apply<MajokaPower>(ownerCreature, base.Amount, ownerCreature, null);
     }
 }

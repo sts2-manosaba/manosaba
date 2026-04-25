@@ -30,11 +30,21 @@ namespace Manosaba.Characters.Common.Cards
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
+            if (base.CombatState == null || base.Owner?.Creature == null)
+            {
+                return;
+            }
+
             IEnumerable<Creature> enumerable = from c in base.CombatState.GetTeammatesOf(base.Owner.Creature)
-                                               where c != null && c.IsAlive && c.IsPlayer
+                                               where c != null && c.IsAlive && c.IsPlayer && c.Player != null
                                                select c;
             foreach (Creature creature in enumerable)
             {
+                if (creature.Player == null)
+                {
+                    continue;
+                }
+
                 List<Vote> cards = Vote.Create(creature.Player, base.DynamicVars.Cards.IntValue, base.CombatState).ToList();
                 IReadOnlyList<CardPileAddResult> results = await CardPileCmd.AddGeneratedCardsToCombat(cards, PileType.Draw, addedByPlayer: true, CardPilePosition.Random);
                 if (LocalContext.IsMe(creature))

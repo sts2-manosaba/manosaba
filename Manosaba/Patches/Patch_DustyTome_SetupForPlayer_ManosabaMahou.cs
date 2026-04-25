@@ -27,7 +27,12 @@ public static class Patch_DustyTome_SetupForPlayer_ManosabaMahou
             return true;
         }
 
-        CardModel selected = player.PlayerRng.Rewards.NextItem(mahouCards);
+        CardModel? selected = player.PlayerRng.Rewards.NextItem(mahouCards);
+        if (selected == null)
+        {
+            return true;
+        }
+
         __instance.AncientCard = selected.Id;
         return false;
     }
