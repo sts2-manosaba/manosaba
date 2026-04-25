@@ -43,22 +43,27 @@ namespace Manosaba.Characters.TachibanaSherry.Cards
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
-            ArgumentNullException.ThrowIfNull(cardPlay.Target, "cardPlay.Target");
+            if (base.Owner is not { Creature: { } ownerCreature } || cardPlay.Target is not { } target)
+            {
+                return;
+            }
 
             decimal stack = DynamicVars["LifelongFriendPower"].BaseValue;
-            LifelongFriendPower? selfPower = await PowerCmd.Apply<LifelongFriendPower>(base.Owner.Creature, stack, base.Owner.Creature, this);
-            LifelongFriendPower? allyPower = await PowerCmd.Apply<LifelongFriendPower>(cardPlay.Target, stack, base.Owner.Creature, this);
-            selfPower?.SetPartner(cardPlay.Target);
-            allyPower?.SetPartner(base.Owner.Creature);
+            LifelongFriendPower? selfPower = await PowerCmd.Apply<LifelongFriendPower>(ownerCreature, stack, ownerCreature, this);
+            LifelongFriendPower? allyPower = await PowerCmd.Apply<LifelongFriendPower>(target, stack, ownerCreature, this);
+            selfPower?.SetPartner(target);
+            allyPower?.SetPartner(ownerCreature);
 
-            if (cardPlay.Target.Player?.Character is HannaCharacter)
+            if (target.Player is { Character: HannaCharacter } hannaAlly)
             {
-                Player hannaAlly = cardPlay.Target.Player!;
-                CombatState combatState = hannaAlly.Creature.CombatState
-                    ?? throw new InvalidOperationException("LifelongFriend Refuse placement requires active combat.");
+                if (hannaAlly.Creature?.CombatState is not { } combatState)
+                {
+                    return;
+                }
+
                 CardModel refuse = combatState.CreateCard(ModelDb.Card<RefuseMajo>(), hannaAlly);
                 CardPileAddResult refuseResult = await CardPileCmd.Add(refuse, PileType.Draw, CardPilePosition.Top, this);
-                if (LocalContext.IsMe(hannaAlly.Creature))
+                if (hannaAlly.Creature != null && LocalContext.IsMe(hannaAlly.Creature))
                 {
                     CardCmd.PreviewCardPileAdd(refuseResult);
                 }

@@ -18,7 +18,7 @@ namespace Manosaba.Characters.TonoHanna.Powers
 
         public override async Task BeforeSideTurnStart(PlayerChoiceContext choiceContext, CombatSide side, CombatState combatState)
         {
-            if (side != Owner.Side)
+            if (side != Owner.Side || Owner.Player == null)
                 return;
 
             for (int stack = 0; stack < (int)Amount; stack++)

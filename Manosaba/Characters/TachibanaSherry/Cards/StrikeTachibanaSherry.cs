@@ -27,9 +27,14 @@ namespace Manosaba.Characters.TachibanaSherry.Cards
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
+            if (cardPlay.Target is not { } target)
+            {
+                return;
+            }
+
             await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
                 .FromCard(this)
-                .Targeting(cardPlay.Target)
+                .Targeting(target)
                 .Execute(choiceContext);
         }
 

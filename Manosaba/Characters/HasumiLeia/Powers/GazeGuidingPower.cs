@@ -1,5 +1,6 @@
 using Manosaba.Characters.Common.Powers;
 using Manosaba.Extensions;
+using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Entities.Powers;
@@ -40,8 +41,9 @@ public sealed class GazeGuidingPower : PathCustomPowerModel
         decimal majoka = Math.Min(100m, Owner.GetPowerAmount<MajokaPower>());
         decimal reduction = majoka / 200m; // 0..0.5
 
-        bool isMultiplayerGame = CombatState != null
-            && CombatState.GetTeammatesOf(Owner).Any(c => c != Owner && c.IsPlayer);
+        CombatState? combatState = CombatState;
+        bool isMultiplayerGame = combatState != null
+            && combatState.GetTeammatesOf(Owner).Any(c => c != Owner && c.IsPlayer);
 
         if (!isMultiplayerGame)
         {
@@ -57,7 +59,7 @@ public sealed class GazeGuidingPower : PathCustomPowerModel
             return 1m + increase;
         }
 
-        if (target.IsPlayer && target != Owner && CombatState.GetTeammatesOf(Owner).Contains(target))
+        if (target.IsPlayer && target != Owner && combatState != null && combatState.GetTeammatesOf(Owner).Contains(target))
             return 1m - reduction;
 
         return 1m;

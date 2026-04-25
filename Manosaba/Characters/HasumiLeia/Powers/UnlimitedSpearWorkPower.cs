@@ -29,12 +29,12 @@ namespace Manosaba.Characters.HasumiLeia.Powers
         //After player turn start, gain 1 Forge Spear in hand
         public override async Task AfterPlayerTurnStart(PlayerChoiceContext choiceContext, Player player)
         {
-            if(player != Owner.Player)
+            if (player != Owner.Player || player.Creature?.CombatState is not { } combatState)
                 return;
             List<ForgeSpear> list = new List<ForgeSpear>();
             for (int i = 0; i < Amount; i++)
             {
-                var card = player.Creature.CombatState.CreateCard<ForgeSpear>(player);
+                var card = combatState.CreateCard<ForgeSpear>(player);
                 card.AddKeyword(CardKeyword.Ethereal);
                 list.Add(card);
             }

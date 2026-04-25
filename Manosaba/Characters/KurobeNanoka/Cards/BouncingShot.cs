@@ -48,6 +48,11 @@ public sealed class BouncingShot : GunBase
             return;
         }
 
+        if (CombatState == null)
+        {
+            return;
+        }
+
         List<Creature> orderedTargets = CombatState.HittableEnemies.ToList();
         if (orderedTargets.Count == 0)
         {

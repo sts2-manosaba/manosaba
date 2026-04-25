@@ -40,7 +40,12 @@ namespace Manosaba.Characters.TonoHanna.Cards
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
-            await PowerCmd.Apply<MiriaPuppetCollectionPower>(Owner.Creature, 1m, Owner.Creature, this);
+            if (Owner?.Creature is not { } ownerCreature)
+            {
+                return;
+            }
+
+            await PowerCmd.Apply<MiriaPuppetCollectionPower>(ownerCreature, 1m, ownerCreature, this);
             var selected = await CardSelectCmd.FromHand(
                 prefs: new CardSelectorPrefs(CardSelectorPrefs.TransformSelectionPrompt, DynamicVars.Cards.IntValue),
                 context: choiceContext,
@@ -114,7 +119,7 @@ namespace Manosaba.Characters.TonoHanna.Cards
         private static List<CardModel> BuildFallbackPuppetTransformPool(CardModel original)
         {
             Player? player = original.Owner;
-            if (player == null)
+            if (player == null || original.RunState == null)
             {
                 return [];
             }

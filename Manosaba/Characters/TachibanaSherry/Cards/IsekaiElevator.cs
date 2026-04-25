@@ -31,11 +31,14 @@ namespace Manosaba.Characters.TachibanaSherry.Cards
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
-            ArgumentNullException.ThrowIfNull(cardPlay.Target, "cardPlay.Target");
+            if (base.Owner.Creature is not { } ownerCreature || cardPlay.Target is not { } target)
+            {
+                return;
+            }
 
-            await PowerCmd.Apply<MajokaPower>(cardPlay.Target, base.DynamicVars["MajokaPower"].BaseValue, base.Owner.Creature, this);
-            await PowerCmd.Apply<MajokaPower>(base.Owner.Creature, base.DynamicVars["MajokaPower"].BaseValue, base.Owner.Creature, this);
-            await CreatureCmd.Damage(choiceContext, base.Owner.Creature, base.DynamicVars.Damage.BaseValue, ValueProp.Unpowered, base.Owner.Creature);
+            await PowerCmd.Apply<MajokaPower>(target, base.DynamicVars["MajokaPower"].BaseValue, ownerCreature, this);
+            await PowerCmd.Apply<MajokaPower>(ownerCreature, base.DynamicVars["MajokaPower"].BaseValue, ownerCreature, this);
+            await CreatureCmd.Damage(choiceContext, ownerCreature, base.DynamicVars.Damage.BaseValue, ValueProp.Unpowered, ownerCreature);
         }
 
         protected override void OnUpgrade()

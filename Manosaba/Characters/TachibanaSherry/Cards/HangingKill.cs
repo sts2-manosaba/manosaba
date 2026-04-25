@@ -36,21 +36,24 @@ namespace Manosaba.Characters.TachibanaSherry.Cards
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
-            ArgumentNullException.ThrowIfNull(cardPlay.Target, "cardPlay.Target");
+            if (base.Owner.Creature is not { } ownerCreature || cardPlay.Target is not { } target)
+            {
+                return;
+            }
 
             await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
                 .FromCard(this)
-                .Targeting(cardPlay.Target)
+                .Targeting(target)
                 .Execute(choiceContext);
 
-            int powerAmount = cardPlay.Target.GetPowerAmount<HangingKillPower>();
+            int powerAmount = target.GetPowerAmount<HangingKillPower>();
             int num = Math.Max(2, powerAmount);
             if (powerAmount + num > 999)
             {
                 num = Math.Max(0, 999 - powerAmount);
             }
-            await PowerCmd.Apply<HangingKillPower>(cardPlay.Target, num, base.Owner.Creature, this);
-            await PowerCmd.Apply<VotePower>(base.Owner.Creature, DynamicVars["VotePower"].BaseValue, base.Owner.Creature, this);
+            await PowerCmd.Apply<HangingKillPower>(target, num, ownerCreature, this);
+            await PowerCmd.Apply<VotePower>(ownerCreature, DynamicVars["VotePower"].BaseValue, ownerCreature, this);
         }
 
         protected override void OnUpgrade()

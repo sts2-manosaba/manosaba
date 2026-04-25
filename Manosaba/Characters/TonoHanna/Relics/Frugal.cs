@@ -138,7 +138,12 @@ public sealed class Frugal : LevelingPathCustomRelicModel
             return;
         }
 
-        CardModel canonical = Owner.RunState.Rng.Niche.NextItem(puppetPool);
+        CardModel? canonical = Owner.RunState.Rng.Niche.NextItem(puppetPool);
+        if (canonical == null)
+        {
+            return;
+        }
+
         CardModel card = Owner.RunState.CreateCard(canonical, Owner);
         CardPileAddResult result = await CardPileCmd.Add(card, PileType.Deck);
         CardCmd.PreviewCardPileAdd(result, 1.2f, CardPreviewStyle.GridLayout);
@@ -165,12 +170,17 @@ public sealed class Frugal : LevelingPathCustomRelicModel
 
     public override async Task BeforeTurnEnd(PlayerChoiceContext choiceContext, CombatSide side)
     {
-        if (side != Owner.Creature.Side)
+        if (Owner?.Creature is not { } ownerCreature)
         {
             return;
         }
 
-        if (!Owner.Creature.IsAlive)
+        if (side != ownerCreature.Side)
+        {
+            return;
+        }
+
+        if (!ownerCreature.IsAlive)
         {
             return;
         }

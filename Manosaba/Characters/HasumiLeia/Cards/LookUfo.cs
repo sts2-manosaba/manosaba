@@ -33,9 +33,13 @@ namespace Manosaba.Characters.HasumiLeia.Cards
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
-            ArgumentNullException.ThrowIfNull(cardPlay.Target, "cardPlay.Target");
-            await CreatureCmd.TriggerAnim(base.Owner.Creature, "Cast", base.Owner.Character.CastAnimDelay);
-            await PowerCmd.Apply<IncomeDamageMultiplyPower>(cardPlay.Target, 1m, base.Owner.Creature, this);
+            if (base.Owner.Creature is not { } ownerCreature || cardPlay.Target is not { } target)
+            {
+                return;
+            }
+
+            await CreatureCmd.TriggerAnim(ownerCreature, "Cast", base.Owner.Character.CastAnimDelay);
+            await PowerCmd.Apply<IncomeDamageMultiplyPower>(target, 1m, ownerCreature, this);
         }
 
         protected override void OnUpgrade()

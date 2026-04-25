@@ -62,11 +62,15 @@ public class IceStrike : PathCustomCardModel
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        ArgumentNullException.ThrowIfNull(cardPlay.Target);
-        int collection = Owner.Creature.GetPower<PuppetCollectionSummaryPower>()?.Amount ?? 0;
+        if (Owner.Creature is not { } ownerCreature || cardPlay.Target is not { } target)
+        {
+            return;
+        }
+
+        int collection = ownerCreature.GetPower<PuppetCollectionSummaryPower>()?.Amount ?? 0;
         decimal bonusPer = IsUpgraded ? 6m : 5m;
         decimal damage = DynamicVars.Damage.BaseValue + collection * bonusPer;
-        await DamageCmd.Attack(damage).FromCard(this).Targeting(cardPlay.Target).Execute(choiceContext);
+        await DamageCmd.Attack(damage).FromCard(this).Targeting(target).Execute(choiceContext);
     }
 
     protected override void OnUpgrade()

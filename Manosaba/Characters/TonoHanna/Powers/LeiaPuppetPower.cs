@@ -16,6 +16,11 @@ public sealed class LeiaPuppetPower : PathCustomPowerModel
 
     public override Task AfterCombatEnd(CombatRoom room)
     {
+        if (Owner.Player == null)
+        {
+            return Task.CompletedTask;
+        }
+
         room.AddExtraReward(Owner.Player, new GoldReward(Amount, Owner.Player));
         return Task.CompletedTask;
     }

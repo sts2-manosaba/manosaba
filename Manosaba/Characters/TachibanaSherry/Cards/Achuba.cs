@@ -32,7 +32,7 @@ namespace Manosaba.Characters.TachibanaSherry.Cards
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
-            if (base.CombatState == null)
+            if (base.CombatState == null || base.Owner?.Creature == null)
                 return;
 
             int attackCount = 1;
@@ -45,7 +45,12 @@ namespace Manosaba.Characters.TachibanaSherry.Cards
                 if (candidates.Count == 0)
                     break;
 
-                Creature target = base.Owner.RunState.Rng.CombatTargets.NextItem(candidates);
+                Creature? target = base.Owner.RunState.Rng.CombatTargets.NextItem(candidates);
+                if (target == null)
+                {
+                    break;
+                }
+
                 IEnumerable<DamageResult> results = await CreatureCmd.Damage(choiceContext, target, base.DynamicVars.Damage.BaseValue, ValueProp.Move, base.Owner.Creature, this);
                 if (results.Any(r => r.WasTargetKilled))
                     attackCount++;

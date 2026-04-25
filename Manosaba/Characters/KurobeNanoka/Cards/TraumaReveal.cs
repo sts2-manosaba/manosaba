@@ -67,7 +67,12 @@ public sealed class TraumaReveal : PathCustomCardModel
     {
         _ = cardPlay;
 
-        IEnumerable<Creature> players = CombatState.GetTeammatesOf(Owner.Creature)
+        if (CombatState is not { } combatState || Owner?.Creature is not { } ownerCreature)
+        {
+            return;
+        }
+
+        IEnumerable<Creature> players = combatState.GetTeammatesOf(ownerCreature)
             .Where(creature => creature != null && creature.IsAlive && creature.IsPlayer);
 
         foreach (Creature creature in players)

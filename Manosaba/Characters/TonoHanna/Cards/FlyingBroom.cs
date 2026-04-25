@@ -40,21 +40,28 @@ public class FlyingBroom : PathCustomCardModel
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        ArgumentNullException.ThrowIfNull(cardPlay.Target);
-        await PowerCmd.Apply<HannaPuppetPower>(Owner.Creature, 1m, Owner.Creature, this);
-        await PowerCmd.Apply<HannaPuppetPower>(cardPlay.Target, 1m, Owner.Creature, this);
-
-        if (cardPlay.Target.Player?.Character is SherryCharacter)
+        if (Owner is not { Creature: { } ownerCreature } owner || cardPlay.Target is not { } target)
         {
-            await GrantFreePicnicThisTurnAsync(Owner);
-            await GrantFreePicnicThisTurnAsync(cardPlay.Target.Player!);
+            return;
+        }
+
+        await PowerCmd.Apply<HannaPuppetPower>(ownerCreature, 1m, ownerCreature, this);
+        await PowerCmd.Apply<HannaPuppetPower>(target, 1m, ownerCreature, this);
+
+        if (target.Player is { Character: SherryCharacter } sherryPlayer)
+        {
+            await GrantFreePicnicThisTurnAsync(owner);
+            await GrantFreePicnicThisTurnAsync(sherryPlayer);
         }
     }
 
     private async Task GrantFreePicnicThisTurnAsync(Player player)
     {
-        CombatState combatState = player.Creature.CombatState
-            ?? throw new InvalidOperationException("GrantFreePicnicThisTurnAsync requires an active combat.");
+        if (player.Creature?.CombatState is not { } combatState)
+        {
+            return;
+        }
+
         CardModel picnic = combatState.CreateCard(ModelDb.Card<PicnicTime>(), player);
         picnic.EnergyCost.SetThisTurnOrUntilPlayed(0);
         CardPileAddResult result = await CardPileCmd.AddGeneratedCardToCombat(picnic, PileType.Hand, true, CardPilePosition.Top);

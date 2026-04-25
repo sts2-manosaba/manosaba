@@ -31,9 +31,13 @@ public sealed class LeiaProtect : PathCustomCardModel
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        ArgumentNullException.ThrowIfNull(cardPlay.Target, nameof(cardPlay.Target));
-        await CreatureCmd.GainBlock(Owner.Creature, DynamicVars.Block, cardPlay);
-        await PowerCmd.Apply<CoveredPower>(cardPlay.Target, 1m, Owner.Creature, this);
+        if (Owner.Creature is not { } ownerCreature || cardPlay.Target is not { } target)
+        {
+            return;
+        }
+
+        await CreatureCmd.GainBlock(ownerCreature, DynamicVars.Block, cardPlay);
+        await PowerCmd.Apply<CoveredPower>(target, 1m, ownerCreature, this);
     }
 
     protected override void OnUpgrade()

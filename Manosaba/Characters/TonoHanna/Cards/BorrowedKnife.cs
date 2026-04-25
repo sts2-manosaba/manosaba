@@ -30,10 +30,13 @@ public class BorrowedKnife : PathCustomCardModel
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        ArgumentNullException.ThrowIfNull(cardPlay.Target);
-        ArgumentNullException.ThrowIfNull(cardPlay.Target.Player);
-        await CardPileCmd.Draw(choiceContext, DynamicVars.Cards.IntValue, cardPlay.Target.Player);
-        await PlayerCmd.GainEnergy(DynamicVars.Energy.BaseValue, cardPlay.Target.Player);
+        if (cardPlay.Target?.Player is not { } targetPlayer)
+        {
+            return;
+        }
+
+        await CardPileCmd.Draw(choiceContext, DynamicVars.Cards.IntValue, targetPlayer);
+        await PlayerCmd.GainEnergy(DynamicVars.Energy.BaseValue, targetPlayer);
     }
 
     protected override void OnUpgrade()

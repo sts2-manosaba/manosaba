@@ -36,7 +36,11 @@ namespace Manosaba.Characters.TachibanaSherry.Cards
             int strengthStacks = base.Owner.Creature.GetPowerAmount<StrengthPower>();
             int hitCount = Math.Min(5, Math.Max(1, strengthStacks + 1));
 
-            Creature target = cardPlay.Target;
+            if (cardPlay.Target is not { } target)
+            {
+                return;
+            }
+
             await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
                 .FromCard(this)
                 .Targeting(target)
