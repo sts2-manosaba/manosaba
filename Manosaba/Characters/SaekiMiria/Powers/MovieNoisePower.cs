@@ -20,7 +20,7 @@ public sealed class MovieNoisePower : PathCustomPowerModel
         if (Amount <= 0m)
             return;
 
-        if (cardPlay.Card.Owner != Owner.Player)
+        if (Owner.Player is not { } ownerPlayer || cardPlay.Card.Owner != ownerPlayer)
             return;
 
         if (cardPlay.Card is not MovieBase)
@@ -38,7 +38,10 @@ public sealed class MovieNoisePower : PathCustomPowerModel
         if (enemies.Count == 0)
             return;
 
-        Creature target = Owner.Player.RunState.Rng.CombatTargets.NextItem(enemies);
+        Creature? target = ownerPlayer.RunState.Rng.CombatTargets.NextItem(enemies);
+        if (target == null)
+            return;
+
         await CreatureCmd.Damage(context, target, Amount, ValueProp.Unpowered, Owner);
     }
 }

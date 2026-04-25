@@ -29,12 +29,22 @@ namespace Manosaba.Characters.SaekiMiria.Cards
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
-            await PowerCmd.Apply<MajokaPower>(Owner.Creature, DynamicVars["MajokaPower"].BaseValue, Owner.Creature, this);
-            IEnumerable<Creature> enumerable = from c in base.CombatState.GetTeammatesOf(base.Owner.Creature)
-                                               where c != null && c.IsAlive && c.IsPlayer
+            if (Owner?.Creature is not { } ownerCreature || base.CombatState is not { } combatState)
+            {
+                return;
+            }
+
+            await PowerCmd.Apply<MajokaPower>(ownerCreature, DynamicVars["MajokaPower"].BaseValue, ownerCreature, this);
+            IEnumerable<Creature> enumerable = from c in combatState.GetTeammatesOf(ownerCreature)
+                                               where c != null && c.IsAlive && c.IsPlayer && c.Player != null
                                                select c;
             foreach (Creature item in enumerable)
             {
+                if (item.Player == null)
+                {
+                    continue;
+                }
+
                 await CardPileCmd.Draw(choiceContext, base.DynamicVars.Cards.BaseValue, item.Player);
             }
         }

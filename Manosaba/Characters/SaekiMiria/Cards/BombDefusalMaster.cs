@@ -37,16 +37,20 @@ namespace Manosaba.Characters.SaekiMiria.Cards
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
-            ArgumentNullException.ThrowIfNull(cardPlay.Target, "cardPlay.Target");
+            if (base.Owner.Creature is not { } ownerCreature || cardPlay.Target is not { } target)
+            {
+                return;
+            }
+
             int powerAmount = ResolveEnergyXValue();
             if (base.IsUpgraded)
             {
                 powerAmount++;
             }
 
-            await CreatureCmd.TriggerAnim(base.Owner.Creature, "Cast", base.Owner.Character.CastAnimDelay);
-            await PowerCmd.Apply<StrengthPower>(cardPlay.Target, -powerAmount, base.Owner.Creature, this);
-            await PowerCmd.Apply<WeakPower>(cardPlay.Target, powerAmount, base.Owner.Creature, this);
+            await CreatureCmd.TriggerAnim(ownerCreature, "Cast", base.Owner.Character.CastAnimDelay);
+            await PowerCmd.Apply<StrengthPower>(target, -powerAmount, ownerCreature, this);
+            await PowerCmd.Apply<WeakPower>(target, powerAmount, ownerCreature, this);
         }
     }
 }

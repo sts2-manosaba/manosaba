@@ -30,30 +30,34 @@ namespace Manosaba.Characters.SaekiMiria.Cards
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
-            ArgumentNullException.ThrowIfNull(cardPlay.Target, "cardPlay.Target");
-            List<PowerModel> originalDebuffs = (from p in cardPlay.Target.Powers
+            if (base.Owner.Creature is not { } ownerCreature || base.CombatState is not { } combatState || cardPlay.Target is not { } target)
+            {
+                return;
+            }
+
+            List<PowerModel> originalDebuffs = (from p in target.Powers
                                                 where p.TypeForCurrentAmount == PowerType.Debuff
                                                 select (PowerModel)p.ClonePreservingMutability()).ToList();
-            foreach (Creature enemy in base.CombatState.HittableEnemies)
+            foreach (Creature enemy in combatState.HittableEnemies)
             {
-                if (enemy == cardPlay.Target)
+                if (enemy == target)
                 {
                     continue;
                 }
 
                 foreach (PowerModel item in originalDebuffs)
                 {
-                    PowerModel powerById = enemy.GetPowerById(item.Id);
+                    PowerModel? powerById = enemy.GetPowerById(item.Id);
                     if (powerById != null && !powerById.IsInstanced)
                     {
                         DoHackyThingsForSpecificPowers(powerById);
-                        await PowerCmd.ModifyAmount(powerById, item.Amount, base.Owner.Creature, this);
+                        await PowerCmd.ModifyAmount(powerById, item.Amount, ownerCreature, this);
                     }
                     else
                     {
                         PowerModel power = (PowerModel)item.ClonePreservingMutability();
                         DoHackyThingsForSpecificPowers(power);
-                        await PowerCmd.Apply(power, enemy, item.Amount, base.Owner.Creature, this);
+                        await PowerCmd.Apply(power, enemy, item.Amount, ownerCreature, this);
                     }
                 }
             }

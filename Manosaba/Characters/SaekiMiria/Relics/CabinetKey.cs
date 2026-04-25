@@ -74,21 +74,21 @@ namespace manosaba.Characters.SaekiMiria.Relics
             if (side != CombatSide.Enemy)
                 return;
 
-            if (!Owner.Creature.IsAlive)
+            if (Owner.Creature is not { } ownerCreature || !ownerCreature.IsAlive)
                 return;
 
-            CombatState? combatState = Owner.Creature.CombatState;
+            CombatState? combatState = ownerCreature.CombatState;
             if (combatState == null)
                 return;
 
             int requiredBlock = Math.Max(1, blockPerMovieCard);
-            decimal blockRemaining = GetCreatureBlock(Owner.Creature);
+            decimal blockRemaining = GetCreatureBlock(ownerCreature);
             string rngBefore = FormatRngCounters(combatState.RunState.Rng);
             int ownerDrawBefore = GetPileCount(Owner, PileType.Draw);
             if (blockRemaining <= 0m)
             {
                 Log.Debug(
-                    $"[Manosaba SyncTrace][CabinetKey] skip owner={Owner.NetId} localOwner={LocalContext.IsMe(Owner.Creature)} " +
+                    $"[Manosaba SyncTrace][CabinetKey] skip owner={Owner.NetId} localOwner={LocalContext.IsMe(ownerCreature)} " +
                     $"round={combatState.RoundNumber} block={blockRemaining} required={requiredBlock} drawBefore={ownerDrawBefore} rng={rngBefore}");
                 return;
             }
@@ -98,7 +98,7 @@ namespace manosaba.Characters.SaekiMiria.Relics
                 return;
 
             Log.Debug(
-                $"[Manosaba SyncTrace][CabinetKey] begin owner={Owner.NetId} localOwner={LocalContext.IsMe(Owner.Creature)} " +
+                $"[Manosaba SyncTrace][CabinetKey] begin owner={Owner.NetId} localOwner={LocalContext.IsMe(ownerCreature)} " +
                 $"round={combatState.RoundNumber} block={blockRemaining} required={requiredBlock} movies={moviesToAdd} " +
                 $"drawBefore={ownerDrawBefore} rng={rngBefore}");
 
@@ -113,7 +113,7 @@ namespace manosaba.Characters.SaekiMiria.Relics
                 $"[Manosaba SyncTrace][CabinetKey] generated owner={Owner.NetId} cards=[{JoinCardIds(generatedCards)}] " +
                 $"rngAfterGenerate={FormatRngCounters(combatState.RunState.Rng)}");
 
-            Player? invitedPlayer = Owner.Creature.GetPower<MovieInvitationPower>()?.ConsumeInvitedPlayerForRelicMovies();
+            Player? invitedPlayer = ownerCreature.GetPower<MovieInvitationPower>()?.ConsumeInvitedPlayerForRelicMovies();
             if (invitedPlayer != null)
             {
                 int invitedDrawBefore = GetPileCount(invitedPlayer, PileType.Draw);
@@ -133,7 +133,7 @@ namespace manosaba.Characters.SaekiMiria.Relics
                     $"[Manosaba SyncTrace][CabinetKey] invited owner={Owner.NetId} invited={invitedPlayer.NetId} " +
                     $"cards=[{JoinCardIds(invitedCards)}] drawBefore={invitedDrawBefore} drawAfter={invitedDrawAfter} " +
                     $"results={invitedResults.Count} rngAfterInvited={FormatRngCounters(combatState.RunState.Rng)}");
-                if (LocalContext.IsMe(invitedPlayer.Creature))
+                if (invitedPlayer.Creature != null && LocalContext.IsMe(invitedPlayer.Creature))
                 {
                     CardCmd.PreviewCardPileAdd(invitedResults);
                 }
@@ -178,7 +178,8 @@ namespace manosaba.Characters.SaekiMiria.Relics
                 return combatState.CreateCard<SmallPaper>(player);
             }
 
-            return rng.NextItem(MovieFactories)(player, combatState);
+            Func<Player, CombatState, MovieBase>? factory = rng.NextItem(MovieFactories);
+            return (factory ?? MovieFactories[0])(player, combatState);
         }
 
         private static CardModel CreateRelicGeneratedCardCopyForPlayer(CardModel card, Player player, CombatState combatState) =>

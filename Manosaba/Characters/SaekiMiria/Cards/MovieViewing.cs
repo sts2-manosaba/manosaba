@@ -52,7 +52,7 @@ public class MovieViewing : PathCustomCardModel
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        if (CombatState == null)
+        if (CombatState == null || Owner == null)
             return;
 
         int count = DynamicVars.Cards.IntValue;
@@ -63,8 +63,17 @@ public class MovieViewing : PathCustomCardModel
         List<MovieBase> movies = new(count);
         for (int i = 0; i < count; i++)
         {
-            movies.Add(rng.NextItem(MovieFactories)(Owner, CombatState));
+            Func<Player, CombatState, MovieBase>? factory = rng.NextItem(MovieFactories);
+            if (factory == null)
+            {
+                continue;
+            }
+
+            movies.Add(factory(Owner, CombatState));
         }
+
+        if (movies.Count == 0)
+            return;
 
         IReadOnlyList<CardPileAddResult> results = await CardPileCmd.AddGeneratedCardsToCombat(
             movies,

@@ -35,7 +35,12 @@ public sealed class LuckTransfer : PathCustomCardModel
     {
         _ = cardPlay;
 
-        List<PowerModel> originalDebuffs = Owner.Creature.Powers
+        if (Owner?.Creature is not { } ownerCreature || CombatState is not { } combatState)
+        {
+            return;
+        }
+
+        List<PowerModel> originalDebuffs = ownerCreature.Powers
             .Where(p => p.TypeForCurrentAmount == PowerType.Debuff)
             .Where(MiriaConstants.IsAllowedLuckTransferPower)
             .Select(p => (PowerModel)p.ClonePreservingMutability())
@@ -46,7 +51,7 @@ public sealed class LuckTransfer : PathCustomCardModel
             return;
         }
 
-        foreach (Creature enemy in CombatState.HittableEnemies)
+        foreach (Creature enemy in combatState.HittableEnemies)
         {
             foreach (PowerModel item in originalDebuffs)
             {
@@ -60,13 +65,13 @@ public sealed class LuckTransfer : PathCustomCardModel
                 if (powerById != null && !powerById.IsInstanced)
                 {
                     DoHackyThingsForSpecificPowers(powerById);
-                    await PowerCmd.ModifyAmount(powerById, scaledAmount, Owner.Creature, this);
+                    await PowerCmd.ModifyAmount(powerById, scaledAmount, ownerCreature, this);
                 }
                 else
                 {
                     PowerModel power = (PowerModel)item.ClonePreservingMutability();
                     DoHackyThingsForSpecificPowers(power);
-                    await PowerCmd.Apply(power, enemy, scaledAmount, Owner.Creature, this);
+                    await PowerCmd.Apply(power, enemy, scaledAmount, ownerCreature, this);
                 }
             }
         }

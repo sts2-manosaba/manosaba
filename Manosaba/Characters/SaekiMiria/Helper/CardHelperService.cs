@@ -12,6 +12,11 @@ namespace Manosaba.Characters.SaekiMiria.Helper
     {
         public static IEnumerable<CardModel> GetAvailableCards(Player player, IEnumerable<CardModel> cards, int count, Rng rng)
         {
+            if (player.Creature?.CombatState is not { } combatState)
+            {
+                return [];
+            }
+
             bool isMultiplayer = player.RunState.Players.Count > 1;
             IEnumerable<CardModel> availableCards = cards
                 .Where(c => !MiriaConstants.IsIgnoredCard(c));
@@ -23,7 +28,7 @@ namespace Manosaba.Characters.SaekiMiria.Helper
             }
 
             return from c in availableCards.TakeRandom(count, rng)
-                   select player.Creature.CombatState.CreateCard(c, player);
+                   select combatState.CreateCard(c, player);
         }
     }
 }

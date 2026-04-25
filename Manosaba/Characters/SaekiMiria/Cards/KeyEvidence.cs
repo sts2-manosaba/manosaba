@@ -39,7 +39,11 @@ namespace Manosaba.Characters.SaekiMiria.Cards
             int voteStacks = Owner.Creature.GetPowerAmount<VotePower>();
             int hitCount = voteStacks;
 
-            Creature target = cardPlay.Target;
+            if (cardPlay.Target is not { } target)
+            {
+                return;
+            }
+
             await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
                 .FromCard(this)
                 .Targeting(target)

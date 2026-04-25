@@ -35,16 +35,25 @@ namespace Manosaba.Characters.SaekiMiria.Cards
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
+            if (base.CombatState is not { } combatState || base.Owner.Creature is not { } ownerCreature)
+            {
+                return;
+            }
 
-            IEnumerable<Player> enumerable = from c in base.CombatState.GetTeammatesOf(base.Owner.Creature)
-                                             where c != null && c.IsAlive && c.IsPlayer
+            IEnumerable<Player> enumerable = from c in combatState.GetTeammatesOf(ownerCreature)
+                                             where c != null && c.IsAlive && c.IsPlayer && c.Player != null
                                              select c.Player;
 
             foreach (Player item in enumerable)
             {
+                if (item.Creature == null)
+                {
+                    continue;
+                }
+
                 Console.WriteLine($"Applying MemorySharingPower to {item.Creature.Name}");
-                MemorySharingPower? selfPower = await PowerCmd.Apply<MemorySharingPower>(item.Creature, 1m, base.Owner.Creature, this);
-                selfPower?.SetApplier(base.Owner.Creature);
+                MemorySharingPower? selfPower = await PowerCmd.Apply<MemorySharingPower>(item.Creature, 1m, ownerCreature, this);
+                selfPower?.SetApplier(ownerCreature);
                 if (base.IsUpgraded) selfPower?.SetUpgraded();
             }
             
