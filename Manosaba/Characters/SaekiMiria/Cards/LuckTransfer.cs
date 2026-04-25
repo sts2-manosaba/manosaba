@@ -86,6 +86,6 @@ public sealed class LuckTransfer : PathCustomCardModel
 
     protected override void OnUpgrade()
     {
-        DynamicVars["Multiplier"].UpgradeValueBy(3m);
+        DynamicVars["Multiplier"].UpgradeValueBy(2m);
     }
 }
