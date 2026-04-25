@@ -558,5 +558,7 @@
   "MANOSABA-HORROR_MOVIE.title": "공포 영화",
   "MANOSABA-HORROR_MOVIE.description": "카드를 {Cards:diff()}장 뽑습니다.\n[gold]마녀화[/gold]를 {MajokaPower:diff()} 얻습니다.",
   "MANOSABA-FANTASY_MOVIE.title": "판타지 영화",
-  "MANOSABA-FANTASY_MOVIE.description": "카드를 {Cards:diff()}장 뽑습니다."
+  "MANOSABA-FANTASY_MOVIE.description": "카드를 {Cards:diff()}장 뽑습니다.",
+  "MANOSABA-TEST_WAIT.title": "test_wait",
+  "MANOSABA-TEST_WAIT.description": "15초 대기합니다."
 }

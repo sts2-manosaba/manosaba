@@ -560,5 +560,7 @@
   "MANOSABA-HORROR_MOVIE.title": "ホラー映画",
   "MANOSABA-HORROR_MOVIE.description": "{Cards:diff()}枚引く。\n{MajokaPower:diff()}層の[gold]魔女化[/gold]を得る。",
   "MANOSABA-FANTASY_MOVIE.title": "ファンタジー映画",
-  "MANOSABA-FANTASY_MOVIE.description": "{Cards:diff()}枚引く。"
+  "MANOSABA-FANTASY_MOVIE.description": "{Cards:diff()}枚引く。",
+  "MANOSABA-TEST_WAIT.title": "test_wait",
+  "MANOSABA-TEST_WAIT.description": "15秒待機する。"
 }
