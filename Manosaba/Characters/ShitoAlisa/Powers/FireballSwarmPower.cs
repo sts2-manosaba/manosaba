@@ -1,0 +1,113 @@
+using Manosaba.Characters.ShitoAlisa.Visuals;
+using Manosaba.Extensions;
+using MegaCrit.Sts2.Core.Entities.Cards;
+using MegaCrit.Sts2.Core.Entities.Creatures;
+using MegaCrit.Sts2.Core.Entities.Powers;
+using MegaCrit.Sts2.Core.GameActions.Multiplayer;
+using MegaCrit.Sts2.Core.Helpers;
+using MegaCrit.Sts2.Core.HoverTips;
+using MegaCrit.Sts2.Core.Localization;
+using MegaCrit.Sts2.Core.Models;
+using MegaCrit.Sts2.Core.TestSupport;
+using MegaCrit.Sts2.Core.ValueProps;
+
+namespace Manosaba.Characters.ShitoAlisa.Powers;
+
+/// <summary>Amount = orbiting fireball stacks (max <see cref="FireballOrbitRing.MaxOrbs"/>). After block, each orb can absorb up to <see cref="DamageAbsorbedPerOrb"/> HP loss.</summary>
+public sealed class FireballSwarmPower : PathCustomPowerModel
+{
+    public const int DamageAbsorbedPerOrb = 2;
+
+    public override PowerType Type => PowerType.Buff;
+    public override PowerStackType StackType => PowerStackType.Counter;
+
+    /// <summary>Orbiting fireballs show the effect via hover on each orb (like Sovereign Blade), not the power row.</summary>
+    protected override bool IsVisibleInternal => false;
+
+    /// <summary>
+    /// Tooltip for orb hover. Vanilla <see cref="PowerModel.DumbHoverTip"/> does not call <c>LocString.Add("Amount", …)</c>
+    /// (only <c>AddDumbVariablesToDescription</c> for star/energy), so <c>{Amount}</c> would stay unreplaced.
+    /// This mirrors the variable injection used in <see cref="PowerModel.HoverTips"/> for smart descriptions.
+    /// </summary>
+    public HoverTip CreateOrbitHoverTip()
+    {
+        LocString locString = HasSmartDescription ? SmartDescription : Description;
+        locString.Add("Amount", Amount);
+        locString.Add("OnPlayer", Owner.IsPlayer);
+        locString.Add("IsMultiplayer", Owner.CombatState.Players.Count > 1);
+        locString.Add("PlayerCount", Owner.CombatState.Players.Count);
+        locString.Add("OwnerName", Owner.IsPlayer ? Owner.Player.Character.Title : Owner.Monster.Title);
+        if (Applier != null)
+            locString.Add("ApplierName", Applier.IsPlayer ? Applier.Player.Character.Title : Applier.Monster.Title);
+        if (Target != null)
+            locString.Add("TargetName", Target.IsPlayer ? Target.Player.Character.Title : Target.Monster.Title);
+        DynamicVars.AddTo(locString);
+        locString.Add("singleStarIcon", "[img]res://images/packed/sprite_fonts/star_icon.png[/img]");
+        locString.Add("energyPrefix", EnergyIconHelper.GetPrefix(this));
+        bool isSmart = HasSmartDescription && IsMutable;
+        return new HoverTip(this, locString.GetFormattedText(), isSmart);
+    }
+
+    public override Task AfterApplied(Creature? applier, CardModel? cardSource)
+    {
+        if (!TestMode.IsOn && Owner != null)
+            FireballOrbitVisuals.Sync(Owner, VisibleCount);
+        return Task.CompletedTask;
+    }
+
+    public override async Task AfterPowerAmountChanged(PowerModel power, decimal amount, Creature? applier, CardModel? cardSource)
+    {
+        await base.AfterPowerAmountChanged(power, amount, applier, cardSource);
+        if (power != this || TestMode.IsOn || Owner?.GetPower<FireballSwarmPower>() != this)
+            return;
+
+        if (Amount > FireballOrbitRing.MaxOrbs)
+            SetAmount(FireballOrbitRing.MaxOrbs, silent: true);
+
+        FireballOrbitVisuals.Sync(Owner, VisibleCountFor(Amount));
+    }
+
+    public override Task AfterRemoved(Creature oldOwner)
+    {
+        if (!TestMode.IsOn)
+            FireballOrbitVisuals.Sync(oldOwner, 0);
+        return Task.CompletedTask;
+    }
+
+    /// <summary>Runs after block; reduces HP loss and consumes whole orbs (each worth up to <see cref="DamageAbsorbedPerOrb"/>).</summary>
+    public override decimal ModifyHpLostBeforeOsty(Creature target, decimal amount, ValueProp props, Creature? dealer, CardModel? cardSource)
+    {
+        if (target != Owner || amount <= 0m)
+            return amount;
+
+        int orbs = Math.Min(FireballOrbitRing.MaxOrbs, Math.Max(0, Amount));
+        if (orbs <= 0)
+            return amount;
+
+        int orbsNeeded = (int)Math.Min(orbs, Math.Ceiling(amount / (decimal)DamageAbsorbedPerOrb));
+        decimal absorbed = orbsNeeded * (decimal)DamageAbsorbedPerOrb;
+        decimal newAmount = decimal.Max(0m, amount - absorbed);
+
+        if (orbsNeeded > 0)
+        {
+            Flash();
+            Creature ownerRef = Owner;
+            SetAmount(Amount - orbsNeeded, silent: true);
+            if (ShouldRemoveDueToAmount())
+            {
+                RemoveInternal();
+                if (!TestMode.IsOn)
+                    FireballOrbitVisuals.Sync(ownerRef, 0);
+            }
+            else if (!TestMode.IsOn)
+                FireballOrbitVisuals.Sync(ownerRef, VisibleCountFor(Amount));
+        }
+
+        return newAmount;
+    }
+
+    private int VisibleCount => VisibleCountFor(Amount);
+
+    private static int VisibleCountFor(decimal amount) =>
+        (int)Math.Clamp(Math.Floor(amount), 0, FireballOrbitRing.MaxOrbs);
+}

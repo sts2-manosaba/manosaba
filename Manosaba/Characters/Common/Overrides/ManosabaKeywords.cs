@@ -1,4 +1,4 @@
-﻿using BaseLib.Patches.Content;
+using BaseLib.Patches.Content;
 using Manosaba.Characters.NikaidoHiro.Powers;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
@@ -32,6 +32,14 @@ namespace Manosaba.Characters.Common.Overrides
         [CustomEnum("gun_shot")]
         [KeywordProperties(AutoKeywordPosition.Before)]
         public static CardKeyword GunShot;
+
+        [CustomEnum("combust")]
+        [KeywordProperties(AutoKeywordPosition.After)]
+        public static CardKeyword Combust;
+
+        [CustomEnum("combust_ignite")]
+        [KeywordProperties(AutoKeywordPosition.After)]
+        public static CardKeyword CombustIgnite;
 
         public readonly record struct StanceBonus(decimal BonusDamage, decimal BonusBlock);
 

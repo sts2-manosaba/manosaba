@@ -43,5 +43,9 @@
   "MANOSABA-TAROT_DECK.completed": "수집 완료",
   "MANOSABA-CLIPBOARD.title": "클립보드",
   "MANOSABA-CLIPBOARD.description": "전투 시작 시 [gold]언령[/gold]을 {KotodamaEnergy} 얻습니다.\n이 유물의 레벨이 1 오를 때마다 이 수치가 +1 됩니다.",
-  "MANOSABA-CLIPBOARD.flavor": "적어 내려간 모든 말은 힘이 된다."
+  "MANOSABA-CLIPBOARD.flavor": "적어 내려간 모든 말은 힘이 된다.",
+  "MANOSABA-LEG_IRONS.title": "족쇄",
+  "MANOSABA-LEG_IRONS.description": "전투 시작 시 이 유물 레벨과 같은 층수만큼 [gold]파이어볼 무리[/gold] 중첩을 얻습니다.\nLv2: [gold]파이어볼 무리[/gold]를 1중첩 얻을 때마다 [gold]마녀화[/gold]를 [blue]5[/blue]중첩 얻습니다.\nLv4: 턴 종료 시 현재 [gold]파이어볼 무리[/gold] 중첩 수만큼 HP를 회복합니다.",
+  "MANOSABA-LEG_IRONS.flavor": "왜지? 왜 아무도 나를 비난하지 않는 거야?",
+  "MANOSABA-LEG_IRONS.selectionScreenPrompt": "[gold]연소[/gold]가 있는 손의 카드를 고릅니다."
 }

@@ -69,7 +69,6 @@
   "MANOSABA-SAEKI_MIRIA.cardsModifierDescription": "",
   "MANOSABA-SAEKI_MIRIA.banter.alive.endTurnPing": "大、大叔沒關係你們慢慢來。",
   "MANOSABA-SAEKI_MIRIA.banter.dead.endTurnPing": "...",
-
   "MANOSABA-HASUMI_LEIA.title": "蓮見蕾亞",
   "MANOSABA-HASUMI_LEIA.titleObject": "",
   "MANOSABA-HASUMI_LEIA.description": "我想保護大家。這不是理所當然的事嗎?",
@@ -84,7 +83,6 @@
   "MANOSABA-HASUMI_LEIA.cardsModifierDescription": "",
   "MANOSABA-HASUMI_LEIA.banter.alive.endTurnPing": "你還需要一些時間嗎?",
   "MANOSABA-HASUMI_LEIA.banter.dead.endTurnPing": "...",
-
   "MANOSABA-KUROBE_NANOKA.title": "黑部奈葉香",
   "MANOSABA-KUROBE_NANOKA.titleObject": "",
   "MANOSABA-KUROBE_NANOKA.description": "我是黑部奈葉香。請多多指教。",
@@ -99,7 +97,6 @@
   "MANOSABA-KUROBE_NANOKA.cardsModifierDescription": "",
   "MANOSABA-KUROBE_NANOKA.banter.alive.endTurnPing": "...。",
   "MANOSABA-KUROBE_NANOKA.banter.dead.endTurnPing": "...",
-
   "MANOSABA-TONO_HANNA.title": "遠野漢娜",
   "MANOSABA-TONO_HANNA.titleObject": "",
   "MANOSABA-TONO_HANNA.description": "真是落魄啊~！我勸你還是放棄好了！？",
@@ -142,5 +139,19 @@
   "MANOSABA-NATSUME_ANAN.cardsModifierDescription": "",
   "MANOSABA-NATSUME_ANAN.banter.alive.endTurnPing": "...",
   "MANOSABA-NATSUME_ANAN.banter.dead.endTurnPing": "...",
-  "MANOSABA.mod_title": "Manosaba"
+  "MANOSABA.mod_title": "Manosaba",
+  "MANOSABA-SHITO_ALISA.title": "紫藤亞里莎",
+  "MANOSABA-SHITO_ALISA.titleObject": "",
+  "MANOSABA-SHITO_ALISA.description": "別再靠近我了。再靠近我就揍你。",
+  "MANOSABA-SHITO_ALISA.pronounObject": "她",
+  "MANOSABA-SHITO_ALISA.possessiveAdjective": "她的",
+  "MANOSABA-SHITO_ALISA.pronounPossessive": "她的",
+  "MANOSABA-SHITO_ALISA.pronounSubject": "她",
+  "MANOSABA-SHITO_ALISA.goldMonologue": "",
+  "MANOSABA-SHITO_ALISA.eventDeathPrevention": "",
+  "MANOSABA-SHITO_ALISA.aromaPrinciple": "",
+  "MANOSABA-SHITO_ALISA.cardsModifierTitle": "",
+  "MANOSABA-SHITO_ALISA.cardsModifierDescription": "",
+  "MANOSABA-SHITO_ALISA.banter.alive.endTurnPing": "——快走！不要讓我殺人！",
+  "MANOSABA-SHITO_ALISA.banter.dead.endTurnPing": "......"
 }

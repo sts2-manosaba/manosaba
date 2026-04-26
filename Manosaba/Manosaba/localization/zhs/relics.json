@@ -14,11 +14,9 @@
   "MANOSABA-CABINET_KEY.title": "小鑰匙",
   "MANOSABA-CABINET_KEY.description": "在敵方回合結束前，你每擁有 {BlockPerMovie} 點[gold]格擋[/gold]（無條件進位）便將 1 張隨機電影牌加入[gold]抽牌堆[/gold]，每回合最多加入 {MaxMovieCards} 張。\n每升級一次，所需格擋減少 1。",
   "MANOSABA-CABINET_KEY.flavor": "這是用來開啟什麼用的鑰匙?",
-
   "MANOSABA-RAPIER.title": "細劍",
   "MANOSABA-RAPIER.description": "受到攻擊時，對攻擊者造成格檔傷害量的60%的傷害。\n此傷害可以被其他效果影響。每次升級提高10%",
   "MANOSABA-RAPIER.flavor": "為什麼有人有武器阿?",
-
   "MANOSABA-MAGICAL_GUN.title": "奈葉香的槍",
   "MANOSABA-MAGICAL_GUN.description": "可以使用[gold]槍擊[/gold]卡牌。每場戰鬥開始時持有 1 發子彈；[gold]黑色緞帶[/gold]在 Lv2 與 Lv4 時各額外多 1 發。你的回合開始時獲得 1 發子彈；若[gold]魔女化[/gold]達到 100 以上，則改為獲得 2 發。最多可裝 6 發子彈。",
   "MANOSABA-MAGICAL_GUN.flavor": "某一屆前輩留下來的槍",
@@ -31,7 +29,6 @@
   "MANOSABA-HAND_GUN.title": "手槍",
   "MANOSABA-HAND_GUN.description": "每場戰鬥一次，即將受10點以上的生命傷害時，對該名敵人造成[blue]30[/blue]傷害。",
   "MANOSABA-HAND_GUN.flavor": "切到小槍永遠比換子彈快。",
-
   "MANOSABA-FRUGAL.title": "節儉",
   "MANOSABA-FRUGAL.description": "在你的回合結束時，每有1點未使用的能量，獲得 {GoldPerEnergy} [gold]金幣[/gold]，每場戰鬥最多5點。\n遺物升級時，從全部\"人偶\"牌中隨機將 1 張加入牌組。\nLv2 起，每當獲得[gold]人偶收藏[/gold]時，獲得 10 層[gold]魔女化[/gold]。\nLv4 起，戰鬥開始時，每100[gold]金幣[/gold]獲得1點能量。",
   "MANOSABA-FRUGAL.combatEnergyTrack": "本場戰鬥已將 {CombatUnspentEnergyGold}/{MaxUnspentEnergyCombat} 點剩餘能量換成金幣。",
@@ -43,5 +40,9 @@
   "MANOSABA-TAROT_DECK.completed": "已蒐集完成",
   "MANOSABA-CLIPBOARD.title": "剪貼板",
   "MANOSABA-CLIPBOARD.description": "戰鬥開始時，獲得 {KotodamaEnergy} 點[gold]言靈[/gold]。\n此遺物每升 1 級，數值 +1。",
-  "MANOSABA-CLIPBOARD.flavor": "寫下的每個字，都會變成力量。"
+  "MANOSABA-CLIPBOARD.flavor": "寫下的每個字，都會變成力量。",
+  "MANOSABA-LEG_IRONS.title": "腳鐐",
+  "MANOSABA-LEG_IRONS.description": "戰鬥開始時，獲得與此遺物等級相同層數的[gold]火球環繞[/gold]。\nLv2：每獲得 1 層[gold]火球環繞[/gold]，獲得 [blue]5[/blue] 層[gold]魔女化[/gold]。\nLv4：回合結束時，回復等同於[gold]火球環繞[/gold]層數的生命。",
+  "MANOSABA-LEG_IRONS.flavor": "為甚麼？為甚麼他們都不罵我？",
+  "MANOSABA-LEG_IRONS.selectionScreenPrompt": "選擇一張帶有燃燒的手牌。"
 }

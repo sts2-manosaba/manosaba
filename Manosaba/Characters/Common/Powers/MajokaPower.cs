@@ -7,6 +7,7 @@ using Manosaba.Characters.JogasakiNoahCard.Cards;
 using Manosaba.Characters.KurobeNanoka.Cards;
 using Manosaba.Characters.NikaidoHiro.Cards;
 using Manosaba.Characters.SaekiMiria.Cards;
+using Manosaba.Characters.ShitoAlisa.Cards;
 using Manosaba.Characters.TachibanaSherry.Cards;
 using Manosaba.Characters.TonoHanna.Cards;
 using Manosaba.Extensions;
@@ -45,6 +46,7 @@ namespace Manosaba.Characters.Common.Powers
             { "hosho_mago", typeof(Echoes)},
             { "hasumi_leia", typeof(GazeGuiding)},
             { "kurobe_nanoka", typeof(HallucinationMagic)},
+            { "shito_alisa", typeof(FireJudgementCourt)},
             { "natsume_anan", typeof(Brainwash)},
         };
 

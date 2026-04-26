@@ -8,6 +8,7 @@ using manosaba.Characters.NatsumeAnan.Relics;
 using manosaba.Characters.NikaidoHiro.Relics;
 using manosaba.Characters.SaekiMiria.Relics;
 using manosaba.Characters.TachibanaSherry.Relics;
+using manosaba.Characters.ShitoAlisa;
 using manosaba.Characters.TonoHanna.Relics;
 using Manosaba.Characters.JogasakiNoah.Potions;
 using Manosaba.Config;
@@ -37,6 +38,7 @@ public class Entry
         SavedPropertiesTypeCache.InjectTypeIntoCache(typeof(FairyHeart));
         SavedPropertiesTypeCache.InjectTypeIntoCache(typeof(Frugal));
         SavedPropertiesTypeCache.InjectTypeIntoCache(typeof(Ribbon));
+        SavedPropertiesTypeCache.InjectTypeIntoCache(typeof(LegIrons));
         SavedPropertiesTypeCache.InjectTypeIntoCache(typeof(Clipboard));
         // 使得tscn可以加载自定义脚本
         ScriptManagerBridge.LookupScriptsInAssembly(typeof(Entry).Assembly);

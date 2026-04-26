@@ -139,5 +139,19 @@
   "MANOSABA-NATSUME_ANAN.cardsModifierDescription": "",
   "MANOSABA-NATSUME_ANAN.banter.alive.endTurnPing": "...",
   "MANOSABA-NATSUME_ANAN.banter.dead.endTurnPing": "...",
-  "MANOSABA.mod_title": "Manosaba"
+  "MANOSABA.mod_title": "Manosaba",
+  "MANOSABA-SHITO_ALISA.title": "紫藤アリサ",
+  "MANOSABA-SHITO_ALISA.titleObject": "",
+  "MANOSABA-SHITO_ALISA.description": "もう近寄らないで。これ以上近づいたら殴るから。",
+  "MANOSABA-SHITO_ALISA.pronounObject": "彼女",
+  "MANOSABA-SHITO_ALISA.possessiveAdjective": "彼女の",
+  "MANOSABA-SHITO_ALISA.pronounPossessive": "彼女の",
+  "MANOSABA-SHITO_ALISA.pronounSubject": "彼女",
+  "MANOSABA-SHITO_ALISA.goldMonologue": "",
+  "MANOSABA-SHITO_ALISA.eventDeathPrevention": "",
+  "MANOSABA-SHITO_ALISA.aromaPrinciple": "",
+  "MANOSABA-SHITO_ALISA.cardsModifierTitle": "",
+  "MANOSABA-SHITO_ALISA.cardsModifierDescription": "",
+  "MANOSABA-SHITO_ALISA.banter.alive.endTurnPing": "——早く行って！私を人殺しにしないで！",
+  "MANOSABA-SHITO_ALISA.banter.dead.endTurnPing": "......"
 }

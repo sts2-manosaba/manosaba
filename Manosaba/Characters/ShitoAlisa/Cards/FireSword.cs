@@ -1,0 +1,42 @@
+using BaseLib.Utils;
+using manosaba.Characters.ShitoAlisa;
+using Manosaba.Characters.Common.Powers;
+using Manosaba.Extensions;
+using MegaCrit.Sts2.Core.Commands;
+using MegaCrit.Sts2.Core.Entities.Cards;
+using MegaCrit.Sts2.Core.GameActions.Multiplayer;
+using MegaCrit.Sts2.Core.HoverTips;
+using MegaCrit.Sts2.Core.Localization.DynamicVars;
+using MegaCrit.Sts2.Core.ValueProps;
+
+namespace Manosaba.Characters.ShitoAlisa.Cards;
+
+[Pool(typeof(ShitoAlisaCardPool))]
+public class FireSword : ShitoAlisaCardModel
+{
+    private const int EnergyCost = 1;
+    private const CardType TypeValue = CardType.Attack;
+    private const CardRarity Rarity = CardRarity.Common;
+    private const TargetType TargetTypeValue = TargetType.AnyEnemy;
+    private const bool ShouldShowInCardLibrary = true;
+
+    protected override IEnumerable<DynamicVar> CanonicalVars => WithCombust(0, new DamageVar(6, ValueProp.Move), new PowerVar<BurnPower>(5m));
+    protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<BurnPower>()];
+
+    public FireSword() : base(EnergyCost, TypeValue, Rarity, TargetTypeValue, ShouldShowInCardLibrary)
+    {
+    }
+
+    protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
+    {
+        ArgumentNullException.ThrowIfNull(cardPlay.Target);
+        await DamageCmd.Attack(DynamicVars.Damage.BaseValue).FromCard(this).Targeting(cardPlay.Target).Execute(choiceContext);
+        await PowerCmd.Apply<BurnPower>(cardPlay.Target, DynamicVars["BurnPower"].BaseValue, Owner.Creature, this);
+    }
+
+    protected override void OnUpgrade()
+    {
+        DynamicVars.Damage.UpgradeValueBy(2);
+        DynamicVars["BurnPower"].UpgradeValueBy(1m);
+    }
+}

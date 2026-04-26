@@ -10,5 +10,9 @@
   "MANOSABA-LOW_STANCE.title": "下段の構え",
   "MANOSABA-LOW_STANCE.description": "下段の構えに切り替える。",
   "MANOSABA-GUN_SHOT.title": "銃撃",
-  "MANOSABA-GUN_SHOT.description": "弾丸を消費して攻撃する。残りの弾数は[gold]ナノカの銃[/gold]に表示される。"
+  "MANOSABA-GUN_SHOT.description": "弾丸を消費して攻撃する。残りの弾数は[gold]ナノカの銃[/gold]に表示される。",
+  "MANOSABA-COMBUST.title": "燃焼",
+  "MANOSABA-COMBUST.description": "このカードを引くたびに燃焼値が1減る。0になると自動でプレイされ、初期の燃焼値に戻る。",
+  "MANOSABA-COMBUST_IGNITE.title": "着火",
+  "MANOSABA-COMBUST_IGNITE.description": "選択帯[gold]燃焼[/gold]のカードの現在のカウントダウンを、指定量だけ減らす（0未満にはならない）。"
 }

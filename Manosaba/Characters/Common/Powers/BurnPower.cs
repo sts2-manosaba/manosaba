@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
+using System.Linq;
+using Manosaba.Characters.ShitoAlisa.Powers;
 using Manosaba.Extensions;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Combat;
@@ -49,7 +51,8 @@ public class BurnPower : PathCustomPowerModel
             return;
         }
 
-        int iterations = 1;
+        int extra = combatState.Allies.Sum(c => (int)c.GetPowerAmount<ThisIsFinePower>());
+        int iterations = 1 + extra;
         for (int i = 0; i < iterations; i++)
         {
             await CreatureCmd.Damage(new ThrowingPlayerChoiceContext(), base.Owner, base.Amount, ValueProp.Unblockable | ValueProp.Unpowered, null, null);

@@ -69,7 +69,6 @@
   "MANOSABA-SAEKI_MIRIA.cardsModifierDescription": "",
   "MANOSABA-SAEKI_MIRIA.banter.alive.endTurnPing": "아...아저씨는 괜찮아요, 천천히 하셔도 돼요.",
   "MANOSABA-SAEKI_MIRIA.banter.dead.endTurnPing": "...",
-
   "MANOSABA-HASUMI_LEIA.title": "하스미 레이아",
   "MANOSABA-HASUMI_LEIA.titleObject": "",
   "MANOSABA-HASUMI_LEIA.description": "먼저 소개할게. 내 이름은 하스미 레이아. 기획사에 소속되어 있으니까. 이것저것 활동하고 있어. 모두 살아남아서 반드시 이곳을 나가는거야.",
@@ -84,7 +83,6 @@
   "MANOSABA-HASUMI_LEIA.cardsModifierDescription": "",
   "MANOSABA-HASUMI_LEIA.banter.alive.endTurnPing": "아...아저씨는 괜찮아요, 천천히 하셔도 돼요.",
   "MANOSABA-HASUMI_LEIA.banter.dead.endTurnPing": "...",
-
   "MANOSABA-KUROBE_NANOKA.title": "쿠로베 나노카",
   "MANOSABA-KUROBE_NANOKA.titleObject": "",
   "MANOSABA-KUROBE_NANOKA.description": "쿠로베 나노카입니다. 잘 부탁드립니다.",
@@ -99,7 +97,6 @@
   "MANOSABA-KUROBE_NANOKA.cardsModifierDescription": "",
   "MANOSABA-KUROBE_NANOKA.banter.alive.endTurnPing": "",
   "MANOSABA-KUROBE_NANOKA.banter.dead.endTurnPing": "...",
-
   "MANOSABA-TONO_HANNA.title": "토노 한나",
   "MANOSABA-TONO_HANNA.titleObject": "",
   "MANOSABA-TONO_HANNA.description": "흥, 토노 한나랍니다. 똑토키... 똑똑히 기억해두셰 세... 이런 곳에 갇혀서 앞으로 어떻게 되어버리는 건가요? 이놈이고 저놈이고 얼마나 바보인지?",
@@ -142,5 +139,19 @@
   "MANOSABA-NATSUME_ANAN.cardsModifierDescription": "",
   "MANOSABA-NATSUME_ANAN.banter.alive.endTurnPing": "...",
   "MANOSABA-NATSUME_ANAN.banter.dead.endTurnPing": "...",
-  "MANOSABA.mod_title": "Manosaba"
+  "MANOSABA.mod_title": "Manosaba",
+  "MANOSABA-SHITO_ALISA.title": "시토 아리사",
+  "MANOSABA-SHITO_ALISA.titleObject": "",
+  "MANOSABA-SHITO_ALISA.description": "더 이상 가까이 오지 마. 더 가까이 오면 때릴 거야.",
+  "MANOSABA-SHITO_ALISA.pronounObject": "그녀",
+  "MANOSABA-SHITO_ALISA.possessiveAdjective": "그녀의",
+  "MANOSABA-SHITO_ALISA.pronounPossessive": "그녀의",
+  "MANOSABA-SHITO_ALISA.pronounSubject": "그녀",
+  "MANOSABA-SHITO_ALISA.goldMonologue": "",
+  "MANOSABA-SHITO_ALISA.eventDeathPrevention": "",
+  "MANOSABA-SHITO_ALISA.aromaPrinciple": "",
+  "MANOSABA-SHITO_ALISA.cardsModifierTitle": "",
+  "MANOSABA-SHITO_ALISA.cardsModifierDescription": "",
+  "MANOSABA-SHITO_ALISA.banter.alive.endTurnPing": "——빨리 가! 나를 살인자로 만들지 마!",
+  "MANOSABA-SHITO_ALISA.banter.dead.endTurnPing": "......"
 }
