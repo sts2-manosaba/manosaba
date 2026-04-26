@@ -39,7 +39,7 @@ public class SpreadBurn : ShitoAlisaCardModel
             return;
 
         int spreadCount = 0;
-        foreach (Creature enemy in CombatState.GetOpponentsOf(Owner.Creature))
+        foreach (Creature enemy in CombatState.GetOpponentsOf(Owner.Creature).ToList())
         {
             if (!enemy.IsAlive || !enemy.IsHittable || enemy == cardPlay.Target)
                 continue;

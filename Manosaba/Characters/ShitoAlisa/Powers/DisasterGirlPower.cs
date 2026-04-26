@@ -18,15 +18,22 @@ namespace Manosaba.Characters.ShitoAlisa.Powers;
 /// <summary>每累積給予敵人足夠層灼燒後，對一名隨機敵人造成傷害。</summary>
 public sealed class DisasterGirlPower : PathCustomPowerModel
 {
+    private sealed class Data
+    {
+        public int BurnCredit;
+        public readonly List<decimal> DamagePerStackLayer = [];
+    }
+
+    private const int BurnThreshold = 5;
+
     public override PowerType Type => PowerType.Buff;
     public override PowerStackType StackType => PowerStackType.Counter;
+    public override int DisplayAmount => GetInternalData<Data>().BurnCredit;
 
     protected override IEnumerable<DynamicVar> CanonicalVars => [new DynamicVar("Damage", 7m)];
 
-    /// <summary>每層能力對應打出該層時 <see cref="DisasterGirl"/> 卡上的傷害值（未升級 7、升級 11 等），觸發時加總結算。</summary>
-    private readonly List<decimal> _damagePerStackLayer = [];
-
-    private int _burnCredit;
+    /// <summary>戰鬥狀態放在 <see cref="InitInternalData"/>；戰鬥結束能力移除後即丟棄（同原版 Outbreak 模式）。</summary>
+    protected override object InitInternalData() => new Data();
 
     public override async Task AfterPowerAmountChanged(PowerModel power, decimal amount, Creature? applier, CardModel? cardSource)
     {
@@ -34,17 +41,18 @@ public sealed class DisasterGirlPower : PathCustomPowerModel
 
         if (power == this)
         {
+            List<decimal> layers = GetInternalData<Data>().DamagePerStackLayer;
             if (amount > 0m && cardSource is DisasterGirl dg
                 && dg.DynamicVars.TryGetValue("DisasterGirlDmg", out DynamicVar? dmgVar))
             {
                 for (int i = 0; i < (int)amount; i++)
-                    _damagePerStackLayer.Add(dmgVar.BaseValue);
+                    layers.Add(dmgVar.BaseValue);
             }
             else if (amount < 0m)
             {
                 int remove = (int)(-amount);
-                for (int r = 0; r < remove && _damagePerStackLayer.Count > 0; r++)
-                    _damagePerStackLayer.RemoveAt(_damagePerStackLayer.Count - 1);
+                for (int r = 0; r < remove && layers.Count > 0; r++)
+                    layers.RemoveAt(layers.Count - 1);
             }
 
             DynamicVars["Damage"].BaseValue = TotalTriggerDamage();
@@ -59,11 +67,12 @@ public sealed class DisasterGirlPower : PathCustomPowerModel
         if (amount <= 0m)
             return;
 
-        _burnCredit += (int)amount;
-        int threshold = 5;
-        while (_burnCredit >= threshold)
+        Data data = GetInternalData<Data>();
+        data.BurnCredit += (int)amount;
+        while (data.BurnCredit >= BurnThreshold)
         {
-            _burnCredit -= threshold;
+            data.BurnCredit -= BurnThreshold;
+            InvokeDisplayAmountChanged();
             Flash();
             if (CombatState == null)
                 return;
@@ -78,10 +87,14 @@ public sealed class DisasterGirlPower : PathCustomPowerModel
             Creature target = CombatState.RunState.Rng.CombatTargets.NextItem(enemies);
             await CreatureCmd.Damage(new ThrowingPlayerChoiceContext(), target, dmg, ValueProp.Unpowered, Owner, null);
         }
+        InvokeDisplayAmountChanged();
     }
 
     private decimal TotalTriggerDamage()
-        => _damagePerStackLayer.Count > 0 ? _damagePerStackLayer.Sum() : 7m;
+    {
+        List<decimal> layers = GetInternalData<Data>().DamagePerStackLayer;
+        return layers.Count > 0 ? layers.Sum() : 7m;
+    }
 
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<BurnPower>(), HoverTipFactory.FromPower<FireballSwarmPower>()];
 }

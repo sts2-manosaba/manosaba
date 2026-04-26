@@ -639,7 +639,7 @@
   "MANOSABA-FLAMING.description": "給予所有敵人 {BurnPower:diff()} 層[gold]灼燒[/gold]。\n獲得 [blue]1[/blue] 層[gold]火球環繞[/gold]。",
   "MANOSABA-FIRE_JUDGEMENT_COURT.title": "火燒審判庭",
   "MANOSABA-FIRE_JUDGEMENT_COURT.description": "給予全部敵人 {BurnPower:diff()} 層[gold]灼燒[/gold]。\n根據[gold]魔女化[/gold]程度，馬上觸發 {BurnTriggerCount:diff()} 次[gold]灼燒[/gold]效果（最多 3 次）。",
-  "MANOSABA-SWEEP_UP.title": "獲得1層火球環繞",
+  "MANOSABA-SWEEP_UP.title": "掃除",
   "MANOSABA-SWEEP_UP.description": "抽 {Cards:diff()} 張牌。\n獲得 [blue]1[/blue] 層[gold]火球環繞[/gold]。",
   "MANOSABA-LOVE_FLAME.title": "愛情之火",
   "MANOSABA-LOVE_FLAME.description": "減少 2 層[gold]火球環繞[/gold]才能發動。\n獲得 {Energy:energyIcons()}。",

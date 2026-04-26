@@ -645,7 +645,7 @@
   "MANOSABA-THIS_IS_FINE.description": "[gold]Burn[/gold] triggers an additional {ThisIsFinePower:diff()} time(s).",
   "MANOSABA-FIRE_JUDGEMENT_COURT.title": "Fire Judgement Court",
   "MANOSABA-FIRE_JUDGEMENT_COURT.description": "Apply {BurnPower:diff()} [gold]Burn[/gold] to all enemies.\nImmediately trigger [gold]Burn[/gold] effects {BurnTriggerCount:diff()} time(s) based on your [gold]Majoka[/gold] (max 3).",
-  "MANOSABA-SWEEP_UP.title": "Gain Fireball Swarm",
+  "MANOSABA-SWEEP_UP.title": "Sweep Up",
   "MANOSABA-SWEEP_UP.description": "Draw {Cards:diff()} cards.\nGain [blue]1[/blue] [gold]Fireball Swarm[/gold].",
   "MANOSABA-LOVE_FLAME.title": "Flame of Love",
   "MANOSABA-LOVE_FLAME.description": "Can only be played if you can lose 2 [gold]Fireball Swarm[/gold].\nGain {Energy:energyIcons()}.",

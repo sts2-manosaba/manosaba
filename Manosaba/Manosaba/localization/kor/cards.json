@@ -639,7 +639,7 @@
   "MANOSABA-FLAMING.description": "모든 적에게 {BurnPower:diff()} [gold]화상[/gold]을 부여합니다.\n[gold]파이어볼 무리[/gold]를 [blue]1[/blue] 얻습니다.",
   "MANOSABA-FIRE_JUDGEMENT_COURT.title": "화형 심판정",
   "MANOSABA-FIRE_JUDGEMENT_COURT.description": "모든 적에게 {BurnPower:diff()} [gold]화상[/gold]을 부여합니다.\n[gold]마녀화[/gold] 수치에 따라 [gold]화상[/gold] 효과를 즉시 {BurnTriggerCount:diff()}회 발동합니다(최대 3회).",
-  "MANOSABA-SWEEP_UP.title": "파이어볼 무리 획득",
+  "MANOSABA-SWEEP_UP.title": "청소",
   "MANOSABA-SWEEP_UP.description": "카드를 {Cards:diff()}장 뽑습니다.\n[gold]파이어볼 무리[/gold]를 [blue]1[/blue] 얻습니다.",
   "MANOSABA-LOVE_FLAME.title": "사랑의 불꽃",
   "MANOSABA-LOVE_FLAME.description": "[gold]파이어볼 무리[/gold]를 2 줄일 수 있을 때만 사용할 수 있습니다.\n{Energy:energyIcons()}을 얻습니다.",

@@ -639,7 +639,7 @@
   "MANOSABA-FLAMING.description": "すべての敵に{BurnPower:diff()}層の[gold]灼焼[/gold]を与える。\n[gold]ファイアボール[/gold]を[blue]1[/blue]層得る。",
   "MANOSABA-FIRE_JUDGEMENT_COURT.title": "火刑の審判廷",
   "MANOSABA-FIRE_JUDGEMENT_COURT.description": "すべての敵に{BurnPower:diff()}層の[gold]灼焼[/gold]を与える。\n[gold]魔女化[/gold]に応じて、[gold]灼焼[/gold]効果を即時{BurnTriggerCount:diff()}回発動する（最大3回）。",
-  "MANOSABA-SWEEP_UP.title": "ファイアボールを1層得る",
+  "MANOSABA-SWEEP_UP.title": "掃除",
   "MANOSABA-SWEEP_UP.description": "{Cards:diff()}枚引く。\n[gold]ファイアボール[/gold]を[blue]1[/blue]層得る。",
   "MANOSABA-LOVE_FLAME.title": "愛の炎",
   "MANOSABA-LOVE_FLAME.description": "[gold]ファイアボール[/gold]を2層減らせる場合のみ使用可能。\n{Energy:energyIcons()}を得る。",

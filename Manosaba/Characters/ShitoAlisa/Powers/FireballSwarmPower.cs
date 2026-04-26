@@ -21,7 +21,7 @@ public sealed class FireballSwarmPower : PathCustomPowerModel
     public override PowerType Type => PowerType.Buff;
     public override PowerStackType StackType => PowerStackType.Counter;
 
-    /// <summary>Orbiting fireballs show the effect via hover on each orb (like Sovereign Blade), not the power row.</summary>
+    /// <summary>Single orbiting fireball (scaled by stacks). Power row hidden; orb uses pass-through hitbox (no hover tip).</summary>
     protected override bool IsVisibleInternal => false;
 
     /// <summary>

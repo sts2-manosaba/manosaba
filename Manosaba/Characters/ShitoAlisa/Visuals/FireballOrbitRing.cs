@@ -6,18 +6,15 @@ using MegaCrit.Sts2.Core.Helpers;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Nodes.Combat;
 using MegaCrit.Sts2.Core.Nodes.HoverTips;
+using MegaCrit.Sts2.Core.Nodes.Orbs;
 using MegaCrit.Sts2.Core.Nodes.Rooms;
 using MegaCrit.Sts2.Core.Nodes.Screens.Capstones;
 
 namespace Manosaba.Characters.ShitoAlisa.Visuals;
 
 /// <summary>
-/// Regent <c>NSovereignBladeVfx</c> parity (see <c>_Process</c> there): sample a baked path with <c>SampleBakedWithRotation</c>,
-/// advance progress by <c>60 * delta / bakedLength</c> (here subtracted so the procedural circle reads counter-clockwise like the sovereign path) while no hover tooltip.
-/// Unlike sovereign (one blade), we do not <c>MoveChild</c> the ring to index 0 — that would draw every orb behind <see cref="NCreature.Visuals"/> and look like they vanish.
-/// Differences: one shared <c>_orbitProgress</c> for all orbs with phase <c>i / N</c>; procedural circle (not authored Path2D); small Y bob; all orbs stay above <see cref="NCreature.Visuals"/> (no per-orb negative <c>ZIndex</c>);
-/// Orbit center follows <see cref="NCreature.VfxSpawnPosition"/> each frame so the ring matches the character scene <c>%CenterPos</c>, not the Control origin at the feet.
-/// no blade-damage X lerp toward +200 nor spine <c>Lerp</c> chase; any orb hover pauses the whole ring (shared counter).
+/// One orbiting sprite on the baked circle path; scale grows with stack count up to <see cref="MaxOrbs"/>.
+/// Draws above <see cref="NCreature.Visuals"/> but <b>below</b> <see cref="NCreature.OrbManager"/> so player orb slots stay readable.
 /// </summary>
 public partial class FireballOrbitRing : Node2D
 {
@@ -29,22 +26,27 @@ public partial class FireballOrbitRing : Node2D
     private const float BobSpeed = 2.1f;
     private const int CurveBakeSegments = 48;
 
+    /// <summary>Sprite scale at 1 stack (matches prior per-orb size).</summary>
+    private const float MinOrbSpriteScale = 0.42f;
+
+    /// <summary>Sprite scale at <see cref="MaxOrbs"/> stacks.</summary>
+    private const float MaxOrbSpriteScale = 1.05f;
+
+    private const float ScaleLerpSpeed = 7f;
+
     private readonly Curve2D _orbitCurve = new();
-    private readonly FireballOrbitUnit[] _units = new FireballOrbitUnit[MaxOrbs];
+    private FireballOrbitUnit? _unit;
 
     private Creature? _owner;
     private NCreature? _creatureNode;
     private double _orbitProgress;
     private int _visibleCount;
     private int _hoverDepth;
-
-    private readonly Callable _targetingBeganCallable;
-    private readonly Callable _targetingEndedCallable;
+    private float _spriteScaleDisplay = MinOrbSpriteScale;
+    private float _spriteScaleTarget = MinOrbSpriteScale;
 
     public FireballOrbitRing()
     {
-        _targetingBeganCallable = Callable.From(OnTargetingBegan);
-        _targetingEndedCallable = Callable.From(OnTargetingEnded);
     }
 
     public static FireballOrbitRing GetOrCreate(NCreature creature)
@@ -66,22 +68,12 @@ public partial class FireballOrbitRing : Node2D
 
     public override void _Ready()
     {
-        // Positive z so orb subtree never sorts under NCreature siblings (e.g. Visuals) when units used path-based negative z.
-        ZIndex = 1;
+        // Same Z as NOrbManager (0): sibling index vs OrbManager decides stacking; ZIndex 1 would always paint above energy orbs.
+        ZIndex = 0;
 
-        for (int i = 0; i < MaxOrbs; i++)
-        {
-            var unit = new FireballOrbitUnit(this, i);
-            unit.Visible = false;
-            AddChild(unit);
-            _units[i] = unit;
-        }
-
-        if (NTargetManager.Instance != null)
-        {
-            NTargetManager.Instance.Connect(NTargetManager.SignalName.TargetingBegan, _targetingBeganCallable);
-            NTargetManager.Instance.Connect(NTargetManager.SignalName.TargetingEnded, _targetingEndedCallable);
-        }
+        _unit = new FireballOrbitUnit(this);
+        _unit.Visible = false;
+        AddChild(_unit);
 
         if (_owner != null)
             _owner.Died += OnOwnerDied;
@@ -92,16 +84,7 @@ public partial class FireballOrbitRing : Node2D
         if (_owner != null)
             _owner.Died -= OnOwnerDied;
 
-        if (NTargetManager.Instance != null)
-        {
-            if (NTargetManager.Instance.IsConnected(NTargetManager.SignalName.TargetingBegan, _targetingBeganCallable))
-                NTargetManager.Instance.Disconnect(NTargetManager.SignalName.TargetingBegan, _targetingBeganCallable);
-            if (NTargetManager.Instance.IsConnected(NTargetManager.SignalName.TargetingEnded, _targetingEndedCallable))
-                NTargetManager.Instance.Disconnect(NTargetManager.SignalName.TargetingEnded, _targetingEndedCallable);
-        }
-
-        foreach (FireballOrbitUnit u in _units)
-            u.ReleaseHoverTip();
+        _unit?.ReleaseHoverTip();
 
         base._ExitTree();
     }
@@ -122,8 +105,20 @@ public partial class FireballOrbitRing : Node2D
     {
         _visibleCount = Math.Clamp(count, 0, MaxOrbs);
         Visible = _visibleCount > 0;
-        for (int i = 0; i < MaxOrbs; i++)
-            _units[i].Visible = i < _visibleCount;
+        if (_unit != null)
+            _unit.Visible = _visibleCount > 0;
+
+        _spriteScaleTarget = SpriteScaleForStackCount(_visibleCount);
+        if (_visibleCount <= 0)
+            _spriteScaleDisplay = MinOrbSpriteScale;
+    }
+
+    private static float SpriteScaleForStackCount(int stacks)
+    {
+        if (stacks <= 0)
+            return MinOrbSpriteScale;
+        float t = (stacks - 1) / (float)Math.Max(1, MaxOrbs - 1);
+        return Mathf.Lerp(MinOrbSpriteScale, MaxOrbSpriteScale, t);
     }
 
     internal void NotifyUnitHoverEntered() => _hoverDepth++;
@@ -139,25 +134,35 @@ public partial class FireballOrbitRing : Node2D
     private static bool IsHandInCardPlay() =>
         NCombatRoom.Instance?.Ui.Hand.InCardPlay == true;
 
-    private void OnTargetingBegan()
-    {
-        foreach (FireballOrbitUnit u in _units)
-            u.SetHitboxMouseFilter(Control.MouseFilterEnum.Ignore);
-    }
-
-    private void OnTargetingEnded()
-    {
-        foreach (FireballOrbitUnit u in _units)
-            u.SetHitboxMouseFilter(Control.MouseFilterEnum.Stop);
-    }
-
     private void OnOwnerDied(Creature _)
     {
-        foreach (FireballOrbitUnit u in _units)
+        _unit?.ReleaseHoverTip();
+    }
+
+    /// <summary>
+    /// Keep the ring directly under <see cref="NCreature.OrbManager"/> in the sibling list so it draws behind energy orbs
+    /// (Godot: lower index = earlier draw). Monsters have no orb manager → keep on top of other creature children.
+    /// </summary>
+    private void EnsureSiblingDrawOrderUnderOrbs()
+    {
+        if (_creatureNode == null || GetParent() != _creatureNode)
+            return;
+
+        NOrbManager? orbManager = _creatureNode.OrbManager;
+        if (orbManager != null && GodotObject.IsInstanceValid(orbManager) && orbManager.GetParent() == _creatureNode)
         {
-            u.SetHitboxMouseFilter(Control.MouseFilterEnum.Ignore);
-            u.ReleaseHoverTip();
+            int orbIdx = orbManager.GetIndex();
+            int ringIdx = GetIndex();
+            if (ringIdx > orbIdx)
+                _creatureNode.MoveChild(this, orbIdx);
+            else if (ringIdx < orbIdx - 1)
+                _creatureNode.MoveChild(this, orbIdx - 1);
+            return;
         }
+
+        int top = _creatureNode.GetChildCount() - 1;
+        if (top >= 0 && GetIndex() != top)
+            _creatureNode.MoveChild(this, top);
     }
 
     public override void _Process(double delta)
@@ -165,45 +170,44 @@ public partial class FireballOrbitRing : Node2D
         if (_creatureNode == null || _owner == null || !GodotObject.IsInstanceValid(_creatureNode))
             return;
 
+        if (!GodotObject.IsInstanceValid(_creatureNode.Visuals))
+            return;
+
+        Marker2D spawn = _creatureNode.Visuals.VfxSpawnPosition;
+        if (!GodotObject.IsInstanceValid(spawn))
+            return;
+
+        EnsureSiblingDrawOrderUnderOrbs();
+
         if (IsCapstoneBlocking())
         {
             Visible = false;
-            foreach (FireballOrbitUnit u in _units)
-                u.ReleaseHoverTip();
+            _unit?.ReleaseHoverTip();
             return;
         }
 
         Visible = _visibleCount > 0;
 
-        // NCreature (Control) origin is often low on the sprite; CenterPos / VfxSpawn is the authored torso anchor.
-        GlobalPosition = _creatureNode.VfxSpawnPosition;
+        GlobalPosition = spawn.GlobalPosition;
 
         float bakedLength = _orbitCurve.GetBakedLength();
-        if (bakedLength <= 0f || _visibleCount <= 0)
+        if (bakedLength <= 0f || _visibleCount <= 0 || _unit == null)
             return;
+
+        _spriteScaleDisplay = Mathf.Lerp(_spriteScaleDisplay, _spriteScaleTarget, (float)(1f - Math.Exp(-ScaleLerpSpeed * delta)));
+        _unit.SetSpriteUniformScale(_spriteScaleDisplay);
 
         if (_hoverDepth <= 0)
             _orbitProgress -= OrbitSpeed * delta / bakedLength;
 
-        // C# % keeps sign of dividend; subtracting progress makes lead negative and breaks SampleBakedWithRotation.
         double lead = OrbitPhase01(_orbitProgress);
-
-        // Keep the ring above creature art. Sovereign blade toggles MoveChild(0) for one sprite; doing that here hides all orbs behind the full portrait.
-        int top = _creatureNode.GetChildCount() - 1;
-        if (GetIndex() != top)
-            _creatureNode.MoveChild(this, top);
-
+        double p = OrbitPhase01(lead);
+        Transform2D xf = _orbitCurve.SampleBakedWithRotation((float)p * bakedLength);
+        Vector2 pos = xf.Origin;
         float t = (float)Time.GetTicksMsec() / 1000f;
-
-        for (int i = 0; i < _visibleCount; i++)
-        {
-            double p = OrbitPhase01(lead + (double)i / _visibleCount);
-            Transform2D xf = _orbitCurve.SampleBakedWithRotation((float)p * bakedLength);
-            Vector2 pos = xf.Origin;
-            float bob = Mathf.Sin(t * BobSpeed + i * 0.61f) * BobAmplitude;
-            pos += Vector2.Up * bob;
-            _units[i].UpdateOrbitPosition(pos);
-        }
+        float bob = Mathf.Sin(t * BobSpeed) * BobAmplitude;
+        pos += Vector2.Up * bob;
+        _unit.UpdateOrbitPosition(pos);
     }
 
     internal FireballSwarmPower? GetSwarmPower() => _owner?.GetPower<FireballSwarmPower>();
@@ -215,11 +219,10 @@ public partial class FireballOrbitRing : Node2D
         && NTargetManager.Instance != null
         && !NTargetManager.Instance.IsInSelection;
 
-    /// <summary>Fractional part in [0, 1) for any finite <paramref name="progress"/> (unlike C# <c>%</c> for negatives).</summary>
     private static double OrbitPhase01(double progress) => progress - Math.Floor(progress);
 }
 
-/// <summary>One orb: sprite + hitbox for tooltips (like sovereign blade hitbox).</summary>
+/// <summary>Single orb: sprite + hitbox for tooltips (vanilla sovereign blade pattern).</summary>
 public partial class FireballOrbitUnit : Node2D
 {
     private const float HitboxSize = 72f;
@@ -230,7 +233,7 @@ public partial class FireballOrbitUnit : Node2D
     private NHoverTipSet? _hoverTip;
     private bool _focused;
 
-    public FireballOrbitUnit(FireballOrbitRing ring, int _)
+    public FireballOrbitUnit(FireballOrbitRing ring)
     {
         _ring = ring;
     }
@@ -241,11 +244,10 @@ public partial class FireballOrbitUnit : Node2D
         if (tex != null)
             _sprite.Texture = tex;
         _sprite.Centered = true;
-        _sprite.Scale = new Vector2(0.42f, 0.42f);
+        _sprite.Scale = Vector2.One * 0.42f;
         AddChild(_sprite);
 
         _hitbox.CustomMinimumSize = new Vector2(HitboxSize, HitboxSize);
-        _hitbox.MouseFilter = Control.MouseFilterEnum.Stop;
         _hitbox.Position = new Vector2(-HitboxSize * 0.5f, -HitboxSize * 0.5f);
         AddChild(_hitbox);
 
@@ -255,10 +257,18 @@ public partial class FireballOrbitUnit : Node2D
         _hitbox.Connect(Control.SignalName.FocusExited, Callable.From(OnHitboxFocusExited));
     }
 
+    public void SetSpriteUniformScale(float uniformScale)
+    {
+        float s = Mathf.Max(0.05f, uniformScale);
+        _sprite.Scale = new Vector2(s, s);
+        float box = HitboxSize * Mathf.Clamp(s / 0.42f, 1f, 2.4f);
+        _hitbox.CustomMinimumSize = new Vector2(box, box);
+        _hitbox.Position = new Vector2(-box * 0.5f, -box * 0.5f);
+    }
+
     public void UpdateOrbitPosition(Vector2 localPos)
     {
         Position = localPos;
-        // Keep other players' fireballs less visually dominant.
         _sprite.Modulate = _ring.IsLocalOwner() ? Colors.White : new Color(1f, 1f, 1f, 0.58f);
     }
 
