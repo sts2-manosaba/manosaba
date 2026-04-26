@@ -12,6 +12,7 @@ namespace Manosaba.Characters.Common.Commands;
 public static class ValstraxDiveBombVfxCmd
 {
     private const string ScenePath = "res://Manosaba/scenes/common/vfx/valstrax_dive_bomb.tscn";
+    private const float ImpactYOffsetRatio = 0.1f;
 
     public static async Task PlayUntilImpactForTargets(IReadOnlyList<Creature> targets)
     {
@@ -85,7 +86,8 @@ public static class ValstraxDiveBombVfxCmd
 
         if (positions.Count == 0)
         {
-            return new Vector2(viewportSize.X * 0.78f, viewportSize.Y * 0.56f);
+            Vector2 fallback = new(viewportSize.X * 0.78f, viewportSize.Y * 0.56f);
+            return ShiftImpactUp(fallback, viewportSize);
         }
 
         Vector2 sum = Vector2.Zero;
@@ -94,6 +96,14 @@ public static class ValstraxDiveBombVfxCmd
             sum += position;
         }
 
-        return sum / positions.Count;
+        Vector2 average = sum / positions.Count;
+        return ShiftImpactUp(average, viewportSize);
+    }
+
+    private static Vector2 ShiftImpactUp(Vector2 impact, Vector2 viewportSize)
+    {
+        float yOffset = viewportSize.Y * ImpactYOffsetRatio;
+        float shiftedY = Mathf.Clamp(impact.Y - yOffset, 0f, viewportSize.Y);
+        return new Vector2(impact.X, shiftedY);
     }
 }

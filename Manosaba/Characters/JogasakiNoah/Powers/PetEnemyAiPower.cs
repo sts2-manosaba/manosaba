@@ -7,6 +7,7 @@ using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.MonsterMoves.Intents;
 using MegaCrit.Sts2.Core.MonsterMoves.MonsterMoveStateMachine;
 using MegaCrit.Sts2.Core.Nodes.Rooms;
+using MegaCrit.Sts2.Core.ValueProps;
 
 namespace Manosaba.Characters.JogasakiNoah.Powers;
 
@@ -21,6 +22,26 @@ public sealed class PetEnemyAiPower : PathCustomPowerModel
 
 
     public override bool ShouldPlayVfx => false;
+
+    public override Creature ModifyUnblockedDamageTarget(Creature target, decimal _, ValueProp props, Creature? __)
+    {
+        if (target != Owner.PetOwner?.Creature)
+        {
+            return target;
+        }
+
+        if (Owner.IsDead)
+        {
+            return target;
+        }
+
+        if (props.HasFlag(ValueProp.Unpowered))
+        {
+            return target;
+        }
+
+        return Owner;
+    }
 
     public override async Task AfterTurnEnd(PlayerChoiceContext choiceContext, CombatSide side)
     {

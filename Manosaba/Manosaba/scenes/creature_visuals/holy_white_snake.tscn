@@ -11,8 +11,8 @@ unique_name_in_owner = true
 
 [node name="Alive" type="Sprite2D" parent="Visuals"]
 unique_name_in_owner = true
-position = Vector2(11, -112)
-scale = Vector2(0.4451206, 0.4451207)
+position = Vector2(15, -112)
+scale = Vector2(0.533549, 0.53354913)
 texture = ExtResource("2_c4rqs")
 
 [node name="Dead" type="Sprite2D" parent="Visuals"]
@@ -31,8 +31,8 @@ offset_right = 71.0
 
 [node name="CenterPos" type="Marker2D" parent="."]
 unique_name_in_owner = true
-position = Vector2(-1, -144)
+position = Vector2(-3, -195)
 
 [node name="IntentPos" type="Marker2D" parent="."]
 unique_name_in_owner = true
-position = Vector2(7, -233)
+position = Vector2(12, -266)

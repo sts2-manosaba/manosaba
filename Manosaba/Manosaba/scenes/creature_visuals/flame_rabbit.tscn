@@ -35,4 +35,4 @@ position = Vector2(3, -61)
 
 [node name="IntentPos" type="Marker2D" parent="."]
 unique_name_in_owner = true
-position = Vector2(1, -151)
+position = Vector2(-1, -163)

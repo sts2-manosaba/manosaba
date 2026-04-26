@@ -14,12 +14,12 @@ namespace Manosaba.Characters.Common.Monsters;
 
 public static class NovelSettingMonsterCmd
 {
-    public static async Task<SummonResult> Summon<TMonster>(PlayerChoiceContext choiceContext, Player summoner, AbstractModel? source)
+    public static async Task<SummonResult> Summon<TMonster>(PlayerChoiceContext choiceContext, Player summoner, AbstractModel? source, decimal summonAmount = 1m)
         where TMonster : MonsterModel
     {
         CombatState combatState = summoner.Creature.CombatState;
-        decimal amount = Hook.ModifySummonAmount(combatState, summoner, 1m, source);
-        Creature summoned = combatState.Allies.FirstOrDefault((Creature c) => c.Monster is TMonster && c.PetOwner == summoner);
+        decimal amount = Hook.ModifySummonAmount(combatState, summoner, summonAmount, source);
+        Creature summoned = combatState.Allies.FirstOrDefault((Creature c) => c.Monster is TMonster && c.PetOwner == summoner && c.IsAlive);
         if (amount == 0m)
         {
             return new SummonResult(summoned, 0m);
@@ -30,13 +30,18 @@ public static class NovelSettingMonsterCmd
             SfxCmd.Play("event:/sfx/characters/necrobinder/necrobinder_summon");
         }
 
+        bool isReviving = false;
         if (summoned != null && summoned.IsAlive)
         {
-            await CreatureCmd.GainMaxHp(summoned, amount);
+            // If a same-type summon is already alive, create another copy instead of increasing max HP.
+            summoned = await PlayerCmd.AddPet<TMonster>(summoner);
+            NCreature summonedNode = NCombatRoom.Instance?.GetCreatureNode(summoned);
+            summonedNode?.TrackBlockStatus(summoner.Creature);
         }
         else
         {
-            bool isReviving = summoned != null;
+            summoned = combatState.Allies.FirstOrDefault((Creature c) => c.Monster is TMonster && c.PetOwner == summoner);
+            isReviving = summoned != null;
             if (isReviving)
             {
                 if (summoned.IsAlive)
@@ -52,10 +57,9 @@ public static class NovelSettingMonsterCmd
                 NCreature summonedNode = NCombatRoom.Instance?.GetCreatureNode(summoned);
                 summonedNode?.TrackBlockStatus(summoner.Creature);
             }
-
-            await CreatureCmd.SetMaxHp(summoned, amount);
-            await CreatureCmd.Heal(summoned, amount, isReviving);
         }
+        await CreatureCmd.SetMaxHp(summoned, amount);
+        await CreatureCmd.Heal(summoned, amount, isReviving);
 
         Creature perspective = summoned.PetOwner?.Creature ?? summoner.Creature;
         List<Creature> petTargets = summoned.CombatState.GetOpponentsOf(perspective)

@@ -121,7 +121,7 @@ public sealed class SettingFlameRabbit : PathCustomCardModel
     {
         _ = cardPlay;
         NovelSettingNoahFriendsSfx.TryPlay();
-        await NovelSettingMonsterCmd.Summon<NovelFlameRabbit>(choiceContext, Owner, this);
+        await NovelSettingMonsterCmd.Summon<NovelFlameRabbit>(choiceContext, Owner, this, 25m);
     }
 
     protected override void OnUpgrade()
@@ -145,7 +145,7 @@ public sealed class SettingHolyWhiteSnake : PathCustomCardModel
     {
         _ = cardPlay;
         NovelSettingNoahFriendsSfx.TryPlay();
-        await NovelSettingMonsterCmd.Summon<NovelHolyWhiteSnake>(choiceContext, Owner, this);
+        await NovelSettingMonsterCmd.Summon<NovelHolyWhiteSnake>(choiceContext, Owner, this, 50m);
     }
 
     protected override void OnUpgrade()
@@ -169,7 +169,7 @@ public sealed class SettingClawedCockatrice : PathCustomCardModel
     {
         _ = cardPlay;
         NovelSettingNoahFriendsSfx.TryPlay();
-        await NovelSettingMonsterCmd.Summon<NovelClawedCockatrice>(choiceContext, Owner, this);
+        await NovelSettingMonsterCmd.Summon<NovelClawedCockatrice>(choiceContext, Owner, this, 20m);
     }
 
     protected override void OnUpgrade()
@@ -198,7 +198,7 @@ public sealed class SettingCrimsonValstrax : PathCustomCardModel
             normalizedX: 1f,
             normalizedY: 0.5f);
         SfxCmd.Play("event:/Manosaba/audio/bgm/valstrax_theme.mp3", 0.8f);
-        await NovelSettingMonsterCmd.Summon<NovelCrimsonValstrax>(choiceContext, Owner, this);
+        await NovelSettingMonsterCmd.Summon<NovelCrimsonValstrax>(choiceContext, Owner, this, 500m);
     }
 
     protected override void OnUpgrade()

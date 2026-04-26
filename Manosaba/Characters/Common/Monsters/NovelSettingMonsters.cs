@@ -1,7 +1,7 @@
 using BaseLib.Abstracts;
+using manosaba.Extensions;
 using Manosaba.Characters.Common.Commands;
 using Manosaba.Characters.Common.Powers;
-using manosaba.Extensions;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Entities.Players;
@@ -44,7 +44,7 @@ public abstract class NovelSettingMonsterBase : MonsterModel, ICustomModel
 
 public sealed class NovelFlameRabbit : NovelSettingMonsterBase
 {
-    private const int BurnAmount = 3;
+    private const int BurnAmount = 5;
 
     protected override string IdleMoveId => "NOVEL_FLAME_RABBIT_MOVE";
     protected override string VisualSceneFileName => "flame_rabbit.tscn";
@@ -68,7 +68,7 @@ public sealed class NovelFlameRabbit : NovelSettingMonsterBase
 
 public sealed class NovelHolyWhiteSnake : NovelSettingMonsterBase
 {
-    private const decimal BlockAmount = 3m;
+    private const decimal BlockAmount = 8m;
 
     protected override string IdleMoveId => "NOVEL_HOLY_WHITE_SNAKE_MOVE";
     protected override string VisualSceneFileName => "holy_white_snake.tscn";
@@ -98,7 +98,7 @@ public sealed class NovelHolyWhiteSnake : NovelSettingMonsterBase
 
 public sealed class NovelClawedCockatrice : NovelSettingMonsterBase
 {
-    private const decimal DamageAmount = 5m;
+    private const decimal DamageAmount = 9m;
     private const decimal VulnerableAmount = 1m;
 
     protected override string IdleMoveId => "NOVEL_CLAWED_COCKATRICE_MOVE";
@@ -132,7 +132,7 @@ public sealed class NovelCrimsonValstrax : NovelSettingMonsterBase
 
     protected override MoveState CreateMoveState()
     {
-        return new MoveState(IdleMoveId, CrimsonValstraxMove, new SingleAttackIntent((int)FixedDamage), new EscapeIntent());
+        return new MoveState(IdleMoveId, CrimsonValstraxMove, new SingleAttackIntent((int)FixedDamage));
     }
 
     private async Task CrimsonValstraxMove(IReadOnlyList<Creature> targets)
@@ -150,7 +150,5 @@ public sealed class NovelCrimsonValstrax : NovelSettingMonsterBase
                 base.Creature,
                 null);
         }
-
-        await CreatureCmd.Escape(base.Creature);
     }
 }

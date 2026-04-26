@@ -31,7 +31,7 @@ namespace Manosaba.Characters.Common.Cards
             .Targeting(cardPlay.Target)
             .Execute(choiceContext);
 
-            if (cardPlay.Target.GetHpPercentRemaining() < (double)(DynamicVars["BeheadedThreshold"].BaseValue / 100m))
+            if (cardPlay.Target.IsAlive && cardPlay.Target.GetHpPercentRemaining() < (double)(DynamicVars["BeheadedThreshold"].BaseValue / 100m))
             {
                 await DoomPower.DoomKill([cardPlay.Target]);
             }
