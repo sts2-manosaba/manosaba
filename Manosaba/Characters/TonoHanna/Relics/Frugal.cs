@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using System.Linq;
 using BaseLib.Utils;
 using manosaba.Characters.TonoHanna;
 using Manosaba.Characters.Common.Overrides;
@@ -11,6 +13,8 @@ using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.Entities.Relics;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Helpers;
+using MegaCrit.Sts2.Core.HoverTips;
+using MegaCrit.Sts2.Core.Localization;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Nodes.CommonUi;
@@ -31,7 +35,31 @@ public sealed class Frugal : LevelingPathCustomRelicModel
 
     public override RelicRarity Rarity => RelicRarity.Starter;
 
-    protected override IEnumerable<DynamicVar> CanonicalVars => [new DynamicVar("GoldPerEnergy", BaseGoldPerEnergy)];
+    protected override IEnumerable<DynamicVar> CanonicalVars =>
+    [
+        new DynamicVar("GoldPerEnergy", BaseGoldPerEnergy),
+        new DynamicVar("CombatUnspentEnergyGold", 0m),
+        new DynamicVar("MaxUnspentEnergyCombat", MaxUnspentEnergyForGoldPerCombat),
+    ];
+
+    protected override IEnumerable<IHoverTip> ExtraHoverTips => FrugalCombatExtraHoverTips();
+
+    private IEnumerable<IHoverTip> FrugalCombatExtraHoverTips()
+    {
+        foreach (IHoverTip tip in base.ExtraHoverTips)
+            yield return tip;
+
+        if (!ShouldShowCombatEnergyTrackLine())
+            yield break;
+
+        LocString line = new LocString("relics", $"{Id.Entry}.combatEnergyTrack");
+        DynamicVars.AddTo(line);
+        yield return new HoverTip(line);
+    }
+
+    /// <summary>Combat-only: compendium / previews have no owner in combat, so <c>PlayerCombatState</c> is null.</summary>
+    private bool ShouldShowCombatEnergyTrackLine()
+        => Owner?.PlayerCombatState != null;
 
     public override Task AfterObtained() => Task.CompletedTask;
 
@@ -66,6 +94,8 @@ public sealed class Frugal : LevelingPathCustomRelicModel
     {
         _ = room;
         _energyChargesConvertedThisCombat = 0;
+        SyncCombatGoldTrackingDynamicVars(0);
+        InvokeDisplayAmountChanged();
         return Task.CompletedTask;
     }
 
@@ -165,6 +195,9 @@ public sealed class Frugal : LevelingPathCustomRelicModel
         int toConvert = Math.Min(energyLeft, capRemaining);
         _energyChargesConvertedThisCombat += toConvert;
 
+        SyncCombatGoldTrackingDynamicVars(_energyChargesConvertedThisCombat);
+        InvokeDisplayAmountChanged();
+
         int gold = toConvert * DynamicVars["GoldPerEnergy"].IntValue;
         if (gold <= 0)
         {
@@ -172,5 +205,10 @@ public sealed class Frugal : LevelingPathCustomRelicModel
         }
 
         await PlayerCmd.GainGold(gold, Owner);
+    }
+
+    private void SyncCombatGoldTrackingDynamicVars(int combatEnergyConverted)
+    {
+        DynamicVars["CombatUnspentEnergyGold"].BaseValue = combatEnergyConverted;
     }
 }

@@ -1,7 +1,9 @@
 using System.Collections.Generic;
+using Manosaba.Characters.TonoHanna.Visuals;
 using Manosaba.Extensions;
 using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Commands;
+using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Entities.Powers;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
@@ -35,6 +37,16 @@ public sealed class HannaPuppetPower : PathCustomPowerModel
         if (!props.HasFlag(ValueProp.Move) || props.HasFlag(ValueProp.Unpowered))
             return 1m;
         return DynamicVars["DamageDecrease"].BaseValue / 100m;
+    }
+
+    public override async Task AfterApplied(Creature? applier, CardModel? cardSource)
+    {
+        await HannaSoarLiftVisual.TryLiftAsync(Owner, applier);
+    }
+
+    public override async Task AfterRemoved(Creature oldOwner)
+    {
+        await HannaSoarLiftVisual.TryRestoreAsync(oldOwner);
     }
 
     public override async Task AfterSideTurnStart(CombatSide side, CombatState combatState)
