@@ -1,11 +1,8 @@
 using BaseLib.Utils;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
-using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
-using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
-using MegaCrit.Sts2.Core.Models.Powers;
 using MegaCrit.Sts2.Core.ValueProps;
 
 namespace manosaba.Characters.NatsumeAnan.Cards;
@@ -13,35 +10,48 @@ namespace manosaba.Characters.NatsumeAnan.Cards;
 [Pool(typeof(NatsumeAnanCardPool))]
 public sealed class Urusai : NatsumeKotodamaCardModel
 {
+    private int _resolvedKotodamaX;
+
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
-        new DynamicVar("KotodamaCost", 2m),
-        new DamageVar(8m, ValueProp.Move),
-        new PowerVar<WeakPower>(1m),
+        new DamageVar(6m, ValueProp.Move),
     ];
 
-    protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<WeakPower>()];
-
-    public Urusai() : base(0, CardType.Attack, CardRarity.Uncommon, TargetType.AllEnemies, true)
+    public Urusai() : base(0, CardType.Attack, CardRarity.Uncommon, TargetType.RandomEnemy, true)
     {
+    }
+
+    public int PrepareKotodamaXCostForPlay()
+    {
+        _resolvedKotodamaX = Math.Max(0, KotodamaEnergy.Get(Owner));
+        return _resolvedKotodamaX;
+    }
+
+    public void OverrideResolvedKotodamaXCostForPlay(int value)
+    {
+        _resolvedKotodamaX = Math.Max(0, value);
     }
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         _ = cardPlay;
-        await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
-            .FromCard(this)
-            .TargetingAllOpponents(CombatState)
-            .Execute(choiceContext);
+        int hits = _resolvedKotodamaX;
+        _resolvedKotodamaX = 0;
 
-        foreach (Creature enemy in CombatState.HittableEnemies)
+        if (hits <= 0)
         {
-            await PowerCmd.Apply<WeakPower>(enemy, DynamicVars["WeakPower"].BaseValue, Owner.Creature, this);
+            return;
         }
+
+        await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
+            .WithHitCount(hits)
+            .FromCard(this)
+            .TargetingRandomOpponents(CombatState)
+            .Execute(choiceContext);
     }
 
     protected override void OnUpgrade()
     {
-        DynamicVars.Damage.UpgradeValueBy(4m);
+        DynamicVars.Damage.UpgradeValueBy(3m);
     }
 }

@@ -1,6 +1,7 @@
 using Godot;
 using HarmonyLib;
 using Manosaba.Characters.Common.Resources;
+using manosaba.Characters.NatsumeAnan.Cards;
 using MegaCrit.Sts2.Core.Helpers;
 using MegaCrit.Sts2.Core.Models.Exceptions;
 using MegaCrit.Sts2.Core.Nodes.Cards;
@@ -53,6 +54,20 @@ public static class Patch_NCard_KotodamaCostVisual
 
         if (__instance.Model.HasStarCostX || __instance.Model.GetStarCostWithModifiers() > 0)
         {
+            return;
+        }
+
+        if (__instance.Model is Urusai)
+        {
+            if (_kotodamaTexture != null)
+            {
+                starIcon.Texture = _kotodamaTexture;
+            }
+
+            starIcon.Visible = true;
+            starLabel.Text = "X";
+            starLabel.AddThemeColorOverride("font_color", StsColors.cream);
+            starLabel.AddThemeColorOverride("font_outline_color", StsColors.defaultStarCostOutline);
             return;
         }
 

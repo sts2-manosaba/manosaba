@@ -19,7 +19,7 @@ public sealed class MovableTypePrinting : NatsumeKotodamaCardModel
         base.EnergyHoverTip,
     ];
 
-    public MovableTypePrinting() : base(2, CardType.Power, CardRarity.Uncommon, TargetType.Self, true)
+    public MovableTypePrinting() : base(2, CardType.Power, CardRarity.Rare, TargetType.Self, true)
     {
     }
 

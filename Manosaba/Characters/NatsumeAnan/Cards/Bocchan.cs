@@ -15,7 +15,7 @@ public sealed class Bocchan : NatsumeKotodamaCardModel
 
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<BocchanPower>()];
 
-    public Bocchan() : base(1, CardType.Power, CardRarity.Rare, TargetType.Self, true)
+    public Bocchan() : base(1, CardType.Power, CardRarity.Uncommon, TargetType.Self, true)
     {
     }
 
@@ -28,6 +28,6 @@ public sealed class Bocchan : NatsumeKotodamaCardModel
 
     protected override void OnUpgrade()
     {
-        EnergyCost.UpgradeBy(-1);
+        DynamicVars["BocchanPower"].UpgradeValueBy(1m);
     }
 }
