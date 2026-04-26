@@ -43,8 +43,8 @@ namespace Manosaba.Characters.TachibanaSherry.Powers
                 if (Owner.CombatState != null)
                 {
                     CardModel boulder = Owner.CombatState.CreateCard(ModelDb.Card<Boulders>(), Owner.Player);
-                    boulder.EnergyCost.SetThisTurnOrUntilPlayed(0);
                     CardCmd.ApplyKeyword(boulder, CardKeyword.Exhaust);
+                    boulder.EnergyCost.SetThisTurnOrUntilPlayed(0);
                     await CardPileCmd.AddGeneratedCardToCombat(boulder, PileType.Hand, true);
                 }
             }
