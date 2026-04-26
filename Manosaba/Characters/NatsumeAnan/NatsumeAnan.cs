@@ -22,7 +22,7 @@ public class NatsumeAnan : PlaceholderCharacterModel
     public override Color NameColor => Color;
     public override CharacterGender Gender => CharacterGender.Feminine;
     public override int StartingHp => 50;
-    public override int StartingGold => 0;
+    public override int StartingGold => 99;
 
     public override IEnumerable<CardModel> StartingDeck =>
     [

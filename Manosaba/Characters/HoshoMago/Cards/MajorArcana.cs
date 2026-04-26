@@ -536,7 +536,7 @@ public sealed class Death : HoshoMagoArcanaBase
     ];
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<DoomPower>()];
 
-    public Death() : base(1, CardType.Attack, TargetType.AllEnemies)
+    public Death() : base(1, CardType.Skill, TargetType.AllEnemies)
     {
     }
 

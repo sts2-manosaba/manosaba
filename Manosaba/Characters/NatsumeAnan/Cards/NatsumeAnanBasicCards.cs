@@ -8,8 +8,10 @@ using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
+using MegaCrit.Sts2.Core.Logging;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.ValueProps;
+using System.Reflection;
 using SaekiMiriaCharacter = manosaba.Characters.SaekiMiria.SaekiMiria;
 
 namespace manosaba.Characters.NatsumeAnan.Cards;
@@ -139,15 +141,35 @@ public sealed class Instigate : NatsumeKotodamaCardModel
     {
         Player? targetPlayer = cardPlay.Target?.Player;
         if (targetPlayer == null)
+        {
+            Log.Debug($"[Manosaba SyncTrace][Instigate] skip owner={Owner.NetId} reason=no_target");
             return;
+        }
+
+        Log.Debug(
+            $"[Manosaba SyncTrace][Instigate] begin owner={Owner.NetId} target={targetPlayer.NetId} targetChar={targetPlayer.Character.Id.Entry} " +
+            $"ownerHandBefore={GetPileCount(Owner, PileType.Hand)} targetDrawBefore={GetPileCount(targetPlayer, PileType.Draw)} " +
+            $"rng={FormatRngCounters(Owner.RunState.Rng)}");
 
         await CardPileCmd.AutoPlayFromDrawPile(choiceContext, targetPlayer, 1, CardPilePosition.Top, forceExhaust: false);
+        Log.Debug(
+            $"[Manosaba SyncTrace][Instigate] afterAutoPlay owner={Owner.NetId} target={targetPlayer.NetId} " +
+            $"ownerHandNow={GetPileCount(Owner, PileType.Hand)} targetDrawNow={GetPileCount(targetPlayer, PileType.Draw)} " +
+            $"rng={FormatRngCounters(Owner.RunState.Rng)}");
 
         if (!IsSaekiMiria(targetPlayer) || CombatState == null)
+        {
+            Log.Debug(
+                $"[Manosaba SyncTrace][Instigate] no_movie owner={Owner.NetId} target={targetPlayer.NetId} " +
+                $"isSaeki={IsSaekiMiria(targetPlayer)} combatNull={CombatState == null}");
             return;
+        }
 
         CardModel movie = Owner.RunState.Rng.CombatCardGeneration.NextItem(MovieFactories)(Owner, CombatState);
         CardPileAddResult result = await CardPileCmd.AddGeneratedCardToCombat(movie, PileType.Hand, addedByPlayer: true);
+        Log.Debug(
+            $"[Manosaba SyncTrace][Instigate] movie owner={Owner.NetId} target={targetPlayer.NetId} generated={movie.Id.Entry} " +
+            $"ownerHandAfter={GetPileCount(Owner, PileType.Hand)} rng={FormatRngCounters(Owner.RunState.Rng)}");
         CardCmd.PreviewCardPileAdd(result);
     }
 
@@ -159,5 +181,45 @@ public sealed class Instigate : NatsumeKotodamaCardModel
     private static bool IsSaekiMiria(Player player)
     {
         return player.Character.Id.Entry.EndsWith(SaekiMiriaCharacter.CharacterId, StringComparison.OrdinalIgnoreCase);
+    }
+
+    private static int GetPileCount(Player player, PileType pileType)
+    {
+        CardPile? pile = pileType.GetPile(player);
+        return pile?.Cards?.Count ?? -1;
+    }
+
+    private static string FormatRngCounters(object? rngRoot)
+    {
+        if (rngRoot == null)
+        {
+            return "rngRoot=null";
+        }
+
+        return $"gen={TryGetStreamCounter(rngRoot, "CombatCardGeneration")},sel={TryGetStreamCounter(rngRoot, "CombatCardSelection")}," +
+               $"shuf={TryGetStreamCounter(rngRoot, "Shuffle")},target={TryGetStreamCounter(rngRoot, "CombatTargets")}";
+    }
+
+    private static string TryGetStreamCounter(object rngRoot, string streamName)
+    {
+        const BindingFlags flags = BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic;
+        Type rootType = rngRoot.GetType();
+
+        object? stream =
+            rootType.GetProperty(streamName, flags)?.GetValue(rngRoot) ??
+            rootType.GetField(streamName, flags)?.GetValue(rngRoot);
+
+        if (stream == null)
+        {
+            return $"{streamName}:na";
+        }
+
+        Type streamType = stream.GetType();
+        object? counter =
+            streamType.GetProperty("Counter", flags)?.GetValue(stream) ??
+            streamType.GetField("Counter", flags)?.GetValue(stream) ??
+            streamType.GetField("_counter", flags)?.GetValue(stream);
+
+        return counter == null ? $"{streamName}:?" : $"{streamName}:{counter}";
     }
 }
