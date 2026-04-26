@@ -37,6 +37,12 @@ public sealed class DarkSightPower : PathCustomPowerModel
             return 0m;
         }
 
+        if(dealer.Side == Owner.Side)
+        {
+            //Take no damage from allies.
+            return 0m;
+        }
+
         return 1m;
     }
 
