@@ -122,6 +122,13 @@ public static class CharacterCustomEnergyService
             return false;
         }
 
+        // In multiplayer, fallback lookup can accidentally mirror another player's
+        // custom-energy pool when this player has no explicit value yet.
+        if (player.RunState.Players.Count > 1)
+        {
+            return false;
+        }
+
         bool foundAny = false;
         foreach ((ulong PlayerNetId, string EnergyId) key in Values.Keys)
         {
