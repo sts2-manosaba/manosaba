@@ -1,5 +1,7 @@
 ﻿using BaseLib.Utils;
+using Manosaba.Characters.JogasakiNoa.Orbs;
 using Manosaba.Characters.JogasakiNoah;
+using Manosaba.Characters.JogasakiNoah.Powers;
 using Manosaba.Extensions;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Players;
@@ -14,6 +16,13 @@ namespace manosaba.Characters.JogasakiNoah.Relics
     [Pool(typeof(JogasakiNoahRelicPool))]
     public sealed class SprayCanOfNoah : LevelingPathCustomRelicModel
     {
+        private static readonly IReadOnlyList<OrbModel> ZumaPrimaryOrbs =
+        [
+            ModelDb.Orb<RedPaintOrb>(),
+            ModelDb.Orb<BluePaintOrb>(),
+            ModelDb.Orb<YellowPaintOrb>(),
+        ];
+
         public override RelicRarity Rarity => RelicRarity.Starter;
         protected override int MaxRelicLevel => 5;
 
@@ -40,14 +49,15 @@ namespace manosaba.Characters.JogasakiNoah.Relics
 
             int randomOrbsToChannel = RelicLevel switch
             {
-                >= 4 => 2,
-                >= 2 => 1,
-                _ => 0
+                >= 5 => 3,
+                >= 3 => 2,
+                _ => 1
             };
+            bool hasZumaPower = base.Owner.Creature.HasPower<ZumaPower>();
 
             for (int i = 0; i < randomOrbsToChannel; i++)
             {
-                OrbModel randomOrb = RollRandomPaintOrb();
+                OrbModel randomOrb = RollRandomPaintOrb(hasZumaPower);
                 await OrbCmd.Channel(choiceContext, randomOrb.ToMutable(), base.Owner);
             }
         }
@@ -63,9 +73,9 @@ namespace manosaba.Characters.JogasakiNoah.Relics
             base.DynamicVars["OrbSlots"].BaseValue = 6m + bonusSlots;
         }
 
-        private OrbModel RollRandomPaintOrb()
+        private OrbModel RollRandomPaintOrb(bool restrictToZumaPrimaryOrbs)
         {
-            IReadOnlyList<OrbModel> paintOrbs = JogasakiNoahOrbPool.AllOrbs;
+            IReadOnlyList<OrbModel> paintOrbs = restrictToZumaPrimaryOrbs ? ZumaPrimaryOrbs : JogasakiNoahOrbPool.AllOrbs;
             int idx = base.Owner.RunState.Rng.CombatOrbGeneration.NextInt(paintOrbs.Count);
             return paintOrbs[idx];
         }

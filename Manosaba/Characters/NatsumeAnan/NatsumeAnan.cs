@@ -30,9 +30,9 @@ public class NatsumeAnan : PlaceholderCharacterModel
         ModelDb.Card<StrikeNatsumeAnan>(),
         ModelDb.Card<DefendNatsumeAnan>(),
         ModelDb.Card<DefendNatsumeAnan>(),
-        ModelDb.Card<DefendNatsumeAnan>(),
         ModelDb.Card<TraumaNatsumeAnan>(),
         ModelDb.Card<FlashOfInspiration>(),
+        ModelDb.Card<Instigate>(),
         ModelDb.Card<Instigate>(),
     ];
 

@@ -1,7 +1,10 @@
 using BaseLib.Utils;
 using Manosaba.Extensions;
+using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Relics;
+using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
+using MegaCrit.Sts2.Core.ValueProps;
 
 namespace manosaba.Characters.NatsumeAnan.Relics;
 
@@ -33,6 +36,24 @@ public sealed class Clipboard : LevelingPathCustomRelicModel
         return Task.CompletedTask;
     }
 
+    public async Task OnKotodamaSpentByCardPlay(int spentKotodama)
+    {
+        if (spentKotodama <= 0 || Owner?.Creature == null || !Owner.Creature.IsAlive)
+        {
+            return;
+        }
+
+        int blockPerKotodama = GetBlockPerKotodamaForLevel();
+        int blockToGain = spentKotodama * blockPerKotodama;
+        if (blockToGain <= 0)
+        {
+            return;
+        }
+
+        Flash();
+        await CreatureCmd.GainBlock(Owner.Creature, blockToGain, ValueProp.Unpowered, null);
+    }
+
     protected override void OnRelicLevelChanged(int oldLevel, int newLevel)
     {
         _ = oldLevel;
@@ -43,5 +64,17 @@ public sealed class Clipboard : LevelingPathCustomRelicModel
     private void SyncKotodamaGainVar()
     {
         DynamicVars["KotodamaEnergy"].BaseValue = BaseCombatStartKotodamaGain + (RelicLevel - 1);
+    }
+
+    private int GetBlockPerKotodamaForLevel()
+    {
+        return RelicLevel switch
+        {
+            <= 1 => 2,
+            2 => 3,
+            3 => 4,
+            4 => 6,
+            _ => 9,
+        };
     }
 }

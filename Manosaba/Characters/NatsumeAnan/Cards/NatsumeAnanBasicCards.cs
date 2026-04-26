@@ -131,7 +131,7 @@ public sealed class Instigate : NatsumeKotodamaCardModel
         static (player, combatState) => combatState.CreateCard<SpyMovie>(player),
     ];
 
-    protected override IEnumerable<DynamicVar> CanonicalVars => [new DynamicVar("KotodamaCost", 2m)];
+    protected override IEnumerable<DynamicVar> CanonicalVars => [new DynamicVar("KotodamaCost", 1m)];
 
     public Instigate() : base(0, CardType.Skill, CardRarity.Basic, TargetType.AnyPlayer, true)
     {
