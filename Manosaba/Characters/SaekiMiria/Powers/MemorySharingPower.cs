@@ -1,7 +1,4 @@
-using BaseLib.Utils;
-using Manosaba.Characters.Common.Cards;
 using Manosaba.Characters.Common.Powers;
-using Manosaba.Characters.SaekiMiria.Cards;
 using Manosaba.Characters.SaekiMiria.Helper;
 using Manosaba.Extensions;
 using MegaCrit.Sts2.Core.Combat;
@@ -10,19 +7,14 @@ using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.Entities.Powers;
-using MegaCrit.Sts2.Core.Factories;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Models;
-using MegaCrit.Sts2.Core.Models.CardPools;
-using MegaCrit.Sts2.Core.Models.Cards;
-using MegaCrit.Sts2.Core.Nodes.CommonUi;
-using System;
 
 namespace Manosaba.Characters.SaekiMiria.Powers
 {
     public sealed class MemorySharingPower : PathCustomPowerModel
     {
-        private List<Creature> _appliers = new();
+        private List<Creature>? _appliers;
         private bool _upgraded;
 
         public override PowerType Type => PowerType.Buff;
