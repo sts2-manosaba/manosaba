@@ -3,7 +3,6 @@ using Manosaba.Config;
 using Manosaba.Multiplayer;
 using Manosaba.Multiplayer.Messages.Lobby;
 using MegaCrit.Sts2.Core.Localization;
-using MegaCrit.Sts2.Core.Multiplayer;
 using MegaCrit.Sts2.Core.Multiplayer.Game;
 using MegaCrit.Sts2.Core.Multiplayer.Game.Lobby;
 using System.Runtime.CompilerServices;
@@ -92,26 +91,17 @@ public static class ManosabaLobbyDifficultyUiHost
         LobbyDifficultyPanelLayout layout,
         LobbyDifficultyUiEnterKind kind)
     {
-        StartRunLobby? lobby = getLobby();
-        bool canUseLocalDefaults = lobby == null || CanEditDifficulty(lobby);
-
         switch (kind)
         {
             case LobbyDifficultyUiEnterKind.FirstOpen:
-                if (canUseLocalDefaults)
-                {
-                    ManosabaLobbyDifficultyState.ResetToLobbyDefaults();
-                }
+                ManosabaLobbyDifficultyState.ResetToLobbyDefaults();
                 ManosabaLobbyDifficultyState.SetLobbySessionActive(true);
                 break;
             case LobbyDifficultyUiEnterKind.SubmenuReopened:
                 ManosabaLobbyDifficultyState.ClearRunSnapshot();
                 break;
             case LobbyDifficultyUiEnterKind.DailyLobbyReady:
-                if (canUseLocalDefaults)
-                {
-                    ManosabaLobbyDifficultyState.ResetToLobbyDefaults();
-                }
+                ManosabaLobbyDifficultyState.ResetToLobbyDefaults();
                 ManosabaLobbyDifficultyState.SetLobbySessionActive(true);
                 break;
         }
@@ -419,7 +409,7 @@ public static class ManosabaLobbyDifficultyUiHost
             return;
         }
 
-        state.Handler ??= delegate(ManosabaDifficultySettingsMessage message, ulong _)
+        state.Handler ??= delegate (ManosabaDifficultySettingsMessage message, ulong _)
         {
             ManosabaLobbyDifficultyState.ApplyFromHost(message);
             if (GodotObject.IsInstanceValid(ownerNode))

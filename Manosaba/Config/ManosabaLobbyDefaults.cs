@@ -1,5 +1,3 @@
-using System;
-
 namespace Manosaba.Config;
 
 public static class ManosabaLobbyDefaults
