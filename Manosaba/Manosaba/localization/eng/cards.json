@@ -584,7 +584,7 @@
   "MANOSABA-NANIGAIITAI.title": "What Are You Trying to Say?",
   "MANOSABA-NANIGAIITAI.description": "Deal {Damage:diff()} damage to all enemies.\nApply {WeakPower:diff()} [gold]Weak[/gold] and {VulnerablePower:diff()} [gold]Vulnerable[/gold].",
   "MANOSABA-URUSAI.title": "Shut Up!",
-  "MANOSABA-URUSAI.description": "Spend all [gold]Kotodama[/gold]. Deal {Damage:diff()} damage to a random enemy [blue]X[/blue] time(s), where [blue]X[/blue] is the amount of [gold]Kotodama[/gold] spent.",
+  "MANOSABA-URUSAI.description": "Deal {Damage:diff()} damage to a random enemy X times.",
   "MANOSABA-NANDATO.title": "What Did You Say?!",
   "MANOSABA-NANDATO.description": "Draw {Cards:diff()} cards.\nGain [gold]Block[/gold] equal to [blue]5[/blue] x total drawn card costs.",
   "MANOSABA-GENIUS_IDEA.title": "Genius Idea",

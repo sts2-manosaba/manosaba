@@ -584,7 +584,7 @@
   "MANOSABA-NANIGAIITAI.title": "何が言いたいの？",
   "MANOSABA-NANIGAIITAI.description": "すべての敵に{Damage:diff()}ダメージを与える。\n{WeakPower:diff()}層の[gold]弱体[/gold]と{VulnerablePower:diff()}層の[gold]脆弱[/gold]を与える。",
   "MANOSABA-URUSAI.title": "うるさい！",
-  "MANOSABA-URUSAI.description": "所持している[gold]言霊[/gold]をすべて消費する。ランダムな敵に{Damage:diff()}ダメージを[blue]X[/blue]回与える（[blue]X[/blue]は消費した[gold]言霊[/gold]の量）。",
+  "MANOSABA-URUSAI.description": "ランダムな敵に{Damage:diff()}ダメージをX回与える。",
   "MANOSABA-NANDATO.title": "何だって！？",
   "MANOSABA-NANDATO.description": "{Cards:diff()}枚引く。\n引いたカードの合計コスト x [blue]5[/blue]に等しい[gold]ブロック[/gold]を得る。",
   "MANOSABA-GENIUS_IDEA.title": "天才のひらめき",

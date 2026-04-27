@@ -34,8 +34,14 @@ public sealed class Urusai : NatsumeKotodamaCardModel
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        _ = cardPlay;
         int hits = _resolvedKotodamaX;
+        if (hits <= 0 && cardPlay.IsAutoPlay)
+        {
+            // Auto-play paths (for example Instigate -> AutoPlayFromDrawPile) bypass SpendResources.
+            // Match vanilla X-cost behavior: resolve X from current resource but do not spend it.
+            hits = Math.Max(0, KotodamaEnergy.Get(Owner));
+        }
+
         _resolvedKotodamaX = 0;
 
         if (hits <= 0)

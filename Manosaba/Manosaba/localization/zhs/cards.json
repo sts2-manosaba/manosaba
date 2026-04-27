@@ -584,7 +584,7 @@
   "MANOSABA-NANIGAIITAI.title": "你到底想說什麼？",
   "MANOSABA-NANIGAIITAI.description": "對所有敵人造成 {Damage:diff()} 點傷害。\n給予 {WeakPower:diff()} 層[gold]虛弱[/gold]與 {VulnerablePower:diff()} 層[gold]易傷[/gold]。",
   "MANOSABA-URUSAI.title": "吵死了！",
-  "MANOSABA-URUSAI.description": "消耗全部[gold]言靈[/gold]。對隨機敵人造成 [blue]X[/blue] 次 {Damage:diff()} 點傷害，其中 [blue]X[/blue] 為本次消耗的[gold]言靈[/gold]數量。",
+  "MANOSABA-URUSAI.description": "對隨機敵人造成 {Damage:diff()} 點傷害 X 次",
   "MANOSABA-NANDATO.title": "你說什麼？！",
   "MANOSABA-NANDATO.description": "抽 {Cards:diff()} 張牌。\n獲得[gold]格檔[/gold]，數值為抽到牌總費用 x [blue]5[/blue]。",
   "MANOSABA-GENIUS_IDEA.title": "天才的點子",

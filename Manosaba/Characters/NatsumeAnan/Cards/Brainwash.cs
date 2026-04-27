@@ -1,5 +1,6 @@
 using BaseLib.Utils;
 using manosaba.Characters.NatsumeAnan.Powers;
+using Manosaba.Characters.Common.Overrides;
 using Manosaba.Characters.Common.Powers;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
@@ -15,6 +16,7 @@ namespace manosaba.Characters.NatsumeAnan.Cards;
 [Pool(typeof(NatsumeAnanCardPool))]
 public sealed class Brainwash : NatsumeKotodamaCardModel
 {
+    public override IEnumerable<CardKeyword> CanonicalKeywords => [ManosabaKeywords.Mahou, CardKeyword.Eternal];
 
     private static int KotodamaRealCost => 20;
     protected override IEnumerable<DynamicVar> CanonicalVars =>
@@ -38,13 +40,15 @@ public sealed class Brainwash : NatsumeKotodamaCardModel
     {
         if (power is MajokaPower && power.Owner == Owner.Creature)
         {
-            int cap = DynamicVars["MajokaKotodamaCap"].IntValue;
-            int majokaBasedGain = (int)Math.Floor(Owner.Creature.GetPowerAmount<MajokaPower>() / 10m);
-            int kotodamaCostReduction = Math.Clamp(majokaBasedGain, 0, cap);
-            if (kotodamaCostReduction > 0)
-            {
-                DynamicVars["KotodamaCost"].BaseValue = Math.Max(KotodamaRealCost - kotodamaCostReduction, 0);
-            }
+            RefreshKotodamaCostFromMajoka();
+        }
+    }
+
+    public override async Task AfterCardChangedPiles(CardModel card, PileType oldPileType, AbstractModel? source)
+    {
+        if (ReferenceEquals(card, this))
+        {
+            RefreshKotodamaCostFromMajoka();
         }
     }
 
@@ -73,5 +77,14 @@ public sealed class Brainwash : NatsumeKotodamaCardModel
     protected override void OnUpgrade()
     {
         DynamicVars["MajokaKotodamaCap"].UpgradeValueBy(5m);
+        RefreshKotodamaCostFromMajoka();
+    }
+
+    private void RefreshKotodamaCostFromMajoka()
+    {
+        int cap = DynamicVars["MajokaKotodamaCap"].IntValue;
+        int majokaBasedGain = (int)Math.Floor(Owner.Creature.GetPowerAmount<MajokaPower>() / 10m);
+        int kotodamaCostReduction = Math.Clamp(majokaBasedGain, 0, cap);
+        DynamicVars["KotodamaCost"].BaseValue = Math.Max(KotodamaRealCost - kotodamaCostReduction, 0);
     }
 }
