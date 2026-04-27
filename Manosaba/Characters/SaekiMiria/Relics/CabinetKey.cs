@@ -11,12 +11,9 @@ using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using System;
-using System.Reflection;
 using Manosaba.Characters.SaekiMiria.Powers;
 using MegaCrit.Sts2.Core.Context;
 using MegaCrit.Sts2.Core.Models;
-using MegaCrit.Sts2.Core.Logging;
-using System.Text;
 
 namespace manosaba.Characters.SaekiMiria.Relics
 {
@@ -82,25 +79,15 @@ namespace manosaba.Characters.SaekiMiria.Relics
                 return;
 
             int requiredBlock = Math.Max(1, blockPerMovieCard);
-            decimal blockRemaining = GetCreatureBlock(ownerCreature);
-            string rngBefore = FormatRngCounters(combatState.RunState.Rng);
-            int ownerDrawBefore = GetPileCount(Owner, PileType.Draw);
-            if (blockRemaining <= 0m)
+            int blockRemaining = ownerCreature.Block;
+            if (blockRemaining <= 0)
             {
-                Log.Debug(
-                    $"[Manosaba SyncTrace][CabinetKey] skip owner={Owner.NetId} localOwner={LocalContext.IsMe(ownerCreature)} " +
-                    $"round={combatState.RoundNumber} block={blockRemaining} required={requiredBlock} drawBefore={ownerDrawBefore} rng={rngBefore}");
                 return;
             }
-            int moviesToAdd = (int)decimal.Ceiling(blockRemaining / requiredBlock);
+            int moviesToAdd = (int)decimal.Ceiling((decimal)blockRemaining / requiredBlock);
             moviesToAdd = Math.Min(moviesToAdd, MAX_MOVIE_CARD_GENERATED);
             if (moviesToAdd <= 0)
                 return;
-
-            Log.Debug(
-                $"[Manosaba SyncTrace][CabinetKey] begin owner={Owner.NetId} localOwner={LocalContext.IsMe(ownerCreature)} " +
-                $"round={combatState.RoundNumber} block={blockRemaining} required={requiredBlock} movies={moviesToAdd} " +
-                $"drawBefore={ownerDrawBefore} rng={rngBefore}");
 
             Flash();
             var rng = combatState.RunState.Rng.CombatCardSelection;
@@ -109,14 +96,10 @@ namespace manosaba.Characters.SaekiMiria.Relics
             {
                 generatedCards.Add(CreateRelicGeneratedCard(Owner, combatState, rng));
             }
-            Log.Debug(
-                $"[Manosaba SyncTrace][CabinetKey] generated owner={Owner.NetId} cards=[{JoinCardIds(generatedCards)}] " +
-                $"rngAfterGenerate={FormatRngCounters(combatState.RunState.Rng)}");
 
             Player? invitedPlayer = ownerCreature.GetPower<MovieInvitationPower>()?.ConsumeInvitedPlayerForRelicMovies();
             if (invitedPlayer != null)
             {
-                int invitedDrawBefore = GetPileCount(invitedPlayer, PileType.Draw);
                 List<CardModel> invitedCards = new(generatedCards.Count);
                 foreach (CardModel card in generatedCards)
                 {
@@ -128,11 +111,6 @@ namespace manosaba.Characters.SaekiMiria.Relics
                     PileType.Draw,
                     addedByPlayer: true,
                     CardPilePosition.Random);
-                int invitedDrawAfter = GetPileCount(invitedPlayer, PileType.Draw);
-                Log.Debug(
-                    $"[Manosaba SyncTrace][CabinetKey] invited owner={Owner.NetId} invited={invitedPlayer.NetId} " +
-                    $"cards=[{JoinCardIds(invitedCards)}] drawBefore={invitedDrawBefore} drawAfter={invitedDrawAfter} " +
-                    $"results={invitedResults.Count} rngAfterInvited={FormatRngCounters(combatState.RunState.Rng)}");
                 if (invitedPlayer.Creature != null && LocalContext.IsMe(invitedPlayer.Creature))
                 {
                     CardCmd.PreviewCardPileAdd(invitedResults);
@@ -144,11 +122,6 @@ namespace manosaba.Characters.SaekiMiria.Relics
                 PileType.Draw,
                 addedByPlayer: true,
                 CardPilePosition.Random);
-            int ownerDrawAfter = GetPileCount(Owner, PileType.Draw);
-            Log.Debug(
-                $"[Manosaba SyncTrace][CabinetKey] applied owner={Owner.NetId} cards=[{JoinCardIds(generatedCards)}] " +
-                $"drawBefore={ownerDrawBefore} drawAfter={ownerDrawAfter} results={results.Count} " +
-                $"rngAfterApply={FormatRngCounters(combatState.RunState.Rng)}");
             CardCmd.PreviewCardPileAdd(results);
         }
 
@@ -195,92 +168,6 @@ namespace manosaba.Characters.SaekiMiria.Relics
                 SmallPaper => combatState.CreateCard<SmallPaper>(player),
                 _ => throw new InvalidOperationException($"Unsupported Cabinet Key copy: {card.GetType().Name}")
             };
-
-        private static decimal GetCreatureBlock(Creature creature)
-        {
-            const BindingFlags flags = BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic;
-            Type type = creature.GetType();
-
-            foreach (string name in new[] { "Block", "CurrentBlock", "BlockAmount" })
-            {
-                PropertyInfo? prop = type.GetProperty(name, flags);
-                if (prop != null)
-                {
-                    object? value = prop.GetValue(creature);
-                    return value == null ? 0m : Convert.ToDecimal(value);
-                }
-
-                FieldInfo? field = type.GetField(name, flags);
-                if (field != null)
-                {
-                    object? value = field.GetValue(creature);
-                    return value == null ? 0m : Convert.ToDecimal(value);
-                }
-            }
-
-            return 0m;
-        }
-
-        private static int GetPileCount(Player player, PileType pileType)
-        {
-            CardPile? pile = pileType.GetPile(player);
-            return pile?.Cards?.Count ?? -1;
-        }
-
-        private static string JoinCardIds(IReadOnlyList<CardModel> cards)
-        {
-            if (cards.Count == 0)
-            {
-                return string.Empty;
-            }
-
-            StringBuilder sb = new();
-            for (int i = 0; i < cards.Count; i++)
-            {
-                if (i > 0)
-                {
-                    sb.Append(',');
-                }
-
-                sb.Append(cards[i].Id.Entry);
-            }
-
-            return sb.ToString();
-        }
-
-        private static string FormatRngCounters(object? rngRoot)
-        {
-            if (rngRoot == null)
-            {
-                return "rngRoot=null";
-            }
-
-            return $"sel={TryGetStreamCounter(rngRoot, "CombatCardSelection")},shuf={TryGetStreamCounter(rngRoot, "Shuffle")}," +
-                   $"gen={TryGetStreamCounter(rngRoot, "CombatCardGeneration")},target={TryGetStreamCounter(rngRoot, "CombatTargets")}";
-        }
-
-        private static string TryGetStreamCounter(object rngRoot, string streamName)
-        {
-            const BindingFlags flags = BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic;
-            Type rootType = rngRoot.GetType();
-
-            object? stream =
-                rootType.GetProperty(streamName, flags)?.GetValue(rngRoot) ??
-                rootType.GetField(streamName, flags)?.GetValue(rngRoot);
-
-            if (stream == null)
-            {
-                return $"{streamName}:na";
-            }
-
-            Type streamType = stream.GetType();
-            object? counter =
-                streamType.GetProperty("Counter", flags)?.GetValue(stream) ??
-                streamType.GetField("Counter", flags)?.GetValue(stream) ??
-                streamType.GetField("_counter", flags)?.GetValue(stream);
-
-            return counter == null ? $"{streamName}:?" : $"{streamName}:{counter}";
-        }
 
         private void RemoveExchangeFromSinglePlayerStartingDeck()
         {
