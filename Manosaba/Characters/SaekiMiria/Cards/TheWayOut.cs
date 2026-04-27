@@ -11,7 +11,7 @@ namespace Manosaba.Characters.SaekiMiria.Cards;
 [Pool(typeof(SaekiMiriaCardPool))]
 public sealed class TheWayOut : PathCustomCardModel
 {
-    private const string VfxScenePath = "res://Manosaba/scenes/saeki_miria/vfx/the_way_out.tscn";
+    private const string vfxScenePath = "res://Manosaba/scenes/saeki_miria/vfx/the_way_out.tscn";
     private const int energyCost = 0;
     private const CardType type = CardType.Skill;
     private const CardRarity rarity = CardRarity.Ancient;
@@ -41,7 +41,7 @@ public sealed class TheWayOut : PathCustomCardModel
         if ((pile.Type == PileType.Discard || pile.Type == PileType.Hand || pile.Type == PileType.Draw || pile.Type == PileType.Exhaust)
             && side == CombatSide.Player)
         {
-            await ManosabaVfxCmd.PlaySceneAtCombatCenterAndWait(VfxScenePath, fitCoverViewport: true, spriteNodeNames: ["StillA","StillB"]);
+            await ManosabaVfxCmd.PlaySceneAtCombatCenterAndWait(vfxScenePath, fitCoverViewport: true, spriteNodeNames: ["StillA","StillB"]);
             await ManosabaCombatCmd.ForceWinWithoutDeathOrEscape(CombatState);
         }
     }

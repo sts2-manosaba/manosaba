@@ -51,7 +51,7 @@ namespace Manosaba.Characters.SaekiMiria.Cards
                 return;
             }
 
-            HashSet<Type> IgnoredCards = MiriaConstants.IgnoredCards;
+            HashSet<Type> ignoredCards = MiriaConstants.IgnoredCards;
 
             var pool = target.Character.CardPool.AllCards;
             var deck = CardPile.GetCards(target, PileType.Deck);
@@ -66,7 +66,7 @@ namespace Manosaba.Characters.SaekiMiria.Cards
                 .Where(c => c.Type != CardType.Quest && c.Type != CardType.Status)
                 .Where(c => c.Rarity != CardRarity.Ancient && c.Rarity != CardRarity.Token)
                 .Where(c => deckIds.Contains(c.Id))
-                .Where(c => !IgnoredCards.Contains(c.GetType()))
+                .Where(c => !ignoredCards.Contains(c.GetType()))
                 .ToList();
 
 
@@ -108,7 +108,7 @@ namespace Manosaba.Characters.SaekiMiria.Cards
                 .Where(c => c.Type != CardType.Quest && c.Type != CardType.Status)
                 .Where(c => c.Rarity != CardRarity.Ancient && c.Rarity != CardRarity.Token)
                 .Where(c => deckIds2.Contains(c.Id))
-                .Where(c => !IgnoredCards.Contains(c.GetType()))
+                .Where(c => !ignoredCards.Contains(c.GetType()))
                 .ToList();
 
             if (!base.IsUpgraded)

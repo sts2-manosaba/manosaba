@@ -131,8 +131,8 @@ namespace Manosaba.Characters.NikaidoHiro.Cards
 
         private static bool ShouldIgnoreThisPower(PowerModel power)
         {
-            HashSet<Type> IgnoredPowers = MiriaConstants.IgnoredPowers;
-            return power != null && IgnoredPowers.Contains(power.GetType());
+            HashSet<Type> ignoredPowers = MiriaConstants.IgnoredPowers;
+            return power != null && ignoredPowers.Contains(power.GetType());
         }
 
         private static void DoHackyThingsForSpecificPowers(PowerModel power)

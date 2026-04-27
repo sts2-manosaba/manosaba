@@ -14,11 +14,11 @@ namespace Manosaba.Characters.SaekiMiria.Cards;
 [Pool(typeof(SaekiMiriaCardPool))]
 public sealed class LandMine : PathCustomCardModel
 {
-    private const int EnergyCost = 1;
-    private const CardType CardTypeValue = CardType.Status;
-    private const CardRarity Rarity = CardRarity.Status;
-    private const TargetType TargetTypeValue = TargetType.None;
-    private const bool ShouldShowInCardLibrary = false;
+    private const int energyCost = 1;
+    private const CardType type = CardType.Status;
+    private const CardRarity rarity = CardRarity.Status;
+    private const TargetType targetType = TargetType.None;
+    private const bool shouldShowInCardLibrary = false;
 
     public override bool HasTurnEndInHandEffect => true;
     protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(20m, ValueProp.Unblockable | ValueProp.Unpowered)];
@@ -28,7 +28,7 @@ public sealed class LandMine : PathCustomCardModel
     public override bool CanBeGeneratedByModifiers => false;
 
     public LandMine()
-        : base(EnergyCost, CardTypeValue, Rarity, TargetTypeValue, ShouldShowInCardLibrary)
+        : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)
     {
     }
 
