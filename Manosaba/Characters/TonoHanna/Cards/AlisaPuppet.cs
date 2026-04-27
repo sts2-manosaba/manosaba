@@ -33,9 +33,13 @@ namespace Manosaba.Characters.TonoHanna.Cards
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
-            ArgumentNullException.ThrowIfNull(cardPlay.Target, nameof(cardPlay.Target));
-            await PowerCmd.Apply<AlisaPuppetCollectionPower>(Owner.Creature, 1m, Owner.Creature, this);
-            await PowerCmd.Apply<BurnPower>(cardPlay.Target, DynamicVars["BurnPower"].BaseValue, Owner.Creature, this);
+            if (Owner.Creature is not { } ownerCreature || cardPlay.Target is not { } target)
+            {
+                return;
+            }
+
+            await PowerCmd.Apply<AlisaPuppetCollectionPower>(ownerCreature, 1m, ownerCreature, this);
+            await PowerCmd.Apply<BurnPower>(target, DynamicVars["BurnPower"].BaseValue, ownerCreature, this);
         }
 
         protected override void OnUpgrade()

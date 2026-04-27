@@ -42,7 +42,12 @@ public sealed class PotionThrowPower : PathCustomPowerModel
             if (enemies.Count == 0)
                 return;
 
-            Creature target = Owner.Player.RunState.Rng.CombatTargets.NextItem(enemies);
+            Creature? target = Owner.Player.RunState.Rng.CombatTargets.NextItem(enemies);
+            if (target == null)
+            {
+                return;
+            }
+
             await CreatureCmd.Damage(new ThrowingPlayerChoiceContext(), target, DynamicVars.Damage.BaseValue, ValueProp.Move, Owner);
         }
     }

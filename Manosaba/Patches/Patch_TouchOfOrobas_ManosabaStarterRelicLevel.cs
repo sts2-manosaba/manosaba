@@ -32,7 +32,7 @@ public static class Patch_TouchOfOrobas_ManosabaStarterRelicLevel
     private static RelicModel ResolveStarterRelic(TouchOfOrobas relic, Player owner)
     {
         ModelId starterRelicId = relic.StarterRelic ?? owner.Relics.First((RelicModel r) => r.Rarity == RelicRarity.Starter).Id;
-        return owner.GetRelicById(starterRelicId);
+        return owner.GetRelicById(starterRelicId) ?? owner.Relics.First((RelicModel r) => r.Rarity == RelicRarity.Starter);
     }
 
     private static bool IsManosabaCharacter(Player owner)

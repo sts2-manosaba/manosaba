@@ -74,7 +74,7 @@ namespace Manosaba.Characters.TonoHanna.Cards
                 if (runGlobalHooks)
                 {
                     CombatState? combatState = card.CombatState ?? card.Owner?.Creature?.CombatState;
-                    if (combatState == null)
+                    if (combatState == null || card.Owner == null)
                     {
                         PreviewValue = Math.Max(num, 0m);
                     }
@@ -121,11 +121,15 @@ namespace Manosaba.Characters.TonoHanna.Cards
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
-            await PowerCmd.Apply<NanokaPuppetCollectionPower>(Owner.Creature, DynamicVars["NanokaPuppetCollectionPower"].BaseValue, Owner.Creature, this);
-            ArgumentNullException.ThrowIfNull(cardPlay.Target, nameof(cardPlay.Target));
-            int puppetCount = Owner.PlayerCombatState.AllCards.Count(c => c.Tags.Contains(ManosabaCardTags.Puppet));
+            if (Owner?.Creature is not { } ownerCreature || cardPlay.Target is not { } target)
+            {
+                return;
+            }
+
+            await PowerCmd.Apply<NanokaPuppetCollectionPower>(ownerCreature, DynamicVars["NanokaPuppetCollectionPower"].BaseValue, ownerCreature, this);
+            int puppetCount = Owner.PlayerCombatState?.AllCards.Count(c => c.Tags.Contains(ManosabaCardTags.Puppet)) ?? 0;
             decimal damage = DynamicVars.CalculationBase.BaseValue + DynamicVars.ExtraDamage.BaseValue * puppetCount;
-            await DamageCmd.Attack(damage).FromCard(this).Targeting(cardPlay.Target).Execute(choiceContext);
+            await DamageCmd.Attack(damage).FromCard(this).Targeting(target).Execute(choiceContext);
         }
 
         protected override void OnUpgrade()

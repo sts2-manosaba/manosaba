@@ -23,13 +23,18 @@ public class ComplementaryColor : PathCustomCardModel
     {
     }
 
-    protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
-    {
-        IReadOnlyList<OrbModel>? orbList = Owner?.PlayerCombatState?.OrbQueue?.Orbs;
-        if (orbList == null || orbList.Count == 0)
+        protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
-            return;
-        }
+            if (Owner == null)
+            {
+                return;
+            }
+
+            IReadOnlyList<OrbModel>? orbList = Owner.PlayerCombatState?.OrbQueue?.Orbs;
+            if (orbList == null || orbList.Count == 0)
+            {
+                return;
+            }
 
         int orbCountToRead = IsUpgraded ? 2 : 1;
         int actualCount = Math.Min(orbCountToRead, orbList.Count);

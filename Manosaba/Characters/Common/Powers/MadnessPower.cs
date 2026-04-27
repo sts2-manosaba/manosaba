@@ -76,7 +76,13 @@ public sealed class MadnessPower : PathCustomPowerModel
         }
 
         int playerCount = 0;
-        foreach (Creature ally in Owner.CombatState.Allies)
+        CombatState? combatState = Owner.CombatState;
+        if (combatState == null)
+        {
+            return TriggerThreshold;
+        }
+
+        foreach (Creature ally in combatState.Allies)
         {
             if (ally.IsPlayer)
             {

@@ -76,7 +76,7 @@ public static class Patch_AnyPlayerCardTargeting
             return false;
         }
 
-        if (!__instance.Holder.CardModel.CanPlayTargeting(target))
+        if (!card.CanPlayTargeting(target))
         {
             _cannotPlayThisCardFtueCheckMethod?.Invoke(__instance, [__instance.Holder.CardModel]);
             __instance.CancelPlayCard();
@@ -100,7 +100,7 @@ public static class Patch_AnyPlayerCardTargeting
         }
 
         _cleanupMethod?.Invoke(__instance, [true]);
-        NCombatRoom.Instance?.Ui.Hand.TryGrabFocus();
+        NCombatRoom.Instance?.Ui?.Hand?.TryGrabFocus();
         return false;
     }
 
@@ -191,7 +191,25 @@ public static class Patch_AnyPlayerCardTargeting
             return;
         }
 
-        NTargetManager targetManager = NTargetManager.Instance;
+        NTargetManager? targetManager = NTargetManager.Instance;
+        if (targetManager == null)
+        {
+            return;
+        }
+
+        if (card.CombatState == null)
+        {
+            cardPlay.CancelPlayCard();
+            return;
+        }
+
+        NCombatRoom? combatRoom = NCombatRoom.Instance;
+        if (combatRoom == null)
+        {
+            cardPlay.CancelPlayCard();
+            return;
+        }
+
         Callable hoverCallable = Callable.From<NCreature>(creature => _onCreatureHoverMethod?.Invoke(cardPlay, [creature]));
         Callable unhoverCallable = Callable.From<NCreature>(creature => _onCreatureUnhoverMethod?.Invoke(cardPlay, [creature]));
         targetManager.Connect(NTargetManager.SignalName.CreatureHovered, hoverCallable);
@@ -201,7 +219,7 @@ public static class Patch_AnyPlayerCardTargeting
             TargetType.AnyPlayer,
             cardNode,
             TargetMode.Controller,
-            () => !GodotObject.IsInstanceValid(cardPlay) || !NControllerManager.Instance.IsUsingController,
+            () => !GodotObject.IsInstanceValid(cardPlay) || NControllerManager.Instance?.IsUsingController != true,
             null);
 
         List<Creature> candidates = card.CombatState.PlayerCreatures
@@ -216,7 +234,7 @@ public static class Patch_AnyPlayerCardTargeting
         }
 
         List<NCreature> candidateNodes = candidates
-            .Select(creature => NCombatRoom.Instance.GetCreatureNode(creature))
+            .Select(creature => combatRoom.GetCreatureNode(creature))
             .OfType<NCreature>()
             .ToList();
         if (candidateNodes.Count == 0)
@@ -227,7 +245,7 @@ public static class Patch_AnyPlayerCardTargeting
             return;
         }
 
-        NCombatRoom.Instance.RestrictControllerNavigation(candidateNodes.Select(node => node.Hitbox));
+        combatRoom.RestrictControllerNavigation(candidateNodes.Select(node => node.Hitbox));
         candidateNodes.First().Hitbox.TryGrabFocus();
 
         Node? selectedNode = await targetManager.SelectionFinished();

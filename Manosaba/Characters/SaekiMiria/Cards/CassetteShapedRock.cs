@@ -17,14 +17,14 @@ public sealed class CassetteShapedRock : MovieBase
 
     protected override async Task OnMovieEffect(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        if (cardPlay.Target == null)
+        if (cardPlay.Target is not { } target)
         {
             return;
         }
 
         await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
             .FromCard(this)
-            .Targeting(cardPlay.Target)
+            .Targeting(target)
             .Execute(choiceContext);
     }
 }

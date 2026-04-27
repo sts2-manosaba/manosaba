@@ -33,7 +33,7 @@ public sealed class TarotDeck : LevelingPathCustomRelicModel
         List<CardModel> tarotPool = GetEligibleTarotCards(Owner);
         if (tarotPool.Count > 0)
         {
-            CardModel randomTarot = Owner.RunState.Rng.Niche.NextItem(tarotPool);
+            CardModel? randomTarot = Owner.RunState.Rng.Niche.NextItem(tarotPool);
             await AddCardToDeckWithPreview(randomTarot);
         }
 
@@ -90,7 +90,12 @@ public sealed class TarotDeck : LevelingPathCustomRelicModel
                 available = tarotPool.ToList();
             }
 
-            CardModel canonical = player.RunState.Rng.Niche.NextItem(available);
+            CardModel? canonical = player.RunState.Rng.Niche.NextItem(available);
+            if (canonical == null)
+            {
+                continue;
+            }
+
             available.Remove(canonical);
 
             CardModel card = player.RunState.CreateCard(canonical, player);
@@ -181,9 +186,9 @@ public sealed class TarotDeck : LevelingPathCustomRelicModel
         return decimal.Round(target, 0, MidpointRounding.AwayFromZero);
     }
 
-    protected override void OnRelicLevelChanged(int oldLevel, int newLevel)
+    protected override Task AfterRelicLevelChanged(int oldLevel, int newLevel)
     {
-        TaskHelper.RunSafely(OnRelicLevelChangedAsync(oldLevel, newLevel));
+        return OnRelicLevelChangedAsync(oldLevel, newLevel);
     }
 
     private async Task OnRelicLevelChangedAsync(int oldLevel, int newLevel)
@@ -210,7 +215,7 @@ public sealed class TarotDeck : LevelingPathCustomRelicModel
                 break;
             }
 
-            CardModel canonical = Owner.RunState.Rng.Niche.NextItem(unownedTarot);
+            CardModel? canonical = Owner.RunState.Rng.Niche.NextItem(unownedTarot);
             CardModel? addedCard = await AddCardToDeckWithPreview(canonical);
             if (addedCard != null)
             {
@@ -255,9 +260,9 @@ public sealed class TarotDeck : LevelingPathCustomRelicModel
         await AddCardToDeckWithPreview(ModelDb.Card<TheWorld>());
     }
 
-    private async Task<CardModel?> AddCardToDeckWithPreview(CardModel canonicalCard)
+    private async Task<CardModel?> AddCardToDeckWithPreview(CardModel? canonicalCard)
     {
-        if (Owner?.RunState == null)
+        if (Owner?.RunState == null || canonicalCard == null)
         {
             return null;
         }

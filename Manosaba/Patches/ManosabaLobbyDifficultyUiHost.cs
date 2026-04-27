@@ -92,17 +92,26 @@ public static class ManosabaLobbyDifficultyUiHost
         LobbyDifficultyPanelLayout layout,
         LobbyDifficultyUiEnterKind kind)
     {
+        StartRunLobby? lobby = getLobby();
+        bool canUseLocalDefaults = lobby == null || CanEditDifficulty(lobby);
+
         switch (kind)
         {
             case LobbyDifficultyUiEnterKind.FirstOpen:
-                ManosabaLobbyDifficultyState.ResetToLobbyDefaults();
+                if (canUseLocalDefaults)
+                {
+                    ManosabaLobbyDifficultyState.ResetToLobbyDefaults();
+                }
                 ManosabaLobbyDifficultyState.SetLobbySessionActive(true);
                 break;
             case LobbyDifficultyUiEnterKind.SubmenuReopened:
                 ManosabaLobbyDifficultyState.ClearRunSnapshot();
                 break;
             case LobbyDifficultyUiEnterKind.DailyLobbyReady:
-                ManosabaLobbyDifficultyState.ResetToLobbyDefaults();
+                if (canUseLocalDefaults)
+                {
+                    ManosabaLobbyDifficultyState.ResetToLobbyDefaults();
+                }
                 ManosabaLobbyDifficultyState.SetLobbySessionActive(true);
                 break;
         }

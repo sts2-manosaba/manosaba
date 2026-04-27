@@ -22,6 +22,11 @@ namespace Manosaba.Characters.HikamiMeruru.Potions
 
         protected override async Task OnUse(PlayerChoiceContext choiceContext, Creature? target)
         {
+            if (target?.Player == null)
+            {
+                return;
+            }
+
             await PlayerCmd.GainEnergy(base.DynamicVars.Energy.IntValue, target.Player);
         }
     }

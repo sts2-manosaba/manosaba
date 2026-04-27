@@ -47,26 +47,31 @@ namespace Manosaba.Extensions
             }
         }
 
-        public override Task AfterCombatVictory(CombatRoom room)
+        public override async Task AfterCombatVictory(CombatRoom room)
         {
             int expGain = GetCombatVictoryExpGain(room);
             if (expGain <= 0 || RelicLevel >= MaxRelicLevel)
             {
-                return Task.CompletedTask;
+                return;
             }
 
             int oldLevel = RelicLevel;
             RelicExp += expGain;
-            if (RelicLevel > oldLevel)
+            int newLevel = RelicLevel;
+            if (newLevel > oldLevel)
             {
                 Flash();
+                await AfterRelicLevelChanged(oldLevel, newLevel);
             }
-
-            return Task.CompletedTask;
         }
 
         protected virtual void OnRelicLevelChanged(int oldLevel, int newLevel)
         {
+        }
+
+        protected virtual Task AfterRelicLevelChanged(int oldLevel, int newLevel)
+        {
+            return Task.CompletedTask;
         }
     }
 }

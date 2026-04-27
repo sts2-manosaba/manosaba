@@ -40,7 +40,12 @@ public class BurnPower : PathCustomPowerModel
 
     public int CalculateDamageNextTurn()
     {
-        decimal damage = Hook.ModifyDamage(base.Owner.CombatState.RunState, base.Owner.CombatState, base.Owner, null, base.Amount, ValueProp.Unblockable | ValueProp.Unpowered, null, ModifyDamageHookType.All, CardPreviewMode.None, out IEnumerable<AbstractModel> _);
+        if (base.Owner.CombatState is not { } combatState)
+        {
+            return (int)base.Amount;
+        }
+
+        decimal damage = Hook.ModifyDamage(combatState.RunState, combatState, base.Owner, null, base.Amount, ValueProp.Unblockable | ValueProp.Unpowered, null, ModifyDamageHookType.All, CardPreviewMode.None, out IEnumerable<AbstractModel> _);
         return (int)damage;
     }
 

@@ -38,11 +38,21 @@ namespace Manosaba.Characters.JogasakiNoah.Potions
         protected override async Task OnUse(PlayerChoiceContext choiceContext, Creature? target)
         {
             if (_storedMonsterId == ModelId.none) return;
+            if (Owner?.Creature?.CombatState is not { } combatState)
+            {
+                return;
+            }
 
-            MonsterModel monster = ModelDb.GetById<MonsterModel>(_storedMonsterId).ToMutable();
-            Creature pet = Owner.Creature.CombatState.CreateCreature(monster, CombatSide.Player, null);
+            MonsterModel? canonicalMonster = ModelDb.GetById<MonsterModel>(_storedMonsterId);
+            if (canonicalMonster == null)
+            {
+                return;
+            }
+
+            MonsterModel monster = canonicalMonster.ToMutable();
+            Creature pet = combatState.CreateCreature(monster, CombatSide.Player, null);
             await PlayerCmd.AddPet(pet, Owner);
-            NCreature node = NCombatRoom.Instance?.GetCreatureNode(pet);
+            NCreature? node = NCombatRoom.Instance?.GetCreatureNode(pet);
             if (node != null)
             {
                 Vector2 s = node.Visuals.GetCurrentBody().Scale;
@@ -50,6 +60,11 @@ namespace Manosaba.Characters.JogasakiNoah.Potions
             }
 
             Creature perspective = pet.PetOwner?.Creature ?? Owner.Creature;
+            if (pet.CombatState == null)
+            {
+                return;
+            }
+
             List<Creature> petTargets = pet.CombatState.GetOpponentsOf(perspective)
                 .Where(c => c != null && c.IsAlive)
                 .ToList();

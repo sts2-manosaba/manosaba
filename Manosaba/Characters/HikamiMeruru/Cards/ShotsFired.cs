@@ -39,13 +39,23 @@ namespace Manosaba.Characters.HikamiMeruru.Cards
                 .Targeting(target)
                 .Execute(choiceContext);
 
+            if (CombatState == null || Owner?.Creature == null)
+            {
+                return;
+            }
+
             List<Creature> kurobeNanokas = CombatState.Creatures
                 .Where(c => c != null && c.IsAlive && c.IsPlayer && c.Player?.Character is KurobeNanokaCharacter)
                 .ToList();
             if (kurobeNanokas.Count == 0)
                 return;
 
-            Creature randomKurobeNanoka = Owner.RunState.Rng.CombatTargets.NextItem(kurobeNanokas);
+            Creature? randomKurobeNanoka = Owner.RunState.Rng.CombatTargets.NextItem(kurobeNanokas);
+            if (randomKurobeNanoka == null)
+            {
+                return;
+            }
+
             await CreatureCmd.Damage(new ThrowingPlayerChoiceContext(), randomKurobeNanoka, 1m, ValueProp.Unpowered, Owner.Creature);
         }
 

@@ -35,7 +35,7 @@ namespace Manosaba.Characters.JogasakiNoah.Cards
 
         public PlayerChoiceContext? PlayerChoiceContext { get; private set; }
 
-        public Creature? Target => Player.Creature.CombatState?.GetCreature(TargetId);
+        public Creature? Target => Player.Creature?.CombatState?.GetCreature(TargetId);
 
         public PaletteGapPlayCardAction(CardModel cardModel, Creature? target, int? insertIndex)
         {
@@ -63,7 +63,13 @@ namespace Manosaba.Characters.JogasakiNoah.Cards
         protected override async Task ExecuteAction()
         {
             _card = NetCombatCard.ToCardModel();
-            Creature target = await Player.Creature.CombatState.GetCreatureAsync(TargetId, 10.0);
+            if (Player.Creature?.CombatState == null)
+            {
+                Cancel();
+                return;
+            }
+
+            Creature? target = await Player.Creature.CombatState.GetCreatureAsync(TargetId, 10.0);
             CardPile? pile = _card.Pile;
             if (pile == null || pile.Type != PileType.Hand)
             {
@@ -76,7 +82,7 @@ namespace Manosaba.Characters.JogasakiNoah.Cards
                 Log.Warn($"Attempted to play card {_card} with TargetType of type 'Any', but no target was passed to the play card action!");
             }
 
-            if (!_card.CanPlay(out UnplayableReason _, out AbstractModel _) || !_card.IsValidTarget(target))
+            if (!_card.CanPlay(out UnplayableReason _, out AbstractModel? _) || !_card.IsValidTarget(target))
             {
                 Cancel();
                 return;
@@ -135,7 +141,7 @@ namespace Manosaba.Characters.JogasakiNoah.Cards
 
         public override string ToString()
         {
-            CardModel value = NetCombatCard.ToCardModelOrNull();
+            CardModel? value = NetCombatCard.ToCardModelOrNull();
             return $"{nameof(PaletteGapPlayCardAction)} card: {value} index: {NetCombatCard.CombatCardIndex} targetid: {TargetId} insert: {InsertIndex}";
         }
     }

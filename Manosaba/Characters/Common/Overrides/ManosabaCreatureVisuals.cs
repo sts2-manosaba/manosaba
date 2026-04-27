@@ -7,8 +7,8 @@ namespace Manosaba.Characters.Common.Overrides
 	public partial class ManosabaCreatureVisuals : NCreatureVisuals
 	{
 		private Creature? _creature;
-		private Sprite2D _alive;
-		private Sprite2D _dead;
+		private Sprite2D? _alive;
+		private Sprite2D? _dead;
 		public override void _Ready()
 		{
 			base._Ready();
@@ -51,6 +51,8 @@ namespace Manosaba.Characters.Common.Overrides
 
 		private void ApplyVisualByHp(int hp)
 		{
+			if (_alive == null || _dead == null) return;
+
 			bool isDead = hp <= 0;
 			_alive.Visible = !isDead;
 			_dead.Visible = isDead;

@@ -29,8 +29,12 @@ public class PerformanceDress : PathCustomCardModel
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        ArgumentNullException.ThrowIfNull(cardPlay.Target);
-        await CreatureCmd.GainBlock(cardPlay.Target, DynamicVars.Block, cardPlay);
+        if (cardPlay.Target is not { } target)
+        {
+            return;
+        }
+
+        await CreatureCmd.GainBlock(target, DynamicVars.Block, cardPlay);
     }
 
     protected override void OnUpgrade()

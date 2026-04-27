@@ -29,10 +29,15 @@ namespace Manosaba.Characters.JogasakiNoah.Cards
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
-            await PowerCmd.Apply<ZumaPower>(Owner.Creature, DynamicVars["ZumaPower"].BaseValue, Owner.Creature, this);
+            if (Owner?.Creature is not { } ownerCreature || CombatState is not { } combatState)
+            {
+                return;
+            }
+
+            await PowerCmd.Apply<ZumaPower>(ownerCreature, DynamicVars["ZumaPower"].BaseValue, ownerCreature, this);
             await OrbCmd.AddSlots(Owner, 1);
             List<CardModel> cards = Enumerable.Range(0, DynamicVars.Cards.IntValue)
-                .Select(_ => CombatState.CreateCard<PaletteGap>(Owner))
+                .Select(_ => combatState.CreateCard<PaletteGap>(Owner))
                 .Cast<CardModel>()
                 .ToList();
             IReadOnlyList<CardPileAddResult> results = await CardPileCmd.AddGeneratedCardsToCombat(cards, PileType.Draw, addedByPlayer: true, CardPilePosition.Random);

@@ -40,15 +40,17 @@ namespace Manosaba.Characters.SaekiMiria.Cards
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
-            ArgumentNullException.ThrowIfNull(cardPlay.Target, "cardPlay.Target");
-
             /*if (cardPlay.Target.Player == base.Owner) {
 
                 await CardPileCmd.Draw(choiceContext, 1, base.Owner);
                 return;
             }*/
 
-            var target = cardPlay.Target.Player;
+            if (cardPlay.Target?.Player is not { } target)
+            {
+                return;
+            }
+
             HashSet<Type> IgnoredCards = MiriaConstants.IgnoredCards;
 
             var pool = target.Character.CardPool.AllCards;

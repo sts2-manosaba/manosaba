@@ -25,7 +25,7 @@ namespace Manosaba.Characters.JogasakiNoah.Cards
         private const TargetType targetType = TargetType.AnyEnemy;
         private const bool shouldShowInCardLibrary = true;
 
-        protected override bool IsPlayable => Owner.PlayerCombatState.MaxEnergy >= 1;
+        protected override bool IsPlayable => Owner?.PlayerCombatState?.MaxEnergy >= 1;
 
         public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
 
@@ -39,12 +39,23 @@ namespace Manosaba.Characters.JogasakiNoah.Cards
             if (target == null)
                 return;
 
-            if (Owner.Creature.CombatState.Encounter.RoomType == RoomType.Monster)
+            if (Owner?.Creature?.CombatState is not { } combatState)
             {
-                MonsterModel monster = ModelDb.GetById<MonsterModel>(target.ModelId).ToMutable();
-                Creature pet = Owner.Creature.CombatState.CreateCreature(monster, CombatSide.Player, null);
+                return;
+            }
+
+            if (combatState.Encounter?.RoomType == RoomType.Monster)
+            {
+                MonsterModel? canonicalMonster = ModelDb.GetById<MonsterModel>(target.ModelId);
+                if (canonicalMonster == null)
+                {
+                    return;
+                }
+
+                MonsterModel monster = canonicalMonster.ToMutable();
+                Creature pet = combatState.CreateCreature(monster, CombatSide.Player, null);
                 await PlayerCmd.AddPet(pet, Owner);
-                NCreature node = NCombatRoom.Instance?.GetCreatureNode(pet);
+                NCreature? node = NCombatRoom.Instance?.GetCreatureNode(pet);
                 if (node != null)
                 {
                     Vector2 s = node.Visuals.GetCurrentBody().Scale;
@@ -53,6 +64,11 @@ namespace Manosaba.Characters.JogasakiNoah.Cards
                 }
 
                 Creature perspective = pet.PetOwner?.Creature ?? Owner.Creature;
+                if (pet.CombatState == null)
+                {
+                    return;
+                }
+
                 List<Creature> petTargets = pet.CombatState.GetOpponentsOf(perspective)
                     .Where(c => c != null && c.IsAlive)
                     .ToList();

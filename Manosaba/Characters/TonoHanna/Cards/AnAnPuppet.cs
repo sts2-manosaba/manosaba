@@ -34,10 +34,15 @@ namespace Manosaba.Characters.TonoHanna.Cards
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
-            await PowerCmd.Apply<AnAnPuppetCollectionPower>(Owner.Creature, 1m, Owner.Creature, this);
+            if (Owner?.Creature is not { } ownerCreature || CombatState == null)
+            {
+                return;
+            }
+
+            await PowerCmd.Apply<AnAnPuppetCollectionPower>(ownerCreature, 1m, ownerCreature, this);
             foreach (Creature enemy in CombatState.HittableEnemies)
             {
-                await PowerCmd.Apply<AnAnPuppetPower>(enemy, DynamicVars["StrengthLoss"].BaseValue, Owner.Creature, this);
+                await PowerCmd.Apply<AnAnPuppetPower>(enemy, DynamicVars["StrengthLoss"].BaseValue, ownerCreature, this);
             }
         }
 

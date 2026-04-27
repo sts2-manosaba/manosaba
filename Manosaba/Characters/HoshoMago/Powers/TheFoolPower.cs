@@ -23,10 +23,14 @@ public sealed class TheFoolPower : PathCustomPowerModel
 
     public override async Task BeforePlayPhaseStartLate(PlayerChoiceContext choiceContext, Player player)
     {
-        if (_armed || Owner?.Player == null || player != Owner.Player)
+        Player? ownerPlayer = Owner?.Player;
+        Creature? ownerCreature = ownerPlayer?.Creature;
+        CombatState? combatState = ownerCreature?.CombatState;
+        if (_armed || ownerPlayer == null || ownerCreature == null || combatState == null || player != ownerPlayer)
         {
             return;
         }
+
         await PowerCmd.Remove(this);
         bool flag;
         using (CardSelectCmd.PushSelector(new VakuuCardSelector()))
@@ -44,14 +48,19 @@ public sealed class TheFoolPower : PathCustomPowerModel
                     break;
                 }
 
-                CardPile pile = PileType.Hand.GetPile(base.Owner.Player);
-                CardModel card = pile.Cards.FirstOrDefault((CardModel c) => c.CanPlay());
+                CardPile pile = PileType.Hand.GetPile(ownerPlayer);
+                CardModel? card = pile.Cards.FirstOrDefault((CardModel c) => c.CanPlay());
                 if (card == null)
                 {
                     break;
                 }
 
-                Creature target = GetTarget(card, player.Creature.CombatState);
+                Creature? target = GetTarget(card, ownerPlayer, ownerCreature, combatState);
+                if (RequiresTarget(card.TargetType) && target == null)
+                {
+                    break;
+                }
+
                 await card.SpendResources();
                 await CardCmd.AutoPlay(choiceContext, card, target, AutoPlayType.Default, skipXCapture: true);
             }
@@ -64,20 +73,35 @@ public sealed class TheFoolPower : PathCustomPowerModel
         }
 
         LocString line = (flag ? new LocString("relics", "WHISPERING_EARRING.warning") : new LocString("relics", "WHISPERING_EARRING.approval"));
-        TalkCmd.Play(line, base.Owner.Player.Creature, VfxColor.Orange);
+        TalkCmd.Play(line, ownerCreature, VfxColor.Orange);
 
         _armed = true;
 
     }
-    private Creature? GetTarget(CardModel card, CombatState combatState)
+
+    private static bool RequiresTarget(TargetType targetType)
     {
-        Rng combatTargets = base.Owner.Player.RunState.Rng.CombatTargets;
+        return targetType is TargetType.AnyEnemy or TargetType.AnyAlly or TargetType.AnyPlayer;
+    }
+
+    private Creature? GetTarget(CardModel card, Player ownerPlayer, Creature ownerCreature, CombatState combatState)
+    {
+        Rng combatTargets = ownerPlayer.RunState.Rng.CombatTargets;
         return card.TargetType switch
         {
             TargetType.AnyEnemy => combatState.HittableEnemies.FirstOrDefault(),
-            TargetType.AnyAlly => combatTargets.NextItem(combatState.Allies.Where((Creature c) => c != null && c.IsAlive && c.IsPlayer && c != base.Owner.Player.Creature)),
-            TargetType.AnyPlayer => base.Owner.Player.Creature,
+            TargetType.AnyAlly => PickRandomAlly(combatTargets, combatState, ownerCreature),
+            TargetType.AnyPlayer => ownerCreature,
             _ => null,
         };
+    }
+
+    private static Creature? PickRandomAlly(Rng combatTargets, CombatState combatState, Creature ownerCreature)
+    {
+        List<Creature> allies = combatState.Allies
+            .Where((Creature c) => c != null && c.IsAlive && c.IsPlayer && c != ownerCreature)
+            .ToList();
+
+        return allies.Count == 0 ? null : combatTargets.NextItem(allies);
     }
 }

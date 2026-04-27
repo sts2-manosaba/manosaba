@@ -31,15 +31,18 @@ public sealed class MovieInvitation : PathCustomCardModel
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        ArgumentNullException.ThrowIfNull(cardPlay.Target);
+        if (Owner.Creature is not { } ownerCreature || cardPlay.Target is not { } target)
+        {
+            return;
+        }
 
         MovieInvitationPower? power = await PowerCmd.Apply<MovieInvitationPower>(
-            Owner.Creature,
+            ownerCreature,
             DynamicVars["MovieInvitationPower"].BaseValue,
-            Owner.Creature,
+            ownerCreature,
             this);
 
-        power?.SetInvitedTarget(cardPlay.Target);
+        power?.SetInvitedTarget(target);
     }
 
     protected override void OnUpgrade()

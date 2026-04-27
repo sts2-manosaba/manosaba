@@ -16,9 +16,13 @@ namespace Manosaba.Characters.Common.Monsters
     {
         public static async Task<SummonResult> Summon(PlayerChoiceContext choiceContext, Player summoner, decimal amount, AbstractModel? source)
         {
-            CombatState combatState = summoner.Creature.CombatState;
+            if (summoner.Creature?.CombatState is not { } combatState || summoner.PlayerCombatState == null)
+            {
+                return new SummonResult(null, 0m);
+            }
+
             amount = Hook.ModifySummonAmount(combatState, summoner, amount, source);
-            Creature ema = combatState.Allies.FirstOrDefault((Creature c) => c.Monster is SakurabaEmaDog && c.PetOwner == summoner);
+            Creature? ema = combatState.Allies.FirstOrDefault((Creature c) => c.Monster is SakurabaEmaDog && c.PetOwner == summoner);
             if (amount == 0m)
             {
                 return new SummonResult(ema, 0m);
@@ -37,17 +41,24 @@ namespace Manosaba.Characters.Common.Monsters
                 bool isReviving = ema != null;
                 if (isReviving)
                 {
-                    if (ema.IsAlive)
+                    Creature revivedEma = ema!;
+                    if (revivedEma.IsAlive)
                     {
                         throw new InvalidOperationException("We shouldn't make it here if Ema is still alive!");
                     }
 
-                    summoner.PlayerCombatState.AddPetInternal(ema);
+                    summoner.PlayerCombatState.AddPetInternal(revivedEma);
+                    ema = revivedEma;
                 }
                 else
                 {
                     ema = await PlayerCmd.AddPet<SakurabaEmaDog>(summoner);
-                    NCreature emaNode = NCombatRoom.Instance?.GetCreatureNode(ema);
+                    if (ema == null)
+                    {
+                        return new SummonResult(null, 0m);
+                    }
+
+                    NCreature? emaNode = NCombatRoom.Instance?.GetCreatureNode(ema);
                     await PowerCmd.Apply<IkiteyoHirochanPower>(ema, 1m, null, null);
                     emaNode?.TrackBlockStatus(summoner.Creature);
                 }
@@ -58,9 +69,9 @@ namespace Manosaba.Characters.Common.Monsters
 
             if (TestMode.IsOff)
             {
-                NCreature nCreature = NCombatRoom.Instance?.GetCreatureNode(ema);
-                nCreature.OstyScaleToSize(ema.MaxHp, 0.75f);
-                nCreature.ToggleIsInteractable(true);
+                NCreature? nCreature = NCombatRoom.Instance?.GetCreatureNode(ema);
+                nCreature?.OstyScaleToSize(ema.MaxHp, 0.75f);
+                nCreature?.ToggleIsInteractable(true);
             }
 
             CombatManager.Instance.History.Summoned(combatState, (int)amount, summoner);

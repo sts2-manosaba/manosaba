@@ -30,6 +30,11 @@ public sealed class PurplePaintOrb : ManosabaOrbModel
             throw new InvalidOperationException("Purple paint orb cannot target creatures.");
         }
 
+        if (CombatState == null || Owner?.Creature == null)
+        {
+            return;
+        }
+
         List<Creature> candidates = CombatState.HittableEnemies
             .Where(e => e.IsHittable)
             .ToList();
@@ -38,7 +43,12 @@ public sealed class PurplePaintOrb : ManosabaOrbModel
             return;
         }
 
-        Creature chosen = Owner.RunState.Rng.CombatTargets.NextItem(candidates);
+        Creature? chosen = Owner.RunState.Rng.CombatTargets.NextItem(candidates);
+        if (chosen == null)
+        {
+            return;
+        }
+
         Trigger();
         PlayPassiveSfx();
         await PowerCmd.Apply<DoomPower>(chosen, PassiveVal, Owner.Creature, null);
@@ -46,6 +56,11 @@ public sealed class PurplePaintOrb : ManosabaOrbModel
 
     public override async Task<IEnumerable<Creature>> Evoke(PlayerChoiceContext playerChoiceContext)
     {
+        if (CombatState == null || Owner?.Creature == null)
+        {
+            return [];
+        }
+
         List<Creature> enemies = CombatState.HittableEnemies
             .Where(e => e.IsHittable)
             .ToList();

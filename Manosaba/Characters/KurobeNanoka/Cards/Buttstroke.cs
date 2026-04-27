@@ -42,7 +42,7 @@ public sealed class Buttstroke : PathCustomCardModel
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        if (cardPlay.Target == null)
+        if (Owner.Creature is not { } ownerCreature || cardPlay.Target is not { } target)
         {
             return;
         }
@@ -50,11 +50,11 @@ public sealed class Buttstroke : PathCustomCardModel
         await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
             .WithHitFx(vfx: "vfx/vfx_attack_blunt", sfx: BluntHitSfx)
             .FromCard(this)
-            .Targeting(cardPlay.Target)
+            .Targeting(target)
             .Execute(choiceContext);
 
-        await PowerCmd.Apply<WeakPower>(cardPlay.Target, DynamicVars.Weak.BaseValue, Owner.Creature, this);
-        await PowerCmd.Apply<VulnerablePower>(cardPlay.Target, DynamicVars.Vulnerable.BaseValue, Owner.Creature, this);
+        await PowerCmd.Apply<WeakPower>(target, DynamicVars.Weak.BaseValue, ownerCreature, this);
+        await PowerCmd.Apply<VulnerablePower>(target, DynamicVars.Vulnerable.BaseValue, ownerCreature, this);
         await CardPileCmd.Draw(choiceContext, DynamicVars.Cards.BaseValue, Owner);
     }
 

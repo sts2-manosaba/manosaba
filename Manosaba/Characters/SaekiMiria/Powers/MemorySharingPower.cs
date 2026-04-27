@@ -22,7 +22,7 @@ namespace Manosaba.Characters.SaekiMiria.Powers
 {
     public sealed class MemorySharingPower : PathCustomPowerModel
     {
-        private List<Creature> _appliers;
+        private List<Creature> _appliers = new();
         private bool _upgraded;
 
         public override PowerType Type => PowerType.Buff;
@@ -49,6 +49,11 @@ namespace Manosaba.Characters.SaekiMiria.Powers
             if (player.Creature != Owner)
                 return;
 
+            if (base.Owner.Player is not { } ownerPlayer)
+            {
+                return;
+            }
+
             foreach (var applier in _appliers)
             {
                 decimal majoka = 0m;
@@ -61,7 +66,7 @@ namespace Manosaba.Characters.SaekiMiria.Powers
                 List<CardModel> pool = new List<CardModel>();
 
                 IEnumerable<Player> enumerable = from c in base.CombatState.GetTeammatesOf(base.Owner)
-                                                 where c != null && c.IsAlive && c.IsPlayer
+                                                 where c != null && c.IsAlive && c.IsPlayer && c.Player != null
                                                  select c.Player;
 
                 foreach (Player item in enumerable)
@@ -104,7 +109,7 @@ namespace Manosaba.Characters.SaekiMiria.Powers
 
 
                 var generatedList = CardHelperService
-                    .GetAvailableCards(base.Owner.Player, pool, 1, base.Owner.Player.RunState.Rng.CombatCardGeneration)
+                    .GetAvailableCards(ownerPlayer, pool, 1, ownerPlayer.RunState.Rng.CombatCardGeneration)
                     .ToList();
 
                 var card = generatedList.FirstOrDefault();

@@ -104,7 +104,7 @@ public static class Patch_Hosho_Mago_Card_Factory
             return true;
         }
 
-        if (!TryGetPoolCards(poolArg, player, out List<CardModel>? poolCards))
+        if (!TryGetPoolCards(poolArg, player, out List<CardModel>? poolCards) || poolCards == null)
         {
             return true;
         }
@@ -129,7 +129,12 @@ public static class Patch_Hosho_Mago_Card_Factory
         List<CardModel> picked = [];
         for (int i = 0; i < targetCount; i++)
         {
-            CardModel canonical = rng.NextItem(available);
+            CardModel? canonical = rng.NextItem(available);
+            if (canonical == null)
+            {
+                continue;
+            }
+
             CardModel card = player.Creature?.CombatState != null
                 ? player.Creature.CombatState.CreateCard(canonical, player)
                 : player.RunState.CreateCard(canonical, player);
@@ -249,7 +254,12 @@ public static class Patch_Hosho_Mago_Card_Factory
             available = tarotPool;
         }
 
-        CardModel canonical = player.RunState.Rng.Niche.NextItem(available);
+        CardModel? canonical = player.RunState.Rng.Niche.NextItem(available);
+        if (canonical == null)
+        {
+            return;
+        }
+
         CardModel replacement = player.RunState.CreateCard(canonical, player);
         candyResult.ModifyCard(replacement, lastingCandy);
     }

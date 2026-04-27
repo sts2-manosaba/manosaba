@@ -31,6 +31,11 @@ public sealed class TheDevilEyeOfNoEscapeToken : PathCustomCardModel
         _ = choiceContext;
         _ = cardPlay;
 
+        if (CombatState == null)
+        {
+            return;
+        }
+
         List<Creature> targets = CombatState.GetTeammatesOf(Owner.Creature)
             .Concat(CombatState.GetOpponentsOf(Owner.Creature))
             .Where(creature => creature != null && creature.IsAlive)
@@ -67,6 +72,11 @@ public sealed class TheDevilAwakenedMadnessPowerToken : PathCustomCardModel
         _ = choiceContext;
         _ = cardPlay;
 
+        if (CombatState == null)
+        {
+            return;
+        }
+
         List<Creature> targets = CombatState.GetTeammatesOf(Owner.Creature)
             .Concat(CombatState.GetOpponentsOf(Owner.Creature))
             .Where(creature => creature != null && creature.IsAlive)
@@ -101,7 +111,12 @@ public sealed class TheDevilBestowTrialToken : PathCustomCardModel
         _ = choiceContext;
         _ = cardPlay;
 
-        bool isBossRoom = CombatState.Encounter.RoomType == RoomType.Boss;
+        if (CombatState == null)
+        {
+            return;
+        }
+
+        bool isBossRoom = CombatState.Encounter?.RoomType == RoomType.Boss;
         List<Creature> targets = CombatState.GetTeammatesOf(Owner.Creature)
             .Concat(CombatState.GetOpponentsOf(Owner.Creature))
             .Where(creature => creature != null && creature.IsAlive)

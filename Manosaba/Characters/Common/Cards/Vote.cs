@@ -47,9 +47,9 @@ namespace Manosaba.Characters.Common.Cards
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
             await CardPileCmd.Draw(choiceContext, base.DynamicVars.Cards.BaseValue, base.Owner);
-            if (cardPlay.Target != null)
+            if (base.Owner.Creature is { } ownerCreature && cardPlay.Target?.Player?.Creature is { } targetCreature)
             {
-                await PowerCmd.Apply<VotePower>(cardPlay.Target.Player.Creature, 1, base.Owner.Creature, this);
+                await PowerCmd.Apply<VotePower>(targetCreature, 1, ownerCreature, this);
             }
         }
 

@@ -30,11 +30,15 @@ namespace Manosaba.Characters.SaekiMiria.Cards
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
 
-            ArgumentNullException.ThrowIfNull(cardPlay.Target, "cardPlay.Target");
-            var votePower = cardPlay.Target.GetPowerAmount<VotePower>();
-            await PowerCmd.Apply<VotePower>(cardPlay.Target, -votePower, Owner.Creature, this);
-            await PowerCmd.Apply<VotePower>(Owner.Creature, votePower, Owner.Creature, this);
-            await CreatureCmd.GainBlock(Owner.Creature, DynamicVars.Block, cardPlay);
+            if (Owner.Creature is not { } ownerCreature || cardPlay.Target is not { } target)
+            {
+                return;
+            }
+
+            var votePower = target.GetPowerAmount<VotePower>();
+            await PowerCmd.Apply<VotePower>(target, -votePower, ownerCreature, this);
+            await PowerCmd.Apply<VotePower>(ownerCreature, votePower, ownerCreature, this);
+            await CreatureCmd.GainBlock(ownerCreature, DynamicVars.Block, cardPlay);
         }
 
         protected override void OnUpgrade()

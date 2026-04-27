@@ -17,9 +17,10 @@ namespace Manosaba.Characters.NikaidoHiro.Powers
 
         public override async Task BeforeTurnEnd(PlayerChoiceContext choiceContext, CombatSide side)
         {
-            if (side == CombatSide.Player && Owner.IsAlive)
+            CombatState? combatState = CombatState;
+            if (side == CombatSide.Player && Owner.IsAlive && combatState != null)
             {
-                List<Creature> targets = CombatState.GetOpponentsOf(Owner)
+                List<Creature> targets = combatState.GetOpponentsOf(Owner)
                     .Where(c => c.IsHittable)
                     .ToList();
                 if (targets.Count == 0)
@@ -27,7 +28,12 @@ namespace Manosaba.Characters.NikaidoHiro.Powers
                     return;
                 }
 
-                Creature target = CombatState.RunState.Rng.CombatTargets.NextItem(targets);
+                Creature? target = combatState.RunState.Rng.CombatTargets.NextItem(targets);
+                if (target == null)
+                {
+                    return;
+                }
+
                 await CreatureCmd.Damage(choiceContext, target, Owner.CurrentHp, ValueProp.Move, Owner, null);
             }
         }

@@ -32,13 +32,18 @@ namespace Manosaba.Characters.TachibanaSherry.Cards
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
-            IEnumerable<Creature> players = base.CombatState.GetTeammatesOf(base.Owner.Creature);
+            if (base.CombatState == null || base.Owner?.Creature is not { } ownerCreature)
+            {
+                return;
+            }
+
+            IEnumerable<Creature> players = base.CombatState.GetTeammatesOf(ownerCreature);
             foreach (Creature creature in players)
             {
                 if (creature == null || !creature.IsAlive || !creature.IsPlayer)
                     continue;
 
-                await PowerCmd.Apply<StrengthPower>(creature, DynamicVars["StrengthPower"].BaseValue, base.Owner.Creature, this);
+                await PowerCmd.Apply<StrengthPower>(creature, DynamicVars["StrengthPower"].BaseValue, ownerCreature, this);
             }
         }
 

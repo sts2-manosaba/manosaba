@@ -25,13 +25,17 @@ namespace Manosaba.Characters.HikamiMeruru.Potions
         public override bool CanBeGeneratedInCombat => false;
         protected override async Task OnUse(PlayerChoiceContext choiceContext, Creature? target)
         {
-            Creature player = base.Owner.Creature;
-            IReadOnlyList<Creature> targets = player.CombatState.HittableEnemies;
+            if (base.Owner.Creature is not { } ownerCreature || ownerCreature.CombatState is not { } combatState)
+            {
+                return;
+            }
+
+            IReadOnlyList<Creature> targets = combatState.HittableEnemies;
             foreach (Creature item in targets)
             {
                 PotionModel.AssertValidForTargetedPotion(item);
                 NCombatRoom.Instance?.PlaySplashVfx(item, new Color("65cf81"));
-                await PowerCmd.Apply<ShrinkPower>(item, base.DynamicVars.Repeat.BaseValue, base.Owner.Creature, null);
+                await PowerCmd.Apply<ShrinkPower>(item, base.DynamicVars.Repeat.BaseValue, ownerCreature, null);
             }
         }
     }

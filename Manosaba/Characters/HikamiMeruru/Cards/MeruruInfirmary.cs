@@ -30,19 +30,29 @@ public class MeruruInfirmary : PathCustomCardModel
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        decimal amount = DynamicVars["MeruruInfirmaryPower"].BaseValue;
-        if (!IsUpgraded)
+        if (Owner?.Creature is not { } ownerCreature)
         {
-            await PowerCmd.Apply<MeruruInfirmaryPower>(Owner.Creature, amount, Owner.Creature, this);
             return;
         }
 
-        IEnumerable<Creature> teammates = from c in CombatState.GetTeammatesOf(Owner.Creature)
+        decimal amount = DynamicVars["MeruruInfirmaryPower"].BaseValue;
+        if (!IsUpgraded)
+        {
+            await PowerCmd.Apply<MeruruInfirmaryPower>(ownerCreature, amount, ownerCreature, this);
+            return;
+        }
+
+        if (CombatState is not { } combatState)
+        {
+            return;
+        }
+
+        IEnumerable<Creature> teammates = from c in combatState.GetTeammatesOf(ownerCreature)
                                           where c != null && c.IsAlive && c.IsPlayer
                                           select c;
         foreach (Creature teammate in teammates)
         {
-            await PowerCmd.Apply<MeruruInfirmaryPower>(teammate, amount, Owner.Creature, this);
+            await PowerCmd.Apply<MeruruInfirmaryPower>(teammate, amount, ownerCreature, this);
         }
     }
 

@@ -16,7 +16,7 @@ internal static class ManosabaTransformHelper
     {
         options = Enumerable.Empty<CardModel>();
 
-        if (original.Owner?.Character?.CardPool == null)
+        if (original.Owner?.Character?.CardPool == null || original.RunState == null)
         {
             return false;
         }
@@ -81,12 +81,23 @@ internal static class ManosabaTransformHelper
             return false;
         }
 
-        result = original.CardScope.CreateCard(rng.NextItem(filtered), original.Owner);
+        CardModel? selected = rng.NextItem(filtered);
+        if (selected == null || original.CardScope == null || original.Owner == null)
+        {
+            return false;
+        }
+
+        result = original.CardScope.CreateCard(selected, original.Owner);
         return true;
     }
 
     private static IEnumerable<CardModel> GetSourcePoolForCommonCard(CardModel original, CommonCardPool commonPool)
     {
+        if (original.Owner?.Character?.CardPool == null || original.RunState == null)
+        {
+            return [];
+        }
+
         return original.Owner.Character.CardPool
             .GetUnlockedCards(original.Owner.UnlockState, original.RunState.CardMultiplayerConstraint)
             .Concat(commonPool.GetUnlockedCards(original.Owner.UnlockState, original.RunState.CardMultiplayerConstraint))
@@ -96,6 +107,11 @@ internal static class ManosabaTransformHelper
 
     private static IEnumerable<CardModel> GetHoshoTarotSource(CardModel original)
     {
+        if (original.Owner?.Character?.CardPool == null || original.RunState == null)
+        {
+            return [];
+        }
+
         return original.Owner.Character.CardPool
             .GetUnlockedCards(original.Owner.UnlockState, original.RunState.CardMultiplayerConstraint)
             .Where(card => card.Tags.Contains(ManosabaCardTags.Tarot) && card is not TheWorld);

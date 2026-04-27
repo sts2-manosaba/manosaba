@@ -28,6 +28,11 @@ namespace Manosaba.Characters.JogasakiNoah.Cards
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
+            if (base.Owner.PlayerCombatState == null)
+            {
+                return;
+            }
+
             IReadOnlyList<OrbModel> paintOrbs = JogasakiNoahOrbPool.AllOrbs;
             int orbCount = base.Owner.PlayerCombatState.OrbQueue.Orbs.Count;
             for (int i = 0; i < orbCount; i++)

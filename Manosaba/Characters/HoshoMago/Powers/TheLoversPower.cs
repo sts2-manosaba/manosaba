@@ -32,14 +32,15 @@ public sealed class TheLoversPower : PathCustomPowerModel
         if (result.UnblockedDamage <= 0)
             return;
 
-        if (dealer != Applier || !Applier.IsAlive)
+        Creature? applier = Applier;
+        if (dealer != applier || applier == null || !applier.IsAlive)
             return;
 
         decimal healAmount = result.UnblockedDamage * Amount / 100m;
         if (healAmount <= 0)
             return;
 
-        await CreatureCmd.Heal(Applier, healAmount);
+        await CreatureCmd.Heal(applier, healAmount);
     }
 
     public override async Task AfterTurnEnd(PlayerChoiceContext choiceContext, CombatSide side)

@@ -40,7 +40,7 @@ namespace Manosaba.Characters.TachibanaSherry.Powers
                     await PowerCmd.Apply<MajokaPower>(Owner, -remove, Owner, null);
                 }
 
-                if (Owner.CombatState != null)
+                if (Owner.CombatState != null && Owner.Player != null)
                 {
                     CardModel boulder = Owner.CombatState.CreateCard(ModelDb.Card<Boulders>(), Owner.Player);
                     CardCmd.ApplyKeyword(boulder, CardKeyword.Exhaust);

@@ -52,11 +52,14 @@ namespace Manosaba.Characters.JogasakiNoah.Cards
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
-            if (cardPlay.Target == null)
+            if (cardPlay.Target is not { } target)
+            {
                 return;
+            }
+
             await DamageCmd.Attack(DynamicVars.CalculatedDamage)
                 .FromCard(this)
-                .Targeting(cardPlay.Target)
+                .Targeting(target)
                 .Execute(choiceContext);
         }
 

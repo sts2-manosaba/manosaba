@@ -32,6 +32,11 @@ namespace Manosaba.Characters.Common.Cards
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
+            if (base.CombatState == null || base.Owner?.Creature == null)
+            {
+                return;
+            }
+
             foreach (Creature hittableEnemy in base.CombatState.HittableEnemies)
             {
                 await PowerCmd.Apply<DissolvePower>(hittableEnemy, base.DynamicVars["StrengthLoss"].BaseValue, base.Owner.Creature, this);

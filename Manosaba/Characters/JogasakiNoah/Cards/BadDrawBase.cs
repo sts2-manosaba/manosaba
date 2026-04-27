@@ -33,13 +33,15 @@ public abstract class BadDrawBase : PathCustomCardModel
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        if (cardPlay.Target?.Player?.Character == null)
+        if (Owner.Creature is not { } ownerCreature || cardPlay.Target is not { } target || target.Player?.Character == null)
+        {
             return;
+        }
 
-        string targetCharacterId = cardPlay.Target.Player.Character.Id.ToString().RemovePrefix().ToLowerInvariant();
+        string targetCharacterId = target.Player.Character.Id.ToString().RemovePrefix().ToLowerInvariant();
         if (targetCharacterId == "jogasaki_noah")
         {
-            await PowerCmd.Apply<MajokaPower>(cardPlay.Target, 100m, Owner.Creature, this);
+            await PowerCmd.Apply<MajokaPower>(target, 100m, ownerCreature, this);
         }
 
         IEnumerable<CardModel> siblings = CardPile
