@@ -12,7 +12,7 @@
   "MANOSABA-FAIRY_HEART.description": "自分のターン開始時、すべての[gold]魔女化[/gold]を失う。\n戦闘開始時、この遺物のレベルと同じ層数の[gold]筋力[/gold]を得る。\n敵の攻撃を受けるたび、現在の[gold]筋力[/gold]の層数の50%に相当する分だけ受けるダメージを軽減する。\nLv2以降は60%、Lv4以降は70%。",
   "MANOSABA-FAIRY_HEART.flavor": "私は完璧な名探偵シェリーになった！もう魔女化なんてしない！",
   "MANOSABA-CABINET_KEY.title": "小さな鍵",
-  "MANOSABA-CABINET_KEY.description": "敵のターン終了前、自身が持つ{BlockPerMovie}の[gold]ブロック[/gold]ごとに（切り上げ）ランダムな映画カードを1枚[gold]山札[/gold]に加える。1ターンにつき最大{MaxMovieCards}枚まで。\nアップグレードするたびに必要なブロックが1減少。",
+  "MANOSABA-CABINET_KEY.description": "自分のターン開始時、ランダムな映画カードを{MoviesPerTurn}枚[gold]山札[/gold]に加える。\nレベル3から、さらに{CassetteChance}%の確率で[gold]カセット形の石[/gold]を1枚加える。\nレベル5では映画カードを2枚加える。",
   "MANOSABA-CABINET_KEY.flavor": "これは何を開ける鍵なんだろう？",
   "MANOSABA-RAPIER.title": "レイピア",
   "MANOSABA-RAPIER.description": "攻撃を受けたとき、ブロックしたダメージ量の60%を攻撃者に与える。\nこのダメージは他の効果の影響を受ける。アップグレードごとに10%増加する。",

@@ -50,10 +50,10 @@ namespace Manosaba.Characters.SaekiMiria.Powers
                 return 1m;
             }
             decimal multiplier = 1m;
-            //for each stack, decrease damage taken by 30%, multiplicatively
+            // for each stack, decrease damage taken by 25%, multiplicatively
             for (int i = 0; i < base.Amount; i++)
             {
-                multiplier *= 0.7m;
+                multiplier *= 0.75m;
             }
             return multiplier;
         }
@@ -63,7 +63,7 @@ namespace Manosaba.Characters.SaekiMiria.Powers
             decimal multiplier = 1m;
             for (int i = 0; i < base.Amount; i++)
             {
-                multiplier *= 0.7m;
+                multiplier *= 0.8m;
             }
 
             DynamicVars[DamageReductionPercentVar].BaseValue = (1m - multiplier) * 100m;

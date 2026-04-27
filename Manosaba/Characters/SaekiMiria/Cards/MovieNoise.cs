@@ -19,7 +19,7 @@ public sealed class MovieNoise : PathCustomCardModel
     private const TargetType targetType = TargetType.Self;
     private const bool shouldShowInCardLibrary = true;
 
-    protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(2m, ValueProp.Unpowered)];
+    protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(5m, ValueProp.Unpowered)];
 
     public MovieNoise()
         : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)
@@ -33,6 +33,6 @@ public sealed class MovieNoise : PathCustomCardModel
 
     protected override void OnUpgrade()
     {
-        DynamicVars.Damage.UpgradeValueBy(1m);
+        DynamicVars.Damage.UpgradeValueBy(3m);
     }
 }

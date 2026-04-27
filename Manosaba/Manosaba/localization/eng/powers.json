@@ -154,7 +154,7 @@
   "MANOSABA-DATE_TIME_NO_MAJOKA_POWER.description": "You cannot gain [gold]Majoka[/gold] this turn.",
   "MANOSABA-DATE_TIME_NO_MAJOKA_POWER.smartDescription": "You cannot gain Majoka this turn.",
   "MANOSABA-FRIENDLY_POWER.title": "Affinity",
-  "MANOSABA-FRIENDLY_POWER.description": "Each stack reduces attack damage you take by 30% (multiplicative).",
+  "MANOSABA-FRIENDLY_POWER.description": "Each stack reduces attack damage you take by 25% (multiplicative).",
   "MANOSABA-FRIENDLY_POWER.smartDescription": "Attack damage you take is reduced by [blue]{DamageReductionPercent}[/blue]% total.",
   "MANOSABA-MEMORY_SHARING_POWER.title": "Memory Sharing",
   "MANOSABA-MEMORY_SHARING_POWER.description": "At the start of each turn, gain a random teammate card based on your [gold]Majoka[/gold].",
@@ -303,4 +303,7 @@
   "MANOSABA-BRAINWASH_EXTRA_TURN_POWER.title": "Brainwash",
   "MANOSABA-BRAINWASH_EXTRA_TURN_POWER.description": "You will take an extra turn.",
   "MANOSABA-BRAINWASH_EXTRA_TURN_POWER.smartDescription": "You will take an extra turn."
+  "MANOSABA-UNLUCKY_POWER.title": "Unlucky",
+  "MANOSABA-UNLUCKY_POWER.description": "At the end of your turn, take damage equal to this power's stacks.",
+  "MANOSABA-UNLUCKY_POWER.smartDescription": "At the end of your turn, take [blue]{Amount}[/blue] damage."
 }

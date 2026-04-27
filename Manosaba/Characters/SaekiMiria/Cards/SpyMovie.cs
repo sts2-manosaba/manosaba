@@ -11,7 +11,7 @@ namespace Manosaba.Characters.SaekiMiria.Cards;
 public sealed class SpyMovie : MovieBase
 {
     protected override IEnumerable<IHoverTip> MovieHoverTips => [HoverTipFactory.FromPower<DexterityPower>()];
-    protected override IEnumerable<DynamicVar> MovieVars => [new PowerVar<DexterityPower>(1m)];
+    protected override IEnumerable<DynamicVar> MovieVars => [new PowerVar<DexterityPower>(2m)];
 
     protected override Task OnMovieEffect(PlayerChoiceContext choiceContext, CardPlay cardPlay) =>
         PowerCmd.Apply<DexterityPower>(Owner.Creature, DynamicVars.Dexterity.BaseValue, Owner.Creature, this);

@@ -7,10 +7,12 @@ using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
 using manosaba.Characters.SaekiMiria;
+using manosaba.Characters.Common;
+using MegaCrit.Sts2.Core.Models.CardPools;
 
 namespace Manosaba.Characters.SaekiMiria.Cards;
 
-[Pool(typeof(SaekiMiriaCardPool))]
+[Pool(typeof(TokenCardPool))]
 public abstract class MovieBase : PathCustomCardModel
 {
     private const int energyCost = 0;

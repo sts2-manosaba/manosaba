@@ -1,5 +1,6 @@
 using BaseLib.Utils;
 using manosaba.Characters.SaekiMiria;
+using Manosaba.Characters.Common.Powers;
 using Manosaba.Characters.SaekiMiria.Powers;
 using Manosaba.Extensions;
 using MegaCrit.Sts2.Core.Commands;
@@ -22,13 +23,13 @@ public sealed class WalkingMisfortune : PathCustomCardModel
 
     protected override IEnumerable<IHoverTip> ExtraHoverTips =>
     [
-        HoverTipFactory.FromPower<DemisePower>(),
+        HoverTipFactory.FromPower<UnluckyPower>(),
         HoverTipFactory.FromPower<WalkingMisfortunePower>(),
     ];
 
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
-        new PowerVar<DemisePower>(5m),
+        new PowerVar<UnluckyPower>(5m),
         new PowerVar<WalkingMisfortunePower>(1m),
     ];
 
@@ -42,12 +43,12 @@ public sealed class WalkingMisfortune : PathCustomCardModel
         _ = choiceContext;
         _ = cardPlay;
 
-        await PowerCmd.Apply<DemisePower>(Owner.Creature, DynamicVars["DemisePower"].BaseValue, Owner.Creature, this);
+        await PowerCmd.Apply<UnluckyPower>(Owner.Creature, DynamicVars["UnluckyPower"].BaseValue, Owner.Creature, this);
         await PowerCmd.Apply<WalkingMisfortunePower>(Owner.Creature, DynamicVars["WalkingMisfortunePower"].BaseValue, Owner.Creature, this);
     }
 
     protected override void OnUpgrade()
     {
-        AddKeyword(CardKeyword.Innate);
+        DynamicVars["UnluckyPower"].UpgradeValueBy(-2m);
     }
 }

@@ -27,9 +27,13 @@ public sealed class SmallPaper : MovieBase
             return;
         }
 
-        CardModel generated = CombatState.RunState.Rng.CombatCardGeneration.NextInt(10) == 0
-            ? CombatState.CreateCard<TheWayOut>(Owner)
-            : CombatState.CreateCard<Junk>(Owner);
+        int roll = CombatState.RunState.Rng.CombatCardGeneration.NextInt(10);
+        CardModel generated = roll switch
+        {
+            0 => CombatState.CreateCard<TheWayOut>(Owner),
+            1 => CombatState.CreateCard<LandMine>(Owner),
+            _ => CombatState.CreateCard<Junk>(Owner)
+        };
 
         CardPileAddResult result = await CardPileCmd.AddGeneratedCardToCombat(generated, PileType.Hand, addedByPlayer: true);
         CardCmd.PreviewCardPileAdd(result, 1.2f, CardPreviewStyle.HorizontalLayout);

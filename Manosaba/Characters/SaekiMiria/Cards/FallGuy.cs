@@ -18,7 +18,7 @@ namespace Manosaba.Characters.SaekiMiria.Cards
         public override CardMultiplayerConstraint MultiplayerConstraint => CardMultiplayerConstraint.MultiplayerOnly;
         private const int energyCost = 1;
         private const CardType type = CardType.Skill;
-        private const CardRarity rarity = CardRarity.Uncommon;
+        private const CardRarity rarity = CardRarity.Common;
         private const TargetType targetType = TargetType.AnyAlly;
         private const bool shouldShowInCardLibrary = true;
         protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<VotePower>()];

@@ -22,7 +22,9 @@ namespace manosaba.Characters.SaekiMiria.Relics
     public sealed class CabinetKey : LevelingPathCustomRelicModel
     {
         private const int MAX_MOVIE_CARD_GENERATED = 10;
-        private const int SMALL_PAPER_CHANCE = 1000;
+        private const int SMALL_PAPER_CHANCE = 100;
+        private const string MoviesPerTurnVar = "MoviesPerTurn";
+        private const string CassetteChanceVar = "CassetteChance";
 
         public override RelicRarity Rarity => RelicRarity.Starter;
         protected override int MaxRelicLevel => 5;
@@ -33,13 +35,14 @@ namespace manosaba.Characters.SaekiMiria.Relics
         [
             new DynamicVar("BlockPerMovie", 8m),
             new DynamicVar("MaxMovieCards", MAX_MOVIE_CARD_GENERATED),
+            new DynamicVar(MoviesPerTurnVar, 1m),
+            new DynamicVar(CassetteChanceVar, 0m),
         ];
 
         private static readonly IReadOnlyList<Func<Player, CombatState, MovieBase>> MovieFactories =
         [
             static (player, combatState) => combatState.CreateCard<HorrorMovie>(player),
             static (player, combatState) => combatState.CreateCard<ComedyMovie>(player),
-            static (player, combatState) => combatState.CreateCard<CassetteShapedRock>(player),
             static (player, combatState) => combatState.CreateCard<FantasyMovie>(player),
             static (player, combatState) => combatState.CreateCard<ActionMovie>(player),
             static (player, combatState) => combatState.CreateCard<RomanticMovie>(player),
@@ -66,7 +69,62 @@ namespace manosaba.Characters.SaekiMiria.Relics
             return Task.CompletedTask;
         }
 
-        public override async Task BeforeTurnEnd(PlayerChoiceContext choiceContext, CombatSide side)
+        public override async Task AfterPlayerTurnStart(PlayerChoiceContext choiceContext, Player player)
+        {
+            if (Owner != player || !Owner.Creature.IsAlive)
+                return;
+
+            CombatState? combatState = Owner.Creature.CombatState;
+            if (combatState == null)
+                return;
+
+            int moviesToAdd = DynamicVars[MoviesPerTurnVar].IntValue;
+            if (moviesToAdd <= 0)
+                return;
+
+            Flash();
+            var rng = combatState.RunState.Rng.CombatCardSelection;
+            List<CardModel> generatedCards = new(moviesToAdd);
+            for (int i = 0; i < moviesToAdd; i++)
+            {
+                generatedCards.Add(CreateRelicGeneratedCard(Owner, combatState, rng));
+            }
+
+            if (RelicLevel >= 3 && rng.NextInt(100) < DynamicVars[CassetteChanceVar].IntValue)
+            {
+                generatedCards.Add(combatState.CreateCard<CassetteShapedRock>(Owner));
+            }
+
+            Player? invitedPlayer = Owner.Creature.GetPower<MovieInvitationPower>()?.ConsumeInvitedPlayerForRelicMovies();
+            if (invitedPlayer != null)
+            {
+                List<CardModel> invitedCards = new(generatedCards.Count);
+                foreach (CardModel card in generatedCards)
+                {
+                    invitedCards.Add(CreateRelicGeneratedCardCopyForPlayer(card, invitedPlayer, combatState));
+                }
+
+                IReadOnlyList<CardPileAddResult> invitedResults = await CardPileCmd.AddGeneratedCardsToCombat(
+                    invitedCards,
+                    PileType.Draw,
+                    addedByPlayer: true,
+                    CardPilePosition.Random);
+                if (LocalContext.IsMe(invitedPlayer.Creature))
+                {
+                    CardCmd.PreviewCardPileAdd(invitedResults);
+                }
+            }
+
+            IReadOnlyList<CardPileAddResult> results = await CardPileCmd.AddGeneratedCardsToCombat(
+                generatedCards,
+                PileType.Draw,
+                addedByPlayer: true,
+                CardPilePosition.Random);
+            CardCmd.PreviewCardPileAdd(results);
+        }
+
+        [Obsolete("Deprecated block-scaling Cabinet Key behavior retained for future reference.")]
+        private async Task DeprecatedBeforeTurnEndBlockScalingEffect(PlayerChoiceContext choiceContext, CombatSide side)
         {
             if (side != CombatSide.Enemy)
                 return;
@@ -97,7 +155,12 @@ namespace manosaba.Characters.SaekiMiria.Relics
                 generatedCards.Add(CreateRelicGeneratedCard(Owner, combatState, rng));
             }
 
-            Player? invitedPlayer = ownerCreature.GetPower<MovieInvitationPower>()?.ConsumeInvitedPlayerForRelicMovies();
+            if (RelicLevel >= 3 && rng.NextInt(100) < DynamicVars[CassetteChanceVar].IntValue)
+            {
+                generatedCards.Add(combatState.CreateCard<CassetteShapedRock>(Owner));
+            }
+
+            Player? invitedPlayer = Owner.Creature.GetPower<MovieInvitationPower>()?.ConsumeInvitedPlayerForRelicMovies();
             if (invitedPlayer != null)
             {
                 List<CardModel> invitedCards = new(generatedCards.Count);
@@ -125,8 +188,6 @@ namespace manosaba.Characters.SaekiMiria.Relics
             CardCmd.PreviewCardPileAdd(results);
         }
 
-
-
         protected override void OnRelicLevelChanged(int oldLevel, int newLevel)
         {
             ApplyRelicLevelEffects();
@@ -141,6 +202,8 @@ namespace manosaba.Characters.SaekiMiria.Relics
             // Lv5: 4
             blockPerMovieCard = Math.Max(1, 8 - RelicLevel);
             DynamicVars["BlockPerMovie"].BaseValue = blockPerMovieCard;
+            DynamicVars[MoviesPerTurnVar].BaseValue = RelicLevel >= 5 ? 2m : 1m;
+            DynamicVars[CassetteChanceVar].BaseValue = RelicLevel >= 3 ? 50m : 0m;
         }
 
         private static CardModel CreateRelicGeneratedCard(Player player, CombatState combatState, MegaCrit.Sts2.Core.Random.Rng rng)
