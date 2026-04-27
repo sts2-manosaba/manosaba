@@ -369,3 +369,4 @@ FodyWeavers.xsd
 *.import
 .codex
 Manosaba/Local.Build.props
+.editorconfig
