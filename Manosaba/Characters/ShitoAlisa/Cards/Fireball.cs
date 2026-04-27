@@ -23,6 +23,10 @@ public sealed class Fireball : ShitoAlisaCardModel
     private new const CardRarity Rarity = CardRarity.Token;
     private new const bool ShouldShowInCardLibrary = false;
 
+    /// <summary>Only from explicit card effects (e.g. RestrictionRelease); exclude from transforms / discovery pools.</summary>
+    public override bool CanBeGeneratedInCombat => false;
+    public override bool CanBeGeneratedByModifiers => false;
+
     public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
 
     protected override IEnumerable<DynamicVar> CanonicalVars =>

@@ -16,6 +16,10 @@ public sealed class TestWait : PathCustomCardModel
     private const TargetType TargetTypeValue = TargetType.Self;
     private new const bool ShouldShowInCardLibrary = false;
 
+    /// <summary>Combat transforms / modifier discovery must not pull this dev-only card (same pattern as NanokaPiece).</summary>
+    public override bool CanBeGeneratedInCombat => false;
+    public override bool CanBeGeneratedByModifiers => false;
+
     public TestWait() : base(EnergyCost, Type, Rarity, TargetTypeValue, ShouldShowInCardLibrary)
     {
     }
