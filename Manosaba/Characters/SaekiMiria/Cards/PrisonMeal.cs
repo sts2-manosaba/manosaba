@@ -13,7 +13,7 @@ namespace Manosaba.Characters.SaekiMiria.Cards;
 [Pool(typeof(SaekiMiriaCardPool))]
 public sealed class PrisonMeal : PathCustomCardModel
 {
-    private const int EnergyCost = 1;
+    private const int EnergyCost = 0;
     private const CardType CardTypeValue = CardType.Skill;
     private const CardRarity Rarity = CardRarity.Common;
     private const TargetType TargetTypeValue = TargetType.Self;
@@ -28,7 +28,7 @@ public sealed class PrisonMeal : PathCustomCardModel
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
         new PowerVar<RegenPower>(3m),
-        new PowerVar<PoisonPower>(2m),
+        new PowerVar<PoisonPower>(3m),
     ];
 
     public PrisonMeal()
