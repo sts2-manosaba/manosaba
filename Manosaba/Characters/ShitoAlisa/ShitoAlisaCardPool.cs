@@ -10,8 +10,8 @@ public class ShitoAlisaCardPool : CustomCardPoolModel
 {
     public override string Title => ShitoAlisa.CharacterId;
 
-    public override string BigEnergyIconPath => "charui/big_energy.png".ImagePath();
-    public override string TextEnergyIconPath => "charui/text_energy.png".ImagePath();
+    public override string BigEnergyIconPath => "charui/manosaba_energy.png".ImagePath();
+    public override string TextEnergyIconPath => "charui/manosaba_energy_text.png".ImagePath();
 
     public override float H => 0.08f;
     public override float S => 0.95f;
