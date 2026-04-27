@@ -20,11 +20,11 @@ public sealed class CounterViolence : ShitoAlisaCardModel
 {
     public override bool GainsBlock => true;
 
-    private new const int EnergyCost = 1;
-    private const CardType TypeValue = CardType.Skill;
-    private new const CardRarity Rarity = CardRarity.Common;
-    private const TargetType TargetTypeValue = TargetType.Self;
-    private new const bool ShouldShowInCardLibrary = true;
+    private const int energyCost = 1;
+    private const CardType type = CardType.Skill;
+    private const CardRarity rarity = CardRarity.Common;
+    private const TargetType targetType = TargetType.Self;
+    private const bool shouldShowInCardLibrary = true;
 
     protected override IEnumerable<DynamicVar> CanonicalVars => WithCombust(0, new BlockVar(8m, ValueProp.Move));
     protected override IEnumerable<IHoverTip> ExtraHoverTips =>
@@ -33,7 +33,7 @@ public sealed class CounterViolence : ShitoAlisaCardModel
         HoverTipFactory.FromKeyword(ManosabaKeywords.CombustIgnite),
     ];
 
-    public CounterViolence() : base(EnergyCost, TypeValue, Rarity, TargetTypeValue, ShouldShowInCardLibrary)
+    public CounterViolence() : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)
     {
     }
 

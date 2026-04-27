@@ -18,16 +18,16 @@ namespace Manosaba.Characters.SaekiMiria.Cards;
 public sealed class LuckTransfer : PathCustomCardModel
 {
     private const int energyCost = 1;
-    private const CardType CardTypeValue = CardType.Skill;
-    private new const CardRarity Rarity = CardRarity.Uncommon;
-    private const TargetType TargetTypeValue = TargetType.Self;
-    private new const bool ShouldShowInCardLibrary = true;
+    private const CardType type = CardType.Skill;
+    private const CardRarity rarity = CardRarity.Uncommon;
+    private const TargetType targetType = TargetType.Self;
+    private const bool shouldShowInCardLibrary = true;
     private const decimal DebuffMultiplier = 3m;
 
     protected override IEnumerable<DynamicVar> CanonicalVars => [new DynamicVar("Multiplier", DebuffMultiplier)];
 
     public LuckTransfer()
-        : base(energyCost, CardTypeValue, Rarity, TargetTypeValue, ShouldShowInCardLibrary)
+        : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)
     {
     }
 

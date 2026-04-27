@@ -13,17 +13,17 @@ namespace Manosaba.Characters.HikamiMeruru.Cards;
 [Pool(typeof(HikamiMeruruCardPool))]
 public class PotionThrow : PathCustomCardModel
 {
-    private const int EnergyCostValue = 1;
-    private const CardType TypeValue = CardType.Power;
-    private const CardRarity RarityValue = CardRarity.Rare;
-    private const TargetType TargetTypeValue = TargetType.Self;
-    private new const bool ShouldShowInCardLibrary = true;
+    private const int energyCost = 1;
+    private const CardType type = CardType.Power;
+    private const CardRarity rarity = CardRarity.Rare;
+    private const TargetType targetType = TargetType.Self;
+    private const bool shouldShowInCardLibrary = true;
 
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<PotionThrowPower>()];
 
     protected override IEnumerable<DynamicVar> CanonicalVars => [new PowerVar<PotionThrowPower>(1)];
 
-    public PotionThrow() : base(EnergyCostValue, TypeValue, RarityValue, TargetTypeValue, ShouldShowInCardLibrary)
+    public PotionThrow() : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)
     {
     }
 

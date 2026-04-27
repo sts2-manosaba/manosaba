@@ -17,18 +17,18 @@ namespace Manosaba.Characters.ShitoAlisa.Cards;
 [Pool(typeof(ShitoAlisaCardPool))]
 public class EmberSpark : ShitoAlisaCardModel
 {
-    private new const int EnergyCost = 0;
-    private const CardType TypeValue = CardType.Skill;
-    private new const CardRarity Rarity = CardRarity.Basic;
-    private const TargetType TargetTypeValue = TargetType.Self;
-    private new const bool ShouldShowInCardLibrary = true;
+    private const int energyCost = 0;
+    private const CardType type = CardType.Skill;
+    private const CardRarity rarity = CardRarity.Basic;
+    private const TargetType targetType = TargetType.Self;
+    private const bool shouldShowInCardLibrary = true;
 
     protected override IEnumerable<DynamicVar> CanonicalVars =>
         WithCombust(0, new DynamicVar("CombustStacks", 3m));
 
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromKeyword(ManosabaKeywords.Combust)];
 
-    public EmberSpark() : base(EnergyCost, TypeValue, Rarity, TargetTypeValue, ShouldShowInCardLibrary)
+    public EmberSpark() : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)
     {
     }
 

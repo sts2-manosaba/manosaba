@@ -18,11 +18,11 @@ namespace Manosaba.Characters.ShitoAlisa.Cards;
 [Pool(typeof(ShitoAlisaCardPool))]
 public class SnakeFire : ShitoAlisaCardModel
 {
-    private new const int EnergyCost = 2;
-    private const CardType TypeValue = CardType.Skill;
-    private new const CardRarity Rarity = CardRarity.Common;
-    private const TargetType TargetTypeValue = TargetType.AnyEnemy;
-    private new const bool ShouldShowInCardLibrary = true;
+    private const int energyCost = 2;
+    private const CardType type = CardType.Skill;
+    private const CardRarity rarity = CardRarity.Common;
+    private const TargetType targetType = TargetType.AnyEnemy;
+    private const bool shouldShowInCardLibrary = true;
 
     public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Retain];
 
@@ -34,7 +34,7 @@ public class SnakeFire : ShitoAlisaCardModel
         HoverTipFactory.FromKeyword(ManosabaKeywords.CombustIgnite),
     ];
 
-    public SnakeFire() : base(EnergyCost, TypeValue, Rarity, TargetTypeValue, ShouldShowInCardLibrary)
+    public SnakeFire() : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)
     {
     }
 

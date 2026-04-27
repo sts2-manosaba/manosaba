@@ -15,16 +15,16 @@ namespace Manosaba.Characters.HikamiMeruru.Cards;
 public class MeruruInfirmary : PathCustomCardModel
 {
     private const int energyCost = 2;
-    private const CardType TypeValue = CardType.Power;
+    private const CardType type = CardType.Power;
     private const CardRarity rarity = CardRarity.Uncommon;
-    private const TargetType targetTypeValue = TargetType.Self;
+    private const TargetType targetType = TargetType.Self;
     private const bool shouldShowInCardLibrary = true;
 
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<MeruruInfirmaryPower>()];
 
     protected override IEnumerable<DynamicVar> CanonicalVars => [new PowerVar<MeruruInfirmaryPower>(1)];
 
-    public MeruruInfirmary() : base(energyCost, TypeValue, rarity, targetTypeValue, shouldShowInCardLibrary)
+    public MeruruInfirmary() : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)
     {
     }
 

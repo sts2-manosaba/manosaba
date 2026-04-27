@@ -14,16 +14,16 @@ namespace Manosaba.Characters.ShitoAlisa.Cards;
 [Pool(typeof(ShitoAlisaCardPool))]
 public sealed class FireballSwarmTest : ShitoAlisaCardModel
 {
-    private new const int EnergyCost = 0;
-    private const CardType TypeValue = CardType.Skill;
-    private new const CardRarity Rarity = CardRarity.Quest;
-    private const TargetType TargetTypeValue = TargetType.Self;
-    private new const bool ShouldShowInCardLibrary = false;
+    private const int energyCost = 0;
+    private const CardType type = CardType.Skill;
+    private const CardRarity rarity = CardRarity.Quest;
+    private const TargetType targetType = TargetType.Self;
+    private const bool shouldShowInCardLibrary = false;
 
     public override bool CanBeGeneratedInCombat => false;
     public override bool CanBeGeneratedByModifiers => false;
 
-    public FireballSwarmTest() : base(EnergyCost, TypeValue, Rarity, TargetTypeValue, ShouldShowInCardLibrary)
+    public FireballSwarmTest() : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)
     {
     }
 

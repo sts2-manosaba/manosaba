@@ -15,15 +15,15 @@ namespace Manosaba.Characters.JogasakiNoah.Cards;
 public class InkPainting : PathCustomCardModel
 {
     private const int energyCost = 1;
-    private const CardType cardTypeValue = CardType.Skill;
+    private const CardType type = CardType.Skill;
     private const CardRarity rarity = CardRarity.Uncommon;
-    private const TargetType targetTypeValue = TargetType.Self;
+    private const TargetType targetType = TargetType.Self;
     private const bool shouldShowInCardLibrary = true;
 
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromOrb<BlackPaintOrb>(), HoverTipFactory.FromOrb<WhitePaintOrb>()];
     protected override IEnumerable<DynamicVar> CanonicalVars => [new RepeatVar(1)];
 
-    public InkPainting() : base(energyCost, cardTypeValue, rarity, targetTypeValue, shouldShowInCardLibrary)
+    public InkPainting() : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)
     {
     }
 
@@ -62,9 +62,9 @@ public class InkPainting : PathCustomCardModel
 public class InkPaintingBlackPaintOrbToken : PathCustomCardModel
 {
     private const int energyCost = 0;
-    private const CardType cardTypeValue = CardType.Skill;
+    private const CardType type = CardType.Skill;
     private const CardRarity rarity = CardRarity.Token;
-    private const TargetType targetTypeValue = TargetType.Self;
+    private const TargetType targetType = TargetType.Self;
     private const bool shouldShowInCardLibrary = false;
     public override bool CanBeGeneratedInCombat => false;
     public override bool CanBeGeneratedByModifiers => false;
@@ -72,7 +72,7 @@ public class InkPaintingBlackPaintOrbToken : PathCustomCardModel
     public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromOrb<BlackPaintOrb>()];
 
-    public InkPaintingBlackPaintOrbToken() : base(energyCost, cardTypeValue, rarity, targetTypeValue, shouldShowInCardLibrary)
+    public InkPaintingBlackPaintOrbToken() : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)
     {
     }
 
@@ -90,9 +90,9 @@ public class InkPaintingBlackPaintOrbToken : PathCustomCardModel
 public class InkPaintingWhitePaintOrbToken : PathCustomCardModel
 {
     private const int energyCost = 0;
-    private const CardType cardTypeValue = CardType.Skill;
+    private const CardType type = CardType.Skill;
     private const CardRarity rarity = CardRarity.Token;
-    private const TargetType targetTypeValue = TargetType.Self;
+    private const TargetType targetType = TargetType.Self;
     private const bool shouldShowInCardLibrary = false;
     public override bool CanBeGeneratedInCombat => false;
     public override bool CanBeGeneratedByModifiers => false;
@@ -100,7 +100,7 @@ public class InkPaintingWhitePaintOrbToken : PathCustomCardModel
     public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromOrb<WhitePaintOrb>()];
 
-    public InkPaintingWhitePaintOrbToken() : base(energyCost, cardTypeValue, rarity, targetTypeValue, shouldShowInCardLibrary)
+    public InkPaintingWhitePaintOrbToken() : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)
     {
     }
 

@@ -13,11 +13,11 @@ namespace Manosaba.Characters.KurobeNanoka.Cards;
 [Pool(typeof(KurobeNanokaCardPool))]
 public sealed class Aim : PathCustomCardModel
 {
-    private new const int EnergyCost = 1;
-    private new const CardType Type = CardType.Skill;
-    private new const CardRarity Rarity = CardRarity.Uncommon;
-    private const TargetType TargetTypeValue = TargetType.Self;
-    private new const bool ShouldShowInCardLibrary = true;
+    private const int energyCost = 1;
+    private const CardType type = CardType.Skill;
+    private const CardRarity rarity = CardRarity.Uncommon;
+    private const TargetType targetType = TargetType.Self;
+    private const bool shouldShowInCardLibrary = true;
 
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<AccuratePower>()];
 
@@ -26,7 +26,7 @@ public sealed class Aim : PathCustomCardModel
         new PowerVar<AccuratePower>(60m),
     ];
 
-    public Aim() : base(EnergyCost, Type, Rarity, TargetTypeValue, ShouldShowInCardLibrary)
+    public Aim() : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)
     {
     }
 

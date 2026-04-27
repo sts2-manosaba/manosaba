@@ -15,9 +15,9 @@ namespace Manosaba.Characters.JogasakiNoah.Cards;
 public abstract class BadDrawBase : PathCustomCardModel
 {
     private const int energyCost = 0;
-    private const CardType cardTypeValue = CardType.Skill;
+    private const CardType type = CardType.Skill;
     private const CardRarity rarity = CardRarity.Token;
-    private const TargetType targetTypeValue = TargetType.AnyAlly;
+    private const TargetType targetType = TargetType.AnyAlly;
     private const bool shouldShowInCardLibrary = false;
 
     public override bool CanBeGeneratedInCombat => false;
@@ -27,7 +27,7 @@ public abstract class BadDrawBase : PathCustomCardModel
 
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<MajokaPower>()];
 
-    public BadDrawBase() : base(energyCost, cardTypeValue, rarity, targetTypeValue, shouldShowInCardLibrary)
+    public BadDrawBase() : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)
     {
     }
 

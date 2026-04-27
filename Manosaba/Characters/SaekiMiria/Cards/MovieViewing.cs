@@ -15,9 +15,9 @@ namespace Manosaba.Characters.SaekiMiria.Cards;
 public class MovieViewing : PathCustomCardModel
 {
     private const int energyCost = 1;
-    private const CardType cardTypeValue = CardType.Skill;
+    private const CardType type = CardType.Skill;
     private const CardRarity rarity = CardRarity.Uncommon;
-    private const TargetType targetTypeValue = TargetType.Self;
+    private const TargetType targetType = TargetType.Self;
     private const bool shouldShowInCardLibrary = true;
 
     private static readonly IReadOnlyList<Func<Player, CombatState, MovieBase>> MovieFactories =
@@ -46,7 +46,7 @@ public class MovieViewing : PathCustomCardModel
     public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
 
     public MovieViewing()
-        : base(energyCost, cardTypeValue, rarity, targetTypeValue, shouldShowInCardLibrary)
+        : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)
     {
     }
 

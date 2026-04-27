@@ -16,16 +16,16 @@ public sealed class LeiaProtect : PathCustomCardModel
     public override CardMultiplayerConstraint MultiplayerConstraint => CardMultiplayerConstraint.MultiplayerOnly;
     public override bool GainsBlock => true;
 
-    private new const int EnergyCost = 1;
-    private const CardType CardTypeValue = CardType.Skill;
-    private new const CardRarity Rarity = CardRarity.Uncommon;
-    private const TargetType TargetTypeValue = TargetType.AnyAlly;
-    private new const bool ShouldShowInCardLibrary = true;
+    private const int energyCost = 1;
+    private const CardType type = CardType.Skill;
+    private const CardRarity rarity = CardRarity.Uncommon;
+    private const TargetType targetType = TargetType.AnyAlly;
+    private const bool shouldShowInCardLibrary = true;
 
     protected override IEnumerable<DynamicVar> CanonicalVars => [new BlockVar(11, ValueProp.Move)];
 
     public LeiaProtect()
-        : base(EnergyCost, CardTypeValue, Rarity, TargetTypeValue, ShouldShowInCardLibrary)
+        : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)
     {
     }
 

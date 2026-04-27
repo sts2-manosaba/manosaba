@@ -21,11 +21,11 @@ namespace Manosaba.Characters.JogasakiNoah.Cards
             (ModelDb.Orb<YellowPaintOrb>(), 20)
         ];
 
-        private const int EnergyCostValue = 1;
-        private const CardType CardTypeValue = CardType.Skill;
-        private new const CardRarity Rarity = CardRarity.Token;
-        private const TargetType TargetTypeValue = TargetType.TargetedNoCreature;
-        private new const bool ShouldShowInCardLibrary = false;
+        private const int energyCost = 1;
+        private const CardType type = CardType.Skill;
+        private const CardRarity rarity = CardRarity.Token;
+        private const TargetType targetType = TargetType.TargetedNoCreature;
+        private const bool shouldShowInCardLibrary = false;
         public override bool CanBeGeneratedInCombat => false;
         public override bool CanBeGeneratedByModifiers => false;
 
@@ -42,7 +42,7 @@ namespace Manosaba.Characters.JogasakiNoah.Cards
 
         protected override IEnumerable<DynamicVar> CanonicalVars => [new RepeatVar(1)];
 
-        public PaletteGap() : base(EnergyCostValue, CardTypeValue, Rarity, TargetTypeValue, ShouldShowInCardLibrary)
+        public PaletteGap() : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)
         {
         }
 

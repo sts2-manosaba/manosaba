@@ -72,17 +72,17 @@ public class YouAreWeakEma : ShitoAlisaCardModel
         }
     }
 
-    private new const int EnergyCost = 1;
-    private const CardType TypeValue = CardType.Attack;
-    private new const CardRarity Rarity = CardRarity.Uncommon;
-    private const TargetType TargetTypeValue = TargetType.AnyEnemy;
-    private new const bool ShouldShowInCardLibrary = true;
+    private const int energyCost = 1;
+    private const CardType type = CardType.Attack;
+    private const CardRarity rarity = CardRarity.Uncommon;
+    private const TargetType targetType = TargetType.AnyEnemy;
+    private const bool shouldShowInCardLibrary = true;
 
     protected override IEnumerable<DynamicVar> CanonicalVars =>
         WithCombust(0, new CalculationBaseVar(5m), new ExtraDamageVar(3m), new WeakEmaCalculatedDamageVar());
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<FireballSwarmPower>()];
 
-    public YouAreWeakEma() : base(EnergyCost, TypeValue, Rarity, TargetTypeValue, ShouldShowInCardLibrary)
+    public YouAreWeakEma() : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)
     {
     }
 

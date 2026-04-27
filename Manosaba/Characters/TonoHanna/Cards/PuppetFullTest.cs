@@ -15,9 +15,9 @@ namespace Manosaba.Characters.TonoHanna.Cards;
 public class PuppetFullTest : PathCustomCardModel
 {
     private const int energyCost = 0;
-    private const CardType cardTypeValue = CardType.Skill;
+    private const CardType type = CardType.Skill;
     private const CardRarity rarity = CardRarity.Quest;
-    private const TargetType targetTypeValue = TargetType.Self;
+    private const TargetType targetType = TargetType.Self;
     private const bool shouldShowInCardLibrary = false;
 
     public override bool CanBeGeneratedInCombat => false;
@@ -25,7 +25,7 @@ public class PuppetFullTest : PathCustomCardModel
 
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<PuppetCollectionSummaryPower>()];
 
-    public PuppetFullTest() : base(energyCost, cardTypeValue, rarity, targetTypeValue, shouldShowInCardLibrary)
+    public PuppetFullTest() : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)
     {
     }
 

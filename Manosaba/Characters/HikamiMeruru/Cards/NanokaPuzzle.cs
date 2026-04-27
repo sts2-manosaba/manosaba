@@ -14,9 +14,9 @@ namespace Manosaba.Characters.HikamiMeruru.Cards
     public class NanokaPuzzle : PathCustomCardModel
     {
         private const int energyCost = 3;
-        private const CardType cardTypeValue = CardType.Skill;
+        private const CardType type = CardType.Skill;
         private const CardRarity rarity = CardRarity.Rare;
-        private const TargetType targetTypeValue = TargetType.Self;
+        private const TargetType targetType = TargetType.Self;
         private const bool shouldShowInCardLibrary = true;
 
         protected override IEnumerable<DynamicVar> CanonicalVars => [new DynamicVar("NanokaPieces", 35)];
@@ -25,7 +25,7 @@ namespace Manosaba.Characters.HikamiMeruru.Cards
             HoverTipFactory.FromCard<NanokaComplete>()
         ];
 
-        public NanokaPuzzle() : base(energyCost, cardTypeValue, rarity, targetTypeValue, shouldShowInCardLibrary)
+        public NanokaPuzzle() : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)
         {
         }
 

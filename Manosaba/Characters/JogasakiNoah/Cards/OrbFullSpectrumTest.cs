@@ -14,9 +14,9 @@ namespace Manosaba.Characters.JogasakiNoah.Cards;
 public class OrbFullSpectrumTest : PathCustomCardModel
 {
     private const int energyCost = 0;
-    private const CardType cardTypeValue = CardType.Skill;
+    private const CardType type = CardType.Skill;
     private const CardRarity rarity = CardRarity.Quest;
-    private const TargetType targetTypeValue = TargetType.Self;
+    private const TargetType targetType = TargetType.Self;
     private const bool shouldShowInCardLibrary = false;
 
     public override bool CanBeGeneratedInCombat => false;
@@ -34,7 +34,7 @@ public class OrbFullSpectrumTest : PathCustomCardModel
         HoverTipFactory.FromOrb<WhitePaintOrb>()
     ];
 
-    public OrbFullSpectrumTest() : base(energyCost, cardTypeValue, rarity, targetTypeValue, shouldShowInCardLibrary)
+    public OrbFullSpectrumTest() : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)
     {
     }
 

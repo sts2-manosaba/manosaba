@@ -16,11 +16,11 @@ namespace Manosaba.Characters.KurobeNanoka.Cards;
 [Pool(typeof(KurobeNanokaCardPool))]
 public sealed class BouncingShot : GunBase
 {
-    private new const int EnergyCost = 1;
-    private new const CardType Type = CardType.Attack;
-    private new const CardRarity Rarity = CardRarity.Uncommon;
-    private const TargetType TargetTypeValue = TargetType.AnyEnemy;
-    private new const bool ShouldShowInCardLibrary = true;
+    private const int energyCost = 1;
+    private const CardType type = CardType.Attack;
+    private const CardRarity rarity = CardRarity.Uncommon;
+    private const TargetType targetType = TargetType.AnyEnemy;
+    private const bool shouldShowInCardLibrary = true;
     private const decimal BounceMultiplier = 0.8m;
 
     public override IEnumerable<CardKeyword> CanonicalKeywords => [ManosabaKeywords.GunShot];
@@ -31,7 +31,7 @@ public sealed class BouncingShot : GunBase
         new DynamicVar("BulletCost", 1m),
     ];
 
-    public BouncingShot() : base(EnergyCost, Type, Rarity, TargetTypeValue, ShouldShowInCardLibrary)
+    public BouncingShot() : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)
     {
     }
 

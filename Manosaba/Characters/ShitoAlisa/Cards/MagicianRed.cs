@@ -15,11 +15,11 @@ namespace Manosaba.Characters.ShitoAlisa.Cards;
 [Pool(typeof(ShitoAlisaCardPool))]
 public sealed class MagicianRed : ShitoAlisaCardModel
 {
-    private new const int EnergyCost = 3;
-    private const CardType TypeValue = CardType.Attack;
-    private new const CardRarity Rarity = CardRarity.Uncommon;
-    private const TargetType TargetTypeValue = TargetType.AnyEnemy;
-    private new const bool ShouldShowInCardLibrary = true;
+    private const int energyCost = 3;
+    private const CardType type = CardType.Attack;
+    private const CardRarity rarity = CardRarity.Uncommon;
+    private const TargetType targetType = TargetType.AnyEnemy;
+    private const bool shouldShowInCardLibrary = true;
 
     protected override bool IsPlayable => base.IsPlayable && Owner.Creature.GetPowerAmount<FireballSwarmPower>() >= 4m;
 
@@ -33,7 +33,7 @@ public sealed class MagicianRed : ShitoAlisaCardModel
         HoverTipFactory.FromPower<RedBindPower>(),
     ];
 
-    public MagicianRed() : base(EnergyCost, TypeValue, Rarity, TargetTypeValue, ShouldShowInCardLibrary)
+    public MagicianRed() : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)
     {
     }
 

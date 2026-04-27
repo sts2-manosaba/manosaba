@@ -18,16 +18,16 @@ public sealed class Aspiration : PathCustomCardModel
 {
     public override CardMultiplayerConstraint MultiplayerConstraint => CardMultiplayerConstraint.MultiplayerOnly;
     private const int energyCost = 2;
-    private const CardType cardTypeValue = CardType.Skill;
+    private const CardType type = CardType.Skill;
     private const CardRarity rarity = CardRarity.Rare;
-    private const TargetType targetTypeValue = TargetType.AllAllies;
+    private const TargetType targetType = TargetType.AllAllies;
     private const bool shouldShowInCardLibrary = true;
 
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.Static(StaticHoverTip.Block)];
     protected override IEnumerable<DynamicVar> CanonicalVars => [new BlockVar(6m, ValueProp.Move)];
 
     public Aspiration()
-        : base(energyCost, cardTypeValue, rarity, targetTypeValue, shouldShowInCardLibrary)
+        : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)
     {
     }
 

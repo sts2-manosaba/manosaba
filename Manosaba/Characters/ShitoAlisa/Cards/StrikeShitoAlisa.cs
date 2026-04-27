@@ -14,15 +14,15 @@ public class StrikeShitoAlisa : ShitoAlisaCardModel
 {
     protected override HashSet<CardTag> CanonicalTags => [CardTag.Strike];
 
-    private new const int EnergyCost = 1;
-    private const CardType TypeValue = CardType.Attack;
-    private new const CardRarity Rarity = CardRarity.Basic;
-    private const TargetType TargetTypeValue = TargetType.AnyEnemy;
-    private new const bool ShouldShowInCardLibrary = true;
+    private const int energyCost = 1;
+    private const CardType type = CardType.Attack;
+    private const CardRarity rarity = CardRarity.Basic;
+    private const TargetType targetType = TargetType.AnyEnemy;
+    private const bool shouldShowInCardLibrary = true;
 
     protected override IEnumerable<DynamicVar> CanonicalVars => WithCombust(0, new DamageVar(6, ValueProp.Move));
 
-    public StrikeShitoAlisa() : base(EnergyCost, TypeValue, Rarity, TargetTypeValue, ShouldShowInCardLibrary)
+    public StrikeShitoAlisa() : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)
     {
     }
 

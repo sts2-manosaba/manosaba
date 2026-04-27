@@ -15,18 +15,18 @@ namespace Manosaba.Characters.ShitoAlisa.Cards;
 [Pool(typeof(ShitoAlisaCardPool))]
 public sealed class FinalCountdown : ShitoAlisaCardModel
 {
-    private new const int EnergyCost = 3;
-    private const CardType TypeValue = CardType.Power;
-    private new const CardRarity Rarity = CardRarity.Rare;
-    private const TargetType TargetTypeValue = TargetType.Self;
-    private new const bool ShouldShowInCardLibrary = true;
+    private const int energyCost = 3;
+    private const CardType type = CardType.Power;
+    private const CardRarity rarity = CardRarity.Rare;
+    private const TargetType targetType = TargetType.Self;
+    private const bool shouldShowInCardLibrary = true;
 
     public override IEnumerable<CardKeyword> CanonicalKeywords => [ManosabaKeywords.Unique];
 
     protected override IEnumerable<DynamicVar> CanonicalVars => WithCombust(0, new DamageVar(20m, ValueProp.Unpowered), new PowerVar<FinalCountdownPower>(20m));
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<FinalCountdownPower>()];
 
-    public FinalCountdown() : base(EnergyCost, TypeValue, Rarity, TargetTypeValue, ShouldShowInCardLibrary)
+    public FinalCountdown() : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)
     {
     }
 

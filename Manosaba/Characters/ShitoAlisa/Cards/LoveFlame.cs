@@ -13,18 +13,18 @@ namespace Manosaba.Characters.ShitoAlisa.Cards;
 [Pool(typeof(ShitoAlisaCardPool))]
 public sealed class LoveFlame : ShitoAlisaCardModel
 {
-    private new const int EnergyCost = 0;
-    private const CardType TypeValue = CardType.Skill;
-    private new const CardRarity Rarity = CardRarity.Uncommon;
-    private const TargetType TargetTypeValue = TargetType.Self;
-    private new const bool ShouldShowInCardLibrary = true;
+    private const int energyCost = 0;
+    private const CardType type = CardType.Skill;
+    private const CardRarity rarity = CardRarity.Uncommon;
+    private const TargetType targetType = TargetType.Self;
+    private const bool shouldShowInCardLibrary = true;
 
     protected override bool IsPlayable => base.IsPlayable && Owner.Creature.GetPowerAmount<FireballSwarmPower>() >= 2m;
 
     protected override IEnumerable<DynamicVar> CanonicalVars => WithCombust(0, new EnergyVar(1));
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<FireballSwarmPower>(), EnergyHoverTip];
 
-    public LoveFlame() : base(EnergyCost, TypeValue, Rarity, TargetTypeValue, ShouldShowInCardLibrary)
+    public LoveFlame() : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)
     {
     }
 

@@ -18,11 +18,11 @@ namespace Manosaba.Characters.ShitoAlisa.Cards;
 [Pool(typeof(ShitoAlisaCardPool))]
 public class FireOnFire : ShitoAlisaCardModel
 {
-    private new const int EnergyCost = 1;
-    private const CardType TypeValue = CardType.Skill;
-    private new const CardRarity Rarity = CardRarity.Uncommon;
-    private const TargetType TargetTypeValue = TargetType.AnyEnemy;
-    private new const bool ShouldShowInCardLibrary = true;
+    private const int energyCost = 1;
+    private const CardType type = CardType.Skill;
+    private const CardRarity rarity = CardRarity.Uncommon;
+    private const TargetType targetType = TargetType.AnyEnemy;
+    private const bool shouldShowInCardLibrary = true;
 
     protected override IEnumerable<DynamicVar> CanonicalVars => WithCombust(0, new PowerVar<BurnPower>(9m));
     protected override IEnumerable<IHoverTip> ExtraHoverTips =>
@@ -32,7 +32,7 @@ public class FireOnFire : ShitoAlisaCardModel
         HoverTipFactory.FromKeyword(ManosabaKeywords.CombustIgnite),
     ];
 
-    public FireOnFire() : base(EnergyCost, TypeValue, Rarity, TargetTypeValue, ShouldShowInCardLibrary)
+    public FireOnFire() : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)
     {
     }
 

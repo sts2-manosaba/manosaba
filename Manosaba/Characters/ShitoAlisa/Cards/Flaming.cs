@@ -17,18 +17,18 @@ namespace Manosaba.Characters.ShitoAlisa.Cards;
 [Pool(typeof(ShitoAlisaCardPool))]
 public class Flaming : ShitoAlisaCardModel
 {
-    private new const int EnergyCost = 3;
-    private const CardType TypeValue = CardType.Skill;
-    private new const CardRarity Rarity = CardRarity.Uncommon;
-    private const TargetType TargetTypeValue = TargetType.AllEnemies;
-    private new const bool ShouldShowInCardLibrary = true;
+    private const int energyCost = 3;
+    private const CardType type = CardType.Skill;
+    private const CardRarity rarity = CardRarity.Uncommon;
+    private const TargetType targetType = TargetType.AllEnemies;
+    private const bool shouldShowInCardLibrary = true;
 
     public override IEnumerable<CardKeyword> CanonicalKeywords => [ManosabaKeywords.Combust];
 
     protected override IEnumerable<DynamicVar> CanonicalVars => WithCombust(3, new PowerVar<BurnPower>(4m));
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<BurnPower>(), HoverTipFactory.FromPower<FireballSwarmPower>()];
 
-    public Flaming() : base(EnergyCost, TypeValue, Rarity, TargetTypeValue, ShouldShowInCardLibrary)
+    public Flaming() : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)
     {
     }
 

@@ -24,11 +24,11 @@ namespace Manosaba.Characters.HasumiLeia.Cards;
 [Pool(typeof(HasumiLeiaCardPool))]
 public class PortableFletchingStation : PathCustomCardModel
 {
-    private const int EnergyCostValue = 1;
-    private const CardType TypeValue = CardType.Power;
-    private const CardRarity RarityValue = CardRarity.Uncommon;
-    private const TargetType TargetTypeValue = TargetType.Self;
-    private const bool ShowInCardLibrary = true;
+    private const int energyCost = 1;
+    private const CardType type = CardType.Power;
+    private const CardRarity rarity = CardRarity.Uncommon;
+    private const TargetType targetType = TargetType.Self;
+    private const bool shouldShowInCardLibrary = true;
 
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
@@ -39,7 +39,7 @@ public class PortableFletchingStation : PathCustomCardModel
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromCard<SimpleSpear>()];
 
     public PortableFletchingStation()
-        : base(EnergyCostValue, TypeValue, RarityValue, TargetTypeValue, ShowInCardLibrary)
+        : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)
     {
     }
 

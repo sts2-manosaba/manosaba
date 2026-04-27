@@ -13,11 +13,11 @@ namespace Manosaba.Characters.HasumiLeia.Cards;
 [Pool(typeof(HasumiLeiaCardPool))]
 public sealed class Projection : PathCustomCardModel
 {
-    private new const int EnergyCost = 0;
-    private const CardType CardTypeValue = CardType.Skill;
-    private new const CardRarity Rarity = CardRarity.Uncommon;
-    private const TargetType TargetTypeValue = TargetType.Self;
-    private new const bool ShouldShowInCardLibrary = true;
+    private const int energyCost = 0;
+    private const CardType type = CardType.Skill;
+    private const CardRarity rarity = CardRarity.Uncommon;
+    private const TargetType targetType = TargetType.Self;
+    private const bool shouldShowInCardLibrary = true;
 
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromCard<ForgeSpear>()];
     protected override IEnumerable<DynamicVar> CanonicalVars => [new CardsVar(1)];
@@ -25,7 +25,7 @@ public sealed class Projection : PathCustomCardModel
     public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
 
     public Projection()
-        : base(EnergyCost, CardTypeValue, Rarity, TargetTypeValue, ShouldShowInCardLibrary)
+        : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)
     {
     }
 

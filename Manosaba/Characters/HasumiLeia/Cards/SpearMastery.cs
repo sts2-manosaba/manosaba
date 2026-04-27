@@ -15,10 +15,10 @@ namespace Manosaba.Characters.HasumiLeia.Cards;
 public sealed class SpearMastery : PathCustomCardModel
 {
     private const int energyCost = 1;
-    private const CardType CardTypeValue = CardType.Power;
-    private new const CardRarity Rarity = CardRarity.Uncommon;
-    private const TargetType TargetTypeValue = TargetType.Self;
-    private new const bool ShouldShowInCardLibrary = true;
+    private const CardType type = CardType.Power;
+    private const CardRarity rarity = CardRarity.Uncommon;
+    private const TargetType targetType = TargetType.Self;
+    private const bool shouldShowInCardLibrary = true;
 
     protected override IEnumerable<IHoverTip> ExtraHoverTips =>
     [
@@ -29,7 +29,7 @@ public sealed class SpearMastery : PathCustomCardModel
     protected override IEnumerable<DynamicVar> CanonicalVars => [new PowerVar<SpearMasteryPower>(1m)];
 
     public SpearMastery()
-        : base(energyCost, CardTypeValue, Rarity, TargetTypeValue, ShouldShowInCardLibrary)
+        : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)
     {
     }
 

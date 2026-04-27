@@ -17,11 +17,11 @@ namespace Manosaba.Characters.ShitoAlisa.Cards;
 [Pool(typeof(ShitoAlisaCardPool))]
 public sealed class FireJudgementCourt : ShitoAlisaCardModel
 {
-    private new const int EnergyCost = 3;
-    private const CardType TypeValue = CardType.Skill;
-    private new const CardRarity Rarity = CardRarity.Ancient;
-    private const TargetType TargetTypeValue = TargetType.AllEnemies;
-    private new const bool ShouldShowInCardLibrary = true;
+    private const int energyCost = 3;
+    private const CardType type = CardType.Skill;
+    private const CardRarity rarity = CardRarity.Ancient;
+    private const TargetType targetType = TargetType.AllEnemies;
+    private const bool shouldShowInCardLibrary = true;
 
     public override IEnumerable<CardKeyword> CanonicalKeywords => [ManosabaKeywords.Mahou, CardKeyword.Eternal, CardKeyword.Exhaust];
 
@@ -34,7 +34,7 @@ public sealed class FireJudgementCourt : ShitoAlisaCardModel
 
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<BurnPower>(), HoverTipFactory.FromPower<MajokaPower>()];
 
-    public FireJudgementCourt() : base(EnergyCost, TypeValue, Rarity, TargetTypeValue, ShouldShowInCardLibrary)
+    public FireJudgementCourt() : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)
     {
     }
 

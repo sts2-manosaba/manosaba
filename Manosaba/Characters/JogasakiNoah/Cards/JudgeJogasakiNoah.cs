@@ -15,13 +15,13 @@ public class JudgeJogasakiNoah : PathCustomCardModel
 {
     public override CardMultiplayerConstraint MultiplayerConstraint => CardMultiplayerConstraint.MultiplayerOnly;
     private const int energyCost = 3;
-    private const CardType cardTypeValue = CardType.Skill;
+    private const CardType type = CardType.Skill;
     private const CardRarity rarity = CardRarity.Rare;
-    private const TargetType targetTypeValue = TargetType.None;
+    private const TargetType targetType = TargetType.None;
     private const bool shouldShowInCardLibrary = true;
 
     public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
-    public JudgeJogasakiNoah() : base(energyCost, cardTypeValue, rarity, targetTypeValue, shouldShowInCardLibrary)
+    public JudgeJogasakiNoah() : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)
     {
     }
 

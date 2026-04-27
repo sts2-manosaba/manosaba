@@ -37,7 +37,7 @@ public class SkyIsland : PathCustomCardModel
         }
     }
 
-    private new const int EnergyCost = 3;
+    private const int energyCost = 3;
     private const CardType type = CardType.Attack;
     private const CardRarity rarity = CardRarity.Ancient;
     private const TargetType targetType = TargetType.AllEnemies;
@@ -58,7 +58,7 @@ public class SkyIsland : PathCustomCardModel
         new SkyIslandPowerCalculatedVar()
     ];
 
-    public SkyIsland() : base(EnergyCost, type, rarity, targetType, shouldShowInCardLibrary)
+    public SkyIsland() : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)
     {
     }
 

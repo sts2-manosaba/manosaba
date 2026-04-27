@@ -19,11 +19,11 @@ namespace Manosaba.Characters.ShitoAlisa.Cards;
 [Pool(typeof(ShitoAlisaCardPool))]
 public sealed class RestrictionRelease : ShitoAlisaCardModel
 {
-    private new const int EnergyCost = 5;
-    private const CardType TypeValue = CardType.Skill;
-    private new const CardRarity Rarity = CardRarity.Rare;
-    private const TargetType TargetTypeValue = TargetType.Self;
-    private new const bool ShouldShowInCardLibrary = true;
+    private const int energyCost = 5;
+    private const CardType type = CardType.Skill;
+    private const CardRarity rarity = CardRarity.Rare;
+    private const TargetType targetType = TargetType.Self;
+    private const bool shouldShowInCardLibrary = true;
 
     private const int FireballsGranted = 8;
 
@@ -38,7 +38,7 @@ public sealed class RestrictionRelease : ShitoAlisaCardModel
         HoverTipFactory.FromKeyword(ManosabaKeywords.Combust),
     ];
 
-    public RestrictionRelease() : base(EnergyCost, TypeValue, Rarity, TargetTypeValue, ShouldShowInCardLibrary)
+    public RestrictionRelease() : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)
     {
     }
 

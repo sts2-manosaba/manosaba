@@ -17,9 +17,9 @@ namespace Manosaba.Characters.HikamiMeruru.Cards
         public override CardMultiplayerConstraint MultiplayerConstraint => CardMultiplayerConstraint.MultiplayerOnly;
 
         private const int energyCost = 2;
-        private const CardType cardTypeValue = CardType.Skill;
+        private const CardType type = CardType.Skill;
         private const CardRarity rarity = CardRarity.Uncommon;
-        private const TargetType targetTypeValue = TargetType.Self;
+        private const TargetType targetType = TargetType.Self;
         private const bool shouldShowInCardLibrary = true;
         private const int CatalystChanceOnUpgrade = 50;
 
@@ -32,7 +32,7 @@ namespace Manosaba.Characters.HikamiMeruru.Cards
             ModelDb.Potion<LesserFlexPotion>(),
         ];
 
-        public DrugDealer() : base(energyCost, cardTypeValue, rarity, targetTypeValue, shouldShowInCardLibrary)
+        public DrugDealer() : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)
         {
         }
 

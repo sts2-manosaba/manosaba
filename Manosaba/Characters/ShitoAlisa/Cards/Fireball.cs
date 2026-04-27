@@ -18,10 +18,10 @@ namespace Manosaba.Characters.ShitoAlisa.Cards;
 [Pool(typeof(ShitoAlisaCardPool))]
 public sealed class Fireball : ShitoAlisaCardModel
 {
-    private new const int EnergyCost = 0;
-    private const CardType TypeValue = CardType.Attack;
-    private new const CardRarity Rarity = CardRarity.Token;
-    private new const bool ShouldShowInCardLibrary = false;
+    private const int energyCost = 0;
+    private const CardType type = CardType.Attack;
+    private const CardRarity rarity = CardRarity.Token;
+    private const bool shouldShowInCardLibrary = false;
 
     /// <summary>Only from explicit card effects (e.g. RestrictionRelease); exclude from transforms / discovery pools.</summary>
     public override bool CanBeGeneratedInCombat => false;
@@ -36,7 +36,7 @@ public sealed class Fireball : ShitoAlisaCardModel
 
     public override TargetType TargetType => IsUpgraded ? TargetType.AllEnemies : TargetType.AnyEnemy;
 
-    public Fireball() : base(EnergyCost, TypeValue, Rarity, TargetType.AnyEnemy, ShouldShowInCardLibrary)
+    public Fireball() : base(energyCost, type, rarity, TargetType.AnyEnemy, shouldShowInCardLibrary)
     {
     }
 

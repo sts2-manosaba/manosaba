@@ -17,9 +17,9 @@ namespace Manosaba.Characters.HikamiMeruru.Cards
     {
         private const string VfxScenePath = "res://Manosaba/scenes/hikami_meruru/vfx/nanoka_complete.tscn";
         private const int energyCost = -1;
-        private const CardType cardTypeValue = CardType.Quest;
+        private const CardType type = CardType.Quest;
         private const CardRarity rarity = CardRarity.Token;
-        private const TargetType targetTypeValue = TargetType.None;
+        private const TargetType targetType = TargetType.None;
         private const bool shouldShowInCardLibrary = false;
 
         public override bool CanBeGeneratedInCombat => false;
@@ -27,7 +27,7 @@ namespace Manosaba.Characters.HikamiMeruru.Cards
 
         public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Unplayable, CardKeyword.Innate, CardKeyword.Retain];
 
-        protected NanokaPuzzleQuestTokenBase() : base(energyCost, cardTypeValue, rarity, targetTypeValue, shouldShowInCardLibrary)
+        protected NanokaPuzzleQuestTokenBase() : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)
         {
         }
 
@@ -96,16 +96,16 @@ namespace Manosaba.Characters.HikamiMeruru.Cards
     public class NanokaPiece : PathCustomCardModel
     {
         private const int energyCost = 0;
-        private const CardType cardTypeValue = CardType.Skill;
+        private const CardType type = CardType.Skill;
         private const CardRarity rarity = CardRarity.Token;
-        private const TargetType targetTypeValue = TargetType.Self;
+        private const TargetType targetType = TargetType.Self;
         private const bool shouldShowInCardLibrary = false;
         public override bool CanBeGeneratedInCombat => false;
         public override bool CanBeGeneratedByModifiers => false;
 
         public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
 
-        public NanokaPiece() : base(energyCost, cardTypeValue, rarity, targetTypeValue, shouldShowInCardLibrary)
+        public NanokaPiece() : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)
         {
         }
 
@@ -159,15 +159,15 @@ namespace Manosaba.Characters.HikamiMeruru.Cards
     {
 
         private const int energyCost = 0;
-        private const CardType cardTypeValue = CardType.Skill;
+        private const CardType type = CardType.Skill;
         private const CardRarity rarity = CardRarity.Token;
-        private const TargetType targetTypeValue = TargetType.Self;
+        private const TargetType targetType = TargetType.Self;
         private const bool shouldShowInCardLibrary = false;
 
         public override bool CanBeGeneratedInCombat => false;
         public override bool CanBeGeneratedByModifiers => false;
 
-        public NanokaComplete() : base(energyCost, cardTypeValue, rarity, targetTypeValue, shouldShowInCardLibrary)
+        public NanokaComplete() : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)
         {
         }
 

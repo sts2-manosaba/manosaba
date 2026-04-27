@@ -50,16 +50,16 @@ public sealed class TraumaReveal : PathCustomCardModel
     public override CardMultiplayerConstraint MultiplayerConstraint => CardMultiplayerConstraint.MultiplayerOnly;
 
     private const int energyCost = 1;
-    private const CardType CardTypeValue = CardType.Skill;
-    private new const CardRarity Rarity = CardRarity.Uncommon;
-    private const TargetType TargetTypeValue = TargetType.AllAllies;
-    private new const bool ShouldShowInCardLibrary = true;
+    private const CardType type = CardType.Skill;
+    private const CardRarity rarity = CardRarity.Uncommon;
+    private const TargetType targetType = TargetType.AllAllies;
+    private const bool shouldShowInCardLibrary = true;
 
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromCard<TraumaKurobeNanoka>()];
     protected override IEnumerable<DynamicVar> CanonicalVars => [new RepeatVar(2)];
 
     public TraumaReveal()
-        : base(energyCost, CardTypeValue, Rarity, TargetTypeValue, ShouldShowInCardLibrary)
+        : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)
     {
     }
 
