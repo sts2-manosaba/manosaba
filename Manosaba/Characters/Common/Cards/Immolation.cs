@@ -39,7 +39,7 @@ namespace Manosaba.Characters.Common.Cards
             .TargetingAllOpponents(combatState)
             .Execute(choiceContext);
             IEnumerable<Creature> enumerable = from c in combatState.GetOpponentsOf(base.Owner.Creature)
-                                               where c != null && c.IsAlive && c.IsEnemy
+                                               where c != null && c.IsAlive && c.IsEnemy && c.IsHittable && c.CanReceivePowers
                                                select c;
             foreach (Creature item in enumerable)
             {

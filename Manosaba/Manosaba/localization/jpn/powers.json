@@ -280,7 +280,7 @@
   "MANOSABA-FINAL_COUNTDOWN_POWER.smartDescription": "層数が0になると即勝利。\nターン終了時に1減少し、カードの[gold]燃焼[/gold]が0になるたびにさらに2減少する。",
   "MANOSABA-FIREBALL_SWARM_POWER.title": "ファイアボール",
   "MANOSABA-FIREBALL_SWARM_POWER.description": "[gold]ファイアボール[/gold]は最大[blue]12[/blue]層。[gold]ブロック[/gold]適用後、消費する[gold]ファイアボール[/gold]1層につき最大[blue]3[/blue]のHP損失を軽減する。",
-  "MANOSABA-FIREBALL_SWARM_POWER.smartDescription": "[blue]{Amount}[/blue]層の[gold]ファイアボール[/gold]（最大[blue]12[/blue]層）。[gold]ブロック[/gold]適用後、消費する[gold]ファイアボール[/gold]1層につき最大[blue]3[/blue]のHP損失を軽減する。",
+  "MANOSABA-FIREBALL_SWARM_POWER.smartDescription": "[blue]{Amount}[/blue]層の[gold]ファイアボール[/gold]（最大[blue]{MaxStacks}[/blue]層）。[gold]ブロック[/gold]後、現在合計最大[blue]{TotalAbsorbHp}[/blue]のHP損失を相殺可能（1層あたり最大[blue]{AbsorbPerOrb}[/blue]、層単位で消費）。",
   "MANOSABA-RELIC_LEVELING_HOVER_TIP_POWER.title": "成長",
   "MANOSABA-RELIC_LEVELING_HOVER_TIP_POWER.description": "この遺物は戦闘勝利で経験値を獲得し、レベルアップします。",
   "MANOSABA-RELIC_LEVELING_HOVER_TIP_POWER.smartDescription": "この遺物は戦闘勝利で経験値を獲得し、レベルアップします。",

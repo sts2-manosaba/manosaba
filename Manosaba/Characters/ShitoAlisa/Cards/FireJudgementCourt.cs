@@ -48,23 +48,32 @@ public sealed class FireJudgementCourt : ShitoAlisaCardModel
         decimal burnAmount = DynamicVars["BurnPower"].BaseValue;
         foreach (Creature enemy in opponents)
         {
-            if (!enemy.IsAlive || !enemy.IsHittable)
+            if (!enemy.IsAlive || !enemy.IsHittable || !enemy.CanReceivePowers)
                 continue;
             await PowerCmd.Apply<BurnPower>(enemy, burnAmount, Owner.Creature, this);
         }
 
         foreach (Creature enemy in opponents)
         {
-            if (!enemy.IsAlive)
-                continue;
-
-            BurnPower? burn = enemy.GetPower<BurnPower>();
-            if (burn == null)
+            if (!enemy.IsAlive || !enemy.CanReceivePowers)
                 continue;
 
             int triggers = (int)Math.Clamp(Math.Floor(((CalculatedVar)DynamicVars["BurnTriggerCount"]).Calculate(null)), 0m, 3m);
             for (int i = 0; i < triggers; i++)
+            {
+                if (!enemy.IsAlive || !enemy.HasPower<BurnPower>())
+                {
+                    break;
+                }
+
+                BurnPower? burn = enemy.GetPower<BurnPower>();
+                if (burn == null)
+                {
+                    break;
+                }
+
                 await burn.AfterSideTurnStart(enemy.Side, state);
+            }
         }
     }
 

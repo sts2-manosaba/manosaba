@@ -4,6 +4,7 @@ using Manosaba.Characters.Common.Powers;
 using Manosaba.Extensions;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
+using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
@@ -31,7 +32,11 @@ public class FireSword : ShitoAlisaCardModel
     {
         ArgumentNullException.ThrowIfNull(cardPlay.Target);
         await DamageCmd.Attack(DynamicVars.Damage.BaseValue).FromCard(this).Targeting(cardPlay.Target).Execute(choiceContext);
-        await PowerCmd.Apply<BurnPower>(cardPlay.Target, DynamicVars["BurnPower"].BaseValue, Owner.Creature, this);
+        Creature target = cardPlay.Target;
+        if (target.IsAlive && target.CanReceivePowers)
+        {
+            await PowerCmd.Apply<BurnPower>(target, DynamicVars["BurnPower"].BaseValue, Owner.Creature, this);
+        }
     }
 
     protected override void OnUpgrade()

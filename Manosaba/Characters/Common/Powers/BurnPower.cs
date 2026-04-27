@@ -11,6 +11,7 @@ using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Hooks;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
+using MegaCrit.Sts2.Core.Models.Powers;
 using MegaCrit.Sts2.Core.ValueProps;
 
 namespace Manosaba.Characters.Common.Powers;
@@ -49,6 +50,27 @@ public class BurnPower : PathCustomPowerModel
         return (int)damage;
     }
 
+    /// <summary>
+    /// 灼燒在持有者回合觸發次數：1 次 + 我方全體「一切安好」層數總和（與 <see cref="AfterSideTurnStart"/> 一致）。
+    /// </summary>
+    public int GetBurnProcCountForOwnerTurn(CombatState combatState)
+    {
+        int extra = combatState.Allies.Sum(c => (int)c.GetPowerAmount<ThisIsFinePower>());
+        return 1 + extra;
+    }
+
+    /// <summary>下回合灼燒總傷害預覽（單次傷害 × 觸發次數），供血條等 UI；命名對齊 <see cref="PoisonPower.CalculateTotalDamageNextTurn"/>。</summary>
+    public int CalculateTotalDamageNextTurn()
+    {
+        int perProc = CalculateDamageNextTurn();
+        if (base.Owner.CombatState is not { } cs)
+        {
+            return perProc;
+        }
+
+        return perProc * GetBurnProcCountForOwnerTurn(cs);
+    }
+
     public override async Task AfterSideTurnStart(CombatSide side, CombatState combatState)
     {
         if (side != base.Owner.Side)
@@ -56,10 +78,19 @@ public class BurnPower : PathCustomPowerModel
             return;
         }
 
-        int extra = combatState.Allies.Sum(c => (int)c.GetPowerAmount<ThisIsFinePower>());
-        int iterations = 1 + extra;
+        if (!base.Owner.IsAlive)
+        {
+            return;
+        }
+
+        int iterations = GetBurnProcCountForOwnerTurn(combatState);
         for (int i = 0; i < iterations; i++)
         {
+            if (!base.Owner.IsAlive)
+            {
+                break;
+            }
+
             await CreatureCmd.Damage(new ThrowingPlayerChoiceContext(), base.Owner, base.Amount, ValueProp.Unblockable | ValueProp.Unpowered, null, null);
             if (!base.Owner.IsAlive)
             {

@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Manosaba.Characters.ShitoAlisa.Visuals;
 using Manosaba.Extensions;
 using MegaCrit.Sts2.Core.Entities.Cards;
@@ -7,6 +8,7 @@ using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Helpers;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization;
+using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.TestSupport;
 using MegaCrit.Sts2.Core.ValueProps;
@@ -21,8 +23,15 @@ public sealed class FireballSwarmPower : PathCustomPowerModel
     public override PowerType Type => PowerType.Buff;
     public override PowerStackType StackType => PowerStackType.Counter;
 
-    /// <summary>Single orbiting fireball (scaled by stacks). Power row hidden; orb uses pass-through hitbox (no hover tip).</summary>
-    protected override bool IsVisibleInternal => false;
+    /// <summary>與一般能力相同顯示在角色能力列；數字為層數。可吸收總量見 smartDescription 的 <c>{TotalAbsorbHp}</c>。</summary>
+    protected override bool IsVisibleInternal => true;
+
+    protected override IEnumerable<DynamicVar> CanonicalVars =>
+    [
+        new DynamicVar("AbsorbPerOrb", DamageAbsorbedPerOrb),
+        new DynamicVar("MaxStacks", FireballOrbitRing.MaxOrbs),
+        new DynamicVar("TotalAbsorbHp", 0m),
+    ];
 
     /// <summary>
     /// Tooltip for orb hover. Vanilla <see cref="PowerModel.DumbHoverTip"/> does not call <c>LocString.Add("Amount", …)</c>
@@ -31,6 +40,7 @@ public sealed class FireballSwarmPower : PathCustomPowerModel
     /// </summary>
     public HoverTip CreateOrbitHoverTip()
     {
+        SyncAbsorbTooltipDynamicVars();
         LocString locString = HasSmartDescription ? SmartDescription : Description;
         Creature? owner = Owner;
         bool onPlayer = owner?.IsPlayer == true;
@@ -54,6 +64,7 @@ public sealed class FireballSwarmPower : PathCustomPowerModel
 
     public override Task AfterApplied(Creature? applier, CardModel? cardSource)
     {
+        SyncAbsorbTooltipDynamicVars();
         if (!TestMode.IsOn && Owner != null)
             FireballOrbitVisuals.Sync(Owner, VisibleCount);
         return Task.CompletedTask;
@@ -68,6 +79,7 @@ public sealed class FireballSwarmPower : PathCustomPowerModel
         if (Amount > FireballOrbitRing.MaxOrbs)
             SetAmount(FireballOrbitRing.MaxOrbs, silent: true);
 
+        SyncAbsorbTooltipDynamicVars();
         FireballOrbitVisuals.Sync(Owner, VisibleCountFor(Amount));
     }
 
@@ -104,7 +116,10 @@ public sealed class FireballSwarmPower : PathCustomPowerModel
                     FireballOrbitVisuals.Sync(ownerRef, 0);
             }
             else if (!TestMode.IsOn)
+            {
+                SyncAbsorbTooltipDynamicVars();
                 FireballOrbitVisuals.Sync(ownerRef, VisibleCountFor(Amount));
+            }
         }
 
         return newAmount;
@@ -124,4 +139,16 @@ public sealed class FireballSwarmPower : PathCustomPowerModel
 
     private static int VisibleCountFor(decimal amount) =>
         (int)Math.Clamp(Math.Floor(amount), 0, FireballOrbitRing.MaxOrbs);
+
+    /// <summary>同步 <see cref="CanonicalVars"/> 內 <c>TotalAbsorbHp</c>（層數上限內 × 每層吸收上限），供能力列／浮球說明替換。</summary>
+    private void SyncAbsorbTooltipDynamicVars()
+    {
+        if (!IsMutable)
+        {
+            return;
+        }
+
+        int stacks = Math.Min(Math.Max(0, Amount), FireballOrbitRing.MaxOrbs);
+        DynamicVars["TotalAbsorbHp"].BaseValue = stacks * (decimal)DamageAbsorbedPerOrb;
+    }
 }

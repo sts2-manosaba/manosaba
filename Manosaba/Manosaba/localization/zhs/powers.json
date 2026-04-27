@@ -287,7 +287,7 @@
   "MANOSABA-FINAL_COUNTDOWN_POWER.smartDescription": "當層數歸 0 時，直接獲得勝利。\n回合結束時，減少 1 層。\n每當有牌燃燒歸 0 時，減少 2 層。",
   "MANOSABA-FIREBALL_SWARM_POWER.title": "火球環繞",
   "MANOSABA-FIREBALL_SWARM_POWER.description": "[gold]火球環繞[/gold]最多 [blue]12[/blue] 層。\n在扣除[gold]格檔[/gold]後，每層[gold]火球環繞[/gold]可抵銷最多 [blue]3[/blue] 點即將受到的傷害並被消耗。",
-  "MANOSABA-FIREBALL_SWARM_POWER.smartDescription": "你有 [blue]{Amount}[/blue] 層[gold]火球環繞[/gold]（最多 [blue]12[/blue] 層）。\n在扣除[gold]格檔[/gold]後，每層[gold]火球環繞[/gold]可抵銷最多 [blue]3[/blue] 點即將受到的傷害並被消耗。",
+  "MANOSABA-FIREBALL_SWARM_POWER.smartDescription": "你有 [blue]{Amount}[/blue] 層[gold]火球環繞[/gold]（最多 [blue]{MaxStacks}[/blue] 層）。在扣除[gold]格檔[/gold]後，目前合計最多可抵銷 [blue]{TotalAbsorbHp}[/blue] 點生命損失（每消費一層最多 [blue]{AbsorbPerOrb}[/blue] 點，整層消費）。",
   "MANOSABA-RELIC_LEVELING_HOVER_TIP_POWER.title": "成長",
   "MANOSABA-RELIC_LEVELING_HOVER_TIP_POWER.description": "此遺物會在戰鬥勝利後獲得經驗並升級。",
   "MANOSABA-RELIC_LEVELING_HOVER_TIP_POWER.smartDescription": "此遺物會在戰鬥勝利後獲得經驗並升級。",

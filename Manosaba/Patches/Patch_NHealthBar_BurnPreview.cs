@@ -103,7 +103,7 @@ public static class Patch_NHealthBar_BurnPreview
         bool hasPoison = creature.HasPower<PoisonPower>();
         bool hasBurn = creature.HasPower<BurnPower>();
         int poisonDamage = creature.GetPower<PoisonPower>()?.CalculateTotalDamageNextTurn() ?? 0;
-        int burnDamage = creature.GetPower<BurnPower>()?.CalculateDamageNextTurn() ?? 0;
+        int burnDamage = creature.GetPower<BurnPower>()?.CalculateTotalDamageNextTurn() ?? 0;
         int periodicDamage = poisonDamage + burnDamage;
 
         if (burnForeground is CanvasItem burnCanvas)
@@ -240,7 +240,7 @@ public static class Patch_NHealthBar_BurnPreview
             _maxHpOnLastRefreshRef(__instance) = maxHp;
 
             int poisonDamage = creature.GetPower<PoisonPower>()?.CalculateTotalDamageNextTurn() ?? 0;
-            int burnDamage = creature.GetPower<BurnPower>()?.CalculateDamageNextTurn() ?? 0;
+            int burnDamage = creature.GetPower<BurnPower>()?.CalculateTotalDamageNextTurn() ?? 0;
             bool hasPeriodicPreview = poisonDamage + burnDamage > 0;
             float targetOffset = hasPeriodicPreview
                 ? (poisonDamage > 0 ? poisonForeground.OffsetRight : burnForeground.OffsetRight)
@@ -325,7 +325,7 @@ public static class Patch_NHealthBar_BurnPreview
     private static int CalculatePeriodicDamageNextTurn(Creature creature)
     {
         int poisonDamage = creature.GetPower<PoisonPower>()?.CalculateTotalDamageNextTurn() ?? 0;
-        int burnDamage = creature.GetPower<BurnPower>()?.CalculateDamageNextTurn() ?? 0;
+        int burnDamage = creature.GetPower<BurnPower>()?.CalculateTotalDamageNextTurn() ?? 0;
         return poisonDamage + burnDamage;
     }
 
