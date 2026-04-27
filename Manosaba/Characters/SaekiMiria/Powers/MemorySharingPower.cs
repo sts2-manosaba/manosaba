@@ -1,4 +1,5 @@
 using Manosaba.Characters.Common.Powers;
+using Manosaba.Characters.Common.Overrides;
 using Manosaba.Characters.SaekiMiria.Helper;
 using Manosaba.Extensions;
 using MegaCrit.Sts2.Core.Combat;
@@ -123,6 +124,7 @@ namespace Manosaba.Characters.SaekiMiria.Powers
                     {
                         copy.AddKeyword(CardKeyword.Ethereal);
                     }
+                    copy.AddKeyword(ManosabaKeywords.Shared);
 
                     await CardPileCmd.AddGeneratedCardToCombat(copy, PileType.Hand, addedByPlayer: true);
 

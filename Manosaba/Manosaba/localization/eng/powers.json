@@ -165,6 +165,9 @@
   "MANOSABA-WALKING_MISFORTUNE_POWER.title": "Walking Misfortune",
   "MANOSABA-WALKING_MISFORTUNE_POWER.description": "Increase max [gold]Energy[/gold].",
   "MANOSABA-WALKING_MISFORTUNE_POWER.smartDescription": "Increase max [gold]Energy[/gold] by [blue]{Amount}[/blue].",
+  "MANOSABA-UNLUCKY_POWER.title": "Unlucky",
+  "MANOSABA-UNLUCKY_POWER.description": "At the end of your turn, take damage equal to this power's stacks.",
+  "MANOSABA-UNLUCKY_POWER.smartDescription": "At the end of your turn, take [blue]{Amount}[/blue] damage.",
   "MANOSABA-DYING_MESSAGE_POWER.title": "Dying Message",
   "MANOSABA-DYING_MESSAGE_POWER.description": "If you die this turn, all allies draw cards and gain energy next turn.",
   "MANOSABA-DYING_MESSAGE_POWER.smartDescription": "If this character dies this turn, allies gain cards and energy next turn.",
@@ -303,7 +306,4 @@
   "MANOSABA-BRAINWASH_EXTRA_TURN_POWER.title": "Brainwash",
   "MANOSABA-BRAINWASH_EXTRA_TURN_POWER.description": "You will take an extra turn.",
   "MANOSABA-BRAINWASH_EXTRA_TURN_POWER.smartDescription": "You will take an extra turn."
-  "MANOSABA-UNLUCKY_POWER.title": "Unlucky",
-  "MANOSABA-UNLUCKY_POWER.description": "At the end of your turn, take damage equal to this power's stacks.",
-  "MANOSABA-UNLUCKY_POWER.smartDescription": "At the end of your turn, take [blue]{Amount}[/blue] damage."
 }

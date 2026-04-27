@@ -14,5 +14,7 @@
   "MANOSABA-COMBUST.title": "연소",
   "MANOSABA-COMBUST.description": "이 카드를 뽑을 때마다 연소 값이 1 감소합니다. 0이 되면 자동으로 플레이되고 초기 연소 값으로 되돌아갑니다.",
   "MANOSABA-COMBUST_IGNITE.title": "점화",
-  "MANOSABA-COMBUST_IGNITE.description": "선택한 [gold]연소[/gold] 카드의 현재 카운트다운을 표기된 만큼 줄인다(0 미만은 되지 않음)."
+  "MANOSABA-COMBUST_IGNITE.description": "선택한 [gold]연소[/gold] 카드의 현재 카운트다운을 표기된 만큼 줄인다(0 미만은 되지 않음).",
+  "MANOSABA-SHARED.title": "공유",
+  "MANOSABA-SHARED.description": "공유로 얻은 카드입니다."
 }

@@ -259,7 +259,7 @@
   "MANOSABA-THE_WAY_OUT.title": "The Way Out",
   "MANOSABA-THE_WAY_OUT.description": "Win at the end of the turn.",
   "MANOSABA-LAND_MINE.title": "Land Mine",
-  "MANOSABA-LAND_MINE.description": "At the end of this turn, deal 40 damage to ALL enemies.",
+  "MANOSABA-LAND_MINE.description": "[blue]Ethereal[/blue].\nIf this card is in your hand at end of turn, take 20 unblocked damage.",
   "MANOSABA-JUNK.title": "Junk",
   "MANOSABA-JUNK.description": "Still better than digging up a landmine.",
   "MANOSABA-STRIKE_HASUMI_LEIA.title": "Strike",

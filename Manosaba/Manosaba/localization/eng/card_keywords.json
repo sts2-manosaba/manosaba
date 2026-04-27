@@ -14,5 +14,7 @@
   "MANOSABA-COMBUST.title": "Combust",
   "MANOSABA-COMBUST.description": "Whenever this card is drawn, its Combust value decreases by 1. At 0, it is auto-played and resets to its initial value.",
   "MANOSABA-COMBUST_IGNITE.title": "Ignite",
-  "MANOSABA-COMBUST_IGNITE.description": "Select a [gold]Combust[/gold] card and reduce its current countdown by the listed amount (not below 0)."
+  "MANOSABA-COMBUST_IGNITE.description": "Select a [gold]Combust[/gold] card and reduce its current countdown by the listed amount (not below 0).",
+  "MANOSABA-SHARED.title": "Shared",
+  "MANOSABA-SHARED.description": "Obtained from sharing."
 }

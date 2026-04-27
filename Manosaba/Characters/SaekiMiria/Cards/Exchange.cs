@@ -91,6 +91,7 @@ namespace Manosaba.Characters.SaekiMiria.Cards
                 //copy.SetToFreeThisTurn();
                 copy.AddKeyword(CardKeyword.Exhaust);
                 copy.AddKeyword(CardKeyword.Ethereal);
+                copy.AddKeyword(ManosabaKeywords.Shared);
 
                 await CardPileCmd.AddGeneratedCardToCombat(copy, PileType.Hand, addedByPlayer: true);
             }
@@ -129,6 +130,7 @@ namespace Manosaba.Characters.SaekiMiria.Cards
                 //copy2.SetToFreeThisTurn();
                 copy2.AddKeyword(CardKeyword.Exhaust);
                 copy2.AddKeyword(CardKeyword.Ethereal);
+                copy2.AddKeyword(ManosabaKeywords.Shared);
 
                 await CardPileCmd.AddGeneratedCardToCombat(copy2, PileType.Hand, addedByPlayer: true);
             }

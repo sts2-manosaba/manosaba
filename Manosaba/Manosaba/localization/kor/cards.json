@@ -259,7 +259,7 @@
   "MANOSABA-THE_WAY_OUT.title": "탈출구",
   "MANOSABA-THE_WAY_OUT.description": "턴 종료 후 승리합니다.",
   "MANOSABA-LAND_MINE.title": "지뢰",
-  "MANOSABA-LAND_MINE.description": "이번 턴 종료 시 모든 적에게 피해를 40 줍니다.",
+  "MANOSABA-LAND_MINE.description": "[blue]휘발성[/blue].\n이 카드가 턴 종료 시 손에 있으면 막을 수 없는 피해를 20 받습니다.",
   "MANOSABA-JUNK.title": "잡동사니",
   "MANOSABA-JUNK.description": "지뢰를 파내는 것보다는 낫다.",
   "MANOSABA-STRIKE_HASUMI_LEIA.title": "타격",

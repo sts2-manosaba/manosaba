@@ -257,7 +257,7 @@
   "MANOSABA-THE_WAY_OUT.title": "出路",
   "MANOSABA-THE_WAY_OUT.description": "回合結束後獲得勝利。",
   "MANOSABA-LAND_MINE.title": "地雷",
-  "MANOSABA-LAND_MINE.description": "在本回合結束時，對所有敵人造成40點傷害。",
+  "MANOSABA-LAND_MINE.description": "[blue]虛無[/blue]。\n若此牌在回合結束時位於手中，受到20點無法格擋的傷害。",
   "MANOSABA-JUNK.title": "垃圾",
   "MANOSABA-JUNK.description": "比挖到地雷好一點。",
   "MANOSABA-STRIKE_KUROBE_NANOKA.title": "打擊",

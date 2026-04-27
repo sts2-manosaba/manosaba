@@ -23,18 +23,18 @@ namespace manosaba.Characters.SaekiMiria.Relics
     {
         private const int MAX_MOVIE_CARD_GENERATED = 10;
         private const int SMALL_PAPER_CHANCE = 100;
+        private const string BlockPerMovieVar = "BlockPerMovie";
+        private const string MaxMovieCardsVar = "MaxMovieCards";
         private const string MoviesPerTurnVar = "MoviesPerTurn";
         private const string CassetteChanceVar = "CassetteChance";
 
         public override RelicRarity Rarity => RelicRarity.Starter;
         protected override int MaxRelicLevel => 5;
 
-        private int blockPerMovieCard = 8;
-
         protected override IEnumerable<DynamicVar> CanonicalVars =>
         [
-            new DynamicVar("BlockPerMovie", 8m),
-            new DynamicVar("MaxMovieCards", MAX_MOVIE_CARD_GENERATED),
+            new DynamicVar(BlockPerMovieVar, 8m),
+            new DynamicVar(MaxMovieCardsVar, MAX_MOVIE_CARD_GENERATED),
             new DynamicVar(MoviesPerTurnVar, 1m),
             new DynamicVar(CassetteChanceVar, 0m),
         ];
@@ -66,6 +66,12 @@ namespace manosaba.Characters.SaekiMiria.Relics
             ApplyRelicLevelEffects();
             RemoveExchangeFromSinglePlayerStartingDeck();
 
+            return Task.CompletedTask;
+        }
+
+        public override Task BeforeCombatStart()
+        {
+            ApplyRelicLevelEffects();
             return Task.CompletedTask;
         }
 
@@ -136,14 +142,14 @@ namespace manosaba.Characters.SaekiMiria.Relics
             if (combatState == null)
                 return;
 
-            int requiredBlock = Math.Max(1, blockPerMovieCard);
+            int requiredBlock = GetDeprecatedBlockPerMovieCard();
             int blockRemaining = ownerCreature.Block;
             if (blockRemaining <= 0)
             {
                 return;
             }
             int moviesToAdd = (int)decimal.Ceiling((decimal)blockRemaining / requiredBlock);
-            moviesToAdd = Math.Min(moviesToAdd, MAX_MOVIE_CARD_GENERATED);
+            moviesToAdd = Math.Min(moviesToAdd, DynamicVars[MaxMovieCardsVar].IntValue);
             if (moviesToAdd <= 0)
                 return;
 
@@ -195,15 +201,25 @@ namespace manosaba.Characters.SaekiMiria.Relics
 
         private void ApplyRelicLevelEffects()
         {
-            // Lv1: 8 Block per card
-            // Lv2: 7
-            // Lv3: 6
-            // Lv4: 5
-            // Lv5: 4
-            blockPerMovieCard = Math.Max(1, 8 - RelicLevel);
-            DynamicVars["BlockPerMovie"].BaseValue = blockPerMovieCard;
-            DynamicVars[MoviesPerTurnVar].BaseValue = RelicLevel >= 5 ? 2m : 1m;
-            DynamicVars[CassetteChanceVar].BaseValue = RelicLevel >= 3 ? 50m : 0m;
+            DynamicVars[BlockPerMovieVar].BaseValue = GetDeprecatedBlockPerMovieCard();
+            DynamicVars[MaxMovieCardsVar].BaseValue = MAX_MOVIE_CARD_GENERATED;
+            DynamicVars[MoviesPerTurnVar].BaseValue = GetMoviesPerTurn();
+            DynamicVars[CassetteChanceVar].BaseValue = GetCassetteChancePercent();
+        }
+
+        private int GetDeprecatedBlockPerMovieCard()
+        {
+            return Math.Max(1, 8 - RelicLevel);
+        }
+
+        private int GetMoviesPerTurn()
+        {
+            return RelicLevel >= 5 ? 2 : 1;
+        }
+
+        private int GetCassetteChancePercent()
+        {
+            return RelicLevel >= 3 ? 50 : 0;
         }
 
         private static CardModel CreateRelicGeneratedCard(Player player, CombatState combatState, MegaCrit.Sts2.Core.Random.Rng rng)

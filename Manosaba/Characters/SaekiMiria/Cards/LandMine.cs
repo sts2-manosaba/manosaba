@@ -1,25 +1,28 @@
 using BaseLib.Utils;
 using manosaba.Characters.SaekiMiria;
 using Manosaba.Extensions;
+using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
+using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
-using MegaCrit.Sts2.Core.HoverTips;
-using MegaCrit.Sts2.Core.Models;
-using MegaCrit.Sts2.Core.Models.Powers;
+using MegaCrit.Sts2.Core.Localization.DynamicVars;
+using MegaCrit.Sts2.Core.ValueProps;
 
 namespace Manosaba.Characters.SaekiMiria.Cards;
 
 [Pool(typeof(SaekiMiriaCardPool))]
 public sealed class LandMine : PathCustomCardModel
 {
-    private const int EnergyCost = 0;
-    private const CardType CardTypeValue = CardType.Skill;
-    private const CardRarity Rarity = CardRarity.Token;
-    private const TargetType TargetTypeValue = TargetType.Self;
+    private const int EnergyCost = 1;
+    private const CardType CardTypeValue = CardType.Status;
+    private const CardRarity Rarity = CardRarity.Status;
+    private const TargetType TargetTypeValue = TargetType.None;
     private const bool ShouldShowInCardLibrary = false;
 
-    protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<TheBombPower>()];
+    public override bool HasTurnEndInHandEffect => true;
+    protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(20m, ValueProp.Unblockable | ValueProp.Unpowered)];
+    public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Ethereal];
 
     public override bool CanBeGeneratedInCombat => false;
     public override bool CanBeGeneratedByModifiers => false;
@@ -31,6 +34,22 @@ public sealed class LandMine : PathCustomCardModel
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        await PowerCmd.Apply<TheBombPower>(Owner.Creature, 1m, Owner.Creature, this);
+    }
+
+    public override async Task OnTurnEndInHand(PlayerChoiceContext choiceContext)
+    {
+        Creature? ownerCreature = Owner?.Creature;
+        if (ownerCreature == null)
+        {
+            return;
+        }
+
+        await CreatureCmd.Damage(
+            choiceContext,
+            ownerCreature,
+            DynamicVars.Damage.BaseValue,
+            ValueProp.Unblockable | ValueProp.Unpowered,
+            ownerCreature,
+            this);
     }
 }

@@ -259,7 +259,7 @@
   "MANOSABA-THE_WAY_OUT.title": "出口",
   "MANOSABA-THE_WAY_OUT.description": "ターン終了後に勝利する。",
   "MANOSABA-LAND_MINE.title": "地雷",
-  "MANOSABA-LAND_MINE.description": "このターン終了時、すべての敵に40ダメージを与える。",
+  "MANOSABA-LAND_MINE.description": "[blue]エセリアル[/blue]。\nこのカードがターン終了時に手札にあるなら、20のブロック不可ダメージを受ける。",
   "MANOSABA-JUNK.title": "ガラクタ",
   "MANOSABA-JUNK.description": "地雷を掘り当てるよりはまし。",
   "MANOSABA-STRIKE_HASUMI_LEIA.title": "打撃",

@@ -41,6 +41,10 @@ namespace Manosaba.Characters.Common.Overrides
         [KeywordProperties(AutoKeywordPosition.After)]
         public static CardKeyword CombustIgnite;
 
+        [CustomEnum("shared")]
+        [KeywordProperties(AutoKeywordPosition.After)]
+        public static CardKeyword Shared;
+
         public readonly record struct StanceBonus(decimal BonusDamage, decimal BonusBlock);
 
         public static async Task<StanceBonus> ResolveHighStance(Creature owner, Creature? applier, CardModel? source)
