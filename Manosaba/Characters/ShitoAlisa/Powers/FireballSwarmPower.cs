@@ -16,7 +16,7 @@ namespace Manosaba.Characters.ShitoAlisa.Powers;
 /// <summary>Amount = orbiting fireball stacks (max <see cref="FireballOrbitRing.MaxOrbs"/>). After block, each orb can absorb up to <see cref="DamageAbsorbedPerOrb"/> HP loss.</summary>
 public sealed class FireballSwarmPower : PathCustomPowerModel
 {
-    public const int DamageAbsorbedPerOrb = 2;
+    public const int DamageAbsorbedPerOrb = 3;
 
     public override PowerType Type => PowerType.Buff;
     public override PowerStackType StackType => PowerStackType.Counter;

@@ -8,6 +8,7 @@ using Manosaba.Characters.KurobeNanoka.Powers;
 using Manosaba.Characters.NikaidoHiro.Powers;
 using Manosaba.Characters.SaekiMiria.Cards;
 using Manosaba.Characters.SaekiMiria.Powers;
+using Manosaba.Characters.ShitoAlisa.Powers;
 using Manosaba.Characters.TachibanaSherry.Powers;
 using Manosaba.Characters.TonoHanna.Powers;
 using MegaCrit.Sts2.Core.Entities.Cards;
@@ -68,7 +69,11 @@ namespace Manosaba.Characters.SaekiMiria.Helper
                 typeof(VigorPower),
                 typeof(DemonFormPower),
 
-                typeof(ShowOffPower)
+                typeof(ShowOffPower),
+
+                typeof(ScaldingTouchPower),
+                typeof(FireballSwarmPower),
+                typeof(FinalCountdownPower),
             };
 
         public static HashSet<Type> AllowedLuckTransferPowers = new()

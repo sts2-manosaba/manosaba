@@ -639,6 +639,8 @@
   "MANOSABA-FIREBALL.description": "Deal {Damage:diff()} damage.\nGain [blue]1[/blue] [gold]Fireball Swarm[/gold].",
   "MANOSABA-FLAMING.title": "Flaming",
   "MANOSABA-FLAMING.description": "Apply {BurnPower:diff()} [gold]Burn[/gold] to all enemies.\nGain [blue]1[/blue] [gold]Fireball Swarm[/gold].",
+  "MANOSABA-FIRE_TORNADO.title": "Fire Tornado",
+  "MANOSABA-FIRE_TORNADO.description": "Deal {Damage:diff()} damage to all enemies X times.\nApply X [gold]Burn[/gold] to ALL enemies.",
   "MANOSABA-YOU_ARE_WEAK_EMA.title": "You Are Weak, Ema",
   "MANOSABA-YOU_ARE_WEAK_EMA.description": "Deal {CalculatedDamage:diff()} damage.\nFor each [gold]Fireball Swarm[/gold] you have, damage increases by {ExtraDamage:diff()}.",
   "MANOSABA-THIS_IS_FINE.title": "This Is Fine",

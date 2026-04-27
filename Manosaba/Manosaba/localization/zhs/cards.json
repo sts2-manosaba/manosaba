@@ -637,6 +637,8 @@
   "MANOSABA-THIS_IS_FINE.description": "[gold]灼燒[/gold]會額外觸發 {ThisIsFinePower:diff()} 次。",
   "MANOSABA-FLAMING.title": "大炎上",
   "MANOSABA-FLAMING.description": "給予所有敵人 {BurnPower:diff()} 層[gold]灼燒[/gold]。\n獲得 [blue]1[/blue] 層[gold]火球環繞[/gold]。",
+  "MANOSABA-FIRE_TORNADO.title": "烈焰龍捲風",
+  "MANOSABA-FIRE_TORNADO.description": "對所有敵人造成 {Damage:diff()} 點傷害 X 次。\n給予所有敵人 X 層[gold]灼燒[/gold]。",
   "MANOSABA-FIRE_JUDGEMENT_COURT.title": "火燒審判庭",
   "MANOSABA-FIRE_JUDGEMENT_COURT.description": "給予全部敵人 {BurnPower:diff()} 層[gold]灼燒[/gold]。\n根據[gold]魔女化[/gold]程度，馬上觸發 {BurnTriggerCount:diff()} 次[gold]灼燒[/gold]效果（最多 3 次）。",
   "MANOSABA-SWEEP_UP.title": "掃除",

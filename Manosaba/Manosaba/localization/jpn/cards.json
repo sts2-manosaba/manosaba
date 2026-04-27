@@ -637,6 +637,8 @@
   "MANOSABA-THIS_IS_FINE.description": "[gold]灼焼[/gold]が追加で{ThisIsFinePower:diff()}回発動する。",
   "MANOSABA-FLAMING.title": "大炎上",
   "MANOSABA-FLAMING.description": "すべての敵に{BurnPower:diff()}層の[gold]灼焼[/gold]を与える。\n[gold]ファイアボール[/gold]を[blue]1[/blue]層得る。",
+  "MANOSABA-FIRE_TORNADO.title": "ファイアトルネード",
+  "MANOSABA-FIRE_TORNADO.description": "すべての敵に{Damage:diff()}ダメージをX回与える。\nすべての敵にX層の[gold]灼焼[/gold]を与える。",
   "MANOSABA-FIRE_JUDGEMENT_COURT.title": "火刑の審判廷",
   "MANOSABA-FIRE_JUDGEMENT_COURT.description": "すべての敵に{BurnPower:diff()}層の[gold]灼焼[/gold]を与える。\n[gold]魔女化[/gold]に応じて、[gold]灼焼[/gold]効果を即時{BurnTriggerCount:diff()}回発動する（最大3回）。",
   "MANOSABA-SWEEP_UP.title": "掃除",
