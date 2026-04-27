@@ -57,9 +57,9 @@ public sealed class Frugal : LevelingPathCustomRelicModel
         yield return new HoverTip(line);
     }
 
-    /// <summary>Combat-only: compendium / previews have no owner in combat, so <c>PlayerCombatState</c> is null.</summary>
+    /// <summary>Combat-only. Canonical / library instances must not touch <see cref="RelicModel.Owner"/> (asserts mutable).</summary>
     private bool ShouldShowCombatEnergyTrackLine()
-        => Owner?.PlayerCombatState != null;
+        => IsMutable && Owner?.PlayerCombatState != null;
 
     public override Task AfterObtained() => Task.CompletedTask;
 
