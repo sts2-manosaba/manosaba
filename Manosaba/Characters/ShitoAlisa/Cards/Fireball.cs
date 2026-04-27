@@ -18,10 +18,10 @@ namespace Manosaba.Characters.ShitoAlisa.Cards;
 [Pool(typeof(ShitoAlisaCardPool))]
 public sealed class Fireball : ShitoAlisaCardModel
 {
-    private const int EnergyCost = 0;
+    private new const int EnergyCost = 0;
     private const CardType TypeValue = CardType.Attack;
-    private const CardRarity Rarity = CardRarity.Token;
-    private const bool ShouldShowInCardLibrary = false;
+    private new const CardRarity Rarity = CardRarity.Token;
+    private new const bool ShouldShowInCardLibrary = false;
 
     public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
 

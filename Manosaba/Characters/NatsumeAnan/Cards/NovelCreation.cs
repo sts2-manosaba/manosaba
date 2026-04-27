@@ -40,6 +40,12 @@ public sealed class NovelCreation : NatsumeKotodamaCardModel
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
+        MegaCrit.Sts2.Core.Combat.CombatState? combatState = CombatState;
+        if (combatState == null)
+        {
+            return;
+        }
+
         await CreatureCmd.GainBlock(Owner.Creature, DynamicVars.Block, cardPlay);
         await PlayerCmd.GainEnergy(DynamicVars.Energy.BaseValue, Owner);
 
@@ -49,7 +55,7 @@ public sealed class NovelCreation : NatsumeKotodamaCardModel
             return;
         }
 
-        CardModel settingCard = RollNovelSettingCard(targetNoah);
+        CardModel settingCard = RollNovelSettingCard(targetNoah, combatState);
         CardPileAddResult result = await CardPileCmd.AddGeneratedCardToCombat(settingCard, PileType.Hand, addedByPlayer: true);
         CardCmd.PreviewCardPileAdd(result);
 
@@ -58,7 +64,13 @@ public sealed class NovelCreation : NatsumeKotodamaCardModel
 
     private Player? SelectRandomJogasakiNoahTeammate()
     {
-        List<Player> noahTeammates = CombatState.GetTeammatesOf(Owner.Creature)
+        MegaCrit.Sts2.Core.Combat.CombatState? combatState = CombatState;
+        if (combatState == null)
+        {
+            return null;
+        }
+
+        List<Player> noahTeammates = combatState.GetTeammatesOf(Owner.Creature)
             .Where(creature => creature.IsAlive && creature.Player != null)
             .Select(creature => creature.Player!)
             .Where(IsJogasakiNoah)
@@ -73,25 +85,25 @@ public sealed class NovelCreation : NatsumeKotodamaCardModel
         return Owner.RunState.Rng.CombatTargets.NextItem(noahTeammates);
     }
 
-    private CardModel RollNovelSettingCard(Player targetNoah)
+    private CardModel RollNovelSettingCard(Player targetNoah, MegaCrit.Sts2.Core.Combat.CombatState combatState)
     {
         int roll = Owner.RunState.Rng.CombatCardGeneration.NextInt(100);
         if (roll < 33)
         {
-            return CombatState.CreateCard<SettingFlameRabbit>(targetNoah);
+            return combatState.CreateCard<SettingFlameRabbit>(targetNoah);
         }
 
         if (roll < 66)
         {
-            return CombatState.CreateCard<SettingHolyWhiteSnake>(targetNoah);
+            return combatState.CreateCard<SettingHolyWhiteSnake>(targetNoah);
         }
 
         if (roll < 99)
         {
-            return CombatState.CreateCard<SettingClawedCockatrice>(targetNoah);
+            return combatState.CreateCard<SettingClawedCockatrice>(targetNoah);
         }
 
-        return CombatState.CreateCard<SettingCrimsonValstrax>(targetNoah);
+        return combatState.CreateCard<SettingCrimsonValstrax>(targetNoah);
     }
 
     private static bool IsJogasakiNoah(Player player)

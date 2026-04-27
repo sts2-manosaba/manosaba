@@ -17,11 +17,11 @@ namespace Manosaba.Characters.ShitoAlisa.Cards;
 [Pool(typeof(ShitoAlisaCardPool))]
 public class Flaming : ShitoAlisaCardModel
 {
-    private const int EnergyCost = 3;
+    private new const int EnergyCost = 3;
     private const CardType TypeValue = CardType.Skill;
-    private const CardRarity Rarity = CardRarity.Uncommon;
+    private new const CardRarity Rarity = CardRarity.Uncommon;
     private const TargetType TargetTypeValue = TargetType.AllEnemies;
-    private const bool ShouldShowInCardLibrary = true;
+    private new const bool ShouldShowInCardLibrary = true;
 
     public override IEnumerable<CardKeyword> CanonicalKeywords => [ManosabaKeywords.Combust];
 

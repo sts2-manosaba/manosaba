@@ -17,7 +17,7 @@ public class PotionThrow : PathCustomCardModel
     private const CardType TypeValue = CardType.Power;
     private const CardRarity RarityValue = CardRarity.Rare;
     private const TargetType TargetTypeValue = TargetType.Self;
-    private const bool ShouldShowInCardLibrary = true;
+    private new const bool ShouldShowInCardLibrary = true;
 
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<PotionThrowPower>()];
 

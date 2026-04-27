@@ -15,11 +15,11 @@ namespace Manosaba.Characters.ShitoAlisa.Cards;
 [Pool(typeof(ShitoAlisaCardPool))]
 public class SpreadBurn : ShitoAlisaCardModel
 {
-    private const int EnergyCost = 2;
+    private new const int EnergyCost = 2;
     private const CardType TypeValue = CardType.Skill;
-    private const CardRarity Rarity = CardRarity.Uncommon;
+    private new const CardRarity Rarity = CardRarity.Uncommon;
     private const TargetType TargetTypeValue = TargetType.AnyEnemy;
-    private const bool ShouldShowInCardLibrary = true;
+    private new const bool ShouldShowInCardLibrary = true;
 
     protected override IEnumerable<DynamicVar> CanonicalVars => WithCombust(0, new DynamicVar("FireballGainPerSpread", 1m));
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<BurnPower>(), HoverTipFactory.FromPower<FireballSwarmPower>()];

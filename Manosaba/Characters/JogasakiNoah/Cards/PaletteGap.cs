@@ -23,9 +23,9 @@ namespace Manosaba.Characters.JogasakiNoah.Cards
 
         private const int EnergyCostValue = 1;
         private const CardType CardTypeValue = CardType.Skill;
-        private const CardRarity Rarity = CardRarity.Token;
+        private new const CardRarity Rarity = CardRarity.Token;
         private const TargetType TargetTypeValue = TargetType.TargetedNoCreature;
-        private const bool ShouldShowInCardLibrary = false;
+        private new const bool ShouldShowInCardLibrary = false;
         public override bool CanBeGeneratedInCombat => false;
         public override bool CanBeGeneratedByModifiers => false;
 

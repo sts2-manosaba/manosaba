@@ -74,7 +74,7 @@ public abstract class GunBase : PathCustomCardModel
                 vfx: "vfx/vfx_attack_blunt",
                 sfx: NanokaHelper.GUN_SHOT_SFX)
             .FromCard(this)
-            .Targeting(target)
+            .Targeting(target!)
             .Execute(choiceContext);
     }
 

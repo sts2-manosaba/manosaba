@@ -14,11 +14,11 @@ public class StrikeShitoAlisa : ShitoAlisaCardModel
 {
     protected override HashSet<CardTag> CanonicalTags => [CardTag.Strike];
 
-    private const int EnergyCost = 1;
+    private new const int EnergyCost = 1;
     private const CardType TypeValue = CardType.Attack;
-    private const CardRarity Rarity = CardRarity.Basic;
+    private new const CardRarity Rarity = CardRarity.Basic;
     private const TargetType TargetTypeValue = TargetType.AnyEnemy;
-    private const bool ShouldShowInCardLibrary = true;
+    private new const bool ShouldShowInCardLibrary = true;
 
     protected override IEnumerable<DynamicVar> CanonicalVars => WithCombust(0, new DamageVar(6, ValueProp.Move));
 
@@ -28,9 +28,15 @@ public class StrikeShitoAlisa : ShitoAlisaCardModel
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
+        var target = cardPlay.Target;
+        if (target == null)
+        {
+            return;
+        }
+
         await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
             .FromCard(this)
-            .Targeting(cardPlay.Target)
+            .Targeting(target)
             .Execute(choiceContext);
     }
 

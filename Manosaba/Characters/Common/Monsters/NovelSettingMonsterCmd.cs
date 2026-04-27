@@ -17,9 +17,13 @@ public static class NovelSettingMonsterCmd
     public static async Task<SummonResult> Summon<TMonster>(PlayerChoiceContext choiceContext, Player summoner, AbstractModel? source, decimal summonAmount = 1m)
         where TMonster : MonsterModel
     {
-        CombatState combatState = summoner.Creature.CombatState;
+        if (summoner.Creature?.CombatState is not { } combatState || summoner.PlayerCombatState == null)
+        {
+            return new SummonResult(null, 0m);
+        }
+
         decimal amount = Hook.ModifySummonAmount(combatState, summoner, summonAmount, source);
-        Creature summoned = combatState.Allies.FirstOrDefault((Creature c) => c.Monster is TMonster && c.PetOwner == summoner && c.IsAlive);
+        Creature? summoned = combatState.Allies.FirstOrDefault((Creature c) => c.Monster is TMonster && c.PetOwner == summoner && c.IsAlive);
         if (amount == 0m)
         {
             return new SummonResult(summoned, 0m);
@@ -35,7 +39,12 @@ public static class NovelSettingMonsterCmd
         {
             // If a same-type summon is already alive, create another copy instead of increasing max HP.
             summoned = await PlayerCmd.AddPet<TMonster>(summoner);
-            NCreature summonedNode = NCombatRoom.Instance?.GetCreatureNode(summoned);
+            if (summoned == null)
+            {
+                return new SummonResult(null, 0m);
+            }
+
+            NCreature? summonedNode = NCombatRoom.Instance?.GetCreatureNode(summoned);
             summonedNode?.TrackBlockStatus(summoner.Creature);
         }
         else
@@ -44,26 +53,46 @@ public static class NovelSettingMonsterCmd
             isReviving = summoned != null;
             if (isReviving)
             {
-                if (summoned.IsAlive)
+                Creature revived = summoned!;
+                if (revived.IsAlive)
                 {
                     throw new InvalidOperationException("We shouldn't make it here if summoned monster is still alive!");
                 }
 
-                summoner.PlayerCombatState.AddPetInternal(summoned);
+                summoner.PlayerCombatState.AddPetInternal(revived);
+                summoned = revived;
             }
             else
             {
                 summoned = await PlayerCmd.AddPet<TMonster>(summoner);
-                NCreature summonedNode = NCombatRoom.Instance?.GetCreatureNode(summoned);
+                if (summoned == null)
+                {
+                    return new SummonResult(null, 0m);
+                }
+
+                NCreature? summonedNode = NCombatRoom.Instance?.GetCreatureNode(summoned);
                 summonedNode?.TrackBlockStatus(summoner.Creature);
             }
         }
+
+        if (summoned == null)
+        {
+            return new SummonResult(null, 0m);
+        }
+
         await CreatureCmd.SetMaxHp(summoned, amount);
         await CreatureCmd.Heal(summoned, amount, isReviving);
 
+        CombatState? summonedCombatState = summoned.CombatState;
+        if (summonedCombatState == null)
+        {
+            return new SummonResult(summoned, amount);
+        }
+
         Creature perspective = summoned.PetOwner?.Creature ?? summoner.Creature;
-        List<Creature> petTargets = summoned.CombatState.GetOpponentsOf(perspective)
-            .Where(c => c != null && c.IsAlive)
+        List<Creature> petTargets = summonedCombatState.GetOpponentsOf(perspective)
+            .Where(c => c?.IsAlive == true)
+            .Select(c => c!)
             .ToList();
         if (petTargets.Count > 0 && PetEnemyAiPower.TryPrepareForNextTurnWithTargets(summoned, petTargets, rollNewMove: true))
         {
@@ -73,9 +102,9 @@ public static class NovelSettingMonsterCmd
 
         if (TestMode.IsOff)
         {
-            NCreature nCreature = NCombatRoom.Instance?.GetCreatureNode(summoned);
-            nCreature.OstyScaleToSize(summoned.MaxHp, 0.75f);
-            nCreature.ToggleIsInteractable(true);
+            NCreature? nCreature = NCombatRoom.Instance?.GetCreatureNode(summoned);
+            nCreature?.OstyScaleToSize(summoned.MaxHp, 0.75f);
+            nCreature?.ToggleIsInteractable(true);
         }
 
         CombatManager.Instance.History.Summoned(combatState, (int)amount, summoner);

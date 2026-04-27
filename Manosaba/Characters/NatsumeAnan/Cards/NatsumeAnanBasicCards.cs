@@ -157,19 +157,27 @@ public sealed class Instigate : NatsumeKotodamaCardModel
             $"ownerHandNow={GetPileCount(Owner, PileType.Hand)} targetDrawNow={GetPileCount(targetPlayer, PileType.Draw)} " +
             $"rng={FormatRngCounters(Owner.RunState.Rng)}");
 
-        if (!IsSaekiMiria(targetPlayer) || CombatState == null)
+        MegaCrit.Sts2.Core.Combat.CombatState? combatState = CombatState;
+        if (!IsSaekiMiria(targetPlayer) || combatState == null)
         {
             Log.Debug(
                 $"[Manosaba SyncTrace][Instigate] no_movie owner={Owner.NetId} target={targetPlayer.NetId} " +
-                $"isSaeki={IsSaekiMiria(targetPlayer)} combatNull={CombatState == null}");
+                $"isSaeki={IsSaekiMiria(targetPlayer)} combatNull={combatState == null}");
             return;
         }
 
-        CardModel movie = Owner.RunState.Rng.CombatCardGeneration.NextItem(MovieFactories)(Owner, CombatState);
+        Player? owner = Owner;
+        if (owner == null)
+        {
+            return;
+        }
+
+        Func<Player, CombatState, MovieBase>? factory = owner.RunState.Rng.CombatCardGeneration.NextItem(MovieFactories);
+        CardModel movie = (factory ?? MovieFactories[0])(owner, combatState);
         CardPileAddResult result = await CardPileCmd.AddGeneratedCardToCombat(movie, PileType.Hand, addedByPlayer: true);
         Log.Debug(
-            $"[Manosaba SyncTrace][Instigate] movie owner={Owner.NetId} target={targetPlayer.NetId} generated={movie.Id.Entry} " +
-            $"ownerHandAfter={GetPileCount(Owner, PileType.Hand)} rng={FormatRngCounters(Owner.RunState.Rng)}");
+            $"[Manosaba SyncTrace][Instigate] movie owner={owner.NetId} target={targetPlayer.NetId} generated={movie.Id.Entry} " +
+            $"ownerHandAfter={GetPileCount(owner, PileType.Hand)} rng={FormatRngCounters(owner.RunState.Rng)}");
         CardCmd.PreviewCardPileAdd(result);
     }
 

@@ -43,10 +43,16 @@ public sealed class Urusai : NatsumeKotodamaCardModel
             return;
         }
 
+        MegaCrit.Sts2.Core.Combat.CombatState? combatState = CombatState;
+        if (combatState == null)
+        {
+            return;
+        }
+
         await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
             .WithHitCount(hits)
             .FromCard(this)
-            .TargetingRandomOpponents(CombatState)
+            .TargetingRandomOpponents(combatState)
             .Execute(choiceContext);
     }
 

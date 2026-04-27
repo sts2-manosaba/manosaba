@@ -17,9 +17,9 @@ public sealed class JailerRegeneration : PathCustomCardModel
     private const decimal BaseHealAmount = 10m;
     private const int energyCost = 2;
     private const CardType CardTypeValue = CardType.Power;
-    private const CardRarity Rarity = CardRarity.Rare;
+    private new const CardRarity Rarity = CardRarity.Rare;
     private const TargetType TargetTypeValue = TargetType.Self;
-    private const bool ShouldShowInCardLibrary = true;
+    private new const bool ShouldShowInCardLibrary = true;
 
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<JailerRegenerationPower>()];
     protected override IEnumerable<DynamicVar> CanonicalVars =>

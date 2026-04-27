@@ -12,11 +12,11 @@ namespace Manosaba.Characters.KurobeNanoka.Cards;
 [Pool(typeof(KurobeNanokaCardPool))]
 public sealed class Reload : PathCustomCardModel
 {
-    private const int EnergyCost = 0;
-    private const CardType Type = CardType.Skill;
-    private const CardRarity Rarity = CardRarity.Uncommon;
+    private new const int EnergyCost = 0;
+    private new const CardType Type = CardType.Skill;
+    private new const CardRarity Rarity = CardRarity.Uncommon;
     private const TargetType TargetTypeValue = TargetType.Self;
-    private const bool ShouldShowInCardLibrary = true;
+    private new const bool ShouldShowInCardLibrary = true;
 
     public Reload() : base(EnergyCost, Type, Rarity, TargetTypeValue, ShouldShowInCardLibrary)
     {

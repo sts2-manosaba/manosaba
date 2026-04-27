@@ -73,7 +73,7 @@ public sealed class ThreeSixtyNoScope : GunBase
         DynamicVars.Damage.UpgradeValueBy(4m);
     }
 
-    protected void PlayEvokeSfx()
+    private void PlayEvokeSfx()
     {
         string EvokeSfx = "event:/sfx/characters/defect/defect_lightning_evoke";
         if (EvokeSfx != "")

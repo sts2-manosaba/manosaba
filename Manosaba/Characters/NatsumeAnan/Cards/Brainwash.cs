@@ -15,6 +15,7 @@ namespace manosaba.Characters.NatsumeAnan.Cards;
 [Pool(typeof(NatsumeAnanCardPool))]
 public sealed class Brainwash : NatsumeKotodamaCardModel
 {
+
     private static int KotodamaRealCost => 20;
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
@@ -46,7 +47,13 @@ public sealed class Brainwash : NatsumeKotodamaCardModel
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         _ = cardPlay;
-        IEnumerable<Player> teammates = CombatState
+        MegaCrit.Sts2.Core.Combat.CombatState? combatState = CombatState;
+        if (combatState == null)
+        {
+            return;
+        }
+
+        IEnumerable<Player> teammates = combatState
             .GetTeammatesOf(Owner.Creature)
             .Where(creature => creature != null && creature.IsAlive && creature.IsPlayer)
             .Select(creature => creature.Player)

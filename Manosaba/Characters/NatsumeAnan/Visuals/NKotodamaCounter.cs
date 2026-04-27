@@ -116,7 +116,7 @@ public sealed partial class NKotodamaCounter : Control
             }
         }
 
-        return _player;
+        return _player!;
     }
 
     private void OnHovered()

@@ -15,11 +15,11 @@ public class DefendShitoAlisa : ShitoAlisaCardModel
     public override bool GainsBlock => true;
     protected override HashSet<CardTag> CanonicalTags => [CardTag.Defend];
 
-    private const int EnergyCost = 1;
+    private new const int EnergyCost = 1;
     private const CardType TypeValue = CardType.Skill;
-    private const CardRarity Rarity = CardRarity.Basic;
+    private new const CardRarity Rarity = CardRarity.Basic;
     private const TargetType TargetTypeValue = TargetType.Self;
-    private const bool ShouldShowInCardLibrary = true;
+    private new const bool ShouldShowInCardLibrary = true;
 
     protected override IEnumerable<DynamicVar> CanonicalVars => WithCombust(0, new BlockVar(5, ValueProp.Move));
 

@@ -20,11 +20,11 @@ public sealed class CounterViolence : ShitoAlisaCardModel
 {
     public override bool GainsBlock => true;
 
-    private const int EnergyCost = 1;
+    private new const int EnergyCost = 1;
     private const CardType TypeValue = CardType.Skill;
-    private const CardRarity Rarity = CardRarity.Common;
+    private new const CardRarity Rarity = CardRarity.Common;
     private const TargetType TargetTypeValue = TargetType.Self;
-    private const bool ShouldShowInCardLibrary = true;
+    private new const bool ShouldShowInCardLibrary = true;
 
     protected override IEnumerable<DynamicVar> CanonicalVars => WithCombust(0, new BlockVar(8m, ValueProp.Move));
     protected override IEnumerable<IHoverTip> ExtraHoverTips =>

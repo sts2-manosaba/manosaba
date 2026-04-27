@@ -14,11 +14,11 @@ namespace Manosaba.Characters.ShitoAlisa.Cards;
 [Pool(typeof(ShitoAlisaCardPool))]
 public class FireSword : ShitoAlisaCardModel
 {
-    private const int EnergyCost = 1;
+    private new const int EnergyCost = 1;
     private const CardType TypeValue = CardType.Attack;
-    private const CardRarity Rarity = CardRarity.Common;
+    private new const CardRarity Rarity = CardRarity.Common;
     private const TargetType TargetTypeValue = TargetType.AnyEnemy;
-    private const bool ShouldShowInCardLibrary = true;
+    private new const bool ShouldShowInCardLibrary = true;
 
     protected override IEnumerable<DynamicVar> CanonicalVars => WithCombust(0, new DamageVar(6, ValueProp.Move), new PowerVar<BurnPower>(5m));
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<BurnPower>()];

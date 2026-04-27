@@ -13,11 +13,11 @@ namespace Manosaba.Characters.ShitoAlisa.Cards;
 [Pool(typeof(ShitoAlisaCardPool))]
 public class TraumaShitoAlisa : ShitoAlisaCardModel
 {
-    private const int EnergyCost = 0;
+    private new const int EnergyCost = 0;
     private const CardType TypeValue = CardType.Skill;
-    private const CardRarity Rarity = CardRarity.Basic;
+    private new const CardRarity Rarity = CardRarity.Basic;
     private const TargetType TargetTypeValue = TargetType.Self;
-    private const bool ShouldShowInCardLibrary = true;
+    private new const bool ShouldShowInCardLibrary = true;
 
     protected override IEnumerable<DynamicVar> CanonicalVars => WithCombust(0, new PowerVar<MajokaPower>(10m));
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<MajokaPower>()];

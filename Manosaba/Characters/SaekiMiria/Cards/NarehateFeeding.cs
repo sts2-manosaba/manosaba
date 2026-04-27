@@ -17,11 +17,11 @@ public sealed class NarehateFeeding : PathCustomCardModel
 {
     public override bool GainsBlock => true;
 
-    private const int EnergyCost = 0;
+    private new const int EnergyCost = 0;
     private const CardType CardTypeValue = CardType.Skill;
-    private const CardRarity Rarity = CardRarity.Uncommon;
+    private new const CardRarity Rarity = CardRarity.Uncommon;
     private const TargetType TargetTypeValue = TargetType.Self;
-    private const bool ShouldShowInCardLibrary = true;
+    private new const bool ShouldShowInCardLibrary = true;
 
     protected override IEnumerable<IHoverTip> ExtraHoverTips =>
     [

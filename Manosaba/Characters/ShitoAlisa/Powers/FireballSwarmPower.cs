@@ -32,15 +32,19 @@ public sealed class FireballSwarmPower : PathCustomPowerModel
     public HoverTip CreateOrbitHoverTip()
     {
         LocString locString = HasSmartDescription ? SmartDescription : Description;
+        Creature? owner = Owner;
+        bool onPlayer = owner?.IsPlayer == true;
+        int playerCount = owner?.CombatState?.Players?.Count ?? 1;
+
         locString.Add("Amount", Amount);
-        locString.Add("OnPlayer", Owner.IsPlayer);
-        locString.Add("IsMultiplayer", Owner.CombatState.Players.Count > 1);
-        locString.Add("PlayerCount", Owner.CombatState.Players.Count);
-        locString.Add("OwnerName", Owner.IsPlayer ? Owner.Player.Character.Title : Owner.Monster.Title);
+        locString.Add("OnPlayer", onPlayer);
+        locString.Add("IsMultiplayer", playerCount > 1);
+        locString.Add("PlayerCount", playerCount);
+        locString.Add("OwnerName", owner == null ? string.Empty : GetCreatureDisplayName(owner));
         if (Applier != null)
-            locString.Add("ApplierName", Applier.IsPlayer ? Applier.Player.Character.Title : Applier.Monster.Title);
+            locString.Add("ApplierName", GetCreatureDisplayName(Applier));
         if (Target != null)
-            locString.Add("TargetName", Target.IsPlayer ? Target.Player.Character.Title : Target.Monster.Title);
+            locString.Add("TargetName", GetCreatureDisplayName(Target));
         DynamicVars.AddTo(locString);
         locString.Add("singleStarIcon", "[img]res://images/packed/sprite_fonts/star_icon.png[/img]");
         locString.Add("energyPrefix", EnergyIconHelper.GetPrefix(this));
@@ -107,6 +111,16 @@ public sealed class FireballSwarmPower : PathCustomPowerModel
     }
 
     private int VisibleCount => VisibleCountFor(Amount);
+
+    private static string GetCreatureDisplayName(Creature creature)
+    {
+        if (creature.IsPlayer)
+        {
+            return creature.Player?.Character?.Title?.GetFormattedText() ?? creature.Name;
+        }
+
+        return creature.Monster?.Title?.GetFormattedText() ?? creature.Name;
+    }
 
     private static int VisibleCountFor(decimal amount) =>
         (int)Math.Clamp(Math.Floor(amount), 0, FireballOrbitRing.MaxOrbs);

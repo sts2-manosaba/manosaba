@@ -33,10 +33,16 @@ public sealed class Kokoro : NatsumeKotodamaCardModel
 
         await PowerCmd.Apply<KokoroPower>(Owner.Creature, DynamicVars["KokoroPower"].BaseValue, Owner.Creature, this);
 
+        MegaCrit.Sts2.Core.Combat.CombatState? combatState = CombatState;
+        if (combatState == null)
+        {
+            return;
+        }
+
         List<CardModel> suicides = [];
         for (int i = 0; i < DynamicVars.Cards.IntValue; i++)
         {
-            suicides.Add(CombatState.CreateCard<Suicide>(Owner));
+            suicides.Add(combatState.CreateCard<Suicide>(Owner));
         }
 
         IReadOnlyList<CardPileAddResult> results = await CardPileCmd.AddGeneratedCardsToCombat(

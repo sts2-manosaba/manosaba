@@ -193,7 +193,7 @@ public partial class ValstraxDiveBombVfx : Node2D
 
     private static Texture2D CreateSoftCircleTexture(int size, float falloffPower)
     {
-        Image image = Image.Create(size, size, false, Image.Format.Rgba8);
+        Image image = Image.CreateEmpty(size, size, false, Image.Format.Rgba8);
         Vector2 center = new((size - 1) * 0.5f, (size - 1) * 0.5f);
         float radius = size * 0.5f;
 

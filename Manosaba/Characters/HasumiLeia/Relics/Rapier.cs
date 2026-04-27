@@ -27,7 +27,7 @@ namespace manosaba.Characters.HasumiLeia.Relics
         public override RelicRarity Rarity => RelicRarity.Starter;
         protected override int MaxRelicLevel => 5;
 
-        protected decimal basePercentage = 0.6m;
+        private decimal basePercentage = 0.6m;
         private bool _reflectedSinceLastTurnStart;
 
 

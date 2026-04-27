@@ -84,7 +84,9 @@ public sealed class DisasterGirlPower : PathCustomPowerModel
                 .ToList();
             if (enemies.Count == 0)
                 continue;
-            Creature target = CombatState.RunState.Rng.CombatTargets.NextItem(enemies);
+            Creature? target = CombatState.RunState.Rng.CombatTargets.NextItem(enemies);
+            if (target == null)
+                continue;
             await CreatureCmd.Damage(new ThrowingPlayerChoiceContext(), target, dmg, ValueProp.Unpowered, Owner, null);
         }
         InvokeDisplayAmountChanged();

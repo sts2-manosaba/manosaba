@@ -8,6 +8,7 @@ using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Creatures;
+using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
@@ -36,14 +37,15 @@ public class YouAreWeakEma : ShitoAlisaCardModel
         public override void UpdateCardPreview(CardModel card, CardPreviewMode previewMode, Creature? target, bool runGlobalHooks)
         {
             decimal rawDamage = card.DynamicVars.CalculationBase.BaseValue + card.DynamicVars.ExtraDamage.BaseValue * CalculateFireballStacks(card, target);
-            if (card.Owner == null)
+            Player? owner = card.Owner;
+            if (owner == null)
             {
                 PreviewValue = Math.Max(rawDamage, 0m);
                 return;
             }
             if (runGlobalHooks)
             {
-                CombatState? combatState = card.CombatState ?? card.Owner?.Creature?.CombatState;
+                CombatState? combatState = card.CombatState ?? owner.Creature?.CombatState;
                 if (combatState == null)
                 {
                     PreviewValue = Math.Max(rawDamage, 0m);
@@ -51,10 +53,10 @@ public class YouAreWeakEma : ShitoAlisaCardModel
                 else
                 {
                     PreviewValue = Hook.ModifyDamage(
-                        card.Owner.RunState,
+                        owner.RunState,
                         combatState,
                         target,
-                        IsFromOsty ? card.Owner.Osty : card.Owner.Creature,
+                        IsFromOsty ? owner.Osty : owner.Creature,
                         rawDamage,
                         Props,
                         card,
@@ -70,11 +72,11 @@ public class YouAreWeakEma : ShitoAlisaCardModel
         }
     }
 
-    private const int EnergyCost = 1;
+    private new const int EnergyCost = 1;
     private const CardType TypeValue = CardType.Attack;
-    private const CardRarity Rarity = CardRarity.Uncommon;
+    private new const CardRarity Rarity = CardRarity.Uncommon;
     private const TargetType TargetTypeValue = TargetType.AnyEnemy;
-    private const bool ShouldShowInCardLibrary = true;
+    private new const bool ShouldShowInCardLibrary = true;
 
     protected override IEnumerable<DynamicVar> CanonicalVars =>
         WithCombust(0, new CalculationBaseVar(5m), new ExtraDamageVar(3m), new WeakEmaCalculatedDamageVar());

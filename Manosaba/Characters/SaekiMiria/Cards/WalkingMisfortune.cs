@@ -14,11 +14,11 @@ namespace Manosaba.Characters.SaekiMiria.Cards;
 [Pool(typeof(SaekiMiriaCardPool))]
 public sealed class WalkingMisfortune : PathCustomCardModel
 {
-    private const int EnergyCost = 1;
+    private new const int EnergyCost = 1;
     private const CardType CardTypeValue = CardType.Power;
-    private const CardRarity Rarity = CardRarity.Uncommon;
+    private new const CardRarity Rarity = CardRarity.Uncommon;
     private const TargetType TargetTypeValue = TargetType.Self;
-    private const bool ShouldShowInCardLibrary = true;
+    private new const bool ShouldShowInCardLibrary = true;
 
     protected override IEnumerable<IHoverTip> ExtraHoverTips =>
     [

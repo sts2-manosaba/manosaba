@@ -13,11 +13,11 @@ namespace Manosaba.Characters.HasumiLeia.Cards;
 [Pool(typeof(HasumiLeiaCardPool))]
 public sealed class Comedian : PathCustomCardModel
 {
-    private const int EnergyCost = 1;
+    private new const int EnergyCost = 1;
     private const CardType CardTypeValue = CardType.Power;
-    private const CardRarity Rarity = CardRarity.Uncommon;
+    private new const CardRarity Rarity = CardRarity.Uncommon;
     private const TargetType TargetTypeValue = TargetType.Self;
-    private const bool ShouldShowInCardLibrary = true;
+    private new const bool ShouldShowInCardLibrary = true;
 
     protected override IEnumerable<DynamicVar> CanonicalVars => [new PowerVar<ComedianPower>(2m)];
 

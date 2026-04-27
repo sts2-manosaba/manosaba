@@ -33,12 +33,18 @@ public sealed class Nanigaiitai : NatsumeKotodamaCardModel
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         _ = cardPlay;
+        MegaCrit.Sts2.Core.Combat.CombatState? combatState = CombatState;
+        if (combatState == null)
+        {
+            return;
+        }
+
         await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
             .FromCard(this)
-            .TargetingAllOpponents(CombatState)
+            .TargetingAllOpponents(combatState)
             .Execute(choiceContext);
 
-        foreach (var enemy in CombatState.HittableEnemies)
+        foreach (var enemy in combatState.HittableEnemies)
         {
             await PowerCmd.Apply<WeakPower>(enemy, DynamicVars.Weak.BaseValue, Owner.Creature, this);
             await PowerCmd.Apply<VulnerablePower>(enemy, DynamicVars.Vulnerable.BaseValue, Owner.Creature, this);

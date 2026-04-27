@@ -15,11 +15,11 @@ namespace Manosaba.Characters.ShitoAlisa.Cards;
 [Pool(typeof(ShitoAlisaCardPool))]
 public sealed class FinalCountdown : ShitoAlisaCardModel
 {
-    private const int EnergyCost = 3;
+    private new const int EnergyCost = 3;
     private const CardType TypeValue = CardType.Power;
-    private const CardRarity Rarity = CardRarity.Rare;
+    private new const CardRarity Rarity = CardRarity.Rare;
     private const TargetType TargetTypeValue = TargetType.Self;
-    private const bool ShouldShowInCardLibrary = true;
+    private new const bool ShouldShowInCardLibrary = true;
 
     public override IEnumerable<CardKeyword> CanonicalKeywords => [ManosabaKeywords.Unique];
 

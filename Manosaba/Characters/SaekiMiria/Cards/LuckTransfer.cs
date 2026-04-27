@@ -19,9 +19,9 @@ public sealed class LuckTransfer : PathCustomCardModel
 {
     private const int energyCost = 1;
     private const CardType CardTypeValue = CardType.Skill;
-    private const CardRarity Rarity = CardRarity.Uncommon;
+    private new const CardRarity Rarity = CardRarity.Uncommon;
     private const TargetType TargetTypeValue = TargetType.Self;
-    private const bool ShouldShowInCardLibrary = true;
+    private new const bool ShouldShowInCardLibrary = true;
     private const decimal DebuffMultiplier = 3m;
 
     protected override IEnumerable<DynamicVar> CanonicalVars => [new DynamicVar("Multiplier", DebuffMultiplier)];

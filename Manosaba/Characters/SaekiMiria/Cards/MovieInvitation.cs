@@ -15,11 +15,11 @@ public sealed class MovieInvitation : PathCustomCardModel
 {
     public override CardMultiplayerConstraint MultiplayerConstraint => CardMultiplayerConstraint.MultiplayerOnly;
 
-    private const int EnergyCost = 1;
+    private new const int EnergyCost = 1;
     private const CardType CardTypeValue = CardType.Power;
-    private const CardRarity Rarity = CardRarity.Rare;
+    private new const CardRarity Rarity = CardRarity.Rare;
     private const TargetType TargetTypeValue = TargetType.AnyAlly;
-    private const bool ShouldShowInCardLibrary = true;
+    private new const bool ShouldShowInCardLibrary = true;
 
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<MovieInvitationPower>()];
     protected override IEnumerable<DynamicVar> CanonicalVars => [new PowerVar<MovieInvitationPower>(1m)];

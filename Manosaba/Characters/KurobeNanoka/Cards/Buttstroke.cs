@@ -16,11 +16,11 @@ namespace Manosaba.Characters.KurobeNanoka.Cards;
 public sealed class Buttstroke : PathCustomCardModel
 {
     private const string BluntHitSfx = "event:/sfx/characters/ironclinger/ironclinger_attack";
-    private const int EnergyCost = 1;
-    private const CardType Type = CardType.Attack;
-    private const CardRarity Rarity = CardRarity.Common;
+    private new const int EnergyCost = 1;
+    private new const CardType Type = CardType.Attack;
+    private new const CardRarity Rarity = CardRarity.Common;
     private const TargetType TargetTypeValue = TargetType.AnyEnemy;
-    private const bool ShouldShowInCardLibrary = true;
+    private new const bool ShouldShowInCardLibrary = true;
 
     protected override IEnumerable<IHoverTip> ExtraHoverTips =>
     [

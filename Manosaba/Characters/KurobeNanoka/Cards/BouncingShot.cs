@@ -16,11 +16,11 @@ namespace Manosaba.Characters.KurobeNanoka.Cards;
 [Pool(typeof(KurobeNanokaCardPool))]
 public sealed class BouncingShot : GunBase
 {
-    private const int EnergyCost = 1;
-    private const CardType Type = CardType.Attack;
-    private const CardRarity Rarity = CardRarity.Uncommon;
+    private new const int EnergyCost = 1;
+    private new const CardType Type = CardType.Attack;
+    private new const CardRarity Rarity = CardRarity.Uncommon;
     private const TargetType TargetTypeValue = TargetType.AnyEnemy;
-    private const bool ShouldShowInCardLibrary = true;
+    private new const bool ShouldShowInCardLibrary = true;
     private const decimal BounceMultiplier = 0.8m;
 
     public override IEnumerable<CardKeyword> CanonicalKeywords => [ManosabaKeywords.GunShot];

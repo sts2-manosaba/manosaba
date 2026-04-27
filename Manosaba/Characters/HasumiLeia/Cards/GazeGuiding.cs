@@ -16,11 +16,11 @@ namespace Manosaba.Characters.HasumiLeia.Cards;
 [Pool(typeof(HasumiLeiaCardPool))]
 public sealed class GazeGuiding : PathCustomCardModel
 {
-    private const int EnergyCost = 1;
+    private new const int EnergyCost = 1;
     private const CardType CardTypeValue = CardType.Power;
-    private const CardRarity Rarity = CardRarity.Ancient;
+    private new const CardRarity Rarity = CardRarity.Ancient;
     private const TargetType TargetTypeValue = TargetType.Self;
-    private const bool ShouldShowInCardLibrary = true;
+    private new const bool ShouldShowInCardLibrary = true;
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [ HoverTipFactory.FromPower<MajokaPower>()];
     public override IEnumerable<CardKeyword> CanonicalKeywords => [ManosabaKeywords.Mahou, CardKeyword.Eternal];
     protected override IEnumerable<DynamicVar> CanonicalVars => [new PowerVar<GazeGuidingPower>(1m)];

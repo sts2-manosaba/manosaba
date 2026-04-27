@@ -19,9 +19,9 @@ public sealed class HallucinationMagic : PathCustomCardModel
 {
     private const int energyCost = 1;
     private const CardType CardTypeValue = CardType.Skill;
-    private const CardRarity Rarity = CardRarity.Ancient;
+    private new const CardRarity Rarity = CardRarity.Ancient;
     private const TargetType TargetTypeValue = TargetType.Self;
-    private const bool ShouldShowInCardLibrary = true;
+    private new const bool ShouldShowInCardLibrary = true;
     private const string SelectableCardsVar = "SelectableCardsVar";
     private static readonly LocString Prompt = new("cards", "MANOSABA-HALLUCINATION_MAGIC.selectionScreenPrompt");
 

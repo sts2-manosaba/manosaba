@@ -12,11 +12,11 @@ namespace Manosaba.Characters.SaekiMiria.Cards;
 public sealed class TheWayOut : PathCustomCardModel
 {
     private const string VfxScenePath = "res://Manosaba/scenes/saeki_miria/vfx/the_way_out.tscn";
-    private const int EnergyCost = 0;
+    private new const int EnergyCost = 0;
     private const CardType CardTypeValue = CardType.Skill;
-    private const CardRarity Rarity = CardRarity.Ancient;
+    private new const CardRarity Rarity = CardRarity.Ancient;
     private const TargetType TargetTypeValue = TargetType.Self;
-    private const bool ShouldShowInCardLibrary = false;
+    private new const bool ShouldShowInCardLibrary = false;
 
     public override bool CanBeGeneratedInCombat => false;
     public override bool CanBeGeneratedByModifiers => false;

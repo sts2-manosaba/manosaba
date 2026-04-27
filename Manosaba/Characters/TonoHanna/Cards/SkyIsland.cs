@@ -37,7 +37,7 @@ public class SkyIsland : PathCustomCardModel
         }
     }
 
-    private const int EnergyCost = 3;
+    private new const int EnergyCost = 3;
     private const CardType type = CardType.Attack;
     private const CardRarity rarity = CardRarity.Ancient;
     private const TargetType targetType = TargetType.AllEnemies;

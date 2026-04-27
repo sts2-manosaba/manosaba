@@ -14,11 +14,11 @@ namespace Manosaba.Characters.ShitoAlisa.Cards;
 [Pool(typeof(ShitoAlisaCardPool))]
 public class ScaldingTouch : ShitoAlisaCardModel
 {
-    private const int EnergyCost = 2;
+    private new const int EnergyCost = 2;
     private const CardType TypeValue = CardType.Power;
-    private const CardRarity Rarity = CardRarity.Rare;
+    private new const CardRarity Rarity = CardRarity.Rare;
     private const TargetType TargetTypeValue = TargetType.Self;
-    private const bool ShouldShowInCardLibrary = true;
+    private new const bool ShouldShowInCardLibrary = true;
 
     protected override IEnumerable<DynamicVar> CanonicalVars =>
         WithCombust(0, new PowerVar<ScaldingTouchPower>(1m), new PowerVar<MajokaPower>(5m));

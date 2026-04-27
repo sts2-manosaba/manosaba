@@ -51,9 +51,9 @@ public sealed class TraumaReveal : PathCustomCardModel
 
     private const int energyCost = 1;
     private const CardType CardTypeValue = CardType.Skill;
-    private const CardRarity Rarity = CardRarity.Uncommon;
+    private new const CardRarity Rarity = CardRarity.Uncommon;
     private const TargetType TargetTypeValue = TargetType.AllAllies;
-    private const bool ShouldShowInCardLibrary = true;
+    private new const bool ShouldShowInCardLibrary = true;
 
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromCard<TraumaKurobeNanoka>()];
     protected override IEnumerable<DynamicVar> CanonicalVars => [new RepeatVar(2)];
