@@ -21,7 +21,11 @@ public sealed class Kokoro : NatsumeKotodamaCardModel
         new CardsVar(BaseSuicideCards),
     ];
 
-    protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<KokoroPower>()];
+    protected override IEnumerable<IHoverTip> ExtraHoverTips =>
+    [
+        .. base.ExtraHoverTips,
+        HoverTipFactory.FromPower<KokoroPower>(),
+    ];
 
     public Kokoro() : base(1, CardType.Power, CardRarity.Rare, TargetType.Self, true)
     {
@@ -42,7 +46,9 @@ public sealed class Kokoro : NatsumeKotodamaCardModel
         List<CardModel> suicides = [];
         for (int i = 0; i < DynamicVars.Cards.IntValue; i++)
         {
-            suicides.Add(combatState.CreateCard<Suicide>(Owner));
+            CardModel suicide = combatState.CreateCard<Suicide>(Owner);
+            CardCmd.ApplyKeyword(suicide, CardKeyword.Exhaust);
+            suicides.Add(suicide);
         }
 
         IReadOnlyList<CardPileAddResult> results = await CardPileCmd.AddGeneratedCardsToCombat(

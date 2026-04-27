@@ -15,6 +15,7 @@ public sealed class MovableTypePrinting : NatsumeKotodamaCardModel
 
     protected override IEnumerable<IHoverTip> ExtraHoverTips =>
     [
+        .. base.ExtraHoverTips,
         HoverTipFactory.FromPower<MovableTypePrintingPower>(),
         base.EnergyHoverTip,
     ];

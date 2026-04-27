@@ -31,7 +31,7 @@ public sealed class NovelCreation : NatsumeKotodamaCardModel
     [
         new DynamicVar("KotodamaCost", 5m),
         new BlockVar(5m, ValueProp.Move),
-        new EnergyVar(2),
+        new EnergyVar(3),
     ];
 
     public NovelCreation() : base(0, CardType.Skill, CardRarity.Uncommon, TargetType.Self, true)
@@ -173,7 +173,7 @@ public sealed class SettingClawedCockatrice : PathCustomCardModel
     public override bool CanBeGeneratedInCombat => false;
     public override bool CanBeGeneratedByModifiers => false;
 
-    public SettingClawedCockatrice() : base(3, CardType.Skill, CardRarity.Token, TargetType.Self, false)
+    public SettingClawedCockatrice() : base(1, CardType.Skill, CardRarity.Token, TargetType.Self, false)
     {
     }
 

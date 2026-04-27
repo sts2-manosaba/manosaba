@@ -1,10 +1,14 @@
 using Manosaba.Characters.Common.Resources;
+using Godot;
 using MegaCrit.Sts2.Core.Entities.Players;
 
 namespace manosaba.Characters.NatsumeAnan;
 
 public sealed class KotodamaEnergy : CharacterCustomEnergyDefinition
 {
+    private const string HoverTipIconPath = "res://Manosaba/images/characters/natsume_anan/kotodama_energy.png";
+    private static Texture2D? _hoverTipIcon;
+
     public static KotodamaEnergy Instance { get; } = new();
 
     public override string EnergyId => "kotodama_energy";
@@ -55,5 +59,11 @@ public sealed class KotodamaEnergy : CharacterCustomEnergyDefinition
     public static bool TrySpend(Player player, int amount)
     {
         return CharacterCustomEnergyService.TrySpend(player, Instance, amount);
+    }
+
+    public static Texture2D? GetHoverTipIcon()
+    {
+        _hoverTipIcon ??= ResourceLoader.Load<Texture2D>(HoverTipIconPath);
+        return _hoverTipIcon;
     }
 }

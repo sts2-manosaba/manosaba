@@ -12,7 +12,11 @@ namespace manosaba.Characters.NatsumeAnan.Cards;
 [Pool(typeof(NatsumeAnanCardPool))]
 public sealed class PaperMaking : NatsumeKotodamaCardModel
 {
-    protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromKeyword(CardKeyword.Exhaust)];
+    protected override IEnumerable<IHoverTip> ExtraHoverTips =>
+    [
+        .. base.ExtraHoverTips,
+        HoverTipFactory.FromKeyword(CardKeyword.Exhaust),
+    ];
 
     protected override IEnumerable<DynamicVar> CanonicalVars => [new DynamicVar("KotodamaGain", 2m)];
 

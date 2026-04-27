@@ -74,7 +74,11 @@ public sealed class TraumaNatsumeAnan : NatsumeKotodamaCardModel
 {
     protected override IEnumerable<DynamicVar> CanonicalVars => [new PowerVar<MajokaPower>(10m)];
 
-    protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<MajokaPower>()];
+    protected override IEnumerable<IHoverTip> ExtraHoverTips =>
+    [
+        .. base.ExtraHoverTips,
+        HoverTipFactory.FromPower<MajokaPower>(),
+    ];
 
     public TraumaNatsumeAnan() : base(0, CardType.Skill, CardRarity.Basic, TargetType.Self, true)
     {

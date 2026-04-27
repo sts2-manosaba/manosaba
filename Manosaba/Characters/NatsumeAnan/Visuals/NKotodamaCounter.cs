@@ -60,7 +60,8 @@ public sealed partial class NKotodamaCounter : Control
                       GetNodeOrNull<RichTextLabel>("MarginContainer/CountLabel");
         _hoverTip = new HoverTip(
             new LocString("static_hover_tips", "MANOSABA-KOTODAMA_ENERGY.title"),
-            new LocString("static_hover_tips", "MANOSABA-KOTODAMA_ENERGY.description"));
+            new LocString("static_hover_tips", "MANOSABA-KOTODAMA_ENERGY.description"),
+            KotodamaEnergy.GetHoverTipIcon());
         Connect(Control.SignalName.MouseEntered, Callable.From(OnHovered));
         Connect(Control.SignalName.MouseExited, Callable.From(OnUnhovered));
         Refresh(force: true);

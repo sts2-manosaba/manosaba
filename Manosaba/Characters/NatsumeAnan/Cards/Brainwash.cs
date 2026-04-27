@@ -24,7 +24,11 @@ public sealed class Brainwash : NatsumeKotodamaCardModel
         new PowerVar<BrainwashExtraTurnPower>(1m),
     ];
 
-    protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<MajokaPower>()];
+    protected override IEnumerable<IHoverTip> ExtraHoverTips =>
+    [
+        .. base.ExtraHoverTips,
+        HoverTipFactory.FromPower<MajokaPower>(),
+    ];
 
     public Brainwash() : base(0, CardType.Power, CardRarity.Ancient, TargetType.AllAllies, true)
     {

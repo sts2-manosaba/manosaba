@@ -13,7 +13,11 @@ public sealed class Bocchan : NatsumeKotodamaCardModel
 {
     protected override IEnumerable<DynamicVar> CanonicalVars => [new PowerVar<BocchanPower>(2m)];
 
-    protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<BocchanPower>()];
+    protected override IEnumerable<IHoverTip> ExtraHoverTips =>
+    [
+        .. base.ExtraHoverTips,
+        HoverTipFactory.FromPower<BocchanPower>(),
+    ];
 
     public Bocchan() : base(1, CardType.Power, CardRarity.Uncommon, TargetType.Self, true)
     {

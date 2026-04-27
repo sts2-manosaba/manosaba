@@ -14,6 +14,7 @@ public sealed class Nanigaiitai : NatsumeKotodamaCardModel
 {
     protected override IEnumerable<IHoverTip> ExtraHoverTips =>
     [
+        .. base.ExtraHoverTips,
         HoverTipFactory.FromPower<WeakPower>(),
         HoverTipFactory.FromPower<VulnerablePower>(),
     ];

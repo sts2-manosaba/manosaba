@@ -13,7 +13,11 @@ public sealed class Wagahaiwanekodearu : NatsumeKotodamaCardModel
 {
     protected override IEnumerable<DynamicVar> CanonicalVars => [new PowerVar<CatPower>(1m)];
 
-    protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<CatPower>()];
+    protected override IEnumerable<IHoverTip> ExtraHoverTips =>
+    [
+        .. base.ExtraHoverTips,
+        HoverTipFactory.FromPower<CatPower>(),
+    ];
 
     public Wagahaiwanekodearu() : base(2, CardType.Power, CardRarity.Rare, TargetType.Self, true)
     {

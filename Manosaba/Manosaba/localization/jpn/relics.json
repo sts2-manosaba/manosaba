@@ -42,7 +42,7 @@
   "MANOSABA-TAROT_DECK.missingHeader": "未所持：",
   "MANOSABA-TAROT_DECK.completed": "収集完了",
   "MANOSABA-CLIPBOARD.title": "クリップボード",
-  "MANOSABA-CLIPBOARD.description": "戦闘開始時、{KotodamaEnergy}[gold]言霊[/gold]を得る。\nこの遺物はレベルが1上がるごとにこの数値が+1される。\nカードをプレイして[gold]言霊[/gold]を消費したとき、消費した[gold]言霊[/gold] x 係数分の[gold]ブロック[/gold]を得る（Lv1：[blue]2[/blue]、Lv2：[blue]3[/blue]、Lv3：[blue]4[/blue]、Lv4：[blue]6[/blue]、Lv5：[blue]9[/blue]）。",
+  "MANOSABA-CLIPBOARD.description": "戦闘開始時、{KotodamaEnergy:kotodamaIcons()}を得る。\nこの遺物はレベルが1上がるごとにこの数値が+1される。\nカードをプレイして[gold]言霊[/gold]を消費したとき、消費した[gold]言霊[/gold] x 係数分の[gold]ブロック[/gold]を得る（Lv1：[blue]2[/blue]、Lv2：[blue]3[/blue]、Lv3：[blue]4[/blue]、Lv4：[blue]6[/blue]、Lv5：[blue]9[/blue]）。",
   "MANOSABA-CLIPBOARD.flavor": "書き記した言葉は、力へと変わる。",
   "MANOSABA-LEG_IRONS.title": "脚鐐",
   "MANOSABA-LEG_IRONS.description": "戦闘開始時、この遺物のレベルと同じ層数の[gold]ファイアボール[/gold]を得る。\nLv2： [gold]ファイアボール[/gold]を1層得るたび、[gold]魔女化[/gold]を[blue]5[/blue]層得る。\nLv4：ターン終了時、現在の[gold]ファイアボール[/gold]層数に等しいHPを回復する。",
