@@ -100,8 +100,8 @@
   "MANOSABA-PRISON_POWER.description": "回合開始時給予當前層數的[gold]魔女化[/gold]。",
   "MANOSABA-PRISON_POWER.smartDescription": "回合開始時給予當前層數的[gold]魔女化[/gold]。",
   "MANOSABA-WITCH_ISLAND_EXPEDITION_POWER.title": "魔女島遠征隊",
-  "MANOSABA-WITCH_ISLAND_EXPEDITION_POWER.description": "怪物攻擊命中你時，在命中前按下空格可無視該次攻擊傷害。空格輸入有短暫冷卻。",
-  "MANOSABA-WITCH_ISLAND_EXPEDITION_POWER.smartDescription": "怪物攻擊命中：命中前按下空格可無視該次傷害。空格有短暫冷卻。",
+  "MANOSABA-WITCH_ISLAND_EXPEDITION_POWER.description": "受到的傷害變為 3 倍。怪物攻擊即將命中時，按下空格可格檔該次攻擊傷害。",
+  "MANOSABA-WITCH_ISLAND_EXPEDITION_POWER.smartDescription": "受到的傷害變為 3 倍。怪物攻擊即將命中時，按下空格可格檔該次攻擊傷害。",
   "MANOSABA-POTION_FACTORY_POWER.title": "藥水工廠",
   "MANOSABA-POTION_FACTORY_POWER.description": "回合開始時隨機生成等同當前層數的藥水。",
   "MANOSABA-POTION_FACTORY_POWER.smartDescription": "回合開始時隨機生成等同當前層數的藥水。",
@@ -284,7 +284,7 @@
   "MANOSABA-THE_SUN_POWER.title": "太陽",
   "MANOSABA-THE_SUN_POWER.description": "最大[gold]能量[/gold]增加。",
   "MANOSABA-THE_SUN_POWER.smartDescription": "最大[gold]能量[/gold]增加 [blue]{Amount}[/blue]。",
-  
+
   "MANOSABA-DISASTER_GIRL_POWER.title": "災厄少女",
   "MANOSABA-DISASTER_GIRL_POWER.description": "每當你對敵人累積施加 5 層[gold]灼燒[/gold]，對一名隨機敵人造成 [blue]{Damage}[/blue] 點傷害，並獲得 [blue]{Amount}[/blue] 層[gold]火球環繞[/gold]。",
   "MANOSABA-DISASTER_GIRL_POWER.smartDescription": "每累積施加 5 層[gold]灼燒[/gold]，對一名隨機敵人造成 [blue]{Damage}[/blue] 點傷害，並獲得 [blue]{Amount}[/blue] 層[gold]火球環繞[/gold]。",

@@ -549,6 +549,8 @@
   "MANOSABA-PREPARE.description": "カードを2枚捨てる。次のターン開始時に{Energy:energyIcons()}を得る。",
   "MANOSABA-PRISON.title": "魔女島刑務所",
   "MANOSABA-PRISON.description": "自身に{PrisonPower:diff()}層の[gold]魔女島刑務所[/gold]を与える。",
+  "MANOSABA-WITCH_ISLAND_EXPEDITION.title": "魔女島遠征隊",
+  "MANOSABA-WITCH_ISLAND_EXPEDITION.description": "自身に{WitchIslandExpeditionPower:diff()}層の[gold]魔女島遠征隊[/gold]を与える。",
   "MANOSABA-INHIBITION.title": "抑制",
   "MANOSABA-INHIBITION.description": "対象プレイヤーに{InhibitionPower:diff()}層の[gold]抑制力[/gold]を与える。",
   "MANOSABA-SIMPLE_SPEAR.title": "簡易ランス",

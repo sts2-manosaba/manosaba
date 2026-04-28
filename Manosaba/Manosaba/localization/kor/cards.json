@@ -551,6 +551,8 @@
   "MANOSABA-PREPARE.description": "[gold]손[/gold]의 카드 2장을 버립니다. 다음 턴 시작 시 {Energy:energyIcons()}을 얻습니다.",
   "MANOSABA-PRISON.title": "감옥 저택",
   "MANOSABA-PRISON.description": "[gold]감옥 저택[/gold]을 {PrisonPower:diff()} 얻습니다.",
+  "MANOSABA-WITCH_ISLAND_EXPEDITION.title": "마녀섬 원정대",
+  "MANOSABA-WITCH_ISLAND_EXPEDITION.description": "[gold]마녀섬 원정대[/gold]을 {WitchIslandExpeditionPower:diff()} 얻습니다.",
   "MANOSABA-INHIBITION.title": "억제",
   "MANOSABA-INHIBITION.description": "대상 플레이어에게 [gold]억제력[/gold]을 {InhibitionPower:diff()} 부여합니다.",
   "MANOSABA-SIMPLE_SPEAR.title": "간이 창",

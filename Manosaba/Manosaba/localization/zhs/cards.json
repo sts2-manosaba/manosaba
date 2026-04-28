@@ -549,6 +549,8 @@
   "MANOSABA-PREPARE.description": "丟棄2張牌，下一回合開始時獲得 {Energy:energyIcons()}。",
   "MANOSABA-PRISON.title": "魔女島監獄",
   "MANOSABA-PRISON.description": "給予自身 {PrisonPower:diff()} 層[gold]魔女島監獄[/gold]。",
+  "MANOSABA-WITCH_ISLAND_EXPEDITION.title": "魔女島遠征隊",
+  "MANOSABA-WITCH_ISLAND_EXPEDITION.description": "給予自身 {WitchIslandExpeditionPower:diff()} 層[gold]魔女島遠征隊[/gold]。",
   "MANOSABA-INHIBITION.title": "抑制",
   "MANOSABA-INHIBITION.description": "給予目標玩家 {InhibitionPower:diff()} 層[gold]抑制力[/gold]。",
   "MANOSABA-SIMPLE_SPEAR.title": "簡易長矛",

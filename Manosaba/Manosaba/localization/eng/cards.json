@@ -549,6 +549,8 @@
   "MANOSABA-PREPARE.description": "Discard 2 cards. At the start of next turn, gain {Energy:energyIcons()}.",
   "MANOSABA-PRISON.title": "Witch Island Prison",
   "MANOSABA-PRISON.description": "Gain {PrisonPower:diff()} [gold]Witch Island Prison[/gold].",
+  "MANOSABA-WITCH_ISLAND_EXPEDITION.title": "Witch Island Expedition",
+  "MANOSABA-WITCH_ISLAND_EXPEDITION.description": "Gain {WitchIslandExpeditionPower:diff()} [gold]Witch Island Expedition[/gold].",
   "MANOSABA-INHIBITION.title": "Suppression",
   "MANOSABA-INHIBITION.description": "Apply {InhibitionPower:diff()} [gold]Inhibition[/gold] to target player.",
   "MANOSABA-SIMPLE_SPEAR.title": "Simple Spear",

@@ -1,7 +1,6 @@
 using Manosaba.Extensions;
 using Manosaba.Input;
 using MegaCrit.Sts2.Core.Commands;
-using MegaCrit.Sts2.Core.Context;
 using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Entities.Powers;
 using MegaCrit.Sts2.Core.Models;
@@ -37,22 +36,18 @@ public sealed class WitchIslandExpeditionPower : PathCustomPowerModel
             return 1m;
         }
 
-        if (dealer == null || !dealer.IsEnemy || !dealer.IsMonster || target.IsEnemy)
+        bool canParry = dealer != null &&
+            dealer.IsEnemy &&
+            dealer.IsMonster &&
+            !target.IsEnemy &&
+            props.HasFlag(ValueProp.Move) &&
+            !props.HasFlag(ValueProp.Unpowered);
+        if (canParry && PerfectGuardInputTracker.TryConsumePerfectGuard(target))
         {
-            return 1m;
+            SfxCmd.Play(ParrySuccessSfx);
+            return 0m;
         }
 
-        if (!props.HasFlag(ValueProp.Move) || props.HasFlag(ValueProp.Unpowered))
-        {
-            return 1m;
-        }
-
-        if (!PerfectGuardInputTracker.TryConsumePerfectGuard(target))
-        {
-            return 1m;
-        }
-
-        SfxCmd.Play(ParrySuccessSfx);
-        return 0m;
+        return 3m;
     }
 }
