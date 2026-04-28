@@ -14,7 +14,7 @@
   "MANOSABA-COMBUST.title": "Combust",
   "MANOSABA-COMBUST.description": "Whenever this card is drawn, its Combust value decreases by 1.\nAt 0, it is auto-played, you gain 1 [gold]Fireball Swarm[/gold], and it resets to its initial Combust value.",
   "MANOSABA-COMBUST_IGNITE.title": "Ignite",
-  "MANOSABA-COMBUST_IGNITE.description": "Select a [gold]Combust[/gold] card and reduce its current countdown by the listed amount (not below 0).",
+  "MANOSABA-COMBUST_IGNITE.description": "Select a card with [gold]Combust[/gold], then reduce its current countdown by 1.",
   "MANOSABA-SHARED.title": "Shared",
   "MANOSABA-SHARED.description": "Obtained from sharing."
 }

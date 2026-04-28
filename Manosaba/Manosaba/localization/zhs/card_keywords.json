@@ -14,7 +14,7 @@
   "MANOSABA-COMBUST.title": "燃燒",
   "MANOSABA-COMBUST.description": "每次抽到這張牌時，燃燒值減少 1。\n降到 0 時自動打出，獲得1層火球環繞，並重設為初始燃燒值。",
   "MANOSABA-COMBUST_IGNITE.title": "點火",
-  "MANOSABA-COMBUST_IGNITE.description": "選擇帶有[gold]燃燒[/gold]的牌，其目前倒數減少對應數值（不低於 0）。",
+  "MANOSABA-COMBUST_IGNITE.description": "選擇帶有[gold]燃燒[/gold]的牌，其目前倒數減少 1。",
   "MANOSABA-SHARED.title": "共享",
   "MANOSABA-SHARED.description": "由共享獲得的卡片。"
 }

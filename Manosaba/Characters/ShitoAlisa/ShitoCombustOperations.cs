@@ -30,6 +30,9 @@ public static class ShitoCombustOperations
 
     public static bool CanAttachCombust(CardModel card)
     {
+        if (card.Keywords.Contains(ManosabaKeywords.CombustIgnite))
+            return false;
+
         if (TryGetCombustVar(card, out ShitoCombustDynamicVar? v) && v != null)
         {
             if (card.Keywords.Contains(ManosabaKeywords.Combust))

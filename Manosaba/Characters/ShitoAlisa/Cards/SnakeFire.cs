@@ -26,7 +26,8 @@ public class SnakeFire : ShitoAlisaCardModel
 
     public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Retain];
 
-    protected override IEnumerable<DynamicVar> CanonicalVars => WithCombust(0, new PowerVar<BurnPower>(7m));
+    protected override IEnumerable<DynamicVar> CanonicalVars =>
+        WithCombust(0, new PowerVar<BurnPower>(7m), new DynamicVar("CombustStacks", 3m));
     protected override IEnumerable<IHoverTip> ExtraHoverTips =>
     [
         HoverTipFactory.FromPower<BurnPower>(),
@@ -43,17 +44,15 @@ public class SnakeFire : ShitoAlisaCardModel
         ArgumentNullException.ThrowIfNull(cardPlay.Target);
         await PowerCmd.Apply<BurnPower>(cardPlay.Target, DynamicVars["BurnPower"].BaseValue, Owner.Creature, this);
 
-        decimal ignite = IsUpgraded ? 2m : 1m;
-        var prefs = new CardSelectorPrefs(new LocString("cards", "MANOSABA-LIGHTER.selectionScreenPrompt"), 1);
-        CardModel? handCard = (await CardSelectCmd.FromHand(
+        int picks = IsUpgraded ? 2 : 1;
+        var prefs = new CardSelectorPrefs(new LocString("cards", "MANOSABA-SNAKE_FIRE.selectionScreenPrompt"), picks);
+        IEnumerable<CardModel> selected = await CardSelectCmd.FromHand(
             choiceContext,
             Owner,
             prefs,
-            c => ShitoCombustOperations.HasActiveCombust(c),
-            this)).FirstOrDefault();
-        if (handCard == null)
-            return;
-
-        await ShitoCombustOperations.ApplyIgniteToCard(choiceContext, handCard, ignite);
+            c => ShitoCombustOperations.CanAttachCombust(c),
+            this);
+        foreach (CardModel card in selected.Distinct())
+            ShitoCombustOperations.AttachCombust(card, (int)DynamicVars["CombustStacks"].BaseValue);
     }
 }

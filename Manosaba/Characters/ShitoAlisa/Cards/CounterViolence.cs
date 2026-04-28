@@ -19,6 +19,7 @@ namespace Manosaba.Characters.ShitoAlisa.Cards;
 public sealed class CounterViolence : ShitoAlisaCardModel
 {
     public override bool GainsBlock => true;
+    public override IEnumerable<CardKeyword> CanonicalKeywords => [ManosabaKeywords.CombustIgnite];
 
     private const int energyCost = 1;
     private const CardType type = CardType.Skill;

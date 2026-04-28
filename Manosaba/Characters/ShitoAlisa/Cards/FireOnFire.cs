@@ -24,6 +24,8 @@ public class FireOnFire : ShitoAlisaCardModel
     private const TargetType targetType = TargetType.AnyEnemy;
     private const bool shouldShowInCardLibrary = true;
 
+    public override IEnumerable<CardKeyword> CanonicalKeywords => [ManosabaKeywords.CombustIgnite];
+
     protected override IEnumerable<DynamicVar> CanonicalVars => WithCombust(0, new PowerVar<BurnPower>(9m));
     protected override IEnumerable<IHoverTip> ExtraHoverTips =>
     [

@@ -18,7 +18,7 @@ namespace Manosaba.Characters.ShitoAlisa.Cards;
 [Pool(typeof(ShitoAlisaCardPool))]
 public class EmberSpark : ShitoAlisaCardModel
 {
-    private const int energyCost = 0;
+    private const int energyCost = 1;
     private const CardType type = CardType.Skill;
     private const CardRarity rarity = CardRarity.Basic;
     private const TargetType targetType = TargetType.Self;
@@ -47,8 +47,7 @@ public class EmberSpark : ShitoAlisaCardModel
             choiceContext,
             Owner,
             prefs,
-            c => ShitoCombustOperations.CanAttachCombust(c)
-                && !c.Keywords.Contains(ManosabaKeywords.CombustIgnite),
+            c => ShitoCombustOperations.CanAttachCombust(c),
             this);
         foreach (CardModel card in selected.Distinct())
             ShitoCombustOperations.AttachCombust(card, (int)DynamicVars["CombustStacks"].BaseValue);
