@@ -15,7 +15,7 @@ namespace Manosaba.Characters.SaekiMiria.Powers
 {
     public sealed class MemorySharingPower : PathCustomPowerModel
     {
-        private List<Creature>? _appliers = null;
+        private Creature? _applier;
         private bool _upgraded;
 
         public override PowerType Type => PowerType.Buff;
@@ -25,16 +25,12 @@ namespace Manosaba.Characters.SaekiMiria.Powers
 
         public void SetApplier(Creature applier)
         {
-            if (_appliers == null)
-            {
-                _appliers = new List<Creature>();
-            }
-            _appliers.Add(applier);
+            _applier = applier;
         }
 
-        public void SetUpgraded()
+        public void SetUpgraded(bool upgraded)
         {
-            _upgraded = true;
+            _upgraded = upgraded;
         }
 
         public override async Task BeforeHandDraw(Player player, PlayerChoiceContext choiceContext, CombatState combatState)
@@ -47,88 +43,87 @@ namespace Manosaba.Characters.SaekiMiria.Powers
                 return;
             }
 
-            foreach (var applier in _appliers)
+            Creature? applier = _applier;
+            if (applier == null)
             {
-                decimal majoka = 0m;
-                if (applier != null)
+                return;
+            }
+
+            decimal majoka = applier.GetPowerAmount<MajokaPower>();
+            Console.WriteLine($"Majoka amount: {majoka}");
+
+            List<CardModel> pool = new List<CardModel>();
+
+            IEnumerable<Player> enumerable = from c in base.CombatState.GetTeammatesOf(base.Owner)
+                                             where c != null && c.IsAlive && c.IsPlayer && c.Player != null
+                                             select c.Player;
+
+            foreach (Player item in enumerable)
+            {
+                var playerPool = item.Character.CardPool.AllCards;
+                if (majoka < 100)
                 {
-                    majoka = applier.GetPowerAmount<MajokaPower>();
+                    var playerDeck = CardPile.GetCards(item, PileType.Deck);
+                    var deckIds = playerDeck
+                        .Select(c => c.Id)
+                        .ToHashSet();
+                    playerPool = playerPool.Where(c => deckIds.Contains(c.Id)).ToList();
                 }
-                Console.WriteLine($"Majoka amount: {majoka}");
+                pool.AddRange(playerPool);
+            }
 
-                List<CardModel> pool = new List<CardModel>();
+            HashSet<Type> IgnoredCards = MiriaConstants.IgnoredCards;
+            //filter out quest and status cards, and token rarity cards
+            pool = pool
+                .Where(c => c.Type != CardType.Quest && c.Type != CardType.Status)
+                .Where(c => c.Rarity != CardRarity.Ancient && c.Rarity != CardRarity.Token)
+                .Where(c => !IgnoredCards.Contains(c.GetType()))
+                .ToList();
 
-                IEnumerable<Player> enumerable = from c in base.CombatState.GetTeammatesOf(base.Owner)
-                                                 where c != null && c.IsAlive && c.IsPlayer && c.Player != null
-                                                 select c.Player;
+            if (majoka < 30)
+            {
+                pool = pool.Where(c => c.Rarity == CardRarity.Basic || c.Rarity == CardRarity.Common).ToList();
+            }
+            else if (majoka < 70)
+            {
+                pool = pool.Where(c => c.Rarity == CardRarity.Basic || c.Rarity == CardRarity.Common || c.Rarity == CardRarity.Uncommon).ToList();
+            }
+            else
+            {
+                pool = pool.Where(c => c.Rarity == CardRarity.Basic || c.Rarity == CardRarity.Common || c.Rarity == CardRarity.Uncommon || c.Rarity == CardRarity.Rare).ToList();
+            }
 
-                foreach (Player item in enumerable)
+
+            //List<CardModel> cards = CardFactory.GetDistinctForCombat(player, pool, 1, player.RunState.Rng.CombatCardGeneration).ToList();
+
+
+            var generatedList = CardHelperService
+                .GetAvailableCards(ownerPlayer, pool, 1, ownerPlayer.RunState.Rng.CombatCardGeneration)
+                .ToList();
+
+            var card = generatedList.FirstOrDefault();
+
+            if (card != null)
+            {
+                if (_upgraded)
                 {
-                    var playerPool = item.Character.CardPool.AllCards;
-                    if (majoka < 100)
-                    {
-                        var playerDeck = CardPile.GetCards(item, PileType.Deck);
-                        var deckIds = playerDeck
-                            .Select(c => c.Id)
-                            .ToHashSet();
-                        playerPool = playerPool.Where(c => deckIds.Contains(c.Id)).ToList();
-                    }
-                    pool.AddRange(playerPool);
+                    CardCmd.Upgrade(card);
                 }
+                var copy = card.CreateClone();
 
-                HashSet<Type> IgnoredCards = MiriaConstants.IgnoredCards;
-                //filter out quest and status cards, and token rarity cards
-                pool = pool
-                    .Where(c => c.Type != CardType.Quest && c.Type != CardType.Status)
-                    .Where(c => c.Rarity != CardRarity.Ancient && c.Rarity != CardRarity.Token)
-                    .Where(c => !IgnoredCards.Contains(c.GetType()))
-                    .ToList();
-
-                if (majoka < 30)
+                if (majoka < 150)
                 {
-                    pool = pool.Where(c => c.Rarity == CardRarity.Basic || c.Rarity == CardRarity.Common).ToList();
-                }
-                else if (majoka < 70)
-                {
-                    pool = pool.Where(c => c.Rarity == CardRarity.Basic || c.Rarity == CardRarity.Common || c.Rarity == CardRarity.Uncommon).ToList();
-                }
-                else
-                {
-                    pool = pool.Where(c => c.Rarity == CardRarity.Basic || c.Rarity == CardRarity.Common || c.Rarity == CardRarity.Uncommon || c.Rarity == CardRarity.Rare).ToList();
-                }
-
-
-                //List<CardModel> cards = CardFactory.GetDistinctForCombat(player, pool, 1, player.RunState.Rng.CombatCardGeneration).ToList();
-
-
-                var generatedList = CardHelperService
-                    .GetAvailableCards(ownerPlayer, pool, 1, ownerPlayer.RunState.Rng.CombatCardGeneration)
-                    .ToList();
-
-                var card = generatedList.FirstOrDefault();
-
-                if (card != null)
-                {
-                    if (_upgraded)
-                    {
-                        CardCmd.Upgrade(card);
-                    }
-                    var copy = card.CreateClone();
-
-                    if (majoka < 150)
-                    {
-                        copy.AddKeyword(CardKeyword.Exhaust);
-
-                    }
-                    if (majoka < 200)
-                    {
-                        copy.AddKeyword(CardKeyword.Ethereal);
-                    }
-                    copy.AddKeyword(ManosabaKeywords.Shared);
-
-                    await CardPileCmd.AddGeneratedCardToCombat(copy, PileType.Hand, addedByPlayer: true);
+                    copy.AddKeyword(CardKeyword.Exhaust);
 
                 }
+                if (majoka < 200)
+                {
+                    copy.AddKeyword(CardKeyword.Ethereal);
+                }
+                copy.AddKeyword(ManosabaKeywords.Shared);
+
+                await CardPileCmd.AddGeneratedCardToCombat(copy, PileType.Hand, addedByPlayer: true);
+
             }
 
 
