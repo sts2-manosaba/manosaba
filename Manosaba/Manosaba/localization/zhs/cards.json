@@ -338,7 +338,7 @@
   "MANOSABA-DANCING.title": "舞動",
   "MANOSABA-DANCING.description": "獲得 {Block:diff()} 點[gold]格檔[/gold]。\n下一回合獲得 {Energy:energyIcons()}。",
   "MANOSABA-UNLIMITED_SPEAR_WORK.title": "無限矛製",
-  "MANOSABA-UNLIMITED_SPEAR_WORK.description": "每回合開始時獲得將一張帶有[gold]虛無[/gold]的[gold]鑄矛[/gold]加入[gold]手牌[/gold]。",
+  "MANOSABA-UNLIMITED_SPEAR_WORK.description": "每回合開始時將一張帶有[gold]虛無[/gold]的[gold]鑄矛[/gold]加入[gold]手牌[/gold]。",
   "MANOSABA-PORTABLE_FLETCHING_STATION.title": "攜帶式製作站",
   "MANOSABA-PORTABLE_FLETCHING_STATION.description": "獲得{PortableFletchingStationPower:diff()}層[gold]攜帶式製作站[/gold]。製作出[gold]簡易長矛[/gold]時，有{ProcChance:diff()}%的機會額外獲得一張[gold]簡易長矛[/gold]。",
   "MANOSABA-SPEAR_MASTERY.title": "長矛精通",
