@@ -10,6 +10,7 @@ using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
+using MegaCrit.Sts2.Core.Models.Exceptions;
 
 namespace manosaba.Characters.NatsumeAnan.Cards;
 
@@ -36,20 +37,25 @@ public sealed class Brainwash : NatsumeKotodamaCardModel
     {
     }
 
-    public override async Task AfterPowerAmountChanged(PowerModel power, decimal amount, Creature? applier, CardModel? cardSource)
+    public override Task AfterPowerAmountChanged(PowerModel power, decimal amount, Creature? applier, CardModel? cardSource)
     {
-        if (power is MajokaPower && power.Owner == Owner.Creature)
+        Creature? ownerCreature = TryGetOwnerCreatureForMajokaChecks();
+        if (power is MajokaPower && ownerCreature != null && power.Owner == ownerCreature)
         {
             RefreshKotodamaCostFromMajoka();
         }
+
+        return Task.CompletedTask;
     }
 
-    public override async Task AfterCardChangedPiles(CardModel card, PileType oldPileType, AbstractModel? source)
+    public override Task AfterCardChangedPiles(CardModel card, PileType oldPileType, AbstractModel? source)
     {
         if (ReferenceEquals(card, this))
         {
             RefreshKotodamaCostFromMajoka();
         }
+
+        return Task.CompletedTask;
     }
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
@@ -82,9 +88,33 @@ public sealed class Brainwash : NatsumeKotodamaCardModel
 
     private void RefreshKotodamaCostFromMajoka()
     {
+        Creature? ownerCreature = TryGetOwnerCreatureForMajokaChecks();
+        if (ownerCreature == null)
+        {
+            DynamicVars["KotodamaCost"].BaseValue = KotodamaRealCost;
+            return;
+        }
+
         int cap = DynamicVars["MajokaKotodamaCap"].IntValue;
-        int majokaBasedGain = (int)Math.Floor(Owner.Creature.GetPowerAmount<MajokaPower>() / 10m);
+        int majokaBasedGain = (int)Math.Floor(ownerCreature.GetPowerAmount<MajokaPower>() / 10m);
         int kotodamaCostReduction = Math.Clamp(majokaBasedGain, 0, cap);
         DynamicVars["KotodamaCost"].BaseValue = Math.Max(KotodamaRealCost - kotodamaCostReduction, 0);
+    }
+
+    private Creature? TryGetOwnerCreatureForMajokaChecks()
+    {
+        try
+        {
+            Player owner = Owner;
+            return owner?.Creature;
+        }
+        catch (CanonicalModelException)
+        {
+            return null;
+        }
+        catch (NullReferenceException)
+        {
+            return null;
+        }
     }
 }
