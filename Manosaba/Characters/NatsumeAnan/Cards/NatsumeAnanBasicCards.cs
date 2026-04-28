@@ -129,7 +129,7 @@ public sealed class Instigate : NatsumeKotodamaCardModel
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        Player? targetPlayer = cardPlay.Target?.Player;
+        Player? targetPlayer = cardPlay.Target?.Player ?? (cardPlay.IsAutoPlay ? Owner : null);
         if (targetPlayer == null)
         {
             Log.Debug($"[Manosaba SyncTrace][Instigate] skip owner={Owner.NetId} reason=no_target");
