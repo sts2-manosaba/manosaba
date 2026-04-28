@@ -1,7 +1,5 @@
 using BaseLib.Utils;
 using Manosaba.Characters.Common.Powers;
-using Manosaba.Characters.SaekiMiria.Cards;
-using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Players;
@@ -12,7 +10,6 @@ using MegaCrit.Sts2.Core.Logging;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.ValueProps;
 using System.Reflection;
-using SaekiMiriaCharacter = manosaba.Characters.SaekiMiria.SaekiMiria;
 
 namespace manosaba.Characters.NatsumeAnan.Cards;
 
@@ -124,17 +121,6 @@ public sealed class FlashOfInspiration : NatsumeKotodamaCardModel
 [Pool(typeof(NatsumeAnanCardPool))]
 public sealed class Instigate : NatsumeKotodamaCardModel
 {
-    private static readonly IReadOnlyList<Func<Player, CombatState, MovieBase>> MovieFactories =
-    [
-        static (player, combatState) => combatState.CreateCard<HorrorMovie>(player),
-        static (player, combatState) => combatState.CreateCard<ComedyMovie>(player),
-        static (player, combatState) => combatState.CreateCard<CassetteShapedRock>(player),
-        static (player, combatState) => combatState.CreateCard<FantasyMovie>(player),
-        static (player, combatState) => combatState.CreateCard<ActionMovie>(player),
-        static (player, combatState) => combatState.CreateCard<RomanticMovie>(player),
-        static (player, combatState) => combatState.CreateCard<SpyMovie>(player),
-    ];
-
     protected override IEnumerable<DynamicVar> CanonicalVars => [new DynamicVar("KotodamaCost", 1m)];
 
     public Instigate() : base(0, CardType.Skill, CardRarity.Basic, TargetType.AnyPlayer, true)
@@ -160,39 +146,11 @@ public sealed class Instigate : NatsumeKotodamaCardModel
             $"[Manosaba SyncTrace][Instigate] afterAutoPlay owner={Owner.NetId} target={targetPlayer.NetId} " +
             $"ownerHandNow={GetPileCount(Owner, PileType.Hand)} targetDrawNow={GetPileCount(targetPlayer, PileType.Draw)} " +
             $"rng={FormatRngCounters(Owner.RunState.Rng)}");
-
-        MegaCrit.Sts2.Core.Combat.CombatState? combatState = CombatState;
-        if (!IsSaekiMiria(targetPlayer) || combatState == null)
-        {
-            Log.Debug(
-                $"[Manosaba SyncTrace][Instigate] no_movie owner={Owner.NetId} target={targetPlayer.NetId} " +
-                $"isSaeki={IsSaekiMiria(targetPlayer)} combatNull={combatState == null}");
-            return;
-        }
-
-        Player? owner = Owner;
-        if (owner == null)
-        {
-            return;
-        }
-
-        Func<Player, CombatState, MovieBase>? factory = owner.RunState.Rng.CombatCardGeneration.NextItem(MovieFactories);
-        CardModel movie = (factory ?? MovieFactories[0])(owner, combatState);
-        CardPileAddResult result = await CardPileCmd.AddGeneratedCardToCombat(movie, PileType.Hand, addedByPlayer: true);
-        Log.Debug(
-            $"[Manosaba SyncTrace][Instigate] movie owner={owner.NetId} target={targetPlayer.NetId} generated={movie.Id.Entry} " +
-            $"ownerHandAfter={GetPileCount(owner, PileType.Hand)} rng={FormatRngCounters(owner.RunState.Rng)}");
-        CardCmd.PreviewCardPileAdd(result);
     }
 
     protected override void OnUpgrade()
     {
         DynamicVars["KotodamaCost"].UpgradeValueBy(-1m);
-    }
-
-    private static bool IsSaekiMiria(Player player)
-    {
-        return player.Character.Id.Entry.EndsWith(SaekiMiriaCharacter.CharacterId, StringComparison.OrdinalIgnoreCase);
     }
 
     private static int GetPileCount(Player player, PileType pileType)
