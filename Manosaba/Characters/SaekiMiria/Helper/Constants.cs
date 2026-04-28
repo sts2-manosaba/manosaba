@@ -74,6 +74,8 @@ namespace Manosaba.Characters.SaekiMiria.Helper
                 typeof(ScaldingTouchPower),
                 typeof(FireballSwarmPower),
                 typeof(FinalCountdownPower),
+
+                typeof(RelicSearchPower),
             };
 
         public static HashSet<Type> AllowedLuckTransferPowers = new()
