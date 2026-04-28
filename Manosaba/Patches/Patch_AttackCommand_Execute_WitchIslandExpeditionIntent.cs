@@ -18,7 +18,7 @@ public static class Patch_AttackCommand_Execute_WitchIslandExpeditionIntent
 {
     private const string AttackIntentSfx = "event:/Manosaba/audio/SFX/attack_intent.wav";
     private const float IntentLeadSeconds = 0.3f;
-    private const float MultiplayerParrySyncGraceSeconds = 0.05f;
+    private const float MultiplayerParrySyncTimeoutSeconds = 2f;
     private const double MaxGuardWindowSeconds = 0.5d;
 
     private static readonly ConditionalWeakTable<AttackCommand, object> WrappedCommands = new();
@@ -61,12 +61,13 @@ public static class Patch_AttackCommand_Execute_WitchIslandExpeditionIntent
 
         traverse.Field("_beforeDamage").SetValue(async () =>
         {
-            if (GetExpeditionTargets(__instance).Count > 0)
+            bool hasExpeditionTargets = GetExpeditionTargets(__instance).Count > 0;
+            if (hasExpeditionTargets)
             {
                 PerfectGuardInputTracker.ClosePerfectGuardWindow();
                 if (RunManager.Instance.NetService?.Type.IsMultiplayer() == true)
                 {
-                    await Cmd.Wait(MultiplayerParrySyncGraceSeconds);
+                    await PerfectGuardInputTracker.ResolveMultiplayerParriesAsync(MultiplayerParrySyncTimeoutSeconds);
                 }
             }
 
@@ -75,7 +76,7 @@ public static class Patch_AttackCommand_Execute_WitchIslandExpeditionIntent
                 await existingBeforeDamage();
             }
 
-            PerfectGuardInputTracker.BeginDamageResolution(__instance);
+            PerfectGuardInputTracker.BeginDamageResolution(__instance, hasExpeditionTargets);
         });
     }
 

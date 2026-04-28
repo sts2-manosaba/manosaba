@@ -48,6 +48,6 @@ public sealed class WitchIslandExpeditionPower : PathCustomPowerModel
             return 0m;
         }
 
-        return 3m;
+        return canParry ? 3m : 1m;
     }
 }

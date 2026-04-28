@@ -21,12 +21,17 @@ public sealed partial class PerfectGuardInputTracker : Node
     private static double _lastGuardWindowOpenedAtSeconds = double.NegativeInfinity;
     private static double _lastGuardWindowClosedAtSeconds = double.NegativeInfinity;
     private static uint _activePromptId;
+    private static uint _resolvedPromptId;
     private static readonly HashSet<ulong> _guardWindowTargetIds = [];
     private static readonly HashSet<ParryToken> _parryTokens = [];
+    private static readonly HashSet<ulong> _resolvedParryTargetIds = [];
     private static readonly Dictionary<AttackCommand, HashSet<ulong>> _autoGuardTargetsByCommand = [];
     private static AttackCommand? _currentDamageCommand;
+    private static bool _currentDamageHasPerfectGuardPrompt;
     private static RunLocationTargetedMessageBuffer? _registeredMessageBuffer;
     private static readonly MessageHandlerDelegate<WitchIslandExpeditionParryMessage> ParryMessageHandler = HandleParryMessage;
+    private static readonly MessageHandlerDelegate<WitchIslandExpeditionParryResolutionMessage> ParryResolutionMessageHandler = HandleParryResolutionMessage;
+    private static TaskCompletionSource<uint>? _resolutionReceivedSource;
 
     public static void EnsureInstalled()
     {
@@ -59,7 +64,11 @@ public sealed partial class PerfectGuardInputTracker : Node
         }
 
         ulong targetPlayerId = target.Player.NetId;
-        double now = NowSeconds();
+        if (!_currentDamageHasPerfectGuardPrompt)
+        {
+            return false;
+        }
+
         if (_currentDamageCommand != null &&
             _autoGuardTargetsByCommand.TryGetValue(_currentDamageCommand, out HashSet<ulong>? autoGuardTargets) &&
             autoGuardTargets.Contains(targetPlayerId))
@@ -67,22 +76,24 @@ public sealed partial class PerfectGuardInputTracker : Node
             return true;
         }
 
+        if (IsMultiplayerRun())
+        {
+            if (_resolvedPromptId != _activePromptId || !_resolvedParryTargetIds.Contains(targetPlayerId))
+            {
+                return false;
+            }
+
+            MarkAutoGuardTarget(targetPlayerId);
+            return true;
+        }
+
+        double now = NowSeconds();
         if (!TryFindValidParryToken(targetPlayerId, now, windowSeconds, out ParryToken token))
         {
             return false;
         }
 
-        if (_currentDamageCommand != null)
-        {
-            if (!_autoGuardTargetsByCommand.TryGetValue(_currentDamageCommand, out autoGuardTargets))
-            {
-                autoGuardTargets = [];
-                _autoGuardTargetsByCommand[_currentDamageCommand] = autoGuardTargets;
-            }
-
-            autoGuardTargets.Add(targetPlayerId);
-        }
-
+        MarkAutoGuardTarget(targetPlayerId);
         if (LocalContext.NetId == token.PlayerId)
         {
             _nextSpaceInputAllowedAtSeconds = now;
@@ -90,6 +101,48 @@ public sealed partial class PerfectGuardInputTracker : Node
 
         _parryTokens.Remove(token);
         return true;
+    }
+
+    public static async Task ResolveMultiplayerParriesAsync(float timeoutSeconds)
+    {
+        EnsureInstalled();
+
+        RunManager runManager = RunManager.Instance;
+        if (!IsMultiplayerRun() || runManager.NetService == null)
+        {
+            return;
+        }
+
+        if (_resolvedPromptId == _activePromptId)
+        {
+            return;
+        }
+
+        if (runManager.NetService.Type == NetGameType.Host)
+        {
+            List<ulong> parriedPlayerIds = GetValidParryTargetIds().ToList();
+            ApplyParryResolution(_activePromptId, parriedPlayerIds);
+            WitchIslandExpeditionParryResolutionMessage message = new()
+            {
+                promptId = _activePromptId,
+                Location = runManager.RunLocationTargetedBuffer.CurrentLocation,
+            };
+            message.parriedPlayerIds.AddRange(parriedPlayerIds);
+            runManager.NetService.SendMessage(message);
+            return;
+        }
+
+        if (runManager.NetService.Type != NetGameType.Client)
+        {
+            return;
+        }
+
+        _resolutionReceivedSource ??= new TaskCompletionSource<uint>(TaskCreationOptions.RunContinuationsAsynchronously);
+        Task completed = await Task.WhenAny(_resolutionReceivedSource.Task, Task.Delay(TimeSpan.FromSeconds(timeoutSeconds)));
+        if (completed == _resolutionReceivedSource.Task && _resolutionReceivedSource.Task.Result == _activePromptId)
+        {
+            return;
+        }
     }
 
     public static void OpenPerfectGuardWindow(double maxDurationSeconds, IEnumerable<ulong> targetPlayerIds)
@@ -101,6 +154,8 @@ public sealed partial class PerfectGuardInputTracker : Node
         _guardWindowTargetIds.Clear();
         _guardWindowTargetIds.UnionWith(targetPlayerIds);
         _parryTokens.RemoveWhere(token => token.PromptId != _activePromptId);
+        _resolvedParryTargetIds.Clear();
+        _resolutionReceivedSource = null;
     }
 
     public static void OpenPerfectGuardWindow(double maxDurationSeconds)
@@ -117,9 +172,10 @@ public sealed partial class PerfectGuardInputTracker : Node
         }
     }
 
-    public static void BeginDamageResolution(AttackCommand command)
+    public static void BeginDamageResolution(AttackCommand command, bool hasPerfectGuardPrompt)
     {
         _currentDamageCommand = command;
+        _currentDamageHasPerfectGuardPrompt = hasPerfectGuardPrompt;
     }
 
     public static void EndAttack(AttackCommand command)
@@ -127,6 +183,7 @@ public sealed partial class PerfectGuardInputTracker : Node
         if (ReferenceEquals(_currentDamageCommand, command))
         {
             _currentDamageCommand = null;
+            _currentDamageHasPerfectGuardPrompt = false;
         }
 
         _autoGuardTargetsByCommand.Remove(command);
@@ -261,10 +318,12 @@ public sealed partial class PerfectGuardInputTracker : Node
         if (_registeredMessageBuffer != null)
         {
             _registeredMessageBuffer.UnregisterMessageHandler(ParryMessageHandler);
+            _registeredMessageBuffer.UnregisterMessageHandler(ParryResolutionMessageHandler);
         }
 
         _registeredMessageBuffer = runManager.RunLocationTargetedBuffer;
         _registeredMessageBuffer.RegisterMessageHandler(ParryMessageHandler);
+        _registeredMessageBuffer.RegisterMessageHandler(ParryResolutionMessageHandler);
     }
 
     private static void HandleParryMessage(WitchIslandExpeditionParryMessage message, ulong senderId)
@@ -275,6 +334,71 @@ public sealed partial class PerfectGuardInputTracker : Node
         }
 
         _parryTokens.Add(new ParryToken(senderId, message.promptId, message.pressElapsedSeconds));
+    }
+
+    private static void HandleParryResolutionMessage(WitchIslandExpeditionParryResolutionMessage message, ulong _)
+    {
+        ApplyParryResolution(message.promptId, message.parriedPlayerIds);
+    }
+
+    private static void MarkAutoGuardTarget(ulong targetPlayerId)
+    {
+        if (_currentDamageCommand == null)
+        {
+            return;
+        }
+
+        if (!_autoGuardTargetsByCommand.TryGetValue(_currentDamageCommand, out HashSet<ulong>? autoGuardTargets))
+        {
+            autoGuardTargets = [];
+            _autoGuardTargetsByCommand[_currentDamageCommand] = autoGuardTargets;
+        }
+
+        autoGuardTargets.Add(targetPlayerId);
+    }
+
+    private static IEnumerable<ulong> GetValidParryTargetIds()
+    {
+        double damageElapsedSeconds = Math.Max(0d, _lastGuardWindowClosedAtSeconds - _lastGuardWindowOpenedAtSeconds);
+        foreach (ParryToken candidate in _parryTokens)
+        {
+            if (candidate.PromptId != _activePromptId || !_guardWindowTargetIds.Contains(candidate.PlayerId))
+            {
+                continue;
+            }
+
+            if (candidate.PressElapsedSeconds < 0d || candidate.PressElapsedSeconds > damageElapsedSeconds)
+            {
+                continue;
+            }
+
+            if (damageElapsedSeconds - candidate.PressElapsedSeconds <= DefaultWindowSeconds)
+            {
+                yield return candidate.PlayerId;
+            }
+        }
+    }
+
+    private static void ApplyParryResolution(uint promptId, IEnumerable<ulong> parriedPlayerIds)
+    {
+        if (promptId != _activePromptId)
+        {
+            return;
+        }
+
+        _resolvedPromptId = promptId;
+        _resolvedParryTargetIds.Clear();
+        _resolvedParryTargetIds.UnionWith(parriedPlayerIds.Where(_guardWindowTargetIds.Contains));
+        _resolutionReceivedSource?.TrySetResult(promptId);
+    }
+
+    private static bool IsMultiplayerRun()
+    {
+        RunManager runManager = RunManager.Instance;
+        return runManager.IsInProgress &&
+            runManager.NetService != null &&
+            runManager.NetService.Type.IsMultiplayer() &&
+            runManager.NetService.IsConnected;
     }
 
     private static double NowSeconds()
