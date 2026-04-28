@@ -129,7 +129,7 @@ public sealed class Instigate : NatsumeKotodamaCardModel
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        Player? targetPlayer = cardPlay.Target?.Player ?? (cardPlay.IsAutoPlay ? Owner : null);
+        Player? targetPlayer = cardPlay.Target?.Player;
         if (targetPlayer == null)
         {
             Log.Debug($"[Manosaba SyncTrace][Instigate] skip owner={Owner.NetId} reason=no_target");
@@ -142,6 +142,7 @@ public sealed class Instigate : NatsumeKotodamaCardModel
             $"rng={FormatRngCounters(Owner.RunState.Rng)}");
 
         await CardPileCmd.AutoPlayFromDrawPile(choiceContext, targetPlayer, 1, CardPilePosition.Top, forceExhaust: false);
+
         Log.Debug(
             $"[Manosaba SyncTrace][Instigate] afterAutoPlay owner={Owner.NetId} target={targetPlayer.NetId} " +
             $"ownerHandNow={GetPileCount(Owner, PileType.Hand)} targetDrawNow={GetPileCount(targetPlayer, PileType.Draw)} " +
