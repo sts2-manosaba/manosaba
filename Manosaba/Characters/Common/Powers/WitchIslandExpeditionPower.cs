@@ -1,0 +1,58 @@
+using Manosaba.Extensions;
+using Manosaba.Input;
+using MegaCrit.Sts2.Core.Commands;
+using MegaCrit.Sts2.Core.Context;
+using MegaCrit.Sts2.Core.Entities.Creatures;
+using MegaCrit.Sts2.Core.Entities.Powers;
+using MegaCrit.Sts2.Core.Models;
+using MegaCrit.Sts2.Core.ValueProps;
+
+namespace Manosaba.Characters.Common.Powers;
+
+public sealed class WitchIslandExpeditionPower : PathCustomPowerModel
+{
+    private const string ParrySuccessSfx = "event:/Manosaba/audio/SFX/parry_success.wav";
+
+    public override PowerType Type => PowerType.Buff;
+    public override PowerStackType StackType => PowerStackType.Single;
+
+    public override Task AfterApplied(Creature? applier, CardModel? cardSource)
+    {
+        PerfectGuardInputTracker.EnsureInstalled();
+        return Task.CompletedTask;
+    }
+
+    public override decimal ModifyDamageMultiplicative(
+        Creature? target,
+        decimal amount,
+        ValueProp props,
+        Creature? dealer,
+        CardModel? cardSource)
+    {
+        _ = amount;
+        _ = cardSource;
+
+        if (target != Owner)
+        {
+            return 1m;
+        }
+
+        if (dealer == null || !dealer.IsEnemy || !dealer.IsMonster || target.IsEnemy)
+        {
+            return 1m;
+        }
+
+        if (!props.HasFlag(ValueProp.Move) || props.HasFlag(ValueProp.Unpowered))
+        {
+            return 1m;
+        }
+
+        if (!PerfectGuardInputTracker.TryConsumePerfectGuard(target))
+        {
+            return 1m;
+        }
+
+        SfxCmd.Play(ParrySuccessSfx);
+        return 0m;
+    }
+}

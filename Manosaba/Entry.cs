@@ -12,6 +12,7 @@ using manosaba.Characters.ShitoAlisa;
 using manosaba.Characters.TonoHanna.Relics;
 using Manosaba.Characters.JogasakiNoah.Potions;
 using Manosaba.Config;
+using Manosaba.Input;
 using MegaCrit.Sts2.Core.Logging;
 using MegaCrit.Sts2.Core.Modding;
 using MegaCrit.Sts2.Core.Saves.Runs;
@@ -40,6 +41,7 @@ public class Entry
         SavedPropertiesTypeCache.InjectTypeIntoCache(typeof(Ribbon));
         SavedPropertiesTypeCache.InjectTypeIntoCache(typeof(LegIrons));
         SavedPropertiesTypeCache.InjectTypeIntoCache(typeof(Clipboard));
+        PerfectGuardInputTracker.EnsureInstalled();
         // 使得tscn可以加载自定义脚本
         ScriptManagerBridge.LookupScriptsInAssembly(typeof(Entry).Assembly);
         Log.Debug("Mod initialized!");
