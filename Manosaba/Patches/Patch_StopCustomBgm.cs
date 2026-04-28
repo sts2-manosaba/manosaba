@@ -1,11 +1,13 @@
 using System.Linq;
 using System.Reflection;
+using Godot;
 using HarmonyLib;
 using Manosaba.Audio;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Nodes;
 using MegaCrit.Sts2.Core.Nodes.GodotExtensions;
+using MegaCrit.Sts2.Core.Nodes.Rooms;
 using MegaCrit.Sts2.Core.Nodes.Screens.PauseMenu;
 using MegaCrit.Sts2.Core.Rooms;
 using MegaCrit.Sts2.Core.Runs;
@@ -19,6 +21,21 @@ public static class Patch_CombatRoom_OnCombatEnded_StopCustomBgm
     [HarmonyPostfix]
     private static void Postfix()
     {
+        GodotSfxRouter.StopCustomBgmAndResumeVanilla();
+    }
+}
+
+[HarmonyPatch(typeof(NRun), nameof(NRun.SetCurrentRoom), new[] { typeof(Control) })]
+public static class Patch_NRun_SetCurrentRoom_StopCustomBgmOutsideCombat
+{
+    [HarmonyPostfix]
+    private static void Postfix(Control? node)
+    {
+        if (node is NCombatRoom)
+        {
+            return;
+        }
+
         GodotSfxRouter.StopCustomBgmAndResumeVanilla();
     }
 }

@@ -8,6 +8,8 @@ public static class CharacterCustomEnergyService
     private static readonly Dictionary<(ulong PlayerNetId, string EnergyId), int> Values = new();
     private static readonly HashSet<(ulong PlayerNetId, string EnergyId)> InitializedThisCombat = new();
 
+    public static event Action<Player, CharacterCustomEnergyDefinition, int, int>? EnergyChanged;
+
     public static void Register(CharacterCustomEnergyDefinition definition)
     {
         Definitions[definition.EnergyId] = definition;
@@ -42,10 +44,19 @@ public static class CharacterCustomEnergyService
         }
 
         (ulong, string) key = GetKey(player, definition);
+        int oldValue = Values.TryGetValue(key, out int existingValue)
+            ? existingValue
+            : definition.MinEnergy;
         InitializedThisCombat.Add(key);
         int clamped = definition.Clamp(value);
         Values[key] = clamped;
+        SaveToCarrier(player, definition, clamped);
         SyncSinglePlayerAliases(player, definition, clamped);
+        if (oldValue != clamped)
+        {
+            EnergyChanged?.Invoke(player, definition, oldValue, clamped);
+        }
+
         return clamped;
     }
 
@@ -100,6 +111,7 @@ public static class CharacterCustomEnergyService
             (ulong, string) key = GetKey(player, definition);
             InitializedThisCombat.Remove(key);
             Values.Remove(key);
+            SaveToCarrier(player, definition, definition.MinEnergy);
         }
     }
 
@@ -107,6 +119,58 @@ public static class CharacterCustomEnergyService
     {
         Values.Clear();
         InitializedThisCombat.Clear();
+    }
+
+    public static void LoadSavedValues(Player player)
+    {
+        if (player == null)
+        {
+            return;
+        }
+
+        foreach (ICustomEnergySaveCarrier carrier in player.Relics.OfType<ICustomEnergySaveCarrier>())
+        {
+            CharacterCustomEnergyDefinition definition = carrier.SavedEnergyDefinition;
+            if (!definition.AppliesTo(player))
+            {
+                continue;
+            }
+
+            (ulong, string) key = GetKey(player, definition);
+            InitializedThisCombat.Add(key);
+            int oldValue = Values.TryGetValue(key, out int existingValue)
+                ? existingValue
+                : definition.MinEnergy;
+            int loadedValue = definition.Clamp(carrier.SavedCustomEnergyValue);
+            Values[key] = loadedValue;
+            if (oldValue != loadedValue)
+            {
+                EnergyChanged?.Invoke(player, definition, oldValue, loadedValue);
+            }
+        }
+    }
+
+    public static void LoadSavedValues(IEnumerable<Player> players)
+    {
+        foreach (Player player in players)
+        {
+            LoadSavedValues(player);
+        }
+    }
+
+    public static void SaveCurrentValuesToCarriers(IEnumerable<Player> players)
+    {
+        foreach (Player player in players)
+        {
+            foreach (CharacterCustomEnergyDefinition definition in Definitions.Values)
+            {
+                (ulong, string) key = GetKey(player, definition);
+                int value = Values.TryGetValue(key, out int savedValue)
+                    ? savedValue
+                    : definition.MinEnergy;
+                SaveToCarrier(player, definition, value);
+            }
+        }
     }
 
     private static (ulong PlayerNetId, string EnergyId) GetKey(Player player, CharacterCustomEnergyDefinition definition)
@@ -198,6 +262,29 @@ public static class CharacterCustomEnergyService
 
             Values[aliasKey] = value;
             InitializedThisCombat.Add(aliasKey);
+        }
+    }
+
+    private static void SaveToCarrier(Player player, CharacterCustomEnergyDefinition definition, int value)
+    {
+        if (player == null)
+        {
+            return;
+        }
+
+        foreach (ICustomEnergySaveCarrier carrier in player.Relics.OfType<ICustomEnergySaveCarrier>())
+        {
+            if (carrier.SavedCustomEnergyOwner != player)
+            {
+                continue;
+            }
+
+            if (!string.Equals(carrier.SavedEnergyDefinition.EnergyId, definition.EnergyId, StringComparison.Ordinal))
+            {
+                continue;
+            }
+
+            carrier.SavedCustomEnergyValue = definition.Clamp(value);
         }
     }
 }

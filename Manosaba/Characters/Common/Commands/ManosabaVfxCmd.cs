@@ -1,5 +1,6 @@
 ﻿using Godot;
 using MegaCrit.Sts2.Core.Assets;
+using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Helpers;
 using MegaCrit.Sts2.Core.Nodes;
@@ -82,12 +83,13 @@ namespace Manosaba.Characters.Common.Commands
             }
 
             float elapsed = 0f;
-            while (elapsed < timeoutSeconds && GodotObject.IsInstanceValid(vfxNode) && vfxNode.IsInsideTree())
+            while (elapsed < timeoutSeconds && IsCombatActive() && GodotObject.IsInstanceValid(vfxNode) && vfxNode.IsInsideTree())
             {
                 await Cmd.Wait(DefaultPollIntervalSeconds);
                 elapsed += DefaultPollIntervalSeconds;
             }
 
+            FreeIfStillAlive(vfxNode);
             return vfxNode;
         }
 
@@ -115,13 +117,28 @@ namespace Manosaba.Characters.Common.Commands
             }
 
             float elapsed = 0f;
-            while (elapsed < timeoutSeconds && GodotObject.IsInstanceValid(vfxNode) && vfxNode.IsInsideTree())
+            while (elapsed < timeoutSeconds && IsCombatActive() && GodotObject.IsInstanceValid(vfxNode) && vfxNode.IsInsideTree())
             {
                 await Cmd.Wait(DefaultPollIntervalSeconds);
                 elapsed += DefaultPollIntervalSeconds;
             }
 
+            FreeIfStillAlive(vfxNode);
             return vfxNode;
+        }
+
+        private static bool IsCombatActive()
+        {
+            CombatManager? combatManager = CombatManager.Instance;
+            return combatManager == null || !combatManager.IsOverOrEnding;
+        }
+
+        private static void FreeIfStillAlive(Node2D vfxNode)
+        {
+            if (GodotObject.IsInstanceValid(vfxNode) && vfxNode.IsInsideTree())
+            {
+                vfxNode.QueueFree();
+            }
         }
 
         private static void FitSpriteToViewportCover(Node2D vfxNode, Vector2 viewportSize, string[]? spriteNodeNames)

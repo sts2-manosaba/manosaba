@@ -12,7 +12,7 @@ public sealed class Reading : NatsumeKotodamaCardModel
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
         new DynamicVar("KotodamaGain", 1m),
-        new CardsVar(2),
+        new CardsVar(1),
     ];
 
     public Reading() : base(1, CardType.Skill, CardRarity.Common, TargetType.Self, true)

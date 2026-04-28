@@ -1,21 +1,37 @@
 using BaseLib.Utils;
+using Manosaba.Characters.Common.Resources;
 using Manosaba.Extensions;
 using MegaCrit.Sts2.Core.Commands;
+using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.Entities.Relics;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
+using MegaCrit.Sts2.Core.Saves.Runs;
 using MegaCrit.Sts2.Core.ValueProps;
 
 namespace manosaba.Characters.NatsumeAnan.Relics;
 
 [Pool(typeof(NatsumeAnanRelicPool))]
-public sealed class Clipboard : LevelingPathCustomRelicModel
+public sealed class Clipboard : LevelingPathCustomRelicModel, ICustomEnergySaveCarrier
 {
     private const int BaseCombatStartKotodamaGain = 3;
 
     public override RelicRarity Rarity => RelicRarity.Starter;
 
     protected override IEnumerable<DynamicVar> CanonicalVars => [new DynamicVar("KotodamaEnergy", BaseCombatStartKotodamaGain)];
+
+    [SavedProperty]
+    public int Manosaba_KotodamaEnergy { get; set; }
+
+    public CharacterCustomEnergyDefinition SavedEnergyDefinition => KotodamaEnergy.Instance;
+
+    public int SavedCustomEnergyValue
+    {
+        get => Manosaba_KotodamaEnergy;
+        set => Manosaba_KotodamaEnergy = Math.Max(0, value);
+    }
+
+    public Player? SavedCustomEnergyOwner => Owner;
 
     public override Task AfterObtained()
     {

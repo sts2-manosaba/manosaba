@@ -21,13 +21,14 @@ public class NatsumeAnan : PlaceholderCharacterModel
     public override Color MapDrawingColor => Color;
     public override Color NameColor => Color;
     public override CharacterGender Gender => CharacterGender.Feminine;
-    public override int StartingHp => 50;
+    public override int StartingHp => 55;
     public override int StartingGold => 99;
 
     public override IEnumerable<CardModel> StartingDeck =>
     [
         ModelDb.Card<StrikeNatsumeAnan>(),
         ModelDb.Card<StrikeNatsumeAnan>(),
+        ModelDb.Card<DefendNatsumeAnan>(),
         ModelDb.Card<DefendNatsumeAnan>(),
         ModelDb.Card<DefendNatsumeAnan>(),
         ModelDb.Card<TraumaNatsumeAnan>(),
