@@ -16,5 +16,7 @@
   "MANOSABA-COMBUST_IGNITE.title": "Ignite",
   "MANOSABA-COMBUST_IGNITE.description": "Select a card with [gold]Combust[/gold], then reduce its current countdown by 1.",
   "MANOSABA-SHARED.title": "Shared",
-  "MANOSABA-SHARED.description": "Obtained from sharing."
+  "MANOSABA-SHARED.description": "Obtained from sharing.",
+  "MANOSABA-BETA.title": "Beta",
+  "MANOSABA-BETA.description": "This card is still in testing and may have issues."
 }

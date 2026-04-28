@@ -1,5 +1,6 @@
 using BaseLib.Utils;
 using manosaba.Characters.Common;
+using Manosaba.Characters.Common.Overrides;
 using Manosaba.Characters.Common.Powers;
 using Manosaba.Extensions;
 using MegaCrit.Sts2.Core.Commands;
@@ -15,6 +16,7 @@ public sealed class WitchIslandExpedition : PathCustomCardModel
 {
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<WitchIslandExpeditionPower>()];
     protected override IEnumerable<DynamicVar> CanonicalVars => [new PowerVar<WitchIslandExpeditionPower>(1m)];
+    public override IEnumerable<CardKeyword> CanonicalKeywords => [ManosabaKeywords.Beta, ManosabaKeywords.Unique];
 
     public WitchIslandExpedition() : base(3, CardType.Power, CardRarity.Rare, TargetType.Self, true)
     {
@@ -33,6 +35,6 @@ public sealed class WitchIslandExpedition : PathCustomCardModel
 
     protected override void OnUpgrade()
     {
-        EnergyCost.UpgradeBy(-1);
+        AddKeyword(CardKeyword.Innate);
     }
 }

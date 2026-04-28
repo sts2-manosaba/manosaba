@@ -16,5 +16,7 @@
   "MANOSABA-COMBUST_IGNITE.title": "発火",
   "MANOSABA-COMBUST_IGNITE.description": "[gold]燃焼[/gold]を持つカードを選び、その現在のカウントダウンを1減らす。",
   "MANOSABA-SHARED.title": "共有",
-  "MANOSABA-SHARED.description": "共有によって得たカード。"
+  "MANOSABA-SHARED.description": "共有によって得たカード。",
+  "MANOSABA-BETA.title": "Beta",
+  "MANOSABA-BETA.description": "このカードはまだテスト段階のため、問題が発生する可能性があります。"
 }
