@@ -12,7 +12,7 @@
   "MANOSABA-GUN_SHOT.title": "Gun Shot",
   "MANOSABA-GUN_SHOT.description": "Spend bullets to attack. Your remaining bullets are shown on [gold]Nanoka's Gun[/gold].",
   "MANOSABA-COMBUST.title": "Combust",
-  "MANOSABA-COMBUST.description": "Whenever this card is drawn, its Combust value decreases by 1. At 0, it is auto-played and resets to its initial value.",
+  "MANOSABA-COMBUST.description": "Whenever this card is drawn, its Combust value decreases by 1.\nAt 0, it is auto-played, you gain 1 [gold]Fireball Swarm[/gold], and it resets to its initial Combust value.",
   "MANOSABA-COMBUST_IGNITE.title": "Ignite",
   "MANOSABA-COMBUST_IGNITE.description": "Select a [gold]Combust[/gold] card and reduce its current countdown by the listed amount (not below 0).",
   "MANOSABA-SHARED.title": "Shared",

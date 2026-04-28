@@ -33,7 +33,7 @@ namespace manosaba.Characters.TonoHanna
             ModelDb.Card<TraumaTonoHanna>(),
         ];
 
-        public override IReadOnlyList<RelicModel> StartingRelics => [ModelDb.Relic<Frugal>()];
+        public override IReadOnlyList<RelicModel> StartingRelics => [ModelDb.Relic<FeatherFan>()];
 
         public override CardPoolModel CardPool => ModelDb.CardPool<TonoHannaCardPool>();
         public override RelicPoolModel RelicPool => ModelDb.RelicPool<TonoHannaRelicPool>();

@@ -25,7 +25,7 @@ public class Flaming : ShitoAlisaCardModel
 
     public override IEnumerable<CardKeyword> CanonicalKeywords => [ManosabaKeywords.Combust];
 
-    protected override IEnumerable<DynamicVar> CanonicalVars => WithCombust(3, new PowerVar<BurnPower>(4m));
+    protected override IEnumerable<DynamicVar> CanonicalVars => WithCombust(2, new PowerVar<BurnPower>(4m));
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<BurnPower>(), HoverTipFactory.FromPower<FireballSwarmPower>()];
 
     public Flaming() : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)

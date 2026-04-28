@@ -99,6 +99,7 @@ public static class ShitoCombustOperations
             if (v.CurrentCombust > 0m)
                 return;
             await FinalCountdownPower.ReduceFromCombust(target.Owner.Creature, target);
+            await GrantFireballSwarmOnCombustZero(target);
             v.ResetCurrentToMax();
             RefreshCombustVisual(target);
             await CardCmd.AutoPlay(choiceContext, target, null);
@@ -117,6 +118,7 @@ public static class ShitoCombustOperations
         if (state.Current > 0)
             return;
         await FinalCountdownPower.ReduceFromCombust(target.Owner.Creature, target);
+        await GrantFireballSwarmOnCombustZero(target);
         state.Current = state.Max;
         RefreshCombustVisual(target);
         await CardCmd.AutoPlay(choiceContext, target, null);
@@ -138,6 +140,7 @@ public static class ShitoCombustOperations
                 return;
 
             await FinalCountdownPower.ReduceFromCombust(self.Owner.Creature, self);
+            await GrantFireballSwarmOnCombustZero(self);
             v.ResetCurrentToMax();
             RefreshCombustVisual(self);
             Log.Debug($"[Manosaba Combust] AutoPlay triggered card={self.Id.Entry}; reset to {(int)v.CurrentCombust}");
@@ -157,10 +160,19 @@ public static class ShitoCombustOperations
             return;
 
         await FinalCountdownPower.ReduceFromCombust(self.Owner.Creature, self);
+        await GrantFireballSwarmOnCombustZero(self);
         state.Current = state.Max;
         RefreshCombustVisual(self);
         Log.Debug($"[Manosaba Combust] AutoPlay triggered card={self.Id.Entry}; reset to {state.Current}");
         await CardCmd.AutoPlay(choiceContext, self, null);
+    }
+
+    private static async Task GrantFireballSwarmOnCombustZero(CardModel card)
+    {
+        if (card.Owner?.Creature is not { } ownerCreature || !ownerCreature.IsAlive)
+            return;
+
+        await PowerCmd.Apply<FireballSwarmPower>(ownerCreature, 1m, ownerCreature, null);
     }
 
     private static void RefreshCombustVisual(CardModel card)

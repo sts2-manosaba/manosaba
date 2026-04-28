@@ -34,7 +34,7 @@ namespace manosaba.Characters.TachibanaSherry
 
 		public override IReadOnlyList<RelicModel> StartingRelics =>
 		[
-			ModelDb.Relic<FairyHeart>()
+			ModelDb.Relic<MagnifyingGlass>()
 		];
 
 		public override CardPoolModel CardPool => ModelDb.CardPool<TachibanaSherryCardPool>();

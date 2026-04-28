@@ -35,8 +35,8 @@ public class Entry
         SavedPropertiesTypeCache.InjectTypeIntoCache(typeof(PenOfHiro));
         SavedPropertiesTypeCache.InjectTypeIntoCache(typeof(SprayCanOfNoah));
         SavedPropertiesTypeCache.InjectTypeIntoCache(typeof(CabinetKey));
-        SavedPropertiesTypeCache.InjectTypeIntoCache(typeof(FairyHeart));
-        SavedPropertiesTypeCache.InjectTypeIntoCache(typeof(Frugal));
+        SavedPropertiesTypeCache.InjectTypeIntoCache(typeof(MagnifyingGlass));
+        SavedPropertiesTypeCache.InjectTypeIntoCache(typeof(FeatherFan));
         SavedPropertiesTypeCache.InjectTypeIntoCache(typeof(Ribbon));
         SavedPropertiesTypeCache.InjectTypeIntoCache(typeof(LegIrons));
         SavedPropertiesTypeCache.InjectTypeIntoCache(typeof(Clipboard));

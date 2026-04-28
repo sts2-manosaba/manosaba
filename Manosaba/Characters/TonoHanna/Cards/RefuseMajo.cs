@@ -28,7 +28,6 @@ public class RefuseMajo : PathCustomCardModel
     [
         HoverTipFactory.FromPower<MajokaPower>(),
         HoverTipFactory.FromCard<Boulders>(),
-        HoverTipFactory.FromCard<Wound>(),
     ];
 
     public RefuseMajo() : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)
@@ -43,18 +42,11 @@ public class RefuseMajo : PathCustomCardModel
             if (c == cardPlay.Card)
                 continue;
 
-            if (c.Type == CardType.Attack)
+            CardPileAddResult? r = await CardCmd.TransformTo<Boulders>(c);
+            if (r is { success: true, cardAdded: { } added })
             {
-                CardPileAddResult? r = await CardCmd.TransformTo<Boulders>(c);
-                if (r is { success: true, cardAdded: { } added })
-                {
-                    CardCmd.ApplyKeyword(added, CardKeyword.Exhaust);
-                    added.EnergyCost.SetThisTurnOrUntilPlayed(0);
-                }
-            }
-            else
-            {
-                await CardCmd.TransformTo<Wound>(c);
+                CardCmd.ApplyKeyword(added, CardKeyword.Exhaust);
+                added.EnergyCost.SetThisTurnOrUntilPlayed(0);
             }
         }
 

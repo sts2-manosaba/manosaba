@@ -15,7 +15,7 @@ using MegaCrit.Sts2.Core.ValueProps;
 namespace manosaba.Characters.TachibanaSherry.Relics
 {
     [Pool(typeof(TachibanaSherryRelicPool))]
-    public sealed class FairyHeart : LevelingPathCustomRelicModel
+    public sealed class MagnifyingGlass : LevelingPathCustomRelicModel
     {
         public override RelicRarity Rarity => RelicRarity.Starter;
 

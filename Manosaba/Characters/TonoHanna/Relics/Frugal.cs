@@ -24,7 +24,7 @@ using MegaCrit.Sts2.Core.TestSupport;
 namespace manosaba.Characters.TonoHanna.Relics;
 
 [Pool(typeof(TonoHannaRelicPool))]
-public sealed class Frugal : LevelingPathCustomRelicModel
+public sealed class FeatherFan : LevelingPathCustomRelicModel
 {
     private const int MaxUnspentEnergyForGoldPerCombat = 5;
     private const decimal BaseGoldPerEnergy = 10m;
@@ -42,9 +42,9 @@ public sealed class Frugal : LevelingPathCustomRelicModel
         new DynamicVar("MaxUnspentEnergyCombat", MaxUnspentEnergyForGoldPerCombat),
     ];
 
-    protected override IEnumerable<IHoverTip> ExtraHoverTips => FrugalCombatExtraHoverTips();
+    protected override IEnumerable<IHoverTip> ExtraHoverTips => featherFanCombatExtraHoverTips();
 
-    private IEnumerable<IHoverTip> FrugalCombatExtraHoverTips()
+    private IEnumerable<IHoverTip> featherFanCombatExtraHoverTips()
     {
         foreach (IHoverTip tip in base.ExtraHoverTips)
             yield return tip;
@@ -157,8 +157,8 @@ public sealed class Frugal : LevelingPathCustomRelicModel
         }
 
         Player? player = owner.Player;
-        Frugal? frugal = player?.GetRelic<Frugal>();
-        if (frugal == null || frugal.RelicLevel < 2)
+        FeatherFan? featherFan = player?.GetRelic<FeatherFan>();
+        if (featherFan == null || featherFan.RelicLevel < 2)
         {
             return;
         }

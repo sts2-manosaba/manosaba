@@ -128,7 +128,7 @@ public sealed class PuppetCollectionSummaryPower : PathCustomPowerModel
         await PowerCmd.Apply<PuppetCollectionSummaryPower>(owner, gainedDistinctKinds, owner, null, silent: true);
 
         if (gainedDistinctKinds > 0)
-            await Frugal.OnPuppetCollectionIncreasedAsync(owner, gainedDistinctKinds);
+            await FeatherFan.OnPuppetCollectionIncreasedAsync(owner, gainedDistinctKinds);
     }
 
     private static int CountActiveCollectionKinds(Creature owner)
