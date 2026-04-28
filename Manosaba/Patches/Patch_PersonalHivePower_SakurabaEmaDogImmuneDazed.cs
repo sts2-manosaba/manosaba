@@ -1,5 +1,4 @@
 using HarmonyLib;
-using Manosaba.Characters.Common.Monsters;
 using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Models.Powers;
 using System.Threading.Tasks;
@@ -9,8 +8,8 @@ public static class Patch_PersonalHivePower_SakurabaEmaDogImmuneDazed
 {
     private static bool Prefix(PersonalHivePower __instance, Creature target, Creature? dealer, ref Task __result)
     {
-        // Keep default behavior unless this is exactly Personal Hive retaliating to Sakuraba Ema Dog.
-        if (target != __instance.Owner || dealer?.Monster is not SakurabaEmaDog)
+        // Pets do not have a player card pile, so Personal Hive cannot add Dazed to them safely.
+        if (target != __instance.Owner || dealer?.PetOwner == null)
         {
             return true;
         }
