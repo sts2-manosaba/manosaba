@@ -310,8 +310,8 @@
   "MANOSABA-BOCCHAN_POWER.description": "在你的回合開始時，獲得 {energyPrefix:kotodamaIcons(1)}。",
   "MANOSABA-BOCCHAN_POWER.smartDescription": "在你的回合開始時，獲得 {Amount:kotodamaIcons()}。",
   "MANOSABA-MOVABLE_TYPE_PRINTING_POWER.title": "活字版印刷",
-  "MANOSABA-MOVABLE_TYPE_PRINTING_POWER.description": "每消耗 [blue]2[/blue] 點[gold]能量[/gold]，獲得 {energyPrefix:kotodamaIcons(1)}。",
-  "MANOSABA-MOVABLE_TYPE_PRINTING_POWER.smartDescription": "每消耗 [blue]{Energy}[/blue] 點[gold]能量[/gold]，獲得 {Amount:kotodamaIcons()}。",
+  "MANOSABA-MOVABLE_TYPE_PRINTING_POWER.description": "每消耗 [blue]3[/blue] 點[gold]能量[/gold]，獲得 {energyPrefix:kotodamaIcons(1)}。",
+  "MANOSABA-MOVABLE_TYPE_PRINTING_POWER.smartDescription": "每消耗 [blue]{Energy}[/blue] 點[gold]能量[/gold]，獲得 {KotodamaGain:kotodamaIcons()}。",
   "MANOSABA-BRAINWASH_EXTRA_TURN_POWER.title": "洗腦",
   "MANOSABA-BRAINWASH_EXTRA_TURN_POWER.description": "你將獲得一個額外回合。",
   "MANOSABA-BRAINWASH_EXTRA_TURN_POWER.smartDescription": "你將獲得一個額外回合。"

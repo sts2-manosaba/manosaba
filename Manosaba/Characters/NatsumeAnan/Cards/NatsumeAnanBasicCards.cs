@@ -8,6 +8,7 @@ using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Logging;
 using MegaCrit.Sts2.Core.Models;
+using MegaCrit.Sts2.Core.Models.Powers;
 using MegaCrit.Sts2.Core.ValueProps;
 using System.Reflection;
 
@@ -121,7 +122,11 @@ public sealed class FlashOfInspiration : NatsumeKotodamaCardModel
 [Pool(typeof(NatsumeAnanCardPool))]
 public sealed class Instigate : NatsumeKotodamaCardModel
 {
-    protected override IEnumerable<DynamicVar> CanonicalVars => [new DynamicVar("KotodamaCost", 1m)];
+    protected override IEnumerable<DynamicVar> CanonicalVars =>
+    [
+        new DynamicVar("KotodamaCost", 1m),
+        new DynamicVar("CardsNextTurn", 1m),
+    ];
 
     public Instigate() : base(0, CardType.Skill, CardRarity.Basic, TargetType.AnyPlayer, true)
     {
@@ -143,6 +148,15 @@ public sealed class Instigate : NatsumeKotodamaCardModel
 
         await CardPileCmd.AutoPlayFromDrawPile(choiceContext, targetPlayer, 1, CardPilePosition.Top, forceExhaust: false);
 
+        if (IsUpgraded)
+        {
+            await PowerCmd.Apply<DrawCardsNextTurnPower>(
+                targetPlayer.Creature,
+                DynamicVars["CardsNextTurn"].BaseValue,
+                Owner.Creature,
+                this);
+        }
+
         Log.Debug(
             $"[Manosaba SyncTrace][Instigate] afterAutoPlay owner={Owner.NetId} target={targetPlayer.NetId} " +
             $"ownerHandNow={GetPileCount(Owner, PileType.Hand)} targetDrawNow={GetPileCount(targetPlayer, PileType.Draw)} " +
@@ -151,7 +165,6 @@ public sealed class Instigate : NatsumeKotodamaCardModel
 
     protected override void OnUpgrade()
     {
-        DynamicVars["KotodamaCost"].UpgradeValueBy(-1m);
     }
 
     private static int GetPileCount(Player player, PileType pileType)

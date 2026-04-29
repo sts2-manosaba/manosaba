@@ -592,7 +592,7 @@
   "MANOSABA-FLASH_OF_INSPIRATION.title": "靈光一現",
   "MANOSABA-FLASH_OF_INSPIRATION.description": "獲得 {KotodamaGain:kotodamaIcons()}。",
   "MANOSABA-INSTIGATE.title": "慫恿",
-  "MANOSABA-INSTIGATE.description": "使目標玩家自動打出其[gold]抽牌堆[/gold]頂的一張牌。",
+  "MANOSABA-INSTIGATE.description": "使目標玩家自動打出其[gold]抽牌堆[/gold]頂的一張牌。{IfUpgraded:show:\n該玩家下回合額外抽 {CardsNextTurn} 張牌。}",
   "MANOSABA-READING.title": "閱讀",
   "MANOSABA-READING.description": "獲得 {KotodamaGain:kotodamaIcons()}。抽 {Cards:diff()} 張牌。",
   "MANOSABA-ENDURANCE.title": "忍耐",

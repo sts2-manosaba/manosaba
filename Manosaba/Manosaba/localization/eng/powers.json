@@ -307,8 +307,8 @@
   "MANOSABA-BOCCHAN_POWER.description": "At the start of your turn, gain {energyPrefix:kotodamaIcons(1)}.",
   "MANOSABA-BOCCHAN_POWER.smartDescription": "At the start of your turn, gain {Amount:kotodamaIcons()}.",
   "MANOSABA-MOVABLE_TYPE_PRINTING_POWER.title": "Movable Type Printing",
-  "MANOSABA-MOVABLE_TYPE_PRINTING_POWER.description": "Whenever you spend [blue]2[/blue] [gold]Energy[/gold], gain {energyPrefix:kotodamaIcons(1)}.",
-  "MANOSABA-MOVABLE_TYPE_PRINTING_POWER.smartDescription": "Whenever you spend [blue]{Energy}[/blue] [gold]Energy[/gold], gain {Amount:kotodamaIcons()}.",
+  "MANOSABA-MOVABLE_TYPE_PRINTING_POWER.description": "Whenever you spend [blue]3[/blue] [gold]Energy[/gold], gain {energyPrefix:kotodamaIcons(1)}.",
+  "MANOSABA-MOVABLE_TYPE_PRINTING_POWER.smartDescription": "Whenever you spend [blue]{Energy}[/blue] [gold]Energy[/gold], gain {KotodamaGain:kotodamaIcons()}.",
   "MANOSABA-BRAINWASH_EXTRA_TURN_POWER.title": "Brainwash",
   "MANOSABA-BRAINWASH_EXTRA_TURN_POWER.description": "You will take an extra turn.",
   "MANOSABA-BRAINWASH_EXTRA_TURN_POWER.smartDescription": "You will take an extra turn."

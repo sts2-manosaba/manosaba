@@ -14,7 +14,7 @@ public sealed class Urusai : NatsumeKotodamaCardModel
 
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
-        new DamageVar(5m, ValueProp.Move),
+        new DamageVar(4m, ValueProp.Move),
     ];
 
     public Urusai() : base(0, CardType.Attack, CardRarity.Uncommon, TargetType.RandomEnemy, true)
@@ -64,6 +64,6 @@ public sealed class Urusai : NatsumeKotodamaCardModel
 
     protected override void OnUpgrade()
     {
-        DynamicVars.Damage.UpgradeValueBy(3m);
+        DynamicVars.Damage.UpgradeValueBy(2m);
     }
 }

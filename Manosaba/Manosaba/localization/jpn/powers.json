@@ -303,8 +303,8 @@
   "MANOSABA-BOCCHAN_POWER.description": "あなたのターン開始時に{energyPrefix:kotodamaIcons(1)}を得る。",
   "MANOSABA-BOCCHAN_POWER.smartDescription": "あなたのターン開始時に{Amount:kotodamaIcons()}を得る。",
   "MANOSABA-MOVABLE_TYPE_PRINTING_POWER.title": "活字版印刷",
-  "MANOSABA-MOVABLE_TYPE_PRINTING_POWER.description": "[blue]2[/blue]点の[gold]エナジー[/gold]を消費するたびに、{energyPrefix:kotodamaIcons(1)}を得る。",
-  "MANOSABA-MOVABLE_TYPE_PRINTING_POWER.smartDescription": "[blue]{Energy}[/blue]点の[gold]エナジー[/gold]を消費するたびに、{Amount:kotodamaIcons()}を得る。",
+  "MANOSABA-MOVABLE_TYPE_PRINTING_POWER.description": "[blue]3[/blue]点の[gold]エナジー[/gold]を消費するたびに、{energyPrefix:kotodamaIcons(1)}を得る。",
+  "MANOSABA-MOVABLE_TYPE_PRINTING_POWER.smartDescription": "[blue]{Energy}[/blue]点の[gold]エナジー[/gold]を消費するたびに、{KotodamaGain:kotodamaIcons()}を得る。",
   "MANOSABA-BRAINWASH_EXTRA_TURN_POWER.title": "洗脳",
   "MANOSABA-BRAINWASH_EXTRA_TURN_POWER.description": "あなたは追加ターンを得る。",
   "MANOSABA-BRAINWASH_EXTRA_TURN_POWER.smartDescription": "あなたは追加ターンを得る。"

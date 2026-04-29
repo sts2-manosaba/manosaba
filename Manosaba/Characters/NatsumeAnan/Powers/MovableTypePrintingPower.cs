@@ -14,7 +14,8 @@ public sealed class MovableTypePrintingPower : PathCustomPowerModel
         public int TriggerCount;
     }
 
-    private const int EnergyIncrement = 2;
+    private const int EnergyIncrement = 3;
+    private const int KotodamaGain = 1;
 
     public override PowerType Type => PowerType.Buff;
 
@@ -24,7 +25,11 @@ public sealed class MovableTypePrintingPower : PathCustomPowerModel
 
     public override bool IsInstanced => true;
 
-    protected override IEnumerable<DynamicVar> CanonicalVars => [new EnergyVar(EnergyIncrement)];
+    protected override IEnumerable<DynamicVar> CanonicalVars =>
+    [
+        new EnergyVar(EnergyIncrement),
+        new DynamicVar("KotodamaGain", KotodamaGain),
+    ];
 
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.ForEnergy(this)];
 
@@ -48,7 +53,7 @@ public sealed class MovableTypePrintingPower : PathCustomPowerModel
             return Task.CompletedTask;
         }
 
-        int gain = (int)Amount * triggers;
+        int gain = KotodamaGain * triggers;
         if (gain > 0)
         {
             KotodamaEnergy.Gain(Owner.Player, gain);

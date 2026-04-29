@@ -45,6 +45,6 @@ public sealed class PaperMaking : NatsumeKotodamaCardModel
 
     protected override void OnUpgrade()
     {
-        DynamicVars["KotodamaGain"].UpgradeValueBy(1m);
+        EnergyCost.UpgradeBy(-1);
     }
 }

@@ -594,7 +594,7 @@
   "MANOSABA-FLASH_OF_INSPIRATION.title": "번뜩임",
   "MANOSABA-FLASH_OF_INSPIRATION.description": "{KotodamaGain:kotodamaIcons()}을 얻습니다.",
   "MANOSABA-INSTIGATE.title": "선동",
-  "MANOSABA-INSTIGATE.description": "대상 플레이어가 자신의 [gold]뽑을 카드 더미[/gold] 맨 위 카드 1장을 자동으로 사용합니다.",
+  "MANOSABA-INSTIGATE.description": "대상 플레이어가 자신의 [gold]뽑을 카드 더미[/gold] 맨 위 카드 1장을 자동으로 사용합니다.{IfUpgraded:show:\n그 플레이어는 다음 턴에 카드를 {CardsNextTurn}장 추가로 뽑습니다.}",
   "MANOSABA-READING.title": "독서",
   "MANOSABA-READING.description": "{KotodamaGain:kotodamaIcons()}을 얻고 카드를 {Cards:diff()}장 뽑습니다.",
   "MANOSABA-ENDURANCE.title": "인내",
