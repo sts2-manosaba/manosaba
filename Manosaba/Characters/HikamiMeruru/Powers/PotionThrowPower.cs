@@ -1,5 +1,6 @@
 using Manosaba.Characters.HikamiMeruru.PotionCraft;
 using Manosaba.Extensions;
+using Manosaba.Patches;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Entities.Powers;
@@ -48,7 +49,10 @@ public sealed class PotionThrowPower : PathCustomPowerModel
                 return;
             }
 
-            await CreatureCmd.Damage(new ThrowingPlayerChoiceContext(), target, DynamicVars.Damage.BaseValue, ValueProp.Move, Owner);
+            using (EntomancerPersonalHiveFilter.BeginPotionThrowDamageScope())
+            {
+                await CreatureCmd.Damage(new ThrowingPlayerChoiceContext(), target, DynamicVars.Damage.BaseValue, ValueProp.Move, Owner);
+            }
         }
     }
 }
