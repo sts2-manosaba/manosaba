@@ -11,6 +11,7 @@ using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.Relics;
 using MegaCrit.Sts2.Core.Nodes.Vfx;
 using MegaCrit.Sts2.Core.Random;
+using MegaCrit.Sts2.Core.Rooms;
 
 namespace Manosaba.Characters.HoshoMago.Powers;
 
@@ -20,6 +21,11 @@ public sealed class TheFoolPower : PathCustomPowerModel
 
     public override PowerType Type => PowerType.Buff;
     public override PowerStackType StackType => PowerStackType.Single;
+
+    public override async Task AfterCombatEnd(CombatRoom room)
+    {
+        await PowerCmd.Remove(this);
+    }
 
     public override async Task BeforePlayPhaseStartLate(PlayerChoiceContext choiceContext, Player player)
     {
