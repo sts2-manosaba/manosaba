@@ -43,11 +43,12 @@ public sealed class MindExpansionPower : PathCustomPowerModel
     ];
 
     public override PowerType Type => PowerType.Buff;
-    public override PowerStackType StackType => PowerStackType.Single;
+    public override PowerStackType StackType => PowerStackType.Counter;
+    public override bool AllowNegative => false;
 
     public override async Task AfterPlayerTurnStart(PlayerChoiceContext choiceContext, Player player)
     {
-        if (player.Creature != Owner || Owner.Player is not { } ownerPlayer || Owner.CombatState == null)
+        if (player.Creature != Owner || Owner.Player is not { } ownerPlayer || Owner.CombatState == null || Amount <= 0m)
         {
             return;
         }
@@ -67,22 +68,25 @@ public sealed class MindExpansionPower : PathCustomPowerModel
             return;
         }
 
-        List<CardModel> options = CardHelperService
-            .GetAvailableCards(ownerPlayer, pool, Math.Min(cardsOfferedPerTurn, pool.Count), ownerPlayer.RunState.Rng.CombatCardGeneration)
-            .ToList();
-
-        if (options.Count == 0)
+        for (int i = 0; i < Amount; i++)
         {
-            return;
-        }
+            List<CardModel> options = CardHelperService
+                .GetAvailableCards(ownerPlayer, pool, Math.Min(cardsOfferedPerTurn, pool.Count), ownerPlayer.RunState.Rng.CombatCardGeneration)
+                .ToList();
 
-        CardModel? selected = await CardSelectCmd.FromChooseACardScreen(choiceContext, options, ownerPlayer);
-        if (selected == null)
-        {
-            return;
-        }
+            if (options.Count == 0)
+            {
+                return;
+            }
 
-        selected.AddKeyword(ManosabaKeywords.Shared);
-        await CardPileCmd.AddGeneratedCardToCombat(selected, PileType.Hand, addedByPlayer: true);
+            CardModel? selected = await CardSelectCmd.FromChooseACardScreen(choiceContext, options, ownerPlayer);
+            if (selected == null)
+            {
+                continue;
+            }
+
+            selected.AddKeyword(ManosabaKeywords.Shared);
+            await CardPileCmd.AddGeneratedCardToCombat(selected, PileType.Hand, addedByPlayer: true);
+        }
     }
 }
