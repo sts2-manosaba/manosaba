@@ -63,6 +63,7 @@ public sealed class MindShard : PathCustomCardModel
         IEnumerable<CardModel> cards = pools
             .SelectMany(cardPool => cardPool.GetUnlockedCards(Owner.UnlockState, Owner.RunState.CardMultiplayerConstraint))
             .Where(card => card.Type == CardType.Attack)
+            .Where(card => card.Rarity != CardRarity.Rare)
             .Where(card => !MiriaConstants.IsIgnoredCard(card));
 
         List<CardModel> options = CardFactory
