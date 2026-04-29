@@ -20,7 +20,7 @@ public sealed class FireTornado : ShitoAlisaCardModel
     protected override bool HasEnergyCostX => true;
 
     private const int energyCost = 0;
-    private const CardType type = CardType.Skill;
+    private const CardType type = CardType.Attack;
     private const CardRarity rarity = CardRarity.Uncommon;
     private const TargetType targetType = TargetType.AllEnemies;
     private const bool shouldShowInCardLibrary = true;
