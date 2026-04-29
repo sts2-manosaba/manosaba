@@ -131,6 +131,11 @@ namespace Manosaba.Characters.NikaidoHiro.Cards
 
         private static bool ShouldIgnoreThisPower(PowerModel power)
         {
+            if (power is TemporaryStrengthPower or ManosabaTemporaryStrengthPower)
+            {
+                return true;
+            }
+
             HashSet<Type> ignoredPowers = MiriaConstants.IgnoredPowers;
             return power != null && ignoredPowers.Contains(power.GetType());
         }

@@ -64,7 +64,7 @@ namespace manosaba.Characters.SaekiMiria.Relics
         public override Task AfterObtained()
         {
             ApplyRelicLevelEffects();
-            RemoveExchangeFromSinglePlayerStartingDeck();
+            AdjustStartingDeckForRunMode();
 
             return Task.CompletedTask;
         }
@@ -93,7 +93,7 @@ namespace manosaba.Characters.SaekiMiria.Relics
             List<CardModel> generatedCards = new(moviesToAdd);
             for (int i = 0; i < moviesToAdd; i++)
             {
-                generatedCards.Add(CreateRelicGeneratedCard(Owner, combatState, rng));
+                generatedCards.Add(CreateRelicGeneratedCard(Owner, combatState, rng, ShouldUpgradeMovieCards()));
             }
 
             if (RelicLevel >= 3 && rng.NextInt(100) < DynamicVars[CassetteChanceVar].IntValue)
@@ -158,7 +158,7 @@ namespace manosaba.Characters.SaekiMiria.Relics
             List<CardModel> generatedCards = new(moviesToAdd);
             for (int i = 0; i < moviesToAdd; i++)
             {
-                generatedCards.Add(CreateRelicGeneratedCard(Owner, combatState, rng));
+                generatedCards.Add(CreateRelicGeneratedCard(Owner, combatState, rng, ShouldUpgradeMovieCards()));
             }
 
             if (RelicLevel >= 3 && rng.NextInt(100) < DynamicVars[CassetteChanceVar].IntValue)
@@ -222,7 +222,12 @@ namespace manosaba.Characters.SaekiMiria.Relics
             return RelicLevel >= 3 ? 50 : 0;
         }
 
-        private static CardModel CreateRelicGeneratedCard(Player player, CombatState combatState, MegaCrit.Sts2.Core.Random.Rng rng)
+        private bool ShouldUpgradeMovieCards()
+        {
+            return RelicLevel >= 4;
+        }
+
+        private static CardModel CreateRelicGeneratedCard(Player player, CombatState combatState, MegaCrit.Sts2.Core.Random.Rng rng, bool upgradeMovies)
         {
             // Very small chance to generate the secret card Small Paper 
             if (rng.NextInt(SMALL_PAPER_CHANCE) == 0)
@@ -231,11 +236,18 @@ namespace manosaba.Characters.SaekiMiria.Relics
             }
 
             Func<Player, CombatState, MovieBase>? factory = rng.NextItem(MovieFactories);
-            return (factory ?? MovieFactories[0])(player, combatState);
+            MovieBase card = (factory ?? MovieFactories[0])(player, combatState);
+            if (upgradeMovies)
+            {
+                CardCmd.Upgrade(card);
+            }
+
+            return card;
         }
 
-        private static CardModel CreateRelicGeneratedCardCopyForPlayer(CardModel card, Player player, CombatState combatState) =>
-            card switch
+        private static CardModel CreateRelicGeneratedCardCopyForPlayer(CardModel card, Player player, CombatState combatState)
+        {
+            CardModel copy = card switch
             {
                 HorrorMovie => combatState.CreateCard<HorrorMovie>(player),
                 ComedyMovie => combatState.CreateCard<ComedyMovie>(player),
@@ -248,18 +260,43 @@ namespace manosaba.Characters.SaekiMiria.Relics
                 _ => throw new InvalidOperationException($"Unsupported Cabinet Key copy: {card.GetType().Name}")
             };
 
-        private void RemoveExchangeFromSinglePlayerStartingDeck()
+            if (card.IsUpgraded)
+            {
+                CardCmd.Upgrade(copy);
+            }
+
+            return copy;
+        }
+
+        private void AdjustStartingDeckForRunMode()
         {
-            if (Owner.RunState.Players.Count > 1 || Owner.Deck?.Cards == null)
+            if (Owner.Deck?.Cards == null)
                 return;
 
-            List<CardModel> exchangeCards = Owner.Deck.Cards
-                .Where(card => card is Exchange)
-                .ToList();
-
-            foreach (CardModel exchangeCard in exchangeCards)
+            if (Owner.RunState.Players.Count <= 1)
             {
-                Owner.Deck.RemoveInternal(exchangeCard);
+                foreach (CardModel exchangeCard in Owner.Deck.Cards.Where(card => card is Exchange).ToList())
+                {
+                    Owner.Deck.RemoveInternal(exchangeCard);
+                }
+
+                foreach (CardModel socialCard in Owner.Deck.Cards.Where(card => card is Social).ToList())
+                {
+                    Owner.Deck.RemoveInternal(socialCard);
+                }
+                return;
+            }
+
+            CardModel? defendCard = Owner.Deck.Cards.FirstOrDefault(card => card is DefendSaekiMiria);
+            if (defendCard != null)
+            {
+                Owner.Deck.RemoveInternal(defendCard);
+            }
+
+            CardModel? mindShardCard = Owner.Deck.Cards.FirstOrDefault(card => card is MindShard);
+            if (mindShardCard != null)
+            {
+                Owner.Deck.RemoveInternal(mindShardCard);
             }
         }
     }

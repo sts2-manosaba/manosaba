@@ -10,8 +10,13 @@ namespace Manosaba.Characters.SaekiMiria.Cards;
 public sealed class ComedyMovie : MovieBase
 {
     protected override IEnumerable<IHoverTip> MovieHoverTips => [base.EnergyHoverTip];
-    protected override IEnumerable<DynamicVar> MovieVars => [new EnergyVar(2)];
+    protected override IEnumerable<DynamicVar> MovieVars => [new EnergyVar(1)];
 
     protected override Task OnMovieEffect(PlayerChoiceContext choiceContext, CardPlay cardPlay) =>
         PlayerCmd.GainEnergy(DynamicVars.Energy.IntValue, Owner);
+
+    protected override void OnUpgrade()
+    {
+        DynamicVars.Energy.UpgradeValueBy(1m);
+    }
 }

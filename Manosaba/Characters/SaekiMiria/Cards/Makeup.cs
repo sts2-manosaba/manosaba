@@ -1,5 +1,6 @@
 using BaseLib.Utils;
 using manosaba.Characters.SaekiMiria;
+using Manosaba.Characters.Common.Powers;
 using Manosaba.Extensions;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
@@ -11,27 +12,29 @@ using MegaCrit.Sts2.Core.Models.Powers;
 namespace Manosaba.Characters.SaekiMiria.Cards;
 
 [Pool(typeof(SaekiMiriaCardPool))]
-public sealed class PepperRamen : PathCustomCardModel
+public sealed class Makeup : PathCustomCardModel
 {
+    private const string platingPowerVar = "PlatingPower";
+    private const string unluckyPowerVar = "UnluckyPower";
     private const int energyCost = 1;
-    private const CardType type = CardType.Skill;
+    private const CardType type = CardType.Power;
     private const CardRarity rarity = CardRarity.Uncommon;
     private const TargetType targetType = TargetType.Self;
     private const bool shouldShowInCardLibrary = true;
 
     protected override IEnumerable<IHoverTip> ExtraHoverTips =>
     [
-        HoverTipFactory.FromPower<RegenPower>(),
-        HoverTipFactory.FromPower<PoisonPower>(),
+        HoverTipFactory.FromPower<PlatingPower>(),
+        HoverTipFactory.FromPower<UnluckyPower>(),
     ];
 
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
-        new PowerVar<RegenPower>(4m),
-        new PowerVar<PoisonPower>(2m),
+        new PowerVar<PlatingPower>(7m),
+        new PowerVar<UnluckyPower>(2m),
     ];
 
-    public PepperRamen()
+    public Makeup()
         : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)
     {
     }
@@ -41,13 +44,13 @@ public sealed class PepperRamen : PathCustomCardModel
         _ = choiceContext;
         _ = cardPlay;
 
-        await PowerCmd.Apply<RegenPower>(Owner.Creature, DynamicVars["RegenPower"].BaseValue, Owner.Creature, this);
-        await PowerCmd.Apply<PoisonPower>(Owner.Creature, DynamicVars.Poison.BaseValue, Owner.Creature, this);
+        await PowerCmd.Apply<PlatingPower>(Owner.Creature, DynamicVars[platingPowerVar].BaseValue, Owner.Creature, this);
+        await PowerCmd.Apply<UnluckyPower>(Owner.Creature, DynamicVars[unluckyPowerVar].BaseValue, Owner.Creature, this);
     }
 
     protected override void OnUpgrade()
     {
-        DynamicVars["RegenPower"].UpgradeValueBy(2m);
-        DynamicVars["PoisonPower"].UpgradeValueBy(2m);
+        DynamicVars[platingPowerVar].UpgradeValueBy(3m);
+        DynamicVars[unluckyPowerVar].UpgradeValueBy(1m);
     }
 }

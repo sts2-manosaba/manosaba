@@ -27,7 +27,7 @@ public sealed class PrisonMeal : PathCustomCardModel
 
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
-        new PowerVar<RegenPower>(3m),
+        new PowerVar<RegenPower>(4m),
         new PowerVar<PoisonPower>(3m),
     ];
 

@@ -83,8 +83,13 @@ namespace Manosaba.Characters.SaekiMiria.Helper
                 typeof(VulnerablePower),
                 typeof(WeakPower),
                 typeof(PoisonPower),
+                typeof(BurnPower),
                 typeof(DoomPower),
                 typeof(DemisePower),
+                typeof(DisintegrationPower),
+                typeof(ConstrictPower),
+                typeof(MagicBombPower),
+                typeof(UnluckyPower),
                 typeof(ShrinkPower)
             };
 

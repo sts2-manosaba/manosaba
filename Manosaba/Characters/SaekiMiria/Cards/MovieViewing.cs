@@ -40,7 +40,7 @@ public class MovieViewing : PathCustomCardModel
         HoverTipFactory.FromCard<SpyMovie>(),
     ];
 
-    protected override IEnumerable<DynamicVar> CanonicalVars => [new CardsVar(1)];
+    protected override IEnumerable<DynamicVar> CanonicalVars => [new CardsVar(2)];
     public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
 
     public MovieViewing()

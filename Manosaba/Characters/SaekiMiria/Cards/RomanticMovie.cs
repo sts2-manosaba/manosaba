@@ -16,4 +16,9 @@ public sealed class RomanticMovie : MovieBase
 
     protected override Task OnMovieEffect(PlayerChoiceContext choiceContext, CardPlay cardPlay) =>
         PowerCmd.Apply<RegenPower>(Owner.Creature, DynamicVars["RegenPower"].BaseValue, Owner.Creature, this);
+
+    protected override void OnUpgrade()
+    {
+        DynamicVars["RegenPower"].UpgradeValueBy(1m);
+    }
 }

@@ -31,6 +31,11 @@ public class BurnPower : PathCustomPowerModel
             return 1m;
         }
 
+        if (base.Owner.IsPlayer)
+        {
+            return 1m;
+        }
+
         if (props.HasFlag(ValueProp.Unpowered))
         {
             return 1m;

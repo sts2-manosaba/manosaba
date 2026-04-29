@@ -17,14 +17,15 @@ namespace Manosaba.Characters.SaekiMiria.Cards;
 [Pool(typeof(SaekiMiriaCardPool))]
 public sealed class LuckTransfer : PathCustomCardModel
 {
+    private const string multiplierVar = "Multiplier";
+    private const decimal debuffMultiplier = 2m;
     private const int energyCost = 1;
     private const CardType type = CardType.Skill;
     private const CardRarity rarity = CardRarity.Uncommon;
-    private const TargetType targetType = TargetType.Self;
+    private const TargetType targetType = TargetType.AnyEnemy;
     private const bool shouldShowInCardLibrary = true;
-    private const decimal debuffMultiplier = 3m;
 
-    protected override IEnumerable<DynamicVar> CanonicalVars => [new DynamicVar("Multiplier", debuffMultiplier)];
+    protected override IEnumerable<DynamicVar> CanonicalVars => [new DynamicVar(multiplierVar, debuffMultiplier)];
 
     public LuckTransfer()
         : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)
@@ -33,9 +34,7 @@ public sealed class LuckTransfer : PathCustomCardModel
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        _ = cardPlay;
-
-        if (Owner?.Creature is not { } ownerCreature || CombatState is not { } combatState)
+        if (Owner?.Creature is not { } ownerCreature || cardPlay.Target is not { } target)
         {
             return;
         }
@@ -51,28 +50,25 @@ public sealed class LuckTransfer : PathCustomCardModel
             return;
         }
 
-        foreach (Creature enemy in combatState.HittableEnemies)
+        foreach (PowerModel item in originalDebuffs)
         {
-            foreach (PowerModel item in originalDebuffs)
+            decimal scaledAmount = item.Amount * debuffMultiplier;
+            if (scaledAmount <= 0m)
             {
-                decimal scaledAmount = item.Amount * DynamicVars["Multiplier"].BaseValue;
-                if (scaledAmount <= 0m)
-                {
-                    continue;
-                }
+                continue;
+            }
 
-                PowerModel? powerById = enemy.GetPowerById(item.Id);
-                if (powerById != null && !powerById.IsInstanced)
-                {
-                    DoHackyThingsForSpecificPowers(powerById);
-                    await PowerCmd.ModifyAmount(powerById, scaledAmount, ownerCreature, this);
-                }
-                else
-                {
-                    PowerModel power = (PowerModel)item.ClonePreservingMutability();
-                    DoHackyThingsForSpecificPowers(power);
-                    await PowerCmd.Apply(power, enemy, scaledAmount, ownerCreature, this);
-                }
+            PowerModel? powerById = target.GetPowerById(item.Id);
+            if (powerById != null && !powerById.IsInstanced)
+            {
+                DoHackyThingsForSpecificPowers(powerById);
+                await PowerCmd.ModifyAmount(powerById, scaledAmount, ownerCreature, this);
+            }
+            else
+            {
+                PowerModel power = (PowerModel)item.ClonePreservingMutability();
+                DoHackyThingsForSpecificPowers(power);
+                await PowerCmd.Apply(power, target, scaledAmount, ownerCreature, this);
             }
         }
     }
@@ -91,6 +87,6 @@ public sealed class LuckTransfer : PathCustomCardModel
 
     protected override void OnUpgrade()
     {
-        DynamicVars["Multiplier"].UpgradeValueBy(2m);
+        EnergyCost.UpgradeBy(-1);
     }
 }

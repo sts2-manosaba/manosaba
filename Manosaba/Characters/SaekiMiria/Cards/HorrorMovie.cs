@@ -11,8 +11,13 @@ namespace Manosaba.Characters.SaekiMiria.Cards;
 public sealed class HorrorMovie : MovieBase
 {
     protected override IEnumerable<IHoverTip> MovieHoverTips => [HoverTipFactory.FromPower<MajokaPower>()];
-    protected override IEnumerable<DynamicVar> MovieVars => [new PowerVar<MajokaPower>(20m)];
+    protected override IEnumerable<DynamicVar> MovieVars => [new PowerVar<MajokaPower>(10m)];
 
     protected override Task OnMovieEffect(PlayerChoiceContext choiceContext, CardPlay cardPlay) =>
         PowerCmd.Apply<MajokaPower>(Owner.Creature, DynamicVars["MajokaPower"].BaseValue, Owner.Creature, this);
+
+    protected override void OnUpgrade()
+    {
+        DynamicVars["MajokaPower"].UpgradeValueBy(5m);
+    }
 }

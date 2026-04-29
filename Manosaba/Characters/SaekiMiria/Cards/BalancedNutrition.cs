@@ -11,27 +11,29 @@ using MegaCrit.Sts2.Core.Models.Powers;
 namespace Manosaba.Characters.SaekiMiria.Cards;
 
 [Pool(typeof(SaekiMiriaCardPool))]
-public sealed class PepperRamen : PathCustomCardModel
+public sealed class BalancedNutrition : PathCustomCardModel
 {
-    private const int energyCost = 1;
-    private const CardType type = CardType.Skill;
-    private const CardRarity rarity = CardRarity.Uncommon;
+    private const int energyCost = 0;
+    private const CardType type = CardType.Power;
+    private const CardRarity rarity = CardRarity.Rare;
     private const TargetType targetType = TargetType.Self;
     private const bool shouldShowInCardLibrary = true;
 
     protected override IEnumerable<IHoverTip> ExtraHoverTips =>
     [
-        HoverTipFactory.FromPower<RegenPower>(),
+        HoverTipFactory.FromPower<StrengthPower>(),
+        HoverTipFactory.FromPower<DexterityPower>(),
         HoverTipFactory.FromPower<PoisonPower>(),
     ];
 
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
-        new PowerVar<RegenPower>(4m),
-        new PowerVar<PoisonPower>(2m),
+        new PowerVar<StrengthPower>(3m),
+        new PowerVar<DexterityPower>(3m),
+        new PowerVar<PoisonPower>(3m),
     ];
 
-    public PepperRamen()
+    public BalancedNutrition()
         : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)
     {
     }
@@ -41,13 +43,15 @@ public sealed class PepperRamen : PathCustomCardModel
         _ = choiceContext;
         _ = cardPlay;
 
-        await PowerCmd.Apply<RegenPower>(Owner.Creature, DynamicVars["RegenPower"].BaseValue, Owner.Creature, this);
+        await PowerCmd.Apply<StrengthPower>(Owner.Creature, DynamicVars.Strength.BaseValue, Owner.Creature, this);
+        await PowerCmd.Apply<DexterityPower>(Owner.Creature, DynamicVars.Dexterity.BaseValue, Owner.Creature, this);
         await PowerCmd.Apply<PoisonPower>(Owner.Creature, DynamicVars.Poison.BaseValue, Owner.Creature, this);
     }
 
     protected override void OnUpgrade()
     {
-        DynamicVars["RegenPower"].UpgradeValueBy(2m);
-        DynamicVars["PoisonPower"].UpgradeValueBy(2m);
+        DynamicVars.Strength.UpgradeValueBy(3m);
+        DynamicVars.Dexterity.UpgradeValueBy(3m);
+        DynamicVars.Poison.UpgradeValueBy(3m);
     }
 }

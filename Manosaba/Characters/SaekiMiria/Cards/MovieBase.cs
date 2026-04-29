@@ -46,5 +46,9 @@ public abstract class MovieBase : PathCustomCardModel
         await OnMovieEffect(choiceContext, cardPlay);
     }
 
+    protected override void OnUpgrade()
+    {
+    }
+
     protected abstract Task OnMovieEffect(PlayerChoiceContext choiceContext, CardPlay cardPlay);
 }

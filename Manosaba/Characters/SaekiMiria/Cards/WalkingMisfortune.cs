@@ -29,7 +29,7 @@ public sealed class WalkingMisfortune : PathCustomCardModel
 
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
-        new PowerVar<UnluckyPower>(5m),
+        new PowerVar<UnluckyPower>(3m),
         new PowerVar<WalkingMisfortunePower>(1m),
     ];
 
@@ -49,6 +49,6 @@ public sealed class WalkingMisfortune : PathCustomCardModel
 
     protected override void OnUpgrade()
     {
-        DynamicVars["UnluckyPower"].UpgradeValueBy(-2m);
+        DynamicVars["UnluckyPower"].UpgradeValueBy(-1m);
     }
 }
