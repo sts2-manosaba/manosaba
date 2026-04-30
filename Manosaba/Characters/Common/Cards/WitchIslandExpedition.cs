@@ -18,7 +18,7 @@ public sealed class WitchIslandExpedition : PathCustomCardModel
     protected override IEnumerable<DynamicVar> CanonicalVars => [new PowerVar<WitchIslandExpeditionPower>(1m)];
     public override IEnumerable<CardKeyword> CanonicalKeywords => [ManosabaKeywords.Beta, ManosabaKeywords.Unique];
 
-    public WitchIslandExpedition() : base(3, CardType.Power, CardRarity.Rare, TargetType.Self, true)
+    public WitchIslandExpedition() : base(0, CardType.Power, CardRarity.Rare, TargetType.Self, true)
     {
     }
 

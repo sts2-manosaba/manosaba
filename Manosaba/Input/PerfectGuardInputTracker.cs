@@ -16,8 +16,8 @@ public sealed partial class PerfectGuardInputTracker : Node
     private const double DefaultInputCooldownSeconds = 1.0d;
 
     private static PerfectGuardInputTracker? _instance;
-    private static double _lastSpacePressedAtSeconds = double.NegativeInfinity;
-    private static double _nextSpaceInputAllowedAtSeconds = double.NegativeInfinity;
+    private static double _lastGuardInputPressedAtSeconds = double.NegativeInfinity;
+    private static double _nextGuardInputAllowedAtSeconds = double.NegativeInfinity;
     private static double _lastGuardWindowOpenedAtSeconds = double.NegativeInfinity;
     private static double _lastGuardWindowClosedAtSeconds = double.NegativeInfinity;
     private static uint _activePromptId;
@@ -96,7 +96,7 @@ public sealed partial class PerfectGuardInputTracker : Node
         MarkAutoGuardTarget(targetPlayerId);
         if (LocalContext.NetId == token.PlayerId)
         {
-            _nextSpaceInputAllowedAtSeconds = now;
+            _nextGuardInputAllowedAtSeconds = now;
         }
 
         _parryTokens.Remove(token);
@@ -197,28 +197,33 @@ public sealed partial class PerfectGuardInputTracker : Node
 
     public override void _Input(InputEvent inputEvent)
     {
-        if (inputEvent is not InputEventKey { Pressed: true, Echo: false } keyEvent)
-        {
-            return;
-        }
-
-        if (keyEvent.Keycode != Key.Space && keyEvent.PhysicalKeycode != Key.Space)
+        if (!IsGuardInput(inputEvent))
         {
             return;
         }
 
         double now = NowSeconds();
-        if (now < _nextSpaceInputAllowedAtSeconds)
+        if (now < _nextGuardInputAllowedAtSeconds)
         {
             return;
         }
 
-        _lastSpacePressedAtSeconds = now;
-        _nextSpaceInputAllowedAtSeconds = now + DefaultInputCooldownSeconds;
+        _lastGuardInputPressedAtSeconds = now;
+        _nextGuardInputAllowedAtSeconds = now + DefaultInputCooldownSeconds;
         if (TryRecordLocalParryPress(now))
         {
             SendLocalParryMessage(now);
         }
+    }
+
+    private static bool IsGuardInput(InputEvent inputEvent)
+    {
+        if (inputEvent is InputEventKey { Pressed: true, Echo: false } keyEvent)
+        {
+            return keyEvent.Keycode == Key.Space || keyEvent.PhysicalKeycode == Key.Space;
+        }
+
+        return inputEvent is InputEventMouseButton { Pressed: true, ButtonIndex: MouseButton.Left };
     }
 
     private static bool TryRecordLocalParryPress(double now)
