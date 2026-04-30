@@ -16,7 +16,6 @@ public sealed class Social : PathCustomCardModel
     private const string bonusBlockVar = "BonusBlock";
     public override CardMultiplayerConstraint MultiplayerConstraint => CardMultiplayerConstraint.MultiplayerOnly;
     public override bool GainsBlock => true;
-    protected override HashSet<CardTag> CanonicalTags => [CardTag.Defend];
 
     private const int energyCost = 1;
     private const CardType type = CardType.Skill;
@@ -24,7 +23,7 @@ public sealed class Social : PathCustomCardModel
     private const TargetType targetType = TargetType.AnyAlly;
     private const bool shouldShowInCardLibrary = true;
 
-    protected override IEnumerable<DynamicVar> CanonicalVars => [new BlockVar(5m, ValueProp.Move), new DynamicVar(bonusBlockVar, 3m)];
+    protected override IEnumerable<DynamicVar> CanonicalVars => [new BlockVar(4m, ValueProp.Move), new DynamicVar(bonusBlockVar, 3m)];
 
     public Social()
         : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)

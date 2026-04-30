@@ -21,7 +21,12 @@ namespace Manosaba.Characters.SaekiMiria.Powers
 
         public override Task AfterPowerAmountChanged(PowerModel power, decimal amount, Creature? applier, CardModel? cardSource)
         {
-            if(power is VotePower && amount > 0)
+            if(power.Target != base.Owner)
+            {
+                return Task.CompletedTask;
+            }
+
+            if (power is VotePower && amount > 0)
             {
                 return CreatureCmd.GainBlock(base.Owner, new BlockVar(base.Amount * amount, ValueProp.Unpowered), null);
             }
