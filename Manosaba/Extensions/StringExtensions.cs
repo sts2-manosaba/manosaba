@@ -59,6 +59,11 @@ public static class StringExtensions
         return Path.Join(Entry.ModId, "scenes", "creature_visuals", path);
     }
 
+    public static string EnemyScenePath(this string path)
+    {
+        return Path.Join(Entry.ModId, "scenes", "enemy", path);
+    }
+
     public static string PotionImagePath(this string path)
     {
         return Path.Join(Entry.ModId, "images", "potions", path);

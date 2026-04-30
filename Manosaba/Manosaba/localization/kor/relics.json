@@ -47,5 +47,11 @@
   "MANOSABA-LEG_IRONS.title": "족쇄",
   "MANOSABA-LEG_IRONS.description": "전투 시작 시 이 유물 레벨만큼 [gold]화염 구체[/gold]를 얻습니다.\nLv2: [gold]화염 구체[/gold]를 1 얻을 때마다 [gold]마녀화[/gold]를 [blue]5[/blue] 얻습니다.\nLv4: 턴 종료 시 현재 [gold]화염 구체[/gold] 수만큼 HP를 회복합니다.",
   "MANOSABA-LEG_IRONS.flavor": "왜지? 왜 아무도 나를 비난하지 않는 거야?",
-  "MANOSABA-LEG_IRONS.selectionScreenPrompt": "[gold]연소[/gold]가 있는 손의 카드를 고릅니다."
+  "MANOSABA-LEG_IRONS.selectionScreenPrompt": "[gold]연소[/gold]가 있는 손의 카드를 고릅니다.",
+  "MANOSABA-RITUAL_SWORD.title": "의식의 검",
+  "MANOSABA-RITUAL_SWORD.description": "적 유닛을 [blue]{Enemies}[/blue]명 처치하면 [gold]피에 젖은 의식의 검[/gold]으로 변화합니다.",
+  "MANOSABA-RITUAL_SWORD.flavor": "화려하게 장식된 검. 금고에 보관되어 있었다.",
+  "MANOSABA-RITUAL_SWORD_BLOODIED.title": "피에 젖은 의식의 검",
+  "MANOSABA-RITUAL_SWORD_BLOODIED.description": "다음 전투 시작 시 [gold]마녀화[/gold]를 100 얻습니다. 1회만 발동합니다.",
+  "MANOSABA-RITUAL_SWORD_BLOODIED.flavor": "화려하게 장식된 검. 이제 피에 젖어 있다."
 }

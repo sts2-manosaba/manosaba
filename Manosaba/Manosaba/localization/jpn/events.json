@@ -1,0 +1,11 @@
+{
+  "MANOSABA-BASEMENT_EXPLORATION_EVENT.title": "地下室の探索",
+  "MANOSABA-BASEMENT_EXPLORATION_EVENT.pages.INITIAL.description": "金庫を開け、中にしまわれていた剣を取り出す。\nエマたちを救うために欠かせない品だ。\n刃を手に独房へ戻ろうとしたその時、一人の看守が前に立ちはばった。",
+  "MANOSABA-BASEMENT_EXPLORATION_EVENT.pages.INITIAL.options.ESCAPE.title": "剣を置いて逃げる",
+  "MANOSABA-BASEMENT_EXPLORATION_EVENT.pages.INITIAL.options.ESCAPE.description": "[red]5[/red] のHPを失う。デッキからカードを1枚取り除く。",
+  "MANOSABA-BASEMENT_EXPLORATION_EVENT.pages.INITIAL.options.FIGHT.title": "戦う",
+  "MANOSABA-BASEMENT_EXPLORATION_EVENT.pages.INITIAL.options.FIGHT.description": "5ターン以内に看守を倒して剣を手に入れる。",
+  "MANOSABA-BASEMENT_EXPLORATION_EVENT.pages.ESCAPE.description": "あなたは慌てて退き、血の代償を払い、剣を置き去りにした。",
+  "MANOSABA-BASEMENT_EXPLORATION_EVENT.pages.VICTORY.description": "期限内に看守を倒し、金庫から[gold]儀式の剣[/gold]を手に入れた。",
+  "MANOSABA-BASEMENT_EXPLORATION_EVENT.pages.FAIL.description": "五ターンが過ぎ、あなたは体力の限界に達し、剣を残して逃げた。何も得られなかった。"
+}

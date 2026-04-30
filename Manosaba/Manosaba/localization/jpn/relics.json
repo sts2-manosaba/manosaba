@@ -47,5 +47,11 @@
   "MANOSABA-LEG_IRONS.title": "脚鐐",
   "MANOSABA-LEG_IRONS.description": "戦闘開始時、この遺物のレベルと同じ層数の[gold]ファイアボール[/gold]を得る。\nLv2： [gold]ファイアボール[/gold]を1層得るたび、[gold]魔女化[/gold]を[blue]5[/blue]層得る。\nLv4：ターン終了時、現在の[gold]ファイアボール[/gold]層数に等しいHPを回復する。",
   "MANOSABA-LEG_IRONS.flavor": "なぜ？どうして誰も私を責めないの？",
-  "MANOSABA-LEG_IRONS.selectionScreenPrompt": "[gold]燃焼[/gold]を持つ手札のカードを選ぶ。"
+  "MANOSABA-LEG_IRONS.selectionScreenPrompt": "[gold]燃焼[/gold]を持つ手札のカードを選ぶ。",
+  "MANOSABA-RITUAL_SWORD.title": "儀式の剣",
+  "MANOSABA-RITUAL_SWORD.description": "敵ユニットを[blue]{Enemies}[/blue]体倒すと、[gold]血に染まった儀式の剣[/gold]に変化する。",
+  "MANOSABA-RITUAL_SWORD.flavor": "装飾の施された美しい剣。金庫に保管されていた。",
+  "MANOSABA-RITUAL_SWORD_BLOODIED.title": "血に染まった儀式の剣",
+  "MANOSABA-RITUAL_SWORD_BLOODIED.description": "次の戦闘開始時、[gold]魔女化[/gold]を100得る。1回のみ発動。",
+  "MANOSABA-RITUAL_SWORD_BLOODIED.flavor": "装飾の施された美しい剣。今は血に濡れている。"
 }

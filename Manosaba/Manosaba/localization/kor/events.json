@@ -1,0 +1,11 @@
+{
+  "MANOSABA-BASEMENT_EXPLORATION_EVENT.title": "지하실 탐색",
+  "MANOSABA-BASEMENT_EXPLORATION_EVENT.pages.INITIAL.description": "금고를 열고 안에 보관되어 있던 검을 꺼낸다.\n에마 일행을 구원하기 위해 반드시 필요한 물건이다.\n날카로운 검을 들고 감방으로 돌아가려는 순간, 한 감시자가 앞을 가로막는다.",
+  "MANOSABA-BASEMENT_EXPLORATION_EVENT.pages.INITIAL.options.ESCAPE.title": "검을 내려놓고 도망친다",
+  "MANOSABA-BASEMENT_EXPLORATION_EVENT.pages.INITIAL.options.ESCAPE.description": "[red]5[/red]의 체력을 잃는다. 덱에서 카드 1장을 제거한다.",
+  "MANOSABA-BASEMENT_EXPLORATION_EVENT.pages.INITIAL.options.FIGHT.title": "전투",
+  "MANOSABA-BASEMENT_EXPLORATION_EVENT.pages.INITIAL.options.FIGHT.description": "5턴 안에 감시자를 쓰러뜨리고 검을 손에 넣는다.",
+  "MANOSABA-BASEMENT_EXPLORATION_EVENT.pages.ESCAPE.description": "서둘러 도망치며 피를 흘리는 대가를 치렀고, 검은 뒤에 남겨 두었다.",
+  "MANOSABA-BASEMENT_EXPLORATION_EVENT.pages.VICTORY.description": "제한 시간 안에 감시자를 쓰러뜨리고 금고에서 [gold]의식검[/gold]을 가져왔다.",
+  "MANOSABA-BASEMENT_EXPLORATION_EVENT.pages.FAIL.description": "다섯 턴이 지나 너는 지쳐 검을 남겨 둔 채 도망쳤다. 아무것도 얻지 못했다."
+}
