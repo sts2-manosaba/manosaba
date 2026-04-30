@@ -9,6 +9,9 @@ public sealed partial class MinesweeperPopup : Control, IScreenContext
 {
     private const int BoardSize = 9;
     private const int MineCount = 10;
+    private const string DefaultStatusText = "左鍵翻開，右鍵插旗。";
+    private const string LostStatusText = "踩到地雷。";
+    private const string WonStatusText = "清除完成。";
 
     private static readonly Color[] NumberColors =
     [
@@ -23,6 +26,18 @@ public sealed partial class MinesweeperPopup : Control, IScreenContext
         new Color("B8B8B8"),
     ];
 
+    private sealed record SavedGameState(
+        bool[,] Mines,
+        bool[,] Revealed,
+        bool[,] Flagged,
+        bool MinesPlaced,
+        bool GameOver,
+        int RevealedCount,
+        string StatusText,
+        Color StatusColor);
+
+    private static SavedGameState? SavedState;
+
     private readonly bool[,] _mines = new bool[BoardSize, BoardSize];
     private readonly bool[,] _revealed = new bool[BoardSize, BoardSize];
     private readonly bool[,] _flagged = new bool[BoardSize, BoardSize];
@@ -34,6 +49,8 @@ public sealed partial class MinesweeperPopup : Control, IScreenContext
     private bool _minesPlaced;
     private bool _gameOver;
     private int _revealedCount;
+    private string _statusText = DefaultStatusText;
+    private Color _statusColor = StsColors.cream;
 
     public Control? DefaultFocusedControl => _resetButton;
 
@@ -47,7 +64,19 @@ public sealed partial class MinesweeperPopup : Control, IScreenContext
         OffsetBottom = 0f;
 
         AddChild(BuildPanel());
-        ResetGame();
+        if (SavedState != null)
+        {
+            RestoreGameState(SavedState);
+        }
+        else
+        {
+            ResetGame();
+        }
+    }
+
+    public override void _ExitTree()
+    {
+        SaveGameState();
     }
 
     private Control BuildPanel()
@@ -160,11 +189,18 @@ public sealed partial class MinesweeperPopup : Control, IScreenContext
         _minesPlaced = false;
         _gameOver = false;
         _revealedCount = 0;
+        SetStatus(DefaultStatusText, StsColors.cream);
 
+        RenderBoard();
+        SaveGameState();
+    }
+
+    private void RenderBoard()
+    {
         if (_statusLabel != null)
         {
-            _statusLabel.Text = "左鍵翻開，右鍵插旗。";
-            _statusLabel.AddThemeColorOverride("font_color", StsColors.cream);
+            _statusLabel.Text = _statusText;
+            _statusLabel.AddThemeColorOverride("font_color", _statusColor);
         }
 
         for (int r = 0; r < BoardSize; r++)
@@ -180,6 +216,46 @@ public sealed partial class MinesweeperPopup : Control, IScreenContext
                 cell.Text = "";
                 cell.Disabled = false;
                 ApplyHiddenStyle(cell);
+
+                if (_revealed[r, c])
+                {
+                    int adjacent = CountAdjacentMines(r, c);
+                    cell.Disabled = true;
+                    cell.Text = adjacent == 0 ? "" : adjacent.ToString();
+                    ApplyRevealedStyle(cell, adjacent);
+                    continue;
+                }
+
+                if (_gameOver)
+                {
+                    cell.Disabled = true;
+                    if (_mines[r, c])
+                    {
+                        cell.Text = _statusText == WonStatusText ? "F" : "*";
+                        if (_statusText == WonStatusText)
+                        {
+                            ApplyFlaggedWinStyle(cell);
+                        }
+                        else
+                        {
+                            ApplyMineStyle(cell);
+                        }
+                    }
+                    else if (_flagged[r, c])
+                    {
+                        cell.Text = "X";
+                        ApplyWrongFlagStyle(cell);
+                    }
+
+                    continue;
+                }
+
+                if (_flagged[r, c])
+                {
+                    cell.Text = "F";
+                    cell.AddThemeColorOverride("font_color", StsColors.gold);
+                    cell.AddThemeColorOverride("font_disabled_color", StsColors.gold);
+                }
             }
         }
 
@@ -202,7 +278,8 @@ public sealed partial class MinesweeperPopup : Control, IScreenContext
         {
             _gameOver = true;
             RevealAllMines();
-            SetStatus("踩到地雷。", StsColors.red);
+            SetStatus(LostStatusText, StsColors.red);
+            SaveGameState();
             return;
         }
 
@@ -211,8 +288,10 @@ public sealed partial class MinesweeperPopup : Control, IScreenContext
         {
             _gameOver = true;
             FlagAllMines();
-            SetStatus("清除完成。", StsColors.gold);
+            SetStatus(WonStatusText, StsColors.gold);
         }
+
+        SaveGameState();
     }
 
     private void OnCellRightClicked(MinesweeperCellButton cell)
@@ -229,6 +308,7 @@ public sealed partial class MinesweeperPopup : Control, IScreenContext
         cell.AddThemeColorOverride("font_color", _flagged[row, column] ? StsColors.gold : StsColors.cream);
         cell.AddThemeColorOverride("font_disabled_color", _flagged[row, column] ? StsColors.gold : StsColors.cream);
         RefreshMineLabel();
+        SaveGameState();
     }
 
     private void PlaceMines(int safeRow, int safeColumn)
@@ -376,6 +456,9 @@ public sealed partial class MinesweeperPopup : Control, IScreenContext
 
     private void SetStatus(string text, Color color)
     {
+        _statusText = text;
+        _statusColor = color;
+
         if (_statusLabel == null)
         {
             return;
@@ -383,6 +466,32 @@ public sealed partial class MinesweeperPopup : Control, IScreenContext
 
         _statusLabel.Text = text;
         _statusLabel.AddThemeColorOverride("font_color", color);
+    }
+
+    private void SaveGameState()
+    {
+        SavedState = new SavedGameState(
+            (bool[,])_mines.Clone(),
+            (bool[,])_revealed.Clone(),
+            (bool[,])_flagged.Clone(),
+            _minesPlaced,
+            _gameOver,
+            _revealedCount,
+            _statusText,
+            _statusColor);
+    }
+
+    private void RestoreGameState(SavedGameState state)
+    {
+        Array.Copy(state.Mines, _mines, _mines.Length);
+        Array.Copy(state.Revealed, _revealed, _revealed.Length);
+        Array.Copy(state.Flagged, _flagged, _flagged.Length);
+        _minesPlaced = state.MinesPlaced;
+        _gameOver = state.GameOver;
+        _revealedCount = state.RevealedCount;
+        _statusText = state.StatusText;
+        _statusColor = state.StatusColor;
+        RenderBoard();
     }
 
     private void Close()
