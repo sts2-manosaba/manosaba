@@ -56,7 +56,7 @@ namespace Manosaba.Characters.TachibanaSherry.Powers
                 if (combatState == null)
                     return;
 
-                IEnumerable<Creature> enemies = combatState.GetOpponentsOf(Owner);
+                List<Creature> enemies = combatState.GetOpponentsOf(Owner).ToList();
                 foreach (Creature enemy in enemies)
                 {
                     if (!enemy.IsAlive)

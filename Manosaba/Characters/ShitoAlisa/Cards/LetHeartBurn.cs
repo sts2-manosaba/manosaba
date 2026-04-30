@@ -53,7 +53,7 @@ public sealed class LetHeartBurn : ShitoAlisaCardModel
 
         if (hpLoss > 0)
         {
-            foreach (Creature enemy in combatState.GetOpponentsOf(ownerCreature).Where(e => e.IsAlive && e.IsHittable && e.CanReceivePowers))
+            foreach (Creature enemy in combatState.GetOpponentsOf(ownerCreature).Where(e => e.IsAlive && e.IsHittable && e.CanReceivePowers).ToList())
             {
                 await PowerCmd.Apply<BurnPower>(enemy, hpLoss, ownerCreature, this);
             }

@@ -38,7 +38,7 @@ public class Flaming : ShitoAlisaCardModel
             return;
 
         decimal stacks = DynamicVars["BurnPower"].BaseValue;
-        foreach (Creature e in CombatState.GetOpponentsOf(Owner.Creature).Where(e => e.IsAlive && e.IsHittable))
+        foreach (Creature e in CombatState.GetOpponentsOf(Owner.Creature).Where(e => e.IsAlive && e.IsHittable).ToList())
             await PowerCmd.Apply<BurnPower>(e, stacks, Owner.Creature, this);
         await PowerCmd.Apply<FireballSwarmPower>(Owner.Creature, 1m, Owner.Creature, this);
     }

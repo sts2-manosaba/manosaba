@@ -1,3 +1,4 @@
+using System.Linq;
 using Manosaba.Characters.Common.Powers;
 using Manosaba.Extensions;
 using MegaCrit.Sts2.Core.Commands;
@@ -22,7 +23,7 @@ public sealed class ScorchingPower : PathCustomPowerModel
             return;
 
         decimal stacks = Amount;
-        foreach (Creature e in CombatState.GetOpponentsOf(Owner))
+        foreach (Creature e in CombatState.GetOpponentsOf(Owner).ToList())
         {
             if (e.IsAlive && e.IsHittable)
                 await PowerCmd.Apply<BurnPower>(e, stacks, Owner, null);

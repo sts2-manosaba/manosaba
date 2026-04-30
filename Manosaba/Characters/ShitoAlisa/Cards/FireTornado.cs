@@ -52,7 +52,7 @@ public sealed class FireTornado : ShitoAlisaCardModel
             .Execute(choiceContext);
 
         decimal burnPerEnemy = x;
-        foreach (Creature enemy in combatState.GetOpponentsOf(Owner.Creature).Where(e => e.IsAlive && e.IsHittable && e.CanReceivePowers))
+        foreach (Creature enemy in combatState.GetOpponentsOf(Owner.Creature).Where(e => e.IsAlive && e.IsHittable && e.CanReceivePowers).ToList())
             await PowerCmd.Apply<BurnPower>(enemy, burnPerEnemy, Owner.Creature, this);
     }
 

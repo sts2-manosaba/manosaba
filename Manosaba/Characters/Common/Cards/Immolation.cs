@@ -1,4 +1,6 @@
-﻿using BaseLib.Utils;
+﻿using System.Collections.Generic;
+using System.Linq;
+using BaseLib.Utils;
 using manosaba.Characters.Common;
 using Manosaba.Characters.Common.Powers;
 using Manosaba.Extensions;
@@ -38,10 +40,10 @@ namespace Manosaba.Characters.Common.Cards
             await DamageCmd.Attack(base.DynamicVars.Damage.BaseValue).FromCard(this)
             .TargetingAllOpponents(combatState)
             .Execute(choiceContext);
-            IEnumerable<Creature> enumerable = from c in combatState.GetOpponentsOf(base.Owner.Creature)
-                                               where c != null && c.IsAlive && c.IsEnemy && c.IsHittable && c.CanReceivePowers
-                                               select c;
-            foreach (Creature item in enumerable)
+            List<Creature> targets = (from c in combatState.GetOpponentsOf(base.Owner.Creature)
+                                      where c != null && c.IsAlive && c.IsEnemy && c.IsHittable && c.CanReceivePowers
+                                      select c).ToList();
+            foreach (Creature item in targets)
             {
                 await PowerCmd.Apply<BurnPower>(item, DynamicVars["BurnPower"].BaseValue, Owner.Creature, this);
             }
