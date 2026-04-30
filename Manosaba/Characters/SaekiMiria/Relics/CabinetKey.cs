@@ -14,6 +14,7 @@ using System;
 using Manosaba.Characters.SaekiMiria.Powers;
 using MegaCrit.Sts2.Core.Context;
 using MegaCrit.Sts2.Core.Models;
+using Manosaba.Characters.SaekiMiria.Helper;
 
 namespace manosaba.Characters.SaekiMiria.Relics
 {
@@ -37,16 +38,6 @@ namespace manosaba.Characters.SaekiMiria.Relics
             new DynamicVar(MaxMovieCardsVar, MAX_MOVIE_CARD_GENERATED),
             new DynamicVar(MoviesPerTurnVar, 1m),
             new DynamicVar(CassetteChanceVar, 0m),
-        ];
-
-        private static readonly IReadOnlyList<Func<Player, CombatState, MovieBase>> MovieFactories =
-        [
-            static (player, combatState) => combatState.CreateCard<HorrorMovie>(player),
-            static (player, combatState) => combatState.CreateCard<ComedyMovie>(player),
-            static (player, combatState) => combatState.CreateCard<FantasyMovie>(player),
-            static (player, combatState) => combatState.CreateCard<ActionMovie>(player),
-            static (player, combatState) => combatState.CreateCard<RomanticMovie>(player),
-            static (player, combatState) => combatState.CreateCard<SpyMovie>(player),
         ];
 
         protected override IEnumerable<IHoverTip> ExtraHoverTips =>
@@ -85,6 +76,7 @@ namespace manosaba.Characters.SaekiMiria.Relics
                 return;
 
             int moviesToAdd = DynamicVars[MoviesPerTurnVar].IntValue;
+            moviesToAdd += (int)(Owner.Creature.GetPower<CabinetExpansionPower>()?.Amount ?? 0m);
             if (moviesToAdd <= 0)
                 return;
 
@@ -93,12 +85,14 @@ namespace manosaba.Characters.SaekiMiria.Relics
             List<CardModel> generatedCards = new(moviesToAdd);
             for (int i = 0; i < moviesToAdd; i++)
             {
-                generatedCards.Add(CreateRelicGeneratedCard(Owner, combatState, rng, ShouldUpgradeMovieCards()));
+                generatedCards.Add(await CreateRelicGeneratedCard(Owner, combatState, rng, ShouldUpgradeMovieCards()));
             }
 
             if (RelicLevel >= 3 && rng.NextInt(100) < DynamicVars[CassetteChanceVar].IntValue)
             {
-                generatedCards.Add(combatState.CreateCard<CassetteShapedRock>(Owner));
+                CardModel cassette = combatState.CreateCard<CassetteShapedRock>(Owner);
+                await MovieCardGenerator.TryApplyAbsoluteCinemaAsync(Owner, cassette);
+                generatedCards.Add(cassette);
             }
 
             Player? invitedPlayer = Owner.Creature.GetPower<MovieInvitationPower>()?.ConsumeInvitedPlayerForRelicMovies();
@@ -107,7 +101,7 @@ namespace manosaba.Characters.SaekiMiria.Relics
                 List<CardModel> invitedCards = new(generatedCards.Count);
                 foreach (CardModel card in generatedCards)
                 {
-                    invitedCards.Add(CreateRelicGeneratedCardCopyForPlayer(card, invitedPlayer, combatState));
+                    invitedCards.Add(await CreateRelicGeneratedCardCopyForPlayerAsync(card, invitedPlayer, combatState));
                 }
 
                 IReadOnlyList<CardPileAddResult> invitedResults = await CardPileCmd.AddGeneratedCardsToCombat(
@@ -158,12 +152,14 @@ namespace manosaba.Characters.SaekiMiria.Relics
             List<CardModel> generatedCards = new(moviesToAdd);
             for (int i = 0; i < moviesToAdd; i++)
             {
-                generatedCards.Add(CreateRelicGeneratedCard(Owner, combatState, rng, ShouldUpgradeMovieCards()));
+                generatedCards.Add(await CreateRelicGeneratedCard(Owner, combatState, rng, ShouldUpgradeMovieCards()));
             }
 
             if (RelicLevel >= 3 && rng.NextInt(100) < DynamicVars[CassetteChanceVar].IntValue)
             {
-                generatedCards.Add(combatState.CreateCard<CassetteShapedRock>(Owner));
+                CardModel cassette = combatState.CreateCard<CassetteShapedRock>(Owner);
+                await MovieCardGenerator.TryApplyAbsoluteCinemaAsync(Owner, cassette);
+                generatedCards.Add(cassette);
             }
 
             Player? invitedPlayer = Owner.Creature.GetPower<MovieInvitationPower>()?.ConsumeInvitedPlayerForRelicMovies();
@@ -172,7 +168,7 @@ namespace manosaba.Characters.SaekiMiria.Relics
                 List<CardModel> invitedCards = new(generatedCards.Count);
                 foreach (CardModel card in generatedCards)
                 {
-                    invitedCards.Add(CreateRelicGeneratedCardCopyForPlayer(card, invitedPlayer, combatState));
+                    invitedCards.Add(await CreateRelicGeneratedCardCopyForPlayerAsync(card, invitedPlayer, combatState));
                 }
 
                 IReadOnlyList<CardPileAddResult> invitedResults = await CardPileCmd.AddGeneratedCardsToCombat(
@@ -227,25 +223,16 @@ namespace manosaba.Characters.SaekiMiria.Relics
             return RelicLevel >= 4;
         }
 
-        private static CardModel CreateRelicGeneratedCard(Player player, CombatState combatState, MegaCrit.Sts2.Core.Random.Rng rng, bool upgradeMovies)
-        {
-            // Very small chance to generate the secret card Small Paper 
-            if (rng.NextInt(SMALL_PAPER_CHANCE) == 0)
-            {
-                return combatState.CreateCard<SmallPaper>(player);
-            }
+        private static Task<CardModel> CreateRelicGeneratedCard(Player player, CombatState combatState, MegaCrit.Sts2.Core.Random.Rng rng, bool upgradeMovies)
+            => MovieCardGenerator.CreateCabinetKeyMovieAsync(
+                player,
+                combatState,
+                rng,
+                smallPaperChance: SMALL_PAPER_CHANCE,
+                upgradeMovie: upgradeMovies,
+                applyAbsoluteCinema: true);
 
-            Func<Player, CombatState, MovieBase>? factory = rng.NextItem(MovieFactories);
-            MovieBase card = (factory ?? MovieFactories[0])(player, combatState);
-            if (upgradeMovies)
-            {
-                CardCmd.Upgrade(card);
-            }
-
-            return card;
-        }
-
-        private static CardModel CreateRelicGeneratedCardCopyForPlayer(CardModel card, Player player, CombatState combatState)
+        private static async Task<CardModel> CreateRelicGeneratedCardCopyForPlayerAsync(CardModel card, Player player, CombatState combatState)
         {
             CardModel copy = card switch
             {
@@ -265,6 +252,7 @@ namespace manosaba.Characters.SaekiMiria.Relics
                 CardCmd.Upgrade(copy);
             }
 
+            await MovieCardGenerator.TryApplyAbsoluteCinemaAsync(player, copy);
             return copy;
         }
 

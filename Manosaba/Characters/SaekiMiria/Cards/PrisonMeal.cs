@@ -6,6 +6,7 @@ using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
+using Manosaba.Characters.Common.Powers;
 using MegaCrit.Sts2.Core.Models.Powers;
 
 namespace Manosaba.Characters.SaekiMiria.Cards;
@@ -29,6 +30,7 @@ public sealed class PrisonMeal : PathCustomCardModel
     [
         new PowerVar<RegenPower>(4m),
         new PowerVar<PoisonPower>(3m),
+        new PowerVar<MajokaPower>(5m),
     ];
 
     public PrisonMeal()
@@ -43,6 +45,7 @@ public sealed class PrisonMeal : PathCustomCardModel
 
         await PowerCmd.Apply<RegenPower>(Owner.Creature, DynamicVars["RegenPower"].BaseValue, Owner.Creature, this);
         await PowerCmd.Apply<PoisonPower>(Owner.Creature, DynamicVars.Poison.BaseValue, Owner.Creature, this);
+        await PowerCmd.Apply<MajokaPower>(Owner.Creature, DynamicVars["MajokaPower"].BaseValue, Owner.Creature, this);
     }
 
     protected override void OnUpgrade()

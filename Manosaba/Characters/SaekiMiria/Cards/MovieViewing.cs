@@ -7,6 +7,7 @@ using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using manosaba.Characters.SaekiMiria;
+using Manosaba.Characters.SaekiMiria.Helper;
 using Manosaba.Extensions;
 
 namespace Manosaba.Characters.SaekiMiria.Cards;
@@ -19,16 +20,6 @@ public class MovieViewing : PathCustomCardModel
     private const CardRarity rarity = CardRarity.Uncommon;
     private const TargetType targetType = TargetType.Self;
     private const bool shouldShowInCardLibrary = true;
-
-    private static readonly IReadOnlyList<Func<Player, CombatState, MovieBase>> MovieFactories =
-    [
-        static (player, combatState) => combatState.CreateCard<HorrorMovie>(player),
-        static (player, combatState) => combatState.CreateCard<ComedyMovie>(player),
-        static (player, combatState) => combatState.CreateCard<FantasyMovie>(player),
-        static (player, combatState) => combatState.CreateCard<ActionMovie>(player),
-        static (player, combatState) => combatState.CreateCard<RomanticMovie>(player),
-        static (player, combatState) => combatState.CreateCard<SpyMovie>(player),
-    ];
 
     protected override IEnumerable<IHoverTip> ExtraHoverTips =>
     [
@@ -61,13 +52,8 @@ public class MovieViewing : PathCustomCardModel
         List<MovieBase> movies = new(count);
         for (int i = 0; i < count; i++)
         {
-            Func<Player, CombatState, MovieBase>? factory = rng.NextItem(MovieFactories);
-            if (factory == null)
-            {
-                continue;
-            }
-
-            movies.Add(factory(Owner, CombatState));
+            MovieBase movie = await MovieCardGenerator.CreateRandomMovieAsync(Owner, CombatState, rng);
+            movies.Add(movie);
         }
 
         if (movies.Count == 0)
