@@ -35,6 +35,18 @@ public static class ManosabaLobbyDifficultyState
         _lobbyRandomCharacterPool = ManosabaLobbyDefaults.RandomCharacterPool;
     }
 
+    /// <summary>
+    /// Client joining a loaded MP run may still have lobby fields from a prior singleplayer session (mod config).
+    /// Neutral placeholders until <see cref="ApplyFromHost(ManosabaDifficultySettingsMessage)"/> / freeze from host.
+    /// </summary>
+    public static void ApplyNeutralLobbyPlaceholderBeforeHostDifficultySync()
+    {
+        _lobbyEnemyHpMultiplierPercent = ManosabaLobbyDefaults.SafeEnemyHpMultiplierPercent;
+        _lobbyEnemyAttackDamageMultiplierPercent = ManosabaLobbyDefaults.SafeEnemyAttackDamageMultiplierPercent;
+        _lobbyMurderousImpulseAllyDamageMultiplierPercent = ManosabaLobbyDefaults.SafeMurderousImpulseAllyDamageMultiplierPercent;
+        _lobbyRandomCharacterPool = ManosabaLobbyDefaults.SafeRandomCharacterPool;
+    }
+
     public static void ApplyFromHost(ManosabaDifficultySettingsMessage message)
     {
         _lobbyEnemyHpMultiplierPercent = message.enemyHpMultiplierPercent;
@@ -164,6 +176,24 @@ public static class ManosabaLobbyDifficultyState
             _lobbyEnemyAttackDamageMultiplierPercent,
             _lobbyMurderousImpulseAllyDamageMultiplierPercent,
             _lobbyRandomCharacterPool);
+    }
+
+    /// <summary>
+    /// Values that match gameplay multipliers: frozen snap mid-run, otherwise live lobby snapshot.
+    /// </summary>
+    public static (double enemyHpPercent, double enemyAttackPercent, double murderousPercent, RandomCharacterPoolMode randomPool)
+        GetPersistedDifficultySnapshot()
+    {
+        if (_runFrozen)
+        {
+            return (
+                _snapEnemyHpMultiplierPercent,
+                _snapEnemyAttackDamageMultiplierPercent,
+                _snapMurderousImpulseAllyDamageMultiplierPercent,
+                _snapRandomCharacterPool);
+        }
+
+        return GetLobbySnapshot();
     }
 
     /// <summary>

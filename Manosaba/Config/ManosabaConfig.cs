@@ -27,6 +27,10 @@ public sealed class ManosabaConfig : SimpleModConfig
     [ConfigHideInUI]
     public static RandomCharacterPoolMode LobbyRandomCharacterPool { get; set; } = RandomCharacterPoolMode.ManosabaCharactersOnly;
 
+    /// <summary>JSON sidecar: maps vanilla run <c>start_time</c> to last saved lobby difficulty snapshot.</summary>
+    [ConfigHideInUI]
+    public static string PerSaveLobbyDifficultyJson { get; set; } = string.Empty;
+
     [ConfigSection("SFXSettings")]
     [ConfigSlider(0, 100, 1, Format = "{0:0}%")]
     [ConfigHoverTip]

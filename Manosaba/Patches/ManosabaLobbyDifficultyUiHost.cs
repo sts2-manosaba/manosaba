@@ -31,14 +31,6 @@ public readonly record struct LobbyDifficultyPanelLayout(
         OffsetRight: 430f,
         OffsetTop: 72f,
         OffsetBottom: 400f);
-
-    /// <summary>Bottom-right so daily timer / embark area stays readable.</summary>
-    public static LobbyDifficultyPanelLayout DailyRunDefault { get; } = new(
-        Control.LayoutPreset.BottomRight,
-        OffsetLeft: -430f,
-        OffsetRight: -12f,
-        OffsetTop: -340f,
-        OffsetBottom: -12f);
 }
 
 public enum LobbyDifficultyUiEnterKind
@@ -49,6 +41,18 @@ public enum LobbyDifficultyUiEnterKind
     SubmenuReopened,
     /// <summary>Daily lobby became ready after async init (no reset defaults — same session).</summary>
     DailyLobbyReady,
+    /// <summary>Load-run lobby: do not reset lobby state; UI is read-only (values from save / host sync only).</summary>
+    LoadRunLobbyOpen,
+}
+
+/// <summary>Minimal lobby surface for difficulty UI (<see cref="StartRunLobby"/> or <see cref="LoadRunLobby"/>).</summary>
+public readonly record struct LobbyDifficultyUiNetContext(INetGameService NetService, int PlayerCount)
+{
+    public static LobbyDifficultyUiNetContext? From(StartRunLobby? lobby) =>
+        lobby == null ? null : new LobbyDifficultyUiNetContext(lobby.NetService, lobby.Players.Count);
+
+    public static LobbyDifficultyUiNetContext? From(LoadRunLobby? lobby) =>
+        lobby == null ? null : new LobbyDifficultyUiNetContext(lobby.NetService, lobby.Run.Players.Count);
 }
 
 public static class ManosabaLobbyDifficultyUiHost
@@ -77,6 +81,9 @@ public static class ManosabaLobbyDifficultyUiHost
         public double LastSentEnemyAttackPercent;
         public double LastSentMurderousPercent;
         public byte LastSentRandomPool;
+
+        /// <summary>True on load-run lobbies: sliders disabled so host cannot diverge from synchronized save settings.</summary>
+        public bool LoadRunLobbyReadOnly;
     }
 
     private static readonly ConditionalWeakTable<object, DifficultyUiState> States = new();
@@ -87,7 +94,7 @@ public static class ManosabaLobbyDifficultyUiHost
         object owner,
         Node ownerNode,
         Control attachParent,
-        Func<StartRunLobby?> getLobby,
+        Func<LobbyDifficultyUiNetContext?> getLobby,
         LobbyDifficultyPanelLayout layout,
         LobbyDifficultyUiEnterKind kind)
     {
@@ -104,7 +111,11 @@ public static class ManosabaLobbyDifficultyUiHost
                 ManosabaLobbyDifficultyState.ResetToLobbyDefaults();
                 ManosabaLobbyDifficultyState.SetLobbySessionActive(true);
                 break;
+            case LobbyDifficultyUiEnterKind.LoadRunLobbyOpen:
+                break;
         }
+
+        GetState(owner).LoadRunLobbyReadOnly = kind == LobbyDifficultyUiEnterKind.LoadRunLobbyOpen;
 
         EnsurePanel(owner, ownerNode, attachParent, getLobby, layout);
         ApplyStaticTexts(owner);
@@ -112,14 +123,15 @@ public static class ManosabaLobbyDifficultyUiHost
         TryEarlyLobbyHook(owner, ownerNode, getLobby);
     }
 
-    public static void TryEarlyLobbyHook(object owner, Node ownerNode, Func<StartRunLobby?> getLobby)
+    public static void TryEarlyLobbyHook(object owner, Node ownerNode, Func<LobbyDifficultyUiNetContext?> getLobby)
     {
-        StartRunLobby? lobby = getLobby();
-        if (lobby == null || !lobby.NetService.IsConnected)
+        LobbyDifficultyUiNetContext? maybe = getLobby();
+        if (!maybe.HasValue || !maybe.Value.NetService.IsConnected)
         {
             return;
         }
 
+        LobbyDifficultyUiNetContext lobby = maybe.Value;
         DifficultyUiState state = GetState(owner);
         TryRegisterHandler(owner, ownerNode, lobby, state, getLobby);
 
@@ -129,18 +141,19 @@ public static class ManosabaLobbyDifficultyUiHost
         }
     }
 
-    public static void OnProcess(object owner, Node ownerNode, Func<StartRunLobby?> getLobby)
+    public static void OnProcess(object owner, Node ownerNode, Func<LobbyDifficultyUiNetContext?> getLobby)
     {
-        StartRunLobby? lobby = getLobby();
-        if (lobby == null || !lobby.NetService.IsConnected)
+        LobbyDifficultyUiNetContext? maybe = getLobby();
+        if (!maybe.HasValue || !maybe.Value.NetService.IsConnected)
         {
             return;
         }
 
+        LobbyDifficultyUiNetContext lobby = maybe.Value;
         DifficultyUiState state = GetState(owner);
         TryRegisterHandler(owner, ownerNode, lobby, state, getLobby);
 
-        if (CanEditDifficulty(lobby))
+        if (CanEditDifficulty(lobby) && !state.LoadRunLobbyReadOnly)
         {
             PushUiToRuntime(owner, getLobby, state);
         }
@@ -148,7 +161,7 @@ public static class ManosabaLobbyDifficultyUiHost
         TryHostWatchdogBroadcast(lobby, state);
     }
 
-    public static void OnCleanup(object owner, Func<StartRunLobby?> getLobby)
+    public static void OnCleanup(object owner, Func<LobbyDifficultyUiNetContext?> getLobby)
     {
         UnregisterHandlerIfNeeded(owner, getLobby);
         ManosabaLobbyDifficultyState.SetLobbySessionActive(false);
@@ -170,6 +183,7 @@ public static class ManosabaLobbyDifficultyUiHost
             st.RandomPoolRowLabel = null;
             st.RandomPoolOption = null;
             st.HandlerRegistered = false;
+            st.LoadRunLobbyReadOnly = false;
         }
     }
 
@@ -239,7 +253,7 @@ public static class ManosabaLobbyDifficultyUiHost
         object owner,
         Node ownerNode,
         Control attachParent,
-        Func<StartRunLobby?> getLobby,
+        Func<LobbyDifficultyUiNetContext?> getLobby,
         LobbyDifficultyPanelLayout layout)
     {
         DifficultyUiState state = GetState(owner);
@@ -352,24 +366,30 @@ public static class ManosabaLobbyDifficultyUiHost
         ApplyEditableMask(owner, getLobby, state);
     }
 
-    private static void MarkHostDirty(object owner, Node ownerNode, Func<StartRunLobby?> getLobby)
+    private static void MarkHostDirty(object owner, Node ownerNode, Func<LobbyDifficultyUiNetContext?> getLobby)
     {
-        StartRunLobby? lobby = getLobby();
-        if (lobby == null || !CanEditDifficulty(lobby))
+        DifficultyUiState st = GetState(owner);
+        if (st.LoadRunLobbyReadOnly)
         {
             return;
         }
 
-        DifficultyUiState st = GetState(owner);
+        LobbyDifficultyUiNetContext? maybe = getLobby();
+        if (!maybe.HasValue || !CanEditDifficulty(maybe.Value))
+        {
+            return;
+        }
+
+        LobbyDifficultyUiNetContext lobby = maybe.Value;
         PushUiToRuntime(owner, getLobby, st);
         ManosabaLobbyDifficultyState.SaveLobbySnapshotAsDefaults();
         TryHostWatchdogBroadcast(lobby, st, force: true);
     }
 
-    private static void ApplyEditableMask(object owner, Func<StartRunLobby?> getLobby, DifficultyUiState state)
+    private static void ApplyEditableMask(object owner, Func<LobbyDifficultyUiNetContext?> getLobby, DifficultyUiState state)
     {
-        StartRunLobby? lobby = getLobby();
-        bool editable = lobby != null && CanEditDifficulty(lobby);
+        LobbyDifficultyUiNetContext? maybe = getLobby();
+        bool editable = !state.LoadRunLobbyReadOnly && maybe.HasValue && CanEditDifficulty(maybe.Value);
         if (state.EnemyHpSlider != null)
         {
             state.EnemyHpSlider.Editable = editable;
@@ -391,7 +411,7 @@ public static class ManosabaLobbyDifficultyUiHost
         }
     }
 
-    private static bool CanEditDifficulty(StartRunLobby lobby)
+    private static bool CanEditDifficulty(LobbyDifficultyUiNetContext lobby)
     {
         NetGameType t = lobby.NetService.Type;
         return t == NetGameType.Singleplayer || t == NetGameType.Host;
@@ -400,9 +420,9 @@ public static class ManosabaLobbyDifficultyUiHost
     private static void TryRegisterHandler(
         object owner,
         Node ownerNode,
-        StartRunLobby lobby,
+        LobbyDifficultyUiNetContext lobby,
         DifficultyUiState state,
-        Func<StartRunLobby?> getLobby)
+        Func<LobbyDifficultyUiNetContext?> getLobby)
     {
         if (state.HandlerRegistered)
         {
@@ -422,17 +442,17 @@ public static class ManosabaLobbyDifficultyUiHost
         state.HandlerRegistered = true;
     }
 
-    private static void UnregisterHandlerIfNeeded(object owner, Func<StartRunLobby?> getLobby)
+    private static void UnregisterHandlerIfNeeded(object owner, Func<LobbyDifficultyUiNetContext?> getLobby)
     {
-        StartRunLobby? lobby = getLobby();
+        LobbyDifficultyUiNetContext? maybe = getLobby();
         if (!States.TryGetValue(owner, out DifficultyUiState? state))
         {
             return;
         }
 
-        if (state.HandlerRegistered && lobby != null && state.Handler != null)
+        if (state.HandlerRegistered && maybe.HasValue && state.Handler != null)
         {
-            lobby.NetService.UnregisterMessageHandler<ManosabaDifficultySettingsMessage>(state.Handler);
+            maybe.Value.NetService.UnregisterMessageHandler<ManosabaDifficultySettingsMessage>(state.Handler);
         }
 
         state.HandlerRegistered = false;
@@ -450,14 +470,14 @@ public static class ManosabaLobbyDifficultyUiHost
         };
     }
 
-    private static void TryHostWatchdogBroadcast(StartRunLobby lobby, DifficultyUiState state, bool force = false)
+    private static void TryHostWatchdogBroadcast(LobbyDifficultyUiNetContext lobby, DifficultyUiState state, bool force = false)
     {
         if (lobby.NetService.Type == NetGameType.Client)
         {
             return;
         }
 
-        int players = lobby.Players.Count;
+        int players = lobby.PlayerCount;
         (double hpPct, double atkPct, double murPct, RandomCharacterPoolMode pool) = ManosabaLobbyDifficultyState.GetLobbySnapshot();
         byte poolByte = (byte)pool;
         bool changed = force
@@ -489,7 +509,7 @@ public static class ManosabaLobbyDifficultyUiHost
         lobby.NetService.SendMessage(message);
     }
 
-    private static void PushUiToRuntime(object owner, Func<StartRunLobby?> getLobby, DifficultyUiState state)
+    private static void PushUiToRuntime(object owner, Func<LobbyDifficultyUiNetContext?> getLobby, DifficultyUiState state)
     {
         if (state.EnemyHpSlider == null || state.EnemyAttackSlider == null || state.MurderousSlider == null)
         {
@@ -525,7 +545,7 @@ public static class ManosabaLobbyDifficultyUiHost
         }
     }
 
-    private static void RefreshUiFromState(object owner, Node ownerNode, Func<StartRunLobby?> getLobby, bool pushLocalToRuntime)
+    private static void RefreshUiFromState(object owner, Node ownerNode, Func<LobbyDifficultyUiNetContext?> getLobby, bool pushLocalToRuntime)
     {
         if (!States.TryGetValue(owner, out DifficultyUiState? state)
             || state.EnemyHpSlider == null

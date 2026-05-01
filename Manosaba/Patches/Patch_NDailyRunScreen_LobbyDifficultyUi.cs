@@ -18,8 +18,8 @@ public static class Patch_NDailyRunScreen_LobbyDifficultyUi
             __instance,
             __instance,
             __instance,
-            () => LobbyRef(__instance),
-            LobbyDifficultyPanelLayout.DailyRunDefault,
+            () => LobbyDifficultyUiNetContext.From(LobbyRef(__instance)),
+            LobbyDifficultyPanelLayout.CharacterSelectDefault,
             LobbyDifficultyUiEnterKind.DailyLobbyReady);
     }
 
@@ -27,13 +27,13 @@ public static class Patch_NDailyRunScreen_LobbyDifficultyUi
     [HarmonyPrefix]
     private static void Prefix_CleanUpLobby(NDailyRunScreen __instance)
     {
-        ManosabaLobbyDifficultyUiHost.OnCleanup(__instance, () => LobbyRef(__instance));
+        ManosabaLobbyDifficultyUiHost.OnCleanup(__instance, () => LobbyDifficultyUiNetContext.From(LobbyRef(__instance)));
     }
 
     [HarmonyPatch(typeof(NDailyRunScreen), nameof(NDailyRunScreen._Process))]
     [HarmonyPostfix]
     private static void Postfix_Process(NDailyRunScreen __instance, double delta)
     {
-        ManosabaLobbyDifficultyUiHost.OnProcess(__instance, __instance, () => LobbyRef(__instance));
+        ManosabaLobbyDifficultyUiHost.OnProcess(__instance, __instance, () => LobbyDifficultyUiNetContext.From(LobbyRef(__instance)));
     }
 }

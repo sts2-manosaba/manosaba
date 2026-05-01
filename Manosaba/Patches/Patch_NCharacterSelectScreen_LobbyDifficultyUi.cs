@@ -18,7 +18,7 @@ public static class Patch_NCharacterSelectScreen_LobbyDifficultyUi
             __instance,
             __instance,
             __instance,
-            () => LobbyRef(__instance),
+            () => LobbyDifficultyUiNetContext.From(LobbyRef(__instance)),
             LobbyDifficultyPanelLayout.CharacterSelectDefault,
             LobbyDifficultyUiEnterKind.FirstOpen);
     }
@@ -31,7 +31,7 @@ public static class Patch_NCharacterSelectScreen_LobbyDifficultyUi
             __instance,
             __instance,
             __instance,
-            () => LobbyRef(__instance),
+            () => LobbyDifficultyUiNetContext.From(LobbyRef(__instance)),
             LobbyDifficultyPanelLayout.CharacterSelectDefault,
             LobbyDifficultyUiEnterKind.SubmenuReopened);
     }
@@ -40,13 +40,13 @@ public static class Patch_NCharacterSelectScreen_LobbyDifficultyUi
     [HarmonyPrefix]
     private static void Prefix_CleanUpLobby(NCharacterSelectScreen __instance)
     {
-        ManosabaLobbyDifficultyUiHost.OnCleanup(__instance, () => LobbyRef(__instance));
+        ManosabaLobbyDifficultyUiHost.OnCleanup(__instance, () => LobbyDifficultyUiNetContext.From(LobbyRef(__instance)));
     }
 
     [HarmonyPatch(typeof(NCharacterSelectScreen), nameof(NCharacterSelectScreen._Process))]
     [HarmonyPostfix]
     private static void Postfix_Process(NCharacterSelectScreen __instance, double delta)
     {
-        ManosabaLobbyDifficultyUiHost.OnProcess(__instance, __instance, () => LobbyRef(__instance));
+        ManosabaLobbyDifficultyUiHost.OnProcess(__instance, __instance, () => LobbyDifficultyUiNetContext.From(LobbyRef(__instance)));
     }
 }

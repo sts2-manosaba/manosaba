@@ -23,10 +23,24 @@ public static class Patch_LoadRunLobby_ManosabaDifficultySync
     [HarmonyPostfix]
     private static void Postfix_Ctor_HostOrSingle(LoadRunLobby __instance)
     {
+        // Singleplayer runs leave RunFrozen=true; FromSerializable returns early while frozen, so ApplyFromHost
+        // would only update lobby (UI) while combat still reads stale _snap* until cleared.
+        ManosabaLobbyDifficultyState.ClearRunSnapshot();
         ManosabaLobbyDifficultyState.SetLobbySessionActive(true);
         EnsureHandlerRegistered(__instance);
         if (__instance.NetService.Type != NetGameType.Client)
         {
+            long startTime = __instance.Run.StartTime;
+            int playerCount = __instance.Run.Players?.Count ?? 1;
+            if (startTime != 0 && ManosabaPerSaveDifficultyStore.TryLoadForRun(startTime, playerCount, out ManosabaDifficultySettingsMessage saved))
+            {
+                ManosabaLobbyDifficultyState.ApplyFromHost(saved);
+            }
+            else
+            {
+                ManosabaLobbyDifficultyState.ResetToLobbyDefaults();
+            }
+
             BroadcastCurrentDifficulty(__instance.NetService);
         }
     }
@@ -35,6 +49,8 @@ public static class Patch_LoadRunLobby_ManosabaDifficultySync
     [HarmonyPostfix]
     private static void Postfix_Ctor_Client(LoadRunLobby __instance)
     {
+        ManosabaLobbyDifficultyState.ClearRunSnapshot();
+        ManosabaLobbyDifficultyState.ApplyNeutralLobbyPlaceholderBeforeHostDifficultySync();
         ManosabaLobbyDifficultyState.SetLobbySessionActive(true);
         EnsureHandlerRegistered(__instance);
     }
