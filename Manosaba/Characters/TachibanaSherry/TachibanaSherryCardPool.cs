@@ -2,6 +2,7 @@
 using Godot;
 using manosaba.Characters.Common;
 using manosaba.Extensions;
+using Manosaba.Extensions;
 using MegaCrit.Sts2.Core.Models;
 
 namespace manosaba.Characters.TachibanaSherry;
@@ -14,23 +15,15 @@ public class TachibanaSherryCardPool : CustomCardPoolModel
     public override string TextEnergyIconPath => "charui/manosaba_energy_text.png".ImagePath();
 
 
-    /* These HSV values will determine the color of your card back.
-    They are applied as a shader onto an already colored image,
-    so it may take some experimentation to find a color you like.
-    Generally they should be values between 0 and 1. */
-    public override float H => 1f; //Hue; changes the color.
-    public override float S => 1f; //Saturation
-    public override float V => 1f; //Brightness
+    private static readonly (float H, float S, float V) CardBackTint = CardPoolTintFromCharacterColor.ToCardBackHsv(TachibanaSherry.Color);
 
-    //Alternatively, leave these values at 1 and provide a custom frame image.
-    /*public override Texture2D CustomFrame(CustomCardModel card)
-    {
-        //This will attempt to load CharMod/images/cards/frame.png
-        return PreloadManager.Cache.GetTexture2D("cards/frame.png".ImagePath());
-    }*/
+    public override float H => CardBackTint.H;
 
-    //Color of small card icons
-    public override Color DeckEntryCardColor => new("80C0FF");
+    public override float S => CardBackTint.S;
+
+    public override float V => CardBackTint.V;
+
+    public override Color DeckEntryCardColor => TachibanaSherry.Color;
 
     public override bool IsColorless => false;
 

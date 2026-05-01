@@ -2,6 +2,7 @@ using BaseLib.Abstracts;
 using Godot;
 using manosaba.Characters.Common;
 using manosaba.Extensions;
+using Manosaba.Extensions;
 using MegaCrit.Sts2.Core.Models;
 
 namespace manosaba.Characters.ShitoAlisa;
@@ -13,9 +14,13 @@ public class ShitoAlisaCardPool : CustomCardPoolModel
     public override string BigEnergyIconPath => "charui/manosaba_energy.png".ImagePath();
     public override string TextEnergyIconPath => "charui/manosaba_energy_text.png".ImagePath();
 
-    public override float H => 0.08f;
-    public override float S => 0.95f;
-    public override float V => 0.95f;
+    private static readonly (float H, float S, float V) CardBackTint = CardPoolTintFromCharacterColor.ToCardBackHsv(ShitoAlisa.Color);
+
+    public override float H => CardBackTint.H;
+
+    public override float S => CardBackTint.S;
+
+    public override float V => CardBackTint.V;
 
     public override Color DeckEntryCardColor => ShitoAlisa.Color;
 

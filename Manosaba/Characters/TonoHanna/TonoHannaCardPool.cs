@@ -2,6 +2,7 @@ using BaseLib.Abstracts;
 using Godot;
 using manosaba.Characters.Common;
 using manosaba.Extensions;
+using Manosaba.Extensions;
 using MegaCrit.Sts2.Core.Models;
 
 namespace manosaba.Characters.TonoHanna;
@@ -13,11 +14,15 @@ public class TonoHannaCardPool : CustomCardPoolModel
     public override string BigEnergyIconPath => "charui/manosaba_energy.png".ImagePath();
     public override string TextEnergyIconPath => "charui/manosaba_energy_text.png".ImagePath();
 
-    public override float H => 1f;
-    public override float S => 1f;
-    public override float V => 1f;
+    private static readonly (float H, float S, float V) CardBackTint = CardPoolTintFromCharacterColor.ToCardBackHsv(TonoHanna.Color);
 
-    public override Color DeckEntryCardColor => new("73BF00");
+    public override float H => CardBackTint.H;
+
+    public override float S => CardBackTint.S;
+
+    public override float V => CardBackTint.V;
+
+    public override Color DeckEntryCardColor => TonoHanna.Color;
 
     public override bool IsColorless => false;
 

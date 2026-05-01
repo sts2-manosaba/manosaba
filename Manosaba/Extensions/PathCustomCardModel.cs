@@ -30,5 +30,10 @@ namespace Manosaba.Extensions
         public PathCustomCardModel(int energyCost, CardType type, CardRarity rarity, TargetType targetType, bool shouldShowInCardLibrary) : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)
         {
         }
+
+        /// <inheritdoc />
+        /// <remarks>Uses the card type's declared <c>[Pool(typeof(...))]</c> so Common cards keep CommonCardPool visuals even when <see cref="CardModel.Pool"/> resolves to a character pool.</remarks>
+        public override CardPoolModel VisualCardPool =>
+            ManosabaDeclaredVisualCardPoolResolver.TryResolveDeclaredVisualPool(GetType()) ?? base.VisualCardPool;
     }
 }
