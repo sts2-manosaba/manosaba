@@ -1,15 +1,15 @@
 [gd_scene load_steps=4 format=3 uid="uid://bhcacfjs1636c"]
 
 [ext_resource type="Script" uid="uid://b2rnfe1rayfpi" path="res://Characters/Common/Overrides/ManosabaRestSiteCharacter.cs" id="1_hwdxa"]
-[ext_resource type="Texture2D" uid="uid://chs7h2lefrcm2" path="res://Manosaba/images/characters/tachibana_sherry/TachibanaSherryRest.png" id="2_50rgb"]
+[ext_resource type="Texture2D" uid="uid://btw62euesa0r6" path="res://Manosaba/images/characters/tachibana_sherry/TachibanaSherryRest2.png" id="2_50rgb"]
 [ext_resource type="PackedScene" uid="uid://bgy88bk44xxvk" path="res://Manosaba/scenes/selection_reticle.tscn" id="3_taykv"]
 
 [node name="TachibanaSherryRestSite" type="Node2D"]
 script = ExtResource("1_hwdxa")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(25.5, -30.874956)
-scale = Vector2(0.3564453, 0.3564453)
+[node name="Sprite2D2" type="Sprite2D" parent="."]
+position = Vector2(55.249996, -18.91767)
+scale = Vector2(0.48323172, 0.48323172)
 texture = ExtResource("2_50rgb")
 
 [node name="ControlRoot" type="Control" parent="."]
@@ -29,10 +29,10 @@ offset_bottom = 320.0
 [node name="Hitbox" type="Control" parent="ControlRoot"]
 unique_name_in_owner = true
 anchors_preset = 0
-offset_left = -196.0
-offset_top = -392.0
-offset_right = 225.0
-offset_bottom = 291.0
+offset_left = -157.0
+offset_top = -355.0
+offset_right = 264.0
+offset_bottom = 328.0
 
 [node name="ThoughtBubbleRight" type="Control" parent="ControlRoot"]
 unique_name_in_owner = true

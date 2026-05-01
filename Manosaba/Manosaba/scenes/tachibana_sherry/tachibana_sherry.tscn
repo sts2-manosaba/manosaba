@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://uuml85yttllw"]
 
 [ext_resource type="Script" uid="uid://ci5rydvtx3dwt" path="res://Characters/Common/Overrides/ManosabaCharacterVisuals.cs" id="1_ko68k"]
-[ext_resource type="Texture2D" uid="uid://bsthi4gtcrnlj" path="res://Manosaba/images/characters/tachibana_sherry/TachibanaSherry2.png" id="2_ko68k"]
+[ext_resource type="Texture2D" uid="uid://6pvlpr2c1fq5" path="res://Manosaba/images/characters/tachibana_sherry/TachibanaSherry2.png" id="2_ko68k"]
 
 [node name="TachibanaSherry" type="Node2D"]
 script = ExtResource("1_ko68k")
@@ -10,23 +10,23 @@ script = ExtResource("1_ko68k")
 unique_name_in_owner = true
 
 [node name="Sprite2D" type="Sprite2D" parent="Visuals"]
-position = Vector2(8.000001, -158)
-scale = Vector2(0.2852481, 0.28524813)
+position = Vector2(6, -146.00002)
+scale = Vector2(0.3260371, 0.32603717)
 texture = ExtResource("2_ko68k")
 
 [node name="Bounds" type="Control" parent="."]
 unique_name_in_owner = true
 layout_mode = 3
 anchors_preset = 0
-offset_left = -57.0
-offset_top = -329.0
-offset_right = 67.0
-offset_bottom = 10.0
+offset_left = -52.0
+offset_top = -332.0
+offset_right = 72.0
+offset_bottom = 7.0
 
 [node name="IntentPos" type="Marker2D" parent="."]
 unique_name_in_owner = true
-position = Vector2(0, -339)
+position = Vector2(12, -323)
 
 [node name="CenterPos" type="Marker2D" parent="."]
 unique_name_in_owner = true
-position = Vector2(2, -195)
+position = Vector2(2, -188)
