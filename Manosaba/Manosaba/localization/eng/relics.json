@@ -42,7 +42,7 @@
   "MANOSABA-TAROT_DECK.missingHeader": "Missing:",
   "MANOSABA-TAROT_DECK.completed": "Collection complete",
   "MANOSABA-CLIPBOARD.title": "Clipboard",
-  "MANOSABA-CLIPBOARD.description": "At the start of each turn, gain {KotodamaEnergy:kotodamaIcons()}.\nLv2: [blue]2[/blue]. Lv4: [blue]3[/blue].\nWhenever you spend [gold]Kotodama[/gold], gain {Block} [gold]Block[/gold] per [gold]Kotodama[/gold] spent.\nAt the start of combat, gain [gold]Sickly[/gold].",
+  "MANOSABA-CLIPBOARD.description": "At the start of each turn, gain {KotodamaEnergy} [gold]Kotodama[/gold].\nLv2: [blue]2[/blue]. Lv4: [blue]3[/blue].\nWhenever you spend [gold]Kotodama[/gold], gain {Block} [gold]Block[/gold] per [gold]Kotodama[/gold] spent.\nAt the start of combat, gain [gold]Sickly[/gold].",
   "MANOSABA-CLIPBOARD.flavor": "Every word has weight when written down.",
   "MANOSABA-LEG_IRONS.title": "Leg Irons",
   "MANOSABA-LEG_IRONS.description": "At the start of each combat, gain [gold]Fireball Swarm[/gold] equal to this relic's level.\nLv2: whenever you gain 1 [gold]Fireball Swarm[/gold], gain [blue]5[/blue] [gold]Majoka[/gold].\nLv4: at end of turn, heal HP equal to your [gold]Fireball Swarm[/gold] stacks.",
