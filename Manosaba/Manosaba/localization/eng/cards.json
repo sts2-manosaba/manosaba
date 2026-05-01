@@ -249,7 +249,7 @@
   "MANOSABA-MOVIE_INVITATION.title": "Movie Invitation",
   "MANOSABA-MOVIE_INVITATION.description": "Choose a player. Next turn, Movie cards created by your [gold]Relic[/gold] are also added to that player's [gold]Draw Pile[/gold].",
   "MANOSABA-SLIMIFICATION.title": "Slimification",
-  "MANOSABA-SLIMIFICATION.description": "Whenever you take unblocked attack damage, gain {SlimificationPower:diff()} [gold]Regen[/gold].",
+  "MANOSABA-SLIMIFICATION.description": "Whenever you fully block an attack, gain {SlimificationPower:diff()} [gold]Regen[/gold].",
   "MANOSABA-MIND_SHARING.title": "Mind Sharing",
   "MANOSABA-MIND_SHARING.description": "All allies gain most of each ally's current non-attack-related abilities.",
   "MANOSABA-MIRIA_PROTECT.title": "Miria Protect",

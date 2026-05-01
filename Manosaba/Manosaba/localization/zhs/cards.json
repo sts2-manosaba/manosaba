@@ -247,7 +247,7 @@
   "MANOSABA-MOVIE_INVITATION.title": "電影邀請",
   "MANOSABA-MOVIE_INVITATION.description": "選擇一名玩家。下一回合中，由你的[gold]遺物[/gold]生成的電影牌也會加入該玩家的[gold]抽牌堆[/gold]。",
   "MANOSABA-SLIMIFICATION.title": "史萊姆化",
-  "MANOSABA-SLIMIFICATION.description": "每次受到未被格檔的攻擊傷害時，獲得 {SlimificationPower:diff()} 層[gold]再生[/gold]。",
+  "MANOSABA-SLIMIFICATION.description": "每次完全格檔一次攻擊傷害時，獲得 {SlimificationPower:diff()} 層[gold]再生[/gold]。",
   "MANOSABA-MIND_SHARING.title": "精神共享",
   "MANOSABA-MIND_SHARING.description": "所有友方角色獲得所有友方角色當前與攻擊無關的大部分能力。",
   "MANOSABA-MIRIA_PROTECT.title": "袒護",

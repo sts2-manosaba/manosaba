@@ -249,7 +249,7 @@
   "MANOSABA-MOVIE_INVITATION.title": "映画のお誘い",
   "MANOSABA-MOVIE_INVITATION.description": "プレイヤーを1人選ぶ。次のターン、あなたの[gold]レリック[/gold]が生成した映画カードもそのプレイヤーの[gold]ドローパイル[/gold]に加える。",
   "MANOSABA-SLIMIFICATION.title": "スライム化",
-  "MANOSABA-SLIMIFICATION.description": "ブロックされなかった攻撃ダメージを受けるたび、{SlimificationPower:diff()}層の[gold]再生[/gold]を得る。",
+  "MANOSABA-SLIMIFICATION.description": "攻撃を完全にブロックするたび、{SlimificationPower:diff()}層の[gold]再生[/gold]を得る。",
   "MANOSABA-MIND_SHARING.title": "精神共有",
   "MANOSABA-MIND_SHARING.description": "味方キャラクター全員は、味方キャラクター全員が現在持つ攻撃に関係しない能力の大半を得る。",
   "MANOSABA-MIRIA_PROTECT.title": "かばう",
