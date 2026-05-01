@@ -18,7 +18,7 @@ namespace manosaba.Characters.TonoHanna
         public override Color NameColor => Color;
         public override CharacterGender Gender => CharacterGender.Feminine;
         public override int StartingHp => 66;
-        public override int StartingGold => 0;
+        public override int StartingGold => 49;
 
         public override IEnumerable<CardModel> StartingDeck => [
             ModelDb.Card<StrikeTonoHanna>(),

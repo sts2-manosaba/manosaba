@@ -189,7 +189,7 @@
   "MANOSABA-WHAT_DO_YOU_MEAN.title": "何の意味？",
   "MANOSABA-WHAT_DO_YOU_MEAN.description": "{StrengthPower:diff()}点の[gold]筋力[/gold]を得る。\n[gold]手札[/gold]を1枚消費する。",
   "MANOSABA-YOU_ARE_THIS.title": "君はコレ",
-  "MANOSABA-YOU_ARE_THIS.description": "全プレイヤーが{StrengthPower:diff()}点の[gold]筋力[/gold]を得る。",
+  "MANOSABA-YOU_ARE_THIS.description": "[gold]筋力[/gold]{StrengthPower:diff()}を得る。",
   "MANOSABA-ASPIRATION.title": "憧れ",
   "MANOSABA-ASPIRATION.description": "{Block:diff()}[gold]ブロック[/gold]を得る。\n自身の現在の[gold]ブロック[/gold]と同じ量の[gold]ブロック[/gold]を味方全員に与える。",
   "MANOSABA-BOMB_DEFUSAL_MASTER.title": "爆弾解除の達人",
@@ -664,7 +664,7 @@
   "MANOSABA-SPREAD_BURN.title": "延焼",
   "MANOSABA-SPREAD_BURN.description": "敵1体の[gold]灼焼[/gold]を他の敵へ拡散する。\n拡散した敵1体につき、{FireballGainPerSpread:diff()}層の[gold]ファイアボール[/gold]を得る。",
   "MANOSABA-DISASTER_GIRL.title": "災厄少女",
-  "MANOSABA-DISASTER_GIRL.description": "累計で5層の[gold]灼焼[/gold]を付与するたび、ランダムな敵1体に{DisasterGirlDmg:diff()}ダメージを与え、[gold]ファイアボール[/gold]を[blue]1[/blue]層得る。",
+  "MANOSABA-DISASTER_GIRL.description": "累計で5層の[gold]灼焼[/gold]を付与するたび、ランダムな敵1体に{DisasterGirlDmg:diff()}ダメージを与える。",
   "MANOSABA-SCORCHING.title": "灼熱",
   "MANOSABA-SCORCHING.description": "ターン開始時、すべての敵に{ScorchingPower:diff()}層の[gold]灼焼[/gold]を与え、{ScorchingPower:diff()}層の[gold]ファイアボール[/gold]を得る。",
   "MANOSABA-SCALDING_TOUCH.title": "炎の触れ",
@@ -701,5 +701,5 @@
   "MANOSABA-RESTRICTION_RELEASE.title": "制限解除",
   "MANOSABA-RESTRICTION_RELEASE.description": "手札をすべて[gold]消耗[/gold]する。\n[gold]ファイアボール[/gold]を[blue]8[/blue]枚手札に加える。",
   "MANOSABA-FIREBALL.title": "ファイアボール",
-  "MANOSABA-FIREBALL.description": "{Damage:diff()}ダメージを与える。\n[gold]ファイアボール[/gold]を[blue]1[/blue]層得る。"
+  "MANOSABA-FIREBALL.description": "{Damage:diff()}ダメージを与える。"
 }

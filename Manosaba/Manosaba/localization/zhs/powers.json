@@ -295,8 +295,8 @@
   "MANOSABA-THE_SUN_POWER.smartDescription": "最大[gold]能量[/gold]增加 [blue]{Amount}[/blue]。",
 
   "MANOSABA-DISASTER_GIRL_POWER.title": "災厄少女",
-  "MANOSABA-DISASTER_GIRL_POWER.description": "每當你對敵人累積施加 5 層[gold]灼燒[/gold]，對一名隨機敵人造成 [blue]{Damage}[/blue] 點傷害，並獲得 [blue]{Amount}[/blue] 層[gold]火球環繞[/gold]。",
-  "MANOSABA-DISASTER_GIRL_POWER.smartDescription": "每累積施加 5 層[gold]灼燒[/gold]，對一名隨機敵人造成 [blue]{Damage}[/blue] 點傷害，並獲得 [blue]{Amount}[/blue] 層[gold]火球環繞[/gold]。",
+  "MANOSABA-DISASTER_GIRL_POWER.description": "每當你對敵人累積施加 5 層[gold]灼燒[/gold]，對一名隨機敵人造成 [blue]{Damage}[/blue] 點傷害。",
+  "MANOSABA-DISASTER_GIRL_POWER.smartDescription": "每累積施加 5 層[gold]灼燒[/gold]，對一名隨機敵人造成 [blue]{Damage}[/blue] 點傷害。",
   "MANOSABA-SCORCHING_POWER.title": "灼熱",
   "MANOSABA-SCORCHING_POWER.description": "在你的回合開始時，給予所有敵人 [blue]{Amount}[/blue] 層[gold]灼燒[/gold]，並獲得 [blue]{Amount}[/blue] 層[gold]火球環繞[/gold]。",
   "MANOSABA-SCORCHING_POWER.smartDescription": "在你的回合開始時，給予所有敵人 [blue]{Amount}[/blue] 層[gold]灼燒[/gold]，並獲得 [blue]{Amount}[/blue] 層[gold]火球環繞[/gold]。",

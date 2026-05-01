@@ -26,11 +26,11 @@ namespace manosaba.Characters.TonoHanna.Relics;
 [Pool(typeof(TonoHannaRelicPool))]
 public sealed class FeatherFan : LevelingPathCustomRelicModel
 {
-    private const int MaxUnspentEnergyForGoldPerCombat = 5;
+    private const int MaxUnspentEnergyForGoldPerCombat = 3;
     private const decimal BaseGoldPerEnergy = 10m;
     private const int Lv4GoldPerBonusEnergy = 100;
 
-    /// <summary>Unused energy points already converted to gold this combat (capped at <see cref="MaxUnspentEnergyForGoldPerCombat"/>).</summary>
+    /// <summary>Unused energy points converted to gold this combat (at most <see cref="MaxUnspentEnergyForGoldPerCombat"/> per combat).</summary>
     private int _energyChargesConvertedThisCombat;
 
     public override RelicRarity Rarity => RelicRarity.Starter;

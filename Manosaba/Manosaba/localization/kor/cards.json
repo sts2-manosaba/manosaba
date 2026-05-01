@@ -189,7 +189,7 @@
   "MANOSABA-WHAT_DO_YOU_MEAN.title": "무슨 소리야",
   "MANOSABA-WHAT_DO_YOU_MEAN.description": "[gold]힘[/gold]을 {StrengthPower:diff()} 얻습니다.\n[gold]손[/gold]에서 카드 1장을 소멸시킵니다.",
   "MANOSABA-YOU_ARE_THIS.title": "너가 최고야",
-  "MANOSABA-YOU_ARE_THIS.description": "모든 플레이어가 [gold]힘[/gold]을 {StrengthPower:diff()} 얻습니다.",
+  "MANOSABA-YOU_ARE_THIS.description": "[gold]힘[/gold]을 {StrengthPower:diff()} 얻습니다.",
   "MANOSABA-ASPIRATION.title": "동경",
   "MANOSABA-ASPIRATION.description": "[gold]방어도[/gold]를 {Block:diff()} 얻습니다.\n모든 팀원이 자신의 현재 [gold]방어도[/gold]만큼 [gold]방어도[/gold]를 얻습니다.",
   "MANOSABA-BOMB_DEFUSAL_MASTER.title": "폭탄 해체 전문가",
@@ -664,7 +664,7 @@
   "MANOSABA-SPREAD_BURN.title": "연소 확산",
   "MANOSABA-SPREAD_BURN.description": "적 1명의 [gold]화상[/gold]을 다른 모든 적에게 확산합니다.\n확산된 적 1명당 [gold]화염 구체[/gold]를 {FireballGainPerSpread:diff()} 얻습니다.",
   "MANOSABA-DISASTER_GIRL.title": "재앙 소녀",
-  "MANOSABA-DISASTER_GIRL.description": "[gold]화상[/gold]을 5 부여할 때마다 무작위 적 1명에게 피해를 {DisasterGirlDmg:diff()} 주고 [gold]화염 구체[/gold]를 [blue]1[/blue] 얻습니다.",
+  "MANOSABA-DISASTER_GIRL.description": "[gold]화상[/gold]을 5중첩 부여할 때마다 무작위 적 1명에게 {DisasterGirlDmg:diff()} 피해를 줍니다.",
   "MANOSABA-SCORCHING.title": "작열",
   "MANOSABA-SCORCHING.description": "턴 시작 시 모든 적에게 [gold]화상[/gold]을 {ScorchingPower:diff()} 부여하고, [gold]화염 구체[/gold]를 {ScorchingPower:diff()} 얻습니다.",
   "MANOSABA-SCALDING_TOUCH.title": "화염의 손길",
@@ -701,5 +701,5 @@
   "MANOSABA-RESTRICTION_RELEASE.title": "제한 해제",
   "MANOSABA-RESTRICTION_RELEASE.description": "[gold]손[/gold]의 모든 카드를 [gold]소멸[/gold]시킵니다.\n[gold]파이어볼[/gold] 카드를 [blue]8[/blue]장 [gold]손[/gold]에 추가합니다.",
   "MANOSABA-FIREBALL.title": "파이어볼",
-  "MANOSABA-FIREBALL.description": "피해를 {Damage:diff()} 줍니다.\n[gold]화염 구체[/gold]를 [blue]1[/blue] 얻습니다."
+  "MANOSABA-FIREBALL.description": "피해를 {Damage:diff()} 줍니다."
 }

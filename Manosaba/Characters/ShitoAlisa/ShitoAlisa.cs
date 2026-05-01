@@ -15,7 +15,7 @@ public class ShitoAlisa : PlaceholderCharacterModel
     public override Color MapDrawingColor => Color;
     public override Color NameColor => Color;
     public override CharacterGender Gender => CharacterGender.Feminine;
-    public override int StartingHp => 66;
+    public override int StartingHp => 60;
 
     public override IEnumerable<CardModel> StartingDeck =>
     [

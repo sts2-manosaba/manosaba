@@ -15,7 +15,7 @@ using MegaCrit.Sts2.Core.ValueProps;
 
 namespace Manosaba.Characters.ShitoAlisa.Powers;
 
-/// <summary>每累積給予敵人足夠層灼燒後，對一名隨機敵人造成傷害。</summary>
+/// <summary>每累積對敵人施加足夠層灼燒後，對一名隨機敵人造成傷害。</summary>
 public sealed class DisasterGirlPower : PathCustomPowerModel
 {
     private sealed class Data
@@ -39,9 +39,10 @@ public sealed class DisasterGirlPower : PathCustomPowerModel
     {
         await base.AfterPowerAmountChanged(power, amount, applier, cardSource);
 
+        Data data = GetInternalData<Data>();
         if (power == this)
         {
-            List<decimal> layers = GetInternalData<Data>().DamagePerStackLayer;
+            List<decimal> layers = data.DamagePerStackLayer;
             if (amount > 0m && cardSource is DisasterGirl dg
                 && dg.DynamicVars.TryGetValue("DisasterGirlDmg", out DynamicVar? dmgVar))
             {
@@ -67,7 +68,6 @@ public sealed class DisasterGirlPower : PathCustomPowerModel
         if (amount <= 0m)
             return;
 
-        Data data = GetInternalData<Data>();
         data.BurnCredit += (int)amount;
         while (data.BurnCredit >= BurnThreshold)
         {
@@ -76,8 +76,6 @@ public sealed class DisasterGirlPower : PathCustomPowerModel
             Flash();
             if (CombatState == null)
                 return;
-            int stackCount = (int)Math.Max(1m, Amount);
-            await PowerCmd.Apply<FireballSwarmPower>(Owner, stackCount, Owner, cardSource);
             decimal dmg = TotalTriggerDamage();
             List<Creature> enemies = CombatState.GetOpponentsOf(Owner)
                 .Where(e => e.IsAlive && e.IsHittable)
@@ -98,5 +96,5 @@ public sealed class DisasterGirlPower : PathCustomPowerModel
         return layers.Count > 0 ? layers.Sum() : 7m;
     }
 
-    protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<BurnPower>(), HoverTipFactory.FromPower<FireballSwarmPower>()];
+    protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<BurnPower>()];
 }

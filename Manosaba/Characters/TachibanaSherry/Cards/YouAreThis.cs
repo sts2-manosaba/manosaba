@@ -19,12 +19,12 @@ namespace Manosaba.Characters.TachibanaSherry.Cards
         private const int energyCost = 2;
         private const CardType type = CardType.Skill;
         private const CardRarity rarity = CardRarity.Uncommon;
-        private const TargetType targetType = TargetType.AllAllies;
+        private const TargetType targetType = TargetType.Self;
         private const bool shouldShowInCardLibrary = true;
 
         protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<StrengthPower>()];
 
-        protected override IEnumerable<DynamicVar> CanonicalVars => [new PowerVar<StrengthPower>(2m)];
+        protected override IEnumerable<DynamicVar> CanonicalVars => [new PowerVar<StrengthPower>(4m)];
 
         public YouAreThis() : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)
         {
@@ -37,14 +37,11 @@ namespace Manosaba.Characters.TachibanaSherry.Cards
                 return;
             }
 
-            IEnumerable<Creature> players = base.CombatState.GetTeammatesOf(ownerCreature);
-            foreach (Creature creature in players)
-            {
-                if (creature == null || !creature.IsAlive || !creature.IsPlayer)
-                    continue;
-
-                await PowerCmd.Apply<StrengthPower>(creature, DynamicVars["StrengthPower"].BaseValue, ownerCreature, this);
-            }
+            await PowerCmd.Apply<StrengthPower>(
+                ownerCreature,
+                DynamicVars["StrengthPower"].BaseValue,
+                ownerCreature,
+                this);
         }
 
         protected override void OnUpgrade()

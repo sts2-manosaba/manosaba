@@ -21,7 +21,7 @@ public class DisasterGirl : ShitoAlisaCardModel
     private const bool shouldShowInCardLibrary = true;
 
     protected override IEnumerable<DynamicVar> CanonicalVars => WithCombust(0, new DynamicVar("DisasterGirlDmg", 7m), new PowerVar<DisasterGirlPower>(1m));
-    protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<BurnPower>(), HoverTipFactory.FromPower<FireballSwarmPower>()];
+    protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<BurnPower>()];
 
     public DisasterGirl() : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)
     {
