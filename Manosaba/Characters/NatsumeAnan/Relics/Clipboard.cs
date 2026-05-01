@@ -1,9 +1,12 @@
 using BaseLib.Utils;
 using Manosaba.Characters.Common.Resources;
 using Manosaba.Extensions;
+using manosaba.Characters.NatsumeAnan.Powers;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.Entities.Relics;
+using MegaCrit.Sts2.Core.GameActions.Multiplayer;
+using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Saves.Runs;
 using MegaCrit.Sts2.Core.ValueProps;
@@ -13,11 +16,22 @@ namespace manosaba.Characters.NatsumeAnan.Relics;
 [Pool(typeof(NatsumeAnanRelicPool))]
 public sealed class Clipboard : LevelingPathCustomRelicModel, ICustomEnergySaveCarrier
 {
-    private const int BaseCombatStartKotodamaGain = 3;
+    private const int BlockPerKotodamaSpent = 3;
 
     public override RelicRarity Rarity => RelicRarity.Starter;
 
-    protected override IEnumerable<DynamicVar> CanonicalVars => [new DynamicVar("KotodamaEnergy", BaseCombatStartKotodamaGain)];
+    protected override IEnumerable<IHoverTip> ExtraHoverTips =>
+    [
+        .. base.ExtraHoverTips,
+        HoverTipFactory.FromPower<SicklyPower>(),
+    ];
+
+    protected override IEnumerable<DynamicVar> CanonicalVars =>
+    [
+        new DynamicVar("KotodamaEnergy", 1m),
+        new BlockVar(BlockPerKotodamaSpent, ValueProp.Unpowered),
+        new PowerVar<SicklyPower>(1m),
+    ];
 
     [SavedProperty]
     public int Manosaba_KotodamaEnergy { get; set; }
@@ -38,8 +52,31 @@ public sealed class Clipboard : LevelingPathCustomRelicModel, ICustomEnergySaveC
         return Task.CompletedTask;
     }
 
-    public override Task BeforeCombatStart()
+    public override async Task BeforeCombatStart()
     {
+        SyncKotodamaGainVar();
+
+        if (Owner?.Creature == null)
+        {
+            return;
+        }
+
+        await PowerCmd.Apply<SicklyPower>(
+            Owner.Creature,
+            DynamicVars["SicklyPower"].BaseValue,
+            Owner.Creature,
+            null);
+    }
+
+    public override Task AfterPlayerTurnStart(PlayerChoiceContext choiceContext, Player player)
+    {
+        _ = choiceContext;
+
+        if (player != Owner)
+        {
+            return Task.CompletedTask;
+        }
+
         SyncKotodamaGainVar();
         int gain = DynamicVars["KotodamaEnergy"].IntValue;
         if (gain > 0)
@@ -58,8 +95,7 @@ public sealed class Clipboard : LevelingPathCustomRelicModel, ICustomEnergySaveC
             return;
         }
 
-        int blockPerKotodama = GetBlockPerKotodamaForLevel();
-        int blockToGain = spentKotodama * blockPerKotodama;
+        int blockToGain = spentKotodama * DynamicVars.Block.IntValue;
         if (blockToGain <= 0)
         {
             return;
@@ -78,18 +114,6 @@ public sealed class Clipboard : LevelingPathCustomRelicModel, ICustomEnergySaveC
 
     private void SyncKotodamaGainVar()
     {
-        DynamicVars["KotodamaEnergy"].BaseValue = BaseCombatStartKotodamaGain + (RelicLevel - 1);
-    }
-
-    private int GetBlockPerKotodamaForLevel()
-    {
-        return RelicLevel switch
-        {
-            <= 1 => 2,
-            2 => 3,
-            3 => 4,
-            4 => 5,
-            _ => 6,
-        };
+        DynamicVars["KotodamaEnergy"].BaseValue = RelicLevel >= 4 ? 3m : RelicLevel >= 2 ? 2m : 1m;
     }
 }

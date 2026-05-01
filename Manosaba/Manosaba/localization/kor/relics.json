@@ -42,7 +42,7 @@
   "MANOSABA-TAROT_DECK.missingHeader": "부족한 카드:",
   "MANOSABA-TAROT_DECK.completed": "수집 완료",
   "MANOSABA-CLIPBOARD.title": "스케치북",
-  "MANOSABA-CLIPBOARD.description": "전투 시작 시 {KotodamaEnergy:kotodamaIcons()}을 얻습니다.\n이 유물의 레벨이 1 오를 때마다 이 수치가 +1 됩니다.\n카드를 사용할 때 [gold]언령[/gold]을 소모하면, 소모한 [gold]언령[/gold] x 계수만큼 [gold]방어도[/gold]를 얻습니다(Lv1:[blue]2[/blue], Lv2:[blue]3[/blue], Lv3:[blue]4[/blue], Lv4:[blue]6[/blue], Lv5:[blue]9[/blue]).",
+  "MANOSABA-CLIPBOARD.description": "턴 시작 시 {KotodamaEnergy:kotodamaIcons()}을 얻습니다.\nLv2: [blue]2[/blue]. Lv4: [blue]3[/blue].\n[gold]언령[/gold]을 소모할 때마다 소모한 [gold]언령[/gold] 1당 {Block} [gold]방어도[/gold]를 얻습니다.\n전투 시작 시 [gold]병약[/gold]을 얻습니다.",
   "MANOSABA-CLIPBOARD.flavor": "적어 내려간 모든 말은 힘이 된다.",
   "MANOSABA-LEG_IRONS.title": "족쇄",
   "MANOSABA-LEG_IRONS.description": "전투 시작 시 이 유물 레벨만큼 [gold]화염 구체[/gold]를 얻습니다.\nLv2: [gold]화염 구체[/gold]를 1 얻을 때마다 [gold]마녀화[/gold]를 [blue]5[/blue] 얻습니다.\nLv4: 턴 종료 시 현재 [gold]화염 구체[/gold] 수만큼 HP를 회복합니다.",

@@ -609,6 +609,8 @@
   "MANOSABA-FLASH_OF_INSPIRATION.description": "Gain {KotodamaGain:kotodamaIcons()}.",
   "MANOSABA-INSTIGATE.title": "Instigate",
   "MANOSABA-INSTIGATE.description": "Target player automatically plays the top card of their [gold]Draw pile[/gold].{IfUpgraded:show:\nThat player draws {CardsNextTurn} additional card next turn.}",
+  "MANOSABA-JIGAISHIRO.title": "Kill Yourself!",
+  "MANOSABA-JIGAISHIRO.description": "Apply {JigaiPower:diff()} [gold]Jigai[/gold].",
   "MANOSABA-READING.title": "Reading",
   "MANOSABA-READING.description": "Gain {KotodamaGain:kotodamaIcons()}. Draw {Cards:diff()} cards.",
   "MANOSABA-ENDURANCE.title": "Endurance",

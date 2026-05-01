@@ -1,4 +1,5 @@
 using BaseLib.Utils;
+using manosaba.Characters.NatsumeAnan.Powers;
 using Manosaba.Characters.Common.Powers;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
@@ -7,7 +8,6 @@ using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Logging;
-using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.Powers;
 using MegaCrit.Sts2.Core.ValueProps;
 using System.Reflection;
@@ -205,5 +205,44 @@ public sealed class Instigate : NatsumeKotodamaCardModel
             streamType.GetField("_counter", flags)?.GetValue(stream);
 
         return counter == null ? $"{streamName}:?" : $"{streamName}:{counter}";
+    }
+}
+
+[Pool(typeof(NatsumeAnanCardPool))]
+public sealed class Jigaishiro : NatsumeKotodamaCardModel
+{
+    protected override IEnumerable<DynamicVar> CanonicalVars =>
+    [
+        new DynamicVar("KotodamaCost", 1m),
+        new PowerVar<JigaiPower>(5m),
+    ];
+
+    protected override IEnumerable<IHoverTip> ExtraHoverTips =>
+    [
+        .. base.ExtraHoverTips,
+        HoverTipFactory.FromPower<JigaiPower>(),
+    ];
+
+    public Jigaishiro() : base(0, CardType.Skill, CardRarity.Basic, TargetType.AnyEnemy, true)
+    {
+    }
+
+    protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
+    {
+        _ = choiceContext;
+
+        if (cardPlay.Target == null)
+            return;
+
+        await PowerCmd.Apply<JigaiPower>(
+            cardPlay.Target,
+            DynamicVars["JigaiPower"].BaseValue,
+            Owner.Creature,
+            this);
+    }
+
+    protected override void OnUpgrade()
+    {
+        DynamicVars["JigaiPower"].UpgradeValueBy(3m);
     }
 }
