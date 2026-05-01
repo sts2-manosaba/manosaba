@@ -18,7 +18,7 @@ public sealed class LifeConsultation : PathCustomCardModel
 
     private const int energyCost = 1;
     private const CardType type = CardType.Skill;
-    private const CardRarity rarity = CardRarity.Uncommon;
+    private const CardRarity rarity = CardRarity.Rare;
     private const TargetType targetType = TargetType.AnyAlly;
     private const bool shouldShowInCardLibrary = true;
 

@@ -14,6 +14,7 @@ namespace Manosaba.Characters.SaekiMiria.Powers;
 public sealed class SlimificationPower : PathCustomPowerModel
 {
     private const string RegenGainVar = "RegenGain";
+    private int _pendingHpLossTriggers;
 
     public override PowerType Type => PowerType.Buff;
     public override PowerStackType StackType => PowerStackType.Counter;
@@ -56,13 +57,30 @@ public sealed class SlimificationPower : PathCustomPowerModel
         if (target != Owner)
             return;
 
-        if (!props.HasFlag(ValueProp.Move))
+        if (_pendingHpLossTriggers <= 0)
             return;
 
-        if (!result.WasFullyBlocked || result.BlockedDamage <= 0)
-            return;
-
+        _pendingHpLossTriggers--;
         await PowerCmd.Apply<RegenPower>(Owner, Amount, Owner, cardSource);
+    }
+
+    public override decimal ModifyHpLostBeforeOsty(
+        Creature target,
+        decimal amount,
+        ValueProp props,
+        Creature? dealer,
+        CardModel? cardSource)
+    {
+        _ = props;
+        _ = dealer;
+        _ = cardSource;
+
+        if (target == Owner && amount > 0m)
+        {
+            _pendingHpLossTriggers++;
+        }
+
+        return amount;
     }
 
     private void SyncVars()

@@ -14,6 +14,7 @@ namespace Manosaba.Characters.SaekiMiria.Powers
     public class FriendlyPower : PathCustomPowerModel
     {
         private const string DamageReductionPercentVar = "DamageReductionPercent";
+        private const decimal DamageTakenMultiplierPerStack = 0.8m;
 
         public override PowerType Type => PowerType.Buff;
         public override PowerStackType StackType => PowerStackType.Counter;
@@ -50,10 +51,10 @@ namespace Manosaba.Characters.SaekiMiria.Powers
                 return 1m;
             }
             decimal multiplier = 1m;
-            // for each stack, decrease damage taken by 25%, multiplicatively
+            // for each stack, decrease damage taken multiplicatively
             for (int i = 0; i < base.Amount; i++)
             {
-                multiplier *= 0.75m;
+                multiplier *= DamageTakenMultiplierPerStack;
             }
             return multiplier;
         }
@@ -63,7 +64,7 @@ namespace Manosaba.Characters.SaekiMiria.Powers
             decimal multiplier = 1m;
             for (int i = 0; i < base.Amount; i++)
             {
-                multiplier *= 0.8m;
+                multiplier *= DamageTakenMultiplierPerStack;
             }
 
             DynamicVars[DamageReductionPercentVar].BaseValue = (1m - multiplier) * 100m;
