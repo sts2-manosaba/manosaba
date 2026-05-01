@@ -25,6 +25,7 @@ public sealed class Kokoro : NatsumeKotodamaCardModel
     [
         .. base.ExtraHoverTips,
         HoverTipFactory.FromPower<KokoroPower>(),
+        HoverTipFactory.FromCard<Suicide>(),
     ];
 
     public Kokoro() : base(1, CardType.Power, CardRarity.Rare, TargetType.Self, true)

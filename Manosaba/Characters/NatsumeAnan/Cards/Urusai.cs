@@ -40,26 +40,35 @@ public sealed class Urusai : NatsumeKotodamaCardModel
             // Auto-play paths (for example Instigate -> AutoPlayFromDrawPile) bypass SpendResources.
             // Match vanilla X-cost behavior: resolve X from current resource but do not spend it.
             hits = Math.Max(0, KotodamaEnergy.Get(Owner));
+            _resolvedKotodamaX = hits;
         }
 
-        _resolvedKotodamaX = 0;
-
-        if (hits <= 0)
+        try
         {
-            return;
-        }
+            if (hits <= 0)
+            {
+                return;
+            }
 
-        MegaCrit.Sts2.Core.Combat.CombatState? combatState = CombatState;
-        if (combatState == null)
+            MegaCrit.Sts2.Core.Combat.CombatState? combatState = CombatState;
+            if (combatState == null)
+            {
+                return;
+            }
+
+            await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
+                .WithHitCount(hits)
+                .FromCard(this)
+                .TargetingRandomOpponents(combatState)
+                .Execute(choiceContext);
+        }
+        finally
         {
-            return;
+            if (cardPlay.IsLastInSeries)
+            {
+                _resolvedKotodamaX = 0;
+            }
         }
-
-        await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
-            .WithHitCount(hits)
-            .FromCard(this)
-            .TargetingRandomOpponents(combatState)
-            .Execute(choiceContext);
     }
 
     protected override void OnUpgrade()
