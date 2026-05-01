@@ -2,6 +2,7 @@ using BaseLib.Utils;
 using manosaba.Characters.ShitoAlisa;
 using Manosaba.Characters.Common.Overrides;
 using Manosaba.Characters.Common.Powers;
+using Manosaba.Config;
 using Manosaba.Extensions;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Combat;
@@ -17,6 +18,7 @@ namespace Manosaba.Characters.ShitoAlisa.Cards;
 [Pool(typeof(ShitoAlisaCardPool))]
 public sealed class FireJudgementCourt : ShitoAlisaCardModel
 {
+    private static bool _sfxPlayedThisSession = false;
     private const int energyCost = 3;
     private const CardType type = CardType.Skill;
     private const CardRarity rarity = CardRarity.Ancient;
@@ -38,11 +40,34 @@ public sealed class FireJudgementCourt : ShitoAlisaCardModel
     {
     }
 
+    public static void ResetSfxForNewRun()
+    {
+        _sfxPlayedThisSession = false;
+    }
+
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         CombatState? state = CombatState;
         if (state == null)
             return;
+
+        ManosabaFxPlayMode sfxPlayMode = ManosabaConfig.FireJudgementCourtEffectFrequency;
+        if (sfxPlayMode == ManosabaFxPlayMode.Never)
+        {
+            return;
+        }
+
+        if (sfxPlayMode == ManosabaFxPlayMode.OncePerRun && _sfxPlayedThisSession)
+        {
+            return;
+        }
+
+        SfxCmd.Play("event:/Manosaba/audio/bgm/fire_judgement_court.mp3", 0.8f);
+
+        if (sfxPlayMode == ManosabaFxPlayMode.OncePerRun)
+        {
+            _sfxPlayedThisSession = true;
+        }
 
         List<Creature> opponents = state.GetOpponentsOf(Owner.Creature).ToList();
         decimal burnAmount = DynamicVars["BurnPower"].BaseValue;

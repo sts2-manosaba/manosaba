@@ -45,6 +45,9 @@ public sealed class ManosabaConfig : SimpleModConfig
     [ConfigHoverTip]
     public static ManosabaFxPlayMode NoahFriendsEffectFrequency { get; set; } = ManosabaFxPlayMode.EveryTime;
 
+    [ConfigHoverTip]
+    public static ManosabaFxPlayMode FireJudgementCourtEffectFrequency { get; set; } = ManosabaFxPlayMode.EveryTime;
+
     public static float GetManosabaSfxVolume()
     {
         return (float)Math.Clamp(ManosabaSfxVolumePercent / 100d, 0d, 1d);
