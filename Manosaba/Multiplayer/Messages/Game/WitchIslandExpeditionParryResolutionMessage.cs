@@ -9,6 +9,7 @@ namespace Manosaba.Multiplayer.Messages.Game;
 public sealed class WitchIslandExpeditionParryResolutionMessage : INetMessage, IPacketSerializable, IRunLocationTargetedMessage
 {
     public uint promptId;
+    public readonly List<ulong> targetPlayerIds = [];
     public readonly List<ulong> parriedPlayerIds = [];
 
     public bool ShouldBroadcast => true;
@@ -19,6 +20,12 @@ public sealed class WitchIslandExpeditionParryResolutionMessage : INetMessage, I
     public void Serialize(PacketWriter writer)
     {
         writer.WriteUInt(promptId);
+        writer.WriteByte((byte)Math.Min(byte.MaxValue, targetPlayerIds.Count));
+        foreach (ulong playerId in targetPlayerIds.Take(byte.MaxValue))
+        {
+            writer.WriteULong(playerId);
+        }
+
         writer.WriteByte((byte)Math.Min(byte.MaxValue, parriedPlayerIds.Count));
         foreach (ulong playerId in parriedPlayerIds.Take(byte.MaxValue))
         {
@@ -31,6 +38,13 @@ public sealed class WitchIslandExpeditionParryResolutionMessage : INetMessage, I
     public void Deserialize(PacketReader reader)
     {
         promptId = reader.ReadUInt();
+        targetPlayerIds.Clear();
+        byte targetCount = reader.ReadByte();
+        for (int i = 0; i < targetCount; i++)
+        {
+            targetPlayerIds.Add(reader.ReadULong());
+        }
+
         parriedPlayerIds.Clear();
         byte count = reader.ReadByte();
         for (int i = 0; i < count; i++)

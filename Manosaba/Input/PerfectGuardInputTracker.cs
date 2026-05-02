@@ -25,6 +25,7 @@ public sealed partial class PerfectGuardInputTracker : Node
     private static readonly HashSet<ulong> _guardWindowTargetIds = [];
     private static readonly HashSet<ParryToken> _parryTokens = [];
     private static readonly HashSet<ulong> _resolvedParryTargetIds = [];
+    private static readonly Dictionary<uint, WitchIslandExpeditionParryResolutionMessage> _pendingResolutionsByPromptId = [];
     private static readonly Dictionary<AttackCommand, HashSet<ulong>> _autoGuardTargetsByCommand = [];
     private static AttackCommand? _currentDamageCommand;
     private static bool _currentDamageHasPerfectGuardPrompt;
@@ -121,12 +122,14 @@ public sealed partial class PerfectGuardInputTracker : Node
         if (runManager.NetService.Type == NetGameType.Host)
         {
             List<ulong> parriedPlayerIds = GetValidParryTargetIds().ToList();
-            ApplyParryResolution(_activePromptId, parriedPlayerIds);
+            List<ulong> targetPlayerIds = _guardWindowTargetIds.ToList();
+            ApplyParryResolution(_activePromptId, targetPlayerIds, parriedPlayerIds);
             WitchIslandExpeditionParryResolutionMessage message = new()
             {
                 promptId = _activePromptId,
                 Location = runManager.RunLocationTargetedBuffer.CurrentLocation,
             };
+            message.targetPlayerIds.AddRange(targetPlayerIds);
             message.parriedPlayerIds.AddRange(parriedPlayerIds);
             runManager.NetService.SendMessage(message);
             return;
@@ -137,11 +140,29 @@ public sealed partial class PerfectGuardInputTracker : Node
             return;
         }
 
-        _resolutionReceivedSource ??= new TaskCompletionSource<uint>(TaskCreationOptions.RunContinuationsAsynchronously);
-        Task completed = await Task.WhenAny(_resolutionReceivedSource.Task, Task.Delay(TimeSpan.FromSeconds(timeoutSeconds)));
-        if (completed == _resolutionReceivedSource.Task && _resolutionReceivedSource.Task.Result == _activePromptId)
+        if (TryApplyPendingResolution())
         {
             return;
+        }
+
+        _resolutionReceivedSource ??= new TaskCompletionSource<uint>(TaskCreationOptions.RunContinuationsAsynchronously);
+        Task timeout = Task.Delay(TimeSpan.FromSeconds(timeoutSeconds));
+        while (_resolvedPromptId != _activePromptId)
+        {
+            Task completed = await Task.WhenAny(_resolutionReceivedSource.Task, timeout);
+            if (completed == _resolutionReceivedSource.Task)
+            {
+                if (_resolutionReceivedSource.Task.Result == _activePromptId)
+                {
+                    return;
+                }
+
+                _resolutionReceivedSource = new TaskCompletionSource<uint>(TaskCreationOptions.RunContinuationsAsynchronously);
+                continue;
+            }
+
+            GD.PushWarning($"[Manosaba] Waiting for host parry resolution prompt={_activePromptId} targets={string.Join(",", _guardWindowTargetIds)}.");
+            timeout = Task.Delay(TimeSpan.FromSeconds(timeoutSeconds));
         }
     }
 
@@ -156,6 +177,7 @@ public sealed partial class PerfectGuardInputTracker : Node
         _parryTokens.RemoveWhere(token => token.PromptId != _activePromptId);
         _resolvedParryTargetIds.Clear();
         _resolutionReceivedSource = null;
+        TryApplyPendingResolution();
     }
 
     public static void OpenPerfectGuardWindow(double maxDurationSeconds)
@@ -333,7 +355,9 @@ public sealed partial class PerfectGuardInputTracker : Node
 
     private static void HandleParryMessage(WitchIslandExpeditionParryMessage message, ulong senderId)
     {
-        if (!_guardWindowTargetIds.Contains(senderId) || message.promptId != _activePromptId)
+        if (_resolvedPromptId == _activePromptId ||
+            !_guardWindowTargetIds.Contains(senderId) ||
+            message.promptId != _activePromptId)
         {
             return;
         }
@@ -343,7 +367,12 @@ public sealed partial class PerfectGuardInputTracker : Node
 
     private static void HandleParryResolutionMessage(WitchIslandExpeditionParryResolutionMessage message, ulong _)
     {
-        ApplyParryResolution(message.promptId, message.parriedPlayerIds);
+        if (TryApplyParryResolutionMessage(message))
+        {
+            return;
+        }
+
+        _pendingResolutionsByPromptId[message.promptId] = message;
     }
 
     private static void MarkAutoGuardTarget(ulong targetPlayerId)
@@ -384,17 +413,68 @@ public sealed partial class PerfectGuardInputTracker : Node
         }
     }
 
-    private static void ApplyParryResolution(uint promptId, IEnumerable<ulong> parriedPlayerIds)
+    private static bool TryApplyPendingResolution()
+    {
+        if (_pendingResolutionsByPromptId.Remove(_activePromptId, out WitchIslandExpeditionParryResolutionMessage? message))
+        {
+            return TryApplyParryResolutionMessage(message);
+        }
+
+        foreach (uint promptId in _pendingResolutionsByPromptId.Keys.ToArray())
+        {
+            message = _pendingResolutionsByPromptId[promptId];
+            if (!TargetsMatchCurrentWindow(message.targetPlayerIds))
+            {
+                continue;
+            }
+
+            _pendingResolutionsByPromptId.Remove(promptId);
+            return TryApplyParryResolutionMessage(message);
+        }
+
+        return false;
+    }
+
+    private static bool TryApplyParryResolutionMessage(WitchIslandExpeditionParryResolutionMessage message)
+    {
+        if (message.promptId == _activePromptId)
+        {
+            return ApplyParryResolution(_activePromptId, message.targetPlayerIds, message.parriedPlayerIds);
+        }
+
+        if (_resolvedPromptId != _activePromptId && TargetsMatchCurrentWindow(message.targetPlayerIds))
+        {
+            return ApplyParryResolution(_activePromptId, message.targetPlayerIds, message.parriedPlayerIds);
+        }
+
+        return false;
+    }
+
+    private static bool ApplyParryResolution(uint promptId, IEnumerable<ulong> targetPlayerIds, IEnumerable<ulong> parriedPlayerIds)
     {
         if (promptId != _activePromptId)
         {
-            return;
+            return false;
+        }
+
+        HashSet<ulong> targets = targetPlayerIds.ToHashSet();
+        if (targets.Count > 0 && !targets.SetEquals(_guardWindowTargetIds))
+        {
+            return false;
         }
 
         _resolvedPromptId = promptId;
         _resolvedParryTargetIds.Clear();
         _resolvedParryTargetIds.UnionWith(parriedPlayerIds.Where(_guardWindowTargetIds.Contains));
+        _parryTokens.RemoveWhere(token => token.PromptId == promptId);
         _resolutionReceivedSource?.TrySetResult(promptId);
+        return true;
+    }
+
+    private static bool TargetsMatchCurrentWindow(IEnumerable<ulong> targetPlayerIds)
+    {
+        HashSet<ulong> targets = targetPlayerIds.ToHashSet();
+        return targets.Count > 0 && targets.SetEquals(_guardWindowTargetIds);
     }
 
     private static bool IsMultiplayerRun()
