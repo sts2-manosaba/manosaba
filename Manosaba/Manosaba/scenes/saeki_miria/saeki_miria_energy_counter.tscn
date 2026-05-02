@@ -1,8 +1,8 @@
 [gd_scene load_steps=9 format=3 uid="uid://b204k4mr2cayp"]
 
 [ext_resource type="Script" uid="uid://d3r08absyhcvw" path="res://Characters/Common/Overrides/ManosabaEnergyCounter.cs" id="1_yr3kq"]
-[ext_resource type="Texture2D" uid="uid://fpmn6d6tmyil" path="res://Manosaba/images/characters/saeki_miria/SaekiMiriaOrb.png" id="2_d400u"]
-[ext_resource type="Script" uid="uid://cte8o8b1ap336" path="res://Characters/Common/Overrides/ManosabaParticlesContainer.cs" id="2_l17gy"]
+[ext_resource type="Texture2D" uid="uid://n0s4k2s334u3" path="res://Manosaba/images/characters/saeki_miria/saeki_miria_energy.png" id="2_d400u"]
+[ext_resource type="Script" uid="uid://c7hjb2np2d80x" path="res://Characters/Common/Overrides/ManosabaParticlesContainer.cs" id="2_l17gy"]
 [ext_resource type="FontFile" uid="uid://dntfn4rajubna" path="res://Manosaba/font/kreon_bold.ttf" id="3_6swnt"]
 [ext_resource type="Script" uid="uid://cyusfwpr67vv6" path="res://Characters/Common/Overrides/ManosabaLabel.cs" id="4_sy50s"]
 
@@ -68,10 +68,10 @@ mouse_filter = 2
 
 [node name="TextureRect" type="TextureRect" parent="Layers"]
 layout_mode = 0
-offset_left = -15.0
-offset_top = -128.0
-offset_right = 144.0303
-offset_bottom = 256.0
+offset_left = -17.0
+offset_top = -17.0
+offset_right = 147.0
+offset_bottom = 147.0
 texture = ExtResource("2_d400u")
 expand_mode = 1
 
@@ -108,6 +108,7 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_colors/font_color = Color(0.978671, 0.96035033, 0.98051375, 1)
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.188235)
+theme_override_colors/font_outline_color = Color(0.38258615, 0.3048816, 0.059103332, 1)
 theme_override_constants/shadow_offset_x = 3
 theme_override_constants/shadow_offset_y = 2
 theme_override_constants/outline_size = 16
@@ -121,3 +122,4 @@ script = ExtResource("4_sy50s")
 theme_override_constants/outline_size = 16
 theme_override_constants/shadow_outline_size = 16
 theme_override_colors/font_color = Color(0.978671, 0.96035033, 0.98051375, 1)
+theme_override_colors/font_outline_color = Color(0.38258615, 0.3048816, 0.059103332, 1)

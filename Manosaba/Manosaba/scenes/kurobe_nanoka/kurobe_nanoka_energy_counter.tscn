@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://d3r08absyhcvw" path="res://Characters/Common/Overrides/ManosabaEnergyCounter.cs" id="1_yr3kq"]
 [ext_resource type="Script" uid="uid://c7hjb2np2d80x" path="res://Characters/Common/Overrides/ManosabaParticlesContainer.cs" id="2_l17gy"]
 [ext_resource type="FontFile" uid="uid://dntfn4rajubna" path="res://Manosaba/font/kreon_bold.ttf" id="3_6swnt"]
-[ext_resource type="Texture2D" uid="uid://8nwg21bbrwtl" path="res://Manosaba/images/characters/kurobe_nanoka/kurobe_nanoka_orb.png" id="3_eidf2"]
+[ext_resource type="Texture2D" uid="uid://kim41b7g20hy" path="res://Manosaba/images/characters/kurobe_nanoka/kurobe_nanoka_energy.png" id="3_eidf2"]
 [ext_resource type="Script" uid="uid://cyusfwpr67vv6" path="res://Characters/Common/Overrides/ManosabaLabel.cs" id="4_sy50s"]
 
 [sub_resource type="Curve" id="Curve_umldk"]
@@ -68,10 +68,10 @@ mouse_filter = 2
 
 [node name="TextureRect2" type="TextureRect" parent="Layers"]
 layout_mode = 0
-offset_left = -9.0
-offset_top = -6.0
-offset_right = 140.0
-offset_bottom = 143.0
+offset_left = -26.0
+offset_top = -24.0
+offset_right = 150.0
+offset_bottom = 152.0
 texture = ExtResource("3_eidf2")
 expand_mode = 1
 
