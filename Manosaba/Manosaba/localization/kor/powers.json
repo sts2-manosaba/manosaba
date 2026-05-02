@@ -328,5 +328,14 @@
   "MANOSABA-BRAINWASH_EXTRA_TURN_POWER.smartDescription": "당신은 추가 턴을 얻습니다.",
   "MANOSABA-THIS_IS_FINE_POWER.title": "다 괜찮아",
   "MANOSABA-THIS_IS_FINE_POWER.description": "[gold]화상[/gold]이 [blue]{Amount}[/blue]번 추가로 발동합니다.",
-  "MANOSABA-THIS_IS_FINE_POWER.smartDescription": "[gold]화상[/gold]이 [blue]{Amount}[/blue]번 추가로 발동합니다."
+  "MANOSABA-THIS_IS_FINE_POWER.smartDescription": "[gold]화상[/gold]이 [blue]{Amount}[/blue]번 추가로 발동합니다.",
+  "MANOSABA-SANITY_POWER.title": "이성",
+  "MANOSABA-SANITY_POWER.description": "[gold]에너지[/gold]를 소모할 때마다 같은 양의 [gold]이성[/gold]을 잃습니다. [gold]이성[/gold]이 0이 되면 소유자가 죽습니다.",
+  "MANOSABA-SANITY_POWER.smartDescription": "[gold]에너지[/gold]를 소모할 때마다 같은 양의 [gold]이성[/gold]을 잃습니다. [gold]이성[/gold]이 0이 되면 소유자가 죽습니다.",
+  "MANOSABA-CALL_OF_CTHULHU_POWER.title": "크툴루의 부름",
+  "MANOSABA-CALL_OF_CTHULHU_POWER.description": "각 턴마다 받을 수 있는 체력 피해에 제한이 있습니다. 자신의 턴 시작 시 [gold]힘[/gold]을 얻습니다.",
+  "MANOSABA-CALL_OF_CTHULHU_POWER.smartDescription": "각 턴마다 체력 피해를 최대 [blue]{DamageLimit}[/blue]만 받습니다. 자신의 턴 시작 시 [gold]힘[/gold]을 {StrengthPower:diff()} 얻습니다.",
+  "MANOSABA-SHADOW_FROM_THE_STEEPLE_POWER.title": "첨탑의 그림자",
+  "MANOSABA-SHADOW_FROM_THE_STEEPLE_POWER.description": "중첩마다 받는 피해가 증가합니다. 소유자의 턴 종료 시 제거됩니다.",
+  "MANOSABA-SHADOW_FROM_THE_STEEPLE_POWER.smartDescription": "중첩마다 받는 피해가 [blue]{DamageMultiplierPercent}%[/blue] 증가합니다. 소유자의 턴 종료 시 제거됩니다."
 }

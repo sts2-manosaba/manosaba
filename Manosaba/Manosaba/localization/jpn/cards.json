@@ -717,5 +717,21 @@
   "MANOSABA-RESTRICTION_RELEASE.title": "制限解除",
   "MANOSABA-RESTRICTION_RELEASE.description": "手札をすべて[gold]消耗[/gold]する。\n[gold]ファイアボール[/gold]を[blue]8[/blue]枚手札に加える。",
   "MANOSABA-FIREBALL.title": "ファイアボール",
-  "MANOSABA-FIREBALL.description": "{Damage:diff()}ダメージを与える。"
+  "MANOSABA-FIREBALL.description": "{Damage:diff()}ダメージを与える。",
+  "MANOSABA-BOOK_OF_GREAT_OLD_ONES.title": "旧支配者召喚書",
+  "MANOSABA-BOOK_OF_GREAT_OLD_ONES.description": "X層の[gold]正気[/gold]を得る。\n山札、手札、捨て札のカードをすべて戦闘から取り除き、[gold]旧支配者[/gold]デッキに置き換える。",
+  "MANOSABA-PAGE_AZATHOTH.title": "書頁-アザトース",
+  "MANOSABA-PAGE_AZATHOTH.description": "{Cards:diff()}枚引く。\nターン終了時、廃棄札に異なる名前の[gold]旧支配者[/gold]のページがすべてあれば勝利する。",
+  "MANOSABA-PAGE_NYARLATHOTEP.title": "書頁-ニャルラトホテプ",
+  "MANOSABA-PAGE_NYARLATHOTEP.description": "{Damage:diff()}ダメージを与える。\n{ShadowFromTheSteeplePower:diff()}層の[gold]尖塔の影[/gold]を与える。",
+  "MANOSABA-PAGE_SHUB_NIGGURATH.title": "書頁-シュブ＝ニグラス",
+  "MANOSABA-PAGE_SHUB_NIGGURATH.description": "HPを{Heal:diff()}回復する。\n{Block:diff()}[gold]ブロック[/gold]を得る。",
+  "MANOSABA-PAGE_YOG_SOTHOTH.title": "書頁-ヨグ＝ソトース",
+  "MANOSABA-PAGE_YOG_SOTHOTH.description": "すべての敵を[gold]スタン[/gold]させる。",
+  "MANOSABA-PAGE_HASTUR.title": "書頁-ハスター",
+  "MANOSABA-PAGE_HASTUR.description": "すべての敵に{Damage:diff()}ダメージを{Hits:diff()}回与える。",
+  "MANOSABA-PAGE_CTHUGHA.title": "書頁-クトゥグア",
+  "MANOSABA-PAGE_CTHUGHA.description": "ターン開始時、このカードが廃棄札にあるなら自動でプレイする。\n{Damage:diff()}ダメージを与える。",
+  "MANOSABA-PAGE_CTHULHU.title": "書頁-クトゥルフ",
+  "MANOSABA-PAGE_CTHULHU.description": "対象のプレイヤーは[gold]クトゥルフの呼び声[/gold]を得る。\nアップグレード後：あなたも[gold]クトゥルフの呼び声[/gold]を得る。"
 }

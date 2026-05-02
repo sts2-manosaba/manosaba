@@ -717,5 +717,21 @@
   "MANOSABA-RESTRICTION_RELEASE.title": "제한 해제",
   "MANOSABA-RESTRICTION_RELEASE.description": "[gold]손[/gold]의 모든 카드를 [gold]소멸[/gold]시킵니다.\n[gold]파이어볼[/gold] 카드를 [blue]8[/blue]장 [gold]손[/gold]에 추가합니다.",
   "MANOSABA-FIREBALL.title": "파이어볼",
-  "MANOSABA-FIREBALL.description": "피해를 {Damage:diff()} 줍니다."
+  "MANOSABA-FIREBALL.description": "피해를 {Damage:diff()} 줍니다.",
+  "MANOSABA-BOOK_OF_GREAT_OLD_ONES.title": "위대한 옛 존재 소환서",
+  "MANOSABA-BOOK_OF_GREAT_OLD_ONES.description": "[gold]이성[/gold]을 X 얻습니다.\n뽑을 카드 더미, 손, 버린 카드 더미의 모든 카드를 전투에서 제거하고 [gold]위대한 옛 존재[/gold] 덱으로 바꿉니다.",
+  "MANOSABA-PAGE_AZATHOTH.title": "페이지-아자토스",
+  "MANOSABA-PAGE_AZATHOTH.description": "카드를 {Cards:diff()}장 뽑습니다.\n턴 종료 시 소멸 더미에 이름이 서로 다른 [gold]위대한 옛 존재[/gold] 페이지가 모두 있으면 승리합니다.",
+  "MANOSABA-PAGE_NYARLATHOTEP.title": "페이지-니알라토텝",
+  "MANOSABA-PAGE_NYARLATHOTEP.description": "피해를 {Damage:diff()} 줍니다.\n[gold]첨탑의 그림자[/gold]를 {ShadowFromTheSteeplePower:diff()} 부여합니다.",
+  "MANOSABA-PAGE_SHUB_NIGGURATH.title": "페이지-슈브 니구라스",
+  "MANOSABA-PAGE_SHUB_NIGGURATH.description": "체력을 {Heal:diff()} 회복합니다.\n[gold]방어도[/gold]를 {Block:diff()} 얻습니다.",
+  "MANOSABA-PAGE_YOG_SOTHOTH.title": "페이지-요그 소토스",
+  "MANOSABA-PAGE_YOG_SOTHOTH.description": "모든 적을 [gold]기절[/gold]시킵니다.",
+  "MANOSABA-PAGE_HASTUR.title": "페이지-하스터",
+  "MANOSABA-PAGE_HASTUR.description": "모든 적에게 피해를 {Damage:diff()}씩 {Hits:diff()}번 줍니다.",
+  "MANOSABA-PAGE_CTHUGHA.title": "페이지-크투가",
+  "MANOSABA-PAGE_CTHUGHA.description": "턴 시작 시 이 카드가 소멸 더미에 있으면 자동으로 사용합니다.\n피해를 {Damage:diff()} 줍니다.",
+  "MANOSABA-PAGE_CTHULHU.title": "페이지-크툴루",
+  "MANOSABA-PAGE_CTHULHU.description": "지정한 플레이어가 [gold]크툴루의 부름[/gold]을 얻습니다.\n강화 후: 자신도 [gold]크툴루의 부름[/gold]을 얻습니다."
 }

@@ -325,5 +325,14 @@
   "MANOSABA-MOVABLE_TYPE_PRINTING_POWER.smartDescription": "[blue]{Energy}[/blue]点の[gold]エナジー[/gold]を消費するたびに、{KotodamaGain:kotodamaIcons()}を得る。",
   "MANOSABA-BRAINWASH_EXTRA_TURN_POWER.title": "洗脳",
   "MANOSABA-BRAINWASH_EXTRA_TURN_POWER.description": "あなたは追加ターンを得る。",
-  "MANOSABA-BRAINWASH_EXTRA_TURN_POWER.smartDescription": "あなたは追加ターンを得る。"
+  "MANOSABA-BRAINWASH_EXTRA_TURN_POWER.smartDescription": "あなたは追加ターンを得る。",
+  "MANOSABA-SANITY_POWER.title": "正気",
+  "MANOSABA-SANITY_POWER.description": "[gold]エナジー[/gold]を消費するたび、同じ量の[gold]正気[/gold]を失う。[gold]正気[/gold]が0になると持ち主は死亡する。",
+  "MANOSABA-SANITY_POWER.smartDescription": "[gold]エナジー[/gold]を消費するたび、同じ量の[gold]正気[/gold]を失う。[gold]正気[/gold]が0になると持ち主は死亡する。",
+  "MANOSABA-CALL_OF_CTHULHU_POWER.title": "クトゥルフの呼び声",
+  "MANOSABA-CALL_OF_CTHULHU_POWER.description": "各ターン、受けるHPダメージには上限がある。あなたのターン開始時、[gold]筋力[/gold]を得る。",
+  "MANOSABA-CALL_OF_CTHULHU_POWER.smartDescription": "各ターン、受けるHPダメージは最大[blue]{DamageLimit}[/blue]。あなたのターン開始時、{StrengthPower:diff()}層の[gold]筋力[/gold]を得る。",
+  "MANOSABA-SHADOW_FROM_THE_STEEPLE_POWER.title": "尖塔の影",
+  "MANOSABA-SHADOW_FROM_THE_STEEPLE_POWER.description": "1層につき受けるダメージが増加する。所持者のターン終了時に解除される。",
+  "MANOSABA-SHADOW_FROM_THE_STEEPLE_POWER.smartDescription": "1層につき受けるダメージが[blue]{DamageMultiplierPercent}%[/blue]増加する。所持者のターン終了時に解除される。"
 }

@@ -1,0 +1,155 @@
+[gd_scene load_steps=9 format=3]
+
+[ext_resource type="Texture2D" path="res://Manosaba/images/characters/natsume_anan/stills/Azathoth1.png" id="1_azathoth1"]
+[ext_resource type="Texture2D" path="res://Manosaba/images/characters/natsume_anan/stills/Azathoth2.png" id="2_azathoth2"]
+[ext_resource type="Texture2D" path="res://Manosaba/images/characters/natsume_anan/stills/Azathoth3.png" id="3_azathoth3"]
+[ext_resource type="Texture2D" path="res://Manosaba/images/characters/natsume_anan/stills/Azathoth4.png" id="4_azathoth4"]
+
+[sub_resource type="Animation" id="Animation_reset"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("StillA:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("1_azathoth1")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("StillB:texture")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("2_azathoth2")]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("StillA:modulate:a")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0.0]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("StillB:modulate:a")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_once"]
+resource_name = "stills_crossfade_once"
+length = 5.7
+loop_mode = 0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("StillA:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2.8),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [ExtResource("1_azathoth1"), ExtResource("3_azathoth3")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("StillB:texture")
+tracks/1/interp = 1
+tracks/1/loop_wrap = false
+tracks/1/keys = {
+"times": PackedFloat32Array(1.4, 4.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [ExtResource("2_azathoth2"), ExtResource("4_azathoth4")]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("StillA:modulate:a")
+tracks/2/interp = 1
+tracks/2/loop_wrap = false
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.35, 1.4, 1.85, 2.8, 3.25, 4.2, 4.65, 5.7),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [0.0, 1.0, 1.0, 0.0, 0.0, 1.0, 1.0, 0.0, 0.0]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("StillB:modulate:a")
+tracks/3/interp = 1
+tracks/3/loop_wrap = false
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 1.4, 1.85, 2.8, 3.25, 4.2, 4.65, 5.7),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [0.0, 0.0, 1.0, 1.0, 0.0, 0.0, 1.0, 1.0]
+}
+tracks/4/type = "method"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath(".")
+tracks/4/interp = 1
+tracks/4/loop_wrap = false
+tracks/4/keys = {
+"times": PackedFloat32Array(5.7),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"queue_free"
+}]
+}
+
+[sub_resource type="Shader" id="Shader_force_opaque"]
+code = "shader_type canvas_item;\n\nvoid fragment()\n{\n\tvec4 tex = texture(TEXTURE, UV);\n\tCOLOR = vec4(tex.rgb, COLOR.a);\n}\n"
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_azathoth"]
+_data = {
+&"RESET": SubResource("Animation_reset"),
+&"stills_crossfade_once": SubResource("Animation_once")
+}
+
+[node name="AzathothVfx" type="Node2D"]
+
+[node name="StillA" type="Sprite2D" parent="."]
+position = Vector2(0, 0)
+scale = Vector2(1, 1)
+modulate = Color(1, 1, 1, 0)
+texture = ExtResource("1_azathoth1")
+material = SubResource("Shader_force_opaque")
+
+[node name="StillB" type="Sprite2D" parent="."]
+position = Vector2(0, 0)
+scale = Vector2(1, 1)
+modulate = Color(1, 1, 1, 0)
+texture = ExtResource("2_azathoth2")
+material = SubResource("Shader_force_opaque")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_azathoth")
+}
+autoplay = "stills_crossfade_once"

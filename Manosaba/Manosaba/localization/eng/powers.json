@@ -329,5 +329,14 @@
   "MANOSABA-MOVABLE_TYPE_PRINTING_POWER.smartDescription": "Whenever you spend [blue]{Energy}[/blue] [gold]Energy[/gold], gain {KotodamaGain:kotodamaIcons()}.",
   "MANOSABA-BRAINWASH_EXTRA_TURN_POWER.title": "Brainwash",
   "MANOSABA-BRAINWASH_EXTRA_TURN_POWER.description": "You will take an extra turn.",
-  "MANOSABA-BRAINWASH_EXTRA_TURN_POWER.smartDescription": "You will take an extra turn."
+  "MANOSABA-BRAINWASH_EXTRA_TURN_POWER.smartDescription": "You will take an extra turn.",
+  "MANOSABA-SANITY_POWER.title": "Sanity",
+  "MANOSABA-SANITY_POWER.description": "Whenever you spend [gold]Energy[/gold], lose that much [gold]Sanity[/gold]. If [gold]Sanity[/gold] reaches 0, the owner dies.",
+  "MANOSABA-SANITY_POWER.smartDescription": "Whenever you spend [gold]Energy[/gold], lose that much [gold]Sanity[/gold]. If [gold]Sanity[/gold] reaches 0, the owner dies.",
+  "MANOSABA-CALL_OF_CTHULHU_POWER.title": "Call of Cthulhu",
+  "MANOSABA-CALL_OF_CTHULHU_POWER.description": "Each turn, take at most a limited amount of HP damage. At the start of your turn, gain [gold]Strength[/gold].",
+  "MANOSABA-CALL_OF_CTHULHU_POWER.smartDescription": "Each turn, take at most [blue]{DamageLimit}[/blue] HP damage. At the start of your turn, gain {StrengthPower:diff()} [gold]Strength[/gold].",
+  "MANOSABA-SHADOW_FROM_THE_STEEPLE_POWER.title": "Shadow from the Steeple",
+  "MANOSABA-SHADOW_FROM_THE_STEEPLE_POWER.description": "For each stack, take more damage. Removed at the end of the owner's turn.",
+  "MANOSABA-SHADOW_FROM_THE_STEEPLE_POWER.smartDescription": "For each stack, take [blue]{DamageMultiplierPercent}%[/blue] more damage. Removed at the end of the owner's turn."
 }

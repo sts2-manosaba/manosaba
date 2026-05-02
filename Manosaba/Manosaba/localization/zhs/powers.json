@@ -332,5 +332,14 @@
   "MANOSABA-MOVABLE_TYPE_PRINTING_POWER.smartDescription": "每消耗 [blue]{Energy}[/blue] 點[gold]能量[/gold]，獲得 {KotodamaGain:kotodamaIcons()}。",
   "MANOSABA-BRAINWASH_EXTRA_TURN_POWER.title": "洗腦",
   "MANOSABA-BRAINWASH_EXTRA_TURN_POWER.description": "你將獲得一個額外回合。",
-  "MANOSABA-BRAINWASH_EXTRA_TURN_POWER.smartDescription": "你將獲得一個額外回合。"
+  "MANOSABA-BRAINWASH_EXTRA_TURN_POWER.smartDescription": "你將獲得一個額外回合。",
+  "MANOSABA-SANITY_POWER.title": "理智",
+  "MANOSABA-SANITY_POWER.description": "消耗能量時同時消耗等量[gold]理智[/gold]。若[gold]理智[/gold]歸 0，持有者死亡。",
+  "MANOSABA-SANITY_POWER.smartDescription": "消耗能量時同時消耗等量[gold]理智[/gold]。若[gold]理智[/gold]歸 0，持有者死亡。",
+  "MANOSABA-CALL_OF_CTHULHU_POWER.title": "克蘇魯的呼喚",
+  "MANOSABA-CALL_OF_CTHULHU_POWER.description": "每回合最多受到一定數值的生命傷害。在你的回合開始時，獲得[gold]力量[/gold]。",
+  "MANOSABA-CALL_OF_CTHULHU_POWER.smartDescription": "每回合最多受到 [blue]{DamageLimit}[/blue] 點生命傷害。在你的回合開始時，獲得 {StrengthPower:diff()} 層[gold]力量[/gold]。",
+  "MANOSABA-SHADOW_FROM_THE_STEEPLE_POWER.title": "尖塔的陰影",
+  "MANOSABA-SHADOW_FROM_THE_STEEPLE_POWER.description": "每層使受到傷害提高。持有者回合結束時移除。",
+  "MANOSABA-SHADOW_FROM_THE_STEEPLE_POWER.smartDescription": "每層使受到傷害提高 [blue]{DamageMultiplierPercent}%[/blue]。持有者回合結束時移除。"
 }

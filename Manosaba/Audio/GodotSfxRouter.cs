@@ -11,6 +11,10 @@ public static class GodotSfxRouter
 {
     private static readonly string[] AudioExtensions = [".ogg", ".wav", ".mp3"];
     private const string BgmEventPrefix = "event:/Manosaba/audio/bgm/";
+    private static readonly HashSet<string> LoopingBgmEvents =
+    [
+        "event:/Manosaba/audio/bgm/azathoth.ogg",
+    ];
     private const string CharacterSelectEventPrefix = "event:/Manosaba/audio/characters/";
     /// <summary>Added on top of the game's requested linear volume (converted to dB). +6 dB ≈ ~2× perceived loudness.</summary>
     private const float CharacterSelectExtraDb = 12f;
@@ -158,6 +162,7 @@ public static class GodotSfxRouter
     private static void PlayCustomBgm(NGame game, string eventPath, AudioStream stream, float volume)
     {
         PauseVanillaBgm();
+        ConfigureLoopingBgm(eventPath, stream);
         _currentBgmBaseVolume = volume;
         float effectiveVolume = volume * GetConfiguredManosabaSfxVolume();
 
@@ -194,6 +199,23 @@ public static class GodotSfxRouter
         game.AddChild(_customBgmPlayer);
         _customBgmPlayer.Play();
         _currentBgmEvent = eventPath;
+    }
+
+    private static void ConfigureLoopingBgm(string eventPath, AudioStream stream)
+    {
+        if (!LoopingBgmEvents.Contains(eventPath))
+        {
+            return;
+        }
+
+        try
+        {
+            stream.Set("loop", true);
+        }
+        catch (Exception ex)
+        {
+            GD.PushWarning($"[Manosaba] Failed to enable loop for custom BGM {eventPath}: {ex.Message}");
+        }
     }
 
     private static float GetConfiguredManosabaSfxVolume()

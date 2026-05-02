@@ -57,7 +57,7 @@ public static class Patch_NCard_KotodamaCostVisual
             return;
         }
 
-        if (__instance.Model is Urusai)
+        if (__instance.Model is Urusai or BookOfGreatOldOnes)
         {
             if (_kotodamaTexture != null)
             {

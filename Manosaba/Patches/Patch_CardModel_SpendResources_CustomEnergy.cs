@@ -39,6 +39,24 @@ public static class Patch_CardModel_SpendResources_CustomEnergy
 
             return (energySpent, starsSpent);
         }
+
+        if (card is BookOfGreatOldOnes bookOfGreatOldOnes)
+        {
+            int kotodamaSpent = bookOfGreatOldOnes.PrepareKotodamaXCostForPlay();
+            if (kotodamaSpent > 0 && !KotodamaEnergy.TrySpend(card.Owner, kotodamaSpent))
+            {
+                GD.PushWarning($"[Manosaba] Failed to spend Kotodama X cost for card: {card.Id.Entry}");
+                kotodamaSpent = 0;
+                bookOfGreatOldOnes.OverrideResolvedKotodamaXCostForPlay(0);
+            }
+
+            if (kotodamaSpent > 0 && card.Owner?.GetRelic<Clipboard>() is Clipboard clipboardForXCost)
+            {
+                await clipboardForXCost.OnKotodamaSpentByCardPlay(kotodamaSpent);
+            }
+
+            return (energySpent, starsSpent);
+        }
 	
         if (card is not ICustomEnergyCostCard customEnergyCard)
         {

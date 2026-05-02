@@ -717,5 +717,21 @@
   "MANOSABA-MAGICIAN_RED.title": "Magician's Red",
   "MANOSABA-MAGICIAN_RED.description": "Can only be played if you can lose 4 [gold]Fireball Swarm[/gold].\nDeal {Damage:diff()} damage and apply [gold]Red Bind[/gold].",
   "MANOSABA-FINAL_COUNTDOWN.title": "Final Countdown",
-  "MANOSABA-FINAL_COUNTDOWN.description": "Deal {Damage} damage to yourself.\nGain {FinalCountdownPower:diff()} [gold]Final Countdown[/gold]."
+  "MANOSABA-FINAL_COUNTDOWN.description": "Deal {Damage} damage to yourself.\nGain {FinalCountdownPower:diff()} [gold]Final Countdown[/gold].",
+  "MANOSABA-BOOK_OF_GREAT_OLD_ONES.title": "Book of Great Old Ones",
+  "MANOSABA-BOOK_OF_GREAT_OLD_ONES.description": "Gain X [gold]Sanity[/gold].\nRemove all cards in your draw pile, hand, and discard pile from combat, then replace them with the [gold]Great Old Ones[/gold] deck.",
+  "MANOSABA-PAGE_AZATHOTH.title": "Page - Azathoth",
+  "MANOSABA-PAGE_AZATHOTH.description": "Draw {Cards:diff()} cards.\nAt turn end, if your exhaust pile has every differently named [gold]Great Old Ones[/gold] page, win the combat.",
+  "MANOSABA-PAGE_NYARLATHOTEP.title": "Page - Nyarlathotep",
+  "MANOSABA-PAGE_NYARLATHOTEP.description": "Deal {Damage:diff()} damage.\nApply {ShadowFromTheSteeplePower:diff()} [gold]Shadow from the Steeple[/gold].",
+  "MANOSABA-PAGE_SHUB_NIGGURATH.title": "Page - Shub-Niggurath",
+  "MANOSABA-PAGE_SHUB_NIGGURATH.description": "Heal {Heal:diff()} HP.\nGain {Block:diff()} [gold]Block[/gold].",
+  "MANOSABA-PAGE_YOG_SOTHOTH.title": "Page - Yog-Sothoth",
+  "MANOSABA-PAGE_YOG_SOTHOTH.description": "[gold]Stun[/gold] all enemies.",
+  "MANOSABA-PAGE_HASTUR.title": "Page - Hastur",
+  "MANOSABA-PAGE_HASTUR.description": "Deal {Damage:diff()} damage to all enemies {Hits:diff()} times.",
+  "MANOSABA-PAGE_CTHUGHA.title": "Page - Cthugha",
+  "MANOSABA-PAGE_CTHUGHA.description": "At turn start, if this is in your exhaust pile, automatically play it.\nDeal {Damage:diff()} damage.",
+  "MANOSABA-PAGE_CTHULHU.title": "Page - Cthulhu",
+  "MANOSABA-PAGE_CTHULHU.description": "The targeted player gains [gold]Call of Cthulhu[/gold].\nUpgraded: you also gain [gold]Call of Cthulhu[/gold]."
 }
