@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://dxdkw7pfbhjo"]
+[gd_scene load_steps=4 format=3 uid="uid://dxdkw7pfbhjo"]
 
-[ext_resource type="Texture2D" uid="uid://bj24xiubvyi2m" path="res://Manosaba/images/characters/jogasaki_noah/JogasakiNoah.png" id="1_j6v0e"]
-[ext_resource type="Script" uid="uid://bycfwwoe0784d" path="res://Characters/Common/Overrides/ManosabaCharacterVisuals.cs" id="1_y6r6b"]
+[ext_resource type="Script" uid="uid://ci5rydvtx3dwt" path="res://Characters/Common/Overrides/ManosabaCharacterVisuals.cs" id="1_y6r6b"]
+[ext_resource type="Texture2D" uid="uid://t2nmtrakyrkx" path="res://Manosaba/images/characters/jogasaki_noah/JogasakiNoah2.png" id="2_y6r6b"]
+[ext_resource type="Texture2D" uid="uid://8lnd36s64s3k" path="res://Manosaba/images/characters/jogasaki_noah/JogasakiNoah2M.png" id="3_8kp83"]
 
 [node name="JogasakiNoa" type="Node2D"]
 script = ExtResource("1_y6r6b")
@@ -9,19 +10,25 @@ script = ExtResource("1_y6r6b")
 [node name="Visuals" type="Sprite2D" parent="."]
 unique_name_in_owner = true
 
-[node name="JogasakiNoa" type="Sprite2D" parent="Visuals"]
-position = Vector2(-2.3841858e-07, -117)
-scale = Vector2(0.20410158, 0.20410158)
-texture = ExtResource("1_j6v0e")
+[node name="Sprite2D" type="Sprite2D" parent="Visuals"]
+position = Vector2(-1.1250054, -129.58977)
+scale = Vector2(0.57527626, 0.57527614)
+texture = ExtResource("2_y6r6b")
+
+[node name="Majoka" type="Sprite2D" parent="Visuals"]
+visible = false
+position = Vector2(-4.625, -130.95311)
+scale = Vector2(0.5944602, 0.5944601)
+texture = ExtResource("3_8kp83")
 
 [node name="Bounds" type="Control" parent="."]
 unique_name_in_owner = true
 layout_mode = 3
 anchors_preset = 0
-offset_left = -82.0
-offset_top = -282.0
-offset_right = 77.0
-offset_bottom = 20.0
+offset_left = -104.0
+offset_top = -275.0
+offset_right = 99.0
+offset_bottom = 16.0
 
 [node name="IntentPos" type="Marker2D" parent="."]
 unique_name_in_owner = true
@@ -29,4 +36,4 @@ position = Vector2(1, -289)
 
 [node name="CenterPos" type="Marker2D" parent="."]
 unique_name_in_owner = true
-position = Vector2(-3, -156)
+position = Vector2(2, -161)

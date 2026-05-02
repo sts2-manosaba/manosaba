@@ -1,6 +1,7 @@
 ﻿using manosaba.Extensions;
 using Manosaba.Characters.Common.Powers;
 using Manosaba.Characters.JogasakiNoah.Powers;
+using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Models;
 
 namespace Manosaba.Extensions
@@ -26,5 +27,20 @@ namespace Manosaba.Extensions
             return Math.Max(1m, Math.Floor(amplified));
         }
 
+        protected Creature? SelectRandomOtherAlivePlayerTeammate()
+        {
+            if (CombatState == null || Owner?.Creature == null)
+            {
+                return null;
+            }
+
+            List<Creature> candidates = CombatState.GetTeammatesOf(Owner.Creature)
+                .Where(c => c != null && c.IsAlive && c.IsPlayer && c != Owner.Creature)
+                .ToList();
+
+            return candidates.Count == 0
+                ? null
+                : Owner.RunState.Rng.CombatTargets.NextItem(candidates);
+        }
     }
 }

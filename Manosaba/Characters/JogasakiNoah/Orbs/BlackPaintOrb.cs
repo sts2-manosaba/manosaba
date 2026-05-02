@@ -32,15 +32,13 @@ public sealed class BlackPaintOrb : ManosabaOrbModel
 
     public override async Task<IEnumerable<Creature>> Evoke(PlayerChoiceContext playerChoiceContext)
     {
-        List<Creature> teammates = CombatState.GetTeammatesOf(Owner.Creature)
-            .Where(c => c != null && c.IsAlive && c.IsPlayer)
-            .ToList();
-
-        foreach (Creature teammate in teammates)
+        Creature? teammate = SelectRandomOtherAlivePlayerTeammate();
+        if (teammate == null)
         {
-            await PowerCmd.Apply<MajokaPower>(teammate, EvokeVal, Owner.Creature, null);
+            return [];
         }
 
-        return teammates;
+        await PowerCmd.Apply<MajokaPower>(teammate, EvokeVal, Owner.Creature, null);
+        return [teammate];
     }
 }

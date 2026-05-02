@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://ckcurfrat6byh"]
+[gd_scene load_steps=4 format=3 uid="uid://ckcurfrat6byh"]
 
-[ext_resource type="Script" path="res://Characters/Common/Overrides/ManosabaCharacterVisuals.cs" id="1_322dx"]
-[ext_resource type="Texture2D" uid="uid://bxlmwnw36rd7p" path="res://Manosaba/images/characters/hosho_mago/HoshoMago.png" id="2_1wbbm"]
+[ext_resource type="Script" uid="uid://ci5rydvtx3dwt" path="res://Characters/Common/Overrides/ManosabaCharacterVisuals.cs" id="1_322dx"]
+[ext_resource type="Texture2D" uid="uid://cr0ebimdsai0m" path="res://Manosaba/images/characters/hosho_mago/HoshoMago2.png" id="2_a4bbm"]
+[ext_resource type="Texture2D" uid="uid://b4wi8vug6bu8q" path="res://Manosaba/images/characters/hosho_mago/HoshoMago2M.png" id="3_n7qpe"]
 
 [node name="HoshoMago" type="Node2D"]
 script = ExtResource("1_322dx")
@@ -9,10 +10,16 @@ script = ExtResource("1_322dx")
 [node name="Visuals" type="Sprite2D" parent="."]
 unique_name_in_owner = true
 
-[node name="Sprite2D" type="Sprite2D" parent="Visuals"]
-position = Vector2(2.999999, -190)
-scale = Vector2(0.25274655, 0.25274652)
-texture = ExtResource("2_1wbbm")
+[node name="Sprite2D2" type="Sprite2D" parent="Visuals"]
+position = Vector2(-0.87500095, -189.15036)
+scale = Vector2(0.5599631, 0.5599631)
+texture = ExtResource("2_a4bbm")
+
+[node name="Majoka" type="Sprite2D" parent="Visuals"]
+visible = false
+position = Vector2(-6.9999695, -189.00002)
+scale = Vector2(0.5684726, 0.5684729)
+texture = ExtResource("3_n7qpe")
 
 [node name="Bounds" type="Control" parent="."]
 unique_name_in_owner = true
