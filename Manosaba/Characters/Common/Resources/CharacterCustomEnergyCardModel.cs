@@ -27,7 +27,7 @@ public abstract class CharacterCustomEnergyCardModel<TEnergy> : PathCustomCardMo
 
     protected bool TrySpendCustomEnergyOnPlay()
     {
-        int cost = GetCustomEnergyCost();
+        int cost = GetEffectiveCustomEnergyCost();
         if (cost <= 0)
         {
             return true;
@@ -44,7 +44,7 @@ public abstract class CharacterCustomEnergyCardModel<TEnergy> : PathCustomCardMo
 
     protected bool HasEnoughCustomEnergy()
     {
-        int cost = GetCustomEnergyCost();
+        int cost = GetEffectiveCustomEnergyCost();
         if (cost <= 0)
         {
             return true;
@@ -69,7 +69,7 @@ public abstract class CharacterCustomEnergyCardModel<TEnergy> : PathCustomCardMo
 
     public int GetCustomEnergyCostForPlay()
     {
-        return GetCustomEnergyCost();
+        return GetEffectiveCustomEnergyCost();
     }
 
     public bool HasEnoughCustomEnergyForPlay()
@@ -102,5 +102,10 @@ public abstract class CharacterCustomEnergyCardModel<TEnergy> : PathCustomCardMo
         {
             return null;
         }
+    }
+
+    private int GetEffectiveCustomEnergyCost()
+    {
+        return CustomEnergyFreeCost.IsFree(this) ? 0 : GetCustomEnergyCost();
     }
 }
