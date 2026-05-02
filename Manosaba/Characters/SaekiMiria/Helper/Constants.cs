@@ -1,4 +1,5 @@
-﻿using Manosaba.Characters.Common.Cards;
+﻿using manosaba.Characters.NatsumeAnan.Powers;
+using Manosaba.Characters.Common.Cards;
 using Manosaba.Characters.Common.Overrides;
 using Manosaba.Characters.Common.Powers;
 using Manosaba.Characters.HasumiLeia.Powers;
@@ -80,6 +81,7 @@ namespace Manosaba.Characters.SaekiMiria.Helper
 
                 typeof(RelicSearchPower),
                 typeof(WitchIslandExpeditionPower),
+                typeof(SicklyPower),
             };
 
         public static HashSet<Type> AllowedLuckTransferPowers = new()
