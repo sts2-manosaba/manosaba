@@ -77,7 +77,7 @@ namespace manosaba.Characters.HasumiLeia.Relics
         {
             const string entomancerTypeName = "Entomancer";
             return creature.Monster?.GetType().Name == entomancerTypeName
-                || creature.Monster?.Model?.GetType().Name == entomancerTypeName;
+                || creature.Monster?.GetType().Name == entomancerTypeName;
         }
 
         public override async Task AfterPlayerTurnStart(PlayerChoiceContext choiceContext, Player player)
