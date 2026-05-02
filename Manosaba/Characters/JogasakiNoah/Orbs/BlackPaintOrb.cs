@@ -32,13 +32,14 @@ public sealed class BlackPaintOrb : ManosabaOrbModel
 
     public override async Task<IEnumerable<Creature>> Evoke(PlayerChoiceContext playerChoiceContext)
     {
+        List<Creature> targets = [Owner.Creature];
         Creature? teammate = SelectRandomOtherAlivePlayerTeammate();
-        if (teammate == null)
+        if (teammate != null)
         {
-            return [];
+            targets.Add(teammate);
         }
 
-        await PowerCmd.Apply<MajokaPower>(teammate, EvokeVal, Owner.Creature, null);
-        return [teammate];
+        await PowerCmd.Apply<MajokaPower>(targets, EvokeVal, Owner.Creature, null);
+        return targets;
     }
 }

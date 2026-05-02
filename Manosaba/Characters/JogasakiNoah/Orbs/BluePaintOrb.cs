@@ -37,13 +37,18 @@ public sealed class BluePaintOrb : ManosabaOrbModel
 
     public override async Task<IEnumerable<Creature>> Evoke(PlayerChoiceContext playerChoiceContext)
     {
+        List<Creature> targets = [Owner.Creature];
         Creature? teammate = SelectRandomOtherAlivePlayerTeammate();
-        if (teammate == null)
+        if (teammate != null)
         {
-            return [];
+            targets.Add(teammate);
         }
 
-        await CreatureCmd.GainBlock(teammate, EvokeVal, ValueProp.Unpowered, null);
-        return [teammate];
+        foreach (Creature target in targets)
+        {
+            await CreatureCmd.GainBlock(target, EvokeVal, ValueProp.Unpowered, null);
+        }
+
+        return targets;
     }
 }

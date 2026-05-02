@@ -4,10 +4,10 @@
   "RED_PAINT_ORB.smartDescription": "[gold]Passive:[/gold] At end of turn, deal [blue]{Passive}[/blue] damage to a random enemy.\\n[gold]Evoke:[/gold] Deal [blue]{Evoke}[/blue] damage to all enemies.",
   "BLUE_PAINT_ORB.title": "Blue Paint Orb",
   "BLUE_PAINT_ORB.description": "Orb: Grants Block to self and a random teammate.",
-  "BLUE_PAINT_ORB.smartDescription": "[gold]Passive:[/gold] At end of turn, gain [blue]{Passive}[/blue] [gold]Block[/gold].\\n[gold]Evoke:[/gold] Give [blue]{Evoke}[/blue] [gold]Block[/gold] to a random teammate.",
+  "BLUE_PAINT_ORB.smartDescription": "[gold]Passive:[/gold] At end of turn, gain [blue]{Passive}[/blue] [gold]Block[/gold].\\n[gold]Evoke:[/gold] Give [blue]{Evoke}[/blue] [gold]Block[/gold] to yourself and a random teammate.",
   "YELLOW_PAINT_ORB.title": "Yellow Paint Orb",
   "YELLOW_PAINT_ORB.description": "Orb: Generates Energy for self and a random teammate.",
-  "YELLOW_PAINT_ORB.smartDescription": "[gold]Passive:[/gold] At start of turn, gain {Passive:energyIcons()}.\\n[gold]Evoke:[/gold] Give {Evoke:energyIcons()} to a random teammate.",
+  "YELLOW_PAINT_ORB.smartDescription": "[gold]Passive:[/gold] At start of turn, gain {Passive:energyIcons()}.\\n[gold]Evoke:[/gold] Give {Evoke:energyIcons()} to yourself and a random teammate.",
   "ORANGE_PAINT_ORB.title": "Orange Paint Orb",
   "ORANGE_PAINT_ORB.description": "Orb: Applies Burn to enemies.",
   "ORANGE_PAINT_ORB.smartDescription": "[gold]Passive:[/gold] At end of turn, apply [blue]{Passive}[/blue] [gold]Burn[/gold] to a random enemy.\\n[gold]Evoke:[/gold] Apply [blue]{Evoke}[/blue] [gold]Burn[/gold] to all enemies.",
@@ -19,8 +19,8 @@
   "PURPLE_PAINT_ORB.smartDescription": "[gold]Passive:[/gold] At end of turn, apply [blue]{Passive}[/blue] [gold]Doom[/gold] to a random enemy.\\n[gold]Evoke:[/gold] Apply [blue]{Evoke}[/blue] [gold]Doom[/gold] to all enemies.",
   "BLACK_PAINT_ORB.title": "Black Paint Orb",
   "BLACK_PAINT_ORB.description": "Orb: Grants Majoka to self and a random teammate.",
-  "BLACK_PAINT_ORB.smartDescription": "[gold]Passive:[/gold] At start of turn, gain [blue]{Passive}[/blue] [gold]Majoka[/gold].\\n[gold]Evoke:[/gold] Give [blue]{Evoke}[/blue] [gold]Majoka[/gold] to a random teammate.",
+  "BLACK_PAINT_ORB.smartDescription": "[gold]Passive:[/gold] At start of turn, gain [blue]{Passive}[/blue] [gold]Majoka[/gold].\\n[gold]Evoke:[/gold] Give [blue]{Evoke}[/blue] [gold]Majoka[/gold] to yourself and a random teammate.",
   "WHITE_PAINT_ORB.title": "White Paint Orb",
   "WHITE_PAINT_ORB.description": "Orb: Draws cards for you and a random teammate.",
-  "WHITE_PAINT_ORB.smartDescription": "[gold]Passive:[/gold] At start of turn, draw [blue]{Passive}[/blue] card.\\n[gold]Evoke:[/gold] A random teammate draws [blue]{Evoke}[/blue] card."
+  "WHITE_PAINT_ORB.smartDescription": "[gold]Passive:[/gold] At start of turn, draw [blue]{Passive}[/blue] card.\\n[gold]Evoke:[/gold] You and a random teammate draw [blue]{Evoke}[/blue] card."
 }
