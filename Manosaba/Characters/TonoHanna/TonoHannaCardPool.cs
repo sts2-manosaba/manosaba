@@ -10,9 +10,9 @@ namespace manosaba.Characters.TonoHanna;
 public class TonoHannaCardPool : CustomCardPoolModel
 {
     public override string Title => TonoHanna.CharacterId;
-
-    public override string BigEnergyIconPath => "charui/manosaba_energy.png".ImagePath();
-    public override string TextEnergyIconPath => "charui/manosaba_energy_text.png".ImagePath();
+    public const string CharacterId = "tono_hanna";
+    public override string BigEnergyIconPath => (CharacterId + "_energy.png").CharacterImgPath(CharacterId);
+    public override string TextEnergyIconPath => (CharacterId + "_energy_text.png").CharacterImgPath(CharacterId);
 
     private static readonly (float H, float S, float V) CardBackTint = CardPoolTintFromCharacterColor.ToCardBackHsv(TonoHanna.Color);
 

@@ -10,9 +10,9 @@ namespace manosaba.Characters.NikaidoHiro;
 public class NikaidoHiroCardPool : CustomCardPoolModel
 {
     public override string Title => NikaidoHiro.CharacterId; //This is not a display name.
-
-    public override string BigEnergyIconPath => "charui/manosaba_energy.png".ImagePath();
-    public override string TextEnergyIconPath => "charui/manosaba_energy_text.png".ImagePath();
+    public const string CharacterId = "nikaido_hiro";
+    public override string BigEnergyIconPath => (CharacterId + "_energy.png").CharacterImgPath(CharacterId);
+    public override string TextEnergyIconPath => (CharacterId + "_energy_text.png").CharacterImgPath(CharacterId);
 
 
     private static readonly (float H, float S, float V) CardBackTint = CardPoolTintFromCharacterColor.ToCardBackHsv(NikaidoHiro.Color);

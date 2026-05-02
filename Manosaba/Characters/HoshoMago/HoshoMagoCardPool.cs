@@ -8,9 +8,9 @@ namespace manosaba.Characters.HoshoMago;
 public class HoshoMagoCardPool : CustomCardPoolModel
 {
     public override string Title => HoshoMago.CharacterId;
-
-    public override string BigEnergyIconPath => "charui/manosaba_energy.png".ImagePath();
-    public override string TextEnergyIconPath => "charui/manosaba_energy_text.png".ImagePath();
+    public const string CharacterId = "hosho_mago";
+    public override string BigEnergyIconPath => (CharacterId + "_energy.png").CharacterImgPath(CharacterId);
+    public override string TextEnergyIconPath => (CharacterId + "_energy_text.png").CharacterImgPath(CharacterId);
 
     private static readonly (float H, float S, float V) CardBackTint = CardPoolTintFromCharacterColor.ToCardBackHsv(HoshoMago.Color);
 

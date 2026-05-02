@@ -10,9 +10,9 @@ namespace manosaba.Characters.SaekiMiria;
 public class SaekiMiriaCardPool : CustomCardPoolModel
 {
     public override string Title => SaekiMiria.CharacterId; //This is not a display name.
-
-    public override string BigEnergyIconPath => "charui/manosaba_energy.png".ImagePath();
-    public override string TextEnergyIconPath => "charui/manosaba_energy_text.png".ImagePath();
+    public const string CharacterId = "saeki_miria";
+    public override string BigEnergyIconPath => (CharacterId + "_energy.png").CharacterImgPath(CharacterId);
+    public override string TextEnergyIconPath => (CharacterId + "_energy_text.png").CharacterImgPath(CharacterId);
 
 
     private static readonly (float H, float S, float V) CardBackTint = CardPoolTintFromCharacterColor.ToCardBackHsv(SaekiMiria.Color);
