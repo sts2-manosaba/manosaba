@@ -66,8 +66,8 @@ public sealed class TheCenterOfTheWorldIs : PathCustomCardModel
 
             List<CardModel> options =
             [
-                CombatState.CreateCard<TheCenterOfTheWorldIs_LeiaChoice>(player),
-                CombatState.CreateCard<TheCenterOfTheWorldIs_IgnoreChoice>(player),
+                CombatState.CreateCard<TheCenterOfTheWorldIs_LeiaChoice>(Owner),
+                CombatState.CreateCard<TheCenterOfTheWorldIs_IgnoreChoice>(Owner),
             ];
 
             CardModel? selected = await CardSelectCmd.FromChooseACardScreen(choiceContext, options, player, canSkip: true);

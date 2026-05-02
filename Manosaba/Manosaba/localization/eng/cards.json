@@ -407,6 +407,8 @@
   "MANOSABA-LINEAR.description": "Deal {Damage:diff()} damage.\nPermanently increase this card's damage by {Increase}.",
   "MANOSABA-GUARD_BREAK.title": "Guard Break",
   "MANOSABA-GUARD_BREAK.description": "Deal {Damage:diff()} damage.\nRemove all [gold]Block[/gold] from the target.",
+  "MANOSABA-CEREMONIAL_SWORD.title": "Ceremonial Sword",
+  "MANOSABA-CEREMONIAL_SWORD.description": "Gain {StrengthPower:diff()} [gold]Strength[/gold].",
   "MANOSABA-THE_CENTER_OF_THE_WORLD_IS.title": "The Center of the World is ...",
   "MANOSABA-THE_CENTER_OF_THE_WORLD_IS.description": "Make all other players choose.\nIf anyone chooses Leia, she gains 4 [gold]Strength[/gold]. Otherwise, Leia gains [gold]Majoka[/gold] until she has 100.\nNo effect if played by another character.",
   "MANOSABA-THE_CENTER_OF_THE_WORLD_IS_LEIA_CHOICE.title": "Leia",

@@ -407,6 +407,8 @@
   "MANOSABA-LINEAR.description": "{Damage:diff()}ダメージを与える。\nこのカードのダメージを{Increase}ずつ永続的に増加させる。",
   "MANOSABA-GUARD_BREAK.title": "ガードブレイク",
   "MANOSABA-GUARD_BREAK.description": "{Damage:diff()}ダメージを与える。\n対象の[gold]ブロック[/gold]をすべて取り除く。",
+  "MANOSABA-CEREMONIAL_SWORD.title": "儀式の剣",
+  "MANOSABA-CEREMONIAL_SWORD.description": "{StrengthPower:diff()}層の[gold]筋力[/gold]を得る。",
   "MANOSABA-THE_CENTER_OF_THE_WORLD_IS.title": "世界の中心は...",
   "MANOSABA-THE_CENTER_OF_THE_WORLD_IS.description": "他のプレイヤー全員に選択させる。\n誰かがレイヤを選んだなら、レイヤは4層の[gold]筋力[/gold]を得る。そうでなければ、レイヤの[gold]魔女化[/gold]が100になるまで増加させる。\n他のキャラクターが使用しても効果はない。",
   "MANOSABA-THE_CENTER_OF_THE_WORLD_IS_LEIA_CHOICE.title": "レイヤ",

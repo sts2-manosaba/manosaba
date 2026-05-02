@@ -407,6 +407,8 @@
   "MANOSABA-LINEAR.description": "{Damage:diff()} 피해를 줍니다.\n이 카드의 피해량을 영구적으로 {Increase} 증가시킵니다.",
   "MANOSABA-GUARD_BREAK.title": "가드 브레이크",
   "MANOSABA-GUARD_BREAK.description": "{Damage:diff()} 피해를 줍니다.\n대상의 [gold]방어도[/gold]를 모두 제거합니다.",
+  "MANOSABA-CEREMONIAL_SWORD.title": "의식의 검",
+  "MANOSABA-CEREMONIAL_SWORD.description": "[gold]힘[/gold]을 {StrengthPower:diff()} 얻습니다.",
   "MANOSABA-THE_CENTER_OF_THE_WORLD_IS.title": "세상의 중심은...",
   "MANOSABA-THE_CENTER_OF_THE_WORLD_IS.description": "다른 모든 플레이어가 선택하게 합니다.\n누군가 레이를 선택하면 레이는 [gold]힘[/gold] 4를 얻습니다. 그렇지 않으면 레이의 [gold]마녀화[/gold]가 100이 될 때까지 올립니다.\n다른 캐릭터가 사용하면 효과가 없습니다.",
   "MANOSABA-THE_CENTER_OF_THE_WORLD_IS_LEIA_CHOICE.title": "레이",

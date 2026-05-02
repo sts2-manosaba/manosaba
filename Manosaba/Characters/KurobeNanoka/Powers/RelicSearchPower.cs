@@ -72,11 +72,11 @@ public sealed class RelicSearchPower : PathCustomPowerModel
         return Task.CompletedTask;
     }
 
-    public override Task AfterCombatEnd(CombatRoom room)
+    public override async Task AfterCombatEnd(CombatRoom room)
     {
         if (Owner.Player == null)
         {
-            return Task.CompletedTask;
+            return;
         }
 
         bool awarded = _rewardQueuedForCombatEnd;
@@ -87,14 +87,14 @@ public sealed class RelicSearchPower : PathCustomPowerModel
         {
             NanokaHelper.PlayRollFailSfx();
             Console.WriteLine("[RelicSearch] combat end: no queued reward");
-            return Task.CompletedTask;
+            await PowerCmd.Remove(this);
+            return;
         }
 
         // At most 1 relic reward per combat.
         NanokaHelper.PlayRewardSfx();
         Console.WriteLine("[RelicSearch] combat end success -> adding queued relic reward");
         room.AddExtraReward(Owner.Player, new RelicReward(Owner.Player));
-
-        return Task.CompletedTask;
+        await PowerCmd.Remove(this);
     }
 }

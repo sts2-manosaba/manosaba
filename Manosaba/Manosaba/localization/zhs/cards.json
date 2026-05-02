@@ -407,6 +407,8 @@
   "MANOSABA-LINEAR.description": "造成 {Damage:diff()} 點傷害。\n使這張牌的傷害永久提高 {Increase} 點。",
   "MANOSABA-GUARD_BREAK.title": "防御崩壞",
   "MANOSABA-GUARD_BREAK.description": "造成 {Damage:diff()} 點傷害。\n移除目標所有[gold]格檔[/gold]。",
+  "MANOSABA-CEREMONIAL_SWORD.title": "儀式之劍",
+  "MANOSABA-CEREMONIAL_SWORD.description": "獲得 {StrengthPower:diff()} 點[gold]力量[/gold]。",
   "MANOSABA-THE_CENTER_OF_THE_WORLD_IS.title": "世界的中心是...",
   "MANOSABA-THE_CENTER_OF_THE_WORLD_IS.description": "讓其他所有玩家選擇。\n若有人選擇蕾雅，她獲得 4 點[gold]力量[/gold]。否則，使蕾雅的[gold]魔女化[/gold]增加直到達到 100。\n由其他角色使用時無效果。",
   "MANOSABA-THE_CENTER_OF_THE_WORLD_IS_LEIA_CHOICE.title": "蕾雅",
