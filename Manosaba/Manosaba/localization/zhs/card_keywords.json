@@ -18,5 +18,7 @@
   "MANOSABA-SHARED.title": "共享",
   "MANOSABA-SHARED.description": "由共享獲得的卡片。",
   "MANOSABA-BETA.title": "Beta",
-  "MANOSABA-BETA.description": "這張卡還在測試階段，可能會有問題。"
+  "MANOSABA-BETA.description": "這張卡還在測試階段，可能會有問題。",
+  "MANOSABA-SWORD_TECHNIQUE.title": "劍技",
+  "MANOSABA-SWORD_TECHNIQUE.description": "劍的技法。"
 }

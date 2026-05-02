@@ -34,11 +34,24 @@ public sealed class MovieInvitationPower : PathCustomPowerModel
         return target.Player;
     }
 
-    public override async Task AfterTurnEnd(PlayerChoiceContext choiceContext, CombatSide side)
+    public override async Task AfterPlayerTurnStart(PlayerChoiceContext choiceContext, Player player)
     {
-        if (side != Owner.Side)
+        _ = choiceContext;
+
+        if (player.Creature != Owner)
+        {
+            return;
+        }
+
+        if (_consumed)
         {
             await PowerCmd.Remove(this);
         }
+    }
+
+    public override async Task AfterTurnEnd(PlayerChoiceContext choiceContext, CombatSide side)
+    {
+        _ = choiceContext;
+        _ = side;
     }
 }

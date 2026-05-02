@@ -60,10 +60,24 @@ namespace manosaba.Characters.HasumiLeia.Relics
                         if (dealer.IsPlayer && cardSource == null)
                             return;
 
-                        await CreatureCmd.Damage(choiceContext, dealer, damage, ValueProp.Move, null, null);
+                        ValueProp parryProps = RelicLevel >= 5 ? ValueProp.Move : ValueProp.Unpowered;
+                        Creature? parryDealer = Owner?.Creature;
+                        if (parryProps.HasFlag(ValueProp.Move) && IsEntomancer(dealer))
+                        {
+                            parryDealer = null;
+                        }
+
+                        await CreatureCmd.Damage(choiceContext, dealer, damage, parryProps, parryDealer, null);
                     }
                 });
             }
+        }
+
+        private static bool IsEntomancer(Creature creature)
+        {
+            const string entomancerTypeName = "Entomancer";
+            return creature.Monster?.GetType().Name == entomancerTypeName
+                || creature.Monster?.Model?.GetType().Name == entomancerTypeName;
         }
 
         public override async Task AfterPlayerTurnStart(PlayerChoiceContext choiceContext, Player player)

@@ -12,7 +12,7 @@ namespace Manosaba.Characters.SaekiMiria.Cards;
 public sealed class RomanticMovie : MovieBase
 {
     protected override IEnumerable<IHoverTip> MovieHoverTips => [HoverTipFactory.FromPower<RegenPower>()];
-    protected override IEnumerable<DynamicVar> MovieVars => [new PowerVar<RegenPower>(2m)];
+    protected override IEnumerable<DynamicVar> MovieVars => [new PowerVar<RegenPower>(1m)];
 
     protected override Task OnMovieEffect(PlayerChoiceContext choiceContext, CardPlay cardPlay) =>
         PowerCmd.Apply<RegenPower>(Owner.Creature, DynamicVars["RegenPower"].BaseValue, Owner.Creature, this);

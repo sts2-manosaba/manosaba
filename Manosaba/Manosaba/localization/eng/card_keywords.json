@@ -18,5 +18,7 @@
   "MANOSABA-SHARED.title": "Shared",
   "MANOSABA-SHARED.description": "Obtained from sharing.",
   "MANOSABA-BETA.title": "Beta",
-  "MANOSABA-BETA.description": "This card is still in testing and may have issues."
+  "MANOSABA-BETA.description": "This card is still in testing and may have issues.",
+  "MANOSABA-SWORD_TECHNIQUE.title": "Sword Technique",
+  "MANOSABA-SWORD_TECHNIQUE.description": "A blade technique."
 }

@@ -28,8 +28,8 @@ public sealed class PrisonMeal : PathCustomCardModel
 
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
-        new PowerVar<RegenPower>(4m),
-        new PowerVar<PoisonPower>(3m),
+        new PowerVar<RegenPower>(3m),
+        new PowerVar<PoisonPower>(2m),
         new PowerVar<MajokaPower>(5m),
     ];
 
@@ -50,7 +50,7 @@ public sealed class PrisonMeal : PathCustomCardModel
 
     protected override void OnUpgrade()
     {
-        DynamicVars["RegenPower"].UpgradeValueBy(2m);
-        DynamicVars["PoisonPower"].UpgradeValueBy(2m);
+        DynamicVars["RegenPower"].UpgradeValueBy(1m);
+        DynamicVars["PoisonPower"].UpgradeValueBy(1m);
     }
 }

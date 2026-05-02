@@ -1,6 +1,7 @@
 ﻿using BaseLib.Utils;
 using manosaba.Characters.Common;
 using manosaba.Characters.HasumiLeia;
+using Manosaba.Characters.Common.Overrides;
 using Manosaba.Extensions;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
@@ -21,8 +22,9 @@ namespace Manosaba.Characters.HasumiLeia.Cards
         private const CardRarity rarity = CardRarity.Uncommon;
         private const TargetType targetType = TargetType.AllEnemies;
         private const bool shouldShowInCardLibrary = true;
-        protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(9m, ValueProp.Move), new PowerVar<WeakPower>(2)];
+        protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(7m, ValueProp.Move), new PowerVar<WeakPower>(1)];
         protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<WeakPower>()];
+        public override IEnumerable<CardKeyword> CanonicalKeywords => [ManosabaKeywords.SwordTechnique];
 
         public SweepingEdge() : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)
         {
