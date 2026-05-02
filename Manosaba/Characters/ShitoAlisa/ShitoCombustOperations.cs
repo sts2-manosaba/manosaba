@@ -3,6 +3,7 @@ using Manosaba.Characters.Common.Overrides;
 using Manosaba.Characters.ShitoAlisa.Powers;
 using MegaCrit.Sts2.Core.Logging;
 using MegaCrit.Sts2.Core.Commands;
+using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Models;
 using System.Runtime.CompilerServices;
@@ -30,6 +31,9 @@ public static class ShitoCombustOperations
 
     public static bool CanAttachCombust(CardModel card)
     {
+        if (card.Keywords.Contains(CardKeyword.Unplayable))
+            return false;
+
         if (card.Keywords.Contains(ManosabaKeywords.CombustIgnite))
             return false;
 

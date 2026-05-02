@@ -84,20 +84,23 @@ public sealed class FireJudgementCourt : ShitoAlisaCardModel
                 continue;
 
             int triggers = (int)Math.Clamp(Math.Floor(((CalculatedVar)DynamicVars["BurnTriggerCount"]).Calculate(null)), 0m, 3m);
-            for (int i = 0; i < triggers; i++)
+            using (BurnPower.SkipThisIsFineBonusForBurnProcCountScope())
             {
-                if (!enemy.IsAlive || !enemy.HasPower<BurnPower>())
+                for (int i = 0; i < triggers; i++)
                 {
-                    break;
-                }
+                    if (!enemy.IsAlive || !enemy.HasPower<BurnPower>())
+                    {
+                        break;
+                    }
 
-                BurnPower? burn = enemy.GetPower<BurnPower>();
-                if (burn == null)
-                {
-                    break;
-                }
+                    BurnPower? burn = enemy.GetPower<BurnPower>();
+                    if (burn == null)
+                    {
+                        break;
+                    }
 
-                await burn.AfterSideTurnStart(enemy.Side, state);
+                    await burn.AfterSideTurnStart(enemy.Side, state);
+                }
             }
         }
     }
