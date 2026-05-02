@@ -683,7 +683,7 @@
   "MANOSABA-FLAMING.title": "Flaming",
   "MANOSABA-FLAMING.description": "Apply {BurnPower:diff()} [gold]Burn[/gold] to all enemies.\nGain [blue]1[/blue] [gold]Fireball Swarm[/gold].",
   "MANOSABA-LET_HEART_BURN.title": "Let Your Heart Burn",
-  "MANOSABA-LET_HEART_BURN.description": "Set your HP to 1.\nApply [gold]Burn[/gold] to all enemies equal to the HP you lost this way.\nAdd a [gold]Dying Message[/gold] to your hand that can be played for free this turn.",
+  "MANOSABA-LET_HEART_BURN.description": "Set your HP to 1.\nApply [gold]Burn[/gold] to all enemies equal to the HP you lost this way.\nAdd [gold]Dying Message+[/gold] to your hand.",
   "MANOSABA-FIRE_TORNADO.title": "Fire Tornado",
   "MANOSABA-FIRE_TORNADO.description": "Deal {Damage:diff()} damage to all enemies X times.\nApply X [gold]Burn[/gold] to ALL enemies.",
   "MANOSABA-YOU_ARE_WEAK_EMA.title": "You Are Weak, Ema",

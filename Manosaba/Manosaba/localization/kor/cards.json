@@ -681,7 +681,7 @@
   "MANOSABA-FLAMING.title": "대염상",
   "MANOSABA-FLAMING.description": "모든 적에게 [gold]화상[/gold]을 {BurnPower:diff()} 부여합니다.\n[gold]화염 구체[/gold]를 [blue]1[/blue] 얻습니다.",
   "MANOSABA-LET_HEART_BURN.title": "심장을 불태워라",
-  "MANOSABA-LET_HEART_BURN.description": "체력을 1로 만듭니다.\n이렇게 감소한 체력만큼 모든 적에게 [gold]화상[/gold]을 부여합니다.\n이번 턴 무료로 낼 수 있는 [gold]유언[/gold] 1장을 손에 추가합니다.",
+  "MANOSABA-LET_HEART_BURN.description": "체력을 1로 만듭니다.\n이렇게 감소한 체력만큼 모든 적에게 [gold]화상[/gold]을 부여합니다.\n[gold]유언+[/gold] 1장을 손에 추가합니다.",
   "MANOSABA-FIRE_TORNADO.title": "파이어 토네이도",
   "MANOSABA-FIRE_TORNADO.description": "모든 적에게 피해를 {Damage:diff()} X번 줍니다.\n모든 적에게 [gold]화상[/gold]을 X 부여합니다.",
   "MANOSABA-FIRE_JUDGEMENT_COURT.title": "화형 심판정",

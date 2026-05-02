@@ -681,7 +681,7 @@
   "MANOSABA-FLAMING.title": "大炎上",
   "MANOSABA-FLAMING.description": "すべての敵に{BurnPower:diff()}層の[gold]灼焼[/gold]を与える。\n[gold]ファイアボール[/gold]を[blue]1[/blue]層得る。",
   "MANOSABA-LET_HEART_BURN.title": "心を燃やせ",
-  "MANOSABA-LET_HEART_BURN.description": "HPを1にする。\nこの方法で減ったHP分、すべての敵に[gold]灼焼[/gold]を与える。\nこのターン無料でプレイできる[gold]死亡メッセージ[/gold]を1枚手札に加える。",
+  "MANOSABA-LET_HEART_BURN.description": "HPを1にする。\nこの方法で減ったHP分、すべての敵に[gold]灼焼[/gold]を与える。\n[gold]死亡メッセージ+[/gold]を1枚手札に加える。",
   "MANOSABA-FIRE_TORNADO.title": "ファイアトルネード",
   "MANOSABA-FIRE_TORNADO.description": "すべての敵に{Damage:diff()}ダメージをX回与える。\nすべての敵にX層の[gold]灼焼[/gold]を与える。",
   "MANOSABA-FIRE_JUDGEMENT_COURT.title": "火刑の審判廷",

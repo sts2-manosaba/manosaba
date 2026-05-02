@@ -28,7 +28,7 @@ public sealed class LetHeartBurn : ShitoAlisaCardModel
     protected override IEnumerable<IHoverTip> ExtraHoverTips =>
     [
         HoverTipFactory.FromPower<BurnPower>(),
-        HoverTipFactory.FromCard<DyingMessage>(),
+        HoverTipFactory.FromCard<DyingMessage>(true),
     ];
 
     protected override IEnumerable<DynamicVar> CanonicalVars => WithCombust(0);
@@ -60,7 +60,8 @@ public sealed class LetHeartBurn : ShitoAlisaCardModel
         }
 
         CardModel dyingMessage = combatState.CreateCard(ModelDb.Card<DyingMessage>(), Owner);
-        dyingMessage.EnergyCost.SetThisTurnOrUntilPlayed(0);
+        dyingMessage.UpgradeInternal();
+        dyingMessage.FinalizeUpgradeInternal();
         await CardPileCmd.AddGeneratedCardToCombat(dyingMessage, PileType.Hand, true);
     }
 
