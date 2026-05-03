@@ -28,12 +28,33 @@ namespace Manosaba.Characters.Common.Powers
     /// </summary>
     public sealed class IncomeDamageMultiplyPower : PathCustomPowerModel
     {
+        private const string MultiplierKey = "Multiplier";
+
         public override PowerType Type => PowerType.Debuff;
 
         public override PowerStackType StackType => PowerStackType.Counter;
 
+        protected override IEnumerable<DynamicVar> CanonicalVars => [new DynamicVar(MultiplierKey, 2m)];
+
         public override Task AfterApplied(Creature? applier, CardModel? cardSource)
         {
+            _ = applier;
+            _ = cardSource;
+            UpdateMultiplierVar();
+            return Task.CompletedTask;
+        }
+
+        public override Task AfterPowerAmountChanged(PowerModel power, decimal amount, Creature? applier, CardModel? cardSource)
+        {
+            _ = amount;
+            _ = applier;
+            _ = cardSource;
+
+            if (power == this)
+            {
+                UpdateMultiplierVar();
+            }
+
             return Task.CompletedTask;
         }
 
@@ -58,6 +79,14 @@ namespace Manosaba.Characters.Common.Powers
             if (side == base.Owner.Side)
             {
                 await PowerCmd.Remove(this);
+            }
+        }
+
+        private void UpdateMultiplierVar()
+        {
+            if (DynamicVars.TryGetValue(MultiplierKey, out DynamicVar? multiplierVar))
+            {
+                multiplierVar.BaseValue = 1m + Amount;
             }
         }
     }

@@ -24,6 +24,17 @@ namespace manosaba.Characters.HasumiLeia.Relics
     [Pool(typeof(HasumiLeiaRelicPool))]
     public sealed class Rapier : LevelingPathCustomRelicModel
     {
+        private static readonly HashSet<string> SwordRelicTypeNames =
+        [
+            // Vanilla relics
+            "SwordOfJade",
+            "SwordOfStone",
+
+            // Mod relics
+            "RitualSword",
+            "RitualSwordBloodied",
+        ];
+
         public override RelicRarity Rarity => RelicRarity.Starter;
         protected override int MaxRelicLevel => 5;
 
@@ -35,6 +46,20 @@ namespace manosaba.Characters.HasumiLeia.Relics
         {
             ApplyRelicLevelEffects();
             return Task.CompletedTask;
+        }
+
+        public override async Task BeforeCombatStart()
+        {
+            if (Owner?.Creature == null)
+            {
+                return;
+            }
+
+            // Leia gains Two Swords at combat start if she has any sword relic.
+            if (Owner.Character is HasumiLeia && Owner.Creature.GetPowerAmount<SecondSwordPower>() <= 0m && HasAnySwordRelic(Owner.Relics))
+            {
+                await PowerCmd.Apply<SecondSwordPower>(Owner.Creature, 1m, Owner.Creature, cardSource: null);
+            }
         }
 
         public override async Task AfterDamageReceived(PlayerChoiceContext choiceContext, Creature target, DamageResult result, ValueProp props, Creature? dealer, CardModel? cardSource)
@@ -106,6 +131,25 @@ namespace manosaba.Characters.HasumiLeia.Relics
             
             int level = RelicLevel;
             basePercentage = 0.6m + (level - 1) * 0.1m; // Increases by 10% each level, starting at 60% at level 1, 100% at level 5
+        }
+
+        private static bool HasAnySwordRelic(IEnumerable<RelicModel>? relics)
+        {
+            if (relics == null)
+            {
+                return false;
+            }
+
+            foreach (RelicModel relic in relics)
+            {
+                string? name = relic?.GetType().Name;
+                if (name != null && SwordRelicTypeNames.Contains(name))
+                {
+                    return true;
+                }
+            }
+
+            return false;
         }
     }
 }

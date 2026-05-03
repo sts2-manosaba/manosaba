@@ -17,7 +17,7 @@ public class HasumiLeia : PlaceholderCharacterModel
 	public override Color MapDrawingColor => Color;
 	public override Color NameColor => Color;
 	public override CharacterGender Gender => CharacterGender.Feminine;
-	public override int StartingHp => 100;
+	public override int StartingHp => 80;
 
 	public override IEnumerable<CardModel> StartingDeck =>
 	[

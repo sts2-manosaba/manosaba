@@ -53,7 +53,7 @@ public sealed class Linear : PathCustomCardModel
     }
 
     public Linear()
-        : base(1, CardType.Attack, CardRarity.Rare, TargetType.AnyEnemy, shouldShowInCardLibrary: true)
+        : base(2, CardType.Attack, CardRarity.Rare, TargetType.AnyEnemy, shouldShowInCardLibrary: true)
     {
     }
 

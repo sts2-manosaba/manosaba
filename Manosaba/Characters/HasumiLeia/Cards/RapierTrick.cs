@@ -7,6 +7,7 @@ using MegaCrit.Sts2.Core.CardSelection;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
+using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.ValueProps;
@@ -23,6 +24,7 @@ namespace Manosaba.Characters.HasumiLeia.Cards
         private const bool shouldShowInCardLibrary = true;
 
         protected override IEnumerable<DynamicVar> CanonicalVars => [new CardsVar(3)];
+        protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromKeyword(CardKeyword.Exhaust)];
 
         public RapierTrick() : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)
         {
@@ -31,10 +33,17 @@ namespace Manosaba.Characters.HasumiLeia.Cards
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
             await CardPileCmd.Draw(choiceContext, base.DynamicVars.Cards.BaseValue, base.Owner);
-            CardModel? cardModel = (await CardSelectCmd.FromHandForDiscard(choiceContext, base.Owner, new CardSelectorPrefs(CardSelectorPrefs.DiscardSelectionPrompt, 1), null, this)).FirstOrDefault();
-            if (cardModel != null)
+
+            CardModel? selected = (await CardSelectCmd.FromHand(
+                prefs: new CardSelectorPrefs(CardSelectorPrefs.ExhaustSelectionPrompt, 1),
+                context: choiceContext,
+                player: Owner,
+                filter: null,
+                source: this)).FirstOrDefault();
+
+            if (selected != null)
             {
-                await CardCmd.Exhaust(choiceContext, cardModel);
+                await CardCmd.Exhaust(choiceContext, selected);
             }
         }
 

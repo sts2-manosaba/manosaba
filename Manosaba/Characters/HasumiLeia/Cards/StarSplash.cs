@@ -19,17 +19,13 @@ public sealed class StarSplash : PathCustomCardModel
     private const TargetType targetType = TargetType.AnyEnemy;
     private const bool shouldShowInCardLibrary = true;
 
-    private const string MidThrustDamageVar = "MidThrustDamage";
-    private const string SweepDamageVar = "SweepDamage";
-    private const string RisingSlashDamageVar = "RisingSlashDamage";
-    private const string UpperThrustDamageVar = "UpperThrustDamage";
+    private const int TotalHitCount = 8;
 
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
-        new DynamicVar(MidThrustDamageVar, 2m),
-        new DynamicVar(SweepDamageVar, 3m),
-        new DynamicVar(RisingSlashDamageVar, 5m),
-        new DynamicVar(UpperThrustDamageVar, 3m),
+        // Use a single Damage var so the game can correctly preview dynamic damage.
+        new DamageVar(2m, ValueProp.Move),
+        new RepeatVar(TotalHitCount),
     ];
 
     public override IEnumerable<CardKeyword> CanonicalKeywords => [ManosabaKeywords.SwordTechnique];
@@ -46,27 +42,27 @@ public sealed class StarSplash : PathCustomCardModel
             return;
         }
 
-        await DamageCmd.Attack(DynamicVars[MidThrustDamageVar].BaseValue)
+        await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
             .WithHitCount(3)
             .WithHitFx("vfx/vfx_attack_blunt", null, "blunt_attack.mp3")
             .FromCard(this)
             .Targeting(target)
             .Execute(choiceContext);
 
-        await DamageCmd.Attack(DynamicVars[SweepDamageVar].BaseValue)
+        await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
             .WithHitCount(2)
             .WithHitFx("vfx/vfx_big_slash")
             .FromCard(this)
             .Targeting(target)
             .Execute(choiceContext);
 
-        await DamageCmd.Attack(DynamicVars[RisingSlashDamageVar].BaseValue)
+        await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
             .WithHitFx("vfx/vfx_flying_slash")
             .FromCard(this)
             .Targeting(target)
             .Execute(choiceContext);
 
-        await DamageCmd.Attack(DynamicVars[UpperThrustDamageVar].BaseValue)
+        await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
             .WithHitCount(2)
             .WithHitFx("vfx/vfx_dramatic_stab", null, "blunt_attack.mp3")
             .FromCard(this)
@@ -76,9 +72,6 @@ public sealed class StarSplash : PathCustomCardModel
 
     protected override void OnUpgrade()
     {
-        DynamicVars[MidThrustDamageVar].UpgradeValueBy(1m);
-        DynamicVars[SweepDamageVar].UpgradeValueBy(1m);
-        DynamicVars[RisingSlashDamageVar].UpgradeValueBy(1m);
-        DynamicVars[UpperThrustDamageVar].UpgradeValueBy(1m);
+        DynamicVars.Damage.UpgradeValueBy(1m);
     }
 }

@@ -11,7 +11,5 @@ public sealed class SecondSwordPower : PathCustomPowerModel
     public override PowerStackType StackType => PowerStackType.Single;
     public override bool AllowNegative => false;
     public override bool ShouldPlayVfx => false;
-
-    protected override bool IsVisibleInternal => false;
 }
 

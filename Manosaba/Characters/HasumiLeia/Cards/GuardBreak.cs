@@ -42,4 +42,9 @@ public sealed class GuardBreak : PathCustomCardModel
 
         await CreatureCmd.LoseBlock(target, target.Block);
     }
+
+    protected override void OnUpgrade()
+    {
+        DynamicVars.Damage.UpgradeValueBy(3m);
+    }
 }
