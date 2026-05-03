@@ -1,8 +1,8 @@
 [gd_scene load_steps=2 format=3 uid="uid://k2ssnwt68ipy"]
 
-[ext_resource type="Texture2D" uid="uid://c21yfmglxdb8b" path="res://Manosaba/images/characters/tono_hanna/TonoHannaBg.png" id="1_gvv1h"]
+[ext_resource type="Texture2D" uid="uid://bguwicsoly18o" path="res://Manosaba/images/characters/tono_hanna/TonoHannaBg.png" id="1_gvv1h"]
 
-[node name="TonohannaBg" type="Control"]
+[node name="TonoHannaBg" type="Control"]
 layout_mode = 3
 anchors_preset = 8
 anchor_left = 0.5
@@ -17,7 +17,7 @@ grow_horizontal = 2
 grow_vertical = 2
 pivot_offset = Vector2(1280, 600)
 
-[node name="TonohannaBg" type="Sprite2D" parent="."]
-position = Vector2(405.99997, 342.99997)
-scale = Vector2(0.677124, 0.677124)
+[node name="TonoHannaBg" type="Sprite2D" parent="."]
+position = Vector2(645.4379, 320.19116)
+scale = Vector2(1.3699756, 1.3699756)
 texture = ExtResource("1_gvv1h")
