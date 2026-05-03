@@ -1,5 +1,6 @@
 using HarmonyLib;
 using Manosaba.Characters.Common.Powers;
+using Manosaba.Characters.Common.Visuals;
 using Manosaba.Input;
 using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Commands;
@@ -50,6 +51,7 @@ public static class Patch_AttackCommand_Execute_WitchIslandExpeditionIntent
                 if (expeditionTargets.Any(LocalContext.IsMe))
                 {
                     SfxCmd.Play(AttackIntentSfx);
+                    WitchIslandExpeditionParryCueVisuals.PlayForLocalTarget(expeditionTargets, IntentLeadSeconds);
                 }
 
                 PerfectGuardInputTracker.OpenPerfectGuardWindow(
