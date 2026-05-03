@@ -20,7 +20,7 @@ public sealed class PaperMaking : NatsumeKotodamaCardModel
 
     protected override IEnumerable<DynamicVar> CanonicalVars => [new DynamicVar("KotodamaGain", 2m)];
 
-    public PaperMaking() : base(2, CardType.Skill, CardRarity.Uncommon, TargetType.Self, true)
+    public PaperMaking() : base(1, CardType.Skill, CardRarity.Uncommon, TargetType.Self, true)
     {
     }
 
@@ -45,6 +45,6 @@ public sealed class PaperMaking : NatsumeKotodamaCardModel
 
     protected override void OnUpgrade()
     {
-        EnergyCost.UpgradeBy(-1);
+        DynamicVars["KotodamaGain"].UpgradeValueBy(1m);
     }
 }

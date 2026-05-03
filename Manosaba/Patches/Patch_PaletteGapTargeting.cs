@@ -148,7 +148,7 @@ namespace Manosaba.Patches
             }
 
             Dictionary<Control, int> markerToIndex = [];
-            bool includeFirstGap = queueCount == 0;
+            bool includeFirstGap = queueCount == 0 || orbSlots.Count == 1;
             List<Control> markers = CreateGapMarkers(orbSlots, maxInsertIndex, includeFirstGap, markerToIndex);
             if (markers.Count == 0)
             {

@@ -20,7 +20,11 @@ namespace Manosaba.Characters.JogasakiNoah.Cards
         private const TargetType targetType = TargetType.Self;
         private const bool shouldShowInCardLibrary = true;
 
-        protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<ZumaPower>()];
+        protected override IEnumerable<IHoverTip> ExtraHoverTips =>
+        [
+            HoverTipFactory.FromPower<ZumaPower>(),
+            HoverTipFactory.FromCard<PaletteGap>()
+        ];
         protected override IEnumerable<DynamicVar> CanonicalVars => [new PowerVar<ZumaPower>(1), new CardsVar(7)];
 
         public Zuma() : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)
