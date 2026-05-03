@@ -680,7 +680,7 @@
   "MANOSABA-PAGE_CTHUGHA.title": "書頁-克圖格亞",
   "MANOSABA-PAGE_CTHUGHA.description": "回合開始時，若此牌在消耗牌堆中，自動打出此牌。\n造成 {Damage:diff()} 點傷害。",
   "MANOSABA-PAGE_CTHULHU.title": "書頁-克蘇魯",
-  "MANOSABA-PAGE_CTHULHU.description": "指定玩家獲得[gold]克蘇魯的呼喚[/gold]。\n升級後：你也獲得[gold]克蘇魯的呼喚[/gold]。",
+  "MANOSABA-PAGE_CTHULHU.description": "指定玩家獲得[gold]克蘇魯的呼喚[/gold]。{IfUpgraded:show:\n你也獲得[gold]克蘇魯的呼喚[/gold]。}",
   "MANOSABA-STRIKE_SHITO_ALISA.title": "打擊",
   "MANOSABA-STRIKE_SHITO_ALISA.description": "造成 {Damage:diff()} 點傷害。",
   "MANOSABA-DEFEND_SHITO_ALISA.title": "防禦",

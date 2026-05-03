@@ -737,5 +737,5 @@
   "MANOSABA-PAGE_CTHUGHA.title": "페이지-크투가",
   "MANOSABA-PAGE_CTHUGHA.description": "턴 시작 시 이 카드가 소멸 더미에 있으면 자동으로 사용합니다.\n피해를 {Damage:diff()} 줍니다.",
   "MANOSABA-PAGE_CTHULHU.title": "페이지-크툴루",
-  "MANOSABA-PAGE_CTHULHU.description": "지정한 플레이어가 [gold]크툴루의 부름[/gold]을 얻습니다.\n강화 후: 자신도 [gold]크툴루의 부름[/gold]을 얻습니다."
+  "MANOSABA-PAGE_CTHULHU.description": "지정한 플레이어가 [gold]크툴루의 부름[/gold]을 얻습니다.{IfUpgraded:show:\n자신도 [gold]크툴루의 부름[/gold]을 얻습니다.}"
 }

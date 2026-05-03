@@ -737,5 +737,5 @@
   "MANOSABA-PAGE_CTHUGHA.title": "Page - Cthugha",
   "MANOSABA-PAGE_CTHUGHA.description": "At turn start, if this is in your exhaust pile, automatically play it.\nDeal {Damage:diff()} damage.",
   "MANOSABA-PAGE_CTHULHU.title": "Page - Cthulhu",
-  "MANOSABA-PAGE_CTHULHU.description": "The targeted player gains [gold]Call of Cthulhu[/gold].\nUpgraded: you also gain [gold]Call of Cthulhu[/gold]."
+  "MANOSABA-PAGE_CTHULHU.description": "The targeted player gains [gold]Call of Cthulhu[/gold].{IfUpgraded:show:\nYou also gain [gold]Call of Cthulhu[/gold].}"
 }

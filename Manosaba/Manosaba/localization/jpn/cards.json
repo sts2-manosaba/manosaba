@@ -737,5 +737,5 @@
   "MANOSABA-PAGE_CTHUGHA.title": "書頁-クトゥグア",
   "MANOSABA-PAGE_CTHUGHA.description": "ターン開始時、このカードが廃棄札にあるなら自動でプレイする。\n{Damage:diff()}ダメージを与える。",
   "MANOSABA-PAGE_CTHULHU.title": "書頁-クトゥルフ",
-  "MANOSABA-PAGE_CTHULHU.description": "対象のプレイヤーは[gold]クトゥルフの呼び声[/gold]を得る。\nアップグレード後：あなたも[gold]クトゥルフの呼び声[/gold]を得る。"
+  "MANOSABA-PAGE_CTHULHU.description": "対象のプレイヤーは[gold]クトゥルフの呼び声[/gold]を得る。{IfUpgraded:show:\nあなたも[gold]クトゥルフの呼び声[/gold]を得る。}"
 }
