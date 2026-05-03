@@ -22,7 +22,7 @@ public sealed class RitualSwordBloodied : PathCustomRelicModel
     public override async Task AfterSideTurnStart(CombatSide side, CombatState combatState)
     {
         _ = combatState;
-        if (Triggered || Owner?.Creature == null || side != Owner.Creature.Side)
+        if (Triggered || Owner?.Creature == null || side != Owner.Creature.Side || combatState.RoundNumber > 1)
         {
             return;
         }
