@@ -466,7 +466,7 @@
   "MANOSABA-SHERRY_PUPPET.title": "셰리 인형",
   "MANOSABA-SHERRY_PUPPET.description": "이번 턴, 다음 공격 카드를 한 번 더 사용합니다.",
   "MANOSABA-SKY_ISLAND.title": "하늘 섬",
-  "MANOSABA-SKY_ISLAND.description": "모든 적에게 피해를 {Damage:diff()} 줍니다.\n[gold]마녀화[/gold] 정도에 따라 아군 전원에게 [gold]하늘 섬[/gold]을 {SkyIslandPower:diff()} 부여합니다(최대 5).",
+  "MANOSABA-SKY_ISLAND.description": "[gold]마녀화[/gold] 정도에 따라 아군 전원에게 [gold]하늘 섬[/gold]을 {SkyIslandPower:diff()} 부여합니다(최대 5).",
   "MANOSABA-STRIKE_TONO_HANNA.title": "타격",
   "MANOSABA-STRIKE_TONO_HANNA.description": "피해를 {Damage:diff()} 줍니다.",
   "MANOSABA-THRIFTY.title": "알뜰",

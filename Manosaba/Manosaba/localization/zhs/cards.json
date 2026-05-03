@@ -468,7 +468,7 @@
   "MANOSABA-SHERRY_PUPPET.title": "雪莉人偶",
   "MANOSABA-SHERRY_PUPPET.description": "本回合，你的下一張攻擊牌會多打出一次。",
   "MANOSABA-SKY_ISLAND.title": "空島",
-  "MANOSABA-SKY_ISLAND.description": "對所有敵人造成 {Damage:diff()} 點傷害。\n根據[gold]魔女化[/gold]程度給予全部隊友 {SkyIslandPower:diff()} 層[gold]空島[/gold]（最大5層）。",
+  "MANOSABA-SKY_ISLAND.description": "根據[gold]魔女化[/gold]程度給予全部隊友 {SkyIslandPower:diff()} 層[gold]空島[/gold]（最大5層）。",
   "MANOSABA-THRIFTY.title": "勤儉",
   "MANOSABA-THRIFTY.description": "獲得 {Block:diff()} 點[gold]格檔[/gold]。\n[gold]消耗[/gold][gold]手牌[/gold]中全部[gold]狀態牌[/gold]，每[gold]消耗[/gold]一張，獲得 {IfUpgraded:show:2|1} 點[gold]格檔[/gold]。",
   "MANOSABA-TRAUMA_TONO_HANNA.title": "精神創傷",

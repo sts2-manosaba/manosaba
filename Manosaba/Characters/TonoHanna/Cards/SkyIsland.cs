@@ -12,7 +12,6 @@ using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
-using MegaCrit.Sts2.Core.ValueProps;
 
 namespace Manosaba.Characters.TonoHanna.Cards;
 
@@ -38,9 +37,9 @@ public class SkyIsland : PathCustomCardModel
     }
 
     private const int energyCost = 3;
-    private const CardType type = CardType.Attack;
+    private const CardType type = CardType.Power;
     private const CardRarity rarity = CardRarity.Ancient;
-    private const TargetType targetType = TargetType.AllEnemies;
+    private const TargetType targetType = TargetType.Self;
     private const bool shouldShowInCardLibrary = true;
     public override IEnumerable<CardKeyword> CanonicalKeywords => [ManosabaKeywords.Mahou, CardKeyword.Eternal];
 
@@ -52,7 +51,6 @@ public class SkyIsland : PathCustomCardModel
 
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
-        new DamageVar(36m, ValueProp.Move),
         new CalculationBaseVar(0m),
         new CalculationExtraVar(5m),
         new SkyIslandPowerCalculatedVar()
@@ -69,11 +67,6 @@ public class SkyIsland : PathCustomCardModel
         {
             return;
         }
-
-        await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
-            .FromCard(this)
-            .TargetingAllOpponents(CombatState)
-            .Execute(choiceContext);
 
         decimal layersDecimal = DynamicVars.CalculationBase.BaseValue
             + DynamicVars.CalculationExtra.BaseValue * GetMajokaFactor(this, null);
@@ -96,7 +89,7 @@ public class SkyIsland : PathCustomCardModel
 
     protected override void OnUpgrade()
     {
-        DynamicVars.Damage.UpgradeValueBy(6m);
+        EnergyCost.UpgradeBy(-1);
     }
 
     /// <summary>Majoka factor: min(stacks / 100, 1); pairs with <see cref="CalculationExtraVar"/> for up to 5 layers.</summary>

@@ -466,7 +466,7 @@
   "MANOSABA-SHERRY_PUPPET.title": "シェリーの人形",
   "MANOSABA-SHERRY_PUPPET.description": "このターン、次の攻撃カードがもう1回プレイされる。",
   "MANOSABA-SKY_ISLAND.title": "空島",
-  "MANOSABA-SKY_ISLAND.description": "すべての敵に{Damage:diff()}ダメージを与える。\n[gold]魔女化[/gold]に応じて味方全員に{SkyIslandPower:diff()}層の[gold]空島[/gold]を与える（最大5層）。",
+  "MANOSABA-SKY_ISLAND.description": "[gold]魔女化[/gold]に応じて味方全員に{SkyIslandPower:diff()}層の[gold]空島[/gold]を与える（最大5層）。",
   "MANOSABA-STRIKE_TONO_HANNA.title": "打撃",
   "MANOSABA-STRIKE_TONO_HANNA.description": "{Damage:diff()}ダメージを与える。",
   "MANOSABA-THRIFTY.title": "倹約",

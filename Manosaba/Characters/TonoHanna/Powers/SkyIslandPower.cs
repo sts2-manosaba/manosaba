@@ -11,7 +11,7 @@ using MegaCrit.Sts2.Core.ValueProps;
 
 namespace Manosaba.Characters.TonoHanna.Powers;
 
-/// <summary>Same incoming-attack reduction as <see cref="HannaPuppetPower"/> / Soar (Move, not Unpowered). Stacks decay by 1 when your side starts a turn.</summary>
+/// <summary>Incoming damage reduction for any damage type (same hook shape as <see cref="Manosaba.Characters.JogasakiNoah.Powers.LiquidManipulationPower"/>). Stacks decay by 1 when your side starts a turn.</summary>
 public sealed class SkyIslandPower : PathCustomPowerModel
 {
     public override PowerType Type => PowerType.Buff;
@@ -29,11 +29,6 @@ public sealed class SkyIslandPower : PathCustomPowerModel
     public override decimal ModifyDamageMultiplicative(Creature? target, decimal amount, ValueProp props, Creature? dealer, CardModel? cardSource)
     {
         if (target != Owner || Amount <= 0m)
-        {
-            return 1m;
-        }
-
-        if (!props.HasFlag(ValueProp.Move) || props.HasFlag(ValueProp.Unpowered))
         {
             return 1m;
         }

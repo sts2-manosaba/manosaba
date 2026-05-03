@@ -4,6 +4,7 @@ using Manosaba.Characters.Common.Overrides;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Localization;
+using MegaCrit.Sts2.Core.Logging;
 using MegaCrit.Sts2.Core.Models;
 
 namespace Manosaba.Patches;
@@ -35,9 +36,12 @@ public static class Patch_CardModel_CombustKeywordCount
             return description;
         }
 
-        if (!ShitoCombustOperations.TryGetCombustState(card, out int current, out int max) ||
-            max <= 0)
+        bool hasState = ShitoCombustOperations.TryGetCombustState(card, out int current, out int max);
+        if (!hasState || max <= 0)
         {
+            Log.Debug(
+                $"[Manosaba CombustKeyword] skip_inject_no_state card={card.Id.Entry} pile={card.Pile?.Type} " +
+                $"hasState={hasState} current={current} max={max}");
             return description;
         }
 
@@ -49,6 +53,14 @@ public static class Patch_CardModel_CombustKeywordCount
         {
             return description.Replace(plainKeywordLine, countedKeywordLine);
         }
+
+        const int descSnipLen = 160;
+        string descSnip = description.Length <= descSnipLen
+            ? description
+            : description[..descSnipLen] + "...";
+        Log.Debug(
+            $"[Manosaba CombustKeyword] skip_inject_plain_mismatch card={card.Id.Entry} current={current} max={max} " +
+            $"plainLine={plainKeywordLine} desc_snip={descSnip}");
 
         // Do not append extra lines; avoid duplicated keyword display.
         return description;

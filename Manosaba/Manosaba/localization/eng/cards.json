@@ -466,7 +466,7 @@
   "MANOSABA-SHERRY_PUPPET.title": "Sherry Puppet",
   "MANOSABA-SHERRY_PUPPET.description": "This turn, your next Attack card is played one extra time.",
   "MANOSABA-SKY_ISLAND.title": "Sky Island",
-  "MANOSABA-SKY_ISLAND.description": "Deal {Damage:diff()} damage to all enemies.\nBased on [gold]Majoka[/gold], grant all allies {SkyIslandPower:diff()} stacks of [gold]Sky Island[/gold] (max 5 stacks).",
+  "MANOSABA-SKY_ISLAND.description": "Based on [gold]Majoka[/gold], grant all allies {SkyIslandPower:diff()} stacks of [gold]Sky Island[/gold] (max 5 stacks).",
   "MANOSABA-STRIKE_TONO_HANNA.title": "Strike",
   "MANOSABA-STRIKE_TONO_HANNA.description": "Deal {Damage:diff()} damage.",
   "MANOSABA-THRIFTY.title": "Thrifty",
