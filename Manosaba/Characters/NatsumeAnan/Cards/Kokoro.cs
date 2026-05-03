@@ -25,7 +25,7 @@ public sealed class Kokoro : NatsumeKotodamaCardModel
     [
         .. base.ExtraHoverTips,
         HoverTipFactory.FromPower<KokoroPower>(),
-        HoverTipFactory.FromCard<Suicide>(),
+        HoverTipFactory.FromCard<KokoroSuicide>(),
     ];
 
     public Kokoro() : base(1, CardType.Power, CardRarity.Rare, TargetType.Self, true)
@@ -47,7 +47,7 @@ public sealed class Kokoro : NatsumeKotodamaCardModel
         List<CardModel> suicides = [];
         for (int i = 0; i < DynamicVars.Cards.IntValue; i++)
         {
-            CardModel suicide = combatState.CreateCard<Suicide>(Owner);
+            CardModel suicide = combatState.CreateCard<KokoroSuicide>(Owner);
             CardCmd.ApplyKeyword(suicide, CardKeyword.Exhaust);
             suicides.Add(suicide);
         }

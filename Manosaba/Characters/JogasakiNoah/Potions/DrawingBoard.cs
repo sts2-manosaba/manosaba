@@ -52,6 +52,7 @@ namespace Manosaba.Characters.JogasakiNoah.Potions
             MonsterModel monster = canonicalMonster.ToMutable();
             Creature pet = combatState.CreateCreature(monster, CombatSide.Player, null);
             await PlayerCmd.AddPet(pet, Owner);
+            PetEnemyAiPower.AssignAiSlot(pet);
             NCreature? node = NCombatRoom.Instance?.GetCreatureNode(pet);
             if (node != null)
             {

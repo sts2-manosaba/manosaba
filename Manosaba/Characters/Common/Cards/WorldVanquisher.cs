@@ -25,7 +25,7 @@ namespace Manosaba.Characters.Common.Cards
         private const bool shouldShowInCardLibrary = true;
 
         protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<MajokaPower>()];
-        protected override IEnumerable<DynamicVar> CanonicalVars => [new CardsVar(1), new DynamicVar("MajokaPower", 200)];
+        protected override IEnumerable<DynamicVar> CanonicalVars => [new CardsVar(1), new DynamicVar("MajokaPower", 250)];
 
         public WorldVanquisher() : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)
         {

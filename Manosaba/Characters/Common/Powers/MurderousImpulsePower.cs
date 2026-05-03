@@ -8,6 +8,7 @@ using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Entities.Powers;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Models;
+using MegaCrit.Sts2.Core.Nodes.Rooms;
 using MegaCrit.Sts2.Core.ValueProps;
 
 namespace Manosaba.Characters.Common.Powers
@@ -42,7 +43,7 @@ namespace Manosaba.Characters.Common.Powers
             }
 
             Creature[] validAllies = Owner.CombatState.Allies
-                .Where(c => c != Owner && !c.IsDead)
+                .Where(c => c != Owner && !c.IsDead && HasCombatNode(c))
                 .ToArray();
             if (validAllies.Length == 0)
             {
@@ -69,6 +70,11 @@ namespace Manosaba.Characters.Common.Powers
             }
 
             await CreatureCmd.Damage(new ThrowingPlayerChoiceContext(), ally, allyDamage, ValueProp.Unpowered, ownerCreature);
+        }
+
+        private static bool HasCombatNode(Creature creature)
+        {
+            return NCombatRoom.Instance is not { } combatRoom || combatRoom.GetCreatureNode(creature) != null;
         }
     }
 }

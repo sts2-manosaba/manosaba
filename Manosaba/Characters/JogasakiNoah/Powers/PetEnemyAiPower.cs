@@ -56,6 +56,11 @@ public sealed class PetEnemyAiPower : PathCustomPowerModel
             return;
         }
 
+        if (NCombatRoom.Instance is { } combatRoom && combatRoom.GetCreatureNode(owner) == null)
+        {
+            return;
+        }
+
         if (_skipFirstTrigger)
         {
             _skipFirstTrigger = false;
@@ -131,6 +136,16 @@ public sealed class PetEnemyAiPower : PathCustomPowerModel
         return false;
     }
 
+    public static void AssignAiSlot(Creature pet, Creature? copiedFrom = null)
+    {
+        if (pet.SlotName != null)
+        {
+            return;
+        }
+
+        pet.SlotName = copiedFrom?.SlotName ?? "first";
+    }
+
     private static bool IsAllowedMove(MoveState move)
     {
         return move.Intents.Count > 0 && move.Intents.All(intent => !IsFilteredIntentType(intent.IntentType));
@@ -153,18 +168,49 @@ public sealed class PetEnemyAiPower : PathCustomPowerModel
 
         if (rollNewMove)
         {
+            bool preparedMove;
             try
             {
                 owner.Monster.RollMove(targets.ToArray());
+                preparedMove = true;
             }
-            catch (NullReferenceException)
+            catch (Exception ex) when (IsPetAiRollFailure(ex))
             {
-                // Some enemy-only move checks (e.g. summon checks) can dereference null when used as a player pet.
+                preparedMove = TryForceFallbackMove(owner);
+            }
+
+            if (!preparedMove)
+            {
                 return false;
             }
         }
 
         _ = NCombatRoom.Instance?.GetCreatureNode(owner)?.UpdateIntent(targets);
+        return true;
+    }
+
+    private static bool IsPetAiRollFailure(Exception ex)
+    {
+        return ex is NullReferenceException or InvalidOperationException;
+    }
+
+    private static bool TryForceFallbackMove(Creature owner)
+    {
+        MonsterMoveStateMachine? moveStateMachine = owner.Monster?.MoveStateMachine;
+        if (moveStateMachine == null)
+        {
+            return false;
+        }
+
+        MoveState? fallbackMove = moveStateMachine.States.Values
+            .OfType<MoveState>()
+            .FirstOrDefault(IsAllowedMove);
+        if (fallbackMove == null)
+        {
+            return false;
+        }
+
+        owner.Monster!.SetMoveImmediate(fallbackMove, forceTransition: true);
         return true;
     }
 

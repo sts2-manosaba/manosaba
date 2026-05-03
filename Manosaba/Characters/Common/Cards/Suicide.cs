@@ -1,5 +1,6 @@
 ﻿using BaseLib.Utils;
 using manosaba.Characters.Common;
+using manosaba.Extensions;
 using Manosaba.Characters.Common.Powers;
 using Manosaba.Extensions;
 using MegaCrit.Sts2.Core.Commands;
@@ -21,14 +22,32 @@ namespace Manosaba.Characters.Common.Cards
         private const TargetType targetType = TargetType.Self;
         private const bool shouldShowInCardLibrary = true;
         protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<MajokaPower>()];
-        protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(3, ValueProp.Unpowered), new PowerVar<MajokaPower>(20)];
+        protected override IEnumerable<DynamicVar> CanonicalVars => BaseCanonicalVars;
 
-        public Suicide() : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)
+        protected static IEnumerable<DynamicVar> BaseCanonicalVars =>
+        [
+            new DamageVar(3, ValueProp.Unpowered),
+            new PowerVar<MajokaPower>(20),
+        ];
+
+        protected virtual bool DrawOnPlay => false;
+
+        public Suicide() : this(energyCost, rarity, shouldShowInCardLibrary)
+        {
+        }
+
+        protected Suicide(int energyCost, CardRarity rarity, bool shouldShowInCardLibrary)
+            : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)
         {
         }
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
+            if (DrawOnPlay)
+            {
+                await CardPileCmd.Draw(choiceContext, DynamicVars.Cards.BaseValue, Owner);
+            }
+
             await CreatureCmd.Damage(
                 choiceContext,
                 Owner.Creature,
@@ -42,6 +61,24 @@ namespace Manosaba.Characters.Common.Cards
         protected override void OnUpgrade()
         {
             base.DynamicVars["MajokaPower"].UpgradeValueBy(10m);
+        }
+    }
+
+    [Pool(typeof(CommonCardPool))]
+    public class KokoroSuicide : Suicide
+    {
+        protected override IEnumerable<DynamicVar> CanonicalVars => [.. BaseCanonicalVars, new CardsVar(1)];
+
+        protected override bool DrawOnPlay => true;
+
+        public override string PortraitPath => "suicide.png".CardsImagePath();
+
+        public override bool CanBeGeneratedInCombat => false;
+
+        public override bool CanBeGeneratedByModifiers => false;
+
+        public KokoroSuicide() : base(0, CardRarity.Token, false)
+        {
         }
     }
 }

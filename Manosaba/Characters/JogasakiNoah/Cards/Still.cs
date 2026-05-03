@@ -55,6 +55,7 @@ namespace Manosaba.Characters.JogasakiNoah.Cards
                 MonsterModel monster = canonicalMonster.ToMutable();
                 Creature pet = combatState.CreateCreature(monster, CombatSide.Player, null);
                 await PlayerCmd.AddPet(pet, Owner);
+                PetEnemyAiPower.AssignAiSlot(pet, target);
                 NCreature? node = NCombatRoom.Instance?.GetCreatureNode(pet);
                 if (node != null)
                 {
