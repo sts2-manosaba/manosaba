@@ -69,8 +69,8 @@ namespace Manosaba.Characters.JogasakiNoah.Powers
                         break;
                     }
 
-                    int tripleStart = FindTripleStartIndex(orbs);
-                    if (tripleStart < 0)
+                    List<OrbModel> matchingRun = FindMatchingRun(orbs);
+                    if (matchingRun.Count < 3)
                     {
                         break;
                     }
@@ -79,7 +79,7 @@ namespace Manosaba.Characters.JogasakiNoah.Powers
                     ActiveEvokeMultiplier.Value = GetComboMultiplier(combo);
                     try
                     {
-                        await EvokeTripleAt(choiceContext, player, tripleStart);
+                        await EvokeMatchingRun(choiceContext, player, matchingRun);
                     }
                     finally
                     {
@@ -99,21 +99,20 @@ namespace Manosaba.Characters.JogasakiNoah.Powers
         {
             return combo switch
             {
-                <= 1 => 1.5m,
-                2 => 3m,
-                _ => 5m,
+                <= 1 => 2m,
+                2 => 4m,
+                _ => 8m,
             };
         }
 
-        private static async Task EvokeTripleAt(PlayerChoiceContext choiceContext, Player player, int startIndex)
+        private static async Task EvokeMatchingRun(PlayerChoiceContext choiceContext, Player player, IReadOnlyList<OrbModel> matchedOrbs)
         {
             OrbQueue? queue = player.PlayerCombatState?.OrbQueue;
-            if (queue == null || queue.Orbs.Count < startIndex + 3 || player.Creature.CombatState == null)
+            if (queue == null || matchedOrbs.Count < 3 || player.Creature.CombatState == null)
             {
                 return;
             }
 
-            List<OrbModel> matchedOrbs = queue.Orbs.Skip(startIndex).Take(3).ToList();
             foreach (OrbModel matchedOrb in matchedOrbs)
             {
                 if (!queue.Orbs.Contains(matchedOrb))
@@ -144,29 +143,39 @@ namespace Manosaba.Characters.JogasakiNoah.Powers
             }
         }
 
-        private static int FindTripleStartIndex(IReadOnlyList<OrbModel> orbs)
+        private static List<OrbModel> FindMatchingRun(IReadOnlyList<OrbModel> orbs)
         {
             if (orbs.Count < 3)
             {
-                return -1;
+                return [];
             }
 
-            for (int i = 0; i <= orbs.Count - 3; i++)
+            int start = 0;
+            while (start < orbs.Count)
             {
-                OrbModel first = orbs[i];
+                OrbModel first = orbs[start];
                 if (!IsPaintOrb(first))
                 {
+                    start++;
                     continue;
                 }
 
                 Type firstType = first.GetType();
-                if (orbs[i + 1].GetType() == firstType && orbs[i + 2].GetType() == firstType)
+                int end = start + 1;
+                while (end < orbs.Count && orbs[end].GetType() == firstType)
                 {
-                    return i;
+                    end++;
                 }
+
+                if (end - start >= 3)
+                {
+                    return orbs.Skip(start).Take(end - start).ToList();
+                }
+
+                start = end;
             }
 
-            return -1;
+            return [];
         }
 
         private static bool IsPaintOrb(OrbModel orb) =>

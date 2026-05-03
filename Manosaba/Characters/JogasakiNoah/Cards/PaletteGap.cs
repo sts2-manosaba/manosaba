@@ -3,6 +3,7 @@ using manosaba.Characters.JogasakiNoah;
 using manosaba.Extensions;
 using Manosaba.Characters.JogasakiNoa.Orbs;
 using Manosaba.Extensions;
+using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
@@ -48,6 +49,18 @@ namespace Manosaba.Characters.JogasakiNoah.Cards
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
+            if ((Owner.PlayerCombatState?.OrbQueue?.Capacity ?? 0) <= 1)
+            {
+                for (int i = 0; i < DynamicVars.Repeat.IntValue; i++)
+                {
+                    OrbModel paletteOrb = RollOrbFromChanceTable();
+                    await OrbCmd.Channel(choiceContext, paletteOrb.ToMutable(), Owner);
+                }
+
+                PendingInsertIndex = null;
+                return;
+            }
+
             int insertIndex = ConsumeInsertIndexOrDefault();
             OrbModel randomOrb = RollOrbFromChanceTable();
 
@@ -84,7 +97,7 @@ namespace Manosaba.Characters.JogasakiNoah.Cards
 
         protected override void OnUpgrade()
         {
-            DynamicVars.Repeat.UpgradeValueBy(1);
+            EnergyCost.UpgradeBy(-1);
         }
     }
 }

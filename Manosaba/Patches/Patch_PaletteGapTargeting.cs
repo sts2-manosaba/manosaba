@@ -45,6 +45,12 @@ namespace Manosaba.Patches
                 return true;
             }
 
+            if (ShouldChannelLikePalette(card))
+            {
+                __result = NMouseCardPlay_PlayWithoutGapTargetSelection(__instance);
+                return false;
+            }
+
             __result = NMouseCardPlay_TargetSelectionPaletteGap(__instance, targetMode);
             return false;
         }
@@ -75,12 +81,24 @@ namespace Manosaba.Patches
                 return false;
             }
 
+            if (ShouldChannelLikePalette(card))
+            {
+                TryPlayCardMethod?.Invoke(__instance, [null]);
+                return false;
+            }
+
             TryShowEvokingOrbsMethod?.Invoke(__instance, null);
             cardNode.CardHighlight.AnimFlash();
             CenterCardMethod?.Invoke(__instance, null);
 
             TaskHelper.RunSafely(NControllerCardPlay_TargetSelectionPaletteGap(__instance));
             return false;
+        }
+
+        private static Task NMouseCardPlay_PlayWithoutGapTargetSelection(NMouseCardPlay cardPlay)
+        {
+            TryPlayCardMethod?.Invoke(cardPlay, [null]);
+            return Task.CompletedTask;
         }
 
         private static async Task NMouseCardPlay_TargetSelectionPaletteGap(NMouseCardPlay cardPlay, TargetMode targetMode)
@@ -148,7 +166,7 @@ namespace Manosaba.Patches
             }
 
             Dictionary<Control, int> markerToIndex = [];
-            bool includeFirstGap = queueCount == 0 || orbSlots.Count == 1;
+            bool includeFirstGap = queueCount == 0;
             List<Control> markers = CreateGapMarkers(orbSlots, maxInsertIndex, includeFirstGap, markerToIndex);
             if (markers.Count == 0)
             {
@@ -296,6 +314,11 @@ namespace Manosaba.Patches
         private static PaletteGap? GetPaletteGapCard(NCardPlay cardPlay)
         {
             return GetCard(cardPlay) as PaletteGap;
+        }
+
+        private static bool ShouldChannelLikePalette(PaletteGap card)
+        {
+            return (card.Owner.PlayerCombatState?.OrbQueue?.Capacity ?? 0) <= 1;
         }
 
         private static CardModel? GetCard(NCardPlay cardPlay)
