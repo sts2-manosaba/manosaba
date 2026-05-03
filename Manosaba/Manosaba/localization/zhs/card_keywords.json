@@ -20,5 +20,7 @@
   "MANOSABA-BETA.title": "Beta",
   "MANOSABA-BETA.description": "這張卡還在測試階段，可能會有問題。",
   "MANOSABA-SWORD_TECHNIQUE.title": "劍技",
-  "MANOSABA-SWORD_TECHNIQUE.description": "劍的技法。"
+  "MANOSABA-SWORD_TECHNIQUE.description": "劍的技法。",
+  "MANOSABA-TWO_SWORDS.title": "二刀流",
+  "MANOSABA-TWO_SWORDS.description": "需要[gold]二刀流[/gold]才能打出。"
 }

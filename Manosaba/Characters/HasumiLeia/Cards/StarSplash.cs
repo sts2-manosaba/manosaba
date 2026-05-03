@@ -13,7 +13,7 @@ namespace Manosaba.Characters.HasumiLeia.Cards;
 [Pool(typeof(HasumiLeiaCardPool))]
 public sealed class StarSplash : PathCustomCardModel
 {
-    private const int energyCost = 2;
+    private const int energyCost = 1;
     private const CardType type = CardType.Attack;
     private const CardRarity rarity = CardRarity.Rare;
     private const TargetType targetType = TargetType.AnyEnemy;
@@ -24,7 +24,7 @@ public sealed class StarSplash : PathCustomCardModel
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
         // Use a single Damage var so the game can correctly preview dynamic damage.
-        new DamageVar(2m, ValueProp.Move),
+        new DamageVar(1m, ValueProp.Move),
         new RepeatVar(TotalHitCount),
     ];
 
@@ -42,29 +42,10 @@ public sealed class StarSplash : PathCustomCardModel
             return;
         }
 
+        // Single damage per hit for now (avoids interactive issues).
         await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
-            .WithHitCount(3)
-            .WithHitFx("vfx/vfx_attack_blunt", null, "blunt_attack.mp3")
-            .FromCard(this)
-            .Targeting(target)
-            .Execute(choiceContext);
-
-        await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
-            .WithHitCount(2)
+            .WithHitCount(DynamicVars.Repeat.IntValue)
             .WithHitFx("vfx/vfx_big_slash")
-            .FromCard(this)
-            .Targeting(target)
-            .Execute(choiceContext);
-
-        await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
-            .WithHitFx("vfx/vfx_flying_slash")
-            .FromCard(this)
-            .Targeting(target)
-            .Execute(choiceContext);
-
-        await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
-            .WithHitCount(2)
-            .WithHitFx("vfx/vfx_dramatic_stab", null, "blunt_attack.mp3")
             .FromCard(this)
             .Targeting(target)
             .Execute(choiceContext);

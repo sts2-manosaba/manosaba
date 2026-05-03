@@ -83,6 +83,7 @@ namespace Manosaba.Characters.SaekiMiria.Helper
                 typeof(WitchIslandExpeditionPower),
                 typeof(SicklyPower),
                 typeof(PeacemakerPower),
+                typeof(TheCenterOfTheWorldIsPendingPower),
             };
 
         public static HashSet<Type> AllowedLuckTransferPowers = new()

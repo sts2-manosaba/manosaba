@@ -4,6 +4,7 @@ using BaseLib.Utils;
 using manosaba.Characters.HasumiLeia;
 using manosaba.Extensions;
 using Manosaba.Characters.Common.Powers;
+using Manosaba.Characters.HasumiLeia.Powers;
 using Manosaba.Extensions;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
@@ -51,49 +52,14 @@ public sealed class TheCenterOfTheWorldIs : PathCustomCardModel
             return;
         }
 
-        bool anyChoseLeia = false;
-        foreach (Player player in CombatState.Players)
-        {
-            if (player == Owner)
-            {
-                continue;
-            }
-
-            if (player == null || player.Creature == null || !player.Creature.IsAlive)
-            {
-                continue;
-            }
-
-            List<CardModel> options =
-            [
-                CombatState.CreateCard<TheCenterOfTheWorldIs_LeiaChoice>(Owner),
-                CombatState.CreateCard<TheCenterOfTheWorldIs_IgnoreChoice>(Owner),
-            ];
-
-            CardModel? selected = await CardSelectCmd.FromChooseACardScreen(choiceContext, options, player, canSkip: true);
-            if (selected is TheCenterOfTheWorldIs_LeiaChoice)
-            {
-                anyChoseLeia = true;
-            }
-        }
-
         if (Owner.Creature is not { } leiaCreature)
         {
             return;
         }
 
-        if (anyChoseLeia)
-        {
-            await PowerCmd.Apply<StrengthPower>(leiaCreature, 4m, leiaCreature, this);
-            return;
-        }
-
-        decimal currentMajoka = leiaCreature.GetPowerAmount<MajokaPower>();
-        decimal toApply = Math.Max(0m, 100m - currentMajoka);
-        if (toApply > 0m)
-        {
-            await PowerCmd.Apply<MajokaPower>(leiaCreature, toApply, leiaCreature, this);
-        }
+        // Delay the multiplayer choice prompt until end of the current turn
+        // to avoid interrupting other players' active UI actions.
+        await PowerCmd.Apply<TheCenterOfTheWorldIsPendingPower>(leiaCreature, 1m, leiaCreature, this);
     }
 }
 

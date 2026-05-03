@@ -1,12 +1,15 @@
 using BaseLib.Utils;
+using System.Linq;
 using manosaba.Characters.HasumiLeia;
 using Manosaba.Characters.Common.Overrides;
 using Manosaba.Characters.HasumiLeia.Powers;
 using Manosaba.Extensions;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
+using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
+using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.ValueProps;
 
 namespace Manosaba.Characters.HasumiLeia.Cards;
@@ -30,10 +33,10 @@ public sealed class StarburstStream : PathCustomCardModel
     [
         new DamageVar(0m, ValueProp.Move),
         new RepeatVar(HitCount),
-        new DynamicVar(EnergyRequirementVar, 5m),
+        new DynamicVar(EnergyRequirementVar, 3m),
     ];
 
-    public override IEnumerable<CardKeyword> CanonicalKeywords => [ManosabaKeywords.SwordTechnique];
+    public override IEnumerable<CardKeyword> CanonicalKeywords => [ManosabaKeywords.SwordTechnique, ManosabaKeywords.TwoSwords];
 
     protected override bool IsPlayable
     {
@@ -66,32 +69,46 @@ public sealed class StarburstStream : PathCustomCardModel
             return;
         }
 
-        int x = ResolveEnergyXValue();
-        DynamicVars.Damage.BaseValue = x;
-
-        // First 14 hits: mix big_slash and flying_slash.
-        for (int i = 0; i < 14; i++)
+        // Exhaust the hand (excluding this card, which is no longer in hand when played).
+        List<CardModel> cardsToExhaust = PileType.Hand.GetPile(Owner).Cards.ToList();
+        int swordTechniqueExhaustedCount = cardsToExhaust.Count(c => c.CanonicalKeywords.Contains(ManosabaKeywords.SwordTechnique));
+        foreach (CardModel card in cardsToExhaust)
         {
-            string vfx = (i % 2 == 0) ? "vfx/vfx_big_slash" : "vfx/vfx_flying_slash";
-            await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
-                .WithHitFx(vfx)
-                .FromCard(this)
-                .Targeting(target)
-                .Execute(choiceContext);
+            await CardCmd.Exhaust(choiceContext, card);
         }
 
-        // Last 2 hits: dramatic thrust.
+        int x = ResolveEnergyXValue();
+        DynamicVars.Damage.BaseValue = x + swordTechniqueExhaustedCount;
+
+        decimal beforeAllHp = target.CurrentHp;
+        decimal beforeAllBlock = target.Block;
+
+        // Single damage per hit for now (avoids interactive issues).
         await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
-            .WithHitCount(2)
-            .WithHitFx("vfx/vfx_dramatic_stab")
+            .WithHitCount(HitCount)
+            .WithHitFx("vfx/vfx_big_slash")
             .FromCard(this)
             .Targeting(target)
             .Execute(choiceContext);
+
+        decimal afterAllHp = target.CurrentHp;
+        decimal afterAllBlock = target.Block;
+        decimal totalDamageDealt = Math.Max(0m, (beforeAllHp - afterAllHp) + (beforeAllBlock - afterAllBlock));
+
+        if (IsUpgraded && Owner?.Creature is { } dealer && target.IsAlive)
+        {
+            decimal extraDamage = decimal.Ceiling(totalDamageDealt * 0.3m);
+            if (extraDamage > 0m)
+            {
+                // Small pause + big-hit VFX before the 17th (upgrade) hit.
+                await Cmd.CustomScaledWait(0.5f, 0.5f);
+                VfxCmd.PlayOnCreature(target, "vfx/vfx_big_slash");
+                await CreatureCmd.Damage(choiceContext, target, extraDamage, ValueProp.Unpowered, dealer, this);
+            }
+        }
     }
 
     protected override void OnUpgrade()
     {
-        // Lower minimum required energy by 2 (5 -> 3).
-        DynamicVars[EnergyRequirementVar].UpgradeValueBy(-2m);
     }
 }
