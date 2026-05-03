@@ -51,24 +51,6 @@ public sealed class FireJudgementCourt : ShitoAlisaCardModel
         if (state == null)
             return;
 
-        ManosabaFxPlayMode sfxPlayMode = ManosabaConfig.FireJudgementCourtEffectFrequency;
-        if (sfxPlayMode == ManosabaFxPlayMode.Never)
-        {
-            return;
-        }
-
-        if (sfxPlayMode == ManosabaFxPlayMode.OncePerRun && _sfxPlayedThisSession)
-        {
-            return;
-        }
-
-        SfxCmd.Play("event:/Manosaba/audio/bgm/fire_judgement_court.mp3", 0.8f);
-
-        if (sfxPlayMode == ManosabaFxPlayMode.OncePerRun)
-        {
-            _sfxPlayedThisSession = true;
-        }
-
         List<Creature> opponents = state.GetOpponentsOf(Owner.Creature).ToList();
         decimal burnAmount = DynamicVars["BurnPower"].BaseValue;
         foreach (Creature enemy in opponents)
@@ -102,6 +84,24 @@ public sealed class FireJudgementCourt : ShitoAlisaCardModel
                     await burn.AfterSideTurnStart(enemy.Side, state);
                 }
             }
+        }
+
+        ManosabaFxPlayMode sfxPlayMode = ManosabaConfig.FireJudgementCourtEffectFrequency;
+        if (sfxPlayMode == ManosabaFxPlayMode.Never)
+        {
+            return;
+        }
+
+        if (sfxPlayMode == ManosabaFxPlayMode.OncePerRun && _sfxPlayedThisSession)
+        {
+            return;
+        }
+
+        SfxCmd.Play("event:/Manosaba/audio/bgm/fire_judgement_court.mp3", 0.8f);
+
+        if (sfxPlayMode == ManosabaFxPlayMode.OncePerRun)
+        {
+            _sfxPlayedThisSession = true;
         }
     }
 
