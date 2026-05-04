@@ -1,5 +1,4 @@
 using BaseLib.Utils;
-using System.Linq;
 using manosaba.Characters.HasumiLeia;
 using Manosaba.Characters.Common.Overrides;
 using Manosaba.Characters.HasumiLeia.Powers;
@@ -8,9 +7,12 @@ using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
+using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
+using MegaCrit.Sts2.Core.Models.Powers;
 using MegaCrit.Sts2.Core.ValueProps;
+using System.Linq;
 
 namespace Manosaba.Characters.HasumiLeia.Cards;
 
@@ -29,6 +31,11 @@ public sealed class StarburstStream : PathCustomCardModel
     [
         new DamageVar(3m, ValueProp.Move),
         new RepeatVar(HitCount),
+    ];
+
+    protected override IEnumerable<IHoverTip> ExtraHoverTips =>
+    [
+        HoverTipFactory.FromPower<SecondSwordPower>()
     ];
 
     public override IEnumerable<CardKeyword> CanonicalKeywords => [ManosabaKeywords.SwordTechnique, ManosabaKeywords.TwoSwords];

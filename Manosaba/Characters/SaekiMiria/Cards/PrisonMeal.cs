@@ -24,12 +24,13 @@ public sealed class PrisonMeal : PathCustomCardModel
     [
         HoverTipFactory.FromPower<RegenPower>(),
         HoverTipFactory.FromPower<PoisonPower>(),
+        HoverTipFactory.FromPower<MajokaPower>()
     ];
 
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
         new PowerVar<RegenPower>(3m),
-        new PowerVar<PoisonPower>(2m),
+        new PowerVar<PoisonPower>(3m),
         new PowerVar<MajokaPower>(5m),
     ];
 
