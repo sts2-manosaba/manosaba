@@ -2,13 +2,10 @@ using BaseLib.Utils;
 using manosaba.Characters.ShitoAlisa;
 using Manosaba.Characters.ShitoAlisa.Powers;
 using Manosaba.Extensions;
-using MegaCrit.Sts2.Core.Hooks;
-using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Creatures;
-using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
@@ -32,43 +29,6 @@ public class YouAreWeakEma : ShitoAlisaCardModel
             if (card.Owner?.Creature == null)
                 return 0m;
             return card.Owner.Creature.GetPowerAmount<FireballSwarmPower>();
-        }
-
-        public override void UpdateCardPreview(CardModel card, CardPreviewMode previewMode, Creature? target, bool runGlobalHooks)
-        {
-            decimal rawDamage = card.DynamicVars.CalculationBase.BaseValue + card.DynamicVars.ExtraDamage.BaseValue * CalculateFireballStacks(card, target);
-            Player? owner = card.Owner;
-            if (owner == null)
-            {
-                PreviewValue = Math.Max(rawDamage, 0m);
-                return;
-            }
-            if (runGlobalHooks)
-            {
-                CombatState? combatState = card.CombatState ?? owner.Creature?.CombatState;
-                if (combatState == null)
-                {
-                    PreviewValue = Math.Max(rawDamage, 0m);
-                }
-                else
-                {
-                    PreviewValue = Hook.ModifyDamage(
-                        owner.RunState,
-                        combatState,
-                        target,
-                        IsFromOsty ? owner.Osty : owner.Creature,
-                        rawDamage,
-                        Props,
-                        card,
-                        ModifyDamageHookType.All,
-                        previewMode,
-                        out IEnumerable<AbstractModel> _);
-                }
-            }
-            else
-            {
-                PreviewValue = Math.Max(rawDamage, 0m);
-            }
         }
     }
 
