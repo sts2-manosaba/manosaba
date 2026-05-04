@@ -1,41 +1,43 @@
-using System;
 using BaseLib.Utils;
 using manosaba.Characters.TonoHanna;
 using Manosaba.Characters.Common.Overrides;
-using Manosaba.Characters.TonoHanna.Powers;
 using Manosaba.Extensions;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
+using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
+using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
+using MegaCrit.Sts2.Core.Models.Cards;
+using MegaCrit.Sts2.Core.Models.Powers;
 using MegaCrit.Sts2.Core.ValueProps;
 
 namespace Manosaba.Characters.TonoHanna.Cards;
 
-/// <summary>Vanilla-style <c>Anger</c>: deal damage, add a copy to <see cref="PileType.Discard"/>.</summary>
 [Pool(typeof(TonoHannaCardPool))]
-public sealed class HiroPuppet : PathCustomCardModel
+public sealed class SlipFall : PathCustomCardModel
 {
-    protected override HashSet<CardTag> CanonicalTags => [ManosabaCardTags.Puppet];
-
     private const int energyCost = 0;
     private const CardType type = CardType.Attack;
     private const CardRarity rarity = CardRarity.Common;
     private const TargetType targetType = TargetType.AnyEnemy;
     private const bool shouldShowInCardLibrary = true;
 
-    protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(6m, ValueProp.Move)];
+    protected override IEnumerable<DynamicVar> CanonicalVars =>
+        [new DamageVar(3m, ValueProp.Move), new PowerVar<VulnerablePower>(2m)];
 
-    public HiroPuppet()
+    protected override IEnumerable<IHoverTip> ExtraHoverTips =>
+        [HoverTipFactory.FromPower<VulnerablePower>(), HoverTipFactory.FromCard<Wound>()];
+
+    public SlipFall()
         : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)
     {
     }
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        await PowerCmd.Apply<HiroPuppetCollectionPower>(Owner.Creature, 1m, Owner.Creature, this);
-        if (cardPlay.Target is not { } target)
+        if (cardPlay.Target is not { } target || Owner?.Creature is not { } ownerCreature || CombatState == null)
         {
             return;
         }
@@ -44,10 +46,11 @@ public sealed class HiroPuppet : PathCustomCardModel
             .FromCard(this)
             .Targeting(target)
             .Execute(choiceContext);
-        CardModel copy = CreateClone();
+        await PowerCmd.Apply<VulnerablePower>(target, DynamicVars["VulnerablePower"].BaseValue, ownerCreature, this);
+
+        CardModel wound = CombatState.CreateCard(ModelDb.Card<Wound>(), Owner);
         CardCmd.PreviewCardPileAdd(
-            await CardPileCmd.AddGeneratedCardToCombat(copy, PileType.Discard, addedByPlayer: true),
-            2.2f);
+            await CardPileCmd.AddGeneratedCardToCombat(wound, PileType.Discard, addedByPlayer: true));
     }
 
     protected override void OnUpgrade()
