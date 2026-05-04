@@ -24,7 +24,7 @@ public class CocoPuppet : PathCustomCardModel
 
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
-        new BlockVar(2m, ValueProp.Move),
+        new BlockVar(2m, ValueProp.Unpowered),
         new PowerVar<CocoPuppetCollectionPower>(1),
     ];
 

@@ -17,7 +17,7 @@ namespace Manosaba.Characters.TachibanaSherry.Cards
     {
         protected override HashSet<CardTag> CanonicalTags => new HashSet<CardTag>();
         private const int energyCost = 2;
-        private const CardType type = CardType.Skill;
+        private const CardType type = CardType.Power;
         private const CardRarity rarity = CardRarity.Uncommon;
         private const TargetType targetType = TargetType.Self;
         private const bool shouldShowInCardLibrary = true;
