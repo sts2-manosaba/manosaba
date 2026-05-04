@@ -49,6 +49,37 @@ public sealed class StarSplash : PathCustomCardModel
             .FromCard(this)
             .Targeting(target)
             .Execute(choiceContext);
+
+        /*
+        // Old per-part VFX sequence (kept for possible future fix).
+        // This previously caused issues with some interactive/preview behavior.
+        await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
+            .WithHitCount(3)
+            .WithHitFx("vfx/vfx_attack_blunt", null, "blunt_attack.mp3")
+            .FromCard(this)
+            .Targeting(target)
+            .Execute(choiceContext);
+
+        await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
+            .WithHitCount(2)
+            .WithHitFx("vfx/vfx_big_slash")
+            .FromCard(this)
+            .Targeting(target)
+            .Execute(choiceContext);
+
+        await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
+            .WithHitFx("vfx/vfx_flying_slash")
+            .FromCard(this)
+            .Targeting(target)
+            .Execute(choiceContext);
+
+        await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
+            .WithHitCount(2)
+            .WithHitFx("vfx/vfx_dramatic_stab", null, "blunt_attack.mp3")
+            .FromCard(this)
+            .Targeting(target)
+            .Execute(choiceContext);
+        */
     }
 
     protected override void OnUpgrade()

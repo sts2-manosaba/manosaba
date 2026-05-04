@@ -17,11 +17,7 @@ namespace Manosaba.Characters.HasumiLeia.Cards;
 [Pool(typeof(HasumiLeiaCardPool))]
 public sealed class StarburstStream : PathCustomCardModel
 {
-    protected override bool HasEnergyCostX => true;
-
-    public const string EnergyRequirementVar = "EnergyRequirement";
-
-    private const int energyCost = 0;
+    private const int energyCost = 3;
     private const CardType type = CardType.Attack;
     private const CardRarity rarity = CardRarity.Rare;
     private const TargetType targetType = TargetType.AnyEnemy;
@@ -31,9 +27,8 @@ public sealed class StarburstStream : PathCustomCardModel
 
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
-        new DamageVar(0m, ValueProp.Move),
+        new DamageVar(3m, ValueProp.Move),
         new RepeatVar(HitCount),
-        new DynamicVar(EnergyRequirementVar, 3m),
     ];
 
     public override IEnumerable<CardKeyword> CanonicalKeywords => [ManosabaKeywords.SwordTechnique, ManosabaKeywords.TwoSwords];
@@ -42,7 +37,7 @@ public sealed class StarburstStream : PathCustomCardModel
     {
         get
         {
-            if (Owner?.Creature == null || Owner.PlayerCombatState == null)
+            if (Owner?.Creature == null)
             {
                 return false;
             }
@@ -52,8 +47,7 @@ public sealed class StarburstStream : PathCustomCardModel
                 return false;
             }
 
-            int requiredEnergy = DynamicVars[EnergyRequirementVar].IntValue;
-            return Owner.PlayerCombatState.Energy >= requiredEnergy;
+            return true;
         }
     }
 
@@ -71,14 +65,13 @@ public sealed class StarburstStream : PathCustomCardModel
 
         // Exhaust the hand (excluding this card, which is no longer in hand when played).
         List<CardModel> cardsToExhaust = PileType.Hand.GetPile(Owner).Cards.ToList();
-        int swordTechniqueExhaustedCount = cardsToExhaust.Count(c => c.CanonicalKeywords.Contains(ManosabaKeywords.SwordTechnique));
+        int exhaustedCount = cardsToExhaust.Count;
         foreach (CardModel card in cardsToExhaust)
         {
             await CardCmd.Exhaust(choiceContext, card);
         }
 
-        int x = ResolveEnergyXValue();
-        DynamicVars.Damage.BaseValue = x + swordTechniqueExhaustedCount;
+        DynamicVars.Damage.BaseValue = 3m + exhaustedCount;
 
         decimal beforeAllHp = target.CurrentHp;
         decimal beforeAllBlock = target.Block;
@@ -94,6 +87,44 @@ public sealed class StarburstStream : PathCustomCardModel
         decimal afterAllHp = target.CurrentHp;
         decimal afterAllBlock = target.Block;
         decimal totalDamageDealt = Math.Max(0m, (beforeAllHp - afterAllHp) + (beforeAllBlock - afterAllBlock));
+
+        /*
+        // Old per-part VFX sequence (kept for possible future fix).
+        // This previously caused issues with some interactive/preview behavior.
+        decimal totalDamageDealt = 0m;
+        for (int i = 0; i < 14; i++)
+        {
+            decimal beforeHp = target.CurrentHp;
+            decimal beforeBlock = target.Block;
+
+            string vfx = (i % 2 == 0) ? "vfx/vfx_big_slash" : "vfx/vfx_flying_slash";
+            await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
+                .WithHitFx(vfx)
+                .FromCard(this)
+                .Targeting(target)
+                .Execute(choiceContext);
+
+            decimal afterHp = target.CurrentHp;
+            decimal afterBlock = target.Block;
+            totalDamageDealt += Math.Max(0m, (beforeHp - afterHp) + (beforeBlock - afterBlock));
+        }
+
+        {
+            decimal beforeHp = target.CurrentHp;
+            decimal beforeBlock = target.Block;
+
+            await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
+                .WithHitCount(2)
+                .WithHitFx("vfx/vfx_dramatic_stab")
+                .FromCard(this)
+                .Targeting(target)
+                .Execute(choiceContext);
+
+            decimal afterHp = target.CurrentHp;
+            decimal afterBlock = target.Block;
+            totalDamageDealt += Math.Max(0m, (beforeHp - afterHp) + (beforeBlock - afterBlock));
+        }
+        */
 
         if (IsUpgraded && Owner?.Creature is { } dealer && target.IsAlive)
         {

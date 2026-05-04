@@ -46,6 +46,6 @@ public class RealisticActing : PathCustomCardModel
 
     protected override void OnUpgrade()
     {
-        base.DynamicVars.Dexterity.UpgradeValueBy(1m);
+        base.DynamicVars.Dexterity.UpgradeValueBy(2m);
     }
 }
