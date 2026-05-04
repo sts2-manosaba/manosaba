@@ -41,7 +41,7 @@ namespace Manosaba.Characters.SaekiMiria.Helper
         public static HashSet<Type> IgnoredPowers = new()
             {
                 typeof(MajokaPower),
-                typeof(VotePower),
+                typeof(SusPower),
                 typeof(CoveredPower),
                 typeof(InterceptPower),
                 typeof(DeathLoopPower),

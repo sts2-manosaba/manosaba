@@ -25,10 +25,10 @@ namespace Manosaba.Characters.TachibanaSherry.Cards
         private const bool shouldShowInCardLibrary = true;
 
         protected override IEnumerable<IHoverTip> ExtraHoverTips => [
-            HoverTipFactory.FromPower<VotePower>()
+            HoverTipFactory.FromPower<SusPower>()
         ];
 
-        protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(15m, ValueProp.Move), new PowerVar<VotePower>(2m)];
+        protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(15m, ValueProp.Move), new PowerVar<SusPower>(2m)];
 
         public HangingKill() : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)
         {
@@ -53,7 +53,7 @@ namespace Manosaba.Characters.TachibanaSherry.Cards
                 num = Math.Max(0, 999 - powerAmount);
             }
             await PowerCmd.Apply<HangingKillPower>(target, num, ownerCreature, this);
-            await PowerCmd.Apply<VotePower>(ownerCreature, DynamicVars["VotePower"].BaseValue, ownerCreature, this);
+            await PowerCmd.Apply<SusPower>(ownerCreature, DynamicVars["SusPower"].BaseValue, ownerCreature, this);
         }
 
         protected override void OnUpgrade()

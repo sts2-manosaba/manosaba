@@ -17,7 +17,7 @@ namespace manosaba.Characters.NikaidoHiro.Relics
     public sealed class PenOfHiro : LevelingPathCustomRelicModel
     {
         public override RelicRarity Rarity => RelicRarity.Starter;
-        protected override IEnumerable<IHoverTip> ExtraHoverTips => [.. base.ExtraHoverTips, HoverTipFactory.FromPower<VotePower>()];
+        protected override IEnumerable<IHoverTip> ExtraHoverTips => [.. base.ExtraHoverTips, HoverTipFactory.FromPower<SusPower>()];
         protected override int MaxRelicLevel => 5;
 
         protected override IEnumerable<DynamicVar> CanonicalVars => [new DynamicVar("VoteCost", 1m), new SummonVar(6)];
@@ -43,13 +43,13 @@ namespace manosaba.Characters.NikaidoHiro.Relics
             if (base.Owner.Creature == player.Creature)
             {
                 decimal voteCost = base.DynamicVars["VoteCost"].BaseValue;
-                decimal currentVote = base.Owner.Creature.GetPowerAmount<VotePower>();
+                decimal currentVote = base.Owner.Creature.GetPowerAmount<SusPower>();
                 if (currentVote >= voteCost)
                 {
                     await SakurabaEmaDogCmd.Summon(choiceContext, base.Owner, DynamicVars.Summon.BaseValue, this);
                     if (voteCost > 0)
                     {
-                        await PowerCmd.Apply<VotePower>(base.Owner.Creature, -voteCost, player.Creature, null);
+                        await PowerCmd.Apply<SusPower>(base.Owner.Creature, -voteCost, player.Creature, null);
                     }
                 }
             }

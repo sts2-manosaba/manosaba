@@ -23,8 +23,8 @@ namespace Manosaba.Characters.SaekiMiria.Cards
         private const CardRarity rarity = CardRarity.Rare;
         private const TargetType targetType = TargetType.Self;
         private const bool shouldShowInCardLibrary = true;
-        protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromKeyword(CardKeyword.Exhaust),EnergyHoverTip, HoverTipFactory.FromPower<VotePower>()];
-        protected override IEnumerable<DynamicVar> CanonicalVars => [new EnergyVar(1), new CardsVar(2), new PowerVar<VotePower>(1)];
+        protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromKeyword(CardKeyword.Exhaust),EnergyHoverTip, HoverTipFactory.FromPower<SusPower>()];
+        protected override IEnumerable<DynamicVar> CanonicalVars => [new EnergyVar(1), new CardsVar(2), new PowerVar<SusPower>(1)];
         public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
 
         public UncleWriting() : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)
@@ -35,7 +35,7 @@ namespace Manosaba.Characters.SaekiMiria.Cards
         {
             await PlayerCmd.GainEnergy(base.DynamicVars.Energy.IntValue, base.Owner);
             await CardPileCmd.Draw(choiceContext, base.DynamicVars.Cards.BaseValue, base.Owner);
-            await PowerCmd.Apply<VotePower>(base.Owner.Creature, DynamicVars["VotePower"].BaseValue, base.Owner.Creature, this);
+            await PowerCmd.Apply<SusPower>(base.Owner.Creature, DynamicVars["SusPower"].BaseValue, base.Owner.Creature, this);
         }
 
         protected override void OnUpgrade()

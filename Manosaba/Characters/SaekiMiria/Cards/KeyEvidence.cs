@@ -26,7 +26,7 @@ namespace Manosaba.Characters.SaekiMiria.Cards
         private const TargetType targetType = TargetType.AnyEnemy;
         private const bool shouldShowInCardLibrary = true;
 
-        protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<VotePower>()];
+        protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<SusPower>()];
 
         protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(4m, ValueProp.Move)];
 
@@ -36,7 +36,7 @@ namespace Manosaba.Characters.SaekiMiria.Cards
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
-            int voteStacks = Owner.Creature.GetPowerAmount<VotePower>();
+            int voteStacks = Owner.Creature.GetPowerAmount<SusPower>();
             int hitCount = voteStacks;
 
             if (cardPlay.Target is not { } target)
@@ -50,7 +50,7 @@ namespace Manosaba.Characters.SaekiMiria.Cards
                 .WithHitCount(hitCount)
                 .Execute(choiceContext);
 
-            await PowerCmd.Apply<VotePower>(Owner.Creature, -voteStacks, Owner.Creature, null);
+            await PowerCmd.Apply<SusPower>(Owner.Creature, -voteStacks, Owner.Creature, null);
         }
 
         protected override void OnUpgrade()

@@ -20,9 +20,9 @@ namespace Manosaba.Characters.TachibanaSherry.Cards
         private const TargetType targetType = TargetType.AllEnemies;
         private const bool shouldShowInCardLibrary = true;
 
-        protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<VotePower>()];
+        protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<SusPower>()];
 
-        protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(20m, ValueProp.Move), new PowerVar<VotePower>(2)];
+        protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(20m, ValueProp.Move), new PowerVar<SusPower>(2)];
 
         public Ignite() : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)
         {
@@ -37,7 +37,7 @@ namespace Manosaba.Characters.TachibanaSherry.Cards
                 .FromCard(this)
                 .TargetingAllOpponents(base.CombatState)
                 .Execute(choiceContext);
-            await PowerCmd.Apply<VotePower>(base.Owner.Creature, DynamicVars["VotePower"].BaseValue, base.Owner.Creature, this);
+            await PowerCmd.Apply<SusPower>(base.Owner.Creature, DynamicVars["SusPower"].BaseValue, base.Owner.Creature, this);
         }
 
         protected override void OnUpgrade()

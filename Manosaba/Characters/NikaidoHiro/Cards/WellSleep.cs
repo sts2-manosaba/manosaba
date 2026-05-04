@@ -21,9 +21,9 @@ namespace Manosaba.Characters.NikaidoHiro.Cards
         private const TargetType targetType = TargetType.Self;
         private const bool shouldShowInCardLibrary = true;
 
-        protected override IEnumerable<DynamicVar> CanonicalVars => [new BlockVar(9, ValueProp.Move), new PowerVar<VotePower>(3)];
+        protected override IEnumerable<DynamicVar> CanonicalVars => [new BlockVar(9, ValueProp.Move), new PowerVar<SusPower>(3)];
 
-        protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<VotePower>()];
+        protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<SusPower>()];
 
         public WellSleep() : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)
         {
@@ -31,13 +31,13 @@ namespace Manosaba.Characters.NikaidoHiro.Cards
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
-            await PowerCmd.Apply<VotePower>(Owner.Creature, DynamicVars["VotePower"].BaseValue, Owner.Creature, this);
+            await PowerCmd.Apply<SusPower>(Owner.Creature, DynamicVars["SusPower"].BaseValue, Owner.Creature, this);
             await CreatureCmd.GainBlock(Owner.Creature, DynamicVars.Block, cardPlay);
         }
 
         protected override void OnUpgrade()
         {
-            DynamicVars["VotePower"].UpgradeValueBy(1);
+            DynamicVars["SusPower"].UpgradeValueBy(1);
             DynamicVars.Block.UpgradeValueBy(3);
         }
     }

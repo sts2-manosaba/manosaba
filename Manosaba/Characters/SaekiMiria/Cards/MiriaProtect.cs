@@ -23,8 +23,8 @@ namespace Manosaba.Characters.SaekiMiria.Cards
         private const CardRarity rarity = CardRarity.Uncommon;
         private const TargetType targetType = TargetType.AnyAlly;
         private const bool shouldShowInCardLibrary = true;
-        protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<VotePower>()];
-        protected override IEnumerable<DynamicVar> CanonicalVars => [new DynamicVar("BaseBlock", 8m), new BlockVar(3, ValueProp.Move), new PowerVar<VotePower>(1)];
+        protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<SusPower>()];
+        protected override IEnumerable<DynamicVar> CanonicalVars => [new DynamicVar("BaseBlock", 8m), new BlockVar(3, ValueProp.Move), new PowerVar<SusPower>(1)];
 
         public MiriaProtect() : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)
         {
@@ -37,10 +37,10 @@ namespace Manosaba.Characters.SaekiMiria.Cards
                 return;
             }
 
-            var votePower = target.GetPowerAmount<VotePower>();
+            var votePower = target.GetPowerAmount<SusPower>();
             var blockAmt = base.DynamicVars.Block.BaseValue * votePower + base.DynamicVars["BaseBlock"].BaseValue;
             await CreatureCmd.GainBlock(target, new BlockVar(blockAmt,ValueProp.Move), cardPlay);
-            await PowerCmd.Apply<VotePower>(ownerCreature, DynamicVars["VotePower"].BaseValue, ownerCreature, this);
+            await PowerCmd.Apply<SusPower>(ownerCreature, DynamicVars["SusPower"].BaseValue, ownerCreature, this);
         }
 
         protected override void OnUpgrade()

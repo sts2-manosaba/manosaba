@@ -19,8 +19,8 @@ namespace Manosaba.Characters.Common.Cards
         private const CardRarity rarity = CardRarity.Uncommon;
         private const TargetType targetType = TargetType.Self;
         private const bool shouldShowInCardLibrary = true;
-        protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<VotePower>()];
-        protected override IEnumerable<DynamicVar> CanonicalVars => [new CardsVar(2), new PowerVar<VotePower>(2)];
+        protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<SusPower>()];
+        protected override IEnumerable<DynamicVar> CanonicalVars => [new CardsVar(2), new PowerVar<SusPower>(2)];
 
         public Alibi() : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)
         {
@@ -29,7 +29,7 @@ namespace Manosaba.Characters.Common.Cards
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
             await CardPileCmd.Draw(choiceContext, base.DynamicVars.Cards.BaseValue, base.Owner);
-            await PowerCmd.Apply<VotePower>(base.Owner.Creature, -DynamicVars["VotePower"].BaseValue, base.Owner.Creature, this);
+            await PowerCmd.Apply<SusPower>(base.Owner.Creature, -DynamicVars["SusPower"].BaseValue, base.Owner.Creature, this);
         }
 
         protected override void OnUpgrade()

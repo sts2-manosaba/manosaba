@@ -29,14 +29,14 @@ namespace Manosaba.Characters.NikaidoHiro.Cards
             new CalculationBaseVar(50m),
             new ExtraDamageVar(1m),
             new CalculatedDamageVar(ValueProp.Unpowered).WithMultiplier(delegate(CardModel card, Creature? _){
-                int voteAmount = card.Owner.Creature.GetPowerAmount<VotePower>();
+                int voteAmount = card.Owner.Creature.GetPowerAmount<SusPower>();
                 int majokaAmount = card.Owner.Creature.GetPowerAmount<MajokaPower>();
 
                 return (50m + voteAmount * 3 + majokaAmount / 25) * (1 + 0.01m * majokaAmount) - 50m;
             }),
             new PowerVar<MajokaPower>(100)
             ];
-        protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<MajokaPower>(), HoverTipFactory.FromPower<VotePower>()];
+        protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<MajokaPower>(), HoverTipFactory.FromPower<SusPower>()];
         public WitchesSabbath() : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)
         {
         }
@@ -48,9 +48,9 @@ namespace Manosaba.Characters.NikaidoHiro.Cards
                 return;
 
             int majokaAmount = base.Owner.Creature.GetPowerAmount<MajokaPower>();
-            int voteAmount = base.Owner.Creature.GetPowerAmount<VotePower>();
+            int voteAmount = base.Owner.Creature.GetPowerAmount<SusPower>();
             await PowerCmd.Apply<MajokaPower>(base.Owner.Creature, -majokaAmount, base.Owner.Creature, this);
-            await PowerCmd.Apply<VotePower>(base.Owner.Creature, -voteAmount, base.Owner.Creature, this);
+            await PowerCmd.Apply<SusPower>(base.Owner.Creature, -voteAmount, base.Owner.Creature, this);
 
             decimal damage = (DynamicVars.CalculationBase.BaseValue + voteAmount * 3 + majokaAmount / 25) * (1 + 0.01m * majokaAmount);
 

@@ -26,7 +26,7 @@ namespace Manosaba.Characters.SaekiMiria.Powers
                 return Task.CompletedTask;
             }
 
-            if (power is VotePower && amount > 0m)
+            if (power is SusPower && amount > 0m)
             {
                 return CreatureCmd.GainBlock(base.Owner, new BlockVar(base.Amount * amount, ValueProp.Unpowered), null);
             }

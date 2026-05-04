@@ -20,8 +20,8 @@ namespace Manosaba.Characters.NikaidoHiro.Cards
         private const TargetType targetType = TargetType.AnyEnemy;
         private const bool shouldShowInCardLibrary = true;
 
-        protected override IEnumerable<DynamicVar> CanonicalVars => [new PowerVar<VotePower>(1m), new PowerVar<WeakPower>(1m)];
-        protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<VotePower>(), HoverTipFactory.FromPower<WeakPower>()];
+        protected override IEnumerable<DynamicVar> CanonicalVars => [new PowerVar<SusPower>(1m), new PowerVar<WeakPower>(1m)];
+        protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<SusPower>(), HoverTipFactory.FromPower<WeakPower>()];
 
         public Intimidate() : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)
         {
@@ -34,13 +34,13 @@ namespace Manosaba.Characters.NikaidoHiro.Cards
                 return;
 
             await PowerCmd.Apply<WeakPower>(target, DynamicVars.Weak.BaseValue, base.Owner.Creature, this);
-            await PowerCmd.Apply<VotePower>(base.Owner.Creature, DynamicVars["VotePower"].BaseValue, base.Owner.Creature, this);
+            await PowerCmd.Apply<SusPower>(base.Owner.Creature, DynamicVars["SusPower"].BaseValue, base.Owner.Creature, this);
         }
 
         protected override void OnUpgrade()
         {
             DynamicVars.Weak.UpgradeValueBy(1m);
-            DynamicVars["VotePower"].UpgradeValueBy(1m);
+            DynamicVars["SusPower"].UpgradeValueBy(1m);
         }
     }
 }

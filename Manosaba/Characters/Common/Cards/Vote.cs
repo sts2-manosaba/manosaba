@@ -25,9 +25,9 @@ namespace Manosaba.Characters.Common.Cards
         public override bool CanBeGeneratedInCombat => false;
         public override bool CanBeGeneratedByModifiers => false;
 
-        protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<VotePower>()];
+        protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<SusPower>()];
         public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
-        protected override IEnumerable<DynamicVar> CanonicalVars => [new CardsVar(1), new DynamicVar("VotePower", 1)];
+        protected override IEnumerable<DynamicVar> CanonicalVars => [new CardsVar(1), new DynamicVar("SusPower", 1)];
 
         public Vote() : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)
         {
@@ -49,7 +49,7 @@ namespace Manosaba.Characters.Common.Cards
             await CardPileCmd.Draw(choiceContext, base.DynamicVars.Cards.BaseValue, base.Owner);
             if (base.Owner.Creature is { } ownerCreature && cardPlay.Target?.Player?.Creature is { } targetCreature)
             {
-                await PowerCmd.Apply<VotePower>(targetCreature, 1, ownerCreature, this);
+                await PowerCmd.Apply<SusPower>(targetCreature, 1, ownerCreature, this);
             }
         }
 

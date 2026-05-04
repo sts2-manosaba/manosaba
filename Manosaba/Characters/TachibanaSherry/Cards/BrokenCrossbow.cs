@@ -21,9 +21,9 @@ namespace Manosaba.Characters.TachibanaSherry.Cards
         private const TargetType targetType = TargetType.Self;
         private const bool shouldShowInCardLibrary = false;
         public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Retain, CardKeyword.Exhaust];
-        protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<VotePower>()];
+        protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<SusPower>()];
 
-        protected override IEnumerable<DynamicVar> CanonicalVars => [new PowerVar<VotePower>(2), new EnergyVar(2)];
+        protected override IEnumerable<DynamicVar> CanonicalVars => [new PowerVar<SusPower>(2), new EnergyVar(2)];
 
         public BrokenCrossbow() : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)
         {
@@ -42,7 +42,7 @@ namespace Manosaba.Characters.TachibanaSherry.Cards
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
-            await PowerCmd.Apply<VotePower>(base.Owner.Creature, base.DynamicVars["VotePower"].BaseValue, base.Owner.Creature, this);
+            await PowerCmd.Apply<SusPower>(base.Owner.Creature, base.DynamicVars["SusPower"].BaseValue, base.Owner.Creature, this);
             await PlayerCmd.GainEnergy(base.DynamicVars.Energy.IntValue, base.Owner);
         }
 

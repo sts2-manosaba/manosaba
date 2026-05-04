@@ -20,8 +20,8 @@ namespace Manosaba.Characters.NikaidoHiro.Cards
         private const TargetType targetType = TargetType.Self;
         private const bool shouldShowInCardLibrary = true;
 
-        protected override IEnumerable<DynamicVar> CanonicalVars => [new SummonVar(8), new PowerVar<VotePower>(1)];
-        protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<VotePower>()];
+        protected override IEnumerable<DynamicVar> CanonicalVars => [new SummonVar(8), new PowerVar<SusPower>(1)];
+        protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<SusPower>()];
 
         public BathroomTalk() : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)
         {
@@ -30,7 +30,7 @@ namespace Manosaba.Characters.NikaidoHiro.Cards
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
             await SakurabaEmaDogCmd.Summon(choiceContext, Owner, DynamicVars.Summon.BaseValue, this);
-            await PowerCmd.Apply<VotePower>(Owner.Creature, DynamicVars["VotePower"].BaseValue, Owner.Creature, this);
+            await PowerCmd.Apply<SusPower>(Owner.Creature, DynamicVars["SusPower"].BaseValue, Owner.Creature, this);
         }
 
         protected override void OnUpgrade()

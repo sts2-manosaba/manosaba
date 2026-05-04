@@ -296,7 +296,7 @@ public sealed class TheEmperor : HoshoMagoArcanaBase
 public sealed class TheHierophant : HoshoMagoArcanaBase
 {
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [
-        HoverTipFactory.FromPower<VotePower>(),
+        HoverTipFactory.FromPower<SusPower>(),
         HoverTipFactory.FromPower<WeakPower>(),
         HoverTipFactory.FromPower<VulnerablePower>()
     ];
@@ -308,10 +308,10 @@ public sealed class TheHierophant : HoshoMagoArcanaBase
             return;
         }
 
-        decimal removedVote = ownerCreature.GetPowerAmount<VotePower>();
+        decimal removedVote = ownerCreature.GetPowerAmount<SusPower>();
         if (removedVote > 0)
         {
-            await PowerCmd.Apply<VotePower>(ownerCreature, -removedVote, ownerCreature, this);
+            await PowerCmd.Apply<SusPower>(ownerCreature, -removedVote, ownerCreature, this);
         }
 
         decimal debuffAmount = 2m + removedVote * 2m;

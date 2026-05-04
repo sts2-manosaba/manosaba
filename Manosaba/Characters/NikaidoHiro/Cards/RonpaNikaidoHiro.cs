@@ -26,7 +26,7 @@ namespace Manosaba.Characters.NikaidoHiro.Cards
             new CalculationBaseVar(8m),
             new ExtraDamageVar(4m),
             new CalculatedDamageVar(ValueProp.Move).WithMultiplier(delegate(CardModel card, Creature? _){
-                if (card.Owner.Creature.GetPowerAmount<VotePower>() >= 1)
+                if (card.Owner.Creature.GetPowerAmount<SusPower>() >= 1)
                 {
                     return 1;
                 }
@@ -35,8 +35,8 @@ namespace Manosaba.Characters.NikaidoHiro.Cards
                     return 0;
                 }
             }),
-            new DynamicVar("VotePowerCost", 1)];
-        protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<VotePower>()];
+            new DynamicVar("SusPowerCost", 1)];
+        protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<SusPower>()];
         public RonpaNikaidoHiro() : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)
         {
         }
@@ -50,9 +50,9 @@ namespace Manosaba.Characters.NikaidoHiro.Cards
                  .FromCard(this)
                  .Targeting(target)
                  .Execute(choiceContext);
-            if (base.Owner.Creature.GetPowerAmount<VotePower>() >= 1)
+            if (base.Owner.Creature.GetPowerAmount<SusPower>() >= 1)
             {
-                await PowerCmd.Apply<VotePower>(base.Owner.Creature, -DynamicVars["VotePowerCost"].BaseValue, base.Owner.Creature, this);
+                await PowerCmd.Apply<SusPower>(base.Owner.Creature, -DynamicVars["SusPowerCost"].BaseValue, base.Owner.Creature, this);
             }
         }
 

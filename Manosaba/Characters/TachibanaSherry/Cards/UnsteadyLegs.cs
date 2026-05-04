@@ -21,9 +21,9 @@ namespace Manosaba.Characters.TachibanaSherry.Cards
         private const TargetType targetType = TargetType.Self;
         private const bool shouldShowInCardLibrary = true;
 
-        protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<VotePower>(), HoverTipFactory.FromPower<StrengthPower>()];
+        protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<SusPower>(), HoverTipFactory.FromPower<StrengthPower>()];
 
-        protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(5m, ValueProp.Unpowered), new PowerVar<VotePower>(2), new PowerVar<StrengthPower>(1)];
+        protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(5m, ValueProp.Unpowered), new PowerVar<SusPower>(2), new PowerVar<StrengthPower>(1)];
 
         public UnsteadyLegs() : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)
         {
@@ -32,7 +32,7 @@ namespace Manosaba.Characters.TachibanaSherry.Cards
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
             await CreatureCmd.Damage(choiceContext, base.Owner.Creature, DynamicVars.Damage.BaseValue, ValueProp.Unpowered, base.Owner.Creature);
-            await PowerCmd.Apply<VotePower>(base.Owner.Creature, -DynamicVars["VotePower"].BaseValue, base.Owner.Creature, this);
+            await PowerCmd.Apply<SusPower>(base.Owner.Creature, -DynamicVars["SusPower"].BaseValue, base.Owner.Creature, this);
             await PowerCmd.Apply<StrengthPower>(base.Owner.Creature, DynamicVars.Strength.BaseValue, base.Owner.Creature, this);
         }
 
