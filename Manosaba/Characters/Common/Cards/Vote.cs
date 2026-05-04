@@ -19,15 +19,15 @@ namespace Manosaba.Characters.Common.Cards
         private const int energyCost = 0;
         private const CardType type = CardType.Skill;
         private const CardRarity rarity = CardRarity.Token;
-        private const TargetType targetType = TargetType.AnyPlayer;
+        private const TargetType targetType = TargetType.AnyEnemy;
         private const bool shouldShowInCardLibrary = false;
 
         public override bool CanBeGeneratedInCombat => false;
         public override bool CanBeGeneratedByModifiers => false;
 
-        protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<SusPower>()];
+        protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<VotePower>()];
         public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
-        protected override IEnumerable<DynamicVar> CanonicalVars => [new CardsVar(1), new DynamicVar("SusPower", 1)];
+        protected override IEnumerable<DynamicVar> CanonicalVars => [new CardsVar(1), new PowerVar<VotePower>(1)];
 
         public Vote() : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)
         {
@@ -49,7 +49,7 @@ namespace Manosaba.Characters.Common.Cards
             await CardPileCmd.Draw(choiceContext, base.DynamicVars.Cards.BaseValue, base.Owner);
             if (base.Owner.Creature is { } ownerCreature && cardPlay.Target?.Player?.Creature is { } targetCreature)
             {
-                await PowerCmd.Apply<SusPower>(targetCreature, 1, ownerCreature, this);
+                await PowerCmd.Apply<VotePower>(targetCreature, DynamicVars["VotePower"].BaseValue, ownerCreature, this);
             }
         }
 

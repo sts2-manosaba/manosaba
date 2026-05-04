@@ -2,6 +2,7 @@
 using manosaba.Characters.NikaidoHiro;
 using Manosaba.Characters.Common.Powers;
 using Manosaba.Extensions;
+using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Creatures;
@@ -23,14 +24,14 @@ namespace Manosaba.Characters.NikaidoHiro.Cards
         private const TargetType targetType = TargetType.AllEnemies;
         private const bool shouldShowInCardLibrary = true;
 
-        protected override bool IsPlayable => base.Owner.Creature.GetPowerAmount<MajokaPower>() >= 100;
+        protected override bool IsPlayable => GetTotalMajokaAmount(base.CombatState) >= 100;
         public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
         protected override IEnumerable<DynamicVar> CanonicalVars => [
             new CalculationBaseVar(50m),
             new ExtraDamageVar(1m),
             new CalculatedDamageVar(ValueProp.Unpowered).WithMultiplier(delegate(CardModel card, Creature? _){
                 int voteAmount = card.Owner.Creature.GetPowerAmount<SusPower>();
-                int majokaAmount = card.Owner.Creature.GetPowerAmount<MajokaPower>();
+                int majokaAmount = GetTotalMajokaAmount(card.CombatState);
 
                 return (50m + voteAmount * 3 + majokaAmount / 25) * (1 + 0.01m * majokaAmount) - 50m;
             }),
@@ -47,9 +48,18 @@ namespace Manosaba.Characters.NikaidoHiro.Cards
             if (combatState == null)
                 return;
 
-            int majokaAmount = base.Owner.Creature.GetPowerAmount<MajokaPower>();
+            int majokaAmount = GetTotalMajokaAmount(combatState);
             int voteAmount = base.Owner.Creature.GetPowerAmount<SusPower>();
-            await PowerCmd.Apply<MajokaPower>(base.Owner.Creature, -majokaAmount, base.Owner.Creature, this);
+
+            foreach (Creature creature in combatState.Creatures)
+            {
+                int creatureMajoka = creature.GetPowerAmount<MajokaPower>();
+                if (creatureMajoka > 0)
+                {
+                    await PowerCmd.Apply<MajokaPower>(creature, -creatureMajoka, base.Owner.Creature, this);
+                }
+            }
+
             await PowerCmd.Apply<SusPower>(base.Owner.Creature, -voteAmount, base.Owner.Creature, this);
 
             decimal damage = (DynamicVars.CalculationBase.BaseValue + voteAmount * 3 + majokaAmount / 25) * (1 + 0.01m * majokaAmount);
@@ -63,6 +73,22 @@ namespace Manosaba.Characters.NikaidoHiro.Cards
         protected override void OnUpgrade()
         {
             DynamicVars.CalculationBase.UpgradeValueBy(20m);
+        }
+
+        private static int GetTotalMajokaAmount(CombatState? combatState)
+        {
+            if (combatState == null)
+            {
+                return 0;
+            }
+
+            int total = 0;
+            foreach (Creature creature in combatState.Creatures)
+            {
+                total += creature.GetPowerAmount<MajokaPower>();
+            }
+
+            return total;
         }
     }
 }

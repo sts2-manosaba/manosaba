@@ -21,7 +21,7 @@ namespace Manosaba.Characters.NikaidoHiro.Cards
         private const TargetType targetType = TargetType.Self;
         private const bool shouldShowInCardLibrary = true;
 
-        protected override IEnumerable<DynamicVar> CanonicalVars => [new BlockVar(7, ValueProp.Move), new DynamicVar("ExtraBlock", 3), new DynamicVar("SusPowerCost", 1)];
+        protected override IEnumerable<DynamicVar> CanonicalVars => [new BlockVar(7, ValueProp.Move), new DynamicVar("ExtraBlock", 3)];
         protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<SusPower>()];
         public Perjury() : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)
         {
@@ -29,10 +29,13 @@ namespace Manosaba.Characters.NikaidoHiro.Cards
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
-            if (base.Owner.Creature.GetPowerAmount<SusPower>() > 0)
+            int currentSus = base.Owner.Creature.GetPowerAmount<SusPower>();
+            if (currentSus > 0)
             {
-                await CreatureCmd.GainBlock(Owner.Creature, new BlockVar(DynamicVars["ExtraBlock"].BaseValue, ValueProp.Move), cardPlay);
-                await PowerCmd.Apply<SusPower>(base.Owner.Creature, -1m, base.Owner.Creature, this);
+                int susPowerCost = (currentSus + 1) / 2;
+                decimal extraBlock = DynamicVars["ExtraBlock"].BaseValue * susPowerCost;
+                await CreatureCmd.GainBlock(Owner.Creature, new BlockVar(extraBlock, ValueProp.Move), cardPlay);
+                await PowerCmd.Apply<SusPower>(base.Owner.Creature, -susPowerCost, base.Owner.Creature, this);
             }
             await CreatureCmd.GainBlock(Owner.Creature, DynamicVars.Block, cardPlay);
         }

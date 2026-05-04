@@ -21,7 +21,7 @@ namespace Manosaba.Characters.Common.Cards
         private const TargetType targetType = TargetType.AllAllies;
         private const bool shouldShowInCardLibrary = true;
         protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromCard<Vote>()];
-        protected override IEnumerable<DynamicVar> CanonicalVars => [new CardsVar(2)];
+        protected override IEnumerable<DynamicVar> CanonicalVars => [new CardsVar(1)];
         public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
 
         public TrialStart() : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)
