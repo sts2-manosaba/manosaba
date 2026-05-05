@@ -35,7 +35,12 @@ namespace Manosaba.Characters.HikamiMeruru.Cards
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
-            await PowerCmd.Apply<MajokaPower>(base.Owner.Creature, base.DynamicVars["MajokaPower"].BaseValue, base.Owner.Creature, this);
+            decimal majokaToApply = base.DynamicVars["MajokaPower"].BaseValue - base.Owner.Creature.GetPowerAmount<MajokaPower>();
+            if (majokaToApply > 0m)
+            {
+                await PowerCmd.Apply<MajokaPower>(base.Owner.Creature, majokaToApply, base.Owner.Creature, this);
+            }
+
             PlayerCmd.EndTurn(base.Owner, canBackOut: false);
 
             ManosabaFxPlayMode sfxPlayMode = ManosabaConfig.HikamiMeruruExaidEffectFrequency;

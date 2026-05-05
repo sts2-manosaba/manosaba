@@ -41,7 +41,11 @@ public abstract class BadDrawBase : PathCustomCardModel
         string targetCharacterId = target.Player.Character.Id.ToString().RemovePrefix().ToLowerInvariant();
         if (targetCharacterId == "jogasaki_noah")
         {
-            await PowerCmd.Apply<MajokaPower>(target, 100m, ownerCreature, this);
+            decimal majokaToApply = 100m - target.GetPowerAmount<MajokaPower>();
+            if (majokaToApply > 0m)
+            {
+                await PowerCmd.Apply<MajokaPower>(target, majokaToApply, ownerCreature, this);
+            }
         }
 
         IEnumerable<CardModel> siblings = CardPile
