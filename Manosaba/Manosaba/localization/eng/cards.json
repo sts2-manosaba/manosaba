@@ -1,6 +1,8 @@
 {
   "MANOSABA-BATHROOM_TALK.title": "Bathroom Talk",
   "MANOSABA-BATHROOM_TALK.description": "Gain [gold]Summon[/gold]: {Summon:diff()}. Gain {SusPower:diff()} [gold]Suspicion[/gold].",
+  "MANOSABA-ACCOMPLICE.title": "Accomplice",
+  "MANOSABA-ACCOMPLICE.description": "Gain [gold]Summon[/gold]: {Summon:diff()}, {Block:diff()} [gold]Block[/gold], and {SusPower:diff()} [gold]Suspicion[/gold].",
   "MANOSABA-DEATH_LOOP.title": "Death Loop",
   "MANOSABA-DEATH_LOOP.description": "Gain the [gold]Death Loop[/gold] power.\nGain {MajokaPower:diff()} [gold]Majoka[/gold].",
   "MANOSABA-DEFEND_NIKAIDO_HIRO.title": "Defend",
@@ -55,6 +57,8 @@
   "MANOSABA-GRAND_HEAL.description": "Heal all players {Heal:diff()} HP and [gold]Exhaust[/gold] all Status cards. Based on [gold]Majoka[/gold], grant all allies {InhibitionPower:diff()} stacks of [gold]Inhibition[/gold] (max 5 stacks).",
   "MANOSABA-HIKAMI_MERURU_EXAID.title": "Hi↗ka↘mi↗ Me↘ru↗ru",
   "MANOSABA-HIKAMI_MERURU_EXAID.description": "End your turn.\nGain {MajokaPower:diff()} [gold]Majoka[/gold].",
+  "MANOSABA-INCITEMENT.title": "Incitement",
+  "MANOSABA-INCITEMENT.description": "If the target player is another player, apply {MajokaPower:diff()} [gold]Majoka[/gold] to them and they gain {Energy:energyIcons()}.\nIf the target player is you, draw {Cards:diff()} cards.",
   "MANOSABA-MERURU_INFIRMARY.title": "Meruru Infirmary",
   "MANOSABA-MERURU_INFIRMARY.description": "Gain {MeruruInfirmaryPower:diff()} [gold]Meruru Infirmary[/gold].{IfUpgraded:show:\\nApply this to all allies instead.}",
   "MANOSABA-MIX_POTIONS.title": "Potion Mix",

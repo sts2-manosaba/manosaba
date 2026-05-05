@@ -1,6 +1,8 @@
 {
   "MANOSABA-BATHROOM_TALK.title": "シャワールーム会談",
   "MANOSABA-BATHROOM_TALK.description": "[gold]召喚[/gold]：{Summon:diff()}を得る。{SusPower:diff()}層の[gold]嫌疑[/gold]を得る。",
+  "MANOSABA-ACCOMPLICE.title": "共犯",
+  "MANOSABA-ACCOMPLICE.description": "[gold]召喚[/gold]：{Summon:diff()}、{Block:diff()}[gold]ブロック[/gold]、{SusPower:diff()}層の[gold]嫌疑[/gold]を得る。",
   "MANOSABA-DEATH_LOOP.title": "死に戻り魔法",
   "MANOSABA-DEATH_LOOP.description": "能力：[gold]死に戻り[/gold]を得る。\n{MajokaPower:diff()}層の[gold]魔女化[/gold]を得る。",
   "MANOSABA-DEFEND_NIKAIDO_HIRO.title": "防御",
@@ -55,6 +57,8 @@
   "MANOSABA-GRAND_HEAL.description": "全プレイヤーのHPを{Heal:diff()}回復し、すべての状態カードを[gold]消費[/gold]する。[gold]魔女化[/gold]に応じて味方全員に{InhibitionPower:diff()}層の[gold]抑制[/gold]を与える（最大5層）。",
   "MANOSABA-HIKAMI_MERURU_EXAID.title": "氷↗上↘メ↗ル↘ル",
   "MANOSABA-HIKAMI_MERURU_EXAID.description": "ターンを終了する。\n{MajokaPower:diff()}層の[gold]魔女化[/gold]を得る。",
+  "MANOSABA-INCITEMENT.title": "扇動",
+  "MANOSABA-INCITEMENT.description": "対象が他のプレイヤーなら、そのプレイヤーに{MajokaPower:diff()}層の[gold]魔女化[/gold]を与え、{Energy:energyIcons()}を得させる。\n対象が自分なら、{Cards:diff()}枚引く。",
   "MANOSABA-MERURU_INFIRMARY.title": "メルル診療所",
   "MANOSABA-MERURU_INFIRMARY.description": "自身に{MeruruInfirmaryPower:diff()}層の[gold]メルル診療所[/gold]を与える。{IfUpgraded:show:\\n代わりに味方全員に与える。}",
   "MANOSABA-MIX_POTIONS.title": "ポーション合成",

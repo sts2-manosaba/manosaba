@@ -1,6 +1,8 @@
 {
   "MANOSABA-BATHROOM_TALK.title": "淋浴間會談",
   "MANOSABA-BATHROOM_TALK.description": "獲得[gold]召喚[/gold]：{Summon:diff()}。獲得 {SusPower:diff()} 層[gold]嫌疑[/gold]。",
+  "MANOSABA-ACCOMPLICE.title": "共犯",
+  "MANOSABA-ACCOMPLICE.description": "獲得[gold]召喚[/gold]：{Summon:diff()}，獲得 {Block:diff()} 點[gold]格檔[/gold]，並獲得 {SusPower:diff()} 層[gold]嫌疑[/gold]。",
   "MANOSABA-DEATH_LOOP.title": "死亡回溯魔法",
   "MANOSABA-DEATH_LOOP.description": "獲得 能力：[gold]死亡回溯[/gold]。\n獲得 {MajokaPower:diff()} 層[gold]魔女化[/gold]。",
   "MANOSABA-DEFEND_NIKAIDO_HIRO.title": "防禦",
@@ -55,6 +57,8 @@
   "MANOSABA-GRAND_HEAL.description": "回復所有玩家 {Heal:diff()} 點生命並[gold]消耗[/gold]所有狀態卡片。根據[gold]魔女化[/gold]程度給予全部隊友 {InhibitionPower:diff()} 層[gold]抑制力[/gold]（最大5層）。",
   "MANOSABA-HIKAMI_MERURU_EXAID.title": "冰↗上↘梅↗露↘露",
   "MANOSABA-HIKAMI_MERURU_EXAID.description": "結束你的回合。\n獲得 {MajokaPower:diff()} 層[gold]魔女化[/gold]。",
+  "MANOSABA-INCITEMENT.title": "煽動",
+  "MANOSABA-INCITEMENT.description": "若目標玩家為他人，給予其 {MajokaPower:diff()} 層[gold]魔女化[/gold]，並使其獲得 {Energy:energyIcons()}。\n若目標玩家為自己，抽 {Cards:diff()} 張牌。",
   "MANOSABA-MERURU_INFIRMARY.title": "梅露露醫護室",
   "MANOSABA-MERURU_INFIRMARY.description": "給予自身 {MeruruInfirmaryPower:diff()} 層[gold]梅露露醫護室[/gold]。{IfUpgraded:show:\\n改為給予全體隊友。}",
   "MANOSABA-MIX_POTIONS.title": "藥水合成",
