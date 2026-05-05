@@ -17,14 +17,14 @@ public sealed class Suspicion : PathCustomCardModel
 {
     private const int energyCost = 0;
     private const CardType type = CardType.Skill;
-    private const CardRarity rarity = CardRarity.Common;
+    private const CardRarity rarity = CardRarity.Basic;
     private const TargetType targetType = TargetType.Self;
     private const bool shouldShowInCardLibrary = true;
 
     protected override IEnumerable<DynamicVar> CanonicalVars => [new EnergyVar(1)];
 
     protected override IEnumerable<IHoverTip> ExtraHoverTips =>
-        [base.EnergyHoverTip, HoverTipFactory.FromCard<Beckon>()];
+        [base.EnergyHoverTip, HoverTipFactory.FromCard<Dazed>()];
 
     public Suspicion()
         : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)
@@ -40,9 +40,9 @@ public sealed class Suspicion : PathCustomCardModel
             return;
         }
 
-        CardModel beckon = CombatState.CreateCard(ModelDb.Card<Beckon>(), Owner);
+        CardModel dazed = CombatState.CreateCard(ModelDb.Card<Dazed>(), Owner);
         CardCmd.PreviewCardPileAdd(
-            await CardPileCmd.AddGeneratedCardToCombat(beckon, PileType.Discard, addedByPlayer: true));
+            await CardPileCmd.AddGeneratedCardToCombat(dazed, PileType.Discard, addedByPlayer: true));
     }
 
     protected override void OnUpgrade()

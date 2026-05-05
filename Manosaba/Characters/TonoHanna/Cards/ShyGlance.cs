@@ -19,7 +19,7 @@ public sealed class ShyGlance : PathCustomCardModel
 {
     private const int energyCost = 1;
     private const CardType cardType = CardType.Attack;
-    private const CardRarity cardRarity = CardRarity.Common;
+    private const CardRarity cardRarity = CardRarity.Basic;
     private const TargetType playTarget = TargetType.AllEnemies;
     private const bool shouldShowInCardLibrary = true;
 

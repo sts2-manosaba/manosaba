@@ -24,12 +24,12 @@ namespace manosaba.Characters.TonoHanna
             ModelDb.Card<StrikeTonoHanna>(),
             ModelDb.Card<StrikeTonoHanna>(),
             ModelDb.Card<StrikeTonoHanna>(),
-            ModelDb.Card<StrikeTonoHanna>(),
-            ModelDb.Card<StrikeTonoHanna>(),
             ModelDb.Card<DefendTonoHanna>(),
             ModelDb.Card<DefendTonoHanna>(),
-            ModelDb.Card<Sewing>(),
+            ModelDb.Card<DefendTonoHanna>(),
+            ModelDb.Card<ShyGlance>(),
             ModelDb.Card<Thrifty>(),
+            ModelDb.Card<Suspicion>(),
             ModelDb.Card<TraumaTonoHanna>(),
         ];
 

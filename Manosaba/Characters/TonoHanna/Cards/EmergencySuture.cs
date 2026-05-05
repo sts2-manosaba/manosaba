@@ -17,13 +17,21 @@ namespace Manosaba.Characters.TonoHanna.Cards;
 [Pool(typeof(TonoHannaCardPool))]
 public sealed class EmergencySuture : PathCustomCardModel
 {
+    private const string calculatedHitsKey = "CalculatedHits";
+
     private const int energyCost = 2;
     private const CardType type = CardType.Attack;
     private const CardRarity rarity = CardRarity.Rare;
     private const TargetType targetType = TargetType.AllEnemies;
     private const bool shouldShowInCardLibrary = true;
 
-    protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(4m, ValueProp.Move)];
+    protected override IEnumerable<DynamicVar> CanonicalVars =>
+    [
+        new DamageVar(4m, ValueProp.Move),
+        new CalculationBaseVar(0m),
+        new CalculationExtraVar(1m),
+        new CalculatedVar(calculatedHitsKey).WithMultiplier(static (card, _) => GetStatuses(card.Owner).Count()),
+    ];
 
     public EmergencySuture()
         : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)
@@ -38,21 +46,21 @@ public sealed class EmergencySuture : PathCustomCardModel
         }
 
         // Same as vanilla FlakCannon: all Status cards in combat not already in Exhaust.
+        // Must read hit count before exhausting — CalculatedHits multiplier counts GetStatuses().
         List<CardModel> statuses = GetStatuses(Owner).ToList();
+        int statusCount = (int)((CalculatedVar)DynamicVars[calculatedHitsKey]).Calculate(cardPlay.Target);
+        if (statusCount <= 0)
+        {
+            return;
+        }
 
         foreach (CardModel c in statuses)
         {
             await CardCmd.Exhaust(choiceContext, c);
         }
 
-        int n = statuses.Count;
-        if (n <= 0)
-        {
-            return;
-        }
-
-        decimal total = DynamicVars.Damage.BaseValue * n;
-        await DamageCmd.Attack(total)
+        await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
+            .WithHitCount(statusCount)
             .FromCard(this)
             .TargetingAllOpponents(CombatState)
             .Execute(choiceContext);

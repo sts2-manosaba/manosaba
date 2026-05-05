@@ -72,7 +72,7 @@ public class Thrifty : PathCustomCardModel
 
 
 
-        decimal perCard = IsUpgraded ? 2m : 1m;
+        decimal perCard = IsUpgraded ? 3m : 2m;
 
         foreach (CardModel c in statuses)
 
