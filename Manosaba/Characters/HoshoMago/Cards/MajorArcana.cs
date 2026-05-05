@@ -236,10 +236,8 @@ public sealed class TheEmpress : HoshoMagoArcanaBase
             return;
         }
 
-        decimal damage = DynamicVars.CalculatedDamage.Calculate(target);
-
         AttackCommand attackCommand = await DamageCmd
-            .Attack(DynamicVars.CalculatedDamage.BaseValue)
+            .Attack(DynamicVars.CalculatedDamage)
             .Targeting(target)
             .FromCard(this)
             .Execute(choiceContext);
