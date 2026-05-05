@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using Manosaba.Characters.Common.Powers;
 using Manosaba.Characters.HasumiLeia.Cards;
 using Manosaba.Extensions;
@@ -39,7 +40,7 @@ public sealed class TheCenterOfTheWorldIsPendingPower : PathCustomPowerModel
             return;
         }
 
-        bool anyChoseLeia = false;
+        List<Task<bool>> selectionTasks = [];
         foreach (Player player in combatState.Players)
         {
             if (player == Owner.Player)
@@ -52,18 +53,11 @@ public sealed class TheCenterOfTheWorldIsPendingPower : PathCustomPowerModel
                 continue;
             }
 
-            List<CardModel> options =
-            [
-                combatState.CreateCard<TheCenterOfTheWorldIs_LeiaChoice>(Owner.Player),
-                combatState.CreateCard<TheCenterOfTheWorldIs_IgnoreChoice>(Owner.Player),
-            ];
-
-            CardModel? selected = await CardSelectCmd.FromChooseACardScreen(choiceContext, options, player, canSkip: true);
-            if (selected is TheCenterOfTheWorldIs_LeiaChoice)
-            {
-                anyChoseLeia = true;
-            }
+            selectionTasks.Add(ChooseLeiaAsync(combatState, Owner.Player, player));
         }
+
+        bool[] selections = await Task.WhenAll(selectionTasks);
+        bool anyChoseLeia = selections.Any(choseLeia => choseLeia);
 
         if (anyChoseLeia)
         {
@@ -80,5 +74,17 @@ public sealed class TheCenterOfTheWorldIsPendingPower : PathCustomPowerModel
         }
 
         await PowerCmd.Remove(this);
+    }
+
+    private async Task<bool> ChooseLeiaAsync(CombatState combatState, Player ownerPlayer, Player player)
+    {
+        List<CardModel> options =
+        [
+            combatState.CreateCard<TheCenterOfTheWorldIs_LeiaChoice>(ownerPlayer),
+            combatState.CreateCard<TheCenterOfTheWorldIs_IgnoreChoice>(ownerPlayer),
+        ];
+
+        CardModel? selected = await CardSelectCmd.FromChooseACardScreen(new BlockingPlayerChoiceContext(), options, player, canSkip: true);
+        return selected is TheCenterOfTheWorldIs_LeiaChoice;
     }
 }

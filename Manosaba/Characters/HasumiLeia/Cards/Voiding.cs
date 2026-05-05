@@ -23,7 +23,7 @@ namespace Manosaba.Characters.HasumiLeia.Cards
         private const TargetType targetType = TargetType.AnyEnemy;
         private const bool shouldShowInCardLibrary = true;
 
-        protected override IEnumerable<DynamicVar> CanonicalVars => [new BlockVar(8, ValueProp.Move), new PowerVar<VulnerablePower>(2)];
+        protected override IEnumerable<DynamicVar> CanonicalVars => [new BlockVar(8, ValueProp.Move), new PowerVar<VulnerablePower>(1)];
         protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<VulnerablePower>()];
 
         public Voiding() : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)
@@ -42,6 +42,7 @@ namespace Manosaba.Characters.HasumiLeia.Cards
         protected override void OnUpgrade()
         {
             DynamicVars.Block.UpgradeValueBy(3);
+            base.DynamicVars.Vulnerable.UpgradeValueBy(1m);
         }
     }
 }

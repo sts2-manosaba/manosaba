@@ -45,7 +45,7 @@ public sealed class StarSplash : PathCustomCardModel
         // Single damage per hit for now (avoids interactive issues).
         await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
             .WithHitCount(DynamicVars.Repeat.IntValue)
-            .WithHitFx("vfx/vfx_big_slash")
+            .WithHitFx("vfx/vfx_dramatic_stab")
             .FromCard(this)
             .Targeting(target)
             .Execute(choiceContext);

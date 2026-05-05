@@ -1,3 +1,4 @@
+using System;
 using BaseLib.Extensions;
 using BaseLib.Utils;
 using manosaba.Characters.SaekiMiria;
@@ -51,7 +52,12 @@ public sealed class HitTweet : PathCustomCardModel
         string characterId = (Owner.Character?.Id.ToString() ?? string.Empty).RemovePrefix().ToLowerInvariant();
         if (characterId == SaekiMiriaCharacter.CharacterId)
         {
-            await PowerCmd.Apply<MajokaPower>(Owner.Creature, DynamicVars[MajokaGainVar].BaseValue, Owner.Creature, this);
+            decimal currentMajoka = Owner.Creature.GetPowerAmount<MajokaPower>();
+            decimal toApply = Math.Max(0m, DynamicVars[MajokaGainVar].BaseValue - currentMajoka);
+            if (toApply > 0m)
+            {
+                await PowerCmd.Apply<MajokaPower>(Owner.Creature, toApply, Owner.Creature, this);
+            }
         }
         else if (characterId == HasumiLeiaCharacter.CharacterId)
         {

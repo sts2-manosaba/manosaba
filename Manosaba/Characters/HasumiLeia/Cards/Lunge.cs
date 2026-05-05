@@ -23,7 +23,7 @@ namespace Manosaba.Characters.HasumiLeia.Cards
         private const TargetType targetType = TargetType.AnyEnemy;
         private const bool shouldShowInCardLibrary = true;
 
-        protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(8, ValueProp.Move), new PowerVar<WeakPower>(2)];
+        protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(8, ValueProp.Move), new PowerVar<WeakPower>(1)];
         protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<WeakPower>()];
         public override IEnumerable<CardKeyword> CanonicalKeywords => [ManosabaKeywords.SwordTechnique];
 
@@ -47,6 +47,7 @@ namespace Manosaba.Characters.HasumiLeia.Cards
         protected override void OnUpgrade()
         {
             DynamicVars.Damage.UpgradeValueBy(3);
+            base.DynamicVars.Weak.UpgradeValueBy(1m);
         }
     }
 }
