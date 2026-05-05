@@ -16,12 +16,12 @@ namespace Manosaba.Characters.JogasakiNoah.Powers
 
         public override decimal ModifyDamageMultiplicative(Creature? target, decimal amount, ValueProp props, Creature? dealer, CardModel? cardSource)
         {
-            if (base.Owner != target)
+            if (base.Owner != target || base.Amount <= 0)
             {
                 return 1m;
             }
 
-            return (100m - base.Amount) / 100m;
+            return Math.Max(0m, (100m - base.Amount) / 100m);
         }
 
         public override async Task AfterTurnEnd(PlayerChoiceContext choiceContext, CombatSide side)
