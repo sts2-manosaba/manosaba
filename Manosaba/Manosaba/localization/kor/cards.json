@@ -423,6 +423,8 @@
   "MANOSABA-STARBURST_STREAM.description": "손패를 모두 소멸시킵니다.\n{Damage:diff()} 피해를 {Repeat}번 줍니다. 각 타격은 이번에 소멸시킨 카드 수만큼 추가 피해를 줍니다.{IfUpgraded:show:\n마지막에 처음 {Repeat}번의 총 피해의 30% (강화 없음)를 추가로 줍니다.}",
   "MANOSABA-TREE_BRANCH.title": "나뭇가지",
   "MANOSABA-TREE_BRANCH.description": "{StrengthLoss:diff()} [gold]힘[/gold]을 잃습니다.\n[gold]두 자루의 검[/gold]을 얻습니다.",
+  "MANOSABA-SMART_SPEAR.title": "스마트 스피어",
+  "MANOSABA-SMART_SPEAR.description": "[gold]스마트 스피어[/gold]를 {SmartSpearPower:diff()} 얻습니다.",
   "MANOSABA-REALISTIC_ACTING.title": "박진감 연기",
   "MANOSABA-REALISTIC_ACTING.description": "[gold]민첩[/gold]을 {DexterityPower:diff()} 얻습니다.",
   "MANOSABA-SHOW_OFF.title": "기술 뽐내기",

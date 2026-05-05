@@ -423,6 +423,8 @@
   "MANOSABA-STARBURST_STREAM.description": "消耗你的手牌。\n造成 {Damage:diff()} 點傷害 {Repeat} 次。每次命中會依本次消耗的卡牌數量額外造成傷害。{IfUpgraded:show:\n最後額外造成等同前{Repeat}次總傷害30%的未強化傷害。}",
   "MANOSABA-TREE_BRANCH.title": "樹枝",
   "MANOSABA-TREE_BRANCH.description": "失去 {StrengthLoss:diff()} 點[gold]力量[/gold]。\n獲得[gold]二刀流[/gold]。",
+  "MANOSABA-SMART_SPEAR.title": "智慧長矛",
+  "MANOSABA-SMART_SPEAR.description": "獲得 {SmartSpearPower:diff()} 層[gold]智慧長矛[/gold]。",
   "MANOSABA-REALISTIC_ACTING.title": "迫真演技",
   "MANOSABA-REALISTIC_ACTING.description": "獲得 {DexterityPower:diff()} 點[gold]敏捷[/gold]。",
   "MANOSABA-SHOW_OFF.title": "炫技",
