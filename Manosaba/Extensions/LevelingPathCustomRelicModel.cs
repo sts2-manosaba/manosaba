@@ -65,6 +65,21 @@ namespace Manosaba.Extensions
             }
         }
 
+        /// <summary>
+        /// Sets relic exp to an absolute value and runs async level-up side effects
+        /// for all gained levels in one pass.
+        /// </summary>
+        public async Task SetRelicExpAndProcessLevelUpsAsync(int exp)
+        {
+            int oldLevel = RelicLevel;
+            RelicExp = exp;
+            int newLevel = RelicLevel;
+            if (newLevel > oldLevel)
+            {
+                await AfterRelicLevelChanged(oldLevel, newLevel);
+            }
+        }
+
         protected virtual void OnRelicLevelChanged(int oldLevel, int newLevel)
         {
         }

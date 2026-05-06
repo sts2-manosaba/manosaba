@@ -19,14 +19,19 @@ public static class Patch_TouchOfOrobas_ManosabaStarterRelicLevel
             return true;
         }
 
-        RelicModel starterRelic = ResolveStarterRelic(__instance, owner);
-        if (starterRelic is LevelingPathCustomRelicModel levelingRelic)
+        __result = ApplyManosabaStarterRelicLevelAsync(__instance, owner);
+        return false;
+    }
+
+    private static async Task ApplyManosabaStarterRelicLevelAsync(TouchOfOrobas relic, Player owner)
+    {
+        RelicModel starterRelic = ResolveStarterRelic(relic, owner);
+        if (starterRelic is not LevelingPathCustomRelicModel levelingRelic)
         {
-            levelingRelic.RelicExp = RelicLevelExpTable.GetMaxExpForLevel(5);
+            return;
         }
 
-        __result = Task.CompletedTask;
-        return false;
+        await levelingRelic.SetRelicExpAndProcessLevelUpsAsync(RelicLevelExpTable.GetMaxExpForLevel(5));
     }
 
     private static RelicModel ResolveStarterRelic(TouchOfOrobas relic, Player owner)
