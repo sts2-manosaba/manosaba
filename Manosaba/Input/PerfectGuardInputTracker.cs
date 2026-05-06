@@ -16,6 +16,7 @@ public sealed partial class PerfectGuardInputTracker : Node
     private const double DefaultInputCooldownSeconds = 1.0d;
 
     private static PerfectGuardInputTracker? _instance;
+    private static bool _installPending;
     private static double _lastGuardInputPressedAtSeconds = double.NegativeInfinity;
     private static double _nextGuardInputAllowedAtSeconds = double.NegativeInfinity;
     private static double _lastGuardWindowOpenedAtSeconds = double.NegativeInfinity;
@@ -36,9 +37,26 @@ public sealed partial class PerfectGuardInputTracker : Node
 
     public static void EnsureInstalled()
     {
-        if (_instance != null && GodotObject.IsInstanceValid(_instance) && _instance.IsInsideTree())
+        if (_instance != null && GodotObject.IsInstanceValid(_instance))
         {
-            EnsureNetworkHandler();
+            if (!_instance.IsInsideTree() && !_installPending)
+            {
+                _instance.QueueFree();
+                _instance = null;
+            }
+            else
+            {
+                if (_instance.IsInsideTree())
+                {
+                    EnsureNetworkHandler();
+                }
+
+                return;
+            }
+        }
+
+        if (_installPending)
+        {
             return;
         }
 
@@ -47,12 +65,29 @@ public sealed partial class PerfectGuardInputTracker : Node
             return;
         }
 
+        _installPending = true;
         _instance = new PerfectGuardInputTracker
         {
             Name = nameof(PerfectGuardInputTracker),
         };
-        sceneTree.Root.AddChild(_instance);
-        EnsureNetworkHandler();
+        sceneTree.Root.CallDeferred(Node.MethodName.AddChild, _instance);
+    }
+
+    public override void _EnterTree()
+    {
+        if (ReferenceEquals(_instance, this))
+        {
+            _installPending = false;
+            EnsureNetworkHandler();
+        }
+    }
+
+    public override void _ExitTree()
+    {
+        if (ReferenceEquals(_instance, this))
+        {
+            _installPending = false;
+        }
     }
 
     public static bool TryConsumePerfectGuard(Creature target, double windowSeconds = DefaultWindowSeconds)
