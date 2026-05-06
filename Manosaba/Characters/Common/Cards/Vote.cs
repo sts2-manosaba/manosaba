@@ -1,5 +1,4 @@
 ﻿using BaseLib.Utils;
-using manosaba.Characters.Common;
 using Manosaba.Characters.Common.Powers;
 using Manosaba.Extensions;
 using MegaCrit.Sts2.Core.Combat;
@@ -48,7 +47,7 @@ namespace Manosaba.Characters.Common.Cards
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
             await CardPileCmd.Draw(choiceContext, base.DynamicVars.Cards.BaseValue, base.Owner);
-            if (base.Owner.Creature is { } ownerCreature && cardPlay.Target?.Player?.Creature is { } targetCreature)
+            if (base.Owner.Creature is { } ownerCreature && cardPlay.Target?.Monster?.Creature is { } targetCreature)
             {
                 await PowerCmd.Apply<VotePower>(targetCreature, DynamicVars["VotePower"].BaseValue, ownerCreature, this);
             }
