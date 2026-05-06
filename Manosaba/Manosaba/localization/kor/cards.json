@@ -428,7 +428,7 @@
   "MANOSABA-SMOOTH_MOVE.title": "화려검기",
   "MANOSABA-SMOOTH_MOVE.description": "[gold]검술[/gold] 키워드가 있는 카드를 플레이할 때마다, 카드를 {Cards:diff()}장 뽑습니다.",
   "MANOSABA-THE_CENTER.title": "무대의 센터",
-  "MANOSABA-THE_CENTER.description": "다른 아군이 레이아를 대상으로 카드를 플레이하거나 물약을 사용할 때마다, 레이아는 [gold]힘[/gold]을 1 얻습니다.",
+  "MANOSABA-THE_CENTER.description": "다른 아군이 당신을 대상으로 카드를 플레이하거나 물약을 사용할 때마다, 당신은 [gold]힘[/gold]을 1 얻습니다.",
   "MANOSABA-I_AM_REBORN.title": "나는 재생산",
   "MANOSABA-I_AM_REBORN.description": "손패를 버립니다. 다음 턴에 내 공격이 2배 피해를 주고, 카드를 추가로 5장 뽑습니다.",
   "MANOSABA-STRONG_SAKE.title": "독주를 마신 느낌",

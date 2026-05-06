@@ -428,7 +428,7 @@
   "MANOSABA-SMOOTH_MOVE.title": "Smooth Move",
   "MANOSABA-SMOOTH_MOVE.description": "Whenever you play a card with [gold]Sword Technique[/gold], draw {Cards:diff()} card.",
   "MANOSABA-THE_CENTER.title": "The Center",
-  "MANOSABA-THE_CENTER.description": "Whenever another teammate plays a card or uses a potion targeting Leia, Leia gains 1 [gold]Strength[/gold].",
+  "MANOSABA-THE_CENTER.description": "Whenever another teammate plays a card or uses a potion targeting you, you gain 1 [gold]Strength[/gold].",
   "MANOSABA-I_AM_REBORN.title": "I Am Reborn",
   "MANOSABA-I_AM_REBORN.description": "Discard your hand. Next turn, your attacks deal double damage and you draw 5 extra cards.",
   "MANOSABA-STRONG_SAKE.title": "Strong Sake",

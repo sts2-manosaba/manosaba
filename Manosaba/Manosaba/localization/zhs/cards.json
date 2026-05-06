@@ -428,7 +428,7 @@
   "MANOSABA-SMOOTH_MOVE.title": "華麗劍技",
   "MANOSABA-SMOOTH_MOVE.description": "每當你打出帶有[gold]劍技[/gold]的卡牌時，抽 {Cards:diff()} 張牌。",
   "MANOSABA-THE_CENTER.title": "舞台的中心",
-  "MANOSABA-THE_CENTER.description": "每當其他隊友打出以蕾雅為目標的卡牌或藥水時，獲得 1 點[gold]力量[/gold]。",
+  "MANOSABA-THE_CENTER.description": "每當其他隊友打出以你為目標的卡牌或藥水時，你獲得 1 點[gold]力量[/gold]。",
   "MANOSABA-I_AM_REBORN.title": "我 再生產",
   "MANOSABA-I_AM_REBORN.description": "丟棄所有手牌。下回合你的攻擊造成雙倍傷害，並額外抽 5 張牌。",
   "MANOSABA-STRONG_SAKE.title": "感覺好像喝了烈酒一樣",
