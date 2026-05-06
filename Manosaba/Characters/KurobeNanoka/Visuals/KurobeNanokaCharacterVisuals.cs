@@ -1,4 +1,5 @@
 using Godot;
+using Manosaba.Characters.Common.Powers;
 using Manosaba.Characters.KurobeNanoka.Powers;
 using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Nodes.Combat;
@@ -11,20 +12,26 @@ public sealed partial class KurobeNanokaCharacterVisuals : NCreatureVisuals
 
     private Creature? _creature;
     private CanvasItem? _normalVisuals;
+    private CanvasItem? _normalBaseVisual;
+    private CanvasItem? _normalMajokaVisual;
     private Node2D? _darkSightInstance;
     private bool _lastHadDarkSight;
+    private bool _lastHadMajoka;
 
     public override void _Ready()
     {
         base._Ready();
 
         _normalVisuals = GetNodeOrNull<CanvasItem>("%Visuals");
+        _normalBaseVisual = GetNodeOrNull<CanvasItem>("Visuals/Sprite2D");
+        _normalMajokaVisual = GetNodeOrNull<CanvasItem>("Visuals/Majoka");
 
         var creatureNode = GetParent() as NCreature;
         _creature = creatureNode?.Entity;
         _lastHadDarkSight = HasDarkSight();
+        _lastHadMajoka = HasMajoka();
 
-        ApplyVisualState(_lastHadDarkSight);
+        ApplyVisualState(_lastHadDarkSight, _lastHadMajoka);
     }
 
     public override void _ExitTree()
@@ -45,13 +52,15 @@ public sealed partial class KurobeNanokaCharacterVisuals : NCreatureVisuals
         _ = delta;
 
         bool hasDarkSight = HasDarkSight();
-        if (hasDarkSight == _lastHadDarkSight)
+        bool hasMajoka = HasMajoka();
+        if (hasDarkSight == _lastHadDarkSight && hasMajoka == _lastHadMajoka)
         {
             return;
         }
 
         _lastHadDarkSight = hasDarkSight;
-        ApplyVisualState(hasDarkSight);
+        _lastHadMajoka = hasMajoka;
+        ApplyVisualState(hasDarkSight, hasMajoka);
     }
 
     private bool HasDarkSight()
@@ -59,11 +68,26 @@ public sealed partial class KurobeNanokaCharacterVisuals : NCreatureVisuals
         return _creature != null && _creature.GetPowerAmount<DarkSightPower>() > 0;
     }
 
-    private void ApplyVisualState(bool hasDarkSight)
+    private bool HasMajoka()
+    {
+        return _creature != null && _creature.GetPowerAmount<MajokaPower>() >= 100;
+    }
+
+    private void ApplyVisualState(bool hasDarkSight, bool hasMajoka)
     {
         if (_normalVisuals != null)
         {
             _normalVisuals.Visible = !hasDarkSight;
+        }
+
+        if (_normalBaseVisual != null)
+        {
+            _normalBaseVisual.Visible = !hasMajoka;
+        }
+
+        if (_normalMajokaVisual != null)
+        {
+            _normalMajokaVisual.Visible = hasMajoka;
         }
 
         if (!hasDarkSight)
@@ -90,6 +114,17 @@ public sealed partial class KurobeNanokaCharacterVisuals : NCreatureVisuals
         }
 
         _darkSightInstance.Visible = true;
+        CanvasItem? darkBaseVisual = _darkSightInstance.GetNodeOrNull<CanvasItem>("Visuals/Sprite");
+        CanvasItem? darkMajokaVisual = _darkSightInstance.GetNodeOrNull<CanvasItem>("Visuals/Majoka");
+        if (darkBaseVisual != null)
+        {
+            darkBaseVisual.Visible = !hasMajoka;
+        }
+
+        if (darkMajokaVisual != null)
+        {
+            darkMajokaVisual.Visible = hasMajoka;
+        }
     }
 }
 

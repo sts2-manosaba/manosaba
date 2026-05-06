@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3]
+[gd_scene load_steps=3 format=3 uid="uid://c5cswgqkqv3mn"]
 
-[ext_resource type="Texture2D" uid="uid://byjkp7t4rduua" path="res://Manosaba/images/characters/kurobe_nanoka/kurobe_nanoka.png" id="1_tex"]
+[ext_resource type="Texture2D" uid="uid://b8b76m3fancop" path="res://Manosaba/images/characters/kurobe_nanoka/KurobeNanoka2.png" id="1_base"]
+[ext_resource type="Texture2D" uid="uid://d4igheq5xefp2" path="res://Manosaba/images/characters/kurobe_nanoka/KurobeNanoka2M.png" id="2_majoka"]
 
 [node name="KurobeNanokaDarkSight" type="Node2D"]
 
@@ -8,8 +9,14 @@
 unique_name_in_owner = true
 
 [node name="Sprite" type="Sprite2D" parent="Visuals"]
-position = Vector2(-1.0738096, -147.14761)
-scale = Vector2(0.2640939, 0.2640939)
-texture = ExtResource("1_tex")
 modulate = Color(0.3, 0.3, 0.45, 0.75)
+position = Vector2(15.000001, -173.00002)
+scale = Vector2(0.36869633, 0.36869633)
+texture = ExtResource("1_base")
 
+[node name="Majoka" type="Sprite2D" parent="Visuals"]
+visible = false
+modulate = Color(0.3, 0.3, 0.45, 0.75)
+position = Vector2(15.000001, -173.00002)
+scale = Vector2(0.36869633, 0.36869633)
+texture = ExtResource("2_majoka")

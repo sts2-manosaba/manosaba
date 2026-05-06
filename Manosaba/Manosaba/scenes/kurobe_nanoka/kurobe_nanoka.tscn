@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://c8a111bipxxo4"]
+[gd_scene load_steps=4 format=3 uid="uid://c8a111bipxxo4"]
 
-[ext_resource type="Script" path="res://Characters/KurobeNanoka/Visuals/KurobeNanokaCharacterVisuals.cs" id="1_68yyg"]
-[ext_resource type="Texture2D" uid="uid://byjkp7t4rduua" path="res://Manosaba/images/characters/kurobe_nanoka/kurobe_nanoka.png" id="2_niwa1"]
+[ext_resource type="Script" uid="uid://dn4i3jy8lu3tl" path="res://Characters/KurobeNanoka/Visuals/KurobeNanokaCharacterVisuals.cs" id="1_68yyg"]
+[ext_resource type="Texture2D" uid="uid://b8b76m3fancop" path="res://Manosaba/images/characters/kurobe_nanoka/KurobeNanoka2.png" id="2_goq7c"]
+[ext_resource type="Texture2D" uid="uid://d4igheq5xefp2" path="res://Manosaba/images/characters/kurobe_nanoka/KurobeNanoka2M.png" id="3_qdmlc"]
 
 [node name="KurobeNanoka" type="Node2D"]
 script = ExtResource("1_68yyg")
@@ -9,10 +10,16 @@ script = ExtResource("1_68yyg")
 [node name="Visuals" type="Sprite2D" parent="."]
 unique_name_in_owner = true
 
-[node name="Sprite2D2" type="Sprite2D" parent="Visuals"]
-position = Vector2(-1.0738096, -147.14761)
-scale = Vector2(0.2640939, 0.2640939)
-texture = ExtResource("2_niwa1")
+[node name="Sprite2D" type="Sprite2D" parent="Visuals"]
+position = Vector2(15.000001, -173.00002)
+scale = Vector2(0.36869633, 0.36869633)
+texture = ExtResource("2_goq7c")
+
+[node name="Majoka" type="Sprite2D" parent="Visuals"]
+visible = false
+position = Vector2(15.000001, -173.00002)
+scale = Vector2(0.36869633, 0.36869633)
+texture = ExtResource("3_qdmlc")
 
 [node name="Bounds" type="Control" parent="."]
 unique_name_in_owner = true
@@ -29,4 +36,4 @@ position = Vector2(0, -361)
 
 [node name="CenterPos" type="Marker2D" parent="."]
 unique_name_in_owner = true
-position = Vector2(-6, -157)
+position = Vector2(-1, -198)
