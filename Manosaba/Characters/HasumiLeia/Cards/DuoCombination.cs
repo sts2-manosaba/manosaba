@@ -1,10 +1,10 @@
 using BaseLib.Utils;
 using manosaba.Characters.HasumiLeia;
 using Manosaba.Characters.Common.Powers;
+using Manosaba.Characters.HasumiLeia.Powers;
 using Manosaba.Extensions;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
-using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
@@ -30,12 +30,13 @@ public sealed class DuoCombination : PathCustomCardModel
 
     protected override IEnumerable<IHoverTip> ExtraHoverTips =>
     [
+        HoverTipFactory.FromPower<DuoCombinationPower>(),
         HoverTipFactory.FromPower<StrengthPower>()
     ];
 
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
-        new BlockVar(6m, ValueProp.Move),
+        new BlockVar(4m, ValueProp.Move),
         new DynamicVar(temporaryStrengthVar, 2m),
     ];
 
@@ -54,13 +55,7 @@ public sealed class DuoCombination : PathCustomCardModel
         await CreatureCmd.GainBlock(ownerCreature, DynamicVars.Block, cardPlay);
         await CreatureCmd.GainBlock(teammate, DynamicVars.Block, cardPlay);
 
-        if (CombatState != null)
-        {
-            foreach (Creature enemy in CombatState.HittableEnemies.Where(c => c.IsAlive))
-            {
-                await PowerCmd.Apply<TagTeamPower>(enemy, 1m, ownerCreature, this);
-            }
-        }
+        await PowerCmd.Apply<DuoCombinationPower>(teammate, 1m, ownerCreature, this);
 
         if (cardPlay.Target.Player?.Character is NikaidoHiroCharacter)
         {

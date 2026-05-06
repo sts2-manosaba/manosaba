@@ -434,7 +434,7 @@
   "MANOSABA-TOUR_LIVE.title": "巡迴演出",
   "MANOSABA-TOUR_LIVE.description": "戰鬥結束時，獲得 {Gold:diff()} [gold]金幣[/gold]。",
   "MANOSABA-DUO_COMBINATION.title": "雙人組合",
-  "MANOSABA-DUO_COMBINATION.description": "選擇一名隊友。你與該隊友各獲得 {Block:diff()} 點[gold]格擋[/gold]。\n下一次由其他玩家對敵人打出的攻擊牌會額外再打出一次。\n若該隊友是二階堂希羅，該隊友本回合獲得 1 點[gold]力量[/gold]。",
+  "MANOSABA-DUO_COMBINATION.description": "選擇一名玩家。你與該玩家各獲得 {Block:diff()} 點[gold]格擋[/gold]。\n該玩家下一張打出的攻擊牌會打出兩次。\n若該玩家是二階堂希羅，該玩家本回合獲得 {TemporaryStrength:diff()} 點[gold]力量[/gold]。",
   "MANOSABA-STRONG_SAKE.title": "感覺好像喝了烈酒一樣",
   "MANOSABA-STRONG_SAKE.description": "每回合限一次，當你使用一張帶有[gold]劍技[/gold]的牌時，在下回合獲得 1 點[gold]能量[/gold]。",
   "MANOSABA-REALISTIC_ACTING.title": "迫真演技",

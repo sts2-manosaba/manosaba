@@ -434,7 +434,7 @@
   "MANOSABA-TOUR_LIVE.title": "Tour Live",
   "MANOSABA-TOUR_LIVE.description": "At end of combat, gain {Gold:diff()} [gold]Gold[/gold].",
   "MANOSABA-DUO_COMBINATION.title": "Duo Combination",
-  "MANOSABA-DUO_COMBINATION.description": "Select a teammate. Both of you gain {Block:diff()} [gold]Block[/gold].\nThe next Attack another player plays on an enemy is played an extra time.\nIf the selected teammate is Nikaido Hiro, they gain 1 [gold]Strength[/gold] this turn.",
+  "MANOSABA-DUO_COMBINATION.description": "Select a player. Both of you gain {Block:diff()} [gold]Block[/gold].\nThe next Attack card they play is played twice.\nIf the selected player is Nikaido Hiro, they gain {TemporaryStrength:diff()} [gold]Strength[/gold] this turn.",
   "MANOSABA-STRONG_SAKE.title": "Strong Sake",
   "MANOSABA-STRONG_SAKE.description": "Once per turn, when you play a card with [gold]Sword Technique[/gold], gain 1 [gold]Energy[/gold] next turn.",
   "MANOSABA-REALISTIC_ACTING.title": "Realistic Acting",
