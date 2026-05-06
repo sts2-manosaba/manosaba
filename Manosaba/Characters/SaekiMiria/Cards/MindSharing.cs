@@ -131,7 +131,7 @@ namespace Manosaba.Characters.NikaidoHiro.Cards
 
         private static bool ShouldIgnoreThisPower(PowerModel power)
         {
-            if (power is TemporaryStrengthPower or ManosabaTemporaryStrengthPower)
+            if (power is MegaCrit.Sts2.Core.Models.Powers.TemporaryStrengthPower or ManosabaTemporaryStrengthPower)
             {
                 return true;
             }

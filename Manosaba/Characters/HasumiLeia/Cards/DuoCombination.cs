@@ -1,0 +1,75 @@
+using BaseLib.Utils;
+using manosaba.Characters.HasumiLeia;
+using Manosaba.Characters.Common.Powers;
+using Manosaba.Extensions;
+using MegaCrit.Sts2.Core.Commands;
+using MegaCrit.Sts2.Core.Entities.Cards;
+using MegaCrit.Sts2.Core.Entities.Creatures;
+using MegaCrit.Sts2.Core.GameActions.Multiplayer;
+using MegaCrit.Sts2.Core.HoverTips;
+using MegaCrit.Sts2.Core.Localization.DynamicVars;
+using MegaCrit.Sts2.Core.Models.Powers;
+using MegaCrit.Sts2.Core.ValueProps;
+using NikaidoHiroCharacter = manosaba.Characters.NikaidoHiro.NikaidoHiro;
+
+namespace Manosaba.Characters.HasumiLeia.Cards;
+
+[Pool(typeof(HasumiLeiaCardPool))]
+public sealed class DuoCombination : PathCustomCardModel
+{
+    public override CardMultiplayerConstraint MultiplayerConstraint => CardMultiplayerConstraint.MultiplayerOnly;
+    public override bool GainsBlock => true;
+
+    private const int energyCost = 2;
+    private const CardType type = CardType.Skill;
+    private const CardRarity rarity = CardRarity.Uncommon;
+    private const TargetType targetType = TargetType.AnyAlly;
+    private const bool shouldShowInCardLibrary = true;
+
+    private const string temporaryStrengthVar = "TemporaryStrength";
+
+    protected override IEnumerable<IHoverTip> ExtraHoverTips =>
+    [
+        HoverTipFactory.FromPower<StrengthPower>()
+    ];
+
+    protected override IEnumerable<DynamicVar> CanonicalVars =>
+    [
+        new BlockVar(6m, ValueProp.Move),
+        new DynamicVar(temporaryStrengthVar, 2m),
+    ];
+
+    public DuoCombination()
+        : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)
+    {
+    }
+
+    protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
+    {
+        if (Owner.Creature is not { } ownerCreature || cardPlay.Target is not { } teammate)
+        {
+            return;
+        }
+
+        await CreatureCmd.GainBlock(ownerCreature, DynamicVars.Block, cardPlay);
+        await CreatureCmd.GainBlock(teammate, DynamicVars.Block, cardPlay);
+
+        if (CombatState != null)
+        {
+            foreach (Creature enemy in CombatState.HittableEnemies.Where(c => c.IsAlive))
+            {
+                await PowerCmd.Apply<TagTeamPower>(enemy, 1m, ownerCreature, this);
+            }
+        }
+
+        if (cardPlay.Target.Player?.Character is NikaidoHiroCharacter)
+        {
+            await PowerCmd.Apply<Manosaba.Characters.Common.Powers.TemporaryStrengthPower>(teammate, DynamicVars[temporaryStrengthVar].BaseValue, ownerCreature, this);
+        }
+    }
+
+    protected override void OnUpgrade()
+    {
+        DynamicVars.Block.UpgradeValueBy(3m);
+    }
+}

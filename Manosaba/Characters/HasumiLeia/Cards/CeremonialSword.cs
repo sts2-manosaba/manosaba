@@ -66,7 +66,7 @@ public sealed class CeremonialSword : PathCustomCardModel
 
     protected override void OnUpgrade()
     {
-        DynamicVars.Strength.UpgradeValueBy(2m);
+        DynamicVars.Strength.UpgradeValueBy(1m);
     }
 }
 
