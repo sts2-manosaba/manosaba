@@ -721,7 +721,7 @@
   "MANOSABA-STRIKE_SHITO_ALISA.description": "造成 {Damage:diff()} 點傷害。",
   "MANOSABA-DEFEND_SHITO_ALISA.title": "防禦",
   "MANOSABA-DEFEND_SHITO_ALISA.description": "獲得 {Block:diff()} 點[gold]格檔[/gold]。",
-  "MANOSABA-TRAUMA_SHITO_ALISA.title": "心理創傷",
+  "MANOSABA-TRAUMA_SHITO_ALISA.title": "精神創傷",
   "MANOSABA-TRAUMA_SHITO_ALISA.description": "獲得 {MajokaPower:diff()} 層[gold]魔女化[/gold]。",
   "MANOSABA-EMBER_SPARK.title": "火苗",
   "MANOSABA-EMBER_SPARK.description": "獲得 {Block:diff()} 點[gold]格檔[/gold]。\n選擇 {IfUpgraded:show:2|1} 張沒有[gold]燃燒[/gold]及[gold]點火[/gold]的牌給予[gold]燃燒[/gold] {CombustStacks:diff()}。",

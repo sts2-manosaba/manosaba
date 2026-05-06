@@ -42,8 +42,8 @@ public sealed class TraumaReveal : PathCustomCardModel
         { TonoHannaCharacter.CharacterId, typeof(TraumaTonoHanna) },
         { HoshoMagoCharacter.CharacterId, typeof(TraumaHoshoMago) },
         // { SakurabaEma.CharacterId, typeof(TraumaSakurabaEma) },
-        // { NatsumeAnan.CharacterId, typeof(TraumaNatsumeAnan) },
-        // { ShitoArisa.CharacterId, typeof(TraumaShitoArisa) },
+        { NatsumeAnan.CharacterId, typeof(TraumaNatsumeAnan) },
+        { ShitoArisa.CharacterId, typeof(TraumaShitoAlisa) },
         // { SawatariCoco.CharacterId, typeof(TraumaSawatariCoco) },
     };
 
