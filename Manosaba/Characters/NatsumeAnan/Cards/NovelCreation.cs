@@ -12,6 +12,7 @@ using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.ValueProps;
 using JogasakiNoahCharacter = manosaba.Characters.JogasakiNoah.JogasakiNoah;
+using MegaCrit.Sts2.Core.Models.CardPools;
 
 namespace manosaba.Characters.NatsumeAnan.Cards;
 
@@ -117,7 +118,7 @@ public sealed class NovelCreation : NatsumeKotodamaCardModel
     }
 }
 
-[Pool(typeof(NatsumeAnanCardPool))]
+[Pool(typeof(TokenCardPool))]
 public sealed class SettingFlameRabbit : PathCustomCardModel
 {
     public override string PortraitPath => "novel_creation.png".CardsImagePath();
@@ -125,7 +126,7 @@ public sealed class SettingFlameRabbit : PathCustomCardModel
     public override bool CanBeGeneratedInCombat => false;
     public override bool CanBeGeneratedByModifiers => false;
 
-    public SettingFlameRabbit() : base(1, CardType.Skill, CardRarity.Token, TargetType.Self, false)
+    public SettingFlameRabbit() : base(1, CardType.Skill, CardRarity.Token, TargetType.Self, true)
     {
     }
 
@@ -141,7 +142,7 @@ public sealed class SettingFlameRabbit : PathCustomCardModel
     }
 }
 
-[Pool(typeof(NatsumeAnanCardPool))]
+[Pool(typeof(TokenCardPool))]
 public sealed class SettingHolyWhiteSnake : PathCustomCardModel
 {
     public override string PortraitPath => "novel_creation.png".CardsImagePath();
@@ -149,7 +150,7 @@ public sealed class SettingHolyWhiteSnake : PathCustomCardModel
     public override bool CanBeGeneratedInCombat => false;
     public override bool CanBeGeneratedByModifiers => false;
 
-    public SettingHolyWhiteSnake() : base(2, CardType.Skill, CardRarity.Token, TargetType.Self, false)
+    public SettingHolyWhiteSnake() : base(2, CardType.Skill, CardRarity.Token, TargetType.Self, true)
     {
     }
 
@@ -165,7 +166,7 @@ public sealed class SettingHolyWhiteSnake : PathCustomCardModel
     }
 }
 
-[Pool(typeof(NatsumeAnanCardPool))]
+[Pool(typeof(TokenCardPool))]
 public sealed class SettingClawedCockatrice : PathCustomCardModel
 {
     public override string PortraitPath => "novel_creation.png".CardsImagePath();
@@ -173,7 +174,7 @@ public sealed class SettingClawedCockatrice : PathCustomCardModel
     public override bool CanBeGeneratedInCombat => false;
     public override bool CanBeGeneratedByModifiers => false;
 
-    public SettingClawedCockatrice() : base(1, CardType.Skill, CardRarity.Token, TargetType.Self, false)
+    public SettingClawedCockatrice() : base(1, CardType.Skill, CardRarity.Token, TargetType.Self, true)
     {
     }
 
@@ -189,7 +190,7 @@ public sealed class SettingClawedCockatrice : PathCustomCardModel
     }
 }
 
-[Pool(typeof(NatsumeAnanCardPool))]
+[Pool(typeof(TokenCardPool))]
 public sealed class SettingCrimsonValstrax : PathCustomCardModel
 {
     private const string ValstraxAmbushMessageVfxScenePath = "res://Manosaba/scenes/natsume_anan/vfx/valstrax_ambush_message.tscn";

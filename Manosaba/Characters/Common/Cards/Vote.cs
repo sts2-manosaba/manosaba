@@ -9,10 +9,11 @@ using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
+using MegaCrit.Sts2.Core.Models.CardPools;
 
 namespace Manosaba.Characters.Common.Cards
 {
-    [Pool(typeof(CommonCardPool))]
+    [Pool(typeof(TokenCardPool))]
     public class Vote : PathCustomCardModel
     {
 
@@ -20,7 +21,7 @@ namespace Manosaba.Characters.Common.Cards
         private const CardType type = CardType.Skill;
         private const CardRarity rarity = CardRarity.Token;
         private const TargetType targetType = TargetType.AnyEnemy;
-        private const bool shouldShowInCardLibrary = false;
+        private const bool shouldShowInCardLibrary = true;
 
         public override bool CanBeGeneratedInCombat => false;
         public override bool CanBeGeneratedByModifiers => false;

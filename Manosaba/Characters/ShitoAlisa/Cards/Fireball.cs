@@ -10,17 +10,18 @@ using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.ValueProps;
+using MegaCrit.Sts2.Core.Models.CardPools;
 
 namespace Manosaba.Characters.ShitoAlisa.Cards;
 
 /// <summary>衍生牌「火球」：消耗、造成傷害；升級打全體敵人。</summary>
-[Pool(typeof(ShitoAlisaCardPool))]
+[Pool(typeof(TokenCardPool))]
 public sealed class Fireball : ShitoAlisaCardModel
 {
     private const int energyCost = 0;
     private const CardType type = CardType.Attack;
     private const CardRarity rarity = CardRarity.Token;
-    private const bool shouldShowInCardLibrary = false;
+    private const bool shouldShowInCardLibrary = true;
 
     /// <summary>Only from explicit card effects (e.g. RestrictionRelease); exclude from transforms / discovery pools.</summary>
     public override bool CanBeGeneratedInCombat => false;

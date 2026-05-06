@@ -8,6 +8,7 @@ using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
+using MegaCrit.Sts2.Core.Models.CardPools;
 
 namespace Manosaba.Characters.JogasakiNoah.Cards;
 
@@ -58,7 +59,7 @@ public class InkPainting : PathCustomCardModel
     }
 }
 
-[Pool(typeof(JogasakiNoahCardPool))]
+[Pool(typeof(TokenCardPool))]
 public class InkPaintingBlackPaintOrbToken : PathCustomCardModel
 {
     private const int energyCost = 0;
@@ -86,7 +87,7 @@ public class InkPaintingBlackPaintOrbToken : PathCustomCardModel
     }
 }
 
-[Pool(typeof(JogasakiNoahCardPool))]
+[Pool(typeof(TokenCardPool))]
 public class InkPaintingWhitePaintOrbToken : PathCustomCardModel
 {
     private const int energyCost = 0;

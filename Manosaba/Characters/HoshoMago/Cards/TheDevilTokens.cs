@@ -11,10 +11,11 @@ using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Rooms;
+using MegaCrit.Sts2.Core.Models.CardPools;
 
 namespace Manosaba.Characters.HoshoMago.Cards;
 
-[Pool(typeof(HoshoMagoCardPool))]
+[Pool(typeof(TokenCardPool))]
 public sealed class TheDevilEyeOfNoEscapeToken : PathCustomCardModel
 {
     public override string PortraitPath => "the_devil_token.png".CardsImagePath();
@@ -55,7 +56,7 @@ public sealed class TheDevilEyeOfNoEscapeToken : PathCustomCardModel
     }
 }
 
-[Pool(typeof(HoshoMagoCardPool))]
+[Pool(typeof(TokenCardPool))]
 public sealed class TheDevilAwakenedMadnessPowerToken : PathCustomCardModel
 {
     public override string PortraitPath => "the_devil_token.png".CardsImagePath();
@@ -96,7 +97,7 @@ public sealed class TheDevilAwakenedMadnessPowerToken : PathCustomCardModel
     }
 }
 
-[Pool(typeof(HoshoMagoCardPool))]
+[Pool(typeof(TokenCardPool))]
 public sealed class TheDevilBestowTrialToken : PathCustomCardModel
 {
     public override string PortraitPath => "the_devil_token.png".CardsImagePath();

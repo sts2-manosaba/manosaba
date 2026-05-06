@@ -8,10 +8,11 @@ using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Models;
+using MegaCrit.Sts2.Core.Models.CardPools;
 
 namespace Manosaba.Characters.JogasakiNoah.Cards;
 
-[Pool(typeof(JogasakiNoahCardPool))]
+[Pool(typeof(TokenCardPool))]
 public abstract class BadDrawBase : PathCustomCardModel
 {
     private const int energyCost = 0;

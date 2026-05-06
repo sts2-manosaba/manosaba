@@ -13,10 +13,11 @@ using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.ValueProps;
+using MegaCrit.Sts2.Core.Models.CardPools;
 
 namespace Manosaba.Characters.TachibanaSherry.Cards
 {
-    [Pool(typeof(TachibanaSherryCardPool))]
+    [Pool(typeof(TokenCardPool))]
     public class IceBall : PathCustomCardModel
     {
         protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromKeyword(CardKeyword.Exhaust)];
@@ -24,7 +25,7 @@ namespace Manosaba.Characters.TachibanaSherry.Cards
         private const CardType type = CardType.Attack;
         private const CardRarity rarity = CardRarity.Token;
         private const TargetType targetType = TargetType.AnyEnemy;
-        private const bool shouldShowInCardLibrary = false;
+        private const bool shouldShowInCardLibrary = true;
         public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
 
         protected override IEnumerable<DynamicVar> CanonicalVars => [

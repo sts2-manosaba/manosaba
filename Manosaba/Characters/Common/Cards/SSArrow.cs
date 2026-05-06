@@ -11,10 +11,11 @@ using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Nodes.CommonUi;
+using MegaCrit.Sts2.Core.Models.CardPools;
 
 namespace Manosaba.Characters.Common.Cards
 {
-    [Pool(typeof(CommonCardPool))]
+    [Pool(typeof(TokenCardPool))]
     public class SSArrow : PathCustomCardModel
     {
 
@@ -22,7 +23,7 @@ namespace Manosaba.Characters.Common.Cards
         private const CardType type = CardType.Quest;
         private const CardRarity rarity = CardRarity.Token;
         private const TargetType targetType = TargetType.None;
-        private const bool shouldShowInCardLibrary = false;
+        private const bool shouldShowInCardLibrary = true;
 
         public override bool CanBeGeneratedInCombat => false;
         public override bool CanBeGeneratedByModifiers => false;

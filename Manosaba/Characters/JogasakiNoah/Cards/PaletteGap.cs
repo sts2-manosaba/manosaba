@@ -9,10 +9,11 @@ using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
+using MegaCrit.Sts2.Core.Models.CardPools;
 
 namespace Manosaba.Characters.JogasakiNoah.Cards
 {
-    [Pool(typeof(JogasakiNoahCardPool))]
+    [Pool(typeof(TokenCardPool))]
     public class PaletteGap : PathCustomCardModel
     {
         private static readonly IReadOnlyList<(OrbModel Orb, int Weight)> OrbChanceTable =
@@ -26,7 +27,7 @@ namespace Manosaba.Characters.JogasakiNoah.Cards
         private const CardType type = CardType.Skill;
         private const CardRarity rarity = CardRarity.Token;
         private const TargetType targetType = TargetType.TargetedNoCreature;
-        private const bool shouldShowInCardLibrary = false;
+        private const bool shouldShowInCardLibrary = true;
         public override bool CanBeGeneratedInCombat => false;
         public override bool CanBeGeneratedByModifiers => false;
 
