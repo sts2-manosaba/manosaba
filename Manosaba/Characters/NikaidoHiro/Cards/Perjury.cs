@@ -21,7 +21,7 @@ namespace Manosaba.Characters.NikaidoHiro.Cards
         private const TargetType targetType = TargetType.Self;
         private const bool shouldShowInCardLibrary = true;
 
-        protected override IEnumerable<DynamicVar> CanonicalVars => [new BlockVar(7, ValueProp.Move), new DynamicVar("ExtraBlock", 3)];
+        protected override IEnumerable<DynamicVar> CanonicalVars => [new BlockVar(8, ValueProp.Move), new PowerVar<SusPower>(1)];
         protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<SusPower>()];
         public Perjury() : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)
         {
@@ -29,21 +29,13 @@ namespace Manosaba.Characters.NikaidoHiro.Cards
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
-            int currentSus = base.Owner.Creature.GetPowerAmount<SusPower>();
-            if (currentSus > 0)
-            {
-                int susPowerCost = (currentSus + 1) / 2;
-                decimal extraBlock = DynamicVars["ExtraBlock"].BaseValue * susPowerCost;
-                await CreatureCmd.GainBlock(Owner.Creature, new BlockVar(extraBlock, ValueProp.Move), cardPlay);
-                await PowerCmd.Apply<SusPower>(base.Owner.Creature, -susPowerCost, base.Owner.Creature, this);
-            }
             await CreatureCmd.GainBlock(Owner.Creature, DynamicVars.Block, cardPlay);
+            await PowerCmd.Apply<SusPower>(base.Owner.Creature, DynamicVars["SusPower"].BaseValue, base.Owner.Creature, this);
         }
 
         protected override void OnUpgrade()
         {
-            DynamicVars.Block.UpgradeValueBy(2);
-            DynamicVars["ExtraBlock"].UpgradeValueBy(3);
+            DynamicVars.Block.UpgradeValueBy(4);
         }
     }
 }

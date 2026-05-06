@@ -1,14 +1,16 @@
 ﻿using BaseLib.Utils;
-using Manosaba.Characters.Common.Monsters;
 using Manosaba.Characters.Common.Powers;
 using Manosaba.Characters.NikaidoHiro.Powers;
 using Manosaba.Extensions;
 using MegaCrit.Sts2.Core.Commands;
+using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.Entities.Relics;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
+using MegaCrit.Sts2.Core.Models;
+using MegaCrit.Sts2.Core.ValueProps;
 
 namespace manosaba.Characters.NikaidoHiro.Relics
 {
@@ -20,7 +22,11 @@ namespace manosaba.Characters.NikaidoHiro.Relics
         protected override IEnumerable<IHoverTip> ExtraHoverTips => [.. base.ExtraHoverTips, HoverTipFactory.FromPower<SusPower>()];
         protected override int MaxRelicLevel => 5;
 
-        protected override IEnumerable<DynamicVar> CanonicalVars => [new DynamicVar("VoteCost", 1m), new SummonVar(6)];
+        protected override IEnumerable<DynamicVar> CanonicalVars =>
+        [
+            new DynamicVar("HalfHpDamageBonusPercent", 10m),
+            new DynamicVar("LowHpDamageBonusPercent", 20m),
+        ];
 
         public override Task AfterObtained()
         {
@@ -36,23 +42,39 @@ namespace manosaba.Characters.NikaidoHiro.Relics
             await PowerCmd.Apply<MidStancePower>(Owner.Creature, 1m, Owner.Creature, null);
         }
 
-        public override async Task AfterPlayerTurnStart(PlayerChoiceContext choiceContext, Player player)
+        public override Task AfterPlayerTurnStart(PlayerChoiceContext choiceContext, Player player)
         {
-            ApplyRelicLevelEffects();
+            _ = choiceContext;
+            _ = player;
 
-            if (base.Owner.Creature == player.Creature)
+            ApplyRelicLevelEffects();
+            return Task.CompletedTask;
+        }
+
+        public override decimal ModifyDamageAdditive(
+            Creature? target,
+            decimal amount,
+            ValueProp props,
+            Creature? dealer,
+            CardModel? cardSource)
+        {
+            _ = target;
+            _ = cardSource;
+
+            Creature? ownerCreature = base.Owner.Creature;
+            if (ownerCreature == null || dealer != ownerCreature)
             {
-                decimal voteCost = base.DynamicVars["VoteCost"].BaseValue;
-                decimal currentVote = base.Owner.Creature.GetPowerAmount<SusPower>();
-                if (currentVote >= voteCost)
-                {
-                    await SakurabaEmaDogCmd.Summon(choiceContext, base.Owner, DynamicVars.Summon.BaseValue, this);
-                    if (voteCost > 0)
-                    {
-                        await PowerCmd.Apply<SusPower>(base.Owner.Creature, -voteCost, player.Creature, null);
-                    }
-                }
+                return 0m;
             }
+
+            if (!props.IsPoweredAttack())
+            {
+                return 0m;
+            }
+
+            decimal bonus = ownerCreature.GetPowerAmount<SusPower>();
+            bonus += amount * GetHpDamageBonusPercent(ownerCreature) / 100m;
+            return bonus;
         }
 
         protected override void OnRelicLevelChanged(int oldLevel, int newLevel)
@@ -62,15 +84,24 @@ namespace manosaba.Characters.NikaidoHiro.Relics
 
         private void ApplyRelicLevelEffects()
         {
-            // Pen of Hiro level effects are defined on this relic:
-            // Lv1: Summon 6
-            // Lv2: Summon 8
-            // Lv3: Summon 10
-            // Lv4: Summon 12
-            // Lv5: Summon 15
             int level = RelicLevel;
-            base.DynamicVars.Summon.BaseValue = 6m + (level - 1) * 2m;
-            base.DynamicVars.Summon.BaseValue += level == 5 ? 1m : 0m;
+            base.DynamicVars["HalfHpDamageBonusPercent"].BaseValue = level * 10m;
+            base.DynamicVars["LowHpDamageBonusPercent"].BaseValue = level * 20m;
+        }
+
+        private decimal GetHpDamageBonusPercent(Creature creature)
+        {
+            if (creature.GetHpPercentRemaining() < 0.2d)
+            {
+                return base.DynamicVars["LowHpDamageBonusPercent"].BaseValue;
+            }
+
+            if (creature.GetHpPercentRemaining() < 0.5d)
+            {
+                return base.DynamicVars["HalfHpDamageBonusPercent"].BaseValue;
+            }
+
+            return 0m;
         }
     }
 }

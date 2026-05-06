@@ -17,11 +17,11 @@ namespace Manosaba.Characters.NikaidoHiro.Cards
         public override bool GainsBlock => true;
         private const int energyCost = 1;
         private const CardType type = CardType.Skill;
-        private const CardRarity rarity = CardRarity.Uncommon;
+        private const CardRarity rarity = CardRarity.Common;
         private const TargetType targetType = TargetType.Self;
         private const bool shouldShowInCardLibrary = true;
 
-        protected override IEnumerable<DynamicVar> CanonicalVars => [new BlockVar(9, ValueProp.Move), new PowerVar<SusPower>(3)];
+        protected override IEnumerable<DynamicVar> CanonicalVars => [new BlockVar(8, ValueProp.Move), new PowerVar<SusPower>(1)];
 
         protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<SusPower>()];
 
@@ -37,8 +37,7 @@ namespace Manosaba.Characters.NikaidoHiro.Cards
 
         protected override void OnUpgrade()
         {
-            DynamicVars["SusPower"].UpgradeValueBy(1);
-            DynamicVars.Block.UpgradeValueBy(3);
+            DynamicVars.Block.UpgradeValueBy(4);
         }
     }
 }

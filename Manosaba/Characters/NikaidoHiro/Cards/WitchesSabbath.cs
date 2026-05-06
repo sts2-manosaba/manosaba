@@ -24,7 +24,7 @@ namespace Manosaba.Characters.NikaidoHiro.Cards
         private const TargetType targetType = TargetType.AllEnemies;
         private const bool shouldShowInCardLibrary = true;
 
-        protected override bool IsPlayable => GetTotalMajokaAmount(base.CombatState) >= 100;
+        protected override bool IsPlayable => AreAllAlivePlayersMajokaThresholdMet(base.CombatState);
         public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
         protected override IEnumerable<DynamicVar> CanonicalVars => [
             new CalculationBaseVar(50m),
@@ -33,7 +33,7 @@ namespace Manosaba.Characters.NikaidoHiro.Cards
                 int voteAmount = card.Owner.Creature.GetPowerAmount<SusPower>();
                 int majokaAmount = GetTotalMajokaAmount(card.CombatState);
 
-                return (50m + voteAmount * 3 + majokaAmount / 25) * (1 + 0.01m * majokaAmount) - 50m;
+                return (50m + voteAmount * 5 + majokaAmount / 25) * (1 + 0.01m * majokaAmount) - 50m;
             }),
             new PowerVar<MajokaPower>(100)
             ];
@@ -62,7 +62,7 @@ namespace Manosaba.Characters.NikaidoHiro.Cards
 
             await PowerCmd.Apply<SusPower>(base.Owner.Creature, -voteAmount, base.Owner.Creature, this);
 
-            decimal damage = (DynamicVars.CalculationBase.BaseValue + voteAmount * 3 + majokaAmount / 25) * (1 + 0.01m * majokaAmount);
+            decimal damage = (DynamicVars.CalculationBase.BaseValue + voteAmount * 5 + majokaAmount / 25) * (1 + 0.01m * majokaAmount);
 
             await DamageCmd.Attack(damage)
                 .FromCard(this)
@@ -89,6 +89,31 @@ namespace Manosaba.Characters.NikaidoHiro.Cards
             }
 
             return total;
+        }
+
+        private static bool AreAllAlivePlayersMajokaThresholdMet(CombatState? combatState)
+        {
+            if (combatState == null)
+            {
+                return false;
+            }
+
+            bool hasAlivePlayer = false;
+            foreach (var player in combatState.Players)
+            {
+                if (player?.Creature is not { IsAlive: true } creature)
+                {
+                    continue;
+                }
+
+                hasAlivePlayer = true;
+                if (creature.GetPowerAmount<MajokaPower>() < 100)
+                {
+                    return false;
+                }
+            }
+
+            return hasAlivePlayer;
         }
     }
 }
