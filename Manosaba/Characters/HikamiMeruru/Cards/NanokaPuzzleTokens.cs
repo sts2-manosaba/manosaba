@@ -17,6 +17,7 @@ namespace Manosaba.Characters.HikamiMeruru.Cards
     public abstract class NanokaPuzzleQuestTokenBase : PathCustomCardModel
     {
         private const string VfxScenePath = "res://Manosaba/scenes/hikami_meruru/vfx/nanoka_complete.tscn";
+        private const float PuzzleCompleteVfxGameSeconds = 3f;
         private const int energyCost = -1;
         private const CardType type = CardType.Quest;
         private const CardRarity rarity = CardRarity.Token;
@@ -77,14 +78,16 @@ namespace Manosaba.Characters.HikamiMeruru.Cards
             await CardPileCmd.RemoveFromCombat(leftLeg);
 
             CardModel complete = combatState.CreateCard<NanokaComplete>(owner);
+            // Top: Random uses Shuffle RNG + hand.Count; any hand-size mismatch across peers desyncs RNG.
             CardPileAddResult completeResult = await CardPileCmd.AddGeneratedCardToCombat(
                 complete,
                 PileType.Hand,
                 addedByPlayer: true,
-                CardPilePosition.Random
+                CardPilePosition.Top
             );
             CardCmd.PreviewCardPileAdd(completeResult, 1.2f, CardPreviewStyle.HorizontalLayout);
-            await ManosabaVfxCmd.PlaySceneAtCombatCenterAndWait(VfxScenePath, fitCoverViewport: true);
+            ManosabaVfxCmd.PlaySceneAtCombatCenter(VfxScenePath, fitCoverViewport: true);
+            await Cmd.Wait(PuzzleCompleteVfxGameSeconds);
             await CardCmd.AutoPlay(choiceContext, complete, null);
         }
 
