@@ -1,5 +1,6 @@
 using BaseLib.Utils;
 using manosaba.Characters.HikamiMeruru;
+using Manosaba.Characters.Common.Overrides;
 using Manosaba.Characters.Common.Powers;
 using Manosaba.Config;
 using Manosaba.Extensions;
@@ -23,6 +24,7 @@ namespace Manosaba.Characters.HikamiMeruru.Cards
 
         protected override IEnumerable<DynamicVar> CanonicalVars => [new PowerVar<MajokaPower>(100)];
         protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<MajokaPower>()];
+        public override IEnumerable<CardKeyword> CanonicalKeywords => [ManosabaKeywords.Unique];
 
         public HikamiMeruruExaid() : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)
         {

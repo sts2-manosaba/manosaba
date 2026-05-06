@@ -77,7 +77,7 @@ namespace Manosaba.Characters.Common.Cards
 
         public override bool CanBeGeneratedByModifiers => false;
 
-        public KokoroSuicide() : base(0, CardRarity.Token, false)
+        public KokoroSuicide() : base(1, CardRarity.Token, false)
         {
         }
     }

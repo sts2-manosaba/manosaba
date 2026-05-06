@@ -1,6 +1,7 @@
 using BaseLib.Extensions;
 using BaseLib.Utils;
 using manosaba.Characters.JogasakiNoah;
+using Manosaba.Characters.Common.Overrides;
 using Manosaba.Extensions;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
@@ -20,7 +21,7 @@ public class JudgeJogasakiNoah : PathCustomCardModel
     private const TargetType targetType = TargetType.None;
     private const bool shouldShowInCardLibrary = true;
 
-    public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
+    public override IEnumerable<CardKeyword> CanonicalKeywords => [ManosabaKeywords.Unique, CardKeyword.Exhaust];
     public JudgeJogasakiNoah() : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)
     {
     }

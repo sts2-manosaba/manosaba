@@ -1,6 +1,7 @@
 using BaseLib.Utils;
 using manosaba.Characters.NatsumeAnan.Powers;
 using Manosaba.Characters.Common.Cards;
+using Manosaba.Characters.Common.Overrides;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
@@ -28,9 +29,11 @@ public sealed class Kokoro : NatsumeKotodamaCardModel
         HoverTipFactory.FromCard<KokoroSuicide>(),
     ];
 
-    public Kokoro() : base(2, CardType.Power, CardRarity.Rare, TargetType.Self, true)
+    public Kokoro() : base(3, CardType.Power, CardRarity.Rare, TargetType.Self, true)
     {
     }
+
+    public override IEnumerable<CardKeyword> CanonicalKeywords => [ManosabaKeywords.Unique];
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
@@ -64,6 +67,6 @@ public sealed class Kokoro : NatsumeKotodamaCardModel
 
     protected override void OnUpgrade()
     {
-        DynamicVars.Cards.UpgradeValueBy(3m);
+        EnergyCost.UpgradeBy(-1);
     }
 }
