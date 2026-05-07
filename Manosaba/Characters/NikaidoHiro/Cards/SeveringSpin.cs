@@ -28,7 +28,7 @@ namespace Manosaba.Characters.NikaidoHiro.Cards
 
         protected override IEnumerable<DynamicVar> CanonicalVars => [
             new DamageVar(3m, ValueProp.Move),
-            new RepeatVar(5),
+            new RepeatVar(4),
             new BlockVar(5m, ValueProp.Move)
         ];
 

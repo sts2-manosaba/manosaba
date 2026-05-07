@@ -40,7 +40,6 @@ namespace Manosaba.Characters.NikaidoHiro.Cards
         protected override void OnUpgrade()
         {
             DynamicVars.Weak.UpgradeValueBy(1m);
-            DynamicVars["SusPower"].UpgradeValueBy(1m);
         }
     }
 }
