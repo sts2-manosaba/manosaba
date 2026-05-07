@@ -455,14 +455,9 @@ public sealed class WheelOfFortune : HoshoMagoArcanaBase
             IEnumerable<CardModel> selectedCards = await CardSelectCmd.FromHand(choiceContext, Owner, prefs, null, this);
             List<CardModel> selectedList = selectedCards.ToList();
 
-            foreach (CardModel selectedCard in selectedList)
-            {
-                await CardPileCmd.Add(selectedCard, PileType.Draw);
-            }
-
             if (selectedList.Count > 0)
             {
-                await CardPileCmd.Shuffle(choiceContext, Owner);
+                await CardPileCmd.Add(selectedList, PileType.Draw, CardPilePosition.Random, this);
             }
         }
 
