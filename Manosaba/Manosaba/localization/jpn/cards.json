@@ -439,6 +439,8 @@
   "MANOSABA-TOUR_LIVE.description": "戦闘終了時、{Gold:diff()}[gold]ゴールド[/gold]を得る。",
   "MANOSABA-DUO_COMBINATION.title": "デュオコンビネーション",
   "MANOSABA-DUO_COMBINATION.description": "プレイヤー1人を選ぶ。あなたとそのプレイヤーはそれぞれ{Block:diff()}[gold]ブロック[/gold]を得る。\nそのプレイヤーが次に使うAttackカードは2回プレイされる。\n選んだプレイヤーが二階堂ヒロなら、そのプレイヤーはこのターン{TemporaryStrength:diff()}点の[gold]筋力[/gold]を得る。",
+  "MANOSABA-CROWNING.title": "王位戴冠",
+  "MANOSABA-CROWNING.description": "敵を攻撃するたび、その敵はこのターン1点の[gold]筋力[/gold]を失う。",
   "MANOSABA-STRONG_SAKE.title": "強いお酒を飲んだみたい",
   "MANOSABA-STRONG_SAKE.description": "1ターンに1回、[gold]剣技[/gold]を持つカードをプレイしたとき、次のターンに[gold]エナジー[/gold]を1得る。",
   "MANOSABA-REALISTIC_ACTING.title": "迫真演技",

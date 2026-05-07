@@ -439,6 +439,8 @@
   "MANOSABA-TOUR_LIVE.description": "전투 종료 시, [gold]골드[/gold]를 {Gold:diff()} 얻습니다.",
   "MANOSABA-DUO_COMBINATION.title": "듀오 콤비네이션",
   "MANOSABA-DUO_COMBINATION.description": "플레이어 한 명을 선택합니다. 당신과 그 플레이어는 각각 [gold]방어도[/gold]를 {Block:diff()} 얻습니다.\n그 플레이어가 다음에 사용하는 Attack 카드는 두 번 플레이됩니다.\n선택한 플레이어가 니카이도 히로라면, 그 플레이어는 이번 턴 [gold]힘[/gold]을 {TemporaryStrength:diff()} 얻습니다.",
+  "MANOSABA-CROWNING.title": "대관식",
+  "MANOSABA-CROWNING.description": "적을 공격할 때마다, 그 적은 이번 턴 [gold]힘[/gold]을 1 잃습니다.",
   "MANOSABA-STRONG_SAKE.title": "독주를 마신 느낌",
   "MANOSABA-STRONG_SAKE.description": "턴당 1회, [gold]검술[/gold] 키워드가 있는 카드를 사용하면 다음 턴에 [gold]에너지[/gold]를 1 얻습니다.",
   "MANOSABA-REALISTIC_ACTING.title": "박진감 연기",
