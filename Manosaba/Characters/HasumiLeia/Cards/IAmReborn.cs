@@ -1,6 +1,5 @@
 using BaseLib.Utils;
 using manosaba.Characters.HasumiLeia;
-using Manosaba.Config;
 using Manosaba.Characters.HasumiLeia.Powers;
 using Manosaba.Extensions;
 using MegaCrit.Sts2.Core.Commands;
@@ -14,7 +13,6 @@ namespace Manosaba.Characters.HasumiLeia.Cards;
 [Pool(typeof(HasumiLeiaCardPool))]
 public sealed class IAmReborn : PathCustomCardModel
 {
-    private static bool _sfxPlayedThisSession;
     private const string BgmEventPath = "event:/Manosaba/audio/bgm/i_am_reborn.mp3";
 
     private const int energyCost = 3;
@@ -38,11 +36,6 @@ public sealed class IAmReborn : PathCustomCardModel
     {
     }
 
-    public static void ResetSfxForNewRun()
-    {
-        _sfxPlayedThisSession = false;
-    }
-
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         _ = cardPlay;
@@ -52,17 +45,7 @@ public sealed class IAmReborn : PathCustomCardModel
             return;
         }
 
-        ManosabaFxPlayMode sfxPlayMode = ManosabaConfig.IAmRebornEffectFrequency;
-        if (sfxPlayMode != ManosabaFxPlayMode.Never &&
-            (sfxPlayMode != ManosabaFxPlayMode.OncePerRun || !_sfxPlayedThisSession))
-        {
-            SfxCmd.Play(BgmEventPath, 0.8f);
-            if (sfxPlayMode == ManosabaFxPlayMode.OncePerRun)
-            {
-                _sfxPlayedThisSession = true;
-            }
-        }
-
+        SfxCmd.Play(BgmEventPath, 0.8f);
         await CardCmd.Discard(choiceContext, PileType.Hand.GetPile(Owner).Cards);
         await PowerCmd.Apply<IAmRebornPower>(ownerCreature, 1m, ownerCreature, this);
         await PowerCmd.Apply<DrawCardsNextTurnPower>(ownerCreature, 5m, ownerCreature, this);

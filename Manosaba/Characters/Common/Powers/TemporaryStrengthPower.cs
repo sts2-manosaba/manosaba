@@ -12,7 +12,7 @@ public sealed class TemporaryStrengthPower : ManosabaTemporaryStrengthPower
 {
     private AbstractModel? _originModel;
 
-    public override AbstractModel? OriginModel => _originModel;
+    public override AbstractModel OriginModel => _originModel ?? ModelDb.Card<DriftApart>();
 
     public override Task AfterApplied(Creature? applier, CardModel? cardSource)
     {

@@ -15,9 +15,9 @@ namespace Manosaba.Characters.HasumiLeia.Cards;
 public sealed class TheCenter : PathCustomCardModel
 {
     public override CardMultiplayerConstraint MultiplayerConstraint => CardMultiplayerConstraint.MultiplayerOnly;
-    private const int energyCost = 2;
+    private const int energyCost = 3;
     private const CardType type = CardType.Power;
-    private const CardRarity rarity = CardRarity.Uncommon;
+    private const CardRarity rarity = CardRarity.Rare;
     private const TargetType targetType = TargetType.Self;
     private const bool shouldShowInCardLibrary = true;
 
