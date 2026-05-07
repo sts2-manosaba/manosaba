@@ -17,5 +17,7 @@ public static class Patch_RunState_CreateForNewRun_ResetVfx
         HikamiMeruruExaid.ResetSfxForNewRun();
         NovelSettingNoahFriendsSfx.ResetSfxForNewRun();
         CeremonialSword.ResetSfxForNewRun();
+        IAmReborn.ResetSfxForNewRun();
+        Pride.ResetSfxForNewRun();
     }
 }

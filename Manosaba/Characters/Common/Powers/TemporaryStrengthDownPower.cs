@@ -12,7 +12,7 @@ public sealed class TemporaryStrengthDownPower : ManosabaTemporaryStrengthPower
 {
     private AbstractModel? _originModel;
 
-    public override AbstractModel OriginModel => _originModel ?? ModelDb.Card<Dissolve>();
+    public override AbstractModel OriginModel => _originModel;
 
     protected override bool IsPositive => false;
 
