@@ -17,6 +17,12 @@ public static class Patch_RunState_FromSerializable_ManosabaDifficulty
 {
     private static void Postfix(SerializableRun save)
     {
+        // FromSerializable can be invoked before net wiring is complete; NetService may be null.
+        if (save == null)
+        {
+            return;
+        }
+
         int playerCount = save.Players?.Count ?? 0;
         if (playerCount < 2)
         {
@@ -46,7 +52,7 @@ public static class Patch_RunState_FromSerializable_ManosabaDifficulty
         {
             // Clients must not freeze from local lobby here: it may still reflect a prior singleplayer session.
             // Host-authoritative difficulty arrives via ManosabaDifficultySettingsMessage -> FreezeForRunFromHost.
-            if (RunManager.Instance?.NetService.Type == NetGameType.Client)
+            if (RunManager.Instance?.NetService?.Type == NetGameType.Client)
             {
                 return;
             }
