@@ -51,6 +51,7 @@ namespace Manosaba.Characters.NikaidoHiro.Cards
 
         protected override void OnUpgrade()
         {
+            DynamicVars.Repeat.UpgradeValueBy(1);
         }
     }
 }
