@@ -35,7 +35,6 @@ namespace Manosaba.Characters.NikaidoHiro.Cards
 
         protected override void OnUpgrade()
         {
-            DynamicVars.Cards.UpgradeValueBy(1m);
             DynamicVars["MajokaPower"].UpgradeValueBy(5);
         }
     }

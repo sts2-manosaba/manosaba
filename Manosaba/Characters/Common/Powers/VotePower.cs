@@ -1,7 +1,10 @@
 using Manosaba.Extensions;
+using MegaCrit.Sts2.Core.Combat;
+using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Entities.Powers;
+using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.ValueProps;
 
@@ -15,11 +18,24 @@ public class VotePower : PathCustomPowerModel
 
     public override decimal ModifyDamageAdditive(Creature? target, decimal amount, ValueProp props, Creature? dealer, CardModel? cardSource)
     {
-        if (target != Owner || Amount <= 0m || amount <= 0m)
+        if (target != Owner || Amount <= 0m || amount <= 0m || props.HasFlag(ValueProp.Unpowered))
         {
             return 0m;
         }
 
         return Amount;
+    }
+
+    public override async Task AfterTurnEnd(PlayerChoiceContext choiceContext, CombatSide side)
+    {
+        _ = choiceContext;
+
+        if (side != Owner.Side || Amount <= 0m)
+        {
+            return;
+        }
+
+        int remainingAmount = Amount / 2;
+        await PowerCmd.ModifyAmount(this, remainingAmount - Amount, Owner, null);
     }
 }

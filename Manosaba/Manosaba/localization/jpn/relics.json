@@ -1,6 +1,6 @@
 {
   "MANOSABA-PEN_OF_HIRO.title": "ヒロの万年筆",
-  "MANOSABA-PEN_OF_HIRO.description": "[gold]嫌疑[/gold]の層数が[gold]筋力[/gold]と同じように攻撃ダメージを増加させる。\nHPが50%未満のとき、攻撃ダメージが{HalfHpDamageBonusPercent}%増加する。\nHPが20%未満のときは、代わりに{LowHpDamageBonusPercent}%増加する。",
+  "MANOSABA-PEN_OF_HIRO.description": "[gold]嫌疑[/gold]2層ごとに、攻撃ダメージが1増加する。\nHPが50%未満のとき、攻撃ダメージが{HalfHpDamageBonusPercent}%増加する。\nHPが20%未満のときは、代わりに{LowHpDamageBonusPercent}%増加する。",
   "MANOSABA-PEN_OF_HIRO.flavor": "ミステリアス偽証女専用",
   "MANOSABA-SPRAY_CAN_OF_NOAH.title": "ノアのスプレー缶",
   "MANOSABA-SPRAY_CAN_OF_NOAH.description": "チャージオーブ枠を{OrbSlots}増やす。アップグレードで枠数が増加する。\n自分のターン開始時、ランダムなペイントボールを生成する（Lv1~2：1個、Lv3~4：2個、Lv5：3個）。",

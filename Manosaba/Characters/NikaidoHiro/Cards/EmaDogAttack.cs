@@ -1,6 +1,7 @@
 ﻿using BaseLib.Utils;
 using manosaba.Characters.NikaidoHiro;
 using Manosaba.Characters.Common.Monsters;
+using Manosaba.Characters.Common.Overrides;
 using Manosaba.Characters.NikaidoHiro.Powers;
 using Manosaba.Extensions;
 using MegaCrit.Sts2.Core.Commands;
@@ -15,6 +16,7 @@ namespace Manosaba.Characters.Common.Cards
     [Pool(typeof(NikaidoHiroCardPool))]
     public class EmaDogAttack : PathCustomCardModel
     {
+        public override IEnumerable<CardKeyword> CanonicalKeywords => [ManosabaKeywords.Unique];
 
         private const int energyCost = 1;
         private const CardType type = CardType.Power;

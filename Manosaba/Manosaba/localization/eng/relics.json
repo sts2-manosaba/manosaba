@@ -1,6 +1,6 @@
 {
   "MANOSABA-PEN_OF_HIRO.title": "Hiro's Pen",
-  "MANOSABA-PEN_OF_HIRO.description": "Your [gold]Suspicion[/gold] stacks increase attack damage like [gold]Strength[/gold].\nWhen below 50% HP, attack damage is increased by {HalfHpDamageBonusPercent}%.\nWhen below 20% HP, attack damage is increased by {LowHpDamageBonusPercent}% instead.",
+  "MANOSABA-PEN_OF_HIRO.description": "For every 2 [gold]Suspicion[/gold], attacks deal 1 more damage.\nWhen below 50% HP, attack damage is increased by {HalfHpDamageBonusPercent}%.\nWhen below 20% HP, attack damage is increased by {LowHpDamageBonusPercent}% instead.",
   "MANOSABA-PEN_OF_HIRO.flavor": "Exclusive to the mysterious perjury girl",
   "MANOSABA-SPRAY_CAN_OF_NOAH.title": "Noah's Spray Can",
   "MANOSABA-SPRAY_CAN_OF_NOAH.description": "Gain {OrbSlots} orb slots. Upgrades increase the number of slots.\nAt the start of your turn, randomly generate paint orbs: Lv1-2 generates 1, Lv3-4 generates 2, Lv5 generates 3.",
