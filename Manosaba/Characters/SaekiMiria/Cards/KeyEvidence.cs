@@ -1,23 +1,16 @@
 using BaseLib.Utils;
-using manosaba.Characters.Common;
 using manosaba.Characters.SaekiMiria;
-using manosaba.Characters.TachibanaSherry;
-using Manosaba.Characters.Common.Powers;
 using Manosaba.Extensions;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
-using MegaCrit.Sts2.Core.Entities.Creatures;
-using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
-using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
-using MegaCrit.Sts2.Core.Models.Powers;
+using MegaCrit.Sts2.Core.Models.CardPools;
 using MegaCrit.Sts2.Core.ValueProps;
-using System;
 
 namespace Manosaba.Characters.SaekiMiria.Cards
 {
-    [Pool(typeof(SaekiMiriaCardPool))]
+    [Pool(typeof(DeprecatedCardPool))]
     public class KeyEvidence : PathCustomCardModel
     {
         private const int energyCost = 1;
@@ -25,8 +18,6 @@ namespace Manosaba.Characters.SaekiMiria.Cards
         private const CardRarity rarity = CardRarity.Uncommon;
         private const TargetType targetType = TargetType.AnyEnemy;
         private const bool shouldShowInCardLibrary = true;
-
-        protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<SusPower>()];
 
         protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(4m, ValueProp.Move)];
 
@@ -36,9 +27,6 @@ namespace Manosaba.Characters.SaekiMiria.Cards
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
-            int voteStacks = Owner.Creature.GetPowerAmount<SusPower>();
-            int hitCount = voteStacks;
-
             if (cardPlay.Target is not { } target)
             {
                 return;
@@ -47,10 +35,7 @@ namespace Manosaba.Characters.SaekiMiria.Cards
             await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
                 .FromCard(this)
                 .Targeting(target)
-                .WithHitCount(hitCount)
                 .Execute(choiceContext);
-
-            await PowerCmd.Apply<SusPower>(Owner.Creature, -voteStacks, Owner.Creature, null);
         }
 
         protected override void OnUpgrade()
