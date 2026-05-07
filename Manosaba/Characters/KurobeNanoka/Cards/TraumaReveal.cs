@@ -1,17 +1,14 @@
-using HoshoMagoCharacter = manosaba.Characters.HoshoMago.HoshoMago;
-using KurobeNanokaCharacter = manosaba.Characters.KurobeNanoka.KurobeNanoka;
-using NikaidoHiroCharacter = manosaba.Characters.NikaidoHiro.NikaidoHiro;
-using TonoHannaCharacter = manosaba.Characters.TonoHanna.TonoHanna;
-using HasumiLeiaCharacter = manosaba.Characters.HasumiLeia.HasumiLeia;
-using HikamiMeruruCharacter = manosaba.Characters.HikamiMeruru.HikamiMeruru;
-using JogasakiNoahCharacter = manosaba.Characters.JogasakiNoah.JogasakiNoah;
-using SaekiMiriaCharacter = manosaba.Characters.SaekiMiria.SaekiMiria;
+using BaseLib.Extensions;
+using BaseLib.Utils;
+using manosaba.Characters.KurobeNanoka;
+using manosaba.Characters.NatsumeAnan.Cards;
 using Manosaba.Characters.HasumiLeia.Cards;
 using Manosaba.Characters.HikamiMeruru.Cards;
 using Manosaba.Characters.HoshoMago.Cards;
 using Manosaba.Characters.JogasakiNoah.Cards;
 using Manosaba.Characters.NikaidoHiro.Cards;
 using Manosaba.Characters.SaekiMiria.Cards;
+using Manosaba.Characters.ShitoAlisa.Cards;
 using Manosaba.Characters.TonoHanna.Cards;
 using Manosaba.Extensions;
 using MegaCrit.Sts2.Core.Commands;
@@ -22,9 +19,16 @@ using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
-using BaseLib.Extensions;
-using manosaba.Characters.KurobeNanoka;
-using BaseLib.Utils;
+using HasumiLeiaCharacter = manosaba.Characters.HasumiLeia.HasumiLeia;
+using HikamiMeruruCharacter = manosaba.Characters.HikamiMeruru.HikamiMeruru;
+using HoshoMagoCharacter = manosaba.Characters.HoshoMago.HoshoMago;
+using JogasakiNoahCharacter = manosaba.Characters.JogasakiNoah.JogasakiNoah;
+using KurobeNanokaCharacter = manosaba.Characters.KurobeNanoka.KurobeNanoka;
+using NatsumeAnanCharacter = manosaba.Characters.NatsumeAnan.NatsumeAnan;
+using NikaidoHiroCharacter = manosaba.Characters.NikaidoHiro.NikaidoHiro;
+using SaekiMiriaCharacter = manosaba.Characters.SaekiMiria.SaekiMiria;
+using ShitoArisaCharacter = manosaba.Characters.ShitoAlisa.ShitoAlisa;
+using TonoHannaCharacter = manosaba.Characters.TonoHanna.TonoHanna;
 
 namespace Manosaba.Characters.KurobeNanoka.Cards;
 
@@ -42,8 +46,8 @@ public sealed class TraumaReveal : PathCustomCardModel
         { TonoHannaCharacter.CharacterId, typeof(TraumaTonoHanna) },
         { HoshoMagoCharacter.CharacterId, typeof(TraumaHoshoMago) },
         // { SakurabaEma.CharacterId, typeof(TraumaSakurabaEma) },
-        { NatsumeAnan.CharacterId, typeof(TraumaNatsumeAnan) },
-        { ShitoArisa.CharacterId, typeof(TraumaShitoAlisa) },
+        { NatsumeAnanCharacter.CharacterId, typeof(TraumaNatsumeAnan) },
+        { ShitoArisaCharacter.CharacterId, typeof(TraumaShitoAlisa) },
         // { SawatariCoco.CharacterId, typeof(TraumaSawatariCoco) },
     };
 
