@@ -1,23 +1,24 @@
 using BaseLib.Utils;
 using manosaba.Characters.HasumiLeia;
 using Manosaba.Config;
-using Manosaba.Characters.HasumiLeia.Powers;
 using Manosaba.Extensions;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
-using MegaCrit.Sts2.Core.Models.Powers;
+using MegaCrit.Sts2.Core.Localization.DynamicVars;
+using MegaCrit.Sts2.Core.ValueProps;
 
 namespace Manosaba.Characters.HasumiLeia.Cards;
 
 [Pool(typeof(HasumiLeiaCardPool))]
-public sealed class IAmReborn : PathCustomCardModel
+public sealed class Pride : PathCustomCardModel
 {
     private static bool _sfxPlayedThisSession;
-    private const string BgmEventPath = "event:/Manosaba/audio/bgm/i_am_reborn.mp3";
+    private const string BgmEventPath = "event:/Manosaba/audio/bgm/pride.mp3";
 
-    private const int energyCost = 3;
+    public override bool GainsBlock => true;
+    private const int energyCost = 2;
     private const CardType type = CardType.Skill;
     private const CardRarity rarity = CardRarity.Rare;
     private const TargetType targetType = TargetType.Self;
@@ -25,15 +26,12 @@ public sealed class IAmReborn : PathCustomCardModel
 
     protected override IEnumerable<IHoverTip> ExtraHoverTips =>
     [
-        HoverTipFactory.FromKeyword(CardKeyword.Exhaust),
-        HoverTipFactory.FromPower<IAmRebornPower>(),
-        HoverTipFactory.FromPower<DoubleDamagePower>(),
-        HoverTipFactory.FromPower<DrawCardsNextTurnPower>(),
+        HoverTipFactory.FromCard<Crowning>(),
     ];
 
-    public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
+    protected override IEnumerable<DynamicVar> CanonicalVars => [new BlockVar(30m, ValueProp.Move)];
 
-    public IAmReborn()
+    public Pride()
         : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)
     {
     }
@@ -47,12 +45,7 @@ public sealed class IAmReborn : PathCustomCardModel
     {
         _ = cardPlay;
 
-        if (Owner?.Creature is not { } ownerCreature)
-        {
-            return;
-        }
-
-        ManosabaFxPlayMode sfxPlayMode = ManosabaConfig.IAmRebornEffectFrequency;
+        ManosabaFxPlayMode sfxPlayMode = ManosabaConfig.PrideEffectFrequency;
         if (sfxPlayMode != ManosabaFxPlayMode.Never &&
             (sfxPlayMode != ManosabaFxPlayMode.OncePerRun || !_sfxPlayedThisSession))
         {
@@ -63,13 +56,19 @@ public sealed class IAmReborn : PathCustomCardModel
             }
         }
 
-        await CardCmd.Discard(choiceContext, PileType.Hand.GetPile(Owner).Cards);
-        await PowerCmd.Apply<IAmRebornPower>(ownerCreature, 1m, ownerCreature, this);
-        await PowerCmd.Apply<DrawCardsNextTurnPower>(ownerCreature, 5m, ownerCreature, this);
+        await CreatureCmd.GainBlock(Owner.Creature, DynamicVars.Block, null);
+
+        if (CombatState == null)
+        {
+            return;
+        }
+
+        var crowning = CombatState.CreateCard<Crowning>(Owner);
+        CardCmd.PreviewCardPileAdd(await CardPileCmd.AddGeneratedCardToCombat(crowning, PileType.Discard, addedByPlayer: true));
     }
 
     protected override void OnUpgrade()
     {
-        EnergyCost.UpgradeBy(-1);
+        DynamicVars.Block.UpgradeValueBy(10m);
     }
 }

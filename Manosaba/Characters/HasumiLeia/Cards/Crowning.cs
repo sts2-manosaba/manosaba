@@ -1,9 +1,10 @@
 using BaseLib.Utils;
 using manosaba.Characters.HasumiLeia;
-using Manosaba.Characters.HasumiLeia.Powers;
+using Manosaba.Characters.Common.Powers;
 using Manosaba.Extensions;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
+using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
@@ -14,30 +15,46 @@ namespace Manosaba.Characters.HasumiLeia.Cards;
 [Pool(typeof(HasumiLeiaCardPool))]
 public sealed class Crowning : PathCustomCardModel
 {
-    private const int energyCost = 3;
-    private const CardType type = CardType.Power;
-    private const CardRarity rarity = CardRarity.Rare;
-    private const TargetType targetType = TargetType.Self;
+    private const int energyCost = 1;
+    private const CardType type = CardType.Skill;
+    private const CardRarity rarity = CardRarity.Ancient;
+    private const TargetType targetType = TargetType.AllEnemies;
     private const bool shouldShowInCardLibrary = true;
 
     protected override IEnumerable<IHoverTip> ExtraHoverTips =>
     [
-        HoverTipFactory.FromPower<CrowningPower>(),
         HoverTipFactory.FromPower<StrengthPower>(),
     ];
 
-    protected override IEnumerable<DynamicVar> CanonicalVars => [new PowerVar<CrowningPower>(1m)];
+    protected override IEnumerable<DynamicVar> CanonicalVars => [];
+
+    public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
 
     public Crowning()
         : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)
     {
     }
 
-    protected override Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay) =>
-        PowerCmd.Apply<CrowningPower>(Owner.Creature, DynamicVars["CrowningPower"].BaseValue, Owner.Creature, this);
+    protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
+    {
+        _ = cardPlay;
+        var combatState = CombatState;
+        if (combatState == null)
+        {
+            return;
+        }
+
+        List<Creature> targets = combatState.GetOpponentsOf(Owner.Creature)
+            .Where(c => c != null && c.IsAlive && c.IsEnemy && c.IsHittable && c.CanReceivePowers)
+            .ToList();
+
+        foreach (Creature target in targets)
+        {
+            await PowerCmd.Apply<TemporaryStrengthDownPower>(target, 99m, Owner.Creature, this);
+        }
+    }
 
     protected override void OnUpgrade()
     {
-        EnergyCost.UpgradeBy(-1);
     }
 }
