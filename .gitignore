@@ -373,3 +373,4 @@ FodyWeavers.xsd
 .codex
 Manosaba/Local.Build.props
 .editorconfig
+Manosaba/_mods_out/
