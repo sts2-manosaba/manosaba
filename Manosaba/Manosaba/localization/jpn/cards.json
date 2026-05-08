@@ -428,7 +428,7 @@
   "MANOSABA-TREE_BRANCH.title": "木の枝",
   "MANOSABA-TREE_BRANCH.description": "このターン[gold]筋力[/gold]を2失う。\nこのターン[gold]二刀流[/gold]を得る。",
   "MANOSABA-SMART_SPEAR.title": "スマートランス",
-  "MANOSABA-SMART_SPEAR.description": "[gold]簡易ランス[/gold]の[gold]パーツ[/gold]を1枚引いたとき、[gold]山札[/gold]から[gold]簡易ランス[/gold]の[gold]パーツ[/gold]を1枚手札に加える。現在の手札にないパーツを優先する。{IfUpgraded:show:\n代わりに2枚加える。}",
+  "MANOSABA-SMART_SPEAR.description": "[gold]簡易ランス[/gold]の[gold]パーツ[/gold]を1枚引いたとき、[gold]山札[/gold]から[gold]簡易ランス[/gold]の[gold]パーツ[/gold]を1枚手札に加える。現在の手札にないパーツを優先する。",
   "MANOSABA-SMOOTH_MOVE.title": "華麗剣技",
   "MANOSABA-SMOOTH_MOVE.description": "[gold]剣技[/gold]を持つカードをプレイするたび、{Cards:diff()}枚引く。",
   "MANOSABA-THE_CENTER.title": "舞台のセンター",

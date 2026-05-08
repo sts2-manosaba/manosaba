@@ -428,7 +428,7 @@
   "MANOSABA-TREE_BRANCH.title": "나뭇가지",
   "MANOSABA-TREE_BRANCH.description": "이번 턴 [gold]힘[/gold]을 2 잃습니다.\n이번 턴 [gold]두 자루의 검[/gold]을 얻습니다.",
   "MANOSABA-SMART_SPEAR.title": "스마트 스피어",
-  "MANOSABA-SMART_SPEAR.description": "[gold]간이 창[/gold] [gold]부품[/gold]을 1장 뽑을 때마다, [gold]드로우 더미[/gold]에서 [gold]간이 창[/gold] [gold]부품[/gold] 1장을 손에 넣습니다. 현재 손패에 없는 부품을 우선합니다.{IfUpgraded:show:\n대신 2장을 손에 넣습니다.}",
+  "MANOSABA-SMART_SPEAR.description": "[gold]간이 창[/gold] [gold]부품[/gold]을 1장 뽑을 때마다, [gold]드로우 더미[/gold]에서 [gold]간이 창[/gold] [gold]부품[/gold] 1장을 손에 넣습니다. 현재 손패에 없는 부품을 우선합니다.",
   "MANOSABA-SMOOTH_MOVE.title": "화려검기",
   "MANOSABA-SMOOTH_MOVE.description": "[gold]검술[/gold] 키워드가 있는 카드를 플레이할 때마다, 카드를 {Cards:diff()}장 뽑습니다.",
   "MANOSABA-THE_CENTER.title": "무대의 센터",

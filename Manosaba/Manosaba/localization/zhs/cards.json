@@ -428,7 +428,7 @@
   "MANOSABA-TREE_BRANCH.title": "樹枝",
   "MANOSABA-TREE_BRANCH.description": "本回合失去 2 點[gold]力量[/gold]。\n本回合獲得[gold]二刀流[/gold]。",
   "MANOSABA-SMART_SPEAR.title": "智慧長矛",
-  "MANOSABA-SMART_SPEAR.description": "抽到一張[gold]簡易長矛[/gold]的[gold]零件[/gold]時，從[gold]抽牌堆[/gold]中將 1 張[gold]簡易長矛[/gold]的[gold]零件[/gold]加入手牌。優先加入目前手牌中未持有的零件。{IfUpgraded:show:\n改為加入 2 張。}",
+  "MANOSABA-SMART_SPEAR.description": "抽到一張[gold]簡易長矛[/gold]的[gold]零件[/gold]時，從[gold]抽牌堆[/gold]中將 1 張[gold]簡易長矛[/gold]的[gold]零件[/gold]加入手牌。優先加入目前手牌中未持有的零件。",
   "MANOSABA-SMOOTH_MOVE.title": "華麗劍技",
   "MANOSABA-SMOOTH_MOVE.description": "每當你打出帶有[gold]劍技[/gold]的卡牌時，抽 {Cards:diff()} 張牌。",
   "MANOSABA-THE_CENTER.title": "舞台的中心",
