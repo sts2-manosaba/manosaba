@@ -49,7 +49,9 @@ public sealed class StarburstStream : PathCustomCardModel
                 return false;
             }
 
-            if (Owner.Creature.GetPowerAmount<SecondSwordPower>() <= 0m)
+            decimal secondSwordAmount = Owner.Creature.GetPowerAmount<SecondSwordPower>();
+            decimal tempSecondSwordAmount = Owner.Creature.GetPowerAmount<TreeBranchSecondSwordPower>();
+            if (secondSwordAmount <= 0m && tempSecondSwordAmount <= 0m)
             {
                 return false;
             }

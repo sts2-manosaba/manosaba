@@ -30,6 +30,7 @@ public sealed class Pride : PathCustomCardModel
     ];
 
     protected override IEnumerable<DynamicVar> CanonicalVars => [new BlockVar(30m, ValueProp.Move)];
+    public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
 
     public Pride()
         : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)

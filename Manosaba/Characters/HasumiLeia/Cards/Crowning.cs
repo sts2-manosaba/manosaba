@@ -15,18 +15,18 @@ namespace Manosaba.Characters.HasumiLeia.Cards;
 [Pool(typeof(HasumiLeiaCardPool))]
 public sealed class Crowning : PathCustomCardModel
 {
-    private const int energyCost = 1;
+    private const int energyCost = 2;
     private const CardType type = CardType.Skill;
     private const CardRarity rarity = CardRarity.Ancient;
     private const TargetType targetType = TargetType.AllEnemies;
-    private const bool shouldShowInCardLibrary = true;
+    private const bool shouldShowInCardLibrary = false;
 
     protected override IEnumerable<IHoverTip> ExtraHoverTips =>
     [
         HoverTipFactory.FromPower<StrengthPower>(),
     ];
 
-    protected override IEnumerable<DynamicVar> CanonicalVars => [];
+    protected override IEnumerable<DynamicVar> CanonicalVars => [new DynamicVar("StrengthLoss", 99m)];
 
     public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
 
@@ -50,11 +50,12 @@ public sealed class Crowning : PathCustomCardModel
 
         foreach (Creature target in targets)
         {
-            await PowerCmd.Apply<TemporaryStrengthDownPower>(target, 99m, Owner.Creature, this);
+            await PowerCmd.Apply<TemporaryStrengthDownPower>(target, DynamicVars["StrengthLoss"].BaseValue, Owner.Creature, this);
         }
     }
 
     protected override void OnUpgrade()
     {
+        DynamicVars["StrengthLoss"].UpgradeValueBy(900m);
     }
 }
