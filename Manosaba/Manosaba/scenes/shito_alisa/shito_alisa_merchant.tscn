@@ -1,12 +1,12 @@
 [gd_scene load_steps=3 format=3 uid="uid://d0e8fqywdlanm"]
 
 [ext_resource type="Script" uid="uid://cnvmx0lgyr8bh" path="res://Characters/Common/Overrides/ManosabaMerchantCharacter.cs" id="1_0j0od"]
-[ext_resource type="Texture2D" uid="uid://lwypu6ydsbmd" path="res://Manosaba/images/characters/shito_alisa/ShitoAlisaThink.png" id="2_pxxj2"]
+[ext_resource type="Texture2D" uid="uid://b5fer5nwecwfy" path="res://Manosaba/images/characters/shito_alisa/ShitoAlisaThink.png" id="2_pxxj2"]
 
 [node name="ShitoAlisaMerchant" type="Node2D"]
 script = ExtResource("1_0j0od")
 
 [node name="ShitoAlisa" type="Sprite2D" parent="."]
-position = Vector2(-0.99755526, -187.49991)
-scale = Vector2(0.3562888, 0.35628882)
+position = Vector2(1.4290302, -205.9265)
+scale = Vector2(0.46114194, 0.46114197)
 texture = ExtResource("2_pxxj2")
