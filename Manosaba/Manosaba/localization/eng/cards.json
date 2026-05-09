@@ -426,7 +426,7 @@
   "MANOSABA-STARBURST_STREAM.title": "Starburst Stream",
   "MANOSABA-STARBURST_STREAM.description": "Exhaust your hand.\nDeal {Damage:diff()} damage {Repeat} times. Each hit deals +1 damage per card Exhausted.{IfUpgraded:show:\nAt the end, deal 30% of the total damage again (Unpowered).}",
   "MANOSABA-TREE_BRANCH.title": "Tree Branch",
-  "MANOSABA-TREE_BRANCH.description": "Lose 2 [gold]Strength[/gold] this turn.\nGain [gold]Two Swords[/gold] this turn.",
+  "MANOSABA-TREE_BRANCH.description": "Gain [gold]Two Swords[/gold] this turn.",
   "MANOSABA-SMART_SPEAR.title": "Smart Spear",
   "MANOSABA-SMART_SPEAR.description": "Whenever you draw a [gold]Simple Spear[/gold] [gold]part[/gold], add 1 [gold]Simple Spear[/gold] [gold]part[/gold] from your [gold]draw pile[/gold] to your hand. Prefer parts not currently in your hand.",
   "MANOSABA-SMOOTH_MOVE.title": "Smooth Move",

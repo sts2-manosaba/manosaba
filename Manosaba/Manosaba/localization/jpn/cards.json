@@ -426,7 +426,7 @@
   "MANOSABA-STARBURST_STREAM.title": "スターバースト・ストリーム",
   "MANOSABA-STARBURST_STREAM.description": "手札をすべて廃棄する。\n{Damage:diff()}ダメージを{Repeat}回与える。命中するたび、この廃棄枚数に等しい追加ダメージを与える。{IfUpgraded:show:\n最後に、最初の{Repeat}回の合計ダメージの30%（強化なし）を追加で与える。}",
   "MANOSABA-TREE_BRANCH.title": "木の枝",
-  "MANOSABA-TREE_BRANCH.description": "このターン[gold]筋力[/gold]を2失う。\nこのターン[gold]二刀流[/gold]を得る。",
+  "MANOSABA-TREE_BRANCH.description": "このターン[gold]二刀流[/gold]を得る。",
   "MANOSABA-SMART_SPEAR.title": "スマートランス",
   "MANOSABA-SMART_SPEAR.description": "[gold]簡易ランス[/gold]の[gold]パーツ[/gold]を1枚引いたとき、[gold]山札[/gold]から[gold]簡易ランス[/gold]の[gold]パーツ[/gold]を1枚手札に加える。現在の手札にないパーツを優先する。",
   "MANOSABA-SMOOTH_MOVE.title": "華麗剣技",

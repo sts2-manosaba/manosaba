@@ -1,6 +1,5 @@
 using BaseLib.Utils;
 using manosaba.Characters.HasumiLeia;
-using Manosaba.Characters.Common.Powers;
 using Manosaba.Characters.HasumiLeia.Powers;
 using Manosaba.Extensions;
 using MegaCrit.Sts2.Core.Commands;
@@ -23,13 +22,12 @@ public sealed class TreeBranch : PathCustomCardModel
 
     protected override IEnumerable<IHoverTip> ExtraHoverTips =>
     [
-        HoverTipFactory.FromPower<StrengthPower>(),
         HoverTipFactory.FromPower<SecondSwordPower>(),
     ];
 
     protected override IEnumerable<DynamicVar> CanonicalVars => [];
 
-    public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
+    public override IEnumerable<CardKeyword> CanonicalKeywords =>  [CardKeyword.Exhaust];
 
     public TreeBranch()
         : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)
@@ -46,12 +44,11 @@ public sealed class TreeBranch : PathCustomCardModel
             return;
         }
 
-        decimal strengthLoss = IsUpgraded ? 1m : 2m;
-        await PowerCmd.Apply<TemporaryStrengthDownPower>(ownerCreature, strengthLoss, ownerCreature, this);
         await PowerCmd.Apply<TreeBranchSecondSwordPower>(ownerCreature, 1m, ownerCreature, this);
     }
 
     protected override void OnUpgrade()
     {
+        RemoveKeyword(CardKeyword.Exhaust);
     }
 }
