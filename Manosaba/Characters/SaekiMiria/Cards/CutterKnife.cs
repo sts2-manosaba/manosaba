@@ -10,6 +10,7 @@ using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.Powers;
 using MegaCrit.Sts2.Core.ValueProps;
+using Manosaba.Characters.Common.Powers;
 
 namespace Manosaba.Characters.SaekiMiria.Cards;
 
@@ -22,14 +23,14 @@ public sealed class CutterKnife : PathCustomCardModel
     private const TargetType targetType = TargetType.AnyEnemy;
     private const bool shouldShowInCardLibrary = true;
 
-    protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<RegenPower>()];
+    protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<HealingPower>()];
 
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
         new CalculationBaseVar(6m),
         new ExtraDamageVar(1m),
         new CalculatedDamageVar(ValueProp.Move).WithMultiplier(static (CardModel card, Creature? _) =>
-            card.Owner.Creature.GetPower<RegenPower>()?.Amount ?? 0m),
+            card.Owner.Creature.GetPower<HealingPower>()?.Amount ?? 0m),
     ];
 
     public CutterKnife()

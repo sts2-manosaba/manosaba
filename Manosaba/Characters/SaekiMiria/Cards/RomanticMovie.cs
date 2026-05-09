@@ -1,4 +1,5 @@
 using BaseLib.Extensions;
+using Manosaba.Characters.Common.Powers;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Creatures;
@@ -11,14 +12,14 @@ namespace Manosaba.Characters.SaekiMiria.Cards;
 
 public sealed class RomanticMovie : MovieBase
 {
-    protected override IEnumerable<IHoverTip> MovieHoverTips => [HoverTipFactory.FromPower<RegenPower>()];
-    protected override IEnumerable<DynamicVar> MovieVars => [new PowerVar<RegenPower>(1m)];
+    protected override IEnumerable<IHoverTip> MovieHoverTips => [HoverTipFactory.FromPower<HealingPower>()];
+    protected override IEnumerable<DynamicVar> MovieVars => [new PowerVar<HealingPower>(1m)];
 
     protected override Task OnMovieEffect(PlayerChoiceContext choiceContext, CardPlay cardPlay) =>
-        PowerCmd.Apply<RegenPower>(Owner.Creature, DynamicVars["RegenPower"].BaseValue, Owner.Creature, this);
+        PowerCmd.Apply<HealingPower>(Owner.Creature, DynamicVars["HealingPower"].BaseValue, Owner.Creature, this);
 
     protected override void OnUpgrade()
     {
-        DynamicVars["RegenPower"].UpgradeValueBy(1m);
+        DynamicVars["HealingPower"].UpgradeValueBy(1m);
     }
 }

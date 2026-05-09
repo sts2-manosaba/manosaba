@@ -1,5 +1,6 @@
 using BaseLib.Utils;
 using manosaba.Characters.SaekiMiria;
+using Manosaba.Characters.Common.Powers;
 using Manosaba.Characters.SaekiMiria.Powers;
 using Manosaba.Extensions;
 using MegaCrit.Sts2.Core.Commands;
@@ -20,7 +21,7 @@ public sealed class Slimification : PathCustomCardModel
     private const TargetType targetType = TargetType.Self;
     private const bool shouldShowInCardLibrary = true;
 
-    protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<RegenPower>()];
+    protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<HealingPower>()];
 
     protected override IEnumerable<DynamicVar> CanonicalVars => [new PowerVar<SlimificationPower>(1m)];
 

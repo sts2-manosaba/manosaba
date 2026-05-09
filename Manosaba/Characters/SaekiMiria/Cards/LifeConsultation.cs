@@ -1,6 +1,7 @@
 using BaseLib.Utils;
 using manosaba.Characters.SaekiMiria;
 using Manosaba.Extensions;
+using Manosaba.Characters.Common.Powers;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Powers;
@@ -24,7 +25,7 @@ public sealed class LifeConsultation : PathCustomCardModel
 
     public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
 
-    protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<RegenPower>()];
+    protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<HealingPower>()];
 
     public LifeConsultation()
         : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)
@@ -38,16 +39,16 @@ public sealed class LifeConsultation : PathCustomCardModel
             return;
         }
 
-        decimal ownerRegen = ownerCreature.GetPowerAmount<RegenPower>();
-        decimal targetRegen = target.GetPowerAmount<RegenPower>();
-        decimal toApply = ownerRegen - targetRegen;
+        decimal ownerHealing = ownerCreature.GetPowerAmount<HealingPower>();
+        decimal targetHealing = target.GetPowerAmount<HealingPower>();
+        decimal toApply = ownerHealing - targetHealing;
 
         if (toApply <= 0m)
         {
             return;
         }
 
-        await PowerCmd.Apply<RegenPower>(target, toApply, ownerCreature, this);
+        await PowerCmd.Apply<HealingPower>(target, toApply, ownerCreature, this);
     }
 
     protected override void OnUpgrade()

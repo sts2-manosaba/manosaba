@@ -1,4 +1,5 @@
 using Manosaba.Extensions;
+using Manosaba.Characters.Common.Powers;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Entities.Powers;
@@ -21,7 +22,7 @@ public sealed class SlimificationPower : PathCustomPowerModel
     public override bool AllowNegative => false;
     public override int DisplayAmount => Amount;
 
-    protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<RegenPower>()];
+    protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<HealingPower>()];
     protected override IEnumerable<DynamicVar> CanonicalVars => [new DynamicVar(RegenGainVar, 1m)];
 
     public override Task AfterApplied(Creature? applier, CardModel? cardSource)
@@ -61,7 +62,7 @@ public sealed class SlimificationPower : PathCustomPowerModel
             return;
 
         _pendingHpLossTriggers--;
-        await PowerCmd.Apply<RegenPower>(Owner, Amount, Owner, cardSource);
+        await PowerCmd.Apply<HealingPower>(Owner, Amount, Owner, cardSource);
     }
 
     public override decimal ModifyHpLostBeforeOsty(

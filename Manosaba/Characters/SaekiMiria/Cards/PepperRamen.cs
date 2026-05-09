@@ -1,6 +1,7 @@
 using BaseLib.Utils;
 using manosaba.Characters.SaekiMiria;
 using Manosaba.Extensions;
+using Manosaba.Characters.Common.Powers;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
@@ -21,14 +22,14 @@ public sealed class PepperRamen : PathCustomCardModel
 
     protected override IEnumerable<IHoverTip> ExtraHoverTips =>
     [
-        HoverTipFactory.FromPower<RegenPower>(),
+        HoverTipFactory.FromPower<HealingPower>(),
         HoverTipFactory.FromPower<PoisonPower>(),
     ];
 
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
-        new PowerVar<RegenPower>(3m),
-        new PowerVar<PoisonPower>(1m),
+        new PowerVar<HealingPower>(5m),
+        new PowerVar<PoisonPower>(3m),
     ];
 
     public PepperRamen()
@@ -41,13 +42,13 @@ public sealed class PepperRamen : PathCustomCardModel
         _ = choiceContext;
         _ = cardPlay;
 
-        await PowerCmd.Apply<RegenPower>(Owner.Creature, DynamicVars["RegenPower"].BaseValue, Owner.Creature, this);
+        await PowerCmd.Apply<HealingPower>(Owner.Creature, DynamicVars["HealingPower"].BaseValue, Owner.Creature, this);
         await PowerCmd.Apply<PoisonPower>(Owner.Creature, DynamicVars.Poison.BaseValue, Owner.Creature, this);
     }
 
     protected override void OnUpgrade()
     {
-        DynamicVars["RegenPower"].UpgradeValueBy(2m);
+        DynamicVars["HealingPower"].UpgradeValueBy(5m);
         DynamicVars["PoisonPower"].UpgradeValueBy(2m);
     }
 }
