@@ -26,7 +26,7 @@
   "MANOSABA-MUSOU_KEN.title": "無想劍",
   "MANOSABA-MUSOU_KEN.description": "只能在[gold]上段架式[/gold]時打出。結束你的回合。獲得 {MusouKenPower:diff()} 層[gold]無想劍[/gold]。",
   "MANOSABA-PERJURY.title": "偽證",
-  "MANOSABA-PERJURY.description": "消耗 {SusPower:diff()} 層[gold]嫌疑[/gold]。\n獲得 {StrengthPower:diff()} 層[gold]力量[/gold]。",
+  "MANOSABA-PERJURY.description": "最多消耗 {SusPower:diff()} 層[gold]嫌疑[/gold]。\n獲得等同於消耗數量的[gold]力量[/gold]。",
   "MANOSABA-RONPA_NIKAIDO_HIRO.title": "論破",
   "MANOSABA-RONPA_NIKAIDO_HIRO.description": "造成 {CalculatedDamage:diff()} 點傷害，若有[gold]嫌疑[/gold]則消耗當前一半的[gold]嫌疑[/gold]，每消耗 1 層額外造成 {ExtraDamage:diff()} 點傷害。",
   "MANOSABA-SEVERING_SPIN.title": "總卷",

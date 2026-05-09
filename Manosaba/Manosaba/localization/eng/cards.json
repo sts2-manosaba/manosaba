@@ -26,7 +26,7 @@
   "MANOSABA-MUSOU_KEN.title": "Musou Ken",
   "MANOSABA-MUSOU_KEN.description": "Can only be played while in [gold]High Stance[/gold]. End your turn. Gain {MusouKenPower:diff()} [gold]Musou Ken[/gold].",
   "MANOSABA-PERJURY.title": "Perjury",
-  "MANOSABA-PERJURY.description": "Consume {SusPower:diff()} [gold]Suspicion[/gold].\nGain {StrengthPower:diff()} [gold]Strength[/gold].",
+  "MANOSABA-PERJURY.description": "Consume up to {SusPower:diff()} [gold]Suspicion[/gold].\nGain that much [gold]Strength[/gold].",
   "MANOSABA-RONPA_NIKAIDO_HIRO.title": "Rebuttal",
   "MANOSABA-RONPA_NIKAIDO_HIRO.description": "Deal {CalculatedDamage:diff()} damage. If you have [gold]Suspicion[/gold], spend half of your current [gold]Suspicion[/gold] to deal an extra {ExtraDamage:diff()} damage for each stack spent.",
   "MANOSABA-SEVERING_SPIN.title": "Severing Spin",

@@ -20,7 +20,7 @@ namespace Manosaba.Characters.NikaidoHiro.Cards
         private const TargetType targetType = TargetType.Self;
         private const bool shouldShowInCardLibrary = true;
 
-        protected override IEnumerable<DynamicVar> CanonicalVars => [new PowerVar<SusPower>(2), new PowerVar<StrengthPower>(2)];
+        protected override IEnumerable<DynamicVar> CanonicalVars => [new PowerVar<SusPower>(2)];
         protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<SusPower>(), HoverTipFactory.FromPower<StrengthPower>()];
         public Perjury() : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)
         {
@@ -28,14 +28,19 @@ namespace Manosaba.Characters.NikaidoHiro.Cards
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
-            await PowerCmd.Apply<SusPower>(base.Owner.Creature, -DynamicVars["SusPower"].BaseValue, base.Owner.Creature, this);
-            await PowerCmd.Apply<StrengthPower>(base.Owner.Creature, DynamicVars["StrengthPower"].BaseValue, base.Owner.Creature, this);
+            decimal suspicionToConsume = Math.Min(base.Owner.Creature.GetPowerAmount<SusPower>(), DynamicVars["SusPower"].BaseValue);
+            if (suspicionToConsume <= 0m)
+            {
+                return;
+            }
+
+            await PowerCmd.Apply<SusPower>(base.Owner.Creature, -suspicionToConsume, base.Owner.Creature, this);
+            await PowerCmd.Apply<StrengthPower>(base.Owner.Creature, suspicionToConsume, base.Owner.Creature, this);
         }
 
         protected override void OnUpgrade()
         {
             DynamicVars["SusPower"].UpgradeValueBy(1);
-            DynamicVars["StrengthPower"].UpgradeValueBy(1);
         }
     }
 }

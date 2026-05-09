@@ -26,7 +26,7 @@
   "MANOSABA-MUSOU_KEN.title": "무상검",
   "MANOSABA-MUSOU_KEN.description": "[gold]상단 자세[/gold]에서만 사용할 수 있습니다. 턴을 종료합니다. [gold]무상검[/gold]을 {MusouKenPower:diff()} 얻습니다.",
   "MANOSABA-PERJURY.title": "위증",
-  "MANOSABA-PERJURY.description": "[gold]의심[/gold]을 {SusPower:diff()} 소모합니다.\n[gold]힘[/gold]을 {StrengthPower:diff()} 얻습니다.",
+  "MANOSABA-PERJURY.description": "[gold]의심[/gold]을 최대 {SusPower:diff()} 소모합니다.\n소모한 만큼 [gold]힘[/gold]을 얻습니다.",
   "MANOSABA-RONPA_NIKAIDO_HIRO.title": "논파",
   "MANOSABA-RONPA_NIKAIDO_HIRO.description": "피해를 {CalculatedDamage:diff()} 줍니다. [gold]의심[/gold]이 있으면 현재 [gold]의심[/gold]의 절반을 소모하고, 소모한 1중첩마다 피해를 {ExtraDamage:diff()} 추가로 줍니다.",
   "MANOSABA-SEVERING_SPIN.title": "총권",

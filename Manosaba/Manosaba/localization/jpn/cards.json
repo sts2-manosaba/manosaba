@@ -26,7 +26,7 @@
   "MANOSABA-MUSOU_KEN.title": "無想剣",
   "MANOSABA-MUSOU_KEN.description": "[gold]上段の構え[/gold]中のみプレイ可能。ターンを終了する。{MusouKenPower:diff()}層の[gold]無想剣[/gold]を得る。",
   "MANOSABA-PERJURY.title": "偽証",
-  "MANOSABA-PERJURY.description": "{SusPower:diff()}層の[gold]嫌疑[/gold]を消費する。\n{StrengthPower:diff()}層の[gold]筋力[/gold]を得る。",
+  "MANOSABA-PERJURY.description": "最大{SusPower:diff()}層の[gold]嫌疑[/gold]を消費する。\n消費した数だけ[gold]筋力[/gold]を得る。",
   "MANOSABA-RONPA_NIKAIDO_HIRO.title": "論破",
   "MANOSABA-RONPA_NIKAIDO_HIRO.description": "{CalculatedDamage:diff()}ダメージを与える。 [gold]嫌疑[/gold]がある場合、現在の[gold]嫌疑[/gold]の半分を消費し、消費した1層ごとに追加で{ExtraDamage:diff()}ダメージを与える。",
   "MANOSABA-SEVERING_SPIN.title": "惣捲",
