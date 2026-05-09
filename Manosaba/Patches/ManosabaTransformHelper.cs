@@ -1,17 +1,124 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using HarmonyLib;
+using Manosaba.Characters.Common;
 using Manosaba.Characters.Common.Overrides;
 using Manosaba.Characters.HoshoMago.Cards;
 using manosaba.Characters.Common;
 using manosaba.Characters.HoshoMago;
 using MegaCrit.Sts2.Core.Entities.Cards;
+using MegaCrit.Sts2.Core.Entities.Players;
+using MegaCrit.Sts2.Core.Factories;
+using MegaCrit.Sts2.Core.Logging;
 using MegaCrit.Sts2.Core.Models;
+using MegaCrit.Sts2.Core.Random;
 
 namespace Manosaba.Patches;
 
 internal static class ManosabaTransformHelper
 {
+    /// <summary>
+    /// Prefix body for <see cref="CardFactory.CreateRandomCardForTransform"/> overload that takes an explicit card pool (all characters).
+    /// </summary>
+    internal static void PrefixCustomPoolTransformOptions(CardModel original, bool isInCombat, ref IEnumerable<CardModel> options)
+    {
+        if (original.Owner is not Player player)
+        {
+            return;
+        }
+
+        CardModel[] arr = options.ToArray();
+        if (arr.Length == 0)
+        {
+            return;
+        }
+
+        CardModel[] after = FilterUniqueAlreadyInDeck(player, arr);
+        if (after.Length != arr.Length)
+        {
+            Log.Debug(
+                $"[Manosaba Transform] CustomPool_UniqueDeckFilter original={original.Id.Entry} inCombat={isInCombat} beforeCount={arr.Length} afterCount={after.Length} playerNetId={player.NetId}");
+        }
+
+        options = after;
+    }
+
+    /// <summary>
+    /// Removes Unique templates already in the player's deck. If that would empty the pool, returns <paramref name="candidates"/> unchanged.
+    /// </summary>
+    internal static CardModel[] FilterUniqueAlreadyInDeck(Player player, CardModel[] candidates)
+    {
+        CardModel[] filtered = candidates
+            .Where(c => !ManosabaUniqueCardEligibility.IsBlockedForPlayerOffer(player, c))
+            .ToArray();
+
+        if (filtered.Length == 0 && candidates.Length > 0)
+        {
+            Log.Debug($"[Manosaba Transform] FilterUniqueAlreadyInDeck fallback: all {candidates.Length} candidates blocked for player {player.NetId}; restoring unfiltered pool (may allow duplicate Unique).");
+        }
+
+        return filtered.Length > 0 ? filtered : candidates;
+    }
+
+    /// <summary>
+    /// True when transform uses the Manosaba merged pool (character unlocks + <see cref="CommonCardPool"/>) and should apply Unique-in-deck filtering.
+    /// Hosho tarot path and Manosaba mod tokens are excluded here (handled earlier).
+    /// Only <see cref="CardType.Attack"/> / <see cref="CardType.Skill"/> / <see cref="CardType.Power"/> use the merged path so curse/status/quest keep vanilla pools (see <c>MiriaPuppet.IsEligibleSourceTypeForPuppetTransform</c>).
+    /// </summary>
+    internal static bool ShouldApplyCommonPathUniqueDeckFilter(CardModel original)
+    {
+        return GetCommonPathUniqueDeckFilterSkipReason(original) == null;
+    }
+
+    /// <summary>
+    /// When non-null, <see cref="ShouldApplyCommonPathUniqueDeckFilter"/> is false for this reason (Owner must still be checked separately in the patch).
+    /// </summary>
+    internal static string? GetCommonPathUniqueDeckFilterSkipReason(CardModel original)
+    {
+        if (original.Owner?.Character?.CardPool == null || original.RunState == null)
+        {
+            return "Owner.Character.CardPool or RunState null";
+        }
+
+        if (original.Pool is HoshoMagoCardPool)
+        {
+            return "original.Pool is HoshoMagoCardPool";
+        }
+
+        if (IsManosabaModToken(original))
+        {
+            return "IsManosabaModToken";
+        }
+
+        if (original.Type != CardType.Attack && original.Type != CardType.Skill && original.Type != CardType.Power)
+        {
+            return "original.Type not Attack/Skill/Power";
+        }
+
+        if (!ModelDb.CardPool<CommonCardPool>().AllCardIds.Contains(original.Id))
+        {
+            if (original.Owner is not Player p || !ManosabaPlayerHelper.IsManosabaPlayer(p))
+            {
+                return "original.Id not in CommonCardPool.AllCardIds";
+            }
+        }
+
+        return null;
+    }
+
+    internal static void LogTransformCandidatePool(string phase, CardModel original, bool isInCombat, IEnumerable<CardModel> pool, Player? player)
+    {
+        CardModel[] arr = pool as CardModel[] ?? pool.ToArray();
+        string ids = string.Join(',', arr.Select(c => c.Id.Entry));
+        IEnumerable<string> uniqueInfos = arr
+            .Where(ManosabaUniqueCardEligibility.IsUniqueTemplate)
+            .Select(c =>
+                $"{c.Id.Entry}:blocked={(player != null && ManosabaUniqueCardEligibility.IsBlockedForPlayerOffer(player, c))}");
+        string uniquePart = uniqueInfos.Any() ? $" manosabaUnique=[{string.Join(';', uniqueInfos)}]" : string.Empty;
+        Log.Debug($"[Manosaba Transform] {phase} original={original.Id.Entry} inCombat={isInCombat} count={arr.Length} playerNetId={player?.NetId}{uniquePart} ids=[{ids}]");
+    }
+
     public static bool TryGetTransformOptions(CardModel original, bool isInCombat, out IEnumerable<CardModel> options)
     {
         options = Enumerable.Empty<CardModel>();
@@ -50,9 +157,21 @@ internal static class ManosabaTransformHelper
             return true;
         }
 
-        if (!commonPool.AllCardIds.Contains(original.Id))
+        // MiriaPuppet / vanilla: curse, status, quest, etc. must use vanilla transform (e.g. TransformToRandom), not merged character+common.
+        if (original.Type != CardType.Attack && original.Type != CardType.Skill && original.Type != CardType.Power)
         {
             return false;
+        }
+
+        // Historically gated on CommonCardPool.AllCardIds so only [Pool(CommonCardPool)] sources used the merged path.
+        // Character-only ids (e.g. Nikaido Hiro) were excluded and fell through to vanilla — skipping Unique-in-deck filtering.
+        // Manosaba players still use the same merged source (GetSourcePoolForCommonCard); Hosho and mod tokens return above.
+        if (!commonPool.AllCardIds.Contains(original.Id))
+        {
+            if (original.Owner is not Player p || !ManosabaPlayerHelper.IsManosabaPlayer(p))
+            {
+                return false;
+            }
         }
 
         IEnumerable<CardModel> source = GetSourcePoolForCommonCard(original, commonPool);
@@ -63,6 +182,7 @@ internal static class ManosabaTransformHelper
         }
 
         options = candidates;
+        LogTransformCandidatePool("TryGet_CommonPath_candidates", original, isInCombat, candidates, original.Owner as Player);
         return true;
     }
 
@@ -79,6 +199,11 @@ internal static class ManosabaTransformHelper
         if (filtered.Length == 0)
         {
             return false;
+        }
+
+        if (original.Owner is Player player)
+        {
+            filtered = FilterUniqueAlreadyInDeck(player, filtered);
         }
 
         CardModel? selected = rng.NextItem(filtered);
@@ -176,5 +301,31 @@ internal static class ManosabaTransformHelper
                 : card.MultiplayerConstraint != CardMultiplayerConstraint.MultiplayerOnly);
 
         return query.ToArray();
+    }
+
+    /// <summary>
+    /// Harmony entry for <see cref="CardFactory.CreateRandomCardForTransform"/> with explicit pool; nested here so it shares the same compilation context as transform helpers.
+    /// </summary>
+    [HarmonyPatch]
+    public static class CardFactoryCustomPoolTransformUniquePatch
+    {
+        [HarmonyTargetMethods]
+        private static IEnumerable<MethodBase> TargetMethods()
+        {
+            MethodInfo? m = AccessTools.Method(
+                typeof(CardFactory),
+                nameof(CardFactory.CreateRandomCardForTransform),
+                [typeof(CardModel), typeof(IEnumerable<CardModel>), typeof(bool), typeof(Rng)]);
+            if (m != null)
+            {
+                yield return m;
+            }
+        }
+
+        [HarmonyPrefix]
+        private static void Prefix(CardModel original, ref IEnumerable<CardModel> options, bool isInCombat, Rng rng)
+        {
+            PrefixCustomPoolTransformOptions(original, isInCombat, ref options);
+        }
     }
 }

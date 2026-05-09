@@ -1,5 +1,7 @@
+using System.Collections.Generic;
 using HarmonyLib;
 using manosaba.Characters.HoshoMago;
+using Manosaba.Characters.Common;
 using Manosaba.Characters.Common.Overrides;
 using Manosaba.Characters.HoshoMago.Cards;
 using MegaCrit.Sts2.Core.Entities.Cards;
@@ -174,14 +176,7 @@ public static class Patch_Hosho_Mago_Card_Factory
             return true;
         }
 
-        IEnumerable<CardModel> powerPool = creationOptions.GetPossibleCards(player)
-            .Where(c => c.Type == CardType.Power && options.TrueForAll(o => o.Card.CanonicalInstance.Id != c.Id));
-        if (!powerPool.Any())
-        {
-            powerPool = creationOptions.GetPossibleCards(player).Where(c => c.Type == CardType.Power);
-        }
-
-        List<CardModel> powerCards = powerPool.ToList();
+        List<CardModel> powerCards = BuildMagoLastingCandyPowerPool(player, creationOptions, options);
         if (powerCards.Count == 0)
         {
             result = false;
@@ -248,7 +243,15 @@ public static class Patch_Hosho_Mago_Card_Factory
 
         List<CardModel> available = tarotPool
             .Where(card => !existingTarotIds.Contains(card.Id))
+            .Where(card => !ManosabaUniqueCardEligibility.IsBlockedForPlayerOffer(player, card))
             .ToList();
+        if (available.Count == 0)
+        {
+            available = tarotPool
+                .Where(card => !existingTarotIds.Contains(card.Id))
+                .ToList();
+        }
+
         if (available.Count == 0)
         {
             available = tarotPool;
@@ -262,6 +265,41 @@ public static class Patch_Hosho_Mago_Card_Factory
 
         CardModel replacement = player.RunState.CreateCard(canonical, player);
         candyResult.ModifyCard(replacement, lastingCandy);
+    }
+
+    private static List<CardModel> BuildMagoLastingCandyPowerPool(Player player, CardCreationOptions creationOptions, List<CardCreationResult> rewardOptions)
+    {
+        bool NotAlreadyInRewards(CardModel c) =>
+            rewardOptions.TrueForAll(o => o.Card.CanonicalInstance.Id != c.Id);
+
+        IEnumerable<CardModel> tier1Base() =>
+            creationOptions.GetPossibleCards(player).Where(c => c.Type == CardType.Power && NotAlreadyInRewards(c));
+
+        IEnumerable<CardModel> tier2Base() =>
+            creationOptions.GetPossibleCards(player).Where(c => c.Type == CardType.Power);
+
+        List<CardModel> withUnique(IEnumerable<CardModel> source) =>
+            source.Where(c => !ManosabaUniqueCardEligibility.IsBlockedForPlayerOffer(player, c)).ToList();
+
+        List<CardModel> list = withUnique(tier1Base());
+        if (list.Count > 0)
+        {
+            return list;
+        }
+
+        list = tier1Base().ToList();
+        if (list.Count > 0)
+        {
+            return list;
+        }
+
+        list = withUnique(tier2Base());
+        if (list.Count > 0)
+        {
+            return list;
+        }
+
+        return tier2Base().ToList();
     }
 
     private static bool TryGetPoolCards(object poolArg, Player player, out List<CardModel>? cards)

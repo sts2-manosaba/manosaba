@@ -25,7 +25,7 @@ public static class Patch_SealedDeck_ManosabaRewardCount
     [HarmonyPrefix]
     private static bool Prefix(EventModel eventModel, ref Func<Task> __result)
     {
-        if (eventModel.Owner is not Player player || !IsManosabaPlayer(player))
+        if (eventModel.Owner is not Player player || !ManosabaPlayerHelper.IsManosabaPlayer(player))
         {
             return true;
         }
@@ -153,12 +153,6 @@ public static class Patch_SealedDeck_ManosabaRewardCount
     private static bool IsRewardRarity(CardModel card)
     {
         return card.Rarity is CardRarity.Common or CardRarity.Uncommon or CardRarity.Rare;
-    }
-
-    private static bool IsManosabaPlayer(Player player)
-    {
-        string? poolNamespace = player.Character?.CardPool.GetType().Namespace;
-        return poolNamespace != null && poolNamespace.StartsWith("manosaba.", StringComparison.OrdinalIgnoreCase);
     }
 
     private static int CompareCards(CardModel card1, CardModel card2)
