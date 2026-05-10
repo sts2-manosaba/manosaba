@@ -22,5 +22,7 @@
   "MANOSABA-SWORD_TECHNIQUE.title": "검술",
   "MANOSABA-SWORD_TECHNIQUE.description": "검의 기술입니다.",
   "MANOSABA-TWO_SWORDS.title": "이도류",
-  "MANOSABA-TWO_SWORDS.description": "사용하려면 [gold]이도류[/gold]가 필요합니다."
+  "MANOSABA-TWO_SWORDS.description": "사용하려면 [gold]이도류[/gold]가 필요합니다.",
+  "MANOSABA-SEKKETSUSOUJITSU.title": "적혈조술",
+  "MANOSABA-SEKKETSUSOUJITSU.description": "이 유형의 공격 카드는 [gold]혈구[/gold] 1개를 발현하고 그 혈구 층수만큼 피해가 증가합니다."
 }

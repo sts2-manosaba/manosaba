@@ -22,5 +22,8 @@
   "BLACK_PAINT_ORB.smartDescription": "[gold]지속:[/gold] 턴 시작 시, [gold]마녀화[/gold]를 [blue]{Passive}[/blue] 얻습니다.\n[gold]발현:[/gold] 자신과 무작위 아군 1명에게 [gold]마녀화[/gold]를 [blue]{Evoke}[/blue] 부여합니다.",
   "WHITE_PAINT_ORB.title": "흰색 물감 구슬",
   "WHITE_PAINT_ORB.description": "물감 구슬: 자신과 무작위 아군이 카드를 뽑습니다.",
-  "WHITE_PAINT_ORB.smartDescription": "[gold]지속:[/gold] 턴 시작 시, 카드를 [blue]{Passive}[/blue]장 뽑습니다.\n[gold]발현:[/gold] 자신과 무작위 아군 1명이 카드를 [blue]{Evoke}[/blue]장 뽑습니다."
+  "WHITE_PAINT_ORB.smartDescription": "[gold]지속:[/gold] 턴 시작 시, 카드를 [blue]{Passive}[/blue]장 뽑습니다.\n[gold]발현:[/gold] 자신과 무작위 아군 1명이 카드를 [blue]{Evoke}[/blue]장 뽑습니다.",
+  "BLOOD_ORB.title": "혈구",
+  "BLOOD_ORB.description": "혈구: 턴 종료 시 층수가 증가하고, 발현 시 체력을 회복합니다.",
+  "BLOOD_ORB.smartDescription": "[gold]지속:[/gold] 턴 종료 시 이 혈구의 층수가 1 증가합니다.\n[gold]발현:[/gold] 체력을 [blue]{Evoke}[/blue] 회복합니다."
 }

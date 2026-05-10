@@ -54,10 +54,13 @@ namespace manosaba.Characters.JogasakiNoah.Relics
                 _ => 1
             };
             bool hasZumaPower = base.Owner.Creature.HasPower<ZumaPower>();
+            bool hasSekirinyakudouPower = base.Owner.Creature.HasPower<SekirinyakudouPower>();
 
             for (int i = 0; i < randomOrbsToChannel; i++)
             {
-                OrbModel randomOrb = RollRandomPaintOrb(hasZumaPower);
+                OrbModel randomOrb = hasSekirinyakudouPower
+                    ? ModelDb.Orb<BloodOrb>()
+                    : RollRandomPaintOrb(hasZumaPower);
                 await OrbCmd.Channel(choiceContext, randomOrb.ToMutable(), base.Owner);
             }
         }

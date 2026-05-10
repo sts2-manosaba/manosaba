@@ -22,5 +22,7 @@
   "MANOSABA-SWORD_TECHNIQUE.title": "Sword Technique",
   "MANOSABA-SWORD_TECHNIQUE.description": "A blade technique.",
   "MANOSABA-TWO_SWORDS.title": "Two Swords",
-  "MANOSABA-TWO_SWORDS.description": "Requires [gold]Two Swords[/gold] to play."
+  "MANOSABA-TWO_SWORDS.description": "Requires [gold]Two Swords[/gold] to play.",
+  "MANOSABA-SEKKETSUSOUJITSU.title": "Blood Manipulation",
+  "MANOSABA-SEKKETSUSOUJITSU.description": "Attack cards of this type evoke 1 [gold]Blood Orb[/gold] and gain damage equal to that orb's layers."
 }

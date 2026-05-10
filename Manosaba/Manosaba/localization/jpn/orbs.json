@@ -22,5 +22,8 @@
   "BLACK_PAINT_ORB.smartDescription": "[gold]パッシブ：[/gold]ターン開始時、[blue]{Passive}[/blue]層の[gold]魔女化[/gold]を得る。\n[gold]発動：[/gold]自分とランダムな味方1人に[blue]{Evoke}[/blue]層の[gold]魔女化[/gold]を与える。",
   "WHITE_PAINT_ORB.title": "白色ペイントボール",
   "WHITE_PAINT_ORB.description": "ペイントボール：自分とランダムな味方にドローを与える。",
-  "WHITE_PAINT_ORB.smartDescription": "[gold]パッシブ：[/gold]ターン開始時、[blue]{Passive}[/blue]枚ドローする。\n[gold]発動：[/gold]自分とランダムな味方1人が[blue]{Evoke}[/blue]枚ドローする。"
+  "WHITE_PAINT_ORB.smartDescription": "[gold]パッシブ：[/gold]ターン開始時、[blue]{Passive}[/blue]枚ドローする。\n[gold]発動：[/gold]自分とランダムな味方1人が[blue]{Evoke}[/blue]枚ドローする。",
+  "BLOOD_ORB.title": "血球",
+  "BLOOD_ORB.description": "血球：ターン終了時に層数が増え、発動時にHPを回復する。",
+  "BLOOD_ORB.smartDescription": "[gold]パッシブ：[/gold]ターン終了時、この血球の層数+1。\n[gold]発動：[/gold][blue]{Evoke}[/blue]HPを回復する。"
 }

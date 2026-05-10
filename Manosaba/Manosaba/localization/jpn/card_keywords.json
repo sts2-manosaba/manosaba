@@ -22,5 +22,7 @@
   "MANOSABA-SWORD_TECHNIQUE.title": "剣技",
   "MANOSABA-SWORD_TECHNIQUE.description": "剣の技。",
   "MANOSABA-TWO_SWORDS.title": "二刀流",
-  "MANOSABA-TWO_SWORDS.description": "使用するには[gold]二刀流[/gold]が必要。"
+  "MANOSABA-TWO_SWORDS.description": "使用するには[gold]二刀流[/gold]が必要。",
+  "MANOSABA-SEKKETSUSOUJITSU.title": "赤血操術",
+  "MANOSABA-SEKKETSUSOUJITSU.description": "この種類のアタックを使用すると[gold]血球[/gold]を1個発動し、その血球の層数に応じてダメージを増加させる。"
 }

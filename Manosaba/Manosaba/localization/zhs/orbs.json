@@ -22,5 +22,8 @@
   "BLACK_PAINT_ORB.smartDescription": "[gold]被動：[/gold]回合開始時，獲得 [blue]{Passive}[/blue] 層 [gold]魔女化[/gold]。\n[gold]激發：[/gold]給自己與隨機一位隊友 [blue]{Evoke}[/blue] 層 [gold]魔女化[/gold]。",
   "WHITE_PAINT_ORB.title": "白色顏料球",
   "WHITE_PAINT_ORB.description": "顏料球：讓自己與隨機隊友抽牌。",
-  "WHITE_PAINT_ORB.smartDescription": "[gold]被動：[/gold]回合開始時，抽 [blue]{Passive}[/blue] 張牌。\n[gold]激發：[/gold]自己與隨機一位隊友抽 [blue]{Evoke}[/blue] 張牌。"
+  "WHITE_PAINT_ORB.smartDescription": "[gold]被動：[/gold]回合開始時，抽 [blue]{Passive}[/blue] 張牌。\n[gold]激發：[/gold]自己與隨機一位隊友抽 [blue]{Evoke}[/blue] 張牌。",
+  "BLOOD_ORB.title": "血球",
+  "BLOOD_ORB.description": "血球：回合結束時層數增加，激發時回復生命。",
+  "BLOOD_ORB.smartDescription": "[gold]被動：[/gold]回合結束時，此血球層數 +1。\n[gold]激發：[/gold]回復 [blue]{Evoke}[/blue] 點生命。"
 }

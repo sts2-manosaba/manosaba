@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://b0uyj6s35wm3x"]
+
+[ext_resource type="Texture2D" uid="uid://cp5t3qbsx30fr" path="res://Manosaba/images/orbs/blood_orb.png" id="1_7f7xc"]
+
+[node name="BluePaintOrb" type="Node2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_7f7xc")

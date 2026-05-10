@@ -57,6 +57,10 @@ namespace Manosaba.Characters.Common.Overrides
         [KeywordProperties(AutoKeywordPosition.Before)]
         public static CardKeyword TwoSwords;
 
+        [CustomEnum("sekketsusoujitsu")]
+        [KeywordProperties(AutoKeywordPosition.Before)]
+        public static CardKeyword Sekketsusoujitsu;
+
         public readonly record struct StanceBonus(decimal BonusDamage, decimal BonusBlock);
 
         public static async Task<StanceBonus> ResolveHighStance(Creature owner, Creature? applier, CardModel? source)
