@@ -52,6 +52,8 @@ Rules:
 - Prefer `DynamicVars` for tunable values.
 - In `powers.json`, variables belong only in `smartDescription`, not `description`.
 - In `cards.json`, dynamic card variables such as `{...:diff()}` are allowed and preferred when values are tunable.
+- For non-English localization, do not manually invent translations for existing card/power names.
+- Reuse the exact localized name from the existing corresponding `*.title` entry when referencing card/power names in descriptions.
 
 ## Cards & Powers
 

@@ -2,6 +2,7 @@
 using Manosaba.Characters.Common.Cards;
 using Manosaba.Characters.Common.Overrides;
 using Manosaba.Characters.Common.Powers;
+using Manosaba.Characters.HasumiLeia.Cards;
 using Manosaba.Characters.HasumiLeia.Powers;
 using Manosaba.Characters.JogasakiNoah.Powers;
 using Manosaba.Characters.KurobeNanoka.Cards;
@@ -23,7 +24,8 @@ namespace Manosaba.Characters.SaekiMiria.Helper
         public static HashSet<Type> IgnoredCards = new()
             {
                 typeof(Exchange),
-                typeof(EmaDogAttack)
+                typeof(EmaDogAttack),
+                typeof(PrisonForTwo)
             };
 
         public static HashSet<Type> IgnoredCardBaseTypes = new()

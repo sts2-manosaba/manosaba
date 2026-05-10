@@ -439,6 +439,8 @@
   "MANOSABA-TOUR_LIVE.description": "戰鬥結束時，獲得 {Gold:diff()} [gold]金幣[/gold]。",
   "MANOSABA-DUO_COMBINATION.title": "雙人組合",
   "MANOSABA-DUO_COMBINATION.description": "選擇一名玩家。你與該玩家各獲得 {Block:diff()} 點[gold]格擋[/gold]。\n該玩家下一張打出的攻擊牌會打出兩次。\n若該玩家是二階堂希羅，該玩家本回合獲得 {TemporaryStrength:diff()} 點[gold]力量[/gold]。",
+  "MANOSABA-PRISON_FOR_TWO.title": "兩人世界",
+  "MANOSABA-PRISON_FOR_TWO.description": "選擇一名隊友。你與該隊友各獲得 {PrisonPower:diff()} 層[gold]魔女島監獄[/gold]。\n你們的[gold]殺人衝動[/gold]不會以彼此為目標。",
   "MANOSABA-CROWNING.title": "王位戴冠",
   "MANOSABA-CROWNING.description": "所有敵人在本回合失去 {StrengthLoss:diff()} 點[gold]力量[/gold]。",
   "MANOSABA-PRIDE.title": "Pride",

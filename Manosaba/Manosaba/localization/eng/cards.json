@@ -439,6 +439,8 @@
   "MANOSABA-TOUR_LIVE.description": "At end of combat, gain {Gold:diff()} [gold]Gold[/gold].",
   "MANOSABA-DUO_COMBINATION.title": "Duo Combination",
   "MANOSABA-DUO_COMBINATION.description": "Select a player. Both of you gain {Block:diff()} [gold]Block[/gold].\nThe next Attack card they play is played twice.\nIf the selected player is Nikaido Hiro, they gain {TemporaryStrength:diff()} [gold]Strength[/gold] this turn.",
+  "MANOSABA-PRISON_FOR_TWO.title": "Prison for Two",
+  "MANOSABA-PRISON_FOR_TWO.description": "Select a teammate. Both of you gain {PrisonPower:diff()} [gold]Witch Island Prison[/gold].\nYour [gold]Murderous Impulse[/gold] effects cannot target each other.",
   "MANOSABA-CROWNING.title": "Crowning",
   "MANOSABA-CROWNING.description": "All enemies lose {StrengthLoss:diff()} [gold]Strength[/gold] this turn.",
   "MANOSABA-PRIDE.title": "Pride",

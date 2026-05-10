@@ -50,6 +50,15 @@ namespace Manosaba.Characters.Common.Powers
                 return;
             }
 
+            // Prison for Two: paired teammates should not target each other with Murderous Impulse.
+            Creature[] filteredAllies = validAllies
+                .Where(c => !PrisonForTwoPower.ShouldExcludeTarget(Owner, c))
+                .ToArray();
+            if (filteredAllies.Length == 0)
+            {
+                return;
+            }
+
             decimal perStackMultiplier = ManosabaLobbyDifficultyState.GetMurderousImpulseAllyDamageMultiplierForGameplay();
             decimal allyDamage = totalDamage * base.Amount * perStackMultiplier;
             if (allyDamage <= 0m)
@@ -63,7 +72,7 @@ namespace Manosaba.Characters.Common.Powers
                 return;
             }
 
-            Creature? ally = base.Owner.Player.RunState.Rng.CombatTargets.NextItem(validAllies);
+            Creature? ally = base.Owner.Player.RunState.Rng.CombatTargets.NextItem(filteredAllies);
             if (ally == null)
             {
                 return;

@@ -439,6 +439,8 @@
   "MANOSABA-TOUR_LIVE.description": "戦闘終了時、{Gold:diff()}[gold]ゴールド[/gold]を得る。",
   "MANOSABA-DUO_COMBINATION.title": "デュオコンビネーション",
   "MANOSABA-DUO_COMBINATION.description": "プレイヤー1人を選ぶ。あなたとそのプレイヤーはそれぞれ{Block:diff()}[gold]ブロック[/gold]を得る。\nそのプレイヤーが次に使うAttackカードは2回プレイされる。\n選んだプレイヤーが二階堂ヒロなら、そのプレイヤーはこのターン{TemporaryStrength:diff()}点の[gold]筋力[/gold]を得る。",
+  "MANOSABA-PRISON_FOR_TWO.title": "二人の世界",
+  "MANOSABA-PRISON_FOR_TWO.description": "味方1人を選ぶ。あなたとその味方はそれぞれ{PrisonPower:diff()}層の[gold]魔女島牢屋敷[/gold]を得る。\nあなたたちの[gold]殺人衝動[/gold]はお互いを対象にしない。",
   "MANOSABA-CROWNING.title": "王位戴冠",
   "MANOSABA-CROWNING.description": "すべての敵はこのターン{StrengthLoss:diff()}点の[gold]筋力[/gold]を失う。",
   "MANOSABA-PRIDE.title": "Pride",
