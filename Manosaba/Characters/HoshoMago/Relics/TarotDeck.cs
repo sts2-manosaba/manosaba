@@ -1,6 +1,7 @@
 using BaseLib.Utils;
 using manosaba.Characters.Common;
 using Manosaba.Characters.Common.Overrides;
+using Manosaba.Characters.Common;
 using Manosaba.Characters.HoshoMago.Cards;
 using Manosaba.Extensions;
 using MegaCrit.Sts2.Core.Commands;
@@ -75,7 +76,7 @@ public sealed class TarotDeck : LevelingPathCustomRelicModel
             return false;
         }
 
-        List<CardModel> tarotPool = GetEligibleTarotCards(player);
+        List<CardModel> tarotPool = GetOfferableTarotCards(player);
         if (tarotPool.Count <= 0 || cardRewardOptions.Count <= 0)
         {
             return false;
@@ -113,7 +114,7 @@ public sealed class TarotDeck : LevelingPathCustomRelicModel
         {
             return options;
         }
-        return GetEligibleTarotCards(player);
+        return GetOfferableTarotCards(player);
     }
 
     public override CardRarity ModifyMerchantCardRarity(Player player, CardRarity rarity)
@@ -132,7 +133,7 @@ public sealed class TarotDeck : LevelingPathCustomRelicModel
             return;
         }
 
-        List<CardModel> tarotPool = GetEligibleTarotCards(player);
+        List<CardModel> tarotPool = GetOfferableTarotCards(player);
         if (tarotPool.Count <= 0)
         {
             return;
@@ -231,6 +232,13 @@ public sealed class TarotDeck : LevelingPathCustomRelicModel
         return ModelDb.CardPool<HoshoMagoCardPool>()
             .GetUnlockedCards(player.UnlockState, player.RunState.CardMultiplayerConstraint)
             .Where(card => card.Tags.Contains(ManosabaCardTags.Tarot) && card is not TheWorld)
+            .ToList();
+    }
+
+    private static List<CardModel> GetOfferableTarotCards(Player player)
+    {
+        return GetEligibleTarotCards(player)
+            .Where(card => !ManosabaUniqueCardEligibility.IsBlockedForPlayerOffer(player, card))
             .ToList();
     }
 
