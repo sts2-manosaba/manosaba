@@ -1,11 +1,11 @@
 {
   "MANOSABA-BASEMENT_EXPLORATION_EVENT.title": "地下室探索",
-  "MANOSABA-BASEMENT_EXPLORATION_EVENT.pages.INITIAL.description": "你打開保險櫃，取出了收藏在裡面的劍。\n這是為了救贖艾瑪他們，所必需的物品。\n你手持利劍，正要返回監牢時，一個看守擋在了你的面前。",
-  "MANOSABA-BASEMENT_EXPLORATION_EVENT.pages.INITIAL.options.ESCAPE.title": "放下劍逃跑",
-  "MANOSABA-BASEMENT_EXPLORATION_EVENT.pages.INITIAL.options.ESCAPE.description": "失去 [red]5[/red] 生命。從牌組移除一張牌。",
-  "MANOSABA-BASEMENT_EXPLORATION_EVENT.pages.INITIAL.options.FIGHT.title": "戰鬥",
-  "MANOSABA-BASEMENT_EXPLORATION_EVENT.pages.INITIAL.options.FIGHT.description": "5回合內擊敗看守來取得劍。",
-  "MANOSABA-BASEMENT_EXPLORATION_EVENT.pages.ESCAPE.description": "你倉皇撤離，付出了血的代價，並丟下了劍。",
-  "MANOSABA-BASEMENT_EXPLORATION_EVENT.pages.VICTORY.description": "你在期限內擊倒了看守，從保險箱取走了[gold]儀式劍[/gold]。",
-  "MANOSABA-BASEMENT_EXPLORATION_EVENT.pages.FAIL.description": "經過五回合，你體力不支，留下了劍逃走，你一無所獲。"
+  "MANOSABA-BASEMENT_EXPLORATION_EVENT.pages.INITIAL.description": "你打开保险柜，取出了收藏在里面的剑。\n这是为了救赎艾玛他们，所必需的物品。\n你手持利剑，正要返回监牢时，一个看守挡在了你的面前。",
+  "MANOSABA-BASEMENT_EXPLORATION_EVENT.pages.INITIAL.options.ESCAPE.title": "放下剑逃跑",
+  "MANOSABA-BASEMENT_EXPLORATION_EVENT.pages.INITIAL.options.ESCAPE.description": "失去 [red]5[/red] 生命。从牌组移除一张牌。",
+  "MANOSABA-BASEMENT_EXPLORATION_EVENT.pages.INITIAL.options.FIGHT.title": "战斗",
+  "MANOSABA-BASEMENT_EXPLORATION_EVENT.pages.INITIAL.options.FIGHT.description": "5回合内击败看守来取得剑。",
+  "MANOSABA-BASEMENT_EXPLORATION_EVENT.pages.ESCAPE.description": "你仓皇撤离，付出了血的代价，并丢下了剑。",
+  "MANOSABA-BASEMENT_EXPLORATION_EVENT.pages.VICTORY.description": "你在期限内击倒了看守，从保险箱取走了[gold]仪式剑[/gold]。",
+  "MANOSABA-BASEMENT_EXPLORATION_EVENT.pages.FAIL.description": "经过五回合，你体力不支，留下了剑逃走，你一无所获。"
 }
