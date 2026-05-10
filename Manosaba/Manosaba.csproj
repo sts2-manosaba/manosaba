@@ -86,7 +86,7 @@
 
 
 	<PropertyGroup>
-		<BaseLibVersion>3.0.9</BaseLibVersion>
+		<BaseLibVersion>3.1.2</BaseLibVersion>
 	</PropertyGroup>
 
 	<ItemGroup>
