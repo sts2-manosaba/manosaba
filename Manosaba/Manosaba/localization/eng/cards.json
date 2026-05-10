@@ -535,7 +535,7 @@
   "MANOSABA-THE_EMPEROR.title": "The Emperor",
   "MANOSABA-THE_EMPEROR.description": "Deal {CalculatedDamage:diff()} damage to an enemy. If [gold]The Empress[/gold] is in your deck, this damage becomes 1.5x.",
   "MANOSABA-THE_HIEROPHANT.title": "The Hierophant",
-  "MANOSABA-THE_HIEROPHANT.description": "Remove all [gold]Suspicion[/gold].\nApply 2 [gold]Weak[/gold] and 2 [gold]Vulnerable[/gold] to all enemies.\nFor each stack of [gold]Suspicion[/gold] removed, apply an additional 2 [gold]Weak[/gold] and 2 [gold]Vulnerable[/gold].",
+  "MANOSABA-THE_HIEROPHANT.description": "[gold]Exhaust[/gold] a card in your [gold]Hand[/gold].\nApply {WeakPower:diff()} [gold]Weak[/gold] and {VulnerablePower:diff()} [gold]Vulnerable[/gold] to all enemies.",
   "MANOSABA-THE_LOVERS.title": "The Lovers",
   "MANOSABA-THE_LOVERS.description": "Apply {TheLoversPower:diff()} [gold]The Lovers[/gold] to an enemy.\nWhen an enemy with [gold]The Lovers[/gold] is attacked, heal the applier for [blue]{TheLoversPower}%[/blue] of damage dealt.",
   "MANOSABA-THE_CHARIOT.title": "The Chariot",

@@ -535,7 +535,7 @@
   "MANOSABA-THE_EMPEROR.title": "황제",
   "MANOSABA-THE_EMPEROR.description": "적 1명에게 피해를 {CalculatedDamage:diff()} 줍니다. 덱에 [gold]여제[/gold]가 있으면 피해가 1.5배가 됩니다.",
   "MANOSABA-THE_HIEROPHANT.title": "교황",
-  "MANOSABA-THE_HIEROPHANT.description": "모든 [gold]의심[/gold]을 제거합니다. 모든 적에게 [gold]약화[/gold]를 2, [gold]취약[/gold]을 2 부여합니다. 제거한 [gold]의심[/gold]만큼 [gold]약화[/gold]와 [gold]취약[/gold]을 추가로 2씩 부여합니다.",
+  "MANOSABA-THE_HIEROPHANT.description": "[gold]손패[/gold]의 카드 1장을 [gold]소멸[/gold]시킵니다. 모든 적에게 [gold]약화[/gold]를 {WeakPower:diff()}, [gold]취약[/gold]을 {VulnerablePower:diff()} 부여합니다.",
   "MANOSABA-THE_LOVERS.title": "연인",
   "MANOSABA-THE_LOVERS.description": "적에게 [gold]연인[/gold]을 {TheLoversPower:diff()} 부여합니다.\n[gold]연인[/gold] 상태인 적이 공격받을 때마다, 부여한 플레이어가 해당 피해의 [blue]{TheLoversPower}%[/blue]만큼 체력을 회복합니다.",
   "MANOSABA-THE_CHARIOT.title": "전차",

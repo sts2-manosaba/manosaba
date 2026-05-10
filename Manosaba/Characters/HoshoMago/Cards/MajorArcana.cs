@@ -293,8 +293,12 @@ public sealed class TheEmperor : HoshoMagoArcanaBase
 [Pool(typeof(HoshoMagoCardPool))]
 public sealed class TheHierophant : HoshoMagoArcanaBase
 {
+    protected override IEnumerable<DynamicVar> CanonicalVars => [
+        new PowerVar<WeakPower>(2m),
+        new PowerVar<VulnerablePower>(2m)
+    ];
+
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [
-        HoverTipFactory.FromPower<SusPower>(),
         HoverTipFactory.FromPower<WeakPower>(),
         HoverTipFactory.FromPower<VulnerablePower>()
     ];
@@ -306,13 +310,17 @@ public sealed class TheHierophant : HoshoMagoArcanaBase
             return;
         }
 
-        decimal removedVote = ownerCreature.GetPowerAmount<SusPower>();
-        if (removedVote > 0)
-        {
-            await PowerCmd.Apply<SusPower>(ownerCreature, -removedVote, ownerCreature, this);
-        }
+        CardModel? selected = (await CardSelectCmd.FromHand(
+            prefs: new CardSelectorPrefs(CardSelectorPrefs.ExhaustSelectionPrompt, 1),
+            context: choiceContext,
+            player: Owner,
+            filter: null,
+            source: this)).FirstOrDefault();
 
-        decimal debuffAmount = 2m + removedVote * 2m;
+        if (selected != null)
+        {
+            await CardCmd.Exhaust(choiceContext, selected);
+        }
 
         List<Creature> enemies = combatState.GetOpponentsOf(ownerCreature)
             .Where(creature => creature != null && creature.IsAlive)
@@ -320,14 +328,15 @@ public sealed class TheHierophant : HoshoMagoArcanaBase
 
         foreach (Creature enemy in enemies)
         {
-            await PowerCmd.Apply<WeakPower>(enemy, debuffAmount, ownerCreature, this);
-            await PowerCmd.Apply<VulnerablePower>(enemy, debuffAmount, ownerCreature, this);
+            await PowerCmd.Apply<WeakPower>(enemy, DynamicVars.Weak.BaseValue, ownerCreature, this);
+            await PowerCmd.Apply<VulnerablePower>(enemy, DynamicVars.Vulnerable.BaseValue, ownerCreature, this);
         }
     }
 
     protected override void OnUpgrade()
     {
-        EnergyCost.UpgradeBy(-1);
+        DynamicVars.Weak.UpgradeValueBy(1m);
+        DynamicVars.Vulnerable.UpgradeValueBy(1m);
     }
 }
 

@@ -535,7 +535,7 @@
   "MANOSABA-THE_EMPEROR.title": "皇帝",
   "MANOSABA-THE_EMPEROR.description": "敵1体に{CalculatedDamage:diff()}ダメージを与える。デッキに[gold]女帝[/gold]がある場合、ダメージは1.5倍になる。",
   "MANOSABA-THE_HIEROPHANT.title": "教皇",
-  "MANOSABA-THE_HIEROPHANT.description": "すべての[gold]嫌疑[/gold]を取り除く。\nすべての敵に[gold]弱体[/gold]2と[gold]脆弱[/gold]2を与える。\n取り除いた[gold]嫌疑[/gold]1層ごとに、さらに[gold]弱体[/gold]2と[gold]脆弱[/gold]2を与える。",
+  "MANOSABA-THE_HIEROPHANT.description": "[gold]手札[/gold]のカードを1枚[gold]廃棄[/gold]する。\nすべての敵に{WeakPower:diff()} [gold]弱体[/gold]と{VulnerablePower:diff()} [gold]脆弱[/gold]を与える。",
   "MANOSABA-THE_LOVERS.title": "恋人",
   "MANOSABA-THE_LOVERS.description": "敵1体に{TheLoversPower:diff()}層の[gold]恋人[/gold]を付与する。\n[gold]恋人[/gold]を持つ敵が攻撃を受けたとき、付与したプレイヤーはそのダメージの[blue]{TheLoversPower}%[/blue]だけHPを回復する。",
   "MANOSABA-THE_CHARIOT.title": "戦車",

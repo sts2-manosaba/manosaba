@@ -535,7 +535,7 @@
   "MANOSABA-THE_EMPEROR.title": "皇帝",
   "MANOSABA-THE_EMPEROR.description": "對 1 名敵人造成 {CalculatedDamage:diff()} 點傷害。若牌組中有[gold]女皇[/gold]，傷害變為 1.5 倍。",
   "MANOSABA-THE_HIEROPHANT.title": "教皇",
-  "MANOSABA-THE_HIEROPHANT.description": "消除所有[gold]嫌疑[/gold]。\n給予所有敵人 2 層[gold]虛弱[/gold]與 2 層[gold]易傷[/gold]。\n每消除 1 層[gold]嫌疑[/gold]，再額外給予 2 層[gold]虛弱[/gold]與 2 層[gold]易傷[/gold]。",
+  "MANOSABA-THE_HIEROPHANT.description": "消耗一張[gold]手牌[/gold]。\n給予所有敵人 {WeakPower:diff()} 層[gold]虛弱[/gold]與 {VulnerablePower:diff()} 層[gold]易傷[/gold]。",
   "MANOSABA-THE_LOVERS.title": "戀人",
   "MANOSABA-THE_LOVERS.description": "給予 1 名敵人 {TheLoversPower:diff()} 層[gold]戀人[/gold]。\n擁有[gold]戀人[/gold]的敵人受到攻擊時，回復施加者等同於該次傷害 [blue]{TheLoversPower}%[/blue] 的生命。",
   "MANOSABA-THE_CHARIOT.title": "戰車",
