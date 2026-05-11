@@ -1,7 +1,6 @@
 using BaseLib.Utils;
 using manosaba.Characters.NatsumeAnan.Powers;
 using Manosaba.Characters.Common.Powers;
-using Manosaba.Patches;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Players;
@@ -146,12 +145,6 @@ public sealed class Instigate : NatsumeKotodamaCardModel
             $"[Manosaba SyncTrace][Instigate] begin owner={Owner.NetId} target={targetPlayer.NetId} targetChar={targetPlayer.Character.Id.Entry} " +
             $"ownerHandBefore={GetPileCount(Owner, PileType.Hand)} targetDrawBefore={GetPileCount(targetPlayer, PileType.Draw)} " +
             $"rng={FormatRngCounters(Owner.RunState.Rng)}");
-
-        if (ManosabaPlayerChoiceGuard.IsChoosing(targetPlayer))
-        {
-            Log.Debug($"[Manosaba SyncTrace][Instigate] waitingForTargetChoice owner={Owner.NetId} target={targetPlayer.NetId}");
-            await ManosabaPlayerChoiceGuard.WaitUntilNotChoosing(targetPlayer);
-        }
 
         await CardPileCmd.AutoPlayFromDrawPile(choiceContext, targetPlayer, 1, CardPilePosition.Top, forceExhaust: false);
 
