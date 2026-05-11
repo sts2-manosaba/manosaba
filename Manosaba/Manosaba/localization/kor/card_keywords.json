@@ -19,8 +19,8 @@
   "MANOSABA-SHARED.description": "공유로 얻은 카드입니다.",
   "MANOSABA-BETA.title": "Beta",
   "MANOSABA-BETA.description": "이 카드는 아직 테스트 단계이며 문제가 있을 수 있습니다.",
-  "MANOSABA-SWORD_TECHNIQUE.title": "검기",
+  "MANOSABA-SWORD_TECHNIQUE.title": "검술",
   "MANOSABA-SWORD_TECHNIQUE.description": "검의 기술입니다.",
-  "MANOSABA-TWO_SWORDS.title": "두 자루의 검",
-  "MANOSABA-TWO_SWORDS.description": "사용하려면 [gold]두 자루의 검[/gold]이 필요합니다."
+  "MANOSABA-TWO_SWORDS.title": "이도류",
+  "MANOSABA-TWO_SWORDS.description": "사용하려면 [gold]이도류[/gold]가 필요합니다."
 }
