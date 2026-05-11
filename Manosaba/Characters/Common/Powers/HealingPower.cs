@@ -1,4 +1,5 @@
 using Manosaba.Extensions;
+using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.Entities.Powers;
@@ -12,7 +13,6 @@ public sealed class HealingPower : PathCustomPowerModel
     public override PowerStackType StackType => PowerStackType.Counter;
     public override bool AllowNegative => false;
 
-    // Triggered at player-turn start, slightly earlier than BurnPower's side-turn-start hook.
     public override async Task AfterPlayerTurnStart(PlayerChoiceContext choiceContext, Player player)
     {
         _ = choiceContext;
@@ -22,15 +22,18 @@ public sealed class HealingPower : PathCustomPowerModel
             return;
         }
 
-        decimal currentAmount = Amount;
-        await CreatureCmd.Heal(Owner, currentAmount);
+        await CreatureCmd.Heal(Owner, Amount);
+    }
 
-        decimal loseAmount = decimal.Floor(currentAmount / 2m);
-        if (loseAmount <= 0m)
+    public override async Task AfterTurnEnd(PlayerChoiceContext choiceContext, CombatSide side)
+    {
+        _ = choiceContext;
+
+        if (side != Owner.Side || Amount <= 0m || !Owner.IsAlive)
         {
             return;
         }
 
-        await PowerCmd.Apply<HealingPower>(Owner, -loseAmount, Owner, null);
+        await PowerCmd.Decrement(this);
     }
 }

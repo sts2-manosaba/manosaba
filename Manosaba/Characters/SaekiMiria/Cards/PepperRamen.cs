@@ -28,8 +28,8 @@ public sealed class PepperRamen : PathCustomCardModel
 
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
-        new PowerVar<HealingPower>(5m),
-        new PowerVar<PoisonPower>(3m),
+        new PowerVar<HealingPower>(3m),
+        new PowerVar<PoisonPower>(1m),
     ];
 
     public PepperRamen()
@@ -48,7 +48,7 @@ public sealed class PepperRamen : PathCustomCardModel
 
     protected override void OnUpgrade()
     {
-        DynamicVars["HealingPower"].UpgradeValueBy(5m);
+        DynamicVars["HealingPower"].UpgradeValueBy(2m);
         DynamicVars["PoisonPower"].UpgradeValueBy(2m);
     }
 }

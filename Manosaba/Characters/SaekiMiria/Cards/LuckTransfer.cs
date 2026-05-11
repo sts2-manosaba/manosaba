@@ -18,7 +18,7 @@ namespace Manosaba.Characters.SaekiMiria.Cards;
 public sealed class LuckTransfer : PathCustomCardModel
 {
     private const string multiplierVar = "Multiplier";
-    private const decimal debuffMultiplier = 3m;
+    private const decimal debuffMultiplier = 4m;
     private const int energyCost = 1;
     private const CardType type = CardType.Skill;
     private const CardRarity rarity = CardRarity.Rare;

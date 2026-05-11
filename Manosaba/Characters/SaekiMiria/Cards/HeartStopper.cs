@@ -26,7 +26,7 @@ public sealed class HeartStopper : PathCustomCardModel
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
         new CardsVar(1),
-        new PowerVar<BurnPower>(3m),
+        new PowerVar<BurnPower>(2m),
     ];
 
     public HeartStopper()
