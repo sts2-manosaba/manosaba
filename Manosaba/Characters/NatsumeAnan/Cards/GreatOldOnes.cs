@@ -11,6 +11,7 @@ using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
+using MegaCrit.Sts2.Core.Models.Exceptions;
 using MegaCrit.Sts2.Core.Nodes.CommonUi;
 using MegaCrit.Sts2.Core.ValueProps;
 
@@ -22,6 +23,10 @@ public sealed class BookOfGreatOldOnes : NatsumeKotodamaCardModel
     private int _resolvedKotodamaX;
 
     public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust, CardKeyword.Retain];
+
+    protected override bool IsPlayable => base.IsPlayable && HasKotodamaForXCostPlay();
+
+    protected override bool ShouldGlowRedInternal => base.ShouldGlowRedInternal || !HasKotodamaForXCostPlay();
 
     protected override IEnumerable<IHoverTip> ExtraHoverTips =>
     [
@@ -49,6 +54,28 @@ public sealed class BookOfGreatOldOnes : NatsumeKotodamaCardModel
     public void OverrideResolvedKotodamaXCostForPlay(int value)
     {
         _resolvedKotodamaX = Math.Max(0, value);
+    }
+
+    private bool HasKotodamaForXCostPlay()
+    {
+        try
+        {
+            Player owner = Owner;
+            if (owner.Character == null || owner.RunState == null)
+            {
+                return true;
+            }
+
+            return KotodamaEnergy.Get(owner) > 0;
+        }
+        catch (CanonicalModelException)
+        {
+            return true;
+        }
+        catch (NullReferenceException)
+        {
+            return true;
+        }
     }
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
