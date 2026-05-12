@@ -14,6 +14,7 @@ using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Commands.Builders;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Creatures;
+using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.Entities.Powers;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
@@ -23,6 +24,7 @@ using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.Powers;
 using MegaCrit.Sts2.Core.Nodes.Combat;
 using MegaCrit.Sts2.Core.Nodes.Rooms;
+using MegaCrit.Sts2.Core.Rooms;
 using MegaCrit.Sts2.Core.ValueProps;
 
 namespace Manosaba.Characters.HoshoMago.Cards;
@@ -153,7 +155,7 @@ public sealed class TheMagician : HoshoMagoArcanaBase
     }
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<MajokaPower>()];
     public override IEnumerable<CardKeyword> CanonicalKeywords => [ManosabaKeywords.Unique, CardKeyword.Exhaust];
-    protected override IEnumerable<DynamicVar> CanonicalVars => [new PowerVar<MajokaPower>(5)];
+    protected override IEnumerable<DynamicVar> CanonicalVars => [new PowerVar<MajokaPower>(6)];
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
@@ -162,8 +164,12 @@ public sealed class TheMagician : HoshoMagoArcanaBase
             return;
         }
 
-        int tarotCardsInDeck = deckCards.Count(card => card.Tags.Contains(ManosabaCardTags.Tarot));
-        decimal majokaToGain = tarotCardsInDeck * DynamicVars["MajokaPower"].BaseValue;
+        int uniqueTarotCardsInDeck = deckCards
+            .Where(card => card.Tags.Contains(ManosabaCardTags.Tarot))
+            .Select(card => card.Id)
+            .Distinct()
+            .Count();
+        decimal majokaToGain = uniqueTarotCardsInDeck * DynamicVars["MajokaPower"].BaseValue;
         if (majokaToGain <= 0)
         {
             return;
@@ -173,7 +179,7 @@ public sealed class TheMagician : HoshoMagoArcanaBase
     }
     protected override void OnUpgrade()
     {
-        DynamicVars["MajokaPower"].UpgradeValueBy(2m);
+        DynamicVars["MajokaPower"].UpgradeValueBy(3m);
     }
 }
 
@@ -369,7 +375,7 @@ public sealed class TheLovers : HoshoMagoArcanaBase
 [Pool(typeof(HoshoMagoCardPool))]
 public sealed class TheChariot : HoshoMagoArcanaBase
 {
-    protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(3m, ValueProp.Move), new RepeatVar(5)];
+    protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(4m, ValueProp.Move), new RepeatVar(4)];
 
     public TheChariot() : base(2, CardType.Attack, TargetType.AllEnemies)
     {
@@ -398,7 +404,7 @@ public sealed class TheChariot : HoshoMagoArcanaBase
 [Pool(typeof(HoshoMagoCardPool))]
 public sealed class Strength : HoshoMagoArcanaBase
 {
-    protected override IEnumerable<DynamicVar> CanonicalVars => [new PowerVar<StrengthPower>(4)];
+    protected override IEnumerable<DynamicVar> CanonicalVars => [new PowerVar<StrengthPower>(3)];
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<StrengthPower>()];
 
     public Strength() : base(1, CardType.Power, TargetType.Self)
@@ -417,7 +423,7 @@ public sealed class Strength : HoshoMagoArcanaBase
 
     protected override void OnUpgrade()
     {
-        EnergyCost.UpgradeBy(-1);
+        DynamicVars["StrengthPower"].UpgradeValueBy(2m);
     }
 }
 
@@ -754,7 +760,7 @@ public sealed class TheTower : HoshoMagoArcanaBase
 [Pool(typeof(HoshoMagoCardPool))]
 public sealed class TheStar : HoshoMagoArcanaBase
 {
-    private const int InterceptPerTeammate = 4;
+    private const int InterceptPerTeammate = 3;
 
     public override bool GainsBlock => true;
     protected override IEnumerable<DynamicVar> CanonicalVars => [new BlockVar(16m, ValueProp.Move), new DynamicVar("InterceptPower", InterceptPerTeammate)];
@@ -978,13 +984,84 @@ public sealed class Judgement : HoshoMagoArcanaBase
 public sealed class TheWorld : HoshoMagoArcanaBase
 {
     private const string VfxScenePath = "res://Manosaba/scenes/hosho_mago/vfx/the_world.tscn";
-    public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Retain];
+    private const string BloomBgmEventPath = "event:/Manosaba/audio/bgm/bloom.mp3";
+    private bool _bloomReadyLastCheck;
+
+    public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Retain, CardKeyword.Innate];
     public override bool CanBeGeneratedInCombat => false;
     public override bool CanBeGeneratedByModifiers => false;
-    protected override IEnumerable<DynamicVar> CanonicalVars => [new CardsVar(1)];
+    protected override bool ShouldGlowGoldInternal => IsWorldWinReadyForPlay();
 
-    public TheWorld() : base(0)
+    public TheWorld() : base(2)
     {
+    }
+
+    public override Task AfterCardEnteredCombat(CardModel card)
+    {
+        if (ReferenceEquals(card, this))
+        {
+            _bloomReadyLastCheck = false;
+        }
+
+        TryPlayBloomBgmWhenReady();
+        return Task.CompletedTask;
+    }
+
+    public override Task AfterCardChangedPiles(CardModel card, PileType oldPileType, AbstractModel? source)
+    {
+        _ = oldPileType;
+        _ = source;
+
+        if (card.Owner == Owner)
+        {
+            TryPlayBloomBgmWhenReady();
+        }
+
+        return Task.CompletedTask;
+    }
+
+    public override Task AfterCardDrawn(PlayerChoiceContext choiceContext, CardModel card, bool fromHandDraw)
+    {
+        _ = choiceContext;
+        _ = fromHandDraw;
+
+        if (card.Owner == Owner)
+        {
+            TryPlayBloomBgmWhenReady();
+        }
+
+        return Task.CompletedTask;
+    }
+
+    public override Task AfterPlayerTurnStart(PlayerChoiceContext choiceContext, Player player)
+    {
+        _ = choiceContext;
+
+        if (player == Owner)
+        {
+            TryPlayBloomBgmWhenReady();
+        }
+
+        return Task.CompletedTask;
+    }
+
+    public override Task AfterCombatEnd(CombatRoom room)
+    {
+        _ = room;
+        _bloomReadyLastCheck = false;
+        return Task.CompletedTask;
+    }
+
+    public override bool TryModifyEnergyCostInCombat(CardModel card, decimal originalCost, out decimal modifiedCost)
+    {
+        modifiedCost = originalCost;
+        if (!ReferenceEquals(card, this) || !IsWorldWinReadyForPlay())
+        {
+            return false;
+        }
+
+        modifiedCost = 0m;
+        return true;
     }
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
@@ -1001,30 +1078,44 @@ public sealed class TheWorld : HoshoMagoArcanaBase
             return;
         }
 
-        int count = DynamicVars.Cards.IntValue;
-        await CardPileCmd.Draw(choiceContext, count, Owner);
-
-        int exhaustCount = Math.Min(count, PileType.Hand.GetPile(Owner).Cards.Count);
-        if (exhaustCount <= 0)
+        if (Owner?.PlayerCombatState == null)
         {
             return;
         }
 
-        IEnumerable<CardModel> selectedCards = await CardSelectCmd.FromHand(
-            prefs: new CardSelectorPrefs(CardSelectorPrefs.ExhaustSelectionPrompt, exhaustCount),
-            context: choiceContext,
-            player: Owner,
-            filter: null,
-            source: this);
-
-        foreach (CardModel selectedCard in selectedCards.ToList())
+        foreach (CardModel card in Owner.PlayerCombatState.AllCards)
         {
-            await CardCmd.Exhaust(choiceContext, selectedCard);
+            if (card != this && card.IsUpgradable)
+            {
+                CardCmd.Upgrade(card);
+            }
         }
     }
 
     protected override void OnUpgrade()
     {
-        DynamicVars.Cards.UpgradeValueBy(1m);
+        EnergyCost.UpgradeBy(-1);
+    }
+
+    private void TryPlayBloomBgmWhenReady()
+    {
+        bool ready = IsWorldWinReadyForPlay();
+        if (ready && !_bloomReadyLastCheck)
+        {
+            SfxCmd.Play(BloomBgmEventPath, 0.8f);
+        }
+
+        _bloomReadyLastCheck = ready;
+    }
+
+    private bool IsWorldWinReadyForPlay()
+    {
+        if (CombatState == null || Owner?.PlayerCombatState == null)
+        {
+            return false;
+        }
+
+        return PileType.Hand.GetPile(Owner).Cards.Contains(this)
+               && PileType.Draw.GetPile(Owner).Cards.Count == 0;
     }
 }

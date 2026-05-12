@@ -355,7 +355,8 @@ public sealed class Shiou : PathCustomCardModel
     public override bool GainsBlock => true;
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
-        new BlockVar(8m, ValueProp.Move),
+        new CalculationBaseVar(8m),
+        new CalculationExtraVar(1m),
         new CalculatedBlockVar(ValueProp.Move).WithMultiplier(static (card, _) => SekketsusoujitsuHelper.BloodOrbDamageBonus(card))
     ];
     public override IEnumerable<CardKeyword> CanonicalKeywords => [ManosabaKeywords.Sekketsusoujitsu];
@@ -367,11 +368,11 @@ public sealed class Shiou : PathCustomCardModel
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         decimal bloodBonus = await SekketsusoujitsuHelper.EvokeNextBloodOrb(choiceContext, Owner);
-        await CreatureCmd.GainBlock(Owner.Creature, DynamicVars.Block.BaseValue + bloodBonus, ValueProp.Move, cardPlay);
+        await CreatureCmd.GainBlock(Owner.Creature, DynamicVars.CalculationBase.BaseValue + bloodBonus, ValueProp.Move, cardPlay);
     }
 
     protected override void OnUpgrade()
     {
-        DynamicVars.Block.UpgradeValueBy(4);
+        DynamicVars.CalculationBase.UpgradeValueBy(4);
     }
 }
