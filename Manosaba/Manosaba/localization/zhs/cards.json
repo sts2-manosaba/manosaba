@@ -125,7 +125,7 @@
   "MANOSABA-JUDGE_JOGASAKI_NOAH.title": "諾雅的畫...",
   "MANOSABA-JUDGE_JOGASAKI_NOAH.description": "將[gold]評價[/gold]牌隨機加入另一位玩家[gold]手牌[/gold]，若有二階堂希羅則優先指定她。",
   "MANOSABA-LIQUID_MANIPULATION.title": "液體操作魔法",
-  "MANOSABA-LIQUID_MANIPULATION.description": "根據[gold]魔女化[/gold]程度給予全部隊友 {LiquidManipulationPower:diff()} 層[gold]液體操作[/gold]（最大20層）。",
+  "MANOSABA-LIQUID_MANIPULATION.description": "根據[gold]魔女化[/gold]程度給予全部隊友 {LiquidManipulationPower:diff()} 層[gold]液體操作[/gold]（至少10層，最多30層）。",
   "MANOSABA-PIERCING_BLOOD.title": "穿血",
   "MANOSABA-PIERCING_BLOOD.description": "[gold]消耗[/gold]。造成 {CalculatedDamage:diff()} 點傷害。",
   "MANOSABA-SUPER_NOVA.title": "超新星",

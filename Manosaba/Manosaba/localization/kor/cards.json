@@ -125,7 +125,7 @@
   "MANOSABA-JUDGE_JOGASAKI_NOAH.title": "노아의 그림...",
   "MANOSABA-JUDGE_JOGASAKI_NOAH.description": "[gold]평가[/gold] 카드를 다른 플레이어의 [gold]손[/gold]에 무작위로 추가합니다. 니카이도 히로가 있으면 그녀를 우선 지정합니다.",
   "MANOSABA-LIQUID_MANIPULATION.title": "액체 조종 마법",
-  "MANOSABA-LIQUID_MANIPULATION.description": "[gold]마녀화[/gold] 정도에 따라 모든 아군에게 [gold]액체 조종[/gold]을 {LiquidManipulationPower:diff()} 부여합니다(최대 20).",
+  "MANOSABA-LIQUID_MANIPULATION.description": "[gold]마녀화[/gold] 정도에 따라 모든 아군에게 [gold]액체 조종[/gold]을 {LiquidManipulationPower:diff()} 부여합니다(최소 10, 최대 30).",
   "MANOSABA-PIERCING_BLOOD.title": "천혈",
   "MANOSABA-PIERCING_BLOOD.description": "[gold]소멸[/gold]. 피해를 {CalculatedDamage:diff()} 줍니다.",
   "MANOSABA-SUPER_NOVA.title": "초신성",

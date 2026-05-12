@@ -1,9 +1,6 @@
 ﻿using Manosaba.Extensions;
-using MegaCrit.Sts2.Core.Combat;
-using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Entities.Powers;
-using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.ValueProps;
 
@@ -14,23 +11,27 @@ namespace Manosaba.Characters.JogasakiNoah.Powers
         public override PowerType Type => PowerType.Buff;
         public override PowerStackType StackType => PowerStackType.Counter;
 
-        public override decimal ModifyDamageMultiplicative(Creature? target, decimal amount, ValueProp props, Creature? dealer, CardModel? cardSource)
+        public override decimal ModifyHpLostBeforeOsty(Creature target, decimal amount, ValueProp props, Creature? dealer, CardModel? cardSource)
         {
-            if (base.Owner != target || base.Amount <= 0)
+            if (base.Owner != target || base.Amount <= 0m || amount <= 0m)
             {
-                return 1m;
+                return amount;
             }
 
-            return Math.Max(0m, (100m - base.Amount) / 100m);
-        }
-
-        public override async Task AfterTurnEnd(PlayerChoiceContext choiceContext, CombatSide side)
-        {
-            if (side == CombatSide.Player)
+            int absorbed = Math.Min(base.Amount, (int)Math.Ceiling(amount));
+            if (absorbed <= 0m)
             {
-                await PowerCmd.TickDownDuration(this);
+                return amount;
             }
-        }
 
+            Flash();
+            SetAmount(base.Amount - absorbed, silent: true);
+            if (ShouldRemoveDueToAmount())
+            {
+                RemoveInternal();
+            }
+
+            return Math.Max(0m, amount - absorbed);
+        }
     }
 }

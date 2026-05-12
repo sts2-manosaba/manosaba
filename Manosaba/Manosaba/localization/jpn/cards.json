@@ -125,7 +125,7 @@
   "MANOSABA-JUDGE_JOGASAKI_NOAH.title": "ノアの絵…",
   "MANOSABA-JUDGE_JOGASAKI_NOAH.description": "[gold]評価[/gold]カードをランダムに他のプレイヤー1人の[gold]手札[/gold]に加える。二階堂ヒロがいる場合は優先して彼女を対象にする。",
   "MANOSABA-LIQUID_MANIPULATION.title": "液体を操る魔法",
-  "MANOSABA-LIQUID_MANIPULATION.description": "[gold]魔女化[/gold]に応じて味方全員に{LiquidManipulationPower:diff()}層の[gold]液体操作[/gold]を与える（最大20層）。",
+  "MANOSABA-LIQUID_MANIPULATION.description": "[gold]魔女化[/gold]に応じて味方全員に{LiquidManipulationPower:diff()}層の[gold]液体操作[/gold]を与える（最低10層、最大30層）。",
   "MANOSABA-PIERCING_BLOOD.title": "穿血",
   "MANOSABA-PIERCING_BLOOD.description": "[gold]廃棄[/gold]。{CalculatedDamage:diff()}ダメージを与える。",
   "MANOSABA-SUPER_NOVA.title": "超新星",

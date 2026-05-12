@@ -125,7 +125,7 @@
   "MANOSABA-JUDGE_JOGASAKI_NOAH.title": "Judge",
   "MANOSABA-JUDGE_JOGASAKI_NOAH.description": "Add a random [gold]Judgment[/gold] card to another player's [gold]Hand[/gold]. If Nikaido Hiro is present, prioritize her.",
   "MANOSABA-LIQUID_MANIPULATION.title": "Liquid Manipulation",
-  "MANOSABA-LIQUID_MANIPULATION.description": "Based on [gold]Majoka[/gold], grant all allies {LiquidManipulationPower:diff()} stacks of [gold]Liquid Manipulation[/gold] (max 20 stacks).",
+  "MANOSABA-LIQUID_MANIPULATION.description": "Based on [gold]Majoka[/gold], grant all allies {LiquidManipulationPower:diff()} stacks of [gold]Liquid Manipulation[/gold] (min 10, max 30 stacks).",
   "MANOSABA-PIERCING_BLOOD.title": "Piercing Blood",
   "MANOSABA-PIERCING_BLOOD.description": "[gold]Exhaust[/gold]. Deal {CalculatedDamage:diff()} damage.",
   "MANOSABA-SUPER_NOVA.title": "Supernova",

@@ -25,7 +25,7 @@ namespace Manosaba.Characters.JogasakiNoahCard.Cards
         protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<LiquidManipulationPower>(), HoverTipFactory.FromPower<MajokaPower>()];
         public override IEnumerable<CardKeyword> CanonicalKeywords => [ManosabaKeywords.Mahou, CardKeyword.Eternal];
         protected override IEnumerable<DynamicVar> CanonicalVars => [
-            new CalculationBaseVar(0m),
+            new CalculationBaseVar(10m),
             new CalculationExtraVar(20m),
             new CalculatedVar("LiquidManipulationPower").WithMultiplier(GetMajokaFactor)
         ];
