@@ -4,6 +4,7 @@ using manosaba.Characters.KurobeNanoka.Relics;
 using manosaba.Extensions;
 using Manosaba.Characters.HasumiLeia.Cards;
 using Manosaba.Characters.KurobeNanoka.Cards;
+using manosaba.Characters.KurobeNanoka.Helpers;
 using MegaCrit.Sts2.Core.Entities.Characters;
 using MegaCrit.Sts2.Core.Models;
 
@@ -58,6 +59,10 @@ public class KurobeNanoka : PlaceholderCharacterModel
     public override string CustomEnergyCounterPath => (CharacterId + "_energy_counter.tscn").CharacterScenePath(CharacterId);
 
     public override string CharacterSelectSfx => ManosabaCharacterSfx.CharacterSelectEvent(CharacterId);
+
+    public override string CustomAttackSfx => KurobeNanokaSfx.Instance.CharacterAttack ?? null!;
+    public override string CustomCastSfx => KurobeNanokaSfx.Instance.CharacterCast ?? null!;
+    public override string CustomDeathSfx => KurobeNanokaSfx.Instance.CharacterDeath ?? null!;
 
     public override string CharacterTransitionSfx => "event:/sfx/ui/wipe_ironclad";
 }

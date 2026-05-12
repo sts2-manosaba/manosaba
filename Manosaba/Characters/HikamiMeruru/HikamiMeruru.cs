@@ -4,6 +4,7 @@ using manosaba.Characters.HikamiMeruru.Relics;
 using manosaba.Extensions;
 using Manosaba.Characters.Common.Cards;
 using Manosaba.Characters.HikamiMeruru.Cards;
+using manosaba.Characters.HikamiMeruru.Helpers;
 using MegaCrit.Sts2.Core.Entities.Characters;
 using MegaCrit.Sts2.Core.Models;
 
@@ -60,6 +61,10 @@ namespace manosaba.Characters.HikamiMeruru
 		public override string CustomEnergyCounterPath => (CharacterId + "_energy_counter.tscn").CharacterScenePath(CharacterId);
 
 		public override string CharacterSelectSfx => ManosabaCharacterSfx.CharacterSelectEvent(CharacterId);
+
+		public override string CustomAttackSfx => HikamiMeruruSfx.Instance.CharacterAttack ?? null!;
+		public override string CustomCastSfx => HikamiMeruruSfx.Instance.CharacterCast ?? null!;
+		public override string CustomDeathSfx => HikamiMeruruSfx.Instance.CharacterDeath ?? null!;
 
 		public override string CharacterTransitionSfx => "event:/sfx/ui/wipe_ironclad";
 	}

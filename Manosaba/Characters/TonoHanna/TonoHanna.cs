@@ -4,6 +4,7 @@ using manosaba.Characters.TonoHanna.Relics;
 using manosaba.Extensions;
 using Manosaba.Characters.Common.Cards;
 using Manosaba.Characters.TonoHanna.Cards;
+using manosaba.Characters.TonoHanna.Helpers;
 using MegaCrit.Sts2.Core.Entities.Characters;
 using MegaCrit.Sts2.Core.Models;
 
@@ -54,6 +55,10 @@ namespace manosaba.Characters.TonoHanna
         public override string CustomEnergyCounterPath => (CharacterId + "_energy_counter.tscn").CharacterScenePath(CharacterId);
 
         public override string CharacterSelectSfx => ManosabaCharacterSfx.CharacterSelectEvent(CharacterId);
+
+        public override string CustomAttackSfx => TonoHannaSfx.Instance.CharacterAttack ?? null!;
+        public override string CustomCastSfx => TonoHannaSfx.Instance.CharacterCast ?? null!;
+        public override string CustomDeathSfx => TonoHannaSfx.Instance.CharacterDeath ?? null!;
 
         public override string CharacterTransitionSfx => "event:/sfx/ui/wipe_ironclad";
     }

@@ -34,7 +34,6 @@ namespace Manosaba.Characters.SaekiMiria.Cards
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
-            await CreatureCmd.TriggerAnim(base.Owner.Creature, "Cast", base.Owner.Character.CastAnimDelay);
             await CreatureCmd.GainBlock(base.Owner.Creature, base.DynamicVars.Block, cardPlay);
             await PowerCmd.Apply<PoweredReflectPower>(base.Owner.Creature, 1m, base.Owner.Creature, this);
         }

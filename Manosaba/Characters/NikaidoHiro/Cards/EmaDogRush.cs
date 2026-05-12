@@ -41,6 +41,8 @@ namespace Manosaba.Characters.NikaidoHiro.Cards
                 return;
             }
 
+            // 攻擊動畫／音效走寵物（SakurabaEmaDog.CustomAttackSfx），非玩家 CharacterAttack。
+            await CreatureCmd.TriggerAnim(ema, "Attack", 0.15f);
             await CreatureCmd.Damage(choiceContext, target, ema.CurrentHp, ValueProp.Move, ema, this);
         }
 

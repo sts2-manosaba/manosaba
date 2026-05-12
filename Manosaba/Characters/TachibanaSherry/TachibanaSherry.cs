@@ -4,6 +4,7 @@ using manosaba.Characters.TachibanaSherry.Relics;
 using manosaba.Extensions;
 using Manosaba.Characters.Common.Cards;
 using Manosaba.Characters.TachibanaSherry.Cards;
+using Manosaba.Characters.TachibanaSherry.Helpers;
 using MegaCrit.Sts2.Core.Entities.Characters;
 using MegaCrit.Sts2.Core.Models;
 
@@ -62,5 +63,10 @@ namespace manosaba.Characters.TachibanaSherry
 		public override string CharacterSelectSfx => ManosabaCharacterSfx.CharacterSelectEvent(CharacterId);
 
 		public override string CharacterTransitionSfx => "event:/sfx/ui/wipe_ironclad";
+
+		/// <summary>Unset returns null so BaseLib AttackSfx patch falls through to vanilla <see cref="CharacterModel.AttackSfx"/>.</summary>
+		public override string CustomAttackSfx => SherrySfx.Instance.CharacterAttack ?? null!;
+		public override string CustomCastSfx => SherrySfx.Instance.CharacterCast ?? null!;
+		public override string CustomDeathSfx => SherrySfx.Instance.CharacterDeath ?? null!;
 	}
 }

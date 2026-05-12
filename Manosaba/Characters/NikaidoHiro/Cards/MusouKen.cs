@@ -35,6 +35,8 @@ namespace Manosaba.Characters.NikaidoHiro.Cards
                 return;
             }
 
+            await PlayOwnerAttackAnimAsync();
+
             MusouKenPower? power = await PowerCmd.Apply<MusouKenPower>(
                 ownerCreature,
                 DynamicVars["MusouKenPower"].BaseValue,

@@ -51,8 +51,11 @@ namespace Manosaba.Characters.TachibanaSherry.Cards
                     break;
                 }
 
-                IEnumerable<DamageResult> results = await CreatureCmd.Damage(choiceContext, target, base.DynamicVars.Damage.BaseValue, ValueProp.Move, base.Owner.Creature, this);
-                if (results.Any(r => r.WasTargetKilled))
+                var attackCommand = await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
+                    .FromCard(this)
+                    .Targeting(target)
+                    .Execute(choiceContext);
+                if (attackCommand.Results.Any(r => r.WasTargetKilled))
                     attackCount++;
             }
         }

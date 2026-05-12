@@ -4,6 +4,7 @@ using manosaba.Characters.HasumiLeia.Relics;
 using manosaba.Extensions;
 using Manosaba.Characters.SaekiMiria.Cards;
 using Manosaba.Characters.HasumiLeia.Cards;
+using manosaba.Characters.HasumiLeia.Helpers;
 using MegaCrit.Sts2.Core.Entities.Characters;
 using MegaCrit.Sts2.Core.Models;
 
@@ -57,6 +58,10 @@ public class HasumiLeia : PlaceholderCharacterModel
 	public override string CustomEnergyCounterPath => (CharacterId + "_energy_counter.tscn").CharacterScenePath(CharacterId);
 
 	public override string CharacterSelectSfx => ManosabaCharacterSfx.CharacterSelectEvent(CharacterId);
+
+	public override string CustomAttackSfx => HasumiLeiaSfx.Instance.CharacterAttack ?? null!;
+	public override string CustomCastSfx => HasumiLeiaSfx.Instance.CharacterCast ?? null!;
+	public override string CustomDeathSfx => HasumiLeiaSfx.Instance.CharacterDeath ?? null!;
 
 	public override string CharacterTransitionSfx => "event:/sfx/ui/wipe_ironclad";
 }

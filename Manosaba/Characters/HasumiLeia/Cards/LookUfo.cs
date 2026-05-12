@@ -1,4 +1,4 @@
-﻿using BaseLib.Utils;
+using BaseLib.Utils;
 using manosaba.Characters.HasumiLeia;
 using manosaba.Characters.SaekiMiria;
 using Manosaba.Characters.Common.Overrides;
@@ -38,7 +38,6 @@ namespace Manosaba.Characters.HasumiLeia.Cards
                 return;
             }
 
-            await CreatureCmd.TriggerAnim(ownerCreature, "Cast", base.Owner.Character.CastAnimDelay);
             await PowerCmd.Apply<IncomeDamageMultiplyPower>(target, 1m, ownerCreature, this);
         }
 

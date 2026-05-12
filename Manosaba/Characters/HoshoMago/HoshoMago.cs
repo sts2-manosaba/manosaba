@@ -3,6 +3,7 @@ using Godot;
 using manosaba.Characters.HoshoMago.Relics;
 using manosaba.Extensions;
 using Manosaba.Characters.HoshoMago.Cards;
+using manosaba.Characters.HoshoMago.Helpers;
 using MegaCrit.Sts2.Core.Entities.Characters;
 using MegaCrit.Sts2.Core.Models;
 
@@ -55,6 +56,10 @@ public class HoshoMago : PlaceholderCharacterModel
     public override string CustomEnergyCounterPath => (PlaceholderCharacterId + "_energy_counter.tscn").CharacterScenePath(PlaceholderCharacterId);
 
     public override string CharacterSelectSfx => ManosabaCharacterSfx.CharacterSelectEvent(PlaceholderCharacterId);
+
+    public override string CustomAttackSfx => HoshoMagoSfx.Instance.CharacterAttack ?? null!;
+    public override string CustomCastSfx => HoshoMagoSfx.Instance.CharacterCast ?? null!;
+    public override string CustomDeathSfx => HoshoMagoSfx.Instance.CharacterDeath ?? null!;
 
     public override string CharacterTransitionSfx => "event:/sfx/ui/wipe_ironclad";
 }

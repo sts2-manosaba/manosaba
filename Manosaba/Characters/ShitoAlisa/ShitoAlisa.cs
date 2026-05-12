@@ -2,6 +2,7 @@ using BaseLib.Abstracts;
 using Godot;
 using manosaba.Extensions;
 using Manosaba.Characters.ShitoAlisa.Cards;
+using manosaba.Characters.ShitoAlisa.Helpers;
 using MegaCrit.Sts2.Core.Entities.Characters;
 using MegaCrit.Sts2.Core.Models;
 
@@ -52,6 +53,10 @@ public class ShitoAlisa : PlaceholderCharacterModel
     public override string CustomEnergyCounterPath => (CharacterId + "_energy_counter.tscn").CharacterScenePath(CharacterId);
 
     public override string CharacterSelectSfx => ManosabaCharacterSfx.CharacterSelectEvent(CharacterId);
+
+    public override string CustomAttackSfx => ShitoAlisaSfx.Instance.CharacterAttack ?? null!;
+    public override string CustomCastSfx => ShitoAlisaSfx.Instance.CharacterCast ?? null!;
+    public override string CustomDeathSfx => ShitoAlisaSfx.Instance.CharacterDeath ?? null!;
 
     public override string CharacterTransitionSfx => "event:/sfx/ui/wipe_ironclad";
 }

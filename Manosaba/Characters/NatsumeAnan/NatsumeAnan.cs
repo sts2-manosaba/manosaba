@@ -1,6 +1,7 @@
 using BaseLib.Abstracts;
 using Godot;
 using manosaba.Characters.NatsumeAnan.Cards;
+using manosaba.Characters.NatsumeAnan.Helpers;
 using manosaba.Characters.NatsumeAnan.Relics;
 using manosaba.Extensions;
 using MegaCrit.Sts2.Core.Entities.Characters;
@@ -59,5 +60,8 @@ public class NatsumeAnan : PlaceholderCharacterModel
     public override string CustomEnergyCounterPath => (CharacterId + "_energy_counter.tscn").CharacterScenePath(CharacterId);
 
     public override string CharacterSelectSfx => ManosabaCharacterSfx.CharacterSelectEvent(CharacterId);
+    public override string CustomAttackSfx => NatsumeAnanSfx.Instance.CharacterAttack ?? null!;
+    public override string CustomCastSfx => NatsumeAnanSfx.Instance.CharacterCast ?? null!;
+    public override string CustomDeathSfx => NatsumeAnanSfx.Instance.CharacterDeath ?? null!;
     public override string CharacterTransitionSfx => "event:/sfx/ui/wipe_ironclad";
 }

@@ -3,6 +3,7 @@ using Godot;
 using manosaba.Characters.JogasakiNoah.Relics;
 using manosaba.Extensions;
 using Manosaba.Characters.JogasakiNoah.Cards;
+using manosaba.Characters.JogasakiNoah.Helpers;
 using MegaCrit.Sts2.Core.Entities.Characters;
 using MegaCrit.Sts2.Core.Models;
 
@@ -59,6 +60,10 @@ namespace manosaba.Characters.JogasakiNoah
         public override string CustomEnergyCounterPath => (CharacterId + "_energy_counter.tscn").CharacterScenePath(CharacterId);
 
         public override string CharacterSelectSfx => ManosabaCharacterSfx.CharacterSelectEvent(CharacterId);
+
+        public override string CustomAttackSfx => JogasakiNoahSfx.Instance.CharacterAttack ?? null!;
+        public override string CustomCastSfx => JogasakiNoahSfx.Instance.CharacterCast ?? null!;
+        public override string CustomDeathSfx => JogasakiNoahSfx.Instance.CharacterDeath ?? null!;
 
         public override string CharacterTransitionSfx => "event:/sfx/ui/wipe_ironclad";
     }

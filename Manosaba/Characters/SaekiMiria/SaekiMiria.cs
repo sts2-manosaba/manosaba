@@ -7,6 +7,7 @@ using Manosaba.Characters.Common.Cards;
 using Manosaba.Characters.HikamiMeruru.Cards;
 using Manosaba.Characters.JogasakiNoah.Cards;
 using Manosaba.Characters.SaekiMiria.Cards;
+using manosaba.Characters.SaekiMiria.Helpers;
 using MegaCrit.Sts2.Core.Entities.Characters;
 using MegaCrit.Sts2.Core.Models;
 
@@ -65,6 +66,10 @@ namespace manosaba.Characters.SaekiMiria
         public override string CustomEnergyCounterPath => (CharacterId + "_energy_counter.tscn").CharacterScenePath(CharacterId);
 
         public override string CharacterSelectSfx => ManosabaCharacterSfx.CharacterSelectEvent(CharacterId);
+
+        public override string CustomAttackSfx => SaekiMiriaSfx.Instance.CharacterAttack ?? null!;
+        public override string CustomCastSfx => SaekiMiriaSfx.Instance.CharacterCast ?? null!;
+        public override string CustomDeathSfx => SaekiMiriaSfx.Instance.CharacterDeath ?? null!;
 
         public override string CharacterTransitionSfx => "event:/sfx/ui/wipe_ironclad";
     }

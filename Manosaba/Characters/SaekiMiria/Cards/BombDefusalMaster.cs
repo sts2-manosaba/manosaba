@@ -1,4 +1,4 @@
-﻿using BaseLib.Utils;
+using BaseLib.Utils;
 using manosaba.Characters.SaekiMiria;
 using Manosaba.Characters.Common.Overrides;
 using Manosaba.Characters.Common.Powers;
@@ -48,7 +48,6 @@ namespace Manosaba.Characters.SaekiMiria.Cards
                 powerAmount++;
             }
 
-            await CreatureCmd.TriggerAnim(ownerCreature, "Cast", base.Owner.Character.CastAnimDelay);
             await PowerCmd.Apply<StrengthPower>(target, -powerAmount, ownerCreature, this);
             await PowerCmd.Apply<WeakPower>(target, powerAmount, ownerCreature, this);
         }
