@@ -24,5 +24,5 @@
   "MANOSABA-TWO_SWORDS.title": "二刀流",
   "MANOSABA-TWO_SWORDS.description": "需要[gold]二刀流[/gold]才能打出。",
   "MANOSABA-SEKKETSUSOUJITSU.title": "赤血操術",
-  "MANOSABA-SEKKETSUSOUJITSU.description": "使用此類的攻擊牌時，會激發 1 顆[gold]血球[/gold]並增加等同於該血球層數的傷害。"
+  "MANOSABA-SEKKETSUSOUJITSU.description": "使用此類的攻擊/技能牌時，會激發 1 顆[gold]血球[/gold]並增加等同於該血球被動數值的傷害/格擋。"
 }

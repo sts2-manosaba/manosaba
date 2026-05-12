@@ -28,8 +28,7 @@ public abstract class SekketsusoujitsuAttackCard : PathCustomCardModel
 
     protected static decimal BloodDamageMultiplier(CardModel card, decimal baseDamage)
     {
-        return SekketsusoujitsuHelper.BloodOrbDamageBonus(card)
-            + SekketsusoujitsuHelper.RedScaleDamageBonus(card, baseDamage);
+        return SekketsusoujitsuHelper.BloodOrbDamageBonus(card);
     }
 
     protected async Task<decimal> ConsumeBloodOrbDamageBonus(PlayerChoiceContext choiceContext)
@@ -37,10 +36,6 @@ public abstract class SekketsusoujitsuAttackCard : PathCustomCardModel
         return await SekketsusoujitsuHelper.EvokeNextBloodOrb(choiceContext, Owner);
     }
 
-    protected decimal ApplyRedScale(decimal baseDamage)
-    {
-        return baseDamage + SekketsusoujitsuHelper.RedScaleDamageBonus(this, baseDamage);
-    }
 }
 
 [Pool(typeof(TokenCardPool))]
@@ -71,7 +66,7 @@ public sealed class PiercingBlood : SekketsusoujitsuAttackCard
         }
 
         decimal bloodBonus = await ConsumeBloodOrbDamageBonus(choiceContext);
-        await DamageCmd.Attack(ApplyRedScale(DynamicVars.CalculationBase.BaseValue) + bloodBonus)
+        await DamageCmd.Attack(DynamicVars.CalculationBase.BaseValue + bloodBonus)
             .FromCard(this)
             .Targeting(cardPlay.Target)
             .Execute(choiceContext);
@@ -112,9 +107,8 @@ public sealed class SuperNova : SekketsusoujitsuAttackCard
         }
 
         decimal bloodBonus = await ConsumeBloodOrbDamageBonus(choiceContext);
-        int repeat = DynamicVars.Repeat.IntValue + (Owner.Creature.HasPower<SekirinyakudouPower>() ? 2 : 0);
-        await DamageCmd.Attack(ApplyRedScale(DynamicVars.CalculationBase.BaseValue) + bloodBonus)
-            .WithHitCount(repeat)
+        await DamageCmd.Attack(DynamicVars.CalculationBase.BaseValue + bloodBonus)
+            .WithHitCount(DynamicVars.Repeat.IntValue)
             .FromCard(this)
             .TargetingAllOpponents(CombatState)
             .Execute(choiceContext);
@@ -171,7 +165,7 @@ public sealed class Kesseiseki : SekketsusoujitsuAttackCard
         }
 
         decimal bloodBonus = await ConsumeBloodOrbDamageBonus(choiceContext);
-        await DamageCmd.Attack(ApplyRedScale(DynamicVars.CalculationBase.BaseValue) + bloodBonus)
+        await DamageCmd.Attack(DynamicVars.CalculationBase.BaseValue + bloodBonus)
             .FromCard(this)
             .Targeting(cardPlay.Target)
             .Execute(choiceContext);
@@ -233,15 +227,7 @@ public sealed class Karibarai : SekketsusoujitsuAttackCard
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         decimal bloodBonus = await ConsumeBloodOrbDamageBonus(choiceContext);
-        decimal damage = ApplyRedScale(DynamicVars.CalculationBase.BaseValue) + bloodBonus;
-        if (Owner.Creature.HasPower<SekirinyakudouPower>() && CombatState != null)
-        {
-            await DamageCmd.Attack(damage)
-                .FromCard(this)
-                .TargetingAllOpponents(CombatState)
-                .Execute(choiceContext);
-            return;
-        }
+        decimal damage = DynamicVars.CalculationBase.BaseValue + bloodBonus;
 
         if (cardPlay.Target == null)
         {
@@ -302,7 +288,10 @@ public sealed class Hyakuren : PathCustomCardModel
             await CardPileCmd.AddGeneratedCardToCombat(selected, PileType.Hand, true);
         }
 
-        SekketsusoujitsuHelper.AddLayersToBloodOrbs(Owner, 2m);
+        for (int i = 0; i < 2; i++)
+        {
+            await OrbCmd.Channel<BloodOrb>(choiceContext, Owner);
+        }
     }
 
     protected override void OnUpgrade()
@@ -311,24 +300,52 @@ public sealed class Hyakuren : PathCustomCardModel
 }
 
 [Pool(typeof(JogasakiNoahCardPool))]
+public sealed class BloodDraw : PathCustomCardModel
+{
+    protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromOrb<BloodOrb>()];
+    protected override IEnumerable<DynamicVar> CanonicalVars => [new RepeatVar(2)];
+
+    public BloodDraw() : base(2, CardType.Skill, CardRarity.Common, TargetType.Self, true)
+    {
+    }
+
+    protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
+    {
+        for (int i = 0; i < DynamicVars.Repeat.IntValue; i++)
+        {
+            await OrbCmd.Channel<BloodOrb>(choiceContext, Owner);
+        }
+    }
+
+    protected override void OnUpgrade()
+    {
+        DynamicVars.Repeat.UpgradeValueBy(1);
+    }
+}
+
+[Pool(typeof(JogasakiNoahCardPool))]
 public sealed class Ketsujin : PathCustomCardModel
 {
-    protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<StrengthPower>()];
-    protected override IEnumerable<DynamicVar> CanonicalVars => [new PowerVar<StrengthPower>(4m)];
-    public override IEnumerable<CardKeyword> CanonicalKeywords => [ManosabaKeywords.Sekketsusoujitsu];
+    protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromOrb<BloodOrb>()];
+    protected override IEnumerable<DynamicVar> CanonicalVars => [new DynamicVar("BloodOrbPassive", 2m)];
 
-    public Ketsujin() : base(2, CardType.Power, CardRarity.Common, TargetType.Self, true)
+    public Ketsujin() : base(2, CardType.Skill, CardRarity.Common, TargetType.Self, true)
     {
     }
 
     protected override Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        return PowerCmd.Apply<StrengthPower>(Owner.Creature, DynamicVars.Strength.BaseValue, Owner.Creature, this);
+        foreach (BloodOrb bloodOrb in Owner.PlayerCombatState?.OrbQueue?.Orbs.OfType<BloodOrb>() ?? [])
+        {
+            bloodOrb.AddLayers(DynamicVars["BloodOrbPassive"].BaseValue);
+        }
+
+        return Task.CompletedTask;
     }
 
     protected override void OnUpgrade()
     {
-        EnergyCost.UpgradeBy(-1);
+        DynamicVars["BloodOrbPassive"].UpgradeValueBy(1);
     }
 }
 
@@ -336,22 +353,21 @@ public sealed class Ketsujin : PathCustomCardModel
 public sealed class Shiou : PathCustomCardModel
 {
     public override bool GainsBlock => true;
-    protected override IEnumerable<DynamicVar> CanonicalVars => [new BlockVar(8m, ValueProp.Move)];
+    protected override IEnumerable<DynamicVar> CanonicalVars =>
+    [
+        new BlockVar(8m, ValueProp.Move),
+        new CalculatedBlockVar(ValueProp.Move).WithMultiplier(static (card, _) => SekketsusoujitsuHelper.BloodOrbDamageBonus(card))
+    ];
     public override IEnumerable<CardKeyword> CanonicalKeywords => [ManosabaKeywords.Sekketsusoujitsu];
 
     public Shiou() : base(1, CardType.Skill, CardRarity.Uncommon, TargetType.Self, true)
     {
     }
 
-    protected override Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
+    protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        decimal block = DynamicVars.Block.BaseValue;
-        if (Owner.Creature.HasPower<SekirinyakudouPower>())
-        {
-            block += Math.Floor(block * 0.5m);
-        }
-
-        return CreatureCmd.GainBlock(Owner.Creature, block, ValueProp.Move, cardPlay);
+        decimal bloodBonus = await SekketsusoujitsuHelper.EvokeNextBloodOrb(choiceContext, Owner);
+        await CreatureCmd.GainBlock(Owner.Creature, DynamicVars.Block.BaseValue + bloodBonus, ValueProp.Move, cardPlay);
     }
 
     protected override void OnUpgrade()

@@ -1,5 +1,4 @@
 using Manosaba.Characters.JogasakiNoa.Orbs;
-using Manosaba.Characters.JogasakiNoah.Powers;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Entities.Orbs;
@@ -13,16 +12,6 @@ namespace Manosaba.Characters.JogasakiNoah.Cards;
 
 internal static class SekketsusoujitsuHelper
 {
-    public static decimal RedScaleBonusMultiplier(CardModel card)
-    {
-        return card.Owner?.Creature?.HasPower<SekirinyakudouPower>() == true ? 1m : 0m;
-    }
-
-    public static decimal RedScaleDamageBonus(CardModel card, decimal baseDamage)
-    {
-        return RedScaleBonusMultiplier(card) * Math.Floor(baseDamage * 0.5m);
-    }
-
     public static decimal BloodOrbDamageBonus(CardModel card)
     {
         return card.Owner?.PlayerCombatState?.OrbQueue?.Orbs
@@ -73,11 +62,4 @@ internal static class SekketsusoujitsuHelper
         return damageBonus;
     }
 
-    public static void AddLayersToBloodOrbs(Player? owner, decimal amount)
-    {
-        foreach (BloodOrb bloodOrb in owner?.PlayerCombatState?.OrbQueue?.Orbs.OfType<BloodOrb>() ?? [])
-        {
-            bloodOrb.AddLayers(amount);
-        }
-    }
 }

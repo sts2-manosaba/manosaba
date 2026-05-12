@@ -1,5 +1,6 @@
 using BaseLib.Utils;
 using Godot;
+using Manosaba.Characters.Common.Powers;
 using Manosaba.Characters.JogasakiNoah;
 using Manosaba.Extensions;
 using MegaCrit.Sts2.Core.Commands;
@@ -17,9 +18,9 @@ public sealed class BloodOrb : ManosabaOrbModel
 
     public override Color DarkenedColor => new("8A1F2A");
 
-    public override decimal PassiveVal => _layers;
+    public override decimal PassiveVal => ModifyBloodOrbValue(_layers);
 
-    public override decimal EvokeVal => 3m;
+    public override decimal EvokeVal => ModifyBloodOrbValue(3m);
 
     public void AddLayers(decimal amount)
     {
@@ -61,5 +62,13 @@ public sealed class BloodOrb : ManosabaOrbModel
         }
 
         NCombatRoom.Instance?.GetCreatureNode(Owner.Creature)?.OrbManager?.UpdateVisuals(OrbEvokeType.None);
+    }
+
+    private decimal ModifyBloodOrbValue(decimal baseValue)
+    {
+        decimal orbModifiedValue = ModifyOrbValue(baseValue);
+        decimal majokaAmount = Owner?.Creature?.GetPowerAmount<MajokaPower>() ?? 0m;
+        decimal amplified = orbModifiedValue * (1m + majokaAmount / 100m);
+        return Math.Max(1m, Math.Floor(amplified));
     }
 }
