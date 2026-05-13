@@ -251,10 +251,11 @@ public sealed class Hyakuren : PathCustomCardModel
 {
     protected override IEnumerable<IHoverTip> ExtraHoverTips =>
     [
-        HoverTipFactory.FromCard<PiercingBlood>(),
-        HoverTipFactory.FromCard<SuperNova>(),
+        HoverTipFactory.FromCard<PiercingBlood>(IsUpgraded),
+        HoverTipFactory.FromCard<SuperNova>(IsUpgraded),
         HoverTipFactory.FromOrb<BloodOrb>()
     ];
+    protected override IEnumerable<DynamicVar> CanonicalVars => [new DynamicVar("BloodOrbPassive", 2m)];
     public override IEnumerable<CardKeyword> CanonicalKeywords => [ManosabaKeywords.Sekketsusoujitsu];
 
     public Hyakuren() : base(1, CardType.Skill, CardRarity.Rare, TargetType.Self, true)
@@ -288,14 +289,15 @@ public sealed class Hyakuren : PathCustomCardModel
             await CardPileCmd.AddGeneratedCardToCombat(selected, PileType.Hand, true);
         }
 
-        for (int i = 0; i < 2; i++)
+        foreach (BloodOrb bloodOrb in Owner.PlayerCombatState?.OrbQueue?.Orbs.OfType<BloodOrb>() ?? [])
         {
-            await OrbCmd.Channel<BloodOrb>(choiceContext, Owner);
+            bloodOrb.AddLayers(DynamicVars["BloodOrbPassive"].BaseValue);
         }
     }
 
     protected override void OnUpgrade()
     {
+        DynamicVars["BloodOrbPassive"].UpgradeValueBy(1);
     }
 }
 

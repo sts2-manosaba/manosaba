@@ -8,6 +8,7 @@ using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
+using MegaCrit.Sts2.Core.ValueProps;
 
 namespace Manosaba.Characters.JogasakiNoah.Cards
 {
@@ -28,7 +29,7 @@ namespace Manosaba.Characters.JogasakiNoah.Cards
         private const bool shouldShowInCardLibrary = true;
 
         protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromOrb<RedPaintOrb>(), HoverTipFactory.FromOrb<YellowPaintOrb>(), HoverTipFactory.FromOrb<BluePaintOrb>()];
-        protected override IEnumerable<DynamicVar> CanonicalVars => [new RepeatVar(1)];
+        protected override IEnumerable<DynamicVar> CanonicalVars => [new BlockVar(4, ValueProp.Move)];
 
         public Palette() : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)
         {
@@ -36,11 +37,10 @@ namespace Manosaba.Characters.JogasakiNoah.Cards
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
-            for (int i = 0; i < DynamicVars.Repeat.IntValue; i++)
-            {
-                OrbModel randomOrb = RollOrbFromChanceTable();
-                await OrbCmd.Channel(choiceContext, randomOrb.ToMutable(), Owner);
-            }
+            await CreatureCmd.GainBlock(Owner.Creature, DynamicVars.Block, cardPlay);
+
+            OrbModel randomOrb = RollOrbFromChanceTable();
+            await OrbCmd.Channel(choiceContext, randomOrb.ToMutable(), Owner);
         }
 
         private OrbModel RollOrbFromChanceTable()
@@ -61,7 +61,7 @@ namespace Manosaba.Characters.JogasakiNoah.Cards
 
         protected override void OnUpgrade()
         {
-            DynamicVars.Repeat.UpgradeValueBy(1);
+            DynamicVars.Block.UpgradeValueBy(2);
         }
     }
 }

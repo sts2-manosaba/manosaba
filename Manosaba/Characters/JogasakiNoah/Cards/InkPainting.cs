@@ -1,5 +1,6 @@
 using BaseLib.Utils;
 using manosaba.Characters.JogasakiNoah;
+using Manosaba.Characters.Common.Powers;
 using Manosaba.Characters.JogasakiNoa.Orbs;
 using Manosaba.Extensions;
 using MegaCrit.Sts2.Core.Commands;
@@ -21,8 +22,11 @@ public class InkPainting : PathCustomCardModel
     private const TargetType targetType = TargetType.Self;
     private const bool shouldShowInCardLibrary = true;
 
-    protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromOrb<BlackPaintOrb>(), HoverTipFactory.FromOrb<WhitePaintOrb>()];
-    protected override IEnumerable<DynamicVar> CanonicalVars => [new RepeatVar(1)];
+    protected override IEnumerable<IHoverTip> ExtraHoverTips =>
+    [
+        HoverTipFactory.FromCard<InkPaintingBlackPaintOrbToken>(IsUpgraded),
+        HoverTipFactory.FromCard<InkPaintingWhitePaintOrbToken>(IsUpgraded)
+    ];
 
     public InkPainting() : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)
     {
@@ -35,27 +39,34 @@ public class InkPainting : PathCustomCardModel
             return;
         }
 
-        for (int i = 0; i < DynamicVars.Repeat.IntValue; i++)
-        {
-            List<CardModel> options =
-            [
-                Owner.Creature.CombatState.CreateCard<InkPaintingBlackPaintOrbToken>(Owner),
-                Owner.Creature.CombatState.CreateCard<InkPaintingWhitePaintOrbToken>(Owner)
-            ];
+        List<CardModel> options =
+        [
+            CreateToken<InkPaintingBlackPaintOrbToken>(),
+            CreateToken<InkPaintingWhitePaintOrbToken>()
+        ];
 
-            CardModel? selectedToken = await CardSelectCmd.FromChooseACardScreen(choiceContext, options, Owner);
-            if (selectedToken == null)
+        CardModel? selectedToken = await CardSelectCmd.FromChooseACardScreen(choiceContext, options, Owner);
+        if (selectedToken == null)
+        {
+            return;
+        }
+
+        await CardCmd.AutoPlay(choiceContext, selectedToken, null);
+
+        T CreateToken<T>() where T : CardModel
+        {
+            T token = Owner.Creature.CombatState.CreateCard<T>(Owner);
+            if (IsUpgraded)
             {
-                return;
+                CardCmd.Upgrade(token);
             }
 
-            await CardCmd.AutoPlay(choiceContext, selectedToken, null);
+            return token;
         }
     }
 
     protected override void OnUpgrade()
     {
-        DynamicVars.Repeat.UpgradeValueBy(1);
     }
 }
 
@@ -71,19 +82,22 @@ public class InkPaintingBlackPaintOrbToken : PathCustomCardModel
     public override bool CanBeGeneratedByModifiers => false;
 
     public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
-    protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromOrb<BlackPaintOrb>()];
+    protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromOrb<BlackPaintOrb>(), HoverTipFactory.FromPower<MajokaPower>()];
+    protected override IEnumerable<DynamicVar> CanonicalVars => [new PowerVar<MajokaPower>(10m)];
 
     public InkPaintingBlackPaintOrbToken() : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)
     {
     }
 
-    protected override Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
+    protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        return OrbCmd.Channel(choiceContext, ModelDb.Orb<BlackPaintOrb>().ToMutable(), Owner);
+        await OrbCmd.Channel(choiceContext, ModelDb.Orb<BlackPaintOrb>().ToMutable(), Owner);
+        await PowerCmd.Apply<MajokaPower>(Owner.Creature, DynamicVars["MajokaPower"].BaseValue, Owner.Creature, this);
     }
 
     protected override void OnUpgrade()
     {
+        DynamicVars["MajokaPower"].UpgradeValueBy(5m);
     }
 }
 
@@ -100,17 +114,20 @@ public class InkPaintingWhitePaintOrbToken : PathCustomCardModel
 
     public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromOrb<WhitePaintOrb>()];
+    protected override IEnumerable<DynamicVar> CanonicalVars => [new CardsVar(2)];
 
     public InkPaintingWhitePaintOrbToken() : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)
     {
     }
 
-    protected override Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
+    protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        return OrbCmd.Channel(choiceContext, ModelDb.Orb<WhitePaintOrb>().ToMutable(), Owner);
+        await OrbCmd.Channel(choiceContext, ModelDb.Orb<WhitePaintOrb>().ToMutable(), Owner);
+        await CardPileCmd.Draw(choiceContext, DynamicVars.Cards.BaseValue, Owner);
     }
 
     protected override void OnUpgrade()
     {
+        DynamicVars.Cards.UpgradeValueBy(1m);
     }
 }

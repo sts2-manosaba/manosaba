@@ -24,6 +24,6 @@
   "WHITE_PAINT_ORB.description": "Orb: Draws cards for you and a random teammate.",
   "WHITE_PAINT_ORB.smartDescription": "[gold]Passive:[/gold] At start of turn, draw [blue]{Passive}[/blue] card.\\n[gold]Evoke:[/gold] You and a random teammate draw [blue]{Evoke}[/blue] card.",
   "BLOOD_ORB.title": "Blood Orb",
-  "BLOOD_ORB.description": "Blood Orb: gains layers at turn end and heals when evoked. Its values scale with [gold]Majoka[/gold].",
-  "BLOOD_ORB.smartDescription": "[gold]Passive:[/gold] At end of turn, this Blood Orb gains 1 layer.\\n[gold]Evoke:[/gold] Heal [blue]{Evoke}[/blue] HP.\\n[gold]Majoka[/gold] increases this orb's passive and evoke values."
+  "BLOOD_ORB.description": "Orb: Gains layers at turn end. When [gold]Evoked[/gold], heals HP.",
+  "BLOOD_ORB.smartDescription": "[gold]Passive:[/gold] At end of turn, this Blood Orb gains 1 layer.\\n[gold]Evoke:[/gold] Heal [blue]{Evoke}[/blue] HP."
 }
