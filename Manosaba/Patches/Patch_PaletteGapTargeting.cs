@@ -5,12 +5,14 @@ using MegaCrit.Sts2.Core.Audio.Debug;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Helpers;
 using MegaCrit.Sts2.Core.Models;
+using MegaCrit.Sts2.Core.Multiplayer.Game;
 using MegaCrit.Sts2.Core.Nodes.Cards;
 using MegaCrit.Sts2.Core.Nodes.Combat;
 using MegaCrit.Sts2.Core.Nodes.GodotExtensions;
 using MegaCrit.Sts2.Core.Nodes.HoverTips;
 using MegaCrit.Sts2.Core.Nodes.Orbs;
 using MegaCrit.Sts2.Core.Nodes.Rooms;
+using MegaCrit.Sts2.Core.Runs;
 using System;
 using System.Collections.Generic;
 using System.Reflection;
@@ -318,7 +320,8 @@ namespace Manosaba.Patches
 
         private static bool ShouldChannelLikePalette(PaletteGap card)
         {
-            return (card.Owner.PlayerCombatState?.OrbQueue?.Capacity ?? 0) <= 1;
+            return (card.Owner.PlayerCombatState?.OrbQueue?.Capacity ?? 0) <= 1
+                || RunManager.Instance?.NetService?.Type.IsMultiplayer() == true;
         }
 
         private static CardModel? GetCard(NCardPlay cardPlay)

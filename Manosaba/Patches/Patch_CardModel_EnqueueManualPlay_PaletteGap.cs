@@ -3,6 +3,7 @@ using Manosaba.Characters.JogasakiNoah.Cards;
 using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Helpers;
 using MegaCrit.Sts2.Core.Models;
+using MegaCrit.Sts2.Core.Multiplayer.Game;
 using MegaCrit.Sts2.Core.Runs;
 using System.Reflection;
 using System.Threading.Tasks;
@@ -23,12 +24,18 @@ namespace Manosaba.Patches
                 return true;
             }
 
+            RunManager runManager = RunManager.Instance;
+            if (runManager.NetService?.Type.IsMultiplayer() == true)
+            {
+                return true;
+            }
+
             if (OnEnqueuePlayVfxMethod?.Invoke(__instance, [target]) is Task vfxTask)
             {
                 TaskHelper.RunSafely(vfxTask);
             }
 
-            RunManager.Instance.ActionQueueSynchronizer.RequestEnqueue(
+            runManager.ActionQueueSynchronizer.RequestEnqueue(
                 new PaletteGapPlayCardAction(paletteGap, target, paletteGap.PendingInsertIndex));
             return false;
         }
