@@ -1,5 +1,6 @@
 using BaseLib.Utils;
 using Manosaba.Characters.Common.Powers;
+using Manosaba.Characters.TachibanaSherry.Powers;
 using Manosaba.Extensions;
 using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Commands;
@@ -24,6 +25,9 @@ namespace manosaba.Characters.TachibanaSherry.Relics
             if (Owner.Creature == null)
                 return;
 
+            if (Owner.Creature.GetPower<InvestigationMomentPower>() == null)
+                await PowerCmd.Apply<InvestigationMomentPower>(Owner.Creature, 1, Owner.Creature, null);
+
             await PowerCmd.Apply<StrengthPower>(Owner.Creature, RelicLevel, Owner.Creature, null);
         }
 
@@ -37,29 +41,21 @@ namespace manosaba.Characters.TachibanaSherry.Relics
                 await PowerCmd.Apply<MajokaPower>(base.Owner.Creature, -majoka, player.Creature, null);
         }
 
-        public override decimal ModifyDamageAdditive(Creature? target, decimal amount, ValueProp props, Creature? dealer, CardModel? cardSource)
+        public override decimal ModifyDamageMultiplicative(Creature? target, decimal amount, ValueProp props, Creature? dealer, CardModel? cardSource)
         {
             if (target != base.Owner.Creature)
-                return 0m;
+                return 1m;
 
-            if (dealer == null)
-                return 0m;
-
-            // Match AttackCommand targeting: dealer must be on the opposing combat side (see CombatState.GetOpponentsOf).
-            CombatState? combatState = base.Owner.Creature.CombatState;
-            if (combatState == null || !combatState.GetOpponentsOf(base.Owner.Creature).Contains(dealer))
-                return 0m;
-
-            // Same condition as ValuePropExtensions.IsPoweredAttack (internal in sts2 — inlined here).
             if (!props.HasFlag(ValueProp.Move) || props.HasFlag(ValueProp.Unpowered))
-                return 0m;
+                return 1m;
 
             decimal strength = base.Owner.Creature.GetPowerAmount<StrengthPower>();
             if (strength <= 0m)
-                return 0m;
+                return 1m;
 
-            decimal factor = RelicLevel >= 4 ? 0.7m : RelicLevel >= 2 ? 0.6m : 0.5m;
-            return -(strength * factor);
+            decimal maxPercent = RelicLevel >= 4 ? 0.60m : RelicLevel >= 2 ? 0.45m : 0.30m;
+            decimal percent = Math.Min(strength * 0.03m, maxPercent);
+            return 1m - percent;
         }
     }
 }

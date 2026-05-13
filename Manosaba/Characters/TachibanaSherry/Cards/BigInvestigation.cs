@@ -8,7 +8,8 @@ using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models.Powers;
-using MegaCrit.Sts2.Core.ValueProps;
+
+using Manosaba.Characters.TachibanaSherry.Powers;
 
 namespace Manosaba.Characters.TachibanaSherry.Cards
 {
@@ -22,8 +23,16 @@ namespace Manosaba.Characters.TachibanaSherry.Cards
         private const TargetType targetType = TargetType.AnyEnemy;
         private const bool shouldShowInCardLibrary = true;
 
-        protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<VulnerablePower>(), HoverTipFactory.FromPower<StrengthPower>()];
-        protected override IEnumerable<DynamicVar> CanonicalVars => [new PowerVar<VulnerablePower>(1m), new PowerVar<StrengthPower>(1m)];
+        protected override IEnumerable<IHoverTip> ExtraHoverTips =>
+        [
+            HoverTipFactory.FromPower<VulnerablePower>(),
+            HoverTipFactory.FromPower<CluePower>(),
+            HoverTipFactory.FromPower<SherryDetectiveRewardPower>(),
+            HoverTipFactory.FromPower<StrengthPower>(),
+            HoverTipFactory.Static(StaticHoverTip.Block),
+        ];
+
+        protected override IEnumerable<DynamicVar> CanonicalVars => [new PowerVar<VulnerablePower>(1m), new PowerVar<CluePower>(1m)];
 
         public BigInvestigation() : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)
         {
@@ -37,12 +46,16 @@ namespace Manosaba.Characters.TachibanaSherry.Cards
             }
 
             await PowerCmd.Apply<VulnerablePower>(target, 1m, ownerCreature, this);
-            await PowerCmd.Apply<StrengthPower>(ownerCreature, DynamicVars["StrengthPower"].BaseValue, ownerCreature, this);
+            await PowerCmd.Apply<CluePower>(ownerCreature, DynamicVars["CluePower"].BaseValue, ownerCreature, this);
+            if (ownerCreature.GetPowerAmount<SherryDetectiveRewardPower>() > 0m)
+            {
+                await PowerCmd.Apply<StrengthPower>(ownerCreature, 1m, ownerCreature, this);
+            }
         }
 
         protected override void OnUpgrade()
         {
-            DynamicVars["StrengthPower"].UpgradeValueBy(1m);
+            DynamicVars["CluePower"].UpgradeValueBy(1m);
         }
     }
 }

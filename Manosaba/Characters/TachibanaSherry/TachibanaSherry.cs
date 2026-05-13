@@ -24,12 +24,12 @@ namespace manosaba.Characters.TachibanaSherry
 			ModelDb.Card<StrikeTachibanaSherry>(),
 			ModelDb.Card<StrikeTachibanaSherry>(),
 			ModelDb.Card<StrikeTachibanaSherry>(),
-			ModelDb.Card<StrikeTachibanaSherry>(),
-			ModelDb.Card<StrikeTachibanaSherry>(),
+			ModelDb.Card<DefendTachibanaSherry>(),
 			ModelDb.Card<DefendTachibanaSherry>(),
 			ModelDb.Card<DefendTachibanaSherry>(),
 			ModelDb.Card<LeftPunch>(),
 			ModelDb.Card<RightPunch>(),
+			ModelDb.Card<MurderCase>(),
 		];
 
 		public override IReadOnlyList<RelicModel> StartingRelics =>

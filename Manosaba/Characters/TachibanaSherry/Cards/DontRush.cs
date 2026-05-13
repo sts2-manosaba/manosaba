@@ -23,11 +23,14 @@ namespace Manosaba.Characters.TachibanaSherry.Cards
         private const TargetType targetType = TargetType.AnyEnemy;
         private const bool shouldShowInCardLibrary = true;
 
-        protected override IEnumerable<IHoverTip> ExtraHoverTips => [
-            HoverTipFactory.FromPower<StrengthPower>()
+        protected override IEnumerable<IHoverTip> ExtraHoverTips =>
+        [
+            HoverTipFactory.FromPower<SherryDetectiveRewardPower>(),
+            HoverTipFactory.FromPower<StrengthPower>(),
+            HoverTipFactory.Static(StaticHoverTip.Block),
         ];
 
-        protected override IEnumerable<DynamicVar> CanonicalVars => [new PowerVar<StrengthPower>(1m)];
+        protected override IEnumerable<DynamicVar> CanonicalVars => [new DynamicVar("EnemyStrengthLoss", 7m)];
 
         public DontRush() : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)
         {
@@ -38,13 +41,16 @@ namespace Manosaba.Characters.TachibanaSherry.Cards
             if (cardPlay.Target == null)
                 return;
 
-            await PowerCmd.Apply<DontRushPower>(cardPlay.Target, 5m, Owner.Creature, this);
-            await PowerCmd.Apply<StrengthPower>(Owner.Creature, DynamicVars["StrengthPower"].BaseValue, Owner.Creature, this);
+            await PowerCmd.Apply<DontRushPower>(cardPlay.Target, DynamicVars["EnemyStrengthLoss"].BaseValue, Owner.Creature, this);
+            if (Owner.Creature.GetPowerAmount<SherryDetectiveRewardPower>() > 0m)
+            {
+                await PowerCmd.Apply<StrengthPower>(Owner.Creature, 1m, Owner.Creature, this);
+            }
         }
 
         protected override void OnUpgrade()
         {
-            DynamicVars["StrengthPower"].UpgradeValueBy(1m);
+            DynamicVars["EnemyStrengthLoss"].UpgradeValueBy(3m);
         }
     }
 }

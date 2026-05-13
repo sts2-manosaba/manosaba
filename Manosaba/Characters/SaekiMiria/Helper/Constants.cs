@@ -89,7 +89,15 @@ namespace Manosaba.Characters.SaekiMiria.Helper
 
                 typeof(IAmRebornPower),
                 typeof(SecondSwordPower),
-                typeof(TheCenterPower)
+                typeof(TheCenterPower),
+
+                typeof(InvestigationMomentPower),
+                typeof(CluePower),
+                typeof(SherryDetectiveRewardPower),
+                typeof(HorsebackRidingPower),
+                typeof(LittleFairyPower),
+                typeof(CluesGainedThisTurnPower),
+                typeof(PlayedSanThisTurnPower),
             };
 
         public static HashSet<Type> AllowedLuckTransferPowers = new()

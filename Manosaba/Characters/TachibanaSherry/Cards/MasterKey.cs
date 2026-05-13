@@ -10,6 +10,7 @@ using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.Powers;
+using MegaCrit.Sts2.Core.ValueProps;
 
 namespace Manosaba.Characters.TachibanaSherry.Cards
 {
@@ -21,13 +22,15 @@ namespace Manosaba.Characters.TachibanaSherry.Cards
         private const CardRarity rarity = CardRarity.Common;
         private const TargetType targetType = TargetType.Self;
         private const bool shouldShowInCardLibrary = true;
+        public override bool GainsBlock => true;
+
         public override IEnumerable<CardKeyword> CanonicalKeywords => [];
         protected override IEnumerable<IHoverTip> ExtraHoverTips => [
             HoverTipFactory.FromCard<BrokenLock>(base.IsUpgraded),
-            HoverTipFactory.FromPower<StrengthPower>()
+            HoverTipFactory.Static(StaticHoverTip.Block),
         ];
 
-        protected override IEnumerable<DynamicVar> CanonicalVars => [new PowerVar<StrengthPower>(1)];
+        protected override IEnumerable<DynamicVar> CanonicalVars => [new BlockVar(5m, ValueProp.Move)];
 
         public MasterKey() : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)
         {
@@ -47,7 +50,7 @@ namespace Manosaba.Characters.TachibanaSherry.Cards
                     CardCmd.Upgrade(c);
                 }
             }
-            await PowerCmd.Apply<StrengthPower>(base.Owner.Creature, base.DynamicVars.Strength.BaseValue, base.Owner.Creature, this);
+            await CreatureCmd.GainBlock(base.Owner.Creature, base.DynamicVars.Block, cardPlay);
         }
 
         protected override void OnUpgrade()

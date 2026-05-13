@@ -5,8 +5,10 @@ using Manosaba.Characters.Common.Powers;
 using Manosaba.Extensions;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
+using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
+using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models.Powers;
 using MegaCrit.Sts2.Core.ValueProps;
@@ -30,8 +32,11 @@ namespace Manosaba.Characters.TachibanaSherry.Cards
         ];
 
         protected override IEnumerable<DynamicVar> CanonicalVars => [
-            new CardsVar(1),
-            new DamageVar(33m, ValueProp.Move),
+            new CalculationBaseVar(8),
+            new ExtraDamageVar(15),
+            new CalculatedDamageVar(ValueProp.Move).WithMultiplier(
+                static (CardModel card, Creature? _) =>
+                    (card.Owner?.Creature?.GetPowerAmount<MajokaPower>() ?? 0) >= 100 ? 1m : 0m),
             new PowerVar<StrengthPower>(5m)
         ];
 
@@ -43,24 +48,21 @@ namespace Manosaba.Characters.TachibanaSherry.Cards
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
-            await CardPileCmd.Draw(choiceContext, base.DynamicVars.Cards.BaseValue, base.Owner);
-
             if (base.CombatState == null)
                 return;
 
-            if (base.Owner.Creature.GetPowerAmount<MajokaPower>() < 100)
-                return;
-
-            await DamageCmd.Attack(base.DynamicVars.Damage.BaseValue)
+            await DamageCmd.Attack(base.DynamicVars.CalculatedDamage)
                 .FromCard(this)
                 .TargetingAllOpponents(base.CombatState)
                 .Execute(choiceContext);
-            await PowerCmd.Apply<StrengthPower>(base.Owner.Creature, base.DynamicVars["StrengthPower"].BaseValue, base.Owner.Creature, this);
+
+            if (base.Owner.Creature.GetPowerAmount<MajokaPower>() >= 100)
+                await PowerCmd.Apply<StrengthPower>(base.Owner.Creature, base.DynamicVars["StrengthPower"].BaseValue, base.Owner.Creature, this);
         }
 
         protected override void OnUpgrade()
         {
-            AddKeyword(CardKeyword.Retain);
+            DynamicVars.CalculationBase.UpgradeValueBy(3);
         }
     }
 }

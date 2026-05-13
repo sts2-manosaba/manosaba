@@ -22,7 +22,15 @@ namespace Manosaba.Characters.TachibanaSherry.Cards
         private const TargetType targetType = TargetType.Self;
         private const bool shouldShowInCardLibrary = true;
 
-        protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<QuickWitPower>()];
+        protected override IEnumerable<IHoverTip> ExtraHoverTips =>
+        [
+            HoverTipFactory.FromPower<QuickWitPower>(),
+            HoverTipFactory.FromPower<SherryDetectiveRewardPower>(),
+            HoverTipFactory.FromPower<StrengthPower>(),
+            HoverTipFactory.FromPower<DexterityPower>(),
+            HoverTipFactory.Static(StaticHoverTip.Block),
+            HoverTipFactory.FromPower<CluePower>(),
+        ];
         protected override IEnumerable<DynamicVar> CanonicalVars => [new PowerVar<QuickWitPower>(1)];
 
         public QuickWit() : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)

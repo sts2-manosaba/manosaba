@@ -2,6 +2,7 @@ using BaseLib.Utils;
 using System.Linq;
 using manosaba.Characters.TachibanaSherry;
 using Manosaba.Extensions;
+using Manosaba.Characters.TachibanaSherry.Powers;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
@@ -20,11 +21,15 @@ namespace Manosaba.Characters.TachibanaSherry.Cards
         private const TargetType targetType = TargetType.Self;
         private const bool shouldShowInCardLibrary = true;
 
-        protected override IEnumerable<DynamicVar> CanonicalVars => [new CardsVar(1), new PowerVar<MegaCrit.Sts2.Core.Models.Powers.StrengthPower>(1m)];
-        protected override IEnumerable<IHoverTip> ExtraHoverTips => [
+        protected override IEnumerable<DynamicVar> CanonicalVars => [new CardsVar(1)];
+
+        protected override IEnumerable<IHoverTip> ExtraHoverTips =>
+        [
             HoverTipFactory.FromCard<IceBall>(),
+            HoverTipFactory.FromPower<SherryDetectiveRewardPower>(),
             HoverTipFactory.FromPower<StrengthPower>(),
-            HoverTipFactory.FromKeyword(CardKeyword.Exhaust)
+            HoverTipFactory.Static(StaticHoverTip.Block),
+            HoverTipFactory.FromKeyword(CardKeyword.Exhaust),
         ];
 
         public IceCube() : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)
@@ -39,7 +44,10 @@ namespace Manosaba.Characters.TachibanaSherry.Cards
             int count = base.DynamicVars.Cards.IntValue;
             List<IceBall> cards = IceBall.Create(base.Owner, count, base.CombatState).ToList();
             await CardPileCmd.AddGeneratedCardsToCombat(cards, PileType.Hand, addedByPlayer: true, CardPilePosition.Random);
-            await PowerCmd.Apply<MegaCrit.Sts2.Core.Models.Powers.StrengthPower>(base.Owner.Creature, base.DynamicVars["StrengthPower"].BaseValue, base.Owner.Creature, this);
+            if (base.Owner.Creature.GetPowerAmount<SherryDetectiveRewardPower>() > 0m)
+            {
+                await PowerCmd.Apply<MegaCrit.Sts2.Core.Models.Powers.StrengthPower>(base.Owner.Creature, 2m, base.Owner.Creature, this);
+            }
         }
 
         protected override void OnUpgrade()

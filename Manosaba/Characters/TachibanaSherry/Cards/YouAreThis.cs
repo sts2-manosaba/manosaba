@@ -1,6 +1,7 @@
 using BaseLib.Utils;
 using manosaba.Characters.TachibanaSherry;
 using Manosaba.Extensions;
+using Manosaba.Characters.TachibanaSherry.Powers;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Entities.Cards;
@@ -22,9 +23,17 @@ namespace Manosaba.Characters.TachibanaSherry.Cards
         private const TargetType targetType = TargetType.Self;
         private const bool shouldShowInCardLibrary = true;
 
-        protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<StrengthPower>()];
+        protected override IEnumerable<IHoverTip> ExtraHoverTips =>
+        [
+            HoverTipFactory.FromPower<StrengthPower>(),
+            HoverTipFactory.FromPower<CluePower>(),
+        ];
 
-        protected override IEnumerable<DynamicVar> CanonicalVars => [new PowerVar<StrengthPower>(4m)];
+        protected override IEnumerable<DynamicVar> CanonicalVars =>
+        [
+            new PowerVar<StrengthPower>(3m),
+            new PowerVar<CluePower>(2m),
+        ];
 
         public YouAreThis() : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)
         {
@@ -42,11 +51,17 @@ namespace Manosaba.Characters.TachibanaSherry.Cards
                 DynamicVars["StrengthPower"].BaseValue,
                 ownerCreature,
                 this);
+            await PowerCmd.Apply<CluePower>(
+                ownerCreature,
+                DynamicVars["CluePower"].BaseValue,
+                ownerCreature,
+                this);
         }
 
         protected override void OnUpgrade()
         {
             DynamicVars["StrengthPower"].UpgradeValueBy(2m);
+            DynamicVars["CluePower"].UpgradeValueBy(1m);
         }
     }
 }

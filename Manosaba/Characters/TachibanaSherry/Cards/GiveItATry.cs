@@ -29,7 +29,16 @@ namespace Manosaba.Characters.TachibanaSherry.Cards
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
-            await PowerCmd.Apply<MajokaPower>(base.Owner.Creature, base.DynamicVars["MajokaPower"].BaseValue, base.Owner.Creature, this);
+            if (base.Owner.Creature is not { } creature)
+            {
+                return;
+            }
+
+            decimal majokaToApply = base.DynamicVars["MajokaPower"].BaseValue - creature.GetPowerAmount<MajokaPower>();
+            if (majokaToApply > 0m)
+            {
+                await PowerCmd.Apply<MajokaPower>(creature, majokaToApply, creature, this);
+            }
         }
 
         protected override void OnUpgrade()
