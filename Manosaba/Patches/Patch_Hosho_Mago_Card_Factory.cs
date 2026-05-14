@@ -32,6 +32,11 @@ public static class Patch_Hosho_Mago_Card_Factory
             yield return method;
         }
 
+        foreach (MethodInfo method in AccessTools.GetDeclaredMethods(typeof(CardFactory)).Where(m => m.Name == nameof(CardFactory.GetForCombat)))
+        {
+            yield return method;
+        }
+
         MethodInfo? lastingCandy = AccessTools.Method(typeof(LastingCandy), nameof(LastingCandy.TryModifyCardRewardOptions));
         if (lastingCandy != null)
         {
@@ -50,6 +55,11 @@ public static class Patch_Hosho_Mago_Card_Factory
         if (__originalMethod.Name == nameof(CardFactory.GetDistinctForCombat))
         {
             return PrefixGetDistinctForCombat(__args, ref __result);
+        }
+
+        if (__originalMethod.Name == nameof(CardFactory.GetForCombat))
+        {
+            return PrefixGetForCombat(__args, ref __result);
         }
 
         if (__originalMethod.Name == nameof(LastingCandy.TryModifyCardRewardOptions))
@@ -142,6 +152,70 @@ public static class Patch_Hosho_Mago_Card_Factory
                 : player.RunState.CreateCard(canonical, player);
             picked.Add(card);
             available.Remove(canonical);
+        }
+
+        result = picked;
+        return false;
+    }
+
+    private static bool PrefixGetForCombat(object[] args, ref object? result)
+    {
+        if (args.Length < 4)
+        {
+            return true;
+        }
+
+        Player? player = args.OfType<Player>().FirstOrDefault();
+        Rng? rng = args.OfType<Rng>().FirstOrDefault();
+        int? count = args.OfType<int>().Select(v => (int?)v).FirstOrDefault();
+        object? poolArg = args.FirstOrDefault(a => a != null && a is not Player && a is not Rng && a is not int && a is not bool);
+        if (player == null || rng == null || count == null || poolArg == null)
+        {
+            return true;
+        }
+
+        if (!TryGetPoolCards(poolArg, player, out List<CardModel>? poolCards) || poolCards == null)
+        {
+            return true;
+        }
+
+        if (!IsHoshoPool(poolArg, poolCards))
+        {
+            return true;
+        }
+
+        List<CardModel> available = BuildHoshoFallbackPool(poolCards, isInCombat: true, includeBasic: false, excludeCardId: null)
+            .GroupBy(c => c.Id)
+            .Select(g => g.First())
+            .ToList();
+        if (available.Count == 0)
+        {
+            available = BuildHoshoFallbackPool(poolCards, isInCombat: true, includeBasic: true, excludeCardId: null)
+                .GroupBy(c => c.Id)
+                .Select(g => g.First())
+                .ToList();
+        }
+
+        if (available.Count == 0)
+        {
+            result = Enumerable.Empty<CardModel>();
+            return false;
+        }
+
+        int targetCount = Math.Max(count.Value, 0);
+        List<CardModel> picked = [];
+        for (int i = 0; i < targetCount; i++)
+        {
+            CardModel? canonical = rng.NextItem(available);
+            if (canonical == null)
+            {
+                continue;
+            }
+
+            CardModel card = player.Creature?.CombatState != null
+                ? player.Creature.CombatState.CreateCard(canonical, player)
+                : player.RunState.CreateCard(canonical, player);
+            picked.Add(card);
         }
 
         result = picked;
