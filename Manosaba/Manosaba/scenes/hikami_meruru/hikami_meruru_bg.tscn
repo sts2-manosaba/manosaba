@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://qhvgse46gtw1"]
+[gd_scene load_steps=3 format=3 uid="uid://qhvgse46gtw1"]
 
 [ext_resource type="Texture2D" uid="uid://bg55hjeqmbak4" path="res://Manosaba/images/characters/hikami_meruru/HikamiMeruruBg.png" id="1_cp6fv"]
+[ext_resource type="Texture2D" uid="uid://bhgnbl8pgvwqf" path="res://Manosaba/images/characters/hikami_meruru/HikamiMeruruBg2.png" id="2_kkbn3"]
 
 [node name="HikamiMeruruBg" type="Control"]
 layout_mode = 3
@@ -18,6 +19,12 @@ grow_vertical = 2
 pivot_offset = Vector2(1280, 600)
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+visible = false
 position = Vector2(851, 504)
 scale = Vector2(1.1755396, 1.1755396)
 texture = ExtResource("1_cp6fv")
+
+[node name="Sprite2D2" type="Sprite2D" parent="."]
+position = Vector2(613, 415)
+scale = Vector2(1.2013887, 1.2013893)
+texture = ExtResource("2_kkbn3")

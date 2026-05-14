@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://65g3h17jq854"]
+[gd_scene load_steps=3 format=3 uid="uid://65g3h17jq854"]
 
-[ext_resource type="Texture2D" uid="uid://b8ipu4kjeue8o" path="res://Manosaba/images/characters/tachibana_sherry/TachibanaSherryBg.png" id="1_qn4c8"]
+[ext_resource type="Texture2D" uid="uid://ckc7x0d1vfykt" path="res://Manosaba/images/characters/tachibana_sherry/TachibanaSherryBg.png" id="1_qn4c8"]
+[ext_resource type="Texture2D" uid="uid://dh0u1kxd5s6xd" path="res://Manosaba/images/characters/tachibana_sherry/TachibanaSherryBg2.png" id="2_dcmoa"]
 
 [node name="TachibanaSherryBg" type="Control"]
 layout_mode = 3
@@ -18,6 +19,12 @@ grow_vertical = 2
 pivot_offset = Vector2(1280, 600)
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+visible = false
 position = Vector2(664.484, 482.32443)
 scale = Vector2(2.08631, 2.0863097)
 texture = ExtResource("1_qn4c8")
+
+[node name="Sprite2D2" type="Sprite2D" parent="."]
+position = Vector2(640, 375.99997)
+scale = Vector2(1.1505585, 1.1505585)
+texture = ExtResource("2_dcmoa")
