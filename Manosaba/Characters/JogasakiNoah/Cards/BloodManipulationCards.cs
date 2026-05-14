@@ -307,6 +307,8 @@ public sealed class BloodDraw : PathCustomCardModel
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromOrb<BloodOrb>()];
     protected override IEnumerable<DynamicVar> CanonicalVars => [new RepeatVar(2), new DamageVar(3, ValueProp.Unblockable | ValueProp.Unpowered)];
 
+    public override IEnumerable<CardKeyword> CanonicalKeywords => [ManosabaKeywords.Sekketsusoujitsu];
+
     public BloodDraw() : base(2, CardType.Skill, CardRarity.Common, TargetType.Self, true)
     {
     }
@@ -331,7 +333,9 @@ public sealed class BloodDraw : PathCustomCardModel
 public sealed class Ketsujin : PathCustomCardModel
 {
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromOrb<BloodOrb>()];
-    protected override IEnumerable<DynamicVar> CanonicalVars => [new DynamicVar("BloodOrbPassive", 2m)];
+    protected override IEnumerable<DynamicVar> CanonicalVars => [new DynamicVar("BloodOrbPassive", 4m)];
+
+    public override IEnumerable<CardKeyword> CanonicalKeywords => [ManosabaKeywords.Sekketsusoujitsu];
 
     public Ketsujin() : base(2, CardType.Skill, CardRarity.Common, TargetType.Self, true)
     {
@@ -349,7 +353,7 @@ public sealed class Ketsujin : PathCustomCardModel
 
     protected override void OnUpgrade()
     {
-        DynamicVars["BloodOrbPassive"].UpgradeValueBy(1);
+        DynamicVars["BloodOrbPassive"].UpgradeValueBy(2);
     }
 }
 

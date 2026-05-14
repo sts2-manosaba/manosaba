@@ -1,14 +1,18 @@
 ﻿using BaseLib.Utils;
+using Manosaba.Characters.Common.Overrides;
 using Manosaba.Characters.JogasakiNoa.Orbs;
 using Manosaba.Characters.JogasakiNoah;
 using Manosaba.Characters.JogasakiNoah.Powers;
 using Manosaba.Extensions;
 using MegaCrit.Sts2.Core.Commands;
+using MegaCrit.Sts2.Core.Entities.Cards;
+using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.Entities.Relics;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
+using MegaCrit.Sts2.Core.ValueProps;
 
 namespace manosaba.Characters.JogasakiNoah.Relics
 {
@@ -65,6 +69,34 @@ namespace manosaba.Characters.JogasakiNoah.Relics
             }
         }
 
+        public override async Task AfterDamageReceived(
+            PlayerChoiceContext choiceContext,
+            Creature target,
+            DamageResult result,
+            ValueProp props,
+            Creature? dealer,
+            CardModel? cardSource)
+        {
+            _ = props;
+            _ = dealer;
+            _ = cardSource;
+
+            if (target != Owner.Creature || result.UnblockedDamage <= 0 || !HasSekketsusoujitsuCardInDeck())
+            {
+                return;
+            }
+
+            if (Owner.RunState.Rng.Niche.NextInt(100) >= 50)
+            {
+                return;
+            }
+
+            Flash();
+            BloodOrb bloodOrb = (BloodOrb)ModelDb.Orb<BloodOrb>().ToMutable();
+            bloodOrb.AddLayers(result.UnblockedDamage - 3m);
+            await OrbCmd.Channel(choiceContext, bloodOrb, Owner);
+        }
+
         protected override void OnRelicLevelChanged(int oldLevel, int newLevel)
         {
             ApplyRelicLevelEffects();
@@ -81,6 +113,11 @@ namespace manosaba.Characters.JogasakiNoah.Relics
             IReadOnlyList<OrbModel> paintOrbs = restrictToZumaPrimaryOrbs ? ZumaPrimaryOrbs : JogasakiNoahOrbPool.AllOrbs;
             int idx = base.Owner.RunState.Rng.CombatOrbGeneration.NextInt(paintOrbs.Count);
             return paintOrbs[idx];
+        }
+
+        private bool HasSekketsusoujitsuCardInDeck()
+        {
+            return Owner.Deck?.Cards.Any(card => card.Keywords.Contains(ManosabaKeywords.Sekketsusoujitsu)) == true;
         }
     }
 }

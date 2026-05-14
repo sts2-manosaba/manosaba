@@ -14,7 +14,7 @@ namespace Manosaba.Characters.JogasakiNoa.Orbs;
 [Pool(typeof(JogasakiNoahOrbPool))]
 public sealed class BloodOrb : ManosabaOrbModel
 {
-    private decimal _layers = 1m;
+    private decimal _layers = 3m;
 
     public override Color DarkenedColor => new("8A1F2A");
 
