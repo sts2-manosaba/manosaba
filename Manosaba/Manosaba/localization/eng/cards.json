@@ -14,7 +14,7 @@
   "MANOSABA-EMA_DOG_RUSH.title": "Ema Rush",
   "MANOSABA-EMA_DOG_RUSH.description": "Gain [gold]Summon[/gold]: {Summon:diff()}. [gold]Sakuraba Ema?[/gold] deals damage equal to her current HP to the target.",
   "MANOSABA-EMA_NIKAIDO_HIRO.title": "💢Sakuraba Ema💢",
-  "MANOSABA-EMA_NIKAIDO_HIRO.description": "Draw {Cards} cards and gain {MajokaPower:diff()} [gold]Majoka[/gold].",
+  "MANOSABA-EMA_NIKAIDO_HIRO.description": "Gain [gold]Summon[/gold]: {Summon:diff()}. Gain {MajokaPower:diff()} [gold]Majoka[/gold].",
   "MANOSABA-FLUX.title": "Flux",
   "MANOSABA-FLUX.description": "Gain the [gold]Flux[/gold] power.",
   "MANOSABA-GOOD_SLEEP.title": "A Good Night's Sleep?",

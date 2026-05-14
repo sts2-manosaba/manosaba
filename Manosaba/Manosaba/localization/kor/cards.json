@@ -14,7 +14,7 @@
   "MANOSABA-EMA_DOG_RUSH.title": "에마 기습",
   "MANOSABA-EMA_DOG_RUSH.description": "[gold]소환[/gold]: {Summon:diff()}. [gold]사쿠라바 에마?[/gold]가 대상에게 사쿠라바 에마?의 현재 체력만큼 피해를 줍니다.",
   "MANOSABA-EMA_NIKAIDO_HIRO.title": "💢사쿠라바 에마💢",
-  "MANOSABA-EMA_NIKAIDO_HIRO.description": "카드를 {Cards}장 뽑고 [gold]마녀화[/gold]를 {MajokaPower:diff()} 얻습니다.",
+  "MANOSABA-EMA_NIKAIDO_HIRO.description": "[gold]소환[/gold]: {Summon:diff()}. [gold]마녀화[/gold]를 {MajokaPower:diff()} 얻습니다.",
   "MANOSABA-FLUX.title": "유전",
   "MANOSABA-FLUX.description": "자세를 전환할 때마다 [gold]에너지[/gold]를 1 얻습니다.",
   "MANOSABA-GOOD_SLEEP.title": "잘 잔 건가?",

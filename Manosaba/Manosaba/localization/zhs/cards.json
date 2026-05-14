@@ -14,7 +14,7 @@
   "MANOSABA-EMA_DOG_RUSH.title": "艾瑪突襲",
   "MANOSABA-EMA_DOG_RUSH.description": "獲得[gold]召喚[/gold]：{Summon:diff()}。[gold]櫻羽艾瑪？[/gold]對目標造成等同於其當前生命值的傷害。",
   "MANOSABA-EMA_NIKAIDO_HIRO.title": "💢櫻羽艾瑪💢",
-  "MANOSABA-EMA_NIKAIDO_HIRO.description": "抽 {Cards} 張牌，獲得 {MajokaPower:diff()} 層[gold]魔女化[/gold]。",
+  "MANOSABA-EMA_NIKAIDO_HIRO.description": "獲得[gold]召喚[/gold]：{Summon:diff()}。獲得 {MajokaPower:diff()} 層[gold]魔女化[/gold]。",
   "MANOSABA-FLUX.title": "流轉",
   "MANOSABA-FLUX.description": "獲得能力：[gold]流轉[/gold]。",
   "MANOSABA-GOOD_SLEEP.title": "一夜好眠？",
