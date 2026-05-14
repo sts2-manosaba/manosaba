@@ -1,3 +1,4 @@
+using MegaCrit.Sts2.Core.Context;
 using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.Runs;
 
@@ -50,15 +51,23 @@ public static class CharacterSfxRegistry
     }
 
     /// <summary>
-    /// Returns the SFX instance for the current run's player character, or null
-    /// if no custom SFX is registered for them.
-    /// Checks all players in the run (supports co-op).
+    /// Returns custom SFX for UI / combat overlay hooks (<c>Patch_CharacterSfx_Interceptor</c>).
+    /// Prefers the <b>local</b> player in multiplayer (<see cref="LocalContext.GetMe"/>); falls back to the first
+    /// registered Manosaba character in the run when <c>NetId</c> is unset (e.g. some single-player / test paths).
     /// </summary>
     public static CharacterSfxBase? GetCurrentPlayerSfx()
     {
         var runState = RunManager.Instance.DebugOnlyGetState();
         if (runState == null)
             return null;
+
+        Player? local = LocalContext.GetMe(runState);
+        if (local != null)
+        {
+            CharacterSfxBase? localSfx = TryGetForPlayer(local);
+            if (localSfx != null)
+                return localSfx;
+        }
 
         foreach (var player in runState.Players)
         {
