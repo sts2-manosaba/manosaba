@@ -127,8 +127,13 @@ public sealed class TheFool : HoshoMagoArcanaBase
     public TheFool() : base(0)
     {
     }
-    protected override IEnumerable<IHoverTip> ExtraHoverTips => [EnergyHoverTip];
-    protected override IEnumerable<DynamicVar> CanonicalVars => [new EnergyVar(2)];
+    protected override IEnumerable<IHoverTip> ExtraHoverTips => [EnergyHoverTip, HoverTipFactory.FromPower<DrawCardsNextTurnPower>()];
+    protected override IEnumerable<DynamicVar> CanonicalVars =>
+    [
+        new EnergyVar(2),
+        new DynamicVar("WorldEnergy", 10m),
+        new DynamicVar("WorldCards", 5m)
+    ];
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
@@ -137,7 +142,17 @@ public sealed class TheFool : HoshoMagoArcanaBase
             return;
         }
 
-        await PowerCmd.Apply<EnergyNextTurnPower>(ownerCreature, DynamicVars.Energy.IntValue, ownerCreature, this);
+        bool hasTheWorldInDeck = Owner.Deck?.Cards?.Any(card => card is TheWorld) == true;
+        if (hasTheWorldInDeck)
+        {
+            await PowerCmd.Apply<EnergyNextTurnPower>(ownerCreature, DynamicVars["WorldEnergy"].BaseValue, ownerCreature, this);
+            await PowerCmd.Apply<DrawCardsNextTurnPower>(ownerCreature, DynamicVars["WorldCards"].BaseValue, ownerCreature, this);
+        }
+        else
+        {
+            await PowerCmd.Apply<EnergyNextTurnPower>(ownerCreature, DynamicVars.Energy.IntValue, ownerCreature, this);
+        }
+
         await PowerCmd.Apply<TheFoolPower>(ownerCreature, 1, ownerCreature, this);
     }
 
@@ -349,7 +364,7 @@ public sealed class TheHierophant : HoshoMagoArcanaBase
 [Pool(typeof(HoshoMagoCardPool))]
 public sealed class TheLovers : HoshoMagoArcanaBase
 {
-    protected override IEnumerable<DynamicVar> CanonicalVars => [new PowerVar<TheLoversPower>(25)];
+    protected override IEnumerable<DynamicVar> CanonicalVars => [new PowerVar<TheLoversPower>(25), new DynamicVar("DevilBonus", 10m)];
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<TheLoversPower>()];
 
     public TheLovers() : base(1, CardType.Skill, TargetType.AnyEnemy)
@@ -363,7 +378,13 @@ public sealed class TheLovers : HoshoMagoArcanaBase
             return;
         }
 
-        await PowerCmd.Apply<TheLoversPower>(target, DynamicVars["TheLoversPower"].BaseValue, ownerCreature, this);
+        decimal loversToApply = DynamicVars["TheLoversPower"].BaseValue;
+        if (Owner.Deck?.Cards?.Any(card => card is TheDevil) == true)
+        {
+            loversToApply += DynamicVars["DevilBonus"].BaseValue;
+        }
+
+        await PowerCmd.Apply<TheLoversPower>(target, loversToApply, ownerCreature, this);
     }
 
     protected override void OnUpgrade()
@@ -375,7 +396,7 @@ public sealed class TheLovers : HoshoMagoArcanaBase
 [Pool(typeof(HoshoMagoCardPool))]
 public sealed class TheChariot : HoshoMagoArcanaBase
 {
-    protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(4m, ValueProp.Move), new RepeatVar(4)];
+    protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(4m, ValueProp.Move), new RepeatVar(3), new DynamicVar("StrengthRepeatBonus", 1m)];
 
     public TheChariot() : base(2, CardType.Attack, TargetType.AllEnemies)
     {
@@ -388,8 +409,14 @@ public sealed class TheChariot : HoshoMagoArcanaBase
             return;
         }
 
+        int hitCount = DynamicVars.Repeat.IntValue;
+        if (Owner.Deck?.Cards?.Any(card => card is Strength) == true)
+        {
+            hitCount += DynamicVars["StrengthRepeatBonus"].IntValue;
+        }
+
         await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
-            .WithHitCount(DynamicVars.Repeat.IntValue)
+            .WithHitCount(hitCount)
             .FromCard(this)
             .TargetingAllOpponents(CombatState)
             .Execute(choiceContext);
@@ -445,6 +472,31 @@ public sealed class TheHermit : HoshoMagoArcanaBase
         }
 
         await PowerCmd.Apply<IntangiblePower>(ownerCreature, DynamicVars["IntangiblePower"].BaseValue, ownerCreature, this);
+
+        IEnumerable<CardModel>? deckCards = Owner.Deck?.Cards;
+        bool hasMoonAndPriestess = deckCards != null
+                                   && deckCards.Any(card => card is TheMoon)
+                                   && deckCards.Any(card => card is TheHighPriestess);
+        if (!hasMoonAndPriestess || CombatState == null)
+        {
+            return;
+        }
+
+        List<Creature> teammates = CombatState.GetTeammatesOf(ownerCreature)
+            .Where(creature => creature != null && creature.IsAlive && creature.IsPlayer && creature != ownerCreature)
+            .ToList();
+        if (teammates.Count == 0)
+        {
+            return;
+        }
+
+        Creature? teammate = Owner.RunState.Rng.CombatTargets.NextItem(teammates);
+        if (teammate == null)
+        {
+            return;
+        }
+
+        await PowerCmd.Apply<IntangiblePower>(teammate, DynamicVars["IntangiblePower"].BaseValue, ownerCreature, this);
     }
 
     protected override void OnUpgrade()
@@ -456,11 +508,16 @@ public sealed class TheHermit : HoshoMagoArcanaBase
 [Pool(typeof(HoshoMagoCardPool))]
 public sealed class WheelOfFortune : HoshoMagoArcanaBase
 {
-    protected override IEnumerable<DynamicVar> CanonicalVars => [new CardsVar(4)];
+    protected override IEnumerable<DynamicVar> CanonicalVars => [new CardsVar(4), new DynamicVar("HangedManCards", 1m)];
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         int drawCount = DynamicVars.Cards.IntValue;
+        if (Owner.Deck?.Cards?.Any(card => card is TheHangedMan) == true)
+        {
+            drawCount += DynamicVars["HangedManCards"].IntValue;
+        }
+
         int handCount = PileType.Hand.GetPile(Owner).Cards.Count;
         int maxSelect = Math.Min(drawCount, handCount);
 
@@ -488,8 +545,8 @@ public sealed class WheelOfFortune : HoshoMagoArcanaBase
 [Pool(typeof(HoshoMagoCardPool))]
 public sealed class Justice : HoshoMagoArcanaBase
 {
-    protected override IEnumerable<DynamicVar> CanonicalVars => [new PowerVar<InhibitionPower>(1)];
-    protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<InhibitionPower>()];
+    protected override IEnumerable<DynamicVar> CanonicalVars => [new PowerVar<InhibitionPower>(1), new BlockVar("TemperanceBlock", 3m, ValueProp.Move)];
+    protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<InhibitionPower>(), HoverTipFactory.Static(StaticHoverTip.Block)];
     public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
 
     public Justice() : base(1, CardType.Skill, TargetType.AllEnemies)
@@ -519,6 +576,10 @@ public sealed class Justice : HoshoMagoArcanaBase
         }
 
         await PowerCmd.Apply<InhibitionPower>(ownerCreature, exhaustedCount * perCardInhibition, ownerCreature, this);
+        if (Owner.Deck?.Cards?.Any(card => card is Temperance) == true)
+        {
+            await CreatureCmd.GainBlock(ownerCreature, exhaustedCount * DynamicVars["TemperanceBlock"].BaseValue, ValueProp.Move, cardPlay);
+        }
     }
 
     protected override void OnUpgrade()
@@ -642,8 +703,8 @@ public sealed class Death : HoshoMagoArcanaBase
 [Pool(typeof(HoshoMagoCardPool))]
 public sealed class Temperance : HoshoMagoArcanaBase
 {
-    protected override IEnumerable<DynamicVar> CanonicalVars => [new PowerVar<TemperancePower>(30)];
-    protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<TemperancePower>()];
+    protected override IEnumerable<DynamicVar> CanonicalVars => [new PowerVar<TemperancePower>(30), new BlockVar("JusticeBlock", 10m, ValueProp.Move)];
+    protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<TemperancePower>(), HoverTipFactory.Static(StaticHoverTip.Block)];
 
     public Temperance() : base(3, CardType.Power, TargetType.Self)
     {
@@ -657,6 +718,10 @@ public sealed class Temperance : HoshoMagoArcanaBase
         }
 
         await PowerCmd.Apply<TemperancePower>(ownerCreature, DynamicVars["TemperancePower"].BaseValue, ownerCreature, this);
+        if (Owner.Deck?.Cards?.Any(card => card is Justice) == true)
+        {
+            await CreatureCmd.GainBlock(ownerCreature, DynamicVars["JusticeBlock"].BaseValue, ValueProp.Move, cardPlay);
+        }
     }
 
     protected override void OnUpgrade()
@@ -712,8 +777,8 @@ public sealed class TheDevil : HoshoMagoArcanaBase
 [Pool(typeof(HoshoMagoCardPool))]
 public sealed class TheTower : HoshoMagoArcanaBase
 {
-    protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(9m, ValueProp.Move), new PowerVar<TheTowerPower>(1)];
-    protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<ArtifactPower>(), HoverTipFactory.FromPower<TheTowerPower>()];
+    protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(9m, ValueProp.Move), new PowerVar<TheTowerPower>(1), new DynamicVar("DeathDoom", 10m)];
+    protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<ArtifactPower>(), HoverTipFactory.FromPower<TheTowerPower>(), HoverTipFactory.FromPower<DoomPower>()];
 
     public TheTower() : base(2, CardType.Attack, TargetType.AllEnemies)
     {
@@ -738,6 +803,7 @@ public sealed class TheTower : HoshoMagoArcanaBase
                 .Execute(choiceContext);
         }
 
+        bool hasDeathInDeck = Owner.Deck?.Cards?.Any(card => card is Death) == true;
         foreach (Creature enemy in enemies)
         {
             if (!enemy.IsAlive)
@@ -747,6 +813,10 @@ public sealed class TheTower : HoshoMagoArcanaBase
 
             await PowerCmd.Remove<ArtifactPower>(enemy);
             await PowerCmd.Apply<TheTowerPower>(enemy, DynamicVars["TheTowerPower"].BaseValue, ownerCreature, this);
+            if (hasDeathInDeck)
+            {
+                await PowerCmd.Apply<DoomPower>(enemy, DynamicVars["DeathDoom"].BaseValue, ownerCreature, this);
+            }
         }
     }
 
@@ -760,59 +830,43 @@ public sealed class TheTower : HoshoMagoArcanaBase
 [Pool(typeof(HoshoMagoCardPool))]
 public sealed class TheStar : HoshoMagoArcanaBase
 {
-    private const int InterceptPerTeammate = 3;
+    private const int ReflectMultiplier = 2;
 
     public override bool GainsBlock => true;
-    protected override IEnumerable<DynamicVar> CanonicalVars => [new BlockVar(16m, ValueProp.Move), new DynamicVar("InterceptPower", InterceptPerTeammate)];
+    protected override IEnumerable<DynamicVar> CanonicalVars => [new BlockVar(16m, ValueProp.Move), new DynamicVar("ReflectMultiplier", ReflectMultiplier)];
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.Static(StaticHoverTip.Block), HoverTipFactory.FromPower<CoveredPower>(), HoverTipFactory.FromPower<TheStarPower>()];
 
-    public TheStar() : base(2, CardType.Skill, TargetType.Self)
+    public TheStar() : base(2, CardType.Skill, TargetType.AnyPlayer)
     {
     }
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        if (Owner?.Creature is not { } ownerCreature)
+        if (Owner?.Creature is not { } ownerCreature || cardPlay.Target is not { } target)
         {
             return;
         }
 
-        await CreatureCmd.GainBlock(ownerCreature, DynamicVars.Block, cardPlay);
-
-        if (CombatState == null)
+        decimal blockToGain = DynamicVars.Block.BaseValue;
+        if (HasSunMoonStarSynergy(Owner?.Deck?.Cards))
         {
-            return;
+            blockToGain *= 2m;
         }
 
-        List<Creature> teammates = CombatState.GetTeammatesOf(ownerCreature)
-            .Where(creature => creature != null && creature.IsAlive && creature.IsPlayer && creature != ownerCreature)
-            .ToList();
+        await CreatureCmd.GainBlock(ownerCreature, blockToGain, DynamicVars.Block.Props, cardPlay);
 
-        foreach (Creature teammate in teammates)
+        if (target != ownerCreature && target.IsPlayer && target.IsAlive)
         {
-            await PowerCmd.Apply<CoveredPower>(teammate, 1m, ownerCreature, this);
+            await PowerCmd.Apply<CoveredPower>(target, 1m, ownerCreature, this);
         }
 
-        int teammateCount = teammates.Count;
-        if (teammateCount <= 0)
-        {
-            return;
-        }
-
-        decimal interceptAmount = teammateCount * DynamicVars["InterceptPower"].BaseValue;
-        bool hasSunMoonStar = HasSunMoonStarSynergy(Owner?.Deck?.Cards);
-        if (hasSunMoonStar)
-        {
-            interceptAmount *= 2m;
-        }
-
-        await PowerCmd.Apply<TheStarPower>(ownerCreature, interceptAmount, ownerCreature, this);
+        await PowerCmd.Apply<TheStarPower>(ownerCreature, DynamicVars["ReflectMultiplier"].BaseValue, ownerCreature, this);
     }
 
     protected override void OnUpgrade()
     {
-        DynamicVars.Block.UpgradeValueBy(8);
-        DynamicVars["InterceptPower"].UpgradeValueBy(2m);
+        DynamicVars.Block.UpgradeValueBy(4);
+        DynamicVars["ReflectMultiplier"].UpgradeValueBy(1m);
     }
 }
 

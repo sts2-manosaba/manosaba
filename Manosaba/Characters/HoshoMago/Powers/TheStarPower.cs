@@ -14,27 +14,35 @@ public sealed class TheStarPower : PathCustomPowerModel
     public override PowerType Type => PowerType.Buff;
     public override PowerStackType StackType => PowerStackType.Counter;
 
-    public override decimal ModifyDamageAdditive(
-        Creature? target,
-        decimal amount,
+    public override async Task AfterDamageReceived(
+        PlayerChoiceContext choiceContext,
+        Creature target,
+        DamageResult result,
         ValueProp props,
         Creature? dealer,
         CardModel? cardSource)
     {
-        _ = dealer;
         _ = cardSource;
 
-        if (target != Owner)
+        if (ReflectionDamageGuard.IsActive)
         {
-            return 0m;
+            return;
         }
 
-        if (!props.HasFlag(ValueProp.Move) || props.HasFlag(ValueProp.Unpowered))
+        if (target != Owner || dealer == null || !props.IsPoweredAttack())
         {
-            return 0m;
+            return;
         }
 
-        return -Math.Min(Amount, amount);
+        decimal reflectedAmount = result.TotalDamage * Amount;
+        int reflectedDamage = (int)Math.Floor(reflectedAmount);
+        if (reflectedDamage <= 0)
+        {
+            return;
+        }
+
+        await ReflectionDamageGuard.Run(() =>
+            CreatureCmd.Damage(choiceContext, dealer, reflectedDamage, ValueProp.Unpowered, Owner, null));
     }
 
     public override async Task AfterTurnEnd(PlayerChoiceContext choiceContext, CombatSide side)
