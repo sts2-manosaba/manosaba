@@ -12,13 +12,13 @@ namespace Manosaba.Characters.JogasakiNoah.Cards
     [Pool(typeof(JogasakiNoahCardPool))]
     public class Confusion : PathCustomCardModel
     {
-        private const int energyCost = 1;
+        private const int energyCost = 2;
         private const CardType type = CardType.Skill;
         private const CardRarity rarity = CardRarity.Uncommon;
         private const TargetType targetType = TargetType.Self;
         private const bool shouldShowInCardLibrary = true;
 
-        protected override IEnumerable<DynamicVar> CanonicalVars => [new RepeatVar(1)];
+        protected override IEnumerable<DynamicVar> CanonicalVars => [new RepeatVar(2)];
 
         public Confusion() : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)
         {

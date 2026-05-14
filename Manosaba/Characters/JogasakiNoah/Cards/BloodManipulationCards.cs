@@ -126,7 +126,7 @@ public sealed class Sekirinyakudou : PathCustomCardModel
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<SekirinyakudouPower>()];
     public override IEnumerable<CardKeyword> CanonicalKeywords => [ManosabaKeywords.Sekketsusoujitsu];
 
-    public Sekirinyakudou() : base(3, CardType.Power, CardRarity.Uncommon, TargetType.Self, true)
+    public Sekirinyakudou() : base(3, CardType.Power, CardRarity.Rare, TargetType.Self, true)
     {
     }
 
@@ -184,7 +184,7 @@ public sealed class Sekibaku : PathCustomCardModel
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromOrb<BloodOrb>(), HoverTipFactory.FromPower<StrengthPower>()];
     public override IEnumerable<CardKeyword> CanonicalKeywords => [ManosabaKeywords.Sekketsusoujitsu];
 
-    public Sekibaku() : base(2, CardType.Skill, CardRarity.Rare, TargetType.AnyEnemy, true)
+    public Sekibaku() : base(2, CardType.Skill, CardRarity.Uncommon, TargetType.AnyEnemy, true)
     {
     }
 
@@ -305,7 +305,7 @@ public sealed class Hyakuren : PathCustomCardModel
 public sealed class BloodDraw : PathCustomCardModel
 {
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromOrb<BloodOrb>()];
-    protected override IEnumerable<DynamicVar> CanonicalVars => [new RepeatVar(2)];
+    protected override IEnumerable<DynamicVar> CanonicalVars => [new RepeatVar(2), new DamageVar(3, ValueProp.Unblockable | ValueProp.Unpowered)];
 
     public BloodDraw() : base(2, CardType.Skill, CardRarity.Common, TargetType.Self, true)
     {
@@ -313,6 +313,8 @@ public sealed class BloodDraw : PathCustomCardModel
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
+        await CreatureCmd.Damage(choiceContext, Owner.Creature, DynamicVars.Damage.BaseValue, DynamicVars.Damage.Props, Owner.Creature, this);
+
         for (int i = 0; i < DynamicVars.Repeat.IntValue; i++)
         {
             await OrbCmd.Channel<BloodOrb>(choiceContext, Owner);

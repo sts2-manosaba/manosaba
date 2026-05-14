@@ -6,6 +6,7 @@ using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
+using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
 
 namespace Manosaba.Characters.JogasakiNoah.Cards;
@@ -19,41 +20,47 @@ public class ComplementaryColor : PathCustomCardModel
     private const TargetType targetType = TargetType.Self;
     private const bool shouldShowInCardLibrary = true;
 
+    protected override IEnumerable<DynamicVar> CanonicalVars => [new RepeatVar(1)];
+
     public ComplementaryColor() : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)
     {
     }
 
-        protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
+    protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
+    {
+        if (Owner == null)
         {
-            if (Owner == null)
-            {
-                return;
-            }
-
-            IReadOnlyList<OrbModel>? orbList = Owner.PlayerCombatState?.OrbQueue?.Orbs;
-            if (orbList == null || orbList.Count == 0)
-            {
-                return;
-            }
-
-        int orbCountToRead = IsUpgraded ? 2 : 1;
-        int actualCount = Math.Min(orbCountToRead, orbList.Count);
-        List<OrbModel> sourceOrbs = new(actualCount);
-        for (int i = 0; i < actualCount; i++)
-        {
-            sourceOrbs.Add(orbList[orbList.Count - 1 - i]);
+            return;
         }
 
-        foreach (OrbModel sourceOrb in sourceOrbs)
+        IReadOnlyList<OrbModel>? orbList = Owner.PlayerCombatState?.OrbQueue?.Orbs;
+        if (orbList == null || orbList.Count == 0)
         {
-            OrbModel? complementaryOrb = GetComplementaryOrb(sourceOrb);
-            if (complementaryOrb == null)
-            {
-                continue;
-            }
-
-            await OrbCmd.Channel(choiceContext, complementaryOrb.ToMutable(), Owner);
+            return;
         }
+
+        OrbModel? complementaryOrb = GetComplementaryOrb(orbList[^1])?.ToMutable();
+        if (complementaryOrb == null)
+        {
+            return;
+        }
+
+        await OrbCmd.Channel(choiceContext, complementaryOrb, Owner);
+
+        if (Owner.PlayerCombatState?.OrbQueue?.Orbs.Contains(complementaryOrb) != true)
+        {
+            return;
+        }
+
+        for (int i = 0; i < DynamicVars.Repeat.IntValue; i++)
+        {
+            await OrbCmd.Passive(choiceContext, complementaryOrb, null);
+        }
+    }
+
+    protected override void OnUpgrade()
+    {
+        DynamicVars.Repeat.UpgradeValueBy(1);
     }
 
     private static OrbModel? GetComplementaryOrb(OrbModel orb)

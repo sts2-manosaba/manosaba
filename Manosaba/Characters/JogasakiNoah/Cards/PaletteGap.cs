@@ -12,6 +12,7 @@ using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.CardPools;
 using MegaCrit.Sts2.Core.Multiplayer.Game;
 using MegaCrit.Sts2.Core.Runs;
+using MegaCrit.Sts2.Core.ValueProps;
 
 namespace Manosaba.Characters.JogasakiNoah.Cards
 {
@@ -44,7 +45,7 @@ namespace Manosaba.Characters.JogasakiNoah.Cards
             HoverTipFactory.FromOrb<BluePaintOrb>()
         ];
 
-        protected override IEnumerable<DynamicVar> CanonicalVars => [new RepeatVar(1)];
+        protected override IEnumerable<DynamicVar> CanonicalVars => [new BlockVar(4, ValueProp.Move), new RepeatVar(1)];
 
         public PaletteGap() : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)
         {
@@ -52,6 +53,8 @@ namespace Manosaba.Characters.JogasakiNoah.Cards
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
+            await CreatureCmd.GainBlock(Owner.Creature, DynamicVars.Block, cardPlay);
+
             if ((Owner.PlayerCombatState?.OrbQueue?.Capacity ?? 0) <= 1 || IsMultiplayerRun())
             {
                 for (int i = 0; i < DynamicVars.Repeat.IntValue; i++)
@@ -100,7 +103,7 @@ namespace Manosaba.Characters.JogasakiNoah.Cards
 
         protected override void OnUpgrade()
         {
-            EnergyCost.UpgradeBy(-1);
+            DynamicVars.Block.UpgradeValueBy(2);
         }
 
         private static bool IsMultiplayerRun()
