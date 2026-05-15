@@ -20,7 +20,7 @@ namespace Manosaba.Characters.NikaidoHiro.Cards
         private const TargetType targetType = TargetType.Self;
         private const bool shouldShowInCardLibrary = true;
 
-        protected override IEnumerable<DynamicVar> CanonicalVars => [new SummonVar(6)];
+        protected override IEnumerable<DynamicVar> CanonicalVars => [new SummonVar(7)];
 
         protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<SusPower>()];
 
@@ -45,7 +45,7 @@ namespace Manosaba.Characters.NikaidoHiro.Cards
 
         protected override void OnUpgrade()
         {
-            DynamicVars.Summon.UpgradeValueBy(2);
+            DynamicVars.Summon.UpgradeValueBy(3);
         }
     }
 }

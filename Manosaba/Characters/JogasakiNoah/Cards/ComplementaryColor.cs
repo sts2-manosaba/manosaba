@@ -75,6 +75,7 @@ public class ComplementaryColor : PathCustomCardModel
             PurplePaintOrb => ModelDb.Orb<YellowPaintOrb>(),
             BlackPaintOrb => ModelDb.Orb<WhitePaintOrb>(),
             WhitePaintOrb => ModelDb.Orb<BlackPaintOrb>(),
+            BloodOrb => ModelDb.Orb<BloodOrb>(),
             _ => null
         };
     }

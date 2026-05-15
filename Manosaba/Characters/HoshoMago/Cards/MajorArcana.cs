@@ -165,12 +165,12 @@ public sealed class TheFool : HoshoMagoArcanaBase
 [Pool(typeof(HoshoMagoCardPool))]
 public sealed class TheMagician : HoshoMagoArcanaBase
 {
-    public TheMagician() : base(2)
+    public TheMagician() : base(1)
     {
     }
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<MajokaPower>()];
     public override IEnumerable<CardKeyword> CanonicalKeywords => [ManosabaKeywords.Unique, CardKeyword.Exhaust];
-    protected override IEnumerable<DynamicVar> CanonicalVars => [new PowerVar<MajokaPower>(6)];
+    protected override IEnumerable<DynamicVar> CanonicalVars => [new PowerVar<MajokaPower>(5)];
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
@@ -194,7 +194,7 @@ public sealed class TheMagician : HoshoMagoArcanaBase
     }
     protected override void OnUpgrade()
     {
-        DynamicVars["MajokaPower"].UpgradeValueBy(3m);
+        DynamicVars["MajokaPower"].UpgradeValueBy(2m);
     }
 }
 

@@ -20,7 +20,7 @@ namespace Manosaba.Characters.NikaidoHiro.Cards
         private const TargetType targetType = TargetType.AnyEnemy;
         private const bool shouldShowInCardLibrary = true;
 
-        protected override IEnumerable<DynamicVar> CanonicalVars => [new SummonVar(2)];
+        protected override IEnumerable<DynamicVar> CanonicalVars => [new SummonVar(4)];
 
         public EmaDogRush() : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)
         {
@@ -48,7 +48,7 @@ namespace Manosaba.Characters.NikaidoHiro.Cards
 
         protected override void OnUpgrade()
         {
-            DynamicVars.Summon.UpgradeValueBy(1);
+            DynamicVars.Summon.UpgradeValueBy(2);
         }
     }
 }

@@ -20,7 +20,7 @@ namespace Manosaba.Characters.NikaidoHiro.Cards
         private const CardRarity rarity = CardRarity.Common;
         private const TargetType targetType = TargetType.AnyEnemy;
         private const bool shouldShowInCardLibrary = true;
-        protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(8, ValueProp.Move), new CardsVar(1)];
+        protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(8, ValueProp.Move), new CardsVar(2)];
 
         public StrikeChi() : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)
         {

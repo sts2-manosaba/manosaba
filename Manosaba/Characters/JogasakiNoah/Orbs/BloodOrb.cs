@@ -18,6 +18,8 @@ public sealed class BloodOrb : ManosabaOrbModel
 
     public override Color DarkenedColor => new("8A1F2A");
 
+    public decimal Layers => _layers;
+
     public override decimal PassiveVal => ModifyBloodOrbValue(_layers);
 
     public override decimal EvokeVal => ModifyBloodOrbValue(3m);

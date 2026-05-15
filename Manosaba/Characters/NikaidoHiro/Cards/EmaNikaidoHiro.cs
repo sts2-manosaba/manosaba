@@ -21,7 +21,7 @@ namespace Manosaba.Characters.NikaidoHiro.Cards
         private const TargetType targetType = TargetType.Self;
         private const bool shouldShowInCardLibrary = true;
 
-        protected override IEnumerable<DynamicVar> CanonicalVars => [new SummonVar(3), new PowerVar<MajokaPower>(10)];
+        protected override IEnumerable<DynamicVar> CanonicalVars => [new SummonVar(5), new PowerVar<MajokaPower>(10)];
         protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<MajokaPower>()];
 
         public EmaNikaidoHiro() : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)
@@ -36,7 +36,7 @@ namespace Manosaba.Characters.NikaidoHiro.Cards
 
         protected override void OnUpgrade()
         {
-            DynamicVars["MajokaPower"].UpgradeValueBy(5);
+            DynamicVars.Summon.UpgradeValueBy(2);
         }
     }
 }

@@ -14,9 +14,7 @@ internal static class SekketsusoujitsuHelper
 {
     public static decimal BloodOrbDamageBonus(CardModel card)
     {
-        return card.Owner?.PlayerCombatState?.OrbQueue?.Orbs
-            .OfType<BloodOrb>()
-            .FirstOrDefault()?.PassiveVal ?? 0m;
+        return GetHighestLayerBloodOrb(card.Owner)?.PassiveVal ?? 0m;
     }
 
     public static bool HasBloodOrb(Player? player)
@@ -32,7 +30,7 @@ internal static class SekketsusoujitsuHelper
             return 0m;
         }
 
-        BloodOrb? bloodOrb = queue.Orbs.OfType<BloodOrb>().FirstOrDefault();
+        BloodOrb? bloodOrb = GetHighestLayerBloodOrb(owner);
         if (bloodOrb == null || !queue.Orbs.Contains(bloodOrb))
         {
             return 0m;
@@ -60,6 +58,14 @@ internal static class SekketsusoujitsuHelper
         }
 
         return damageBonus;
+    }
+
+    private static BloodOrb? GetHighestLayerBloodOrb(Player? owner)
+    {
+        return owner?.PlayerCombatState?.OrbQueue?.Orbs
+            .OfType<BloodOrb>()
+            .OrderByDescending(orb => orb.Layers)
+            .FirstOrDefault();
     }
 
 }

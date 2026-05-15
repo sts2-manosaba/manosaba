@@ -23,8 +23,8 @@ namespace Manosaba.Characters.NikaidoHiro.Cards
         private const bool shouldShowInCardLibrary = true;
 
         protected override IEnumerable<DynamicVar> CanonicalVars => [
-            new CalculationBaseVar(8m),
-            new ExtraDamageVar(4m),
+            new CalculationBaseVar(10m),
+            new ExtraDamageVar(6m),
             new CalculatedDamageVar(ValueProp.Move).WithMultiplier(delegate(CardModel card, Creature? _){
                 int currentSus = card.Owner.Creature.GetPowerAmount<SusPower>();
                 return (currentSus + 1) / 2;
@@ -53,8 +53,8 @@ namespace Manosaba.Characters.NikaidoHiro.Cards
 
         protected override void OnUpgrade()
         {
-            DynamicVars.CalculationBase.UpgradeValueBy(2);
-            DynamicVars.ExtraDamage.UpgradeValueBy(3);
+            DynamicVars.CalculationBase.UpgradeValueBy(4);
+            DynamicVars.ExtraDamage.UpgradeValueBy(1);
         }
     }
 }
