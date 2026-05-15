@@ -9,7 +9,7 @@
   "MANOSABA-PHOTO_OF_THE_GREAT_WITCH.description": "Gain {PotionSlots} additional potion slot(s).\nAt Lv2, whenever you procure a potion, 10% chance to gain a [gold]Catalyst[/gold] if you have an empty slot.\nAt Lv4, this chance becomes 20%.",
   "MANOSABA-PHOTO_OF_THE_GREAT_WITCH.flavor": "I miss you so much... Great Witch...",
   "MANOSABA-MAGNIFYING_GLASS.title": "Magnifying Glass",
-  "MANOSABA-MAGNIFYING_GLASS.description": "At the start of your turn, lose all [gold]Majoka[/gold].\nAt the start of combat, gain [gold]Investigation Moment[/gold] and [gold]Strength[/gold] stacks equal to this relic's level.\nWhenever you are attacked, reduce damage by 3% per [gold]Strength[/gold] stack, up to 30%.\nFrom Lv2, up to 45%. From Lv4, up to 60%.",
+  "MANOSABA-MAGNIFYING_GLASS.description": "At the start of your turn, lose all [gold]Majoka[/gold].\nAt the start of combat, gain [gold]Investigation Moment[/gold] and [gold]Strength[/gold] stacks equal to this relic's level.\nWhenever you are attacked, reduce damage by 5% per [gold]Strength[/gold] stack, up to 30%.\nFrom Lv2, up to 45%. From Lv4, up to 60%.",
   "MANOSABA-MAGNIFYING_GLASS.flavor": "I've become the perfect detective Sherry! I definitely won't go Majoka again.",
   "MANOSABA-CABINET_KEY.title": "Small Key",
   "MANOSABA-CABINET_KEY.description": "At the start of your turn, add {MoviesPerTurn} random Movie card(s) to your [gold]Draw pile[/gold].\nFrom level 3, also have a {CassetteChance}% chance to add a [gold]Cassette Shaped Rock[/gold].\nFrom level 4, Movie cards added this way are upgraded.\nAt level 5, add 2 Movie cards instead.",

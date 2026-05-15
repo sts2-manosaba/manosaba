@@ -10,10 +10,10 @@ using MegaCrit.Sts2.Core.Models.Powers;
 
 namespace Manosaba.Characters.TachibanaSherry.Powers;
 
-/// <summary>疑點：每累積10層獲得1點力量與1層調查時刻（與回合開始+1同路徑、不扣疑點）；並供調查時刻滿5時結算傷害。</summary>
+/// <summary>疑點：每累積5層獲得1點力量與1層調查時刻（與回合開始+1同路徑、不扣疑點）；並供調查時刻滿5時結算傷害。</summary>
 public sealed class CluePower : PathCustomPowerModel
 {
-    private const int CluePerInvestigationTick = 10;
+    private const int CluePerInvestigationTick = 5;
 
     public override PowerType Type => PowerType.Buff;
     public override PowerStackType StackType => PowerStackType.Counter;

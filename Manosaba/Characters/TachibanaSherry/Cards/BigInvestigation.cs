@@ -45,7 +45,7 @@ namespace Manosaba.Characters.TachibanaSherry.Cards
                 return;
             }
 
-            await PowerCmd.Apply<VulnerablePower>(target, 1m, ownerCreature, this);
+            await PowerCmd.Apply<VulnerablePower>(target, DynamicVars["VulnerablePower"].BaseValue, ownerCreature, this);
             await PowerCmd.Apply<CluePower>(ownerCreature, DynamicVars["CluePower"].BaseValue, ownerCreature, this);
             if (ownerCreature.GetPowerAmount<SherryDetectiveRewardPower>() > 0m)
             {
@@ -55,7 +55,7 @@ namespace Manosaba.Characters.TachibanaSherry.Cards
 
         protected override void OnUpgrade()
         {
-            DynamicVars["CluePower"].UpgradeValueBy(1m);
+            DynamicVars["VulnerablePower"].UpgradeValueBy(1m);
         }
     }
 }

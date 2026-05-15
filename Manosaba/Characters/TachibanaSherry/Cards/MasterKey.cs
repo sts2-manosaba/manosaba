@@ -12,6 +12,8 @@ using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.Powers;
 using MegaCrit.Sts2.Core.ValueProps;
 
+using Manosaba.Characters.TachibanaSherry.Powers;
+
 namespace Manosaba.Characters.TachibanaSherry.Cards
 {
     [Pool(typeof(TachibanaSherryCardPool))]
@@ -27,6 +29,8 @@ namespace Manosaba.Characters.TachibanaSherry.Cards
         public override IEnumerable<CardKeyword> CanonicalKeywords => [];
         protected override IEnumerable<IHoverTip> ExtraHoverTips => [
             HoverTipFactory.FromCard<BrokenLock>(base.IsUpgraded),
+            HoverTipFactory.FromPower<SherryDetectiveRewardPower>(),
+            HoverTipFactory.FromPower<StrengthPower>(),
             HoverTipFactory.Static(StaticHoverTip.Block),
         ];
 
@@ -38,7 +42,7 @@ namespace Manosaba.Characters.TachibanaSherry.Cards
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
-            if (base.CombatState == null)
+            if (base.CombatState == null || Owner?.Creature is not { } ownerCreature)
                 return;
 
             List<BrokenLock> cards = BrokenLock.Create(base.Owner, 1, base.CombatState).ToList();
@@ -50,7 +54,11 @@ namespace Manosaba.Characters.TachibanaSherry.Cards
                     CardCmd.Upgrade(c);
                 }
             }
-            await CreatureCmd.GainBlock(base.Owner.Creature, base.DynamicVars.Block, cardPlay);
+            await CreatureCmd.GainBlock(ownerCreature, base.DynamicVars.Block, cardPlay);
+            if (ownerCreature.GetPowerAmount<SherryDetectiveRewardPower>() > 0m)
+            {
+                await PowerCmd.Apply<StrengthPower>(ownerCreature, 1m, ownerCreature, this);
+            }
         }
 
         protected override void OnUpgrade()

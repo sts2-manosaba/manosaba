@@ -54,7 +54,7 @@ namespace manosaba.Characters.TachibanaSherry.Relics
                 return 1m;
 
             decimal maxPercent = RelicLevel >= 4 ? 0.60m : RelicLevel >= 2 ? 0.45m : 0.30m;
-            decimal percent = Math.Min(strength * 0.03m, maxPercent);
+            decimal percent = Math.Min(strength * 0.05m, maxPercent);
             return 1m - percent;
         }
     }
