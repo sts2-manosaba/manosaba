@@ -17,6 +17,46 @@ namespace Manosaba.Characters.HikamiMeruru.PotionCraft
             return PotionRecipeTable.Recipes.FirstOrDefault(r => r.CanCraft(potionSlots));
         }
 
+        public static PotionRecipe? FindRecipeForPair(PotionModel? first, PotionModel? second)
+        {
+            if (first == null || second == null || ReferenceEquals(first, second))
+                return null;
+
+            Dictionary<Type, int> pairCounts = new[] { first.GetType(), second.GetType() }
+                .GroupBy(t => t)
+                .ToDictionary(g => g.Key, g => g.Count());
+
+            return PotionRecipeTable.Recipes.FirstOrDefault(recipe =>
+                recipe.Ingredients.Count == pairCounts.Count &&
+                recipe.Ingredients.All(ingredient =>
+                    pairCounts.TryGetValue(ingredient.Key, out int count) && count == ingredient.Value));
+        }
+
+        public static async Task<bool> TryCraftPair(Player owner, PotionModel first, PotionModel second)
+        {
+            if (owner == null || first == null || second == null || ReferenceEquals(first, second))
+                return false;
+
+            if (first.Owner != owner || second.Owner != owner)
+                return false;
+
+            if (!owner.PotionSlots.Contains(first) || !owner.PotionSlots.Contains(second))
+                return false;
+
+            PotionRecipe? recipe = FindRecipeForPair(first, second);
+            if (recipe == null)
+                return false;
+
+            using (BeginCraftDiscardScope())
+            {
+                await PotionCmd.Discard(first);
+                await PotionCmd.Discard(second);
+            }
+
+            await PotionCmd.TryToProcure(recipe.ResultPotionType.ToMutable(), owner);
+            return true;
+        }
+
         public static async Task<bool> TryCraft(Player owner, IEnumerable<PotionModel?> potionSlots, PotionRecipe? recipe)
         {
             if (owner == null || potionSlots == null || recipe == null)
