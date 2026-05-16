@@ -3,10 +3,12 @@ using BaseLib.Utils;
 using manosaba.Characters.TonoHanna;
 using Manosaba.Characters.Common.Overrides;
 using Manosaba.Characters.TonoHanna.Powers;
+using MegaCrit.Sts2.Core.Entities.Creatures;
 using Manosaba.Extensions;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
+using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.ValueProps;
@@ -27,6 +29,14 @@ public sealed class HiroPuppet : PathCustomCardModel
 
     protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(6m, ValueProp.Move)];
 
+    protected override IEnumerable<IHoverTip> ExtraHoverTips =>
+        IsUpgraded ? [HoverTipFactory.FromCard<EmaPuppet>()] : [];
+
+    protected override bool ShouldGlowGoldInternal =>
+        Owner?.Creature is { } ownerCreature
+        && IsUpgraded
+        && PuppetCollectionHelper.HasUsedInCombat<EmaPuppetCollectionPower>(ownerCreature);
+
     public HiroPuppet()
         : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)
     {
@@ -34,16 +44,27 @@ public sealed class HiroPuppet : PathCustomCardModel
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        await PowerCmd.Apply<HiroPuppetCollectionPower>(Owner.Creature, 1m, Owner.Creature, this);
-        if (cardPlay.Target is not { } target)
+        if (Owner?.Creature is not { } ownerCreature || cardPlay.Target is not { } target)
         {
             return;
         }
 
-        await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
-            .FromCard(this)
-            .Targeting(target)
-            .Execute(choiceContext);
+        bool emaUsedInCombat = PuppetCollectionHelper.HasUsedInCombat<EmaPuppetCollectionPower>(ownerCreature);
+        decimal damage = DynamicVars.Damage.BaseValue;
+
+        decimal damageDealt = await CombatDamageTracker.MeasureDamageToTarget(
+            target,
+            () => DamageCmd.Attack(damage)
+                .FromCard(this)
+                .Targeting(target)
+                .Execute(choiceContext));
+
+        if (IsUpgraded && emaUsedInCombat && damageDealt > 0m)
+        {
+            await CreatureCmd.Heal(ownerCreature, damageDealt * 0.2m);
+        }
+
+        await PowerCmd.Apply<HiroPuppetCollectionPower>(ownerCreature, 1m, ownerCreature, this);
         CardModel copy = CreateClone();
         CardCmd.PreviewCardPileAdd(
             await CardPileCmd.AddGeneratedCardToCombat(copy, PileType.Discard, addedByPlayer: true),

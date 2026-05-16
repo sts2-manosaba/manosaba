@@ -24,6 +24,16 @@ namespace Manosaba.Characters.TonoHanna.Cards
 
         protected override IEnumerable<DynamicVar> CanonicalVars => [new GoldVar(10)];
 
+        protected override IEnumerable<IHoverTip> ExtraHoverTips =>
+        [
+            HoverTipFactory.FromCard<MiriaPuppet>(),
+            HoverTipFactory.FromCard<CocoPuppet>(),
+        ];
+
+        protected override bool ShouldGlowGoldInternal =>
+            Owner?.Creature is { } ownerCreature
+            && PuppetCollectionHelper.HasUsedInCombat<MiriaPuppetCollectionPower>(ownerCreature)
+            && PuppetCollectionHelper.HasUsedInCombat<CocoPuppetCollectionPower>(ownerCreature);
 
         public LeiaPuppet() : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)
         {
@@ -31,8 +41,20 @@ namespace Manosaba.Characters.TonoHanna.Cards
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
-            await PowerCmd.Apply<LeiaPuppetCollectionPower>(Owner.Creature, 1m, Owner.Creature, this);
-            await PowerCmd.Apply<LeiaPuppetPower>(Owner.Creature, DynamicVars.Gold.BaseValue, Owner.Creature, this);
+            if (Owner?.Creature is not { } ownerCreature)
+            {
+                return;
+            }
+
+            decimal goldAmount = DynamicVars.Gold.BaseValue;
+            if (PuppetCollectionHelper.HasUsedInCombat<MiriaPuppetCollectionPower>(ownerCreature)
+                && PuppetCollectionHelper.HasUsedInCombat<CocoPuppetCollectionPower>(ownerCreature))
+            {
+                goldAmount += 5m;
+            }
+
+            await PowerCmd.Apply<LeiaPuppetCollectionPower>(ownerCreature, 1m, ownerCreature, this);
+            await PowerCmd.Apply<LeiaPuppetPower>(ownerCreature, goldAmount, ownerCreature, this);
         }
 
         protected override void OnUpgrade()

@@ -10,6 +10,7 @@ using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models.Powers;
+using MegaCrit.Sts2.Core.ValueProps;
 
 namespace Manosaba.Characters.TonoHanna.Cards
 {
@@ -26,7 +27,16 @@ namespace Manosaba.Characters.TonoHanna.Cards
         private const bool shouldShowInCardLibrary = true;
 
         protected override IEnumerable<DynamicVar> CanonicalVars => [new DynamicVar("StrengthLoss", 6m)];
-        protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<StrengthPower>()];
+        protected override IEnumerable<IHoverTip> ExtraHoverTips =>
+        [
+            HoverTipFactory.FromPower<StrengthPower>(),
+            HoverTipFactory.FromCard<NoahPuppet>(),
+            HoverTipFactory.Static(StaticHoverTip.Block),
+        ];
+
+        protected override bool ShouldGlowGoldInternal =>
+            Owner?.Creature is { } ownerCreature
+            && PuppetCollectionHelper.HasUsedInCombat<NoahPuppetCollectionPower>(ownerCreature);
 
         public AnAnPuppet() : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)
         {
@@ -37,6 +47,11 @@ namespace Manosaba.Characters.TonoHanna.Cards
             if (Owner?.Creature is not { } ownerCreature || CombatState == null)
             {
                 return;
+            }
+
+            if (PuppetCollectionHelper.HasUsedInCombat<NoahPuppetCollectionPower>(ownerCreature))
+            {
+                await CreatureCmd.GainBlock(ownerCreature, 3m, ValueProp.Move, cardPlay);
             }
 
             await PowerCmd.Apply<AnAnPuppetCollectionPower>(ownerCreature, 1m, ownerCreature, this);

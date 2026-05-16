@@ -6,8 +6,10 @@ using Manosaba.Extensions;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
+using Manosaba.Characters.Common.Cards;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
+using MegaCrit.Sts2.Core.Models;
 
 namespace Manosaba.Characters.TonoHanna.Cards
 {
@@ -24,6 +26,15 @@ namespace Manosaba.Characters.TonoHanna.Cards
 
         protected override IEnumerable<DynamicVar> CanonicalVars => [new DynamicVar("Attacks", 1m)];
 
+        protected override IEnumerable<IHoverTip> ExtraHoverTips =>
+        [
+            HoverTipFactory.FromCard<HannaPuppet>(),
+            HoverTipFactory.FromCard<Boulders>(),
+        ];
+
+        protected override bool ShouldGlowGoldInternal =>
+            Owner?.Creature is { } ownerCreature
+            && PuppetCollectionHelper.HasUsedInCombat<HannaPuppetCollectionPower>(ownerCreature);
 
         public SherryPuppet() : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)
         {
@@ -31,8 +42,23 @@ namespace Manosaba.Characters.TonoHanna.Cards
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
-            await PowerCmd.Apply<SherryPuppetCollectionPower>(Owner.Creature, 1m, Owner.Creature, this);
-            await PowerCmd.Apply<SherryPuppetPower>(Owner.Creature, DynamicVars["Attacks"].BaseValue, Owner.Creature, this);
+            if (Owner?.Creature is not { } ownerCreature)
+            {
+                return;
+            }
+
+            if (PuppetCollectionHelper.HasUsedInCombat<HannaPuppetCollectionPower>(ownerCreature)
+                && CombatState is { } combatState
+                && Owner is { } player)
+            {
+                CardModel boulder = combatState.CreateCard(ModelDb.Card<Boulders>(), player);
+                CardCmd.ApplyKeyword(boulder, CardKeyword.Exhaust);
+                boulder.EnergyCost.SetThisTurnOrUntilPlayed(0);
+                await CardPileCmd.AddGeneratedCardToCombat(boulder, PileType.Hand, addedByPlayer: true);
+            }
+
+            await PowerCmd.Apply<SherryPuppetCollectionPower>(ownerCreature, 1m, ownerCreature, this);
+            await PowerCmd.Apply<SherryPuppetPower>(ownerCreature, DynamicVars["Attacks"].BaseValue, ownerCreature, this);
         }
 
         protected override void OnUpgrade()

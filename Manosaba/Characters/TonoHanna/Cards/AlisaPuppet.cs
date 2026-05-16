@@ -17,7 +17,11 @@ namespace Manosaba.Characters.TonoHanna.Cards
     public class AlisaPuppet : PathCustomCardModel
     {
         protected override HashSet<CardTag> CanonicalTags => [ManosabaCardTags.Puppet];
-        protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<BurnPower>()];
+        protected override IEnumerable<IHoverTip> ExtraHoverTips =>
+        [
+            HoverTipFactory.FromPower<BurnPower>(),
+            HoverTipFactory.FromCard<EmaPuppet>(),
+        ];
 
         private const int energyCost = 1;
         private const CardType type = CardType.Skill;
@@ -26,6 +30,10 @@ namespace Manosaba.Characters.TonoHanna.Cards
         private const bool shouldShowInCardLibrary = true;
 
         protected override IEnumerable<DynamicVar> CanonicalVars => [new PowerVar<BurnPower>(10m)];
+
+        protected override bool ShouldGlowGoldInternal =>
+            Owner?.Creature is { } ownerCreature
+            && PuppetCollectionHelper.HasUsedInCombat<EmaPuppetCollectionPower>(ownerCreature);
 
         public AlisaPuppet() : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)
         {
@@ -38,8 +46,14 @@ namespace Manosaba.Characters.TonoHanna.Cards
                 return;
             }
 
+            decimal burnAmount = DynamicVars["BurnPower"].BaseValue;
+            if (PuppetCollectionHelper.HasUsedInCombat<EmaPuppetCollectionPower>(ownerCreature))
+            {
+                burnAmount += 3m;
+            }
+
             await PowerCmd.Apply<AlisaPuppetCollectionPower>(ownerCreature, 1m, ownerCreature, this);
-            await PowerCmd.Apply<BurnPower>(target, DynamicVars["BurnPower"].BaseValue, ownerCreature, this);
+            await PowerCmd.Apply<BurnPower>(target, burnAmount, ownerCreature, this);
         }
 
         protected override void OnUpgrade()

@@ -32,7 +32,13 @@ namespace Manosaba.Characters.TonoHanna.Cards
         protected override IEnumerable<IHoverTip> ExtraHoverTips =>
         [
             HoverTipFactory.FromPower<SoarPower>(),
+            HoverTipFactory.FromCard<SherryPuppet>(),
+            HoverTipFactory.FromPower<StrengthPower>(),
         ];
+
+        protected override bool ShouldGlowGoldInternal =>
+            Owner?.Creature is { } ownerCreature
+            && PuppetCollectionHelper.HasUsedInCombat<SherryPuppetCollectionPower>(ownerCreature);
 
         public HannaPuppet() : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)
         {
@@ -40,8 +46,18 @@ namespace Manosaba.Characters.TonoHanna.Cards
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
-            await PowerCmd.Apply<HannaPuppetCollectionPower>(Owner.Creature, DynamicVars["HannaPuppetCollectionPower"].BaseValue, Owner.Creature, this);
-            await PowerCmd.Apply<HannaPuppetPower>(Owner.Creature, DynamicVars["HannaPuppetPower"].BaseValue, Owner.Creature, this);
+            if (Owner?.Creature is not { } ownerCreature)
+            {
+                return;
+            }
+
+            if (PuppetCollectionHelper.HasUsedInCombat<SherryPuppetCollectionPower>(ownerCreature))
+            {
+                await PowerCmd.Apply<StrengthPower>(ownerCreature, 2m, ownerCreature, this);
+            }
+
+            await PowerCmd.Apply<HannaPuppetCollectionPower>(ownerCreature, DynamicVars["HannaPuppetCollectionPower"].BaseValue, ownerCreature, this);
+            await PowerCmd.Apply<HannaPuppetPower>(ownerCreature, DynamicVars["HannaPuppetPower"].BaseValue, ownerCreature, this);
         }
 
         protected override void OnUpgrade()

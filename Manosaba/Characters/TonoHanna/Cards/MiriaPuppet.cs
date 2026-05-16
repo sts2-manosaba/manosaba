@@ -32,7 +32,7 @@ namespace Manosaba.Characters.TonoHanna.Cards
         private const TargetType targetType = TargetType.Self;
         private const bool shouldShowInCardLibrary = true;
 
-        protected override IEnumerable<DynamicVar> CanonicalVars => [new CardsVar(1)];
+        protected override IEnumerable<DynamicVar> CanonicalVars => [new CardsVar(2)];
 
         public MiriaPuppet() : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)
         {
@@ -46,8 +46,16 @@ namespace Manosaba.Characters.TonoHanna.Cards
             }
 
             await PowerCmd.Apply<MiriaPuppetCollectionPower>(ownerCreature, 1m, ownerCreature, this);
-            var selected = await CardSelectCmd.FromHand(
-                prefs: new CardSelectorPrefs(CardSelectorPrefs.TransformSelectionPrompt, DynamicVars.Cards.IntValue),
+
+            int handCount = PileType.Hand.GetPile(Owner).Cards.Count;
+            int maxSelect = Math.Min(DynamicVars.Cards.IntValue, handCount);
+            if (maxSelect <= 0)
+            {
+                return;
+            }
+
+            IEnumerable<CardModel> selected = await CardSelectCmd.FromHand(
+                prefs: new CardSelectorPrefs(SelectionScreenPrompt, 0, maxSelect),
                 context: choiceContext,
                 player: Owner,
                 filter: null,
@@ -59,26 +67,32 @@ namespace Manosaba.Characters.TonoHanna.Cards
                 if (!IsEligibleSourceTypeForPuppetTransform(card))
                 {
                     await CardCmd.TransformToRandom(card, rng);
-                    continue;
-                }
-
-                List<CardModel> puppetPool = BuildMiriaPuppetTransformPool(card);
-
-                if (puppetPool.Count == 0)
-                {
-                    await CardCmd.TransformToRandom(card, rng);
                 }
                 else
                 {
-                    try
-                    {
-                        CardTransformation transformation = new(card, puppetPool);
-                        await CardCmd.Transform(transformation.Yield(), rng, CardPreviewStyle.HorizontalLayout);
-                    }
-                    catch (InvalidOperationException)
+                    List<CardModel> puppetPool = BuildMiriaPuppetTransformPool(card);
+
+                    if (puppetPool.Count == 0)
                     {
                         await CardCmd.TransformToRandom(card, rng);
                     }
+                    else
+                    {
+                        try
+                        {
+                            CardTransformation transformation = new(card, puppetPool);
+                            await CardCmd.Transform(transformation.Yield(), rng, CardPreviewStyle.HorizontalLayout);
+                        }
+                        catch (InvalidOperationException)
+                        {
+                            await CardCmd.TransformToRandom(card, rng);
+                        }
+                    }
+                }
+
+                if (IsUpgraded)
+                {
+                    CardCmd.Upgrade(card);
                 }
             }
         }
@@ -138,7 +152,6 @@ namespace Manosaba.Characters.TonoHanna.Cards
 
         protected override void OnUpgrade()
         {
-            DynamicVars.Cards.UpgradeValueBy(1);
         }
     }
 }

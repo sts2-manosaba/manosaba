@@ -12,6 +12,7 @@ using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Hooks;
+using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.ValueProps;
@@ -115,6 +116,15 @@ namespace Manosaba.Characters.TonoHanna.Cards
             new PowerVar<NanokaPuppetCollectionPower>(1),
         ];
 
+        protected override IEnumerable<IHoverTip> ExtraHoverTips =>
+        [
+            HoverTipFactory.FromCard<EmaPuppet>(),
+        ];
+
+        protected override bool ShouldGlowGoldInternal =>
+            Owner?.Creature is { } ownerCreature
+            && PuppetCollectionHelper.HasUsedInCombat<EmaPuppetCollectionPower>(ownerCreature);
+
         public NanokaPuppet() : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)
         {
         }
@@ -126,10 +136,19 @@ namespace Manosaba.Characters.TonoHanna.Cards
                 return;
             }
 
-            await PowerCmd.Apply<NanokaPuppetCollectionPower>(ownerCreature, DynamicVars["NanokaPuppetCollectionPower"].BaseValue, ownerCreature, this);
+            bool emaUsed = PuppetCollectionHelper.HasUsedInCombat<EmaPuppetCollectionPower>(ownerCreature);
             int puppetCount = Owner.PlayerCombatState?.AllCards.Count(c => c.Tags.Contains(ManosabaCardTags.Puppet)) ?? 0;
             decimal damage = DynamicVars.CalculationBase.BaseValue + DynamicVars.ExtraDamage.BaseValue * puppetCount;
-            await DamageCmd.Attack(damage).FromCard(this).Targeting(target).Execute(choiceContext);
+            decimal damageDealt = await CombatDamageTracker.MeasureDamageToTarget(
+                target,
+                () => DamageCmd.Attack(damage).FromCard(this).Targeting(target).Execute(choiceContext));
+
+            if (emaUsed && damageDealt > 0m)
+            {
+                await CreatureCmd.GainBlock(ownerCreature, damageDealt * 0.2m, ValueProp.Move, cardPlay);
+            }
+
+            await PowerCmd.Apply<NanokaPuppetCollectionPower>(ownerCreature, DynamicVars["NanokaPuppetCollectionPower"].BaseValue, ownerCreature, this);
         }
 
         protected override void OnUpgrade()

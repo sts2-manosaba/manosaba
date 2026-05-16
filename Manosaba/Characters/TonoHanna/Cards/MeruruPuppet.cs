@@ -8,6 +8,7 @@ using MegaCrit.Sts2.Core.CardSelection;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
+using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 
@@ -27,6 +28,12 @@ namespace Manosaba.Characters.TonoHanna.Cards
 
         protected override IEnumerable<DynamicVar> CanonicalVars => [new PowerVar<MeruruPuppetCollectionPower>(1)];
 
+        protected override IEnumerable<IHoverTip> ExtraHoverTips =>
+        [
+            HoverTipFactory.FromCard<AnAnPuppet>(),
+            HoverTipFactory.FromKeyword(CardKeyword.Exhaust),
+        ];
+
         public MeruruPuppet() : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)
         {
         }
@@ -42,7 +49,13 @@ namespace Manosaba.Characters.TonoHanna.Cards
             var prefs = new CardSelectorPrefs(SelectionScreenPrompt, 1);
             CardModel? chosen = (await CardSelectCmd.FromSimpleGrid(choiceContext, exhaust, Owner, prefs)).FirstOrDefault();
             if (chosen != null)
+            {
                 await CardPileCmd.Add(chosen, PileType.Hand);
+                if (chosen is AnAnPuppet && Owner.Creature is { } ownerCreature)
+                {
+                    await CreatureCmd.Heal(ownerCreature, 3m);
+                }
+            }
         }
 
         protected override void OnUpgrade()

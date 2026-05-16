@@ -1,6 +1,7 @@
 using BaseLib.Utils;
 using manosaba.Characters.TonoHanna;
 using Manosaba.Characters.Common.Overrides;
+using Manosaba.Characters.Common.Powers;
 using Manosaba.Characters.TonoHanna.Powers;
 using Manosaba.Extensions;
 using MegaCrit.Sts2.Core.Commands;
@@ -27,6 +28,11 @@ namespace Manosaba.Characters.TonoHanna.Cards
             new PowerVar<MargoPuppetPower>(1),
         ];
 
+        protected override IEnumerable<IHoverTip> ExtraHoverTips =>
+        [
+            HoverTipFactory.FromCard<MeruruPuppet>(),
+            HoverTipFactory.FromPower<MajokaPower>(),
+        ];
 
         public MargoPuppet() : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)
         {

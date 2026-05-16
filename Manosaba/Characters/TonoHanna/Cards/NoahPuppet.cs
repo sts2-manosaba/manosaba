@@ -7,7 +7,9 @@ using Manosaba.Extensions;
 using MegaCrit.Sts2.Core.CardSelection;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
+using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
+using MegaCrit.Sts2.Core.Models.Powers;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
@@ -20,7 +22,12 @@ namespace Manosaba.Characters.TonoHanna.Cards
     {
         public override bool GainsBlock => true;
         protected override HashSet<CardTag> CanonicalTags => [ManosabaCardTags.Puppet];
-        protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromKeyword(CardKeyword.Exhaust)];
+        protected override IEnumerable<IHoverTip> ExtraHoverTips =>
+        [
+            HoverTipFactory.FromKeyword(CardKeyword.Exhaust),
+            HoverTipFactory.FromPower<WeakPower>(),
+            HoverTipFactory.FromCard<AnAnPuppet>(),
+        ];
 
         private const int energyCost = 1;
         private const CardType type = CardType.Skill;
@@ -30,14 +37,32 @@ namespace Manosaba.Characters.TonoHanna.Cards
 
         protected override IEnumerable<DynamicVar> CanonicalVars => [new BlockVar(7m, ValueProp.Move)];
 
+        protected override bool ShouldGlowGoldInternal =>
+            Owner?.Creature is { } ownerCreature
+            && PuppetCollectionHelper.HasUsedInCombat<AnAnPuppetCollectionPower>(ownerCreature);
+
         public NoahPuppet() : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)
         {
         }
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
-            await PowerCmd.Apply<NoahPuppetCollectionPower>(Owner.Creature, 1m, Owner.Creature, this);
-            await CreatureCmd.GainBlock(Owner.Creature, DynamicVars.Block, cardPlay);
+            if (Owner?.Creature is not { } ownerCreature)
+            {
+                return;
+            }
+
+            if (PuppetCollectionHelper.HasUsedInCombat<AnAnPuppetCollectionPower>(ownerCreature) && CombatState != null)
+            {
+                decimal weakAmount = IsUpgraded ? 2m : 1m;
+                foreach (Creature enemy in CombatState.HittableEnemies)
+                {
+                    await PowerCmd.Apply<WeakPower>(enemy, weakAmount, ownerCreature, this);
+                }
+            }
+
+            await PowerCmd.Apply<NoahPuppetCollectionPower>(ownerCreature, 1m, ownerCreature, this);
+            await CreatureCmd.GainBlock(ownerCreature, DynamicVars.Block, cardPlay);
             if (IsUpgraded)
             {
                 CardModel? chosen = (await CardSelectCmd.FromHand(

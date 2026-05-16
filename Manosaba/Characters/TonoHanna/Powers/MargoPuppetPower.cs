@@ -1,5 +1,7 @@
 using System.Linq;
 using Manosaba.Characters.Common.Overrides;
+using Manosaba.Characters.Common.Powers;
+using Manosaba.Characters.TonoHanna.Cards;
 using Manosaba.Extensions;
 using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Commands;
@@ -34,6 +36,11 @@ namespace Manosaba.Characters.TonoHanna.Powers
                     return;
 
                 await CardPileCmd.Add(card, PileType.Hand);
+
+                if (card is MeruruPuppet)
+                {
+                    await PowerCmd.Apply<MajokaPower>(Owner, 10m, Owner, null);
+                }
             }
         }
     }
