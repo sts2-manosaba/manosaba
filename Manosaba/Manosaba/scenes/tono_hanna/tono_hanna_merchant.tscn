@@ -1,12 +1,12 @@
 [gd_scene load_steps=3 format=3 uid="uid://b7827sji6m0bx"]
 
 [ext_resource type="Script" uid="uid://cnvmx0lgyr8bh" path="res://Characters/Common/Overrides/ManosabaMerchantCharacter.cs" id="1_0qaju"]
-[ext_resource type="Texture2D" uid="uid://cnsfga76pfg15" path="res://Manosaba/images/characters/tono_hanna/TonoHannaThink.png" id="2_sl2ko"]
+[ext_resource type="Texture2D" uid="uid://duls21i034f8e" path="res://Manosaba/images/characters/tono_hanna/TonoHannaThink2.png" id="3_14e8n"]
 
 [node name="TonohannaMerchant" type="Node2D"]
 script = ExtResource("1_0qaju")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(1.500005, -191.24487)
-scale = Vector2(0.31947744, 0.31947747)
-texture = ExtResource("2_sl2ko")
+position = Vector2(-0.036224365, -183.94052)
+scale = Vector2(0.27350825, 0.27350828)
+texture = ExtResource("3_14e8n")

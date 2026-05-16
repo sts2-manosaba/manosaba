@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://cg0l24e2hdkko"]
+[gd_scene load_steps=4 format=3 uid="uid://cg0l24e2hdkko"]
 
 [ext_resource type="Script" uid="uid://ci5rydvtx3dwt" path="res://Characters/Common/Overrides/ManosabaCharacterVisuals.cs" id="1_a1inm"]
-[ext_resource type="Texture2D" uid="uid://ke50pdfqeib1" path="res://Manosaba/images/characters/tono_hanna/TonoHanna.png" id="1_cnldr"]
+[ext_resource type="Texture2D" uid="uid://d4ftqjv2m0sqb" path="res://Manosaba/images/characters/tono_hanna/TonoHanna2.png" id="3_oow36"]
+[ext_resource type="Texture2D" uid="uid://cb6bgbfp4xbal" path="res://Manosaba/images/characters/tono_hanna/TonoHanna2M.png" id="3_pvlqa"]
 
 [node name="Tonohanna" type="Node2D"]
 script = ExtResource("1_a1inm")
@@ -9,10 +10,16 @@ script = ExtResource("1_a1inm")
 [node name="Visuals" type="Sprite2D" parent="."]
 unique_name_in_owner = true
 
-[node name="Tonohanna" type="Sprite2D" parent="Visuals"]
-position = Vector2(-1.4999845, -138.73727)
-scale = Vector2(0.38840073, 0.38840076)
-texture = ExtResource("1_cnldr")
+[node name="Sprite2D" type="Sprite2D" parent="Visuals"]
+position = Vector2(-0.5092726, -145.49074)
+scale = Vector2(0.32701856, 0.32701862)
+texture = ExtResource("3_oow36")
+
+[node name="Majoka" type="Sprite2D" parent="Visuals"]
+visible = false
+position = Vector2(-0.99754596, -145.00244)
+scale = Vector2(0.3259951, 0.32599503)
+texture = ExtResource("3_pvlqa")
 
 [node name="Bounds" type="Control" parent="."]
 unique_name_in_owner = true
