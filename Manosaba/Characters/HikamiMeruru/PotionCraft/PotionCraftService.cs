@@ -26,10 +26,21 @@ namespace Manosaba.Characters.HikamiMeruru.PotionCraft
                 .GroupBy(t => t)
                 .ToDictionary(g => g.Key, g => g.Count());
 
-            return PotionRecipeTable.Recipes.FirstOrDefault(recipe =>
+            PotionRecipe? exactPairRecipe = PotionRecipeTable.Recipes.FirstOrDefault(recipe =>
                 recipe.Ingredients.Count == pairCounts.Count &&
                 recipe.Ingredients.All(ingredient =>
                     pairCounts.TryGetValue(ingredient.Key, out int count) && count == ingredient.Value));
+
+            if (exactPairRecipe != null)
+                return exactPairRecipe;
+
+            Player? owner = first.Owner;
+            if (owner == null || second.Owner != owner)
+                return null;
+
+            return PotionRecipeTable.Recipes.FirstOrDefault(recipe =>
+                IsSelectedPairSubsetOfRecipe(recipe, pairCounts) &&
+                recipe.CanCraft(owner.PotionSlots.Where(potion => potion == null || !potion.IsQueued)));
         }
 
         public static async Task<bool> TryCraftPair(Player owner, PotionModel first, PotionModel second)
@@ -47,10 +58,46 @@ namespace Manosaba.Characters.HikamiMeruru.PotionCraft
             if (recipe == null)
                 return false;
 
+            var remainingIngredients = recipe.Ingredients.ToDictionary(
+                ingredient => ingredient.Key,
+                ingredient => ingredient.Value);
+            var availablePotions = owner.PotionSlots
+                .OfType<PotionModel>()
+                .Where(potion => potion != first && potion != second && !potion.IsQueued)
+                .ToList();
+            var extraPotionsToDiscard = new List<PotionModel>();
+
+            foreach (PotionModel selectedPotion in new[] { first, second })
+            {
+                Type selectedType = selectedPotion.GetType();
+                if (!remainingIngredients.TryGetValue(selectedType, out int remainingCount) || remainingCount <= 0)
+                    return false;
+
+                remainingIngredients[selectedType] = remainingCount - 1;
+            }
+
+            foreach (var ingredient in remainingIngredients)
+            {
+                for (int i = 0; i < ingredient.Value; i++)
+                {
+                    var potion = availablePotions.FirstOrDefault(p => p.GetType() == ingredient.Key);
+                    if (potion == null)
+                        return false;
+
+                    availablePotions.Remove(potion);
+                    extraPotionsToDiscard.Add(potion);
+                }
+            }
+
             using (BeginCraftDiscardScope())
             {
                 await PotionCmd.Discard(first);
                 await PotionCmd.Discard(second);
+
+                foreach (PotionModel potion in extraPotionsToDiscard)
+                {
+                    await PotionCmd.Discard(potion);
+                }
             }
 
             await PotionCmd.TryToProcure(recipe.ResultPotionType.ToMutable(), owner);
@@ -90,6 +137,24 @@ namespace Manosaba.Characters.HikamiMeruru.PotionCraft
         {
             CraftDiscardDepth.Value++;
             return new ScopeGuard();
+        }
+
+        private static bool IsSelectedPairSubsetOfRecipe(PotionRecipe recipe, Dictionary<Type, int> pairCounts)
+        {
+            int recipeIngredientCount = recipe.Ingredients.Values.Sum();
+            if (recipeIngredientCount <= pairCounts.Values.Sum())
+                return false;
+
+            foreach (var pairCount in pairCounts)
+            {
+                if (!recipe.Ingredients.TryGetValue(pairCount.Key, out int requiredCount) ||
+                    requiredCount < pairCount.Value)
+                {
+                    return false;
+                }
+            }
+
+            return true;
         }
 
         private sealed class ScopeGuard : IDisposable

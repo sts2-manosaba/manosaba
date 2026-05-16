@@ -13,7 +13,7 @@ namespace Manosaba.Characters.HikamiMeruru.Cards;
 [Pool(typeof(HikamiMeruruCardPool))]
 public class AutomatedPotionMix : PathCustomCardModel
 {
-    private const int energyCost = 2;
+    private const int energyCost = 1;
     private const CardType type = CardType.Power;
     private const CardRarity rarity = CardRarity.Uncommon;
     private const TargetType targetType = TargetType.Self;
@@ -21,7 +21,7 @@ public class AutomatedPotionMix : PathCustomCardModel
 
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<AutomatedPotionMixPower>()];
 
-    protected override IEnumerable<DynamicVar> CanonicalVars => [new PowerVar<AutomatedPotionMixPower>(1)];
+    protected override IEnumerable<DynamicVar> CanonicalVars => [new PowerVar<AutomatedPotionMixPower>(2)];
 
     public AutomatedPotionMix() : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)
     {
@@ -34,6 +34,6 @@ public class AutomatedPotionMix : PathCustomCardModel
 
     protected override void OnUpgrade()
     {
-        DynamicVars["AutomatedPotionMixPower"].UpgradeValueBy(1m);
+        base.AddKeyword(CardKeyword.Innate);
     }
 }
