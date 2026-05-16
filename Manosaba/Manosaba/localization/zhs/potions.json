@@ -33,7 +33,7 @@
   "MANOSABA-GREATER_WEAK_POTION.description": "給予全體敵人 {WeakPower:diff()} 層[gold]虛弱[/gold]。",
   "MANOSABA-GREATER_WEAK_POTION.selectionScreenPrompt": "",
   "MANOSABA-TREDECIM.title": "殺死魔女的藥",
-  "MANOSABA-TREDECIM.description": "造成 {Damage:diff()} 點傷害。用於合成時，可使高階藥水發生型態改變。",
+  "MANOSABA-TREDECIM.description": "若目標玩家是 Manosaba 角色，則立即死亡。用於合成時，可改變高階藥水的類型。",
   "MANOSABA-TREDECIM.selectionScreenPrompt": "",
   "MANOSABA-VITAL_POTION.title": "活力藥水",
   "MANOSABA-VITAL_POTION.description": "提升 5 點最大生命值。",

@@ -16,6 +16,7 @@ using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.Entities.Powers;
+using MegaCrit.Sts2.Core.GameActions;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization;
@@ -25,6 +26,7 @@ using MegaCrit.Sts2.Core.Models.Powers;
 using MegaCrit.Sts2.Core.Nodes.Combat;
 using MegaCrit.Sts2.Core.Nodes.Rooms;
 using MegaCrit.Sts2.Core.Rooms;
+using MegaCrit.Sts2.Core.Runs;
 using MegaCrit.Sts2.Core.ValueProps;
 
 namespace Manosaba.Characters.HoshoMago.Cards;
@@ -1040,6 +1042,7 @@ public sealed class TheWorld : HoshoMagoArcanaBase
     private const string VfxScenePath = "res://Manosaba/scenes/hosho_mago/vfx/the_world.tscn";
     private const string BloomBgmEventPath = "event:/Manosaba/audio/bgm/bloom.mp3";
     private bool _bloomReadyLastCheck;
+    private bool _bloomReadyCheckQueued;
 
     public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Retain, CardKeyword.Innate];
     public override bool CanBeGeneratedInCombat => false;
@@ -1055,6 +1058,7 @@ public sealed class TheWorld : HoshoMagoArcanaBase
         if (ReferenceEquals(card, this))
         {
             _bloomReadyLastCheck = false;
+            _bloomReadyCheckQueued = false;
         }
 
         TryPlayBloomBgmWhenReady();
@@ -1103,6 +1107,7 @@ public sealed class TheWorld : HoshoMagoArcanaBase
     {
         _ = room;
         _bloomReadyLastCheck = false;
+        _bloomReadyCheckQueued = false;
         return Task.CompletedTask;
     }
 
@@ -1127,6 +1132,7 @@ public sealed class TheWorld : HoshoMagoArcanaBase
 
         if (PileType.Draw.GetPile(Owner).Cards.Count == 0)
         {
+            PlayBloomBgm();
             await ManosabaVfxCmd.PlaySceneAtCombatCenterAndWait(VfxScenePath, fitCoverViewport: true, spriteNodeNames: ["StillA", "StillB"]);
             await ManosabaCombatCmd.ForceWinWithoutDeathOrEscape(CombatState);
             return;
@@ -1154,12 +1160,75 @@ public sealed class TheWorld : HoshoMagoArcanaBase
     private void TryPlayBloomBgmWhenReady()
     {
         bool ready = IsWorldWinReadyForPlay();
+        if (ready && !IsWorldPlayableForBloom())
+        {
+            QueueBloomReadyCheckAfterCurrentActions();
+            _bloomReadyLastCheck = false;
+            return;
+        }
+
         if (ready && !_bloomReadyLastCheck)
         {
-            SfxCmd.Play(BloomBgmEventPath, 0.8f);
+            PlayBloomBgm();
+            return;
         }
 
         _bloomReadyLastCheck = ready;
+    }
+
+    private bool IsWorldPlayableForBloom()
+    {
+        if (!CombatManager.Instance.IsPlayPhase || CombatManager.Instance.IsOverOrEnding || Owner == null)
+        {
+            return false;
+        }
+
+        if (RunManager.Instance.ActionExecutor.CurrentlyRunningAction != null)
+        {
+            return false;
+        }
+
+        if (CombatManager.Instance.IsPlayerReadyToEndTurn(Owner))
+        {
+            return false;
+        }
+
+        return CanPlay();
+    }
+
+    private void QueueBloomReadyCheckAfterCurrentActions()
+    {
+        if (_bloomReadyCheckQueued)
+        {
+            return;
+        }
+
+        ActionExecutor actionExecutor = RunManager.Instance.ActionExecutor;
+        if (!actionExecutor.IsRunning)
+        {
+            return;
+        }
+
+        _bloomReadyCheckQueued = true;
+        _ = CheckBloomReadyAfterCurrentActions(actionExecutor);
+    }
+
+    private async Task CheckBloomReadyAfterCurrentActions(ActionExecutor actionExecutor)
+    {
+        await actionExecutor.FinishedExecutingActions();
+        _bloomReadyCheckQueued = false;
+        TryPlayBloomBgmWhenReady();
+    }
+
+    private void PlayBloomBgm()
+    {
+        if (_bloomReadyLastCheck)
+        {
+            return;
+        }
+
+        SfxCmd.Play(BloomBgmEventPath, 0.8f);
+        _bloomReadyLastCheck = true;
     }
 
     private bool IsWorldWinReadyForPlay()

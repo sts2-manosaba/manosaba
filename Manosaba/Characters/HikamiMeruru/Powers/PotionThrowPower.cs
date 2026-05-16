@@ -1,7 +1,7 @@
+using Godot;
 using Manosaba.Characters.HikamiMeruru.PotionCraft;
 using Manosaba.Extensions;
 using Manosaba.Patches;
-using Godot;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Entities.Powers;
@@ -32,7 +32,7 @@ public sealed class PotionThrowPower : PathCustomPowerModel
 
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
-        new DamageVar(6m, ValueProp.Move),
+        new DamageVar(5m, ValueProp.Move),
         new DynamicVar(BoulderDamageKey, InitialBoulderDamage)
     ];
 

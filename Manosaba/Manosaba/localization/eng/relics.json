@@ -9,7 +9,7 @@
   "MANOSABA-PHOTO_OF_THE_GREAT_WITCH.description": "Gain {PotionSlots} additional potion slot(s).\nLong-press a potion and drag it onto another potion to craft potions.",
   "MANOSABA-PHOTO_OF_THE_GREAT_WITCH.flavor": "I miss you so much... Great Witch...",
   "MANOSABA-WITCHES_CAULDRON.title": "Witch's Cauldron",
-  "MANOSABA-WITCHES_CAULDRON.description": "At the start of each combat, reset Firepower to {Firepower}.\nWhenever you discard a potion, gain 1 [gold]Catalyst[/gold] with a chance equal to your current Firepower percentage.",
+  "MANOSABA-WITCHES_CAULDRON.description": "At the start of each combat, reset Firepower to {Firepower}.\nWhenever you use or discard a potion, gain 1 [gold]Catalyst[/gold] with a chance equal to your current Firepower percentage.",
   "MANOSABA-WITCHES_CAULDRON.flavor": "The hotter the flame, the stranger the brew.",
   "MANOSABA-MAGNIFYING_GLASS.title": "Magnifying Glass",
   "MANOSABA-MAGNIFYING_GLASS.description": "At the start of your turn, lose all [gold]Majoka[/gold].\nAt the start of combat, gain [gold]Investigation Moment[/gold] and [gold]Strength[/gold] stacks equal to this relic's level.\nWhenever you are attacked, reduce damage by 5% per [gold]Strength[/gold] stack, up to 30%.\nFrom Lv2, up to 45%. From Lv4, up to 60%.",

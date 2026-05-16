@@ -33,7 +33,7 @@
   "MANOSABA-GREATER_WEAK_POTION.description": "Apply {WeakPower:diff()} [gold]Weak[/gold].",
   "MANOSABA-GREATER_WEAK_POTION.selectionScreenPrompt": "",
   "MANOSABA-TREDECIM.title": "Tredecim",
-  "MANOSABA-TREDECIM.description": "Deal {Damage:diff()} damage. When used for crafting, it can alter the resulting high-tier potion type.",
+  "MANOSABA-TREDECIM.description": "If the target is a Manosaba character, they die. When used for crafting, it can alter the resulting high-tier potion type.",
   "MANOSABA-TREDECIM.selectionScreenPrompt": "",
   "MANOSABA-VITAL_POTION.title": "Vital Potion",
   "MANOSABA-VITAL_POTION.description": "Increase Max HP by 5.",

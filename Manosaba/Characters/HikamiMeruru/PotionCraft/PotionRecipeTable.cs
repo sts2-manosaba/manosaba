@@ -98,7 +98,7 @@ namespace Manosaba.Characters.HikamiMeruru.PotionCraft
                     { typeof(GreaterBlockPotion), 1 },
                     { typeof(Tredecim), 1  }
                 },
-                ModelDb.Potion<Fortifier>()
+                ModelDb.Potion<LuckyTonic>()
             ),
                new PotionRecipe(
                 new Dictionary<Type, int>
@@ -130,7 +130,7 @@ namespace Manosaba.Characters.HikamiMeruru.PotionCraft
                     { typeof(GreaterBeetleJuice), 1 },
                     { typeof(Tredecim), 1  }
                 },
-                ModelDb.Potion<LuckyTonic>()
+                ModelDb.Potion<GigantificationPotion>()
              ),
             // new PotionRecipe(
             //     new Dictionary<Type, int>

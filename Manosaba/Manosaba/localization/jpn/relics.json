@@ -9,7 +9,7 @@
   "MANOSABA-PHOTO_OF_THE_GREAT_WITCH.description": "ポーション枠を{PotionSlots}増やす。アップグレードで枠数が増加する。\nポーションを長押しして別のポーションへドラッグすると、ポーション合成を行える。",
   "MANOSABA-PHOTO_OF_THE_GREAT_WITCH.flavor": "会いたいです…大魔女さま…",
   "MANOSABA-WITCHES_CAULDRON.title": "魔女の大釜",
-  "MANOSABA-WITCHES_CAULDRON.description": "各戦闘開始時、火力を{Firepower}にリセットする。\nポーションを捨てるたび、現在の火力%の確率で[gold]触媒[/gold]を1本獲得する。",
+  "MANOSABA-WITCHES_CAULDRON.description": "各戦闘開始時、火力を{Firepower}にリセットする。\nポーションを使用または捨てるたび、現在の火力%の確率で[gold]触媒[/gold]を1本獲得する。",
   "MANOSABA-WITCHES_CAULDRON.flavor": "火が強いほど、奇妙なものが煮上がる。",
   "MANOSABA-MAGNIFYING_GLASS.title": "拡大鏡",
   "MANOSABA-MAGNIFYING_GLASS.description": "自分のターン開始時、すべての[gold]魔女化[/gold]を失う。\n戦闘開始時、[gold]調査時刻[/gold]とこの遺物のレベルと同じ層数の[gold]筋力[/gold]を得る。\n攻撃を受けるたび、[gold]筋力[/gold]1層につき5%ダメージを軽減する（上限30%）。\nLv2以降は上限45%、Lv4以降は上限60%。",

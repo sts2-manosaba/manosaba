@@ -3,6 +3,7 @@ using Manosaba.Characters.HikamiMeruru.PotionCraft;
 using Manosaba.Characters.HikamiMeruru.Potions;
 using Manosaba.Extensions;
 using MegaCrit.Sts2.Core.Commands;
+using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Entities.Relics;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
@@ -72,15 +73,22 @@ public sealed class WitchesCauldron : PathCustomRelicModel
 
     public override async Task AfterPotionDiscarded(PotionModel potion)
     {
-        if (_grantingCatalyst || potion.Owner != Owner)
-        {
-            return;
-        }
+        await TryGrantCatalyst(potion, suppressCraftDiscard: true);
+    }
 
-        if (PotionCraftService.IsCraftDiscardSuppressed || !Owner.HasOpenPotionSlots)
-        {
+    public override async Task AfterPotionUsed(PotionModel potion, Creature? target)
+    {
+        _ = target;
+        await TryGrantCatalyst(potion, suppressCraftDiscard: false);
+    }
+
+    private async Task TryGrantCatalyst(PotionModel potion, bool suppressCraftDiscard)
+    {
+        if (_grantingCatalyst || potion.Owner != Owner)
             return;
-        }
+
+        if ((suppressCraftDiscard && PotionCraftService.IsCraftDiscardSuppressed) || !Owner.HasOpenPotionSlots)
+            return;
 
         int procChance = Math.Min(Firepower, 100);
         if (procChance <= 0 || Owner.RunState.Rng.CombatPotionGeneration.NextInt(100) >= procChance)
