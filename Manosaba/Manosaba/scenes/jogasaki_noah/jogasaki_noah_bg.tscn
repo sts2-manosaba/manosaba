@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://dgmfpgxht72il"]
+[gd_scene load_steps=3 format=3 uid="uid://dgmfpgxht72il"]
 
 [ext_resource type="Texture2D" uid="uid://bo5ier68plmm3" path="res://Manosaba/images/characters/jogasaki_noah/JogasakiNoahBg.png" id="1_piv1q"]
+[ext_resource type="Texture2D" uid="uid://c7cm27p3g0odd" path="res://Manosaba/images/characters/jogasaki_noah/JogasakiNoahBg2.png" id="2_8ednx"]
 
 [node name="JogasakiNoaBg" type="Control"]
 layout_mode = 3
@@ -18,6 +19,12 @@ grow_vertical = 2
 pivot_offset = Vector2(1280, 600)
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+visible = false
 position = Vector2(696, 470)
 scale = Vector2(1.7284533, 1.7284532)
 texture = ExtResource("1_piv1q")
+
+[node name="Sprite2D2" type="Sprite2D" parent="."]
+position = Vector2(627, 433.00003)
+scale = Vector2(1.2573242, 1.2573243)
+texture = ExtResource("2_8ednx")
