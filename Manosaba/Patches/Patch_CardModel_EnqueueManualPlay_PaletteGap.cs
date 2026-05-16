@@ -24,18 +24,12 @@ namespace Manosaba.Patches
                 return true;
             }
 
-            RunManager runManager = RunManager.Instance;
-            if (runManager.NetService?.Type.IsMultiplayer() == true)
-            {
-                return true;
-            }
-
             if (OnEnqueuePlayVfxMethod?.Invoke(__instance, [target]) is Task vfxTask)
             {
                 TaskHelper.RunSafely(vfxTask);
             }
 
-            runManager.ActionQueueSynchronizer.RequestEnqueue(
+            RunManager.Instance.ActionQueueSynchronizer.RequestEnqueue(
                 new PaletteGapPlayCardAction(paletteGap, target, paletteGap.PendingInsertIndex));
             return false;
         }

@@ -10,8 +10,6 @@ using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.CardPools;
-using MegaCrit.Sts2.Core.Multiplayer.Game;
-using MegaCrit.Sts2.Core.Runs;
 using MegaCrit.Sts2.Core.ValueProps;
 
 namespace Manosaba.Characters.JogasakiNoah.Cards
@@ -55,7 +53,7 @@ namespace Manosaba.Characters.JogasakiNoah.Cards
         {
             await CreatureCmd.GainBlock(Owner.Creature, DynamicVars.Block, cardPlay);
 
-            if ((Owner.PlayerCombatState?.OrbQueue?.Capacity ?? 0) <= 1 || IsMultiplayerRun())
+            if ((Owner.PlayerCombatState?.OrbQueue?.Capacity ?? 0) <= 1)
             {
                 for (int i = 0; i < DynamicVars.Repeat.IntValue; i++)
                 {
@@ -104,11 +102,6 @@ namespace Manosaba.Characters.JogasakiNoah.Cards
         protected override void OnUpgrade()
         {
             DynamicVars.Block.UpgradeValueBy(2);
-        }
-
-        private static bool IsMultiplayerRun()
-        {
-            return RunManager.Instance?.NetService?.Type.IsMultiplayer() == true;
         }
     }
 }
