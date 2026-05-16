@@ -6,6 +6,7 @@ using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Context;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Players;
+using MegaCrit.Sts2.Core.Extensions;
 using MegaCrit.Sts2.Core.Helpers;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Nodes.Combat;
@@ -253,15 +254,23 @@ public static class PotionCraftTargetingService
             return;
         }
 
+        int sourceSlotIndex = owner.PotionSlots.IndexOf(sourcePotion);
+        int targetSlotIndex = owner.PotionSlots.IndexOf(targetPotion);
+        if (sourceSlotIndex < 0 || targetSlotIndex < 0)
+        {
+            return;
+        }
+
         sourceHolder.DisableUntilPotionRemoved();
         targetHolder.DisableUntilPotionRemoved();
+        RunManager.Instance.ActionQueueSynchronizer.RequestEnqueue(
+            new PotionCraftGameAction(
+                owner,
+                (uint)sourceSlotIndex,
+                (uint)targetSlotIndex,
+                CombatManager.Instance.IsInProgress));
 
-        bool crafted = await PotionCraftService.TryCraftPair(owner, sourcePotion, targetPotion);
-        if (!crafted)
-        {
-            sourceHolder.CancelPotionUseOrDiscard();
-            targetHolder.CancelPotionUseOrDiscard();
-        }
+        await Task.CompletedTask;
     }
 
     private static bool ShouldCancelTargeting()
