@@ -64,9 +64,11 @@ namespace Manosaba.Characters.TonoHanna.Cards
             Rng rng = Owner.RunState.Rng.CombatCardSelection;
             foreach (CardModel card in selected.ToList())
             {
+                CardModel? transformed = null;
+
                 if (!IsEligibleSourceTypeForPuppetTransform(card))
                 {
-                    await CardCmd.TransformToRandom(card, rng);
+                    transformed = (await CardCmd.TransformToRandom(card, rng)).cardAdded;
                 }
                 else
                 {
@@ -74,25 +76,27 @@ namespace Manosaba.Characters.TonoHanna.Cards
 
                     if (puppetPool.Count == 0)
                     {
-                        await CardCmd.TransformToRandom(card, rng);
+                        transformed = (await CardCmd.TransformToRandom(card, rng)).cardAdded;
                     }
                     else
                     {
                         try
                         {
                             CardTransformation transformation = new(card, puppetPool);
-                            await CardCmd.Transform(transformation.Yield(), rng, CardPreviewStyle.HorizontalLayout);
+                            transformed = (await CardCmd.Transform(transformation.Yield(), rng, CardPreviewStyle.HorizontalLayout))
+                                .FirstOrDefault()
+                                .cardAdded;
                         }
                         catch (InvalidOperationException)
                         {
-                            await CardCmd.TransformToRandom(card, rng);
+                            transformed = (await CardCmd.TransformToRandom(card, rng)).cardAdded;
                         }
                     }
                 }
 
-                if (IsUpgraded)
+                if (IsUpgraded && transformed != null)
                 {
-                    CardCmd.Upgrade(card);
+                    CardCmd.Upgrade(transformed);
                 }
             }
         }
