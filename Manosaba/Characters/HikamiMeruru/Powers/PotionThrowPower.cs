@@ -9,6 +9,7 @@ using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Helpers;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
+using MegaCrit.Sts2.Core.Models.Powers;
 using MegaCrit.Sts2.Core.Models.Potions;
 using MegaCrit.Sts2.Core.Nodes.Combat;
 using MegaCrit.Sts2.Core.Nodes.Rooms;
@@ -48,11 +49,16 @@ public sealed class PotionThrowPower : PathCustomPowerModel
             return;
 
         int hitCount = Math.Max(0, (int)decimal.Floor(Amount));
+
         for (int i = 0; i < hitCount; i++)
         {
             if (potion is PotionShapedRock)
             {
-                await ThrowBoulder(new ThrowingPlayerChoiceContext());
+                if (await ThrowBoulder(new ThrowingPlayerChoiceContext()))
+                {
+                    await ClearVigor();
+                }
+
                 continue;
             }
 
@@ -74,14 +80,16 @@ public sealed class PotionThrowPower : PathCustomPowerModel
             {
                 await CreatureCmd.Damage(new ThrowingPlayerChoiceContext(), target, DynamicVars.Damage.BaseValue, ValueProp.Move, Owner);
             }
+
+            await ClearVigor();
         }
     }
 
-    private async Task ThrowBoulder(PlayerChoiceContext choiceContext)
+    private async Task<bool> ThrowBoulder(PlayerChoiceContext choiceContext)
     {
         if (Owner.CombatState == null)
         {
-            return;
+            return false;
         }
 
         List<Creature> targets = Owner.CombatState
@@ -91,7 +99,7 @@ public sealed class PotionThrowPower : PathCustomPowerModel
 
         if (targets.Count == 0)
         {
-            return;
+            return false;
         }
 
         decimal damage = DynamicVars[BoulderDamageKey].BaseValue;
@@ -129,6 +137,7 @@ public sealed class PotionThrowPower : PathCustomPowerModel
         }
 
         DynamicVars[BoulderDamageKey].BaseValue = damage + BoulderDamageIncrement;
+        return true;
     }
 
     private async Task<IEnumerable<DamageResult>> DoBoulderDamage(PlayerChoiceContext choiceContext, IEnumerable<Creature> targets, decimal damage)
@@ -137,5 +146,13 @@ public sealed class PotionThrowPower : PathCustomPowerModel
         {
             return await CreatureCmd.Damage(choiceContext, targets, damage, ValueProp.Move, Owner);
         }
+    }
+
+    private Task ClearVigor()
+    {
+        decimal vigor = Owner.GetPowerAmount<VigorPower>();
+        return vigor > 0m
+            ? PowerCmd.Apply<VigorPower>(Owner, -vigor, Owner, null)
+            : Task.CompletedTask;
     }
 }
