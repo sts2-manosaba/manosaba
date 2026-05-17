@@ -84,7 +84,7 @@ public sealed class WitchesCauldron : PathCustomRelicModel
 
     private async Task TryGrantCatalyst(PotionModel potion, bool suppressCraftDiscard)
     {
-        if (_grantingCatalyst || potion.Owner != Owner)
+        if (_grantingCatalyst || potion.Owner != Owner || potion is Catalyst)
             return;
 
         if ((suppressCraftDiscard && PotionCraftService.IsCraftDiscardSuppressed) || !Owner.HasOpenPotionSlots)
