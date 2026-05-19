@@ -27,6 +27,7 @@ namespace Manosaba.Characters.HikamiMeruru.Potions
             Player? targetPlayer = target.Player;
             if (targetPlayer != null && ManosabaPlayerHelper.IsManosabaPlayer(targetPlayer))
             {
+                target.RemoveAllPowersInternalExcept();
                 await CreatureCmd.Kill(target);
             }
         }

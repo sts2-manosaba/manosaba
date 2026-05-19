@@ -60,7 +60,7 @@
   "MANOSABA-DRUG_DEALER.title": "薬売り",
   "MANOSABA-DRUG_DEALER.description": "味方全員はそれぞれランダムな基本ポーションを1本得る。{IfUpgraded:show:\n50%の確率で[gold]触媒[/gold]を1本得る。}",
   "MANOSABA-GRAND_HEAL.title": "回復魔法",
-  "MANOSABA-GRAND_HEAL.description": "全プレイヤーのHPを{Heal:diff()}回復し、すべての状態カードを[gold]消費[/gold]する。[gold]魔女化[/gold]に応じて味方全員に{InhibitionPower:diff()}層の[gold]抑制[/gold]を与える（最大5層）。",
+  "MANOSABA-GRAND_HEAL.description": "全プレイヤーのHPを{Heal:diff()}回復し、すべての状態カードを[gold]消費[/gold]する。[gold]魔女化[/gold]に応じて味方全員に{InhibitionPower:diff()}層の[gold]抑制[/gold]を与える（最大10層）。",
   "MANOSABA-HIKAMI_MERURU_EXAID.title": "氷↗上↘メ↗ル↘ル",
   "MANOSABA-HIKAMI_MERURU_EXAID.description": "ターンを終了する。\n[gold]魔女化[/gold]を{MajokaPower:diff()}層まで増やす。すでに{MajokaPower}層以上なら効果はない。",
   "MANOSABA-INCITEMENT.title": "扇動",

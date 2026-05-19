@@ -23,7 +23,7 @@ public sealed class WitchesCauldron : PathCustomRelicModel
     private bool _grantingCatalyst;
     private int _firepower = BaseFirepower;
 
-    public override RelicRarity Rarity => RelicRarity.Uncommon;
+    public override RelicRarity Rarity => RelicRarity.Starter;
     public override bool ShowCounter => true;
     public override int DisplayAmount => Firepower;
     protected override IEnumerable<DynamicVar> CanonicalVars => [new DynamicVar(FirepowerVar, BaseFirepower)];
@@ -36,7 +36,6 @@ public sealed class WitchesCauldron : PathCustomRelicModel
         {
             AssertMutable();
             _firepower = Math.Clamp(value, 0, MaxFirepower);
-            SyncFirepowerDynamicVar();
             InvokeDisplayAmountChanged();
         }
     }
@@ -114,10 +113,5 @@ public sealed class WitchesCauldron : PathCustomRelicModel
     private void ResetFirepower()
     {
         Firepower = BaseFirepower;
-    }
-
-    private void SyncFirepowerDynamicVar()
-    {
-        DynamicVars[FirepowerVar].BaseValue = Firepower;
     }
 }

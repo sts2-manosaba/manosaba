@@ -60,7 +60,7 @@
   "MANOSABA-DRUG_DEALER.title": "藥頭",
   "MANOSABA-DRUG_DEALER.description": "所有隊友各獲得 1 瓶隨機基礎藥水。{IfUpgraded:show:\n有 50% 機率使你獲得 1 瓶[gold]催化劑[/gold]。}",
   "MANOSABA-GRAND_HEAL.title": "回復魔法",
-  "MANOSABA-GRAND_HEAL.description": "回復所有玩家 {Heal:diff()} 點生命並[gold]消耗[/gold]所有狀態卡片。根據[gold]魔女化[/gold]程度給予全部隊友 {InhibitionPower:diff()} 層[gold]抑制力[/gold]（最大5層）。",
+  "MANOSABA-GRAND_HEAL.description": "回復所有玩家 {Heal:diff()} 點生命並[gold]消耗[/gold]所有狀態卡片。根據[gold]魔女化[/gold]程度給予全部隊友 {InhibitionPower:diff()} 層[gold]抑制力[/gold]（最大10層）。",
   "MANOSABA-HIKAMI_MERURU_EXAID.title": "冰↗上↘梅↗露↘露",
   "MANOSABA-HIKAMI_MERURU_EXAID.description": "結束你的回合。\n將[gold]魔女化[/gold]提升至 {MajokaPower:diff()} 層。若已達 {MajokaPower} 層則不生效。",
   "MANOSABA-INCITEMENT.title": "煽動",

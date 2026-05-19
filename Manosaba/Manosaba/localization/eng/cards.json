@@ -60,7 +60,7 @@
   "MANOSABA-DRUG_DEALER.title": "Drug Dealer",
   "MANOSABA-DRUG_DEALER.description": "Each ally gains 1 random basic potion.{IfUpgraded:show:\n50% chance to gain 1 [gold]Catalyst[/gold].}",
   "MANOSABA-GRAND_HEAL.title": "Grand Heal",
-  "MANOSABA-GRAND_HEAL.description": "Heal all players {Heal:diff()} HP and [gold]Exhaust[/gold] all Status cards. Based on [gold]Majoka[/gold], grant all allies {InhibitionPower:diff()} stacks of [gold]Inhibition[/gold] (max 5 stacks).",
+  "MANOSABA-GRAND_HEAL.description": "Heal all players {Heal:diff()} HP and [gold]Exhaust[/gold] all Status cards. Based on [gold]Majoka[/gold], grant all allies {InhibitionPower:diff()} stacks of [gold]Inhibition[/gold] (max 10 stacks).",
   "MANOSABA-HIKAMI_MERURU_EXAID.title": "Hi↗ka↘mi↗ Me↘ru↗ru",
   "MANOSABA-HIKAMI_MERURU_EXAID.description": "End your turn.\nRaise [gold]Majoka[/gold] to {MajokaPower:diff()}. If already at {MajokaPower}, this has no effect.",
   "MANOSABA-INCITEMENT.title": "Incitement",

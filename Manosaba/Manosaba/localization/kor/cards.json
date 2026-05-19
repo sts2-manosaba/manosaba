@@ -60,7 +60,7 @@
   "MANOSABA-DRUG_DEALER.title": "약장수",
   "MANOSABA-DRUG_DEALER.description": "모든 아군이 무작위 기본 포션을 1병씩 얻습니다. {IfUpgraded:show:\n50% 확률로 자신도 [gold]촉매[/gold] 1병을 얻습니다.}",
   "MANOSABA-GRAND_HEAL.title": "회복 마법",
-  "MANOSABA-GRAND_HEAL.description": "모든 플레이어의 체력을 {Heal:diff()} 회복하고 모든 상태이상 카드를 [gold]소멸[/gold]시킵니다. [gold]마녀화[/gold] 정도에 따라 모든 아군에게 [gold]억제력[/gold]을 {InhibitionPower:diff()} 부여합니다(최대 5).",
+  "MANOSABA-GRAND_HEAL.description": "모든 플레이어의 체력을 {Heal:diff()} 회복하고 모든 상태이상 카드를 [gold]소멸[/gold]시킵니다. [gold]마녀화[/gold] 정도에 따라 모든 아군에게 [gold]억제력[/gold]을 {InhibitionPower:diff()} 부여합니다(최대 10).",
   "MANOSABA-HIKAMI_MERURU_EXAID.title": "히↗카↘미↗메↘루루",
   "MANOSABA-HIKAMI_MERURU_EXAID.description": "자신의 턴을 종료합니다.\n[gold]마녀화[/gold]를 {MajokaPower:diff()}까지 올립니다. 이미 {MajokaPower} 이상이면 효과가 없습니다.",
   "MANOSABA-INCITEMENT.title": "선동",
