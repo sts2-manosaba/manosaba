@@ -1,5 +1,4 @@
 ﻿using BaseLib.Utils;
-using manosaba.Characters.HikamiMeruru;
 using Manosaba.Characters.Common.Commands;
 using Manosaba.Extensions;
 using MegaCrit.Sts2.Core.Combat;
@@ -130,32 +129,32 @@ namespace Manosaba.Characters.HikamiMeruru.Cards
         }
     }
 
-    [Pool(typeof(HikamiMeruruCardPool))]
+    [Pool(typeof(TokenCardPool))]
     public class NanokaHead : NanokaPuzzleQuestTokenBase
     {
     }
 
-    [Pool(typeof(HikamiMeruruCardPool))]
+    [Pool(typeof(TokenCardPool))]
     public class NanokaRightArm : NanokaPuzzleQuestTokenBase
     {
     }
 
-    [Pool(typeof(HikamiMeruruCardPool))]
+    [Pool(typeof(TokenCardPool))]
     public class NanokaRightLeg : NanokaPuzzleQuestTokenBase
     {
     }
 
-    [Pool(typeof(HikamiMeruruCardPool))]
+    [Pool(typeof(TokenCardPool))]
     public class NanokaLeftArm : NanokaPuzzleQuestTokenBase
     {
     }
 
-    [Pool(typeof(HikamiMeruruCardPool))]
+    [Pool(typeof(TokenCardPool))]
     public class NanokaLeftLeg : NanokaPuzzleQuestTokenBase
     {
     }
 
-    [Pool(typeof(HikamiMeruruCardPool))]
+    [Pool(typeof(TokenCardPool))]
     public class NanokaComplete : PathCustomCardModel
     {
 

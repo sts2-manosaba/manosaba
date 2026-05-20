@@ -1,5 +1,3 @@
-using BaseLib.Utils;
-using manosaba.Characters.SaekiMiria;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
@@ -9,7 +7,6 @@ using MegaCrit.Sts2.Core.Nodes.CommonUi;
 
 namespace Manosaba.Characters.SaekiMiria.Cards;
 
-[Pool(typeof(SaekiMiriaCardPool))]
 public sealed class SmallPaper : MovieBase
 {
     public override bool CanBeGeneratedInCombat => false;

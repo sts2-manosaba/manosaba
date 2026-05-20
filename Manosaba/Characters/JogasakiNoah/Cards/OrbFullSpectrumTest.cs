@@ -1,5 +1,5 @@
 using BaseLib.Utils;
-using manosaba.Characters.JogasakiNoah;
+using MegaCrit.Sts2.Core.Models.CardPools;
 using Manosaba.Characters.JogasakiNoa.Orbs;
 using Manosaba.Extensions;
 using MegaCrit.Sts2.Core.Commands;
@@ -10,7 +10,7 @@ using MegaCrit.Sts2.Core.Models;
 
 namespace Manosaba.Characters.JogasakiNoah.Cards;
 
-[Pool(typeof(JogasakiNoahCardPool))]
+[Pool(typeof(QuestCardPool))]
 public class OrbFullSpectrumTest : PathCustomCardModel
 {
     private const int energyCost = 0;

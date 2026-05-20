@@ -1,5 +1,5 @@
 using BaseLib.Utils;
-using manosaba.Characters.TonoHanna;
+using MegaCrit.Sts2.Core.Models.CardPools;
 using Manosaba.Characters.TonoHanna.Powers;
 using Manosaba.Extensions;
 using MegaCrit.Sts2.Core.Commands;
@@ -11,7 +11,7 @@ using MegaCrit.Sts2.Core.Models;
 
 namespace Manosaba.Characters.TonoHanna.Cards;
 
-[Pool(typeof(TonoHannaCardPool))]
+[Pool(typeof(QuestCardPool))]
 public class PuppetFullTest : PathCustomCardModel
 {
     private const int energyCost = 0;

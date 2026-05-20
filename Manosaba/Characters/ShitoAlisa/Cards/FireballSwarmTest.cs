@@ -1,5 +1,5 @@
 using BaseLib.Utils;
-using manosaba.Characters.ShitoAlisa;
+using MegaCrit.Sts2.Core.Models.CardPools;
 using Manosaba.Characters.ShitoAlisa.Powers;
 using Manosaba.Extensions;
 using MegaCrit.Sts2.Core.Commands;
@@ -11,7 +11,7 @@ using MegaCrit.Sts2.Core.Models;
 namespace Manosaba.Characters.ShitoAlisa.Cards;
 
 /// <summary>DEV: grants orbiting fireball stacks for layout testing. Remove from <see cref="ShitoAlisa.StartingDeck"/> when done.</summary>
-[Pool(typeof(ShitoAlisaCardPool))]
+[Pool(typeof(QuestCardPool))]
 public sealed class FireballSwarmTest : ShitoAlisaCardModel
 {
     private const int energyCost = 0;

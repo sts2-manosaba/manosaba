@@ -8,6 +8,7 @@ using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
+using MegaCrit.Sts2.Core.Models.CardPools;
 using MegaCrit.Sts2.Core.ValueProps;
 
 namespace Manosaba.Characters.Common.Cards
@@ -64,7 +65,7 @@ namespace Manosaba.Characters.Common.Cards
         }
     }
 
-    [Pool(typeof(CommonCardPool))]
+    [Pool(typeof(TokenCardPool))]
     public class KokoroSuicide : Suicide
     {
         protected override IEnumerable<DynamicVar> CanonicalVars => [.. BaseCanonicalVars, new CardsVar(1)];

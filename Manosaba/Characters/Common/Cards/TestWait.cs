@@ -1,13 +1,13 @@
 using BaseLib.Utils;
-using manosaba.Characters.Common;
 using Manosaba.Extensions;
+using MegaCrit.Sts2.Core.Models.CardPools;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 
 namespace Manosaba.Characters.Common.Cards;
 
-[Pool(typeof(CommonCardPool))]
+[Pool(typeof(TokenCardPool))]
 public sealed class TestWait : PathCustomCardModel
 {
     private const int energyCost = 0;
