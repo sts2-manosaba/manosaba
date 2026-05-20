@@ -52,6 +52,6 @@
   "MANOSABA-RITUAL_SWORD.description": "擊殺[blue]{Enemies}[/blue]名敵人之後將變化為[gold]染血儀式劍[/gold]。",
   "MANOSABA-RITUAL_SWORD.flavor": "一把裝飾精美的劍。此前放在了保險箱中。",
   "MANOSABA-RITUAL_SWORD_BLOODIED.title": "染血儀式劍",
-  "MANOSABA-RITUAL_SWORD_BLOODIED.description": "下一場戰鬥開始時，獲得100層[gold]魔女化[/gold]。僅生效一次。",
+  "MANOSABA-RITUAL_SWORD_BLOODIED.description": "在[gold]精英[/gold]戰及[gold]Boss[/gold]戰的戰鬥開始時，獲得[blue]{StrengthPower}[/blue]點[gold]力量[/gold]和[blue]{DexterityPower}[/blue]點[gold]敏捷[/gold]。",
   "MANOSABA-RITUAL_SWORD_BLOODIED.flavor": "一把裝飾精美的劍。這把劍已經沾滿了鮮血。"
 }

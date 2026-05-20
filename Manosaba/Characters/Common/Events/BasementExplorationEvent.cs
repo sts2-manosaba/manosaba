@@ -66,14 +66,11 @@ public sealed class BasementExplorationEvent : CustomEventModel
 
     private Task FightRoute()
     {
-        BasementGuardianEventEncounter encounter = (BasementGuardianEventEncounter)ModelDb.Encounter<BasementGuardianEventEncounter>().ToMutable();
-        encounter.RanOutOfTime = false;
-
         RelicModel ritualSword = ModelDb.Relic<RitualSword>().ToMutable();
         ritualSword.Owner = Owner!;
 
         Reward[] extraRewards = [new RelicReward(ritualSword, Owner!)];
-        EnterCombatWithoutExitingEvent(encounter, extraRewards, shouldResumeAfterCombat: true);
+        EnterCombatWithoutExitingEvent<BasementGuardianEventEncounter>(extraRewards, shouldResumeAfterCombat: true);
         return Task.CompletedTask;
     }
 
@@ -85,7 +82,7 @@ public sealed class BasementExplorationEvent : CustomEventModel
             return;
         }
 
-        if (room is not CombatRoom combatRoom || combatRoom.Encounter is not BasementGuardianEventEncounter encounter || encounter.RanOutOfTime)
+        if (room is not CombatRoom { Encounter: BasementGuardianEventEncounter })
         {
             SetEventFinished(L10NLookup($"{Id.Entry}.pages.FAIL.description"));
             return;

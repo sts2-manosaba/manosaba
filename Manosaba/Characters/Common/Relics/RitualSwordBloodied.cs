@@ -1,34 +1,48 @@
+using System.Collections.Generic;
 using BaseLib.Utils;
-using Manosaba.Characters.Common.Powers;
 using Manosaba.Extensions;
 using MegaCrit.Sts2.Core.Commands;
-using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Entities.Relics;
+using MegaCrit.Sts2.Core.HoverTips;
+using MegaCrit.Sts2.Core.Localization.DynamicVars;
+using MegaCrit.Sts2.Core.Models.Powers;
 using MegaCrit.Sts2.Core.Models.RelicPools;
-using MegaCrit.Sts2.Core.Saves.Runs;
+using MegaCrit.Sts2.Core.Rooms;
 
 namespace Manosaba.Characters.Common.Relics;
 
 [Pool(typeof(EventRelicPool))]
 public sealed class RitualSwordBloodied : PathCustomRelicModel
 {
-    private const int MajokaAmount = 100;
-
-    [SavedProperty]
-    public bool Triggered { get; set; }
-
     public override RelicRarity Rarity => RelicRarity.Event;
 
-    public override async Task AfterSideTurnStart(CombatSide side, CombatState combatState)
+    protected override IEnumerable<DynamicVar> CanonicalVars =>
+    [
+        new PowerVar<StrengthPower>(3m),
+        new PowerVar<DexterityPower>(3m),
+    ];
+
+    protected override IEnumerable<IHoverTip> ExtraHoverTips =>
+    [
+        HoverTipFactory.FromPower<StrengthPower>(),
+        HoverTipFactory.FromPower<DexterityPower>(),
+    ];
+
+    public override async Task BeforeCombatStart()
     {
-        _ = combatState;
-        if (Triggered || Owner?.Creature == null || side != Owner.Creature.Side || combatState.RoundNumber > 1)
+        if (Owner?.Creature == null)
         {
             return;
         }
 
-        Triggered = true;
+        RoomType roomType = Owner.Creature.CombatState?.Encounter?.RoomType ?? RoomType.Monster;
+        if (roomType is not (RoomType.Elite or RoomType.Boss))
+        {
+            return;
+        }
+
         Flash();
-        await PowerCmd.Apply<MajokaPower>(Owner.Creature, MajokaAmount, Owner.Creature, null);
+        await PowerCmd.Apply<StrengthPower>(Owner.Creature, DynamicVars["StrengthPower"].BaseValue, Owner.Creature, null);
+        await PowerCmd.Apply<DexterityPower>(Owner.Creature, DynamicVars["DexterityPower"].BaseValue, Owner.Creature, null);
     }
 }

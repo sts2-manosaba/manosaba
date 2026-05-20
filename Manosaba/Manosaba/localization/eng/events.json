@@ -1,11 +1,12 @@
 {
+  "MANOSABA-BASEMENT_EXPLORATION_EVENT.loss": "{character} tried to claim the Ritual Sword at [gold]{event}[/gold], but the jailor prevailed.",
   "MANOSABA-BASEMENT_EXPLORATION_EVENT.title": "Basement Exploration",
   "MANOSABA-BASEMENT_EXPLORATION_EVENT.pages.INITIAL.description": "You open the safe and take out the sword kept inside.\nIt is what you need to save Ema and the others.\nBlade in hand, you head back toward the cells—when a jailor steps in your way.",
   "MANOSABA-BASEMENT_EXPLORATION_EVENT.pages.INITIAL.options.ESCAPE.title": "Drop the sword and flee",
   "MANOSABA-BASEMENT_EXPLORATION_EVENT.pages.INITIAL.options.ESCAPE.description": "Lose [red]5[/red] HP. Remove a card from your deck.",
   "MANOSABA-BASEMENT_EXPLORATION_EVENT.pages.INITIAL.options.FIGHT.title": "Fight",
-  "MANOSABA-BASEMENT_EXPLORATION_EVENT.pages.INITIAL.options.FIGHT.description": "Defeat the jailor within 5 turns to keep the sword.",
+  "MANOSABA-BASEMENT_EXPLORATION_EVENT.pages.INITIAL.options.FIGHT.description": "Fight to keep the sword.",
   "MANOSABA-BASEMENT_EXPLORATION_EVENT.pages.ESCAPE.description": "You flee in panic, pay in blood, and leave the sword behind.",
-  "MANOSABA-BASEMENT_EXPLORATION_EVENT.pages.VICTORY.description": "Within the time limit you defeat the jailor and take the [gold]Ritual Sword[/gold] from the safe.",
-  "MANOSABA-BASEMENT_EXPLORATION_EVENT.pages.FAIL.description": "After five turns you are spent; you leave the sword behind and escape—you gain nothing."
+  "MANOSABA-BASEMENT_EXPLORATION_EVENT.pages.VICTORY.description": "You defeat the jailor and take the [gold]Ritual Sword[/gold] from the safe.",
+  "MANOSABA-BASEMENT_EXPLORATION_EVENT.pages.FAIL.description": "You fail to defeat the jailor; you leave the sword behind and escape—you gain nothing."
 }

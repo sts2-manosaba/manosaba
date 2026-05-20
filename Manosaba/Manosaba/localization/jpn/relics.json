@@ -55,6 +55,6 @@
   "MANOSABA-RITUAL_SWORD.description": "敵ユニットを[blue]{Enemies}[/blue]体倒すと、[gold]血に染まった儀式の剣[/gold]に変化する。",
   "MANOSABA-RITUAL_SWORD.flavor": "装飾の施された美しい剣。金庫に保管されていた。",
   "MANOSABA-RITUAL_SWORD_BLOODIED.title": "血に染まった儀式の剣",
-  "MANOSABA-RITUAL_SWORD_BLOODIED.description": "次の戦闘開始時、[gold]魔女化[/gold]を100得る。1回のみ発動。",
+  "MANOSABA-RITUAL_SWORD_BLOODIED.description": "[gold]エリート[/gold]戦および[gold]ボス[/gold]戦の開始時、[blue]{StrengthPower}[/blue]の[gold]筋力[/gold]と[blue]{DexterityPower}[/blue]の[gold]敏捷[/gold]を得る。",
   "MANOSABA-RITUAL_SWORD_BLOODIED.flavor": "装飾の施された美しい剣。今は血に濡れている。"
 }

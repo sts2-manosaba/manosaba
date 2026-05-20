@@ -55,6 +55,6 @@
   "MANOSABA-RITUAL_SWORD.description": "적 유닛을 [blue]{Enemies}[/blue]명 처치하면 [gold]피에 젖은 의식의 검[/gold]으로 변화합니다.",
   "MANOSABA-RITUAL_SWORD.flavor": "화려하게 장식된 검. 금고에 보관되어 있었다.",
   "MANOSABA-RITUAL_SWORD_BLOODIED.title": "피에 젖은 의식의 검",
-  "MANOSABA-RITUAL_SWORD_BLOODIED.description": "다음 전투 시작 시 [gold]마녀화[/gold]를 100 얻습니다. 1회만 발동합니다.",
+  "MANOSABA-RITUAL_SWORD_BLOODIED.description": "[gold]정예[/gold] 및 [gold]보스[/gold] 전투 시작 시, [blue]{StrengthPower}[/blue]의 [gold]힘[/gold]과 [blue]{DexterityPower}[/blue]의 [gold]민첩[/gold]을 얻습니다.",
   "MANOSABA-RITUAL_SWORD_BLOODIED.flavor": "화려하게 장식된 검. 이제 피에 젖어 있다."
 }

@@ -55,6 +55,6 @@
   "MANOSABA-RITUAL_SWORD.description": "Transforms into [gold]Bloodied Ritual Sword[/gold] after you slay [blue]{Enemies}[/blue] enemy units.",
   "MANOSABA-RITUAL_SWORD.flavor": "An ornately decorated blade. It had been kept in a safe.",
   "MANOSABA-RITUAL_SWORD_BLOODIED.title": "Bloodied Ritual Sword",
-  "MANOSABA-RITUAL_SWORD_BLOODIED.description": "At the start of your next combat, gain 100 [gold]Majoka[/gold]. Triggers only once.",
+  "MANOSABA-RITUAL_SWORD_BLOODIED.description": "At the start of [gold]Elite[/gold] and [gold]Boss[/gold] combats, gain [blue]{StrengthPower}[/blue] [gold]Strength[/gold] and [blue]{DexterityPower}[/blue] [gold]Dexterity[/gold].",
   "MANOSABA-RITUAL_SWORD_BLOODIED.flavor": "An ornately decorated blade, now slick with blood."
 }
