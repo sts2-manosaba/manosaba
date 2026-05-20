@@ -315,7 +315,7 @@
   "MANOSABA-HIT_TWEET.title": "Hit Tweet",
   "MANOSABA-HIT_TWEET.description": "If you are SaekiMiria, immediately [gold]Majoka[/gold].\nIf you are HasumiLeia, gain {StrengthGain} [gold]Strength[/gold].",
   "MANOSABA-LIFE_CONSULTATION.title": "Life Consultation",
-  "MANOSABA-LIFE_CONSULTATION.description": "Another player gains [gold]Healing[/gold] until they have as much as you do.",
+  "MANOSABA-LIFE_CONSULTATION.description": "Select another player.\nThey immediately heal HP equal to twice your current [gold]Healing[/gold] stacks.",
   "MANOSABA-MIND_SHARING.title": "Mind Sharing",
   "MANOSABA-MIND_SHARING.description": "All allies gain most of each ally's current non-attack-related abilities.",
   "MANOSABA-MIRIA_PROTECT.title": "Miria Protect",

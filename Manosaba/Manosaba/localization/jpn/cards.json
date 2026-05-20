@@ -315,7 +315,7 @@
   "MANOSABA-HIT_TWEET.title": "ネット拡散",
   "MANOSABA-HIT_TWEET.description": "佐伯ミリアなら直ちに[gold]魔女化[/gold]。\n蓮見レイアなら{StrengthGain}層の[gold]筋力[/gold]を得る。",
   "MANOSABA-LIFE_CONSULTATION.title": "人生相談",
-  "MANOSABA-LIFE_CONSULTATION.description": "プレイヤーを1人選ぶ。そのプレイヤーはあなたと同じ数になるまで[gold]回復[/gold]を得る。",
+  "MANOSABA-LIFE_CONSULTATION.description": "他のプレイヤーを1人選ぶ。\nそのプレイヤーは、あなたの現在の[gold]回復[/gold]スタックの2倍に等しいHPを即座に回復する。",
   "MANOSABA-MIND_SHARING.title": "精神共有",
   "MANOSABA-MIND_SHARING.description": "味方キャラクター全員は、味方キャラクター全員が現在持つ攻撃に関係しない能力の大半を得る。",
   "MANOSABA-MIRIA_PROTECT.title": "かばう",

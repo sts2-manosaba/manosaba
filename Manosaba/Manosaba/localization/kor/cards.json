@@ -315,7 +315,7 @@
   "MANOSABA-HIT_TWEET.title": "히트 트윗",
   "MANOSABA-HIT_TWEET.description": "사에키 미리아라면 즉시 [gold]마녀화[/gold].\n하스미 레이라면 [gold]힘[/gold]을 {StrengthGain} 얻습니다.",
   "MANOSABA-LIFE_CONSULTATION.title": "인생 상담",
-  "MANOSABA-LIFE_CONSULTATION.description": "다른 플레이어가 자신과 같아질 때까지 [gold]회복[/gold]을 얻습니다.",
+  "MANOSABA-LIFE_CONSULTATION.description": "다른 플레이어 1명을 선택합니다.\n그 플레이어는 당신의 현재 [gold]회복[/gold] 중첩의 2배만큼 체력을 즉시 회복합니다.",
   "MANOSABA-MIND_SHARING.title": "정신 공유",
   "MANOSABA-MIND_SHARING.description": "모든 아군이 현재 모든 아군의 공격과 무관한 능력 대부분을 얻습니다.",
   "MANOSABA-MIRIA_PROTECT.title": "비호",

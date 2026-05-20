@@ -40,15 +40,13 @@ public sealed class LifeConsultation : PathCustomCardModel
         }
 
         decimal ownerHealing = ownerCreature.GetPowerAmount<HealingPower>();
-        decimal targetHealing = target.GetPowerAmount<HealingPower>();
-        decimal toApply = ownerHealing - targetHealing;
-
-        if (toApply <= 0m)
+        decimal healAmount = ownerHealing * 2m;
+        if (healAmount <= 0m)
         {
             return;
         }
 
-        await PowerCmd.Apply<HealingPower>(target, toApply, ownerCreature, this);
+        await CreatureCmd.Heal(target, healAmount);
     }
 
     protected override void OnUpgrade()

@@ -1,5 +1,4 @@
 using Manosaba.Extensions;
-using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.Entities.Powers;
@@ -23,17 +22,6 @@ public sealed class HealingPower : PathCustomPowerModel
         }
 
         await CreatureCmd.Heal(Owner, Amount);
-    }
-
-    public override async Task AfterTurnEnd(PlayerChoiceContext choiceContext, CombatSide side)
-    {
-        _ = choiceContext;
-
-        if (side != Owner.Side || Amount <= 0m || !Owner.IsAlive)
-        {
-            return;
-        }
-
         await PowerCmd.Decrement(this);
     }
 }
