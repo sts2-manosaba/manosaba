@@ -651,6 +651,8 @@
   "MANOSABA-DEATH_PENDULUM.description": "Deal {Damage:diff()} damage to ALL enemies for each Skill in your [gold]Hand[/gold].{InCombat:\n(Hits {CalculatedHits:diff()} {CalculatedHits:plural:time|times})|}",
   "MANOSABA-GALLOWS.title": "Gallows",
   "MANOSABA-GALLOWS.description": "Deal {Damage:diff()} damage, ignoring enemy per-hit damage caps.",
+  "MANOSABA-FUTURE_OF_POTIONS.title": "The Future of Potions?",
+  "MANOSABA-FUTURE_OF_POTIONS.description": "Deal {Damage:diff()} damage.\nHeal HP equal to 20% of damage dealt.\n5% chance to take damage equal to your current HP.\nIf [gold]Hikami Meruru[/gold] is in your party, you won't drink the wrong potion.",
   "MANOSABA-DISSOLVE.title": "Dissolve",
   "MANOSABA-DISSOLVE.description": "All enemies lose {StrengthLoss:diff()} [gold]Strength[/gold] this turn.",
   "MANOSABA-DRIFT_APART.title": "Drift Apart",

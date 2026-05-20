@@ -651,6 +651,8 @@
   "MANOSABA-DEATH_PENDULUM.description": "[gold]手札[/gold]のスキル1枚につき、敵全体に{Damage:diff()}ダメージを与える。{InCombat:\n（{CalculatedHits:diff()}回攻撃）|}",
   "MANOSABA-GALLOWS.title": "絞首刑",
   "MANOSABA-GALLOWS.description": "敵の1回あたりのダメージ上限を無視し、{Damage:diff()}ダメージを与える。",
+  "MANOSABA-FUTURE_OF_POTIONS.title": "未来のポーション？",
+  "MANOSABA-FUTURE_OF_POTIONS.description": "敵に{Damage:diff()}ダメージを与える。\n与えたダメージの20%分HPを回復する。\n5%の確率で現在のHPと同量のダメージを受ける。\n[gold]メルル[/gold]がパーティにいる場合、間違ったポーションを飲まない。",
   "MANOSABA-DISSOLVE.title": "溶解",
   "MANOSABA-DISSOLVE.description": "このターン、すべての敵は{StrengthLoss:diff()}層の[gold]筋力[/gold]を失う。",
   "MANOSABA-DRIFT_APART.title": "すれ違い",
