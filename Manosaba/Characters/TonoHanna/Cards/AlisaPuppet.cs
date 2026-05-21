@@ -52,8 +52,8 @@ namespace Manosaba.Characters.TonoHanna.Cards
                 burnAmount += 3m;
             }
 
-            await PowerCmd.Apply<AlisaPuppetCollectionPower>(ownerCreature, 1m, ownerCreature, this);
-            await PowerCmd.Apply<BurnPower>(target, burnAmount, ownerCreature, this);
+            await CommonActions.Apply<AlisaPuppetCollectionPower>(choiceContext, ownerCreature, this, 1m);
+            await CommonActions.Apply<BurnPower>(choiceContext, target, this, burnAmount);
         }
 
         protected override void OnUpgrade()

@@ -1,3 +1,4 @@
+using BaseLib.Utils;
 using Manosaba.Extensions;
 using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Commands;
@@ -21,7 +22,7 @@ public sealed class MadnessPower : PathCustomPowerModel
     public override PowerStackType StackType => PowerStackType.Counter;
     public override bool AllowNegative => false;
 
-    public override async Task AfterPowerAmountChanged(PowerModel power, decimal amount, Creature? applier, CardModel? cardSource)
+    public override async Task AfterPowerAmountChanged(PlayerChoiceContext choiceContext, PowerModel power, decimal amount, Creature? applier, CardModel? cardSource)
     {
         if (power != this || _isResolvingThreshold || Amount < GetTriggerThreshold())
         {
@@ -46,7 +47,7 @@ public sealed class MadnessPower : PathCustomPowerModel
             }
             else
             {
-                await PowerCmd.Apply<FrenziedPower>(Owner, 1, Owner, null);
+                await CommonActions.Apply<FrenziedPower>(choiceContext, Owner, null, 1, silent: true);
                 await PowerCmd.Remove(this);
             }
         }
@@ -56,7 +57,7 @@ public sealed class MadnessPower : PathCustomPowerModel
         }
     }
 
-    public override async Task AfterTurnEnd(PlayerChoiceContext choiceContext, CombatSide side)
+    public override async Task AfterSideTurnEnd(PlayerChoiceContext choiceContext, CombatSide side, IEnumerable<Creature> creatures)
     {
         _ = choiceContext;
 
@@ -65,7 +66,7 @@ public sealed class MadnessPower : PathCustomPowerModel
             return;
         }
 
-        await PowerCmd.Apply<MadnessPower>(Owner, -DecayPerTurn, Owner, null);
+        await CommonActions.Apply<MadnessPower>(choiceContext, Owner, null, -DecayPerTurn);
     }
 
     private decimal GetTriggerThreshold()
@@ -76,7 +77,7 @@ public sealed class MadnessPower : PathCustomPowerModel
         }
 
         int playerCount = 0;
-        CombatState? combatState = Owner.CombatState;
+        ICombatState? combatState = Owner.CombatState;
         if (combatState == null)
         {
             return TriggerThreshold;

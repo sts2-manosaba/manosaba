@@ -9,6 +9,9 @@ namespace Manosaba.Characters.Common.Relics;
 /// </summary>
 public sealed class LockedCharacterStarterRelicPool : CustomRelicPoolModel
 {
-    public override string BigEnergyIconPath => "charui/manosaba_energy.png".ImagePath();
-    public override string TextEnergyIconPath => "charui/manosaba_energy_text.png".ImagePath();
+    public static string FallbackBigEnergyIconPath => "charui/manosaba_energy.png".ImagePath();
+    public static string FallbackTextEnergyIconPath => "charui/manosaba_energy_text.png".ImagePath();
+
+    public override string BigEnergyIconPath => FallbackBigEnergyIconPath;
+    public override string TextEnergyIconPath => FallbackTextEnergyIconPath;
 }

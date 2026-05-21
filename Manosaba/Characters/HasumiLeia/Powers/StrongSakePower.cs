@@ -1,3 +1,4 @@
+using BaseLib.Utils;
 using Manosaba.Characters.Common.Overrides;
 using Manosaba.Extensions;
 using MegaCrit.Sts2.Core.Commands;
@@ -45,6 +46,6 @@ public sealed class StrongSakePower : PathCustomPowerModel
 
         _triggeredThisTurn = true;
         Flash();
-        await PowerCmd.Apply<EnergyNextTurnPower>(Owner, Amount, Owner, cardPlay.Card);
+await CommonActions.Apply<EnergyNextTurnPower>(context, Owner, cardPlay.Card, Amount);
     }
 }

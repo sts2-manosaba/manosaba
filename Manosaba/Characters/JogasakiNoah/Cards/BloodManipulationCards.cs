@@ -15,6 +15,8 @@ using MegaCrit.Sts2.Core.Models.CardPools;
 using MegaCrit.Sts2.Core.Models.Powers;
 using MegaCrit.Sts2.Core.ValueProps;
 
+using Manosaba.Utils;
+
 namespace Manosaba.Characters.JogasakiNoah.Cards;
 
 public abstract class SekketsusoujitsuAttackCard : PathCustomCardModel
@@ -110,7 +112,7 @@ public sealed class SuperNova : SekketsusoujitsuAttackCard
         await DamageCmd.Attack(DynamicVars.CalculationBase.BaseValue + bloodBonus)
             .WithHitCount(DynamicVars.Repeat.IntValue)
             .FromCard(this)
-            .TargetingAllOpponents(CombatState)
+            .TargetingAllOpponentsCompat(CombatState)
             .Execute(choiceContext);
     }
 
@@ -132,7 +134,7 @@ public sealed class Sekirinyakudou : PathCustomCardModel
 
     protected override Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        return PowerCmd.Apply<SekirinyakudouPower>(Owner.Creature, 1m, Owner.Creature, this);
+        return CommonActions.Apply<SekirinyakudouPower>(choiceContext, Owner.Creature, this, 1m);
     }
 
     protected override void OnUpgrade()
@@ -198,7 +200,7 @@ public sealed class Sekibaku : PathCustomCardModel
         decimal strengthLoss = await SekketsusoujitsuHelper.EvokeNextBloodOrb(choiceContext, Owner);
         if (strengthLoss > 0m)
         {
-            await PowerCmd.Apply<TemporaryStrengthDownPower>(cardPlay.Target, strengthLoss, Owner.Creature, this);
+            await CommonActions.Apply<TemporaryStrengthDownPower>(choiceContext, cardPlay.Target, this, strengthLoss);
         }
     }
 
@@ -286,7 +288,7 @@ public sealed class Hyakuren : PathCustomCardModel
         CardModel? selected = await CardSelectCmd.FromChooseACardScreen(choiceContext, options, Owner);
         if (selected != null)
         {
-            await CardPileCmd.AddGeneratedCardToCombat(selected, PileType.Hand, true);
+            await CardPileCmd.AddGeneratedCardToCombat(selected, PileType.Hand, Owner);
         }
 
         foreach (BloodOrb bloodOrb in Owner.PlayerCombatState?.OrbQueue?.Orbs.OfType<BloodOrb>() ?? [])

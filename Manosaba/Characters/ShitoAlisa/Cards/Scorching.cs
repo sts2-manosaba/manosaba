@@ -29,7 +29,7 @@ public class Scorching : ShitoAlisaCardModel
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        await PowerCmd.Apply<ScorchingPower>(Owner.Creature, DynamicVars["ScorchingPower"].BaseValue, Owner.Creature, this);
+        await CommonActions.Apply<ScorchingPower>(choiceContext, Owner.Creature, this, DynamicVars["ScorchingPower"].BaseValue);
     }
 
     protected override void OnUpgrade()

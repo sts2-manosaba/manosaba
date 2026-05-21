@@ -21,7 +21,7 @@ namespace Manosaba.Characters.SaekiMiria.Powers
         public override PowerType Type => PowerType.Buff;
         public override PowerStackType StackType => PowerStackType.Single;
 
-        public override bool IsInstanced => true;
+        public override PowerInstanceType InstanceType => PowerInstanceType.Instanced;
 
         public void SetApplier(Creature applier)
         {
@@ -33,7 +33,7 @@ namespace Manosaba.Characters.SaekiMiria.Powers
             _upgraded = upgraded;
         }
 
-        public override async Task BeforeHandDraw(Player player, PlayerChoiceContext choiceContext, CombatState combatState)
+        public override async Task BeforeHandDraw(Player player, PlayerChoiceContext choiceContext, ICombatState combatState)
         {
             if (player.Creature != Owner)
                 return;
@@ -122,7 +122,7 @@ namespace Manosaba.Characters.SaekiMiria.Powers
                 }
                 copy.AddKeyword(ManosabaKeywords.Shared);
 
-                await CardPileCmd.AddGeneratedCardToCombat(copy, PileType.Hand, addedByPlayer: true);
+                await CardPileCmd.AddGeneratedCardToCombat(copy, PileType.Hand, Owner.Player);
 
             }
 

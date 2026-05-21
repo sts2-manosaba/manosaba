@@ -1,4 +1,4 @@
-﻿using BaseLib.Utils;
+using BaseLib.Utils;
 using manosaba.Characters.Common;
 using Manosaba.Characters.Common.Overrides;
 using manosaba.Extensions;
@@ -58,7 +58,7 @@ namespace Manosaba.Characters.Common.Cards
                 ValueProp.Unpowered,
                 base.Owner.Creature,
                 this);
-            await PowerCmd.Apply<MajokaPower>(base.Owner.Creature, DynamicVars["MajokaPower"].BaseValue, base.Owner.Creature, this);
+            await CommonActions.Apply<MajokaPower>(choiceContext, base.Owner.Creature, this, DynamicVars["MajokaPower"].BaseValue);
         }
 
         protected override void OnUpgrade()

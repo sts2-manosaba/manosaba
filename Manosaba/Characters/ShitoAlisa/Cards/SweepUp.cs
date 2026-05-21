@@ -29,7 +29,7 @@ public sealed class SweepUp : ShitoAlisaCardModel
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         await CardPileCmd.Draw(choiceContext, DynamicVars.Cards.BaseValue, Owner);
-        await PowerCmd.Apply<FireballSwarmPower>(Owner.Creature, 1m, Owner.Creature, this);
+        await CommonActions.Apply<FireballSwarmPower>(choiceContext, Owner.Creature, this, 1m);
     }
 
     protected override void OnUpgrade()

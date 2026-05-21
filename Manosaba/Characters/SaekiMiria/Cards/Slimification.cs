@@ -31,11 +31,11 @@ public sealed class Slimification : PathCustomCardModel
     }
 
     protected override Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
-        => PowerCmd.Apply<SlimificationPower>(
+        => CommonActions.Apply<SlimificationPower>(
+            choiceContext,
             Owner.Creature,
-            DynamicVars["SlimificationPower"].BaseValue,
-            Owner.Creature,
-            this);
+            this,
+            DynamicVars["SlimificationPower"].BaseValue);
 
     protected override void OnUpgrade()
     {

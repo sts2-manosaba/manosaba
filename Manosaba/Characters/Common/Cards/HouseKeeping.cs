@@ -29,7 +29,7 @@ namespace Manosaba.Characters.Common.Cards
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
-            await PowerCmd.Apply<HouseKeepingPower>(base.Owner.Creature, base.DynamicVars.Strength.BaseValue, base.Owner.Creature, this);
+            await CommonActions.Apply<HouseKeepingPower>(choiceContext, base.Owner.Creature, this, base.DynamicVars.Strength.BaseValue);
         }
 
         protected override void OnUpgrade()

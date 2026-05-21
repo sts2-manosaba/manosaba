@@ -37,13 +37,12 @@ public sealed class TruthIsOnlyOne : PathCustomCardModel
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        _ = choiceContext;
         if (Owner?.Creature is not { } ownerCreature)
         {
             return;
         }
 
-        await PowerCmd.Apply<CluePower>(ownerCreature, DynamicVars["CluePower"].BaseValue, ownerCreature, this);
+        await PowerCmd.Apply<CluePower>(choiceContext, ownerCreature, DynamicVars["CluePower"].BaseValue, ownerCreature, this);
 
         decimal block = ownerCreature.GetPowerAmount<CluePower>();
         if (block > 0m)

@@ -39,7 +39,7 @@ public sealed class BalancedNutrition : PathCustomCardModel
         _ = cardPlay;
 
         await CreatureCmd.GainMaxHp(Owner.Creature, DynamicVars[maxHpVar].BaseValue);
-        await PowerCmd.Apply<PoisonPower>(Owner.Creature, DynamicVars.Poison.BaseValue, Owner.Creature, this);
+        await CommonActions.Apply<PoisonPower>(choiceContext, Owner.Creature, this, DynamicVars.Poison.BaseValue);
     }
 
     protected override void OnUpgrade()

@@ -1,4 +1,4 @@
-﻿using BaseLib.Utils;
+using BaseLib.Utils;
 using manosaba.Characters.HasumiLeia;
 using manosaba.Characters.HikamiMeruru;
 using manosaba.Characters.SaekiMiria;
@@ -41,7 +41,7 @@ namespace Manosaba.Characters.HasumiLeia.Cards
             .FromCard(this)
             .Targeting(target)
             .Execute(choiceContext);
-            await PowerCmd.Apply<WeakPower>(target, DynamicVars["WeakPower"].BaseValue, base.Owner.Creature, this);
+            await CommonActions.Apply<WeakPower>(choiceContext, target, this, DynamicVars["WeakPower"].BaseValue);
         }
 
         protected override void OnUpgrade()

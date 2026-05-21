@@ -46,17 +46,13 @@ public sealed class HorsebackRiding : PathCustomCardModel
             return;
         }
 
-        await PowerCmd.Apply<HorsebackRidingPower>(
-            ownerCreature,
-            DynamicVars[nameof(HorsebackRidingPower)].BaseValue,
-            ownerCreature,
-            this);
+        await CommonActions.Apply<HorsebackRidingPower>(choiceContext, ownerCreature, this, DynamicVars[nameof(HorsebackRidingPower)].BaseValue);
 
         foreach (Creature teammate in combatState.GetTeammatesOf(ownerCreature).Where(c => c.IsAlive && c.CanReceivePowers))
         {
             if (teammate.Player?.Character is HannaCharacter)
             {
-                await PowerCmd.Apply<HannaPuppetPower>(teammate, 1m, ownerCreature, this);
+                await CommonActions.Apply<HannaPuppetPower>(choiceContext, teammate, this, 1m);
             }
         }
     }

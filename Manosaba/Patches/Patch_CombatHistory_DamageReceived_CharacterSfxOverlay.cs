@@ -13,7 +13,7 @@ public static class Patch_CombatHistory_DamageReceived_CharacterSfxOverlay
 {
     [HarmonyPostfix]
     private static void Postfix(
-        CombatState combatState,
+        ICombatState combatState,
         Creature receiver,
         Creature? dealer,
         DamageResult result,

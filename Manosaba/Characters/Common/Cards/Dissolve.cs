@@ -1,4 +1,4 @@
-﻿using BaseLib.Utils;
+using BaseLib.Utils;
 using manosaba.Characters.Common;
 using Manosaba.Characters.Common.Overrides;
 using Manosaba.Characters.Common.Powers;
@@ -40,7 +40,7 @@ namespace Manosaba.Characters.Common.Cards
 
             foreach (Creature hittableEnemy in base.CombatState.HittableEnemies)
             {
-                await PowerCmd.Apply<DissolvePower>(hittableEnemy, base.DynamicVars["StrengthLoss"].BaseValue, base.Owner.Creature, this);
+                await CommonActions.Apply<DissolvePower>(choiceContext, hittableEnemy, this, base.DynamicVars["StrengthLoss"].BaseValue);
             }
         }
         protected override void OnUpgrade()

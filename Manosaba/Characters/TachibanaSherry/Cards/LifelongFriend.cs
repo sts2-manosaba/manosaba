@@ -49,8 +49,8 @@ namespace Manosaba.Characters.TachibanaSherry.Cards
             }
 
             decimal stack = DynamicVars["LifelongFriendPower"].BaseValue;
-            LifelongFriendPower? selfPower = await PowerCmd.Apply<LifelongFriendPower>(ownerCreature, stack, ownerCreature, this);
-            LifelongFriendPower? allyPower = await PowerCmd.Apply<LifelongFriendPower>(target, stack, ownerCreature, this);
+            LifelongFriendPower? selfPower = await CommonActions.Apply<LifelongFriendPower>(choiceContext, ownerCreature, this, stack);
+            LifelongFriendPower? allyPower = await CommonActions.Apply<LifelongFriendPower>(choiceContext, target, this, stack);
             selfPower?.SetPartner(target);
             allyPower?.SetPartner(ownerCreature);
 

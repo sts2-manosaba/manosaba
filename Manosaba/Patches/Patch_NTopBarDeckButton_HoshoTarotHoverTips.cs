@@ -53,7 +53,12 @@ public static class Patch_NTopBarDeckButton_HoshoTarotHoverTips
             )
         ];
 
-        NHoverTipSet tipSet = NHoverTipSet.CreateAndShow(__instance, tips);
+        NHoverTipSet? tipSet = NHoverTipSet.CreateAndShow(__instance, tips);
+        if (tipSet == null)
+        {
+            return;
+        }
+
         tipSet.GlobalPosition = __instance.GlobalPosition + new Vector2(__instance.Size.X - tipSet.Size.X, __instance.Size.Y + 20f);
     }
 

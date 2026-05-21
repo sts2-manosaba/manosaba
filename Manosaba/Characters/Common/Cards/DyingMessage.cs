@@ -28,7 +28,7 @@ namespace Manosaba.Characters.Common.Cards
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
-            DyingMessagePower? power = await PowerCmd.Apply<DyingMessagePower>(base.Owner.Creature, 1, base.Owner.Creature, this);
+            DyingMessagePower? power = await CommonActions.Apply<DyingMessagePower>(choiceContext, base.Owner.Creature, this, 1m, silent: true);
             if (base.IsUpgraded) power?.Upgrade();
 
         }

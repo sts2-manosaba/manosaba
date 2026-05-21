@@ -1,4 +1,5 @@
-﻿using Manosaba.Characters.Common.Powers;
+using BaseLib.Utils;
+using Manosaba.Characters.Common.Powers;
 using Manosaba.Extensions;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
@@ -28,7 +29,7 @@ namespace Manosaba.Characters.NikaidoHiro.Powers
                     return;
                 }
 
-                await PowerCmd.Apply<MajokaPower>(ownerCreature, 10 * cardPlay.Card.EnergyCost.GetResolved(), ownerCreature, null);
+                await CommonActions.Apply<MajokaPower>(context, ownerCreature, cardPlay.Card, 10 * cardPlay.Card.EnergyCost.GetResolved());
             }
         }
 
@@ -48,7 +49,7 @@ namespace Manosaba.Characters.NikaidoHiro.Powers
             }
 
             Flash();
-            await PowerCmd.Apply<StrengthPower>(Owner, DynamicVars["StrengthPower"].BaseValue, Owner, null);
+            await CommonActions.Apply<MajokaPower>(choiceContext, Owner, null, DynamicVars[nameof(StrengthPower)].BaseValue);
         }
     }
 }

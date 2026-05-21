@@ -38,7 +38,7 @@ public sealed class JailerRegeneration : PathCustomCardModel
         _ = choiceContext;
         _ = cardPlay;
 
-        await PowerCmd.Apply<JailerRegenerationPower>(Owner.Creature, DynamicVars["JailerRegenerationPower"].BaseValue, Owner.Creature, this);
+        await CommonActions.Apply<JailerRegenerationPower>(choiceContext, Owner.Creature, this, DynamicVars["JailerRegenerationPower"].BaseValue);
     }
 
     protected override void OnUpgrade()

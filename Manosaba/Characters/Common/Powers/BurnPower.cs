@@ -47,7 +47,7 @@ public class BurnPower : PathCustomPowerModel
     /// <summary>
     /// 灼燒在持有者回合觸發次數：1 次 + 我方全體「一切安好」層數總和（與 <see cref="AfterSideTurnStart"/> 一致）。
     /// </summary>
-    public int GetBurnProcCountForOwnerTurn(CombatState combatState)
+    public int GetBurnProcCountForOwnerTurn(ICombatState combatState)
     {
         int fineExtra = 0;
         if (!SkipThisIsFineBonusInBurnProcCount.Value)
@@ -73,7 +73,7 @@ public class BurnPower : PathCustomPowerModel
         return perProc * GetBurnProcCountForOwnerTurn(cs);
     }
 
-    public override async Task AfterSideTurnStart(CombatSide side, CombatState combatState)
+    public override async Task AfterSideTurnStart(CombatSide side, IReadOnlyList<Creature> creatures, ICombatState combatState)
     {
         if (side != base.Owner.Side)
         {

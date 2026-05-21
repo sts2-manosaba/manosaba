@@ -53,8 +53,8 @@ namespace Manosaba.Characters.TonoHanna.Cards
                 goldAmount += 5m;
             }
 
-            await PowerCmd.Apply<LeiaPuppetCollectionPower>(ownerCreature, 1m, ownerCreature, this);
-            await PowerCmd.Apply<LeiaPuppetPower>(ownerCreature, goldAmount, ownerCreature, this);
+            await CommonActions.Apply<LeiaPuppetCollectionPower>(choiceContext, ownerCreature, this, 1m);
+            await CommonActions.Apply<LeiaPuppetPower>(choiceContext, ownerCreature, this, goldAmount);
         }
 
         protected override void OnUpgrade()

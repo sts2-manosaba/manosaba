@@ -27,7 +27,7 @@ public sealed class Wagahaiwanekodearu : NatsumeKotodamaCardModel
     {
         _ = choiceContext;
         _ = cardPlay;
-        await PowerCmd.Apply<CatPower>(Owner.Creature, DynamicVars["CatPower"].BaseValue, Owner.Creature, this);
+        await CommonActions.Apply<CatPower>(choiceContext, Owner.Creature, this, DynamicVars["CatPower"].BaseValue);
     }
 
     protected override void OnUpgrade()

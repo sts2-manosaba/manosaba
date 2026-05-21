@@ -86,7 +86,7 @@ public sealed class TraumaNatsumeAnan : NatsumeKotodamaCardModel
     {
         _ = choiceContext;
         _ = cardPlay;
-        await PowerCmd.Apply<MajokaPower>(Owner.Creature, DynamicVars["MajokaPower"].BaseValue, Owner.Creature, this);
+        await CommonActions.Apply<MajokaPower>(choiceContext, Owner.Creature, this, DynamicVars["MajokaPower"].BaseValue);
     }
 
     protected override void OnUpgrade()
@@ -150,11 +150,11 @@ public sealed class Instigate : NatsumeKotodamaCardModel
 
         if (IsUpgraded)
         {
-            await PowerCmd.Apply<DrawCardsNextTurnPower>(
+            await CommonActions.Apply<DrawCardsNextTurnPower>(
+                choiceContext,
                 targetPlayer.Creature,
-                DynamicVars["CardsNextTurn"].BaseValue,
-                Owner.Creature,
-                this);
+                this,
+                DynamicVars["CardsNextTurn"].BaseValue);
         }
 
         Log.Debug(
@@ -234,11 +234,7 @@ public sealed class Jigaishiro : NatsumeKotodamaCardModel
         if (cardPlay.Target == null)
             return;
 
-        await PowerCmd.Apply<JigaiPower>(
-            cardPlay.Target,
-            DynamicVars["JigaiPower"].BaseValue,
-            Owner.Creature,
-            this);
+        await CommonActions.Apply<JigaiPower>(choiceContext, cardPlay.Target, this, DynamicVars["JigaiPower"].BaseValue);
     }
 
     protected override void OnUpgrade()

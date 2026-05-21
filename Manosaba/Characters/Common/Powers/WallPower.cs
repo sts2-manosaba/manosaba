@@ -1,3 +1,4 @@
+using BaseLib.Utils;
 using Manosaba.Extensions;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Creatures;
@@ -32,6 +33,6 @@ public sealed class WallPower : PathCustomPowerModel
         if (result.UnblockedDamage <= 0)
             return;
 
-        await PowerCmd.Apply<VigorPower>(Owner, result.UnblockedDamage, Owner, cardSource);
+        await CommonActions.Apply<VigorPower>(new ThrowingPlayerChoiceContext(), Owner, cardSource, result.UnblockedDamage);
     }
 }

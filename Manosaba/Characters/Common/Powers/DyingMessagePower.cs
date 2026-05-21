@@ -1,3 +1,4 @@
+using BaseLib.Utils;
 using Manosaba.Characters.Common.Powers;
 using Manosaba.Extensions;
 using MegaCrit.Sts2.Core.Combat;
@@ -38,13 +39,13 @@ namespace Manosaba.Characters.NikaidoHiro.Powers
                 if (item == null || !item.IsAlive || !item.IsPlayer || item == Owner)
                     continue;
 
-                await PowerCmd.Apply<DrawCardsNextTurnPower>(item, 5, base.Owner, null);
-                await PowerCmd.Apply<EnergyNextTurnPower>(item, 10, base.Owner, null);
+                await CommonActions.Apply<DrawCardsNextTurnPower>(choiceContext, item, null, 5, silent: true);
+                await CommonActions.Apply<EnergyNextTurnPower>(choiceContext, item, null, 10, silent: true);
             }
         }
 
 
-        public override async Task AfterTurnEnd(PlayerChoiceContext choiceContext, CombatSide side)
+        public override async Task AfterSideTurnEnd(PlayerChoiceContext choiceContext, CombatSide side, IEnumerable<Creature> creatures)
         {
             if (side != base.Owner.Side)
             {

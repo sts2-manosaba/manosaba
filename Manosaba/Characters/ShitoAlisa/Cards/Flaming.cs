@@ -39,8 +39,8 @@ public class Flaming : ShitoAlisaCardModel
 
         decimal stacks = DynamicVars["BurnPower"].BaseValue;
         foreach (Creature e in CombatState.GetOpponentsOf(Owner.Creature).Where(e => e.IsAlive && e.IsHittable).ToList())
-            await PowerCmd.Apply<BurnPower>(e, stacks, Owner.Creature, this);
-        await PowerCmd.Apply<FireballSwarmPower>(Owner.Creature, 1m, Owner.Creature, this);
+            await CommonActions.Apply<BurnPower>(choiceContext, e, this, stacks);
+        await CommonActions.Apply<FireballSwarmPower>(choiceContext, Owner.Creature, this, 1m);
     }
 
     protected override void OnUpgrade()

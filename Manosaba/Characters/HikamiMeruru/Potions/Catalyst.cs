@@ -1,4 +1,4 @@
-﻿using BaseLib.Utils;
+using BaseLib.Utils;
 using manosaba.Characters.HikamiMeruru;
 using Manosaba.Characters.HikamiMeruru.Powers;
 using Manosaba.Extensions;
@@ -27,7 +27,7 @@ namespace Manosaba.Characters.HikamiMeruru.Potions
 
             if (target.Player?.Character is HikamiMeruruCharacter)
             {
-                await PowerCmd.Apply<CatalystPower>(target, 1m, base.Owner.Creature, null);
+                await CommonActions.Apply<CatalystPower>(choiceContext, target, null, 1m);
             }
         }
     }

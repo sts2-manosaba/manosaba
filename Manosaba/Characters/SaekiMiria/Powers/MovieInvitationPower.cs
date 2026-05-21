@@ -15,7 +15,7 @@ public sealed class MovieInvitationPower : PathCustomPowerModel
 
     public override PowerType Type => PowerType.Buff;
     public override PowerStackType StackType => PowerStackType.Single;
-    public override bool IsInstanced => true;
+    public override PowerInstanceType InstanceType => PowerInstanceType.Instanced;
     public override bool AllowNegative => false;
 
     public void SetInvitedTarget(Creature target)
@@ -49,7 +49,7 @@ public sealed class MovieInvitationPower : PathCustomPowerModel
         }
     }
 
-    public override async Task AfterTurnEnd(PlayerChoiceContext choiceContext, CombatSide side)
+    public override async Task AfterSideTurnEnd(PlayerChoiceContext choiceContext, CombatSide side, IEnumerable<Creature> creatures)
     {
         _ = choiceContext;
         _ = side;

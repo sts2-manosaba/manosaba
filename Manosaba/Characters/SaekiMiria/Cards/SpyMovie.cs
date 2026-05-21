@@ -1,3 +1,4 @@
+using BaseLib.Utils;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Creatures;
@@ -14,7 +15,7 @@ public sealed class SpyMovie : MovieBase
     protected override IEnumerable<DynamicVar> MovieVars => [new PowerVar<DexterityPower>(1m)];
 
     protected override Task OnMovieEffect(PlayerChoiceContext choiceContext, CardPlay cardPlay) =>
-        PowerCmd.Apply<DexterityPower>(Owner.Creature, DynamicVars.Dexterity.BaseValue, Owner.Creature, this);
+        CommonActions.Apply<DexterityPower>(choiceContext, Owner.Creature, this, DynamicVars.Dexterity.BaseValue);
 
     protected override void OnUpgrade()
     {

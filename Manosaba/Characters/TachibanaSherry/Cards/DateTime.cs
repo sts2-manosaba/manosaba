@@ -43,7 +43,7 @@ namespace Manosaba.Characters.TachibanaSherry.Cards
                     await CreatureCmd.Heal(base.Owner.Creature, healAmount);
             }
 
-            await PowerCmd.Apply<DateTimeNoMajokaPower>(base.Owner.Creature, 1m, base.Owner.Creature, this);
+            await CommonActions.Apply<DateTimeNoMajokaPower>(choiceContext, base.Owner.Creature, this, 1m);
         }
 
         protected override void OnUpgrade()

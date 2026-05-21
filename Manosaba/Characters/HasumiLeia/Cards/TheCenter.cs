@@ -35,7 +35,7 @@ public sealed class TheCenter : PathCustomCardModel
     }
 
     protected override Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay) =>
-        PowerCmd.Apply<TheCenterPower>(Owner.Creature, DynamicVars["TheCenterPower"].BaseValue, Owner.Creature, this);
+        CommonActions.Apply<TheCenterPower>(choiceContext, Owner.Creature, this, DynamicVars["TheCenterPower"].BaseValue);
 
     protected override void OnUpgrade()
     {

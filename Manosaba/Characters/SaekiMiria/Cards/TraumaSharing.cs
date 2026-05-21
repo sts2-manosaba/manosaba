@@ -1,4 +1,4 @@
-﻿using BaseLib.Utils;
+using BaseLib.Utils;
 using manosaba.Characters.SaekiMiria;
 using Manosaba.Characters.Common.Overrides;
 using Manosaba.Characters.Common.Powers;
@@ -48,16 +48,16 @@ namespace Manosaba.Characters.SaekiMiria.Cards
                 foreach (PowerModel item in originalDebuffs)
                 {
                     PowerModel? powerById = enemy.GetPowerById(item.Id);
-                    if (powerById != null && !powerById.IsInstanced)
+                    if (powerById != null && powerById.InstanceType == PowerInstanceType.None)
                     {
                         DoHackyThingsForSpecificPowers(powerById);
-                        await PowerCmd.ModifyAmount(powerById, item.Amount, ownerCreature, this);
+                        await PowerCmd.ModifyAmount(choiceContext, powerById, item.Amount, ownerCreature, this);
                     }
                     else
                     {
                         PowerModel power = (PowerModel)item.ClonePreservingMutability();
                         DoHackyThingsForSpecificPowers(power);
-                        await PowerCmd.Apply(power, enemy, item.Amount, ownerCreature, this);
+                        await PowerCmd.Apply(choiceContext, power, enemy, item.Amount, ownerCreature, this);
                     }
                 }
             }

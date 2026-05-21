@@ -7,6 +7,7 @@ using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
 
+using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 namespace Manosaba.Characters.NikaidoHiro.Powers
 {
     public class DeathLoopPower : PathCustomPowerModel
@@ -23,7 +24,7 @@ namespace Manosaba.Characters.NikaidoHiro.Powers
             return Task.CompletedTask;
         }
 
-        public override Task AfterPowerAmountChanged(PowerModel power, decimal amount, Creature? applier, CardModel? cardSource)
+        public override Task AfterPowerAmountChanged(PlayerChoiceContext choiceContext, PowerModel power, decimal amount, Creature? applier, CardModel? cardSource)
         {
             if (power is MajokaPower && power.Owner == Owner)
                 SyncHealPercent();

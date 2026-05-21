@@ -1,5 +1,7 @@
-﻿using HarmonyLib;
+﻿using BaseLib.Utils;
+using HarmonyLib;
 using Manosaba.Multiplayer;
+using Manosaba.Utils;
 using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Creatures;
@@ -34,7 +36,7 @@ public static class Patch_Difficulties
     private static bool IsLobbyEnemyHpScalingCreature(Creature creature)
     {
         return creature.IsEnemy
-            && creature.CombatState != null
+            && ManosabaCombatCompat.HasCombatState(creature)
             && ManosabaLobbyDifficultyState.GetEnemyHpMultiplierForGameplay() != 1m;
     }
 
@@ -57,7 +59,7 @@ public static class Patch_Difficulties
             return false;
         }
 
-        if (!creature.IsEnemy || creature.CombatState == null)
+        if (!creature.IsEnemy || !ManosabaCombatCompat.HasCombatState(creature))
         {
             return false;
         }
@@ -81,7 +83,7 @@ public static class Patch_Difficulties
             return false;
         }
 
-        if (!creature.IsEnemy || creature.CombatState == null)
+        if (!creature.IsEnemy || !ManosabaCombatCompat.HasCombatState(creature))
         {
             return false;
         }
@@ -123,10 +125,15 @@ public static class Patch_Difficulties
     /// </summary>
     private static bool AmountMatchesPreLobbyEnemyFullBase(Creature creature, MonsterModel m, decimal amount)
     {
-        CombatState cs = creature.CombatState!;
+        CombatStateWrapper? cs = ManosabaCombatCompat.From(creature);
+        if (cs == null)
+        {
+            return false;
+        }
+
         int preLobby = (int)Creature.ScaleHpForMultiplayer(
             m.MaxInitialHp,
-            cs.Encounter,
+            ManosabaCombatCompat.GetEncounter(creature),
             cs.Players.Count,
             cs.RunState.CurrentActIndex);
         return (int)amount == preLobby;
@@ -135,7 +142,7 @@ public static class Patch_Difficulties
     /// <summary>
     /// 怪進房後第一次機會：把敵方 max 與 current HP 一併乘上大廳敵方倍率（與 vanilla 既有乘法疊加）。
     /// </summary>
-    /// <remarks>跳過 <see cref="Creature.ShowsInfiniteHp"/>，避免無限血階段被放大，造成連線 checksum 不一致。</remarks>
+    /// <remarks>跳過無限血顯示階段（main: ShowsInfiniteHp / beta: HpDisplay），避免被放大，造成連線 checksum 不一致。</remarks>
     [HarmonyPatch(typeof(Creature), nameof(Creature.AfterAddedToRoom))]
     private static class Patch_Creature_AfterAddedToRoom_HpMultiplier
     {
@@ -148,7 +155,7 @@ public static class Patch_Difficulties
 
             // Doormaker／瀑布式「無限血」階段：不在此重複乘大廳倍率；放大極大 max HP 無意義且易造成連線 checksum 不一致。
             // 有限生命階段改由本檔對 CreatureCmd 等路徑的 patch 處理。
-            if (__instance.ShowsInfiniteHp)
+            if (__instance.HpDisplay.IsInfinite())
             {
                 return;
             }

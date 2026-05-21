@@ -71,7 +71,7 @@ public class IceStrike : PathCustomCardModel
             decimal num = GetBaseVar().BaseValue + GetExtraVar().BaseValue * CollectionMultiplier(card, target);
             if (runGlobalHooks)
             {
-                CombatState? combatState = card.CombatState ?? card.Owner?.Creature?.CombatState;
+                ICombatState? combatState = card.CombatState ?? card.Owner?.Creature?.CombatState;
                 if (combatState == null || card.Owner == null)
                 {
                     PreviewValue = Math.Max(num, 0m);

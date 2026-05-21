@@ -29,7 +29,7 @@ public class DisasterGirl : ShitoAlisaCardModel
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        await PowerCmd.Apply<DisasterGirlPower>(Owner.Creature, DynamicVars["DisasterGirlPower"].BaseValue, Owner.Creature, this);
+        await CommonActions.Apply<DisasterGirlPower>(choiceContext, Owner.Creature, this, DynamicVars["DisasterGirlPower"].BaseValue);
     }
 
     protected override void OnUpgrade()

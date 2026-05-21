@@ -56,19 +56,19 @@ public sealed class SixSeven : PathCustomCardModel
         int roll = Owner.RunState.Rng.CombatCardSelection.NextInt(100);
         if (roll < 67)
         {
-            await PowerCmd.Apply<StrengthPower>(ownerCreature, DynamicVars["StrengthPower"].BaseValue, ownerCreature, this);
+            await PowerCmd.Apply<StrengthPower>(choiceContext, ownerCreature, DynamicVars["StrengthPower"].BaseValue, ownerCreature, this);
         }
         else if (roll < 80)
         {
-            await PowerCmd.Apply<CluePower>(ownerCreature, DynamicVars["CluePower"].BaseValue, ownerCreature, this);
+            await PowerCmd.Apply<CluePower>(choiceContext, ownerCreature, DynamicVars["CluePower"].BaseValue, ownerCreature, this);
         }
         else if (roll < 93)
         {
-            await PowerCmd.Apply<DexterityPower>(ownerCreature, DynamicVars["DexterityPower"].BaseValue, ownerCreature, this);
+            await PowerCmd.Apply<DexterityPower>(choiceContext, ownerCreature, DynamicVars["DexterityPower"].BaseValue, ownerCreature, this);
         }
         else if (roll < 99)
         {
-            await PowerCmd.Apply<PlatingPower>(ownerCreature, DynamicVars["PlatingPower"].BaseValue, ownerCreature, this);
+            await PowerCmd.Apply<PlatingPower>(choiceContext, ownerCreature, DynamicVars["PlatingPower"].BaseValue, ownerCreature, this);
         }
         else
         {

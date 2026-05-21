@@ -1,4 +1,4 @@
-﻿using BaseLib.Utils;
+using BaseLib.Utils;
 using Manosaba.Characters.Common.Powers;
 using Manosaba.Characters.NikaidoHiro.Powers;
 using Manosaba.Extensions;
@@ -39,7 +39,7 @@ namespace manosaba.Characters.NikaidoHiro.Relics
             if (Owner.Creature == null)
                 return;
 
-            await PowerCmd.Apply<MidStancePower>(Owner.Creature, 1m, Owner.Creature, null);
+            await CommonActions.Apply<MidStancePower>(new ThrowingPlayerChoiceContext(), Owner.Creature, null, 1m);
         }
 
         public override Task AfterPlayerTurnStart(PlayerChoiceContext choiceContext, Player player)

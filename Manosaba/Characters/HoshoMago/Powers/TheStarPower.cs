@@ -49,7 +49,7 @@ public sealed class TheStarPower : PathCustomPowerModel
             CreatureCmd.Damage(choiceContext, dealer, reflectedDamage, ValueProp.Unpowered, Owner, null));
     }
 
-    public override async Task AfterTurnEnd(PlayerChoiceContext choiceContext, CombatSide side)
+    public override async Task AfterSideTurnEnd(PlayerChoiceContext choiceContext, CombatSide side, IEnumerable<Creature> creatures)
     {
         if (side != Owner.Side)
         {

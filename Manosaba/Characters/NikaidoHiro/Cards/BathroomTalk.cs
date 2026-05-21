@@ -30,7 +30,7 @@ namespace Manosaba.Characters.NikaidoHiro.Cards
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
             await SakurabaEmaDogCmd.Summon(choiceContext, Owner, DynamicVars.Summon.BaseValue, this);
-            await PowerCmd.Apply<SusPower>(Owner.Creature, DynamicVars["SusPower"].BaseValue, Owner.Creature, this);
+            await CommonActions.Apply<SusPower>(choiceContext, Owner.Creature, this, DynamicVars["SusPower"].BaseValue);
         }
 
         protected override void OnUpgrade()

@@ -27,11 +27,11 @@ public sealed class TheFoolPower : PathCustomPowerModel
         await PowerCmd.Remove(this);
     }
 
-    public override async Task BeforePlayPhaseStartLate(PlayerChoiceContext choiceContext, Player player)
+    public override async Task AfterAutoPrePlayPhaseEnteredLate(PlayerChoiceContext choiceContext, Player player)
     {
         Player? ownerPlayer = Owner?.Player;
         Creature? ownerCreature = ownerPlayer?.Creature;
-        CombatState? combatState = ownerCreature?.CombatState;
+        ICombatState? combatState = ownerCreature?.CombatState;
         if (_armed || ownerPlayer == null || ownerCreature == null || combatState == null || player != ownerPlayer)
         {
             return;
@@ -90,7 +90,7 @@ public sealed class TheFoolPower : PathCustomPowerModel
         return targetType is TargetType.AnyEnemy or TargetType.AnyAlly or TargetType.AnyPlayer;
     }
 
-    private Creature? GetTarget(CardModel card, Player ownerPlayer, Creature ownerCreature, CombatState combatState)
+    private Creature? GetTarget(CardModel card, Player ownerPlayer, Creature ownerCreature, ICombatState combatState)
     {
         Rng combatTargets = ownerPlayer.RunState.Rng.CombatTargets;
         return card.TargetType switch
@@ -102,7 +102,7 @@ public sealed class TheFoolPower : PathCustomPowerModel
         };
     }
 
-    private static Creature? PickRandomAlly(Rng combatTargets, CombatState combatState, Creature ownerCreature)
+    private static Creature? PickRandomAlly(Rng combatTargets, ICombatState combatState, Creature ownerCreature)
     {
         List<Creature> allies = combatState.Allies
             .Where((Creature c) => c != null && c.IsAlive && c.IsPlayer && c != ownerCreature)

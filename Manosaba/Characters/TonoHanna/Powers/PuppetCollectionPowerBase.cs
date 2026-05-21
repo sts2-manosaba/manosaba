@@ -30,9 +30,9 @@ public abstract class PuppetCollectionPowerBase : PathCustomPowerModel
         return PuppetCollectionSummaryPower.SyncToRosterAsync(Owner);
     }
 
-    public override async Task AfterPowerAmountChanged(PowerModel power, decimal amount, Creature? applier, CardModel? cardSource)
+    public override async Task AfterPowerAmountChanged(PlayerChoiceContext choiceContext, PowerModel power, decimal amount, Creature? applier, CardModel? cardSource)
     {
-        await base.AfterPowerAmountChanged(power, amount, applier, cardSource);
+        await base.AfterPowerAmountChanged(choiceContext, power, amount, applier, cardSource);
         if (power != this || power.Owner == null || TestMode.IsOn)
             return;
 

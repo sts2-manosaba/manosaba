@@ -1,4 +1,4 @@
-﻿using BaseLib.Utils;
+using BaseLib.Utils;
 using manosaba.Characters.NikaidoHiro;
 using Manosaba.Characters.Common.Powers;
 using Manosaba.Extensions;
@@ -32,7 +32,7 @@ namespace Manosaba.Characters.NikaidoHiro.Cards
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
-            await PowerCmd.Apply<MajokaPower>(Owner.Creature, DynamicVars[_majokaKey].BaseValue, Owner.Creature, this);
+            await CommonActions.Apply<MajokaPower>(choiceContext, Owner.Creature, this, DynamicVars[_majokaKey].BaseValue);
             await CreatureCmd.GainBlock(Owner.Creature, DynamicVars.Block, cardPlay);
         }
 

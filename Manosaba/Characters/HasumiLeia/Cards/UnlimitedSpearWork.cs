@@ -37,7 +37,7 @@ namespace Manosaba.Characters.HasumiLeia.Cards
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
-            await PowerCmd.Apply<UnlimitedSpearWorkPower>(base.Owner.Creature, 1, base.Owner.Creature, this);
+            await CommonActions.Apply<UnlimitedSpearWorkPower>(choiceContext, base.Owner.Creature, this, 1, silent: true);
 
         }
 

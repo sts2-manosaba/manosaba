@@ -83,7 +83,7 @@ public class SkyIsland : PathCustomCardModel
                 continue;
             }
 
-            await PowerCmd.Apply<SkyIslandPower>(teammate, grant, Owner.Creature, this);
+            await CommonActions.Apply<SkyIslandPower>(choiceContext, teammate, this, grant);
         }
     }
 

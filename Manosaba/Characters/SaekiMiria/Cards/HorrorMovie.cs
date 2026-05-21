@@ -1,3 +1,4 @@
+using BaseLib.Utils;
 using Manosaba.Characters.Common.Powers;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
@@ -14,7 +15,7 @@ public sealed class HorrorMovie : MovieBase
     protected override IEnumerable<DynamicVar> MovieVars => [new PowerVar<MajokaPower>(10m)];
 
     protected override Task OnMovieEffect(PlayerChoiceContext choiceContext, CardPlay cardPlay) =>
-        PowerCmd.Apply<MajokaPower>(Owner.Creature, DynamicVars["MajokaPower"].BaseValue, Owner.Creature, this);
+        CommonActions.Apply<MajokaPower>(choiceContext, Owner.Creature, this, DynamicVars["MajokaPower"].BaseValue);
 
     protected override void OnUpgrade()
     {

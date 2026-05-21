@@ -27,7 +27,7 @@ public sealed class Comedian : PathCustomCardModel
     }
 
     protected override Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay) =>
-        PowerCmd.Apply<ComedianPower>(Owner.Creature, DynamicVars["ComedianPower"].BaseValue, Owner.Creature, this);
+        CommonActions.Apply<ComedianPower>(choiceContext, Owner.Creature, this, DynamicVars["ComedianPower"].BaseValue);
 
     protected override void OnUpgrade()
     {

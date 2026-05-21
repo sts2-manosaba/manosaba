@@ -54,11 +54,11 @@ namespace Manosaba.Characters.TonoHanna.Cards
                 CardModel boulder = combatState.CreateCard(ModelDb.Card<Boulders>(), player);
                 CardCmd.ApplyKeyword(boulder, CardKeyword.Exhaust);
                 boulder.EnergyCost.SetThisTurnOrUntilPlayed(0);
-                await CardPileCmd.AddGeneratedCardToCombat(boulder, PileType.Hand, addedByPlayer: true);
+                await CardPileCmd.AddGeneratedCardToCombat(boulder, PileType.Hand, Owner);
             }
 
-            await PowerCmd.Apply<SherryPuppetCollectionPower>(ownerCreature, 1m, ownerCreature, this);
-            await PowerCmd.Apply<SherryPuppetPower>(ownerCreature, DynamicVars["Attacks"].BaseValue, ownerCreature, this);
+            await CommonActions.Apply<SherryPuppetCollectionPower>(choiceContext, ownerCreature, this, 1m);
+            await CommonActions.Apply<SherryPuppetPower>(choiceContext, ownerCreature, this, DynamicVars["Attacks"].BaseValue);
         }
 
         protected override void OnUpgrade()

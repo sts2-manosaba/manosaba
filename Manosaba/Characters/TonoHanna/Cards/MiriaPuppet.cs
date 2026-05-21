@@ -45,7 +45,7 @@ namespace Manosaba.Characters.TonoHanna.Cards
                 return;
             }
 
-            await PowerCmd.Apply<MiriaPuppetCollectionPower>(ownerCreature, 1m, ownerCreature, this);
+            await CommonActions.Apply<MiriaPuppetCollectionPower>(choiceContext, ownerCreature, this, 1m);
 
             int handCount = PileType.Hand.GetPile(Owner).Cards.Count;
             int maxSelect = Math.Min(DynamicVars.Cards.IntValue, handCount);

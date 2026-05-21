@@ -56,12 +56,12 @@ public sealed class HitTweet : PathCustomCardModel
             decimal toApply = Math.Max(0m, DynamicVars[MajokaGainVar].BaseValue - currentMajoka);
             if (toApply > 0m)
             {
-                await PowerCmd.Apply<MajokaPower>(Owner.Creature, toApply, Owner.Creature, this);
+                await CommonActions.Apply<MajokaPower>(choiceContext, Owner.Creature, this, toApply);
             }
         }
         else if (characterId == HasumiLeiaCharacter.CharacterId)
         {
-            await PowerCmd.Apply<StrengthPower>(Owner.Creature, DynamicVars[StrengthGainVar].BaseValue, Owner.Creature, this);
+            await CommonActions.Apply<StrengthPower>(choiceContext, Owner.Creature, this, DynamicVars[StrengthGainVar].BaseValue);
         }
     }
 

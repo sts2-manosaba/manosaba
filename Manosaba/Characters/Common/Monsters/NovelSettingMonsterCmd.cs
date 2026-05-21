@@ -1,3 +1,4 @@
+using BaseLib.Utils;
 using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Creatures;
@@ -83,7 +84,7 @@ public static class NovelSettingMonsterCmd
         await CreatureCmd.SetMaxHp(summoned, amount);
         await CreatureCmd.Heal(summoned, amount, isReviving);
 
-        CombatState? summonedCombatState = summoned.CombatState;
+        ICombatState? summonedCombatState = summoned.CombatState;
         if (summonedCombatState == null)
         {
             return new SummonResult(summoned, amount);
@@ -98,7 +99,7 @@ public static class NovelSettingMonsterCmd
         {
             PetEnemyAiPower.TryAdvanceToValidMove(summoned, petTargets);
         }
-        await PowerCmd.Apply<PetEnemyAiPower>(summoned, 1m, summoner.Creature, null);
+        await CommonActions.Apply<PetEnemyAiPower>(choiceContext, summoned, null, 1m, silent: true);
 
         if (TestMode.IsOff)
         {

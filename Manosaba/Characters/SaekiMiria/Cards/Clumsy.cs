@@ -1,4 +1,4 @@
-﻿using BaseLib.Utils;
+using BaseLib.Utils;
 using manosaba.Characters.HikamiMeruru;
 using manosaba.Characters.SaekiMiria;
 using Manosaba.Characters.HikamiMeruru.Powers;
@@ -37,7 +37,7 @@ namespace Manosaba.Characters.SaekiMiria.Cards
         {
             await CreatureCmd.GainBlock(Owner.Creature, DynamicVars.Block, cardPlay);
 
-            await PowerCmd.Apply<WeakPower>(base.Owner.Creature, DynamicVars.Weak.BaseValue, base.Owner.Creature, this);
+            await CommonActions.Apply<WeakPower>(choiceContext, base.Owner.Creature, this, DynamicVars.Weak.BaseValue);
 
         }
 

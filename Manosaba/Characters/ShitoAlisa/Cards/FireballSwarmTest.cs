@@ -30,7 +30,7 @@ public sealed class FireballSwarmTest : ShitoAlisaCardModel
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         Creature creature = Owner.Creature;
-        await PowerCmd.Apply<FireballSwarmPower>(creature, 3m, creature, this);
+        await CommonActions.Apply<FireballSwarmPower>(choiceContext, creature, this, 3m);
     }
 
     protected override void OnUpgrade()

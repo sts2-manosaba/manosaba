@@ -53,8 +53,8 @@ public sealed class Buttstroke : PathCustomCardModel
             .Targeting(target)
             .Execute(choiceContext);
 
-        await PowerCmd.Apply<WeakPower>(target, DynamicVars.Weak.BaseValue, ownerCreature, this);
-        await PowerCmd.Apply<VulnerablePower>(target, DynamicVars.Vulnerable.BaseValue, ownerCreature, this);
+        await CommonActions.Apply<WeakPower>(choiceContext, target, this, DynamicVars.Weak.BaseValue);
+        await CommonActions.Apply<VulnerablePower>(choiceContext, target, this, DynamicVars.Vulnerable.BaseValue);
         await CardPileCmd.Draw(choiceContext, DynamicVars.Cards.BaseValue, Owner);
     }
 

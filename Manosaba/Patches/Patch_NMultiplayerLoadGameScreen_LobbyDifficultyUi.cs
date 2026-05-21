@@ -23,13 +23,6 @@ public static class Patch_NMultiplayerLoadGameScreen_LobbyDifficultyUi
             LobbyDifficultyUiEnterKind.LoadRunLobbyOpen);
     }
 
-    [HarmonyPatch(typeof(NMultiplayerLoadGameScreen), "CleanUpLobby", new[] { typeof(bool) })]
-    [HarmonyPrefix]
-    private static void Prefix_CleanUpLobby(NMultiplayerLoadGameScreen __instance)
-    {
-        ManosabaLobbyDifficultyUiHost.OnCleanup(__instance, () => LobbyDifficultyUiNetContext.From(RunLobbyRef(__instance)));
-    }
-
     [HarmonyPatch(typeof(NMultiplayerLoadGameScreen), nameof(NMultiplayerLoadGameScreen._Process))]
     [HarmonyPostfix]
     private static void Postfix_Process(NMultiplayerLoadGameScreen __instance, double delta)

@@ -40,7 +40,7 @@ public sealed class SicklyPower : PathCustomPowerModel
         {
             _isDuplicatingStatusCard = true;
             Flash();
-            await CardPileCmd.AddGeneratedCardToCombat(duplicate, pileType, addedByPlayer: true);
+            await CardPileCmd.AddGeneratedCardToCombat(duplicate, pileType, Owner.Player);
         }
         finally
         {

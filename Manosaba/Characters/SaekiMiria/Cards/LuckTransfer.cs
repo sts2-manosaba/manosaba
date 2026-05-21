@@ -59,16 +59,16 @@ public sealed class LuckTransfer : PathCustomCardModel
             }
 
             PowerModel? powerById = target.GetPowerById(item.Id);
-            if (powerById != null && !powerById.IsInstanced)
+            if (powerById != null && powerById.InstanceType == PowerInstanceType.None)
             {
                 DoHackyThingsForSpecificPowers(powerById);
-                await PowerCmd.ModifyAmount(powerById, scaledAmount, ownerCreature, this);
+                await PowerCmd.ModifyAmount(choiceContext, powerById, scaledAmount, ownerCreature, this);
             }
             else
             {
                 PowerModel power = (PowerModel)item.ClonePreservingMutability();
                 DoHackyThingsForSpecificPowers(power);
-                await PowerCmd.Apply(power, target, scaledAmount, ownerCreature, this);
+                await PowerCmd.Apply(choiceContext, power, target, scaledAmount, ownerCreature, this);
             }
         }
     }

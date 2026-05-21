@@ -1,3 +1,4 @@
+using BaseLib.Utils;
 using Manosaba.Extensions;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Players;
@@ -23,6 +24,6 @@ public sealed class CluesGainedThisTurnPower : PathCustomPowerModel
             return;
         }
 
-        await PowerCmd.Apply<CluesGainedThisTurnPower>(Owner, -Amount, Owner, null);
+        await CommonActions.Apply<CluesGainedThisTurnPower>(choiceContext, Owner, null, -Amount);
     }
 }

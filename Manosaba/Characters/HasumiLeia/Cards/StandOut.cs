@@ -1,4 +1,4 @@
-﻿using BaseLib.Utils;
+using BaseLib.Utils;
 using manosaba.Characters.HasumiLeia;
 using Manosaba.Characters.HasumiLeia.Powers;
 using Manosaba.Extensions;
@@ -35,16 +35,16 @@ namespace Manosaba.Characters.HasumiLeia.Cards
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
             await CreatureCmd.GainBlock(base.Owner.Creature, base.DynamicVars.Block, cardPlay);
-            CombatState? combatState = Owner.Creature.CombatState;
+            ICombatState? combatState = Owner.Creature.CombatState;
             if (combatState != null)
             {
                 foreach (Creature teammate in combatState.GetTeammatesOf(Owner.Creature).Where(c => c.IsAlive && c.IsPlayer && c != Owner.Creature))
                 {
-                    await PowerCmd.Apply<CoveredPower>(teammate, 1m, base.Owner.Creature, this);
+                    await CommonActions.Apply<CoveredPower>(choiceContext, teammate, this, 1m, silent: true);
                 }
             }
 
-            await PowerCmd.Apply<StandOutPower>(Owner.Creature, 1m, Owner.Creature, this);
+            await CommonActions.Apply<StandOutPower>(choiceContext, Owner.Creature, this, 1m, silent: true);
         }
 
         protected override void OnUpgrade()

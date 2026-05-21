@@ -32,7 +32,7 @@ public sealed class Aim : PathCustomCardModel
 
     protected override Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        return PowerCmd.Apply<AccuratePower>(Owner.Creature, DynamicVars["AccuratePower"].BaseValue, Owner.Creature, this);
+        return CommonActions.Apply<AccuratePower>(choiceContext, Owner.Creature, this, DynamicVars["AccuratePower"].BaseValue);
     }
 
     protected override void OnUpgrade()

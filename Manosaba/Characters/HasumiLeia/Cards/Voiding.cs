@@ -1,4 +1,4 @@
-﻿using BaseLib.Utils;
+using BaseLib.Utils;
 using manosaba.Characters.HasumiLeia;
 using manosaba.Characters.HikamiMeruru;
 using manosaba.Characters.SaekiMiria;
@@ -36,7 +36,7 @@ namespace Manosaba.Characters.HasumiLeia.Cards
             if (target == null)
                 return;
             await CreatureCmd.GainBlock(Owner.Creature, DynamicVars.Block, cardPlay);
-            await PowerCmd.Apply<VulnerablePower>(target, DynamicVars["VulnerablePower"].BaseValue, base.Owner.Creature, this);
+            await CommonActions.Apply<VulnerablePower>(choiceContext, target, this, DynamicVars["VulnerablePower"].BaseValue);
         }
 
         protected override void OnUpgrade()

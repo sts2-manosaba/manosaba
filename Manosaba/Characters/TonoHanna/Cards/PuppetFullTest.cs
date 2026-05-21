@@ -32,19 +32,19 @@ public class PuppetFullTest : PathCustomCardModel
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         Creature creature = Owner.Creature;
-        await PowerCmd.Apply<AlisaPuppetCollectionPower>(creature, 1m, creature, this);
-        await PowerCmd.Apply<AnAnPuppetCollectionPower>(creature, 1m, creature, this);
-        await PowerCmd.Apply<CocoPuppetCollectionPower>(creature, 1m, creature, this);
-        await PowerCmd.Apply<EmaPuppetCollectionPower>(creature, 1m, creature, this);
-        await PowerCmd.Apply<HannaPuppetCollectionPower>(creature, 1m, creature, this);
-        await PowerCmd.Apply<HiroPuppetCollectionPower>(creature, 1m, creature, this);
-        await PowerCmd.Apply<LeiaPuppetCollectionPower>(creature, 1m, creature, this);
-        await PowerCmd.Apply<MargoPuppetCollectionPower>(creature, 1m, creature, this);
-        await PowerCmd.Apply<MeruruPuppetCollectionPower>(creature, 1m, creature, this);
-        await PowerCmd.Apply<MiriaPuppetCollectionPower>(creature, 1m, creature, this);
-        await PowerCmd.Apply<NanokaPuppetCollectionPower>(creature, 1m, creature, this);
-        await PowerCmd.Apply<NoahPuppetCollectionPower>(creature, 1m, creature, this);
-        await PowerCmd.Apply<SherryPuppetCollectionPower>(creature, 1m, creature, this);
+        await CommonActions.Apply<AlisaPuppetCollectionPower>(choiceContext, creature, this, 1m);
+        await CommonActions.Apply<AnAnPuppetCollectionPower>(choiceContext, creature, this, 1m);
+        await CommonActions.Apply<CocoPuppetCollectionPower>(choiceContext, creature, this, 1m);
+        await CommonActions.Apply<EmaPuppetCollectionPower>(choiceContext, creature, this, 1m);
+        await CommonActions.Apply<HannaPuppetCollectionPower>(choiceContext, creature, this, 1m);
+        await CommonActions.Apply<HiroPuppetCollectionPower>(choiceContext, creature, this, 1m);
+        await CommonActions.Apply<LeiaPuppetCollectionPower>(choiceContext, creature, this, 1m);
+        await CommonActions.Apply<MargoPuppetCollectionPower>(choiceContext, creature, this, 1m);
+        await CommonActions.Apply<MeruruPuppetCollectionPower>(choiceContext, creature, this, 1m);
+        await CommonActions.Apply<MiriaPuppetCollectionPower>(choiceContext, creature, this, 1m);
+        await CommonActions.Apply<NanokaPuppetCollectionPower>(choiceContext, creature, this, 1m);
+        await CommonActions.Apply<NoahPuppetCollectionPower>(choiceContext, creature, this, 1m);
+        await CommonActions.Apply<SherryPuppetCollectionPower>(choiceContext, creature, this, 1m);
     }
 
     protected override void OnUpgrade()

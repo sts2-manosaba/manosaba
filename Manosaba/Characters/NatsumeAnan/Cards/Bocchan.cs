@@ -27,7 +27,7 @@ public sealed class Bocchan : NatsumeKotodamaCardModel
     {
         _ = choiceContext;
         _ = cardPlay;
-        await PowerCmd.Apply<BocchanPower>(Owner.Creature, DynamicVars["BocchanPower"].BaseValue, Owner.Creature, this);
+        await CommonActions.Apply<BocchanPower>(choiceContext, Owner.Creature, this, DynamicVars["BocchanPower"].BaseValue);
     }
 
     protected override void OnUpgrade()

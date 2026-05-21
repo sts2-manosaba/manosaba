@@ -26,7 +26,7 @@ namespace Manosaba.Characters.TachibanaSherry.Powers
             _partner = partner;
         }
 
-        public override async Task BeforePlayPhaseStart(PlayerChoiceContext choiceContext, MegaCrit.Sts2.Core.Entities.Players.Player player)
+        public override async Task AfterAutoPrePlayPhaseEntered(PlayerChoiceContext choiceContext, MegaCrit.Sts2.Core.Entities.Players.Player player)
         {
             if (player.Creature != Owner)
                 return;
@@ -37,7 +37,7 @@ namespace Manosaba.Characters.TachibanaSherry.Powers
                 if (current > 0)
                 {
                     decimal remove = Math.Min(10m, current);
-                    await PowerCmd.Apply<MajokaPower>(Owner, -remove, Owner, null);
+                    await CommonActions.Apply<MajokaPower>(choiceContext, Owner, null, -remove);
                 }
 
                 if (Owner.CombatState != null && Owner.Player != null)
@@ -45,7 +45,7 @@ namespace Manosaba.Characters.TachibanaSherry.Powers
                     CardModel boulder = Owner.CombatState.CreateCard(ModelDb.Card<Boulders>(), Owner.Player);
                     CardCmd.ApplyKeyword(boulder, CardKeyword.Exhaust);
                     boulder.EnergyCost.SetThisTurnOrUntilPlayed(0);
-                    await CardPileCmd.AddGeneratedCardToCombat(boulder, PileType.Hand, true);
+                    await CardPileCmd.AddGeneratedCardToCombat(boulder, PileType.Hand, Owner.Player);
                 }
             }
         }

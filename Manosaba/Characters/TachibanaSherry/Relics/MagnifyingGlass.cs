@@ -26,9 +26,9 @@ namespace manosaba.Characters.TachibanaSherry.Relics
                 return;
 
             if (Owner.Creature.GetPower<InvestigationMomentPower>() == null)
-                await PowerCmd.Apply<InvestigationMomentPower>(Owner.Creature, 1, Owner.Creature, null);
+                await CommonActions.Apply<InvestigationMomentPower>(new ThrowingPlayerChoiceContext(), Owner.Creature, null, 1);
 
-            await PowerCmd.Apply<StrengthPower>(Owner.Creature, RelicLevel, Owner.Creature, null);
+            await CommonActions.Apply<StrengthPower>(new ThrowingPlayerChoiceContext(), Owner.Creature, null, RelicLevel);
         }
 
         public override async Task AfterPlayerTurnStart(PlayerChoiceContext choiceContext, Player player)
@@ -38,7 +38,7 @@ namespace manosaba.Characters.TachibanaSherry.Relics
 
             decimal majoka = base.Owner.Creature.GetPowerAmount<MajokaPower>();
             if (majoka > 0)
-                await PowerCmd.Apply<MajokaPower>(base.Owner.Creature, -majoka, player.Creature, null);
+                await CommonActions.Apply<MajokaPower>(choiceContext, base.Owner.Creature, null, -majoka);
         }
 
         public override decimal ModifyDamageMultiplicative(Creature? target, decimal amount, ValueProp props, Creature? dealer, CardModel? cardSource)

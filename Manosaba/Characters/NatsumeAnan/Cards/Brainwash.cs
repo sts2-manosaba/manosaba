@@ -37,7 +37,7 @@ public sealed class Brainwash : NatsumeKotodamaCardModel
     {
     }
 
-    public override Task AfterPowerAmountChanged(PowerModel power, decimal amount, Creature? applier, CardModel? cardSource)
+    public override Task AfterPowerAmountChanged(PlayerChoiceContext choiceContext, PowerModel power, decimal amount, Creature? applier, CardModel? cardSource)
     {
         Creature? ownerCreature = TryGetOwnerCreatureForMajokaChecks();
         if (power is MajokaPower && ownerCreature != null && power.Owner == ownerCreature)
@@ -61,7 +61,7 @@ public sealed class Brainwash : NatsumeKotodamaCardModel
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         _ = cardPlay;
-        MegaCrit.Sts2.Core.Combat.CombatState? combatState = CombatState;
+        MegaCrit.Sts2.Core.Combat.ICombatState? combatState = CombatState;
         if (combatState == null)
         {
             return;
@@ -75,7 +75,7 @@ public sealed class Brainwash : NatsumeKotodamaCardModel
 
         foreach (Player teammate in teammates)
         {
-            await PowerCmd.Apply<BrainwashExtraTurnPower>(teammate.Creature, DynamicVars["BrainwashExtraTurnPower"].BaseValue, Owner.Creature, this);
+            await CommonActions.Apply<BrainwashExtraTurnPower>(choiceContext, teammate.Creature, this, DynamicVars["BrainwashExtraTurnPower"].BaseValue);
         }
         _ = choiceContext;
     }

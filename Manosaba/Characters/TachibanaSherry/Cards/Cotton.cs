@@ -56,7 +56,7 @@ public sealed class Cotton : PathCustomCardModel
             await CardCmd.Exhaust(choiceContext, picked);
         }
 
-        await PowerCmd.Apply<CluePower>(ownerCreature, DynamicVars["CluePower"].BaseValue, ownerCreature, this);
+        await CommonActions.Apply<CluePower>(choiceContext, ownerCreature, this, DynamicVars["CluePower"].BaseValue);
     }
 
     protected override void OnUpgrade()

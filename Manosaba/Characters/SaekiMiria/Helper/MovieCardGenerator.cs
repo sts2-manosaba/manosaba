@@ -14,7 +14,7 @@ namespace Manosaba.Characters.SaekiMiria.Helper;
 
 public static class MovieCardGenerator
 {
-    public static readonly IReadOnlyList<Func<Player, CombatState, MovieBase>> DefaultMovieFactories =
+    public static readonly IReadOnlyList<Func<Player, ICombatState, MovieBase>> DefaultMovieFactories =
     [
         static (player, combatState) => combatState.CreateCard<HorrorMovie>(player),
         static (player, combatState) => combatState.CreateCard<ComedyMovie>(player),
@@ -26,11 +26,11 @@ public static class MovieCardGenerator
 
     public static Task<MovieBase> CreateRandomMovieAsync(
         Player player,
-        CombatState combatState,
+        ICombatState combatState,
         Rng rng,
         bool upgradeMovie = false,
         bool applyAbsoluteCinema = true,
-        IReadOnlyList<Func<Player, CombatState, MovieBase>>? movieFactories = null)
+        IReadOnlyList<Func<Player, ICombatState, MovieBase>>? movieFactories = null)
         => CreateRandomMovieInternalAsync(
             player,
             combatState,
@@ -41,12 +41,12 @@ public static class MovieCardGenerator
 
     public static async Task<CardModel> CreateCabinetKeyMovieAsync(
         Player player,
-        CombatState combatState,
+        ICombatState combatState,
         Rng rng,
         int smallPaperChance,
         bool upgradeMovie,
         bool applyAbsoluteCinema = true,
-        IReadOnlyList<Func<Player, CombatState, MovieBase>>? movieFactories = null)
+        IReadOnlyList<Func<Player, ICombatState, MovieBase>>? movieFactories = null)
     {
         if (smallPaperChance > 0 && rng.NextInt(smallPaperChance) == 0)
         {
@@ -84,13 +84,13 @@ public static class MovieCardGenerator
 
     private static async Task<MovieBase> CreateRandomMovieInternalAsync(
         Player player,
-        CombatState combatState,
+        ICombatState combatState,
         Rng rng,
         bool upgradeMovie,
         bool applyAbsoluteCinema,
-        IReadOnlyList<Func<Player, CombatState, MovieBase>> movieFactories)
+        IReadOnlyList<Func<Player, ICombatState, MovieBase>> movieFactories)
     {
-        Func<Player, CombatState, MovieBase>? factory = rng.NextItem(movieFactories);
+        Func<Player, ICombatState, MovieBase>? factory = rng.NextItem(movieFactories);
         MovieBase movie = (factory ?? movieFactories[0])(player, combatState);
 
         if (upgradeMovie)

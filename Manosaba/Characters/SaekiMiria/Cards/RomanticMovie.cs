@@ -1,4 +1,5 @@
 using BaseLib.Extensions;
+using BaseLib.Utils;
 using Manosaba.Characters.Common.Powers;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
@@ -16,7 +17,7 @@ public sealed class RomanticMovie : MovieBase
     protected override IEnumerable<DynamicVar> MovieVars => [new PowerVar<HealingPower>(1m)];
 
     protected override Task OnMovieEffect(PlayerChoiceContext choiceContext, CardPlay cardPlay) =>
-        PowerCmd.Apply<HealingPower>(Owner.Creature, DynamicVars["HealingPower"].BaseValue, Owner.Creature, this);
+        CommonActions.Apply<HealingPower>(choiceContext, Owner.Creature, this, DynamicVars["HealingPower"].BaseValue);
 
     protected override void OnUpgrade()
     {

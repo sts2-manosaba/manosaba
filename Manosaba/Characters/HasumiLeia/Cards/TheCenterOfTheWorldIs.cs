@@ -59,7 +59,7 @@ public sealed class TheCenterOfTheWorldIs : PathCustomCardModel
 
         // Delay the multiplayer choice prompt until end of the current turn
         // to avoid interrupting other players' active UI actions.
-        await PowerCmd.Apply<TheCenterOfTheWorldIsPendingPower>(leiaCreature, 1m, leiaCreature, this);
+        await CommonActions.Apply<TheCenterOfTheWorldIsPendingPower>(choiceContext, leiaCreature, this, 1m, silent: true);
     }
 }
 

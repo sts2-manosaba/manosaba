@@ -34,7 +34,7 @@ public class PaintRefill : PathCustomCardModel
             return;
         }
 
-        await PowerCmd.Apply<PaintRefillPower>(ownerCreature, 1m, ownerCreature, this);
+        await CommonActions.Apply<PaintRefillPower>(choiceContext, ownerCreature, this, 1m);
     }
 
     protected override void OnUpgrade()

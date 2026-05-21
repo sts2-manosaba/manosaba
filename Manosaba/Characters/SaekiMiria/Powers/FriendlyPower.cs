@@ -1,4 +1,4 @@
-﻿using Manosaba.Characters.Common.Powers;
+using Manosaba.Characters.Common.Powers;
 using Manosaba.Extensions;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
@@ -9,6 +9,7 @@ using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.ValueProps;
 
+using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 namespace Manosaba.Characters.SaekiMiria.Powers
 {
     public class FriendlyPower : PathCustomPowerModel
@@ -31,9 +32,9 @@ namespace Manosaba.Characters.SaekiMiria.Powers
             return Task.CompletedTask;
         }
 
-        public override async Task AfterPowerAmountChanged(PowerModel power, decimal amount, Creature? applier, CardModel? cardSource)
+        public override async Task AfterPowerAmountChanged(PlayerChoiceContext choiceContext, PowerModel power, decimal amount, Creature? applier, CardModel? cardSource)
         {
-            await base.AfterPowerAmountChanged(power, amount, applier, cardSource);
+            await base.AfterPowerAmountChanged(choiceContext, power, amount, applier, cardSource);
 
             if (power != this)
             {

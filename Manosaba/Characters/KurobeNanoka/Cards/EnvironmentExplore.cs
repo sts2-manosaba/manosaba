@@ -57,8 +57,8 @@ public sealed class EnvironmentExplore : PathCustomCardModel
         if (discardedGunCount > 0)
         {
             decimal totalBonus = discardedGunCount * bonusPerGun;
-            await PowerCmd.Apply<DrawCardsNextTurnPower>(Owner.Creature, totalBonus, Owner.Creature, this);
-            await PowerCmd.Apply<EnergyNextTurnPower>(Owner.Creature, totalBonus, Owner.Creature, this);
+            await CommonActions.Apply<DrawCardsNextTurnPower>(choiceContext, Owner.Creature, this, totalBonus);
+            await CommonActions.Apply<EnergyNextTurnPower>(choiceContext, Owner.Creature, this, totalBonus);
         }
     }
 

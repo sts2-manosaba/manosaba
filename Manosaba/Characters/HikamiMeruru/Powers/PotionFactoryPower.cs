@@ -1,4 +1,4 @@
-﻿using Manosaba.Characters.HikamiMeruru.Potions;
+using Manosaba.Characters.HikamiMeruru.Potions;
 using Manosaba.Extensions;
 using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Commands;
@@ -6,6 +6,7 @@ using MegaCrit.Sts2.Core.Entities.Powers;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.Potions;
 
+using MegaCrit.Sts2.Core.Entities.Creatures;
 namespace Manosaba.Characters.HikamiMeruru.Powers
 {
     public class PotionFactoryPower : PathCustomPowerModel
@@ -13,7 +14,7 @@ namespace Manosaba.Characters.HikamiMeruru.Powers
         public override PowerType Type => PowerType.Buff;
         public override PowerStackType StackType => PowerStackType.Counter;
 
-        public override async Task AfterSideTurnStart(CombatSide side, CombatState combatState)
+        public override async Task AfterSideTurnStart(CombatSide side, IReadOnlyList<Creature> creatures, ICombatState combatState)
         {
 
             List<PotionModel> PotionPool =

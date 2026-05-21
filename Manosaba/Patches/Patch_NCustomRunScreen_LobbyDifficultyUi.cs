@@ -36,13 +36,6 @@ public static class Patch_NCustomRunScreen_LobbyDifficultyUi
             LobbyDifficultyUiEnterKind.SubmenuReopened);
     }
 
-    [HarmonyPatch(typeof(NCustomRunScreen), "CleanUpLobby", new[] { typeof(bool) })]
-    [HarmonyPrefix]
-    private static void Prefix_CleanUpLobby(NCustomRunScreen __instance)
-    {
-        ManosabaLobbyDifficultyUiHost.OnCleanup(__instance, () => LobbyDifficultyUiNetContext.From(LobbyRef(__instance)));
-    }
-
     [HarmonyPatch(typeof(NCustomRunScreen), nameof(NCustomRunScreen._Process))]
     [HarmonyPostfix]
     private static void Postfix_Process(NCustomRunScreen __instance, double delta)

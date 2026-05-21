@@ -44,8 +44,8 @@ public sealed class Makeup : PathCustomCardModel
         _ = choiceContext;
         _ = cardPlay;
 
-        await PowerCmd.Apply<PlatingPower>(Owner.Creature, DynamicVars[platingPowerVar].BaseValue, Owner.Creature, this);
-        await PowerCmd.Apply<UnluckyPower>(Owner.Creature, DynamicVars[unluckyPowerVar].BaseValue, Owner.Creature, this);
+        await CommonActions.Apply<PlatingPower>(choiceContext, Owner.Creature, this, DynamicVars[platingPowerVar].BaseValue);
+        await CommonActions.Apply<UnluckyPower>(choiceContext, Owner.Creature, this, DynamicVars[unluckyPowerVar].BaseValue);
     }
 
     protected override void OnUpgrade()

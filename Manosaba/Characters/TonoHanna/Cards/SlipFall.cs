@@ -46,11 +46,11 @@ public sealed class SlipFall : PathCustomCardModel
             .FromCard(this)
             .Targeting(target)
             .Execute(choiceContext);
-        await PowerCmd.Apply<VulnerablePower>(target, DynamicVars["VulnerablePower"].BaseValue, ownerCreature, this);
+        await CommonActions.Apply<VulnerablePower>(choiceContext, target, this, DynamicVars["VulnerablePower"].BaseValue);
 
         CardModel wound = CombatState.CreateCard(ModelDb.Card<Wound>(), Owner);
         CardCmd.PreviewCardPileAdd(
-            await CardPileCmd.AddGeneratedCardToCombat(wound, PileType.Discard, addedByPlayer: true));
+            await CardPileCmd.AddGeneratedCardToCombat(wound, PileType.Discard, Owner));
     }
 
     protected override void OnUpgrade()

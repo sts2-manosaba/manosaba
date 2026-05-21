@@ -48,7 +48,7 @@ public class WoundShot : GunBase
         if (target == null)
             return;
         await ExecuteGunAttack(choiceContext, target, DynamicVars.Damage.BaseValue);
-        await PowerCmd.Apply<VulnerablePower>(target, DynamicVars.Vulnerable.BaseValue, base.Owner.Creature, this);
+        await CommonActions.Apply<VulnerablePower>(choiceContext, target, this, DynamicVars.Vulnerable.BaseValue);
     }
 
     protected override void OnUpgrade()

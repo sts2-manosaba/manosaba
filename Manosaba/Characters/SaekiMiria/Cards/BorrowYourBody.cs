@@ -45,8 +45,8 @@ public sealed class BorrowYourBody : PathCustomCardModel
             return;
         }
 
-        await PowerCmd.Apply<BorrowYourBodyDrainPower>(target, strengthAmount, ownerCreature, this);
-        await PowerCmd.Apply<BorrowYourBodyPower>(ownerCreature, strengthAmount, ownerCreature, this);
+        await CommonActions.Apply<BorrowYourBodyDrainPower>(choiceContext, target, this, strengthAmount);
+        await CommonActions.Apply<BorrowYourBodyPower>(choiceContext, ownerCreature, this, strengthAmount);
     }
 
     protected override void OnUpgrade()

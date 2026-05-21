@@ -42,7 +42,7 @@ public class SnakeFire : ShitoAlisaCardModel
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         ArgumentNullException.ThrowIfNull(cardPlay.Target);
-        await PowerCmd.Apply<BurnPower>(cardPlay.Target, DynamicVars["BurnPower"].BaseValue, Owner.Creature, this);
+        await CommonActions.Apply<BurnPower>(choiceContext, cardPlay.Target, this, DynamicVars["BurnPower"].BaseValue);
 
         int picks = IsUpgraded ? 2 : 1;
         var prefs = new CardSelectorPrefs(new LocString("cards", "MANOSABA-SNAKE_FIRE.selectionScreenPrompt"), picks);

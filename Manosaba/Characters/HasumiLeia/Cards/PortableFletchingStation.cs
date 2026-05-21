@@ -45,7 +45,7 @@ public class PortableFletchingStation : PathCustomCardModel
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        await PowerCmd.Apply<PortableFletchingStationPower>(Owner.Creature, 1, Owner.Creature, this);
+        await CommonActions.Apply<PortableFletchingStationPower>(choiceContext, Owner.Creature, this, 1, silent: true);
     }
 
     protected override void OnUpgrade()

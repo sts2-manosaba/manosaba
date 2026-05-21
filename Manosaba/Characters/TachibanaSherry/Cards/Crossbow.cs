@@ -38,7 +38,7 @@ namespace Manosaba.Characters.TachibanaSherry.Cards
                 return;
 
             List<BrokenCrossbow> cards = BrokenCrossbow.Create(base.Owner, 1, base.CombatState).ToList();
-            await CardPileCmd.AddGeneratedCardsToCombat(cards, PileType.Hand, addedByPlayer: true, CardPilePosition.Random);
+            await CardPileCmd.AddGeneratedCardsToCombat(cards, PileType.Hand, Owner, CardPilePosition.Random);
             if (base.IsUpgraded)
             {
                 foreach (CardModel c in cards)
@@ -46,7 +46,7 @@ namespace Manosaba.Characters.TachibanaSherry.Cards
                     CardCmd.Upgrade(c);
                 }
             }
-            await PowerCmd.Apply<StrengthPower>(base.Owner.Creature, base.DynamicVars.Strength.BaseValue, base.Owner.Creature, this);
+            await CommonActions.Apply<StrengthPower>(choiceContext, base.Owner.Creature, this, base.DynamicVars.Strength.BaseValue);
         }
 
         protected override void OnUpgrade()

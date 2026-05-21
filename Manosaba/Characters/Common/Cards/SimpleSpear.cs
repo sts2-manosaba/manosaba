@@ -1,4 +1,4 @@
-﻿using BaseLib.Utils;
+using BaseLib.Utils;
 using manosaba.Characters.Common;
 using Manosaba.Characters.HasumiLeia.Powers;
 using Manosaba.Extensions;
@@ -29,7 +29,7 @@ namespace Manosaba.Characters.Common.Cards
         {
         }
 
-        public static SimpleSpear Create(Player owner, CombatState combatState)
+        public static SimpleSpear Create(Player owner, ICombatState combatState)
         {
             SimpleSpear card = combatState.CreateCard<SimpleSpear>(owner);
             if (owner.Creature.GetPowerAmount<SpearMasteryPower>() > 0m && !card.IsUpgraded)

@@ -36,11 +36,7 @@ public sealed class MovieInvitation : PathCustomCardModel
             return;
         }
 
-        MovieInvitationPower? power = await PowerCmd.Apply<MovieInvitationPower>(
-            ownerCreature,
-            DynamicVars["MovieInvitationPower"].BaseValue,
-            ownerCreature,
-            this);
+        MovieInvitationPower? power = await CommonActions.Apply<MovieInvitationPower>(choiceContext, ownerCreature, this, DynamicVars["MovieInvitationPower"].BaseValue);
 
         power?.SetInvitedTarget(target);
     }

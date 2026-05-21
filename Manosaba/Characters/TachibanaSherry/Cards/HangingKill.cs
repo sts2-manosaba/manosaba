@@ -46,7 +46,7 @@ namespace Manosaba.Characters.TachibanaSherry.Cards
             {
                 num = Math.Max(0, 999 - powerAmount);
             }
-            await PowerCmd.Apply<HangingKillPower>(target, num, ownerCreature, this);
+            await PowerCmd.Apply<HangingKillPower>(choiceContext, target, num, ownerCreature, this);
         }
 
         protected override void OnUpgrade()

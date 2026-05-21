@@ -44,11 +44,7 @@ public sealed class LittleFairy : PathCustomCardModel
             return;
         }
 
-        await PowerCmd.Apply<LittleFairyPower>(
-            ownerCreature,
-            DynamicVars[nameof(LittleFairyPower)].BaseValue,
-            ownerCreature,
-            this);
+        await CommonActions.Apply<LittleFairyPower>(choiceContext, ownerCreature, this, DynamicVars[nameof(LittleFairyPower)].BaseValue);
     }
 
     protected override void OnUpgrade()

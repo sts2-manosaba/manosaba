@@ -28,7 +28,7 @@ public sealed class RapierMastery : PathCustomCardModel
     }
 
     protected override Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay) =>
-        PowerCmd.Apply<RapierMasteryPower>(Owner.Creature, DynamicVars["RapierMasteryPower"].BaseValue, Owner.Creature, this);
+        CommonActions.Apply<RapierMasteryPower>(choiceContext, Owner.Creature, this, DynamicVars["RapierMasteryPower"].BaseValue);
 
     protected override void OnUpgrade()
     {

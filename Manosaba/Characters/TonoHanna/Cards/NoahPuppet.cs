@@ -57,11 +57,11 @@ namespace Manosaba.Characters.TonoHanna.Cards
                 decimal weakAmount = IsUpgraded ? 2m : 1m;
                 foreach (Creature enemy in CombatState.HittableEnemies)
                 {
-                    await PowerCmd.Apply<WeakPower>(enemy, weakAmount, ownerCreature, this);
+                    await CommonActions.Apply<WeakPower>(choiceContext, enemy, this, weakAmount);
                 }
             }
 
-            await PowerCmd.Apply<NoahPuppetCollectionPower>(ownerCreature, 1m, ownerCreature, this);
+            await CommonActions.Apply<NoahPuppetCollectionPower>(choiceContext, ownerCreature, this, 1m);
             await CreatureCmd.GainBlock(ownerCreature, DynamicVars.Block, cardPlay);
             if (IsUpgraded)
             {

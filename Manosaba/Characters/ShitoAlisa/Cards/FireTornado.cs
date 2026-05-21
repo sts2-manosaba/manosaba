@@ -11,6 +11,8 @@ using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.ValueProps;
 
+using Manosaba.Utils;
+
 namespace Manosaba.Characters.ShitoAlisa.Cards;
 
 /// <summary>X-cost: deal damage X times to all enemies, then apply X [gold]Burn[/gold] to each.</summary>
@@ -48,12 +50,12 @@ public sealed class FireTornado : ShitoAlisaCardModel
         await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
             .WithHitCount(x)
             .FromCard(this)
-            .TargetingAllOpponents(combatState)
+            .TargetingAllOpponentsCompat(combatState)
             .Execute(choiceContext);
 
         decimal burnPerEnemy = x;
         foreach (Creature enemy in combatState.GetOpponentsOf(Owner.Creature).Where(e => e.IsAlive && e.IsHittable && e.CanReceivePowers).ToList())
-            await PowerCmd.Apply<BurnPower>(enemy, burnPerEnemy, Owner.Creature, this);
+            await CommonActions.Apply<BurnPower>(choiceContext, enemy, this, burnPerEnemy);
     }
 
     protected override void OnUpgrade()

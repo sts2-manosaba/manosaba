@@ -49,8 +49,8 @@ public sealed class BodySlam : PathCustomCardModel
             .Targeting(target)
             .Execute(choiceContext);
 
-        await PowerCmd.Apply<VulnerablePower>(Owner.Creature, DynamicVars.Vulnerable.BaseValue, Owner.Creature, this);
-        await PowerCmd.Apply<VulnerablePower>(target, DynamicVars.Vulnerable.BaseValue, Owner.Creature, this);
+        await CommonActions.Apply<VulnerablePower>(choiceContext, Owner.Creature, this, DynamicVars.Vulnerable.BaseValue);
+        await CommonActions.Apply<VulnerablePower>(choiceContext, target, this, DynamicVars.Vulnerable.BaseValue);
     }
 
     protected override void OnUpgrade()

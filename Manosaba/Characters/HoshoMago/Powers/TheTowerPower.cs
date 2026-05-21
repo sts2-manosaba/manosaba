@@ -34,7 +34,7 @@ public sealed class TheTowerPower : PathCustomPowerModel
         return true;
     }
 
-    public override async Task AfterTurnEnd(PlayerChoiceContext choiceContext, CombatSide side)
+    public override async Task AfterSideTurnEnd(PlayerChoiceContext choiceContext, CombatSide side, IEnumerable<Creature> creatures)
     {
         _ = choiceContext;
         if (side == Owner.Side)

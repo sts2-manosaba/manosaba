@@ -38,7 +38,7 @@ public class MeruruInfirmary : PathCustomCardModel
         decimal amount = DynamicVars["MeruruInfirmaryPower"].BaseValue;
         if (!IsUpgraded)
         {
-            await PowerCmd.Apply<MeruruInfirmaryPower>(ownerCreature, amount, ownerCreature, this);
+            await CommonActions.Apply<MeruruInfirmaryPower>(choiceContext, ownerCreature, this, amount);
             return;
         }
 
@@ -52,7 +52,7 @@ public class MeruruInfirmary : PathCustomCardModel
                                           select c;
         foreach (Creature teammate in teammates)
         {
-            await PowerCmd.Apply<MeruruInfirmaryPower>(teammate, amount, ownerCreature, this);
+            await CommonActions.Apply<MeruruInfirmaryPower>(choiceContext, teammate, this, amount);
         }
     }
 

@@ -43,7 +43,7 @@ public sealed class Surrender : PathCustomCardModel
         }
 
         await CreatureCmd.GainBlock(ownerCreature, DynamicVars.Block, cardPlay);
-        await PowerCmd.Apply<StrengthPower>(ownerCreature, -2m, ownerCreature, this);
+        await PowerCmd.Apply<StrengthPower>(choiceContext, ownerCreature, -2m, ownerCreature, this);
     }
 
     protected override void OnUpgrade()

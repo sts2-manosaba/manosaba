@@ -44,7 +44,7 @@ namespace Manosaba.Characters.Common.Powers
             return Task.CompletedTask;
         }
 
-        public override Task AfterPowerAmountChanged(PowerModel power, decimal amount, Creature? applier, CardModel? cardSource)
+        public override Task AfterPowerAmountChanged(PlayerChoiceContext choiceContext, PowerModel power, decimal amount, Creature? applier, CardModel? cardSource)
         {
             _ = amount;
             _ = applier;
@@ -74,7 +74,7 @@ namespace Manosaba.Characters.Common.Powers
             return 1m+base.Amount;
         }
 
-        public override async Task AfterTurnEnd(PlayerChoiceContext choiceContext, CombatSide side)
+        public override async Task AfterSideTurnEnd(PlayerChoiceContext choiceContext, CombatSide side, IEnumerable<Creature> creatures)
         {
             if (side == base.Owner.Side)
             {

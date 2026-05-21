@@ -1,3 +1,4 @@
+using BaseLib.Utils;
 using Manosaba.Extensions;
 using Manosaba.Characters.Common.Powers;
 using MegaCrit.Sts2.Core.Commands;
@@ -31,7 +32,7 @@ public sealed class SlimificationPower : PathCustomPowerModel
         return Task.CompletedTask;
     }
 
-    public override Task AfterPowerAmountChanged(PowerModel power, decimal amount, Creature? applier, CardModel? cardSource)
+    public override Task AfterPowerAmountChanged(PlayerChoiceContext choiceContext, PowerModel power, decimal amount, Creature? applier, CardModel? cardSource)
     {
         _ = amount;
         _ = applier;
@@ -62,7 +63,7 @@ public sealed class SlimificationPower : PathCustomPowerModel
             return;
 
         _pendingHpLossTriggers--;
-        await PowerCmd.Apply<HealingPower>(Owner, Amount, Owner, cardSource);
+        await CommonActions.Apply<HealingPower>(choiceContext, Owner, cardSource, Amount);
     }
 
     public override decimal ModifyHpLostBeforeOsty(

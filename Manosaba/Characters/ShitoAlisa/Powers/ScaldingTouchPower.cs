@@ -1,3 +1,4 @@
+using BaseLib.Utils;
 using Manosaba.Characters.Common.Powers;
 using Manosaba.Extensions;
 using MegaCrit.Sts2.Core.Commands;
@@ -24,7 +25,7 @@ public sealed class ScaldingTouchPower : PathCustomPowerModel
         return Task.CompletedTask;
     }
 
-    public override Task AfterPowerAmountChanged(PowerModel power, decimal amount, Creature? applier, CardModel? cardSource)
+    public override Task AfterPowerAmountChanged(PlayerChoiceContext choiceContext, PowerModel power, decimal amount, Creature? applier, CardModel? cardSource)
     {
         if (power != this || amount <= 0m || cardSource == null)
             return Task.CompletedTask;
@@ -42,8 +43,8 @@ public sealed class ScaldingTouchPower : PathCustomPowerModel
         if (!props.HasFlag(ValueProp.Move) || props.HasFlag(ValueProp.Unpowered))
             return;
 
-        await PowerCmd.Apply<BurnPower>(target, Amount, Owner, cardSource);
-        await PowerCmd.Apply<MajokaPower>(Owner, DynamicVars["MajokaGain"].BaseValue, Owner, cardSource);
+        await CommonActions.Apply<BurnPower>(choiceContext, target, cardSource, Amount);
+        await CommonActions.Apply<MajokaPower>(choiceContext, Owner, cardSource, DynamicVars["MajokaGain"].BaseValue);
     }
 
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<BurnPower>(), HoverTipFactory.FromPower<MajokaPower>()];

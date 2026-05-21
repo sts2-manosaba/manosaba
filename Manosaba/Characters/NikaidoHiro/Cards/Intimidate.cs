@@ -33,8 +33,8 @@ namespace Manosaba.Characters.NikaidoHiro.Cards
             if (target == null)
                 return;
 
-            await PowerCmd.Apply<WeakPower>(target, DynamicVars.Weak.BaseValue, base.Owner.Creature, this);
-            await PowerCmd.Apply<SusPower>(base.Owner.Creature, DynamicVars["SusPower"].BaseValue, base.Owner.Creature, this);
+            await CommonActions.Apply<WeakPower>(choiceContext, target, this, DynamicVars.Weak.BaseValue);
+            await CommonActions.Apply<SusPower>(choiceContext, base.Owner.Creature, this, DynamicVars["SusPower"].BaseValue);
         }
 
         protected override void OnUpgrade()

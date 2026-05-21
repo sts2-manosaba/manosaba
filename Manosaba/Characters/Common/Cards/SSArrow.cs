@@ -1,4 +1,4 @@
-﻿using BaseLib.Utils;
+using BaseLib.Utils;
 using manosaba.Characters.Common;
 using Manosaba.Characters.Common.Overrides;
 using Manosaba.Characters.HasumiLeia.Powers;
@@ -57,13 +57,13 @@ namespace Manosaba.Characters.Common.Cards
             await CardPileCmd.RemoveFromCombat(token3);
             await CardPileCmd.RemoveFromCombat(token4);
             CardModel craftedSpear = SimpleSpear.Create(Owner, combatState);
-            CardPileAddResult result = await CardPileCmd.AddGeneratedCardToCombat(craftedSpear, PileType.Hand, addedByPlayer: true);
+            CardPileAddResult result = await CardPileCmd.AddGeneratedCardToCombat(craftedSpear, PileType.Hand, Owner);
             CardCmd.PreviewCardPileAdd(result, 1.2f, CardPreviewStyle.HorizontalLayout);
             await CheckForAdditionalEffect();
         }
 
 
-        public static IEnumerable<SSArrow> Create(Player owner, int amount, CombatState combatState)
+        public static IEnumerable<SSArrow> Create(Player owner, int amount, ICombatState combatState)
         {
             List<SSArrow> list = new List<SSArrow>();
             for (int i = 0; i < amount; i++)
@@ -93,7 +93,7 @@ namespace Manosaba.Characters.Common.Cards
 
                 await portableFletchingStation.TriggerFlash();
                 CardModel bonusSpear = SimpleSpear.Create(Owner, combatState);
-                await CardPileCmd.AddGeneratedCardToCombat(bonusSpear, PileType.Hand, addedByPlayer: true);
+                await CardPileCmd.AddGeneratedCardToCombat(bonusSpear, PileType.Hand, Owner);
             }
         }
     }

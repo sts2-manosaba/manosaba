@@ -1,3 +1,6 @@
+using System;
+using System.Linq;
+using System.Reflection;
 using BaseLib.Config;
 using Godot.Bridge;
 using HarmonyLib;
@@ -52,7 +55,26 @@ public class Entry
         ModConfigRegistry.Register(ModId, new ManosabaConfig());
 
         var harmony = new Harmony(ModId);
-        harmony.PatchAll();
+        foreach (Type type in typeof(Entry).Assembly.GetTypes())
+        {
+            if (!type.GetCustomAttributes<HarmonyPatch>().Any())
+            {
+                continue;
+            }
+
+            try
+            {
+                harmony.CreateClassProcessor(type).Patch();
+            }
+            catch (Exception ex)
+            {
+                Log.Error($"Harmony failed patching {type.FullName}: {ex.Message}");
+            }
+        }
+
+        // Must run even when PatchAll fails — Godot scenes reference scripts from this assembly.
+        ScriptManagerBridge.LookupScriptsInAssembly(typeof(Entry).Assembly);
+
         SavedPropertiesTypeCache.InjectTypeIntoCache(typeof(DrawingBoard));
         SavedPropertiesTypeCache.InjectTypeIntoCache(typeof(PhotoOfTheGreatWitch));
         SavedPropertiesTypeCache.InjectTypeIntoCache(typeof(PenOfHiro));
@@ -75,8 +97,6 @@ public class Entry
         CharacterSfxRegistry.Register(HoshoMago.CharacterId, HoshoMagoSfx.Instance);
         CharacterSfxRegistry.Register(HikamiMeruru.CharacterId, HikamiMeruruSfx.Instance);
         CharacterSfxRegistry.Register(TonoHanna.CharacterId, TonoHannaSfx.Instance);
-        // 使得tscn可以加载自定义脚本
-        ScriptManagerBridge.LookupScriptsInAssembly(typeof(Entry).Assembly);
         Log.Debug("Mod initialized!");
     }
 }

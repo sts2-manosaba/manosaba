@@ -36,7 +36,7 @@ namespace Manosaba.Characters.NikaidoHiro.Cards
                 return;
             }
 
-            await PowerCmd.Apply<SusPower>(Owner.Creature, -susAmount, Owner.Creature, this);
+            await CommonActions.Apply<SusPower>(choiceContext, Owner.Creature, this, -susAmount);
             for (int i = 0; i < susAmount; i++)
             {
                 await SakurabaEmaDogCmd.Summon(choiceContext, Owner, DynamicVars.Summon.BaseValue, this);

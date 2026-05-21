@@ -1,4 +1,4 @@
-﻿using BaseLib.Utils;
+using BaseLib.Utils;
 using manosaba.Characters.HasumiLeia;
 using manosaba.Characters.HikamiMeruru;
 using manosaba.Characters.SaekiMiria;
@@ -32,7 +32,7 @@ namespace Manosaba.Characters.HasumiLeia.Cards
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
             await CreatureCmd.GainBlock(Owner.Creature, DynamicVars.Block, cardPlay);
-            await PowerCmd.Apply<EnergyNextTurnPower>(base.Owner.Creature, base.DynamicVars.Energy.BaseValue, base.Owner.Creature, this);
+            await CommonActions.Apply<EnergyNextTurnPower>(choiceContext, base.Owner.Creature, this, base.DynamicVars.Energy.BaseValue);
 
         }
 

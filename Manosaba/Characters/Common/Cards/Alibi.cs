@@ -1,4 +1,4 @@
-﻿using BaseLib.Utils;
+using BaseLib.Utils;
 using manosaba.Characters.Common;
 using Manosaba.Characters.Common.Powers;
 using Manosaba.Extensions;
@@ -29,7 +29,7 @@ namespace Manosaba.Characters.Common.Cards
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
             await CardPileCmd.Draw(choiceContext, base.DynamicVars.Cards.BaseValue, base.Owner);
-            await PowerCmd.Apply<SusPower>(base.Owner.Creature, -DynamicVars["SusPower"].BaseValue, base.Owner.Creature, this);
+            await CommonActions.Apply<SusPower>(choiceContext, base.Owner.Creature, this, -DynamicVars["SusPower"].BaseValue);
         }
 
         protected override void OnUpgrade()

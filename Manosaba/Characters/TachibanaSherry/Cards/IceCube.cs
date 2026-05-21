@@ -43,10 +43,10 @@ namespace Manosaba.Characters.TachibanaSherry.Cards
 
             int count = base.DynamicVars.Cards.IntValue;
             List<IceBall> cards = IceBall.Create(base.Owner, count, base.CombatState).ToList();
-            await CardPileCmd.AddGeneratedCardsToCombat(cards, PileType.Hand, addedByPlayer: true, CardPilePosition.Random);
+            await CardPileCmd.AddGeneratedCardsToCombat(cards, PileType.Hand, Owner, CardPilePosition.Random);
             if (base.Owner.Creature.GetPowerAmount<SherryDetectiveRewardPower>() > 0m)
             {
-                await PowerCmd.Apply<MegaCrit.Sts2.Core.Models.Powers.StrengthPower>(base.Owner.Creature, 2m, base.Owner.Creature, this);
+                await CommonActions.Apply<MegaCrit.Sts2.Core.Models.Powers.StrengthPower>(choiceContext, base.Owner.Creature, this, 2m);
             }
         }
 

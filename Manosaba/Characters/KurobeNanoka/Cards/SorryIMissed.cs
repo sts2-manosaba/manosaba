@@ -37,7 +37,7 @@ public class SorryIMissed : GunBase
             return;
 
         NanokaHelper.PlayGunFireSfx();
-        await PowerCmd.Apply<AccuratePower>(Owner.Creature, DynamicVars["AccuratePower"].BaseValue, Owner.Creature, this);
+        await CommonActions.Apply<AccuratePower>(choiceContext, Owner.Creature, this, DynamicVars["AccuratePower"].BaseValue);
     }
 
     protected override void OnUpgrade()

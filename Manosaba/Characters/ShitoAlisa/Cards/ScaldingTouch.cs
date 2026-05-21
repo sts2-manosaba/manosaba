@@ -30,7 +30,7 @@ public class ScaldingTouch : ShitoAlisaCardModel
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        await PowerCmd.Apply<ScaldingTouchPower>(Owner.Creature, DynamicVars["ScaldingTouchPower"].BaseValue, Owner.Creature, this);
+        await CommonActions.Apply<ScaldingTouchPower>(choiceContext, Owner.Creature, this, DynamicVars["ScaldingTouchPower"].BaseValue);
     }
 
     protected override void OnUpgrade()

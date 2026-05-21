@@ -28,7 +28,7 @@ public sealed class RedBindPower : PathCustomPowerModel
             RedBindVisuals.Sync(Owner, true);
     }
 
-    public override Task AfterTurnEnd(PlayerChoiceContext choiceContext, CombatSide side)
+    public override Task AfterSideTurnEnd(PlayerChoiceContext choiceContext, CombatSide side, IEnumerable<Creature> creatures)
     {
         if (side != Owner.Side)
             return Task.CompletedTask;

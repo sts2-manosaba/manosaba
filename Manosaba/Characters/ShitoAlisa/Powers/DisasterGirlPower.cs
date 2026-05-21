@@ -35,9 +35,9 @@ public sealed class DisasterGirlPower : PathCustomPowerModel
     /// <summary>戰鬥狀態放在 <see cref="InitInternalData"/>；戰鬥結束能力移除後即丟棄（同原版 Outbreak 模式）。</summary>
     protected override object InitInternalData() => new Data();
 
-    public override async Task AfterPowerAmountChanged(PowerModel power, decimal amount, Creature? applier, CardModel? cardSource)
+    public override async Task AfterPowerAmountChanged(PlayerChoiceContext choiceContext, PowerModel power, decimal amount, Creature? applier, CardModel? cardSource)
     {
-        await base.AfterPowerAmountChanged(power, amount, applier, cardSource);
+        await base.AfterPowerAmountChanged(choiceContext, power, amount, applier, cardSource);
 
         Data data = GetInternalData<Data>();
         if (power == this)

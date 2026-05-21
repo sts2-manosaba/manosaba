@@ -74,7 +74,7 @@ namespace Manosaba.Characters.TonoHanna.Cards
                 decimal num = GetBaseVar().BaseValue + GetExtraVar().BaseValue * PuppetMultiplier(card, target);
                 if (runGlobalHooks)
                 {
-                    CombatState? combatState = card.CombatState ?? card.Owner?.Creature?.CombatState;
+                    ICombatState? combatState = card.CombatState ?? card.Owner?.Creature?.CombatState;
                     if (combatState == null || card.Owner == null)
                     {
                         PreviewValue = Math.Max(num, 0m);
@@ -148,7 +148,7 @@ namespace Manosaba.Characters.TonoHanna.Cards
                 await CreatureCmd.GainBlock(ownerCreature, damageDealt * 0.2m, ValueProp.Move, cardPlay);
             }
 
-            await PowerCmd.Apply<NanokaPuppetCollectionPower>(ownerCreature, DynamicVars["NanokaPuppetCollectionPower"].BaseValue, ownerCreature, this);
+            await CommonActions.Apply<NanokaPuppetCollectionPower>(choiceContext, ownerCreature, this, DynamicVars["NanokaPuppetCollectionPower"].BaseValue);
         }
 
         protected override void OnUpgrade()

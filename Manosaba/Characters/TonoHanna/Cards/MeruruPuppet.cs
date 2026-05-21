@@ -40,7 +40,7 @@ namespace Manosaba.Characters.TonoHanna.Cards
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
-            await PowerCmd.Apply<MeruruPuppetCollectionPower>(Owner.Creature, DynamicVars["MeruruPuppetCollectionPower"].BaseValue, Owner.Creature, this);
+            await CommonActions.Apply<MeruruPuppetCollectionPower>(choiceContext, Owner.Creature, this, DynamicVars["MeruruPuppetCollectionPower"].BaseValue);
 
             IReadOnlyList<CardModel> exhaust = PileType.Exhaust.GetPile(Owner).Cards;
             if (exhaust.Count == 0)

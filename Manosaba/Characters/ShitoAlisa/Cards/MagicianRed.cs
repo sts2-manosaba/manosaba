@@ -40,9 +40,9 @@ public sealed class MagicianRed : ShitoAlisaCardModel
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         ArgumentNullException.ThrowIfNull(cardPlay.Target);
-        await PowerCmd.Apply<FireballSwarmPower>(Owner.Creature, -4m, Owner.Creature, this);
+        await CommonActions.Apply<FireballSwarmPower>(choiceContext, Owner.Creature, this, -4m);
         await DamageCmd.Attack(DynamicVars.Damage.BaseValue).FromCard(this).Targeting(cardPlay.Target).Execute(choiceContext);
-        await PowerCmd.Apply<RedBindPower>(cardPlay.Target, 1m, Owner.Creature, this);
+        await CommonActions.Apply<RedBindPower>(choiceContext, cardPlay.Target, this, 1m);
     }
 
     protected override void OnUpgrade()

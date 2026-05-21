@@ -1,3 +1,4 @@
+using BaseLib.Utils;
 using Godot;
 using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Commands;
@@ -34,7 +35,7 @@ public static class JailerCmd
             jailer = summoner.Creature.CombatState.CreateCreature(monster, CombatSide.Player, null);
             jailer.SetMaxHpInternal(Math.Max(1, (int)decimal.Round(reviveMaxHp.Value, MidpointRounding.AwayFromZero)));
             jailer.SetCurrentHpInternal(0);
-            _ = PowerCmd.Apply<PersistentPetCorpsePower>(jailer, 1m, null, null);
+            await CommonActions.Apply<PersistentPetCorpsePower>(choiceContext, jailer, null, 1m, silent: true);
         }
 
         bool isReviving = !jailer.IsAlive;
@@ -80,7 +81,7 @@ public static class JailerCmd
         {
             MonsterModel monster = ModelDb.GetById<MonsterModel>(ModelDb.Monster<Jailer>().Id).ToMutable();
             jailer = summoner.Creature.CombatState.CreateCreature(monster, CombatSide.Player, null);
-            _ = PowerCmd.Apply<PersistentPetCorpsePower>(jailer, 1m, null, null);
+            _ = CommonActions.Apply<PersistentPetCorpsePower>(new ThrowingPlayerChoiceContext(), jailer, null, 1m);
             didSummon = true;
         }
 

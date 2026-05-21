@@ -1,4 +1,4 @@
-﻿using BaseLib.Utils;
+using BaseLib.Utils;
 using manosaba.Characters.NikaidoHiro;
 using Manosaba.Characters.Common.Commands;
 using Manosaba.Characters.Common.Overrides;
@@ -36,7 +36,7 @@ namespace Manosaba.Characters.NikaidoHiro.Cards
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
-            await PowerCmd.Apply<LaboursOfHiroPower>(Owner.Creature, 1m, Owner.Creature, this);
+            await CommonActions.Apply<LaboursOfHiroPower>(choiceContext, Owner.Creature, this, 1m);
 
             ManosabaFxPlayMode fxPlayMode = ManosabaConfig.LaboursOfHiroEffectFrequency;
             if (fxPlayMode == ManosabaFxPlayMode.Never)

@@ -38,8 +38,8 @@ namespace Manosaba.Characters.TonoHanna.Cards
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
-            await PowerCmd.Apply<EmaPuppetPower>(Owner.Creature, DynamicVars.Damage.BaseValue, Owner.Creature, this);
-            await PowerCmd.Apply<EmaPuppetCollectionPower>(Owner.Creature, DynamicVars["EmaPuppetCollectionPower"].BaseValue, Owner.Creature, this);
+            await CommonActions.Apply<EmaPuppetPower>(choiceContext, Owner.Creature, this, DynamicVars.Damage.BaseValue);
+            await CommonActions.Apply<EmaPuppetCollectionPower>(choiceContext, Owner.Creature, this, DynamicVars["EmaPuppetCollectionPower"].BaseValue);
         }
 
         protected override void OnUpgrade()

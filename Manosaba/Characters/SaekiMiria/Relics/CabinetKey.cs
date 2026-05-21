@@ -1,4 +1,4 @@
-﻿using BaseLib.Utils;
+using BaseLib.Utils;
 using Manosaba.Characters.SaekiMiria.Cards;
 using Manosaba.Extensions;
 using MegaCrit.Sts2.Core.Combat;
@@ -71,7 +71,7 @@ namespace manosaba.Characters.SaekiMiria.Relics
             if (Owner != player || !Owner.Creature.IsAlive)
                 return;
 
-            CombatState? combatState = Owner.Creature.CombatState;
+            ICombatState? combatState = Owner.Creature.CombatState;
             if (combatState == null)
                 return;
 
@@ -104,22 +104,14 @@ namespace manosaba.Characters.SaekiMiria.Relics
                     invitedCards.Add(await CreateRelicGeneratedCardCopyForPlayerAsync(card, invitedPlayer, combatState));
                 }
 
-                IReadOnlyList<CardPileAddResult> invitedResults = await CardPileCmd.AddGeneratedCardsToCombat(
-                    invitedCards,
-                    PileType.Draw,
-                    addedByPlayer: true,
-                    CardPilePosition.Random);
+                IReadOnlyList<CardPileAddResult> invitedResults = await CardPileCmd.AddGeneratedCardsToCombat(invitedCards, PileType.Draw, invitedPlayer, CardPilePosition.Random);
                 if (LocalContext.IsMe(invitedPlayer.Creature))
                 {
                     CardCmd.PreviewCardPileAdd(invitedResults);
                 }
             }
 
-            IReadOnlyList<CardPileAddResult> results = await CardPileCmd.AddGeneratedCardsToCombat(
-                generatedCards,
-                PileType.Draw,
-                addedByPlayer: true,
-                CardPilePosition.Random);
+            IReadOnlyList<CardPileAddResult> results = await CardPileCmd.AddGeneratedCardsToCombat(generatedCards, PileType.Draw, Owner, CardPilePosition.Random);
             CardCmd.PreviewCardPileAdd(results);
         }
 
@@ -132,7 +124,7 @@ namespace manosaba.Characters.SaekiMiria.Relics
             if (Owner.Creature is not { } ownerCreature || !ownerCreature.IsAlive)
                 return;
 
-            CombatState? combatState = ownerCreature.CombatState;
+            ICombatState? combatState = ownerCreature.CombatState;
             if (combatState == null)
                 return;
 
@@ -171,22 +163,14 @@ namespace manosaba.Characters.SaekiMiria.Relics
                     invitedCards.Add(await CreateRelicGeneratedCardCopyForPlayerAsync(card, invitedPlayer, combatState));
                 }
 
-                IReadOnlyList<CardPileAddResult> invitedResults = await CardPileCmd.AddGeneratedCardsToCombat(
-                    invitedCards,
-                    PileType.Draw,
-                    addedByPlayer: true,
-                    CardPilePosition.Random);
+                IReadOnlyList<CardPileAddResult> invitedResults = await CardPileCmd.AddGeneratedCardsToCombat(invitedCards, PileType.Draw, invitedPlayer, CardPilePosition.Random);
                 if (invitedPlayer.Creature != null && LocalContext.IsMe(invitedPlayer.Creature))
                 {
                     CardCmd.PreviewCardPileAdd(invitedResults);
                 }
             }
 
-            IReadOnlyList<CardPileAddResult> results = await CardPileCmd.AddGeneratedCardsToCombat(
-                generatedCards,
-                PileType.Draw,
-                addedByPlayer: true,
-                CardPilePosition.Random);
+            IReadOnlyList<CardPileAddResult> results = await CardPileCmd.AddGeneratedCardsToCombat(generatedCards, PileType.Draw, Owner, CardPilePosition.Random);
             CardCmd.PreviewCardPileAdd(results);
         }
 
@@ -223,7 +207,7 @@ namespace manosaba.Characters.SaekiMiria.Relics
             return RelicLevel >= 4;
         }
 
-        private static Task<CardModel> CreateRelicGeneratedCard(Player player, CombatState combatState, MegaCrit.Sts2.Core.Random.Rng rng, bool upgradeMovies)
+        private static Task<CardModel> CreateRelicGeneratedCard(Player player, ICombatState combatState, MegaCrit.Sts2.Core.Random.Rng rng, bool upgradeMovies)
             => MovieCardGenerator.CreateCabinetKeyMovieAsync(
                 player,
                 combatState,
@@ -232,7 +216,7 @@ namespace manosaba.Characters.SaekiMiria.Relics
                 upgradeMovie: upgradeMovies,
                 applyAbsoluteCinema: true);
 
-        private static async Task<CardModel> CreateRelicGeneratedCardCopyForPlayerAsync(CardModel card, Player player, CombatState combatState)
+        private static async Task<CardModel> CreateRelicGeneratedCardCopyForPlayerAsync(CardModel card, Player player, ICombatState combatState)
         {
             CardModel copy = card switch
             {

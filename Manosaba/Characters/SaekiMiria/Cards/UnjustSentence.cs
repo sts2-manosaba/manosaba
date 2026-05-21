@@ -37,7 +37,7 @@ namespace Manosaba.Characters.SaekiMiria.Cards
                 return;
             }
 
-            await PowerCmd.Apply<IncomeDamageMultiplyPower>(target, 1m, ownerCreature, this);
+            await CommonActions.Apply<IncomeDamageMultiplyPower>(choiceContext, target, this, 1m);
         }
 
         protected override void OnUpgrade()

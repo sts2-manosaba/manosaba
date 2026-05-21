@@ -48,8 +48,8 @@ namespace Manosaba.Characters.TachibanaSherry.Cards
                 return;
             }
 
-            await PowerCmd.Apply<MajokaPower>(target, base.DynamicVars["MajokaPower"].BaseValue, ownerCreature, this);
-            await PowerCmd.Apply<CluePower>(ownerCreature, base.DynamicVars["CluePower"].BaseValue, ownerCreature, this);
+            await CommonActions.Apply<MajokaPower>(choiceContext, target, this, base.DynamicVars["MajokaPower"].BaseValue);
+            await CommonActions.Apply<CluePower>(choiceContext, ownerCreature, this, base.DynamicVars["CluePower"].BaseValue);
             await CreatureCmd.Damage(choiceContext, ownerCreature, base.DynamicVars.Damage.BaseValue, ValueProp.Unpowered, ownerCreature);
         }
 

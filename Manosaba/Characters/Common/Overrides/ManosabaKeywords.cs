@@ -1,6 +1,8 @@
 using BaseLib.Patches.Content;
+using BaseLib.Utils;
 using Manosaba.Characters.NikaidoHiro.Powers;
 using MegaCrit.Sts2.Core.Commands;
+using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Models;
@@ -71,7 +73,7 @@ namespace Manosaba.Characters.Common.Overrides
         {
             if (!owner.HasPower<HighStancePower>())
             {
-                await PowerCmd.Apply<HighStancePower>(owner, 1m, applier ?? owner, source);
+                await CommonActions.Apply<HighStancePower>(new ThrowingPlayerChoiceContext(), owner, source, 1m);
             }
             return default;
         }
@@ -80,7 +82,7 @@ namespace Manosaba.Characters.Common.Overrides
         {
             if (!owner.HasPower<MidStancePower>())
             {
-                await PowerCmd.Apply<MidStancePower>(owner, 1m, applier ?? owner, source);
+                await CommonActions.Apply<MidStancePower>(new ThrowingPlayerChoiceContext(), owner, source, 1m);
             }
             return default;
         }
@@ -89,7 +91,7 @@ namespace Manosaba.Characters.Common.Overrides
         {
             if (!owner.HasPower<LowStancePower>())
             {
-                await PowerCmd.Apply<LowStancePower>(owner, 1m, applier ?? owner, source);
+                await CommonActions.Apply<LowStancePower>(new ThrowingPlayerChoiceContext(), owner, source, 1m);
             }
             return default;
         }

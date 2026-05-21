@@ -15,7 +15,7 @@ public static class Patch_Hook_AfterCardDrawn_CombustTick
     [HarmonyPostfix]
     private static Task AfterCardDrawnPostfix(
         Task __result,
-        CombatState combatState,
+        ICombatState combatState,
         PlayerChoiceContext choiceContext,
         CardModel card,
         bool fromHandDraw)

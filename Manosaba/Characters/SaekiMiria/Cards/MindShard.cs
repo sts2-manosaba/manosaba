@@ -90,6 +90,6 @@ public sealed class MindShard : PathCustomCardModel
         }
 
         selected.SetToFreeThisTurn();
-        await CardPileCmd.AddGeneratedCardToCombat(selected, PileType.Hand, addedByPlayer: true);
+        await CardPileCmd.AddGeneratedCardToCombat(selected, PileType.Hand, Owner);
     }
 }

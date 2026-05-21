@@ -1,3 +1,4 @@
+using BaseLib.Utils;
 using System.Collections.Generic;
 using Manosaba.Characters.Common.Commands;
 using Manosaba.Extensions;
@@ -125,7 +126,7 @@ public sealed class PuppetCollectionSummaryPower : PathCustomPowerModel
         }
 
         int gainedDistinctKinds = target - current;
-        await PowerCmd.Apply<PuppetCollectionSummaryPower>(owner, gainedDistinctKinds, owner, null, silent: true);
+        await CommonActions.Apply<PuppetCollectionSummaryPower>(new ThrowingPlayerChoiceContext(), owner, null, gainedDistinctKinds, silent: true);
 
         if (gainedDistinctKinds > 0)
             await FeatherFan.OnPuppetCollectionIncreasedAsync(owner, gainedDistinctKinds);
@@ -143,9 +144,9 @@ public sealed class PuppetCollectionSummaryPower : PathCustomPowerModel
         return n;
     }
 
-    public override async Task AfterPowerAmountChanged(PowerModel power, decimal amount, Creature? applier, CardModel? cardSource)
+    public override async Task AfterPowerAmountChanged(PlayerChoiceContext choiceContext, PowerModel power, decimal amount, Creature? applier, CardModel? cardSource)
     {
-        await base.AfterPowerAmountChanged(power, amount, applier, cardSource);
+        await base.AfterPowerAmountChanged(choiceContext, power, amount, applier, cardSource);
         if (power is not PuppetCollectionSummaryPower || power.Owner == null)
             return;
         if (CountActiveCollectionKinds(power.Owner) < CollectionWinThreshold)
@@ -153,13 +154,13 @@ public sealed class PuppetCollectionSummaryPower : PathCustomPowerModel
         SfxCmd.Play(WinBgmEventPath, 0.8f);
     }
 
-    public override async Task AfterTurnEnd(PlayerChoiceContext choiceContext, CombatSide side)
+    public override async Task AfterSideTurnEnd(PlayerChoiceContext choiceContext, CombatSide side, IEnumerable<Creature> creatures)
     {
         if (side != CombatSide.Player || !Owner.IsPlayer)
             return;
         if (CountActiveCollectionKinds(Owner) < CollectionWinThreshold)
             return;
-        CombatState? combatState = Owner.CombatState;
+        ICombatState? combatState = Owner.CombatState;
         if (combatState == null)
             return;
 

@@ -1,4 +1,4 @@
-﻿using BaseLib.Utils;
+using BaseLib.Utils;
 using Manosaba.Characters.Common.Powers;
 using Manosaba.Extensions;
 using MegaCrit.Sts2.Core.Combat;
@@ -33,7 +33,7 @@ namespace Manosaba.Characters.Common.Cards
         {
         }
 
-        public static IEnumerable<Vote> Create(Player owner, int amount, CombatState combatState)
+        public static IEnumerable<Vote> Create(Player owner, int amount, ICombatState combatState)
         {
             List<Vote> list = new List<Vote>();
             for (int i = 0; i < amount; i++)
@@ -49,7 +49,7 @@ namespace Manosaba.Characters.Common.Cards
             await CardPileCmd.Draw(choiceContext, base.DynamicVars.Cards.BaseValue, base.Owner);
             if (base.Owner.Creature is { } ownerCreature && cardPlay.Target?.Monster?.Creature is { } targetCreature)
             {
-                await PowerCmd.Apply<VotePower>(targetCreature, DynamicVars["VotePower"].BaseValue, ownerCreature, this);
+                await CommonActions.Apply<VotePower>(choiceContext, targetCreature, this, DynamicVars["VotePower"].BaseValue);
             }
         }
 

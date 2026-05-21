@@ -45,8 +45,8 @@ public class FlyingBroom : PathCustomCardModel
             return;
         }
 
-        await PowerCmd.Apply<HannaPuppetPower>(ownerCreature, 1m, ownerCreature, this);
-        await PowerCmd.Apply<HannaPuppetPower>(target, 1m, ownerCreature, this);
+        await CommonActions.Apply<HannaPuppetPower>(choiceContext, ownerCreature, this, 1m);
+        await CommonActions.Apply<HannaPuppetPower>(choiceContext, target, this, 1m);
 
         if (target.Player is { Character: SherryCharacter } sherryPlayer)
         {
@@ -64,7 +64,7 @@ public class FlyingBroom : PathCustomCardModel
 
         CardModel picnic = combatState.CreateCard(ModelDb.Card<PicnicTime>(), player);
         picnic.EnergyCost.SetThisTurnOrUntilPlayed(0);
-        CardPileAddResult result = await CardPileCmd.AddGeneratedCardToCombat(picnic, PileType.Hand, true, CardPilePosition.Top);
+        CardPileAddResult result = await CardPileCmd.AddGeneratedCardToCombat(picnic, PileType.Hand, Owner, CardPilePosition.Top);
         if (LocalContext.IsMe(player.Creature))
         {
             CardCmd.PreviewCardPileAdd(result);

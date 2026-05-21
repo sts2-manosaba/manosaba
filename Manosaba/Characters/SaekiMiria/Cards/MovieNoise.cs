@@ -28,7 +28,7 @@ public sealed class MovieNoise : PathCustomCardModel
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        await PowerCmd.Apply<MovieNoisePower>(Owner.Creature, DynamicVars.Damage.BaseValue, Owner.Creature, this);
+        await CommonActions.Apply<MovieNoisePower>(choiceContext, Owner.Creature, this, DynamicVars.Damage.BaseValue);
     }
 
     protected override void OnUpgrade()

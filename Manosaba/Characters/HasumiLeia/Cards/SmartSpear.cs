@@ -38,7 +38,7 @@ public sealed class SmartSpear : PathCustomCardModel
     }
 
     protected override Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay) =>
-        PowerCmd.Apply<SmartSpearPower>(Owner.Creature, DynamicVars["SmartSpearPower"].BaseValue, Owner.Creature, this);
+        CommonActions.Apply<SmartSpearPower>(choiceContext, Owner.Creature, this, DynamicVars["SmartSpearPower"].BaseValue);
 
     protected override void OnUpgrade()
     {

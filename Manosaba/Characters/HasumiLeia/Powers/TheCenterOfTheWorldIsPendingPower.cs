@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using BaseLib.Utils;
 using Manosaba.Characters.Common.Powers;
 using Manosaba.Characters.HasumiLeia.Cards;
 using Manosaba.Extensions;
@@ -12,6 +13,7 @@ using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.Powers;
 
+using MegaCrit.Sts2.Core.Entities.Creatures;
 namespace Manosaba.Characters.HasumiLeia.Powers;
 
 /// <summary>
@@ -26,14 +28,14 @@ public sealed class TheCenterOfTheWorldIsPendingPower : PathCustomPowerModel
     public override bool ShouldPlayVfx => false;
     protected override bool IsVisibleInternal => false;
 
-    public override async Task AfterTurnEnd(PlayerChoiceContext choiceContext, CombatSide side)
+    public override async Task AfterSideTurnEnd(PlayerChoiceContext choiceContext, CombatSide side, IEnumerable<Creature> creatures)
     {
         if (side != Owner.Side)
         {
             return;
         }
 
-        CombatState? combatState = Owner.CombatState;
+        ICombatState? combatState = Owner.CombatState;
         if (combatState?.Players == null || Owner.Player == null)
         {
             await PowerCmd.Remove(this);
@@ -61,7 +63,7 @@ public sealed class TheCenterOfTheWorldIsPendingPower : PathCustomPowerModel
 
         if (anyChoseLeia)
         {
-            await PowerCmd.Apply<StrengthPower>(Owner, 4m, Owner, cardSource: null);
+            await CommonActions.Apply<StrengthPower>(choiceContext, Owner, null, 4m);
         }
         else
         {
@@ -69,14 +71,14 @@ public sealed class TheCenterOfTheWorldIsPendingPower : PathCustomPowerModel
             decimal toApply = Math.Max(0m, 100m - currentMajoka);
             if (toApply > 0m)
             {
-                await PowerCmd.Apply<MajokaPower>(Owner, toApply, Owner, cardSource: null);
+                await CommonActions.Apply<MajokaPower>(choiceContext, Owner, null, toApply);
             }
         }
 
         await PowerCmd.Remove(this);
     }
 
-    private async Task<bool> ChooseLeiaAsync(CombatState combatState, Player ownerPlayer, Player player)
+    private async Task<bool> ChooseLeiaAsync(ICombatState combatState, Player ownerPlayer, Player player)
     {
         List<CardModel> options =
         [

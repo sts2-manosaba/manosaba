@@ -12,6 +12,7 @@ public sealed class WitchIslandExpeditionParryResolutionMessage : INetMessage, I
     public readonly List<ulong> targetPlayerIds = [];
     public readonly List<ulong> parriedPlayerIds = [];
 
+    public bool ShouldBuffer => false;
     public bool ShouldBroadcast => true;
     public NetTransferMode Mode => NetTransferMode.Reliable;
     public LogLevel LogLevel => LogLevel.Debug;

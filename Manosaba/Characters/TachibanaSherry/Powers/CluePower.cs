@@ -1,3 +1,4 @@
+using BaseLib.Utils;
 using Manosaba.Characters.TachibanaSherry.Cards;
 using Manosaba.Extensions;
 using MegaCrit.Sts2.Core.Commands;
@@ -18,14 +19,14 @@ public sealed class CluePower : PathCustomPowerModel
     public override PowerType Type => PowerType.Buff;
     public override PowerStackType StackType => PowerStackType.Counter;
 
-    public override async Task AfterPowerAmountChanged(PowerModel power, decimal amount, Creature? applier, CardModel? cardSource)
+    public override async Task AfterPowerAmountChanged(PlayerChoiceContext choiceContext, PowerModel power, decimal amount, Creature? applier, CardModel? cardSource)
     {
-        await base.AfterPowerAmountChanged(power, amount, applier, cardSource);
+        await base.AfterPowerAmountChanged(choiceContext, power, amount, applier, cardSource);
 
         if (power != this || amount <= 0m)
             return;
 
-        await PowerCmd.Apply<CluesGainedThisTurnPower>(Owner, (int)amount, Owner, cardSource);
+        await CommonActions.Apply<CluesGainedThisTurnPower>(choiceContext, Owner, cardSource, (int)amount);
         SanFindsClue.RefreshCostsForOwner(Owner.Player);
 
         InvestigationMomentPower? investigation = Owner.GetPower<InvestigationMomentPower>();
@@ -45,7 +46,7 @@ public sealed class CluePower : PathCustomPowerModel
         var ctx = new ThrowingPlayerChoiceContext();
         for (int i = 0; i < gained; i++)
         {
-            await PowerCmd.Apply<StrengthPower>(Owner, 1m, Owner, cardSource);
+            await CommonActions.Apply<StrengthPower>(choiceContext, Owner, cardSource, 1m);
             await investigation.AdvanceOneLayerCreditAsync(ctx);
         }
     }

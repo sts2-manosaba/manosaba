@@ -13,6 +13,8 @@ using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models.Powers;
 using MegaCrit.Sts2.Core.ValueProps;
 
+using Manosaba.Utils;
+
 namespace Manosaba.Characters.TachibanaSherry.Cards
 {
     [Pool(typeof(TachibanaSherryCardPool))]
@@ -54,9 +56,9 @@ namespace Manosaba.Characters.TachibanaSherry.Cards
 
             decimal burnStacks = DynamicVars["BurnPower"].BaseValue;
             foreach (Creature enemy in combatState.GetOpponentsOf(ownerCreature).Where(e => e.IsAlive && e.IsHittable && e.CanReceivePowers).ToList())
-                await PowerCmd.Apply<BurnPower>(enemy, burnStacks, ownerCreature, this);
+                await PowerCmd.Apply<BurnPower>(choiceContext, enemy, burnStacks, ownerCreature, this);
 
-            await PowerCmd.Apply<StrengthPower>(ownerCreature, 1m, ownerCreature, this);
+            await PowerCmd.Apply<StrengthPower>(choiceContext, ownerCreature, 1m, ownerCreature, this);
         }
 
         protected override void OnUpgrade()

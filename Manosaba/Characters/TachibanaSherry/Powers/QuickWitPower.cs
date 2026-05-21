@@ -1,3 +1,4 @@
+using BaseLib.Utils;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -32,7 +33,7 @@ public class QuickWitPower : PathCustomPowerModel
         HoverTipFactory.FromPower<CluePower>(),
     ];
 
-    public override async Task BeforePlayPhaseStart(PlayerChoiceContext choiceContext, Player player)
+    public override async Task AfterAutoPrePlayPhaseEntered(PlayerChoiceContext choiceContext, Player player)
     {
         if (player != Owner.Player)
         {
@@ -49,10 +50,10 @@ public class QuickWitPower : PathCustomPowerModel
             int hpDelta = maxRolls ? HpDeltaValues.Max() : rng.NextItem(HpDeltaValues);
             int clueStacks = maxRolls ? ClueValues.Max() : rng.NextItem(ClueValues);
 
-            await PowerCmd.Apply<StrengthPower>(Owner, strengthGain, Owner, null);
+            await CommonActions.Apply<StrengthPower>(choiceContext, Owner, null, strengthGain);
             if (dexDelta != 0)
             {
-                await PowerCmd.Apply<DexterityPower>(Owner, dexDelta, Owner, null);
+                await CommonActions.Apply<DexterityPower>(choiceContext, Owner, null, dexDelta);
             }
 
             if (hpDelta >= 0)
@@ -66,7 +67,7 @@ public class QuickWitPower : PathCustomPowerModel
 
             if (clueStacks > 0)
             {
-                await PowerCmd.Apply<CluePower>(Owner, clueStacks, Owner, null);
+                await CommonActions.Apply<CluePower>(choiceContext, Owner, null, clueStacks);
             }
         }
     }

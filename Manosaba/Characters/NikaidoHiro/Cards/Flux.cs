@@ -1,4 +1,4 @@
-﻿using BaseLib.Utils;
+using BaseLib.Utils;
 using manosaba.Characters.NikaidoHiro;
 using Manosaba.Characters.NikaidoHiro.Powers;
 using Manosaba.Extensions;
@@ -26,7 +26,7 @@ namespace Manosaba.Characters.NikaidoHiro.Cards
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
-            await PowerCmd.Apply<FluxPower>(Owner.Creature, 1m, Owner.Creature, this);
+            await CommonActions.Apply<FluxPower>(choiceContext, Owner.Creature, this, 1m);
         }
 
         protected override void OnUpgrade()

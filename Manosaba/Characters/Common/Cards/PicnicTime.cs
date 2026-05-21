@@ -1,4 +1,4 @@
-﻿using BaseLib.Utils;
+using BaseLib.Utils;
 using manosaba.Characters.Common;
 using Manosaba.Extensions;
 using MegaCrit.Sts2.Core.Commands;
@@ -29,7 +29,7 @@ namespace Manosaba.Characters.Common.Cards
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
             await CardPileCmd.Draw(choiceContext, base.DynamicVars.Cards.BaseValue, base.Owner);
-            await PowerCmd.Apply<EnergyNextTurnPower>(base.Owner.Creature, base.DynamicVars.Energy.IntValue, base.Owner.Creature, this);
+            await CommonActions.Apply<EnergyNextTurnPower>(choiceContext, base.Owner.Creature, this, base.DynamicVars.Energy.IntValue);
         }
 
         protected override void OnUpgrade()

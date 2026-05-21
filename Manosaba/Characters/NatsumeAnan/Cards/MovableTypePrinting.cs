@@ -28,7 +28,7 @@ public sealed class MovableTypePrinting : NatsumeKotodamaCardModel
     {
         _ = choiceContext;
         _ = cardPlay;
-        await PowerCmd.Apply<MovableTypePrintingPower>(Owner.Creature, DynamicVars["MovableTypePrintingPower"].BaseValue, Owner.Creature, this);
+        await CommonActions.Apply<MovableTypePrintingPower>(choiceContext, Owner.Creature, this, DynamicVars["MovableTypePrintingPower"].BaseValue);
     }
 
     protected override void OnUpgrade()

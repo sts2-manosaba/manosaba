@@ -1,4 +1,4 @@
-﻿using Godot;
+using Godot;
 using Manosaba.Characters.Common.Cards;
 using Manosaba.Characters.Common.Powers;
 using Manosaba.Extensions;
@@ -39,7 +39,7 @@ namespace Manosaba.Characters.HasumiLeia.Powers
                 list.Add(card);
             }
 
-            await CardPileCmd.AddGeneratedCardsToCombat(list, PileType.Hand, true);
+            await CardPileCmd.AddGeneratedCardsToCombat(list, PileType.Hand, Owner.Player);
         }
     }
 }

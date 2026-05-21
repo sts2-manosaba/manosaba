@@ -42,8 +42,8 @@ public sealed class PepperRamen : PathCustomCardModel
         _ = choiceContext;
         _ = cardPlay;
 
-        await PowerCmd.Apply<HealingPower>(Owner.Creature, DynamicVars["HealingPower"].BaseValue, Owner.Creature, this);
-        await PowerCmd.Apply<PoisonPower>(Owner.Creature, DynamicVars.Poison.BaseValue, Owner.Creature, this);
+        await CommonActions.Apply<HealingPower>(choiceContext, Owner.Creature, this, DynamicVars["HealingPower"].BaseValue);
+        await CommonActions.Apply<PoisonPower>(choiceContext, Owner.Creature, this, DynamicVars.Poison.BaseValue);
     }
 
     protected override void OnUpgrade()

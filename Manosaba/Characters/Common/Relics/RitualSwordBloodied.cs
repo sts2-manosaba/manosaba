@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using BaseLib.Utils;
 using Manosaba.Extensions;
 using MegaCrit.Sts2.Core.Commands;
+using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Entities.Relics;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
@@ -42,7 +43,7 @@ public sealed class RitualSwordBloodied : PathCustomRelicModel
         }
 
         Flash();
-        await PowerCmd.Apply<StrengthPower>(Owner.Creature, DynamicVars["StrengthPower"].BaseValue, Owner.Creature, null);
-        await PowerCmd.Apply<DexterityPower>(Owner.Creature, DynamicVars["DexterityPower"].BaseValue, Owner.Creature, null);
+        await CommonActions.Apply<StrengthPower>(new ThrowingPlayerChoiceContext(), Owner.Creature, null, DynamicVars["StrengthPower"].BaseValue);
+        await CommonActions.Apply<DexterityPower>(new ThrowingPlayerChoiceContext(), Owner.Creature, null, DynamicVars["DexterityPower"].BaseValue);
     }
 }

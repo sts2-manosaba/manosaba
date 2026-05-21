@@ -1,4 +1,4 @@
-﻿using BaseLib.Utils;
+using BaseLib.Utils;
 using manosaba.Characters.Common;
 using Manosaba.Characters.Common.Overrides;
 using Manosaba.Extensions;
@@ -7,6 +7,8 @@ using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.ValueProps;
+
+using Manosaba.Utils;
 
 namespace Manosaba.Characters.Common.Cards
 {
@@ -33,7 +35,7 @@ namespace Manosaba.Characters.Common.Cards
                 return;
 
             await DamageCmd.Attack(base.DynamicVars.Damage.BaseValue).FromCard(this)
-            .TargetingAllOpponents(combatState)
+            .TargetingAllOpponentsCompat(combatState)
             .Execute(choiceContext);
         }
 

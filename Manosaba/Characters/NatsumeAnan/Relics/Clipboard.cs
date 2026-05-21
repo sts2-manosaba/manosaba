@@ -61,11 +61,7 @@ public sealed class Clipboard : LevelingPathCustomRelicModel, ICustomEnergySaveC
             return;
         }
 
-        await PowerCmd.Apply<SicklyPower>(
-            Owner.Creature,
-            DynamicVars["SicklyPower"].BaseValue,
-            Owner.Creature,
-            null);
+        await CommonActions.Apply<SicklyPower>(new ThrowingPlayerChoiceContext(), Owner.Creature, null, DynamicVars["SicklyPower"].BaseValue);
     }
 
     public override Task AfterPlayerTurnStart(PlayerChoiceContext choiceContext, Player player)

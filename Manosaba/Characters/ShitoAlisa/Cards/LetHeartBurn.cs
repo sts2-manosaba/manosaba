@@ -55,14 +55,14 @@ public sealed class LetHeartBurn : ShitoAlisaCardModel
         {
             foreach (Creature enemy in combatState.GetOpponentsOf(ownerCreature).Where(e => e.IsAlive && e.IsHittable && e.CanReceivePowers).ToList())
             {
-                await PowerCmd.Apply<BurnPower>(enemy, hpLoss, ownerCreature, this);
+                await CommonActions.Apply<BurnPower>(choiceContext, enemy, this, hpLoss);
             }
         }
 
         CardModel dyingMessage = combatState.CreateCard(ModelDb.Card<DyingMessage>(), Owner);
         dyingMessage.UpgradeInternal();
         dyingMessage.FinalizeUpgradeInternal();
-        await CardPileCmd.AddGeneratedCardToCombat(dyingMessage, PileType.Hand, true);
+        await CardPileCmd.AddGeneratedCardToCombat(dyingMessage, PileType.Hand, Owner);
     }
 
     protected override void OnUpgrade()

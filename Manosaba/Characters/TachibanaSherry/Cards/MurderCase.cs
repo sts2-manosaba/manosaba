@@ -52,7 +52,7 @@ public sealed class MurderCase : PathCustomCardModel
             .Targeting(target)
             .Execute(choiceContext);
 
-        await PowerCmd.Apply<CluePower>(ownerCreature, DynamicVars["CluePower"].BaseValue, ownerCreature, this);
+        await CommonActions.Apply<CluePower>(choiceContext, ownerCreature, this, DynamicVars["CluePower"].BaseValue);
     }
 
     protected override void OnUpgrade()

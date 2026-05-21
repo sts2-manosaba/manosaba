@@ -1,4 +1,4 @@
-﻿using BaseLib.Utils;
+using BaseLib.Utils;
 using manosaba.Characters.Common;
 using Manosaba.Characters.Common.Powers;
 using Manosaba.Extensions;
@@ -47,7 +47,7 @@ namespace Manosaba.Characters.Common.Cards
                 }
 
                 List<Vote> cards = Vote.Create(creature.Player, base.DynamicVars.Cards.IntValue, base.CombatState).ToList();
-                IReadOnlyList<CardPileAddResult> results = await CardPileCmd.AddGeneratedCardsToCombat(cards, PileType.Draw, addedByPlayer: true, CardPilePosition.Random);
+                IReadOnlyList<CardPileAddResult> results = await CardPileCmd.AddGeneratedCardsToCombat(cards, PileType.Draw, Owner, CardPilePosition.Random);
                 if (LocalContext.IsMe(creature))
                 {
                     CardCmd.PreviewCardPileAdd(results);

@@ -1,4 +1,4 @@
-﻿using BaseLib.Utils;
+using BaseLib.Utils;
 using manosaba.Characters.HikamiMeruru;
 using Manosaba.Characters.HikamiMeruru.Powers;
 using Manosaba.Extensions;
@@ -28,8 +28,8 @@ namespace Manosaba.Characters.HikamiMeruru.Cards
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
             if (cardPlay.Target != null)
-                await PowerCmd.Apply<DoubleSuicidePower>(cardPlay.Target, base.DynamicVars["DoubleSuicidePower"].BaseValue, base.Owner.Creature, this);
-            await PowerCmd.Apply<DoubleSuicidePower>(base.Owner.Creature, base.DynamicVars["DoubleSuicidePower"].BaseValue, base.Owner.Creature, this);
+                await CommonActions.Apply<DoubleSuicidePower>(choiceContext, cardPlay.Target, this, base.DynamicVars["DoubleSuicidePower"].BaseValue);
+            await CommonActions.Apply<DoubleSuicidePower>(choiceContext, base.Owner.Creature, this, base.DynamicVars["DoubleSuicidePower"].BaseValue);
         }
 
         protected override void OnUpgrade()

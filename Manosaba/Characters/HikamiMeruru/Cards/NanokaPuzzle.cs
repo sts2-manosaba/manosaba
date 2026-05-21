@@ -1,4 +1,4 @@
-﻿using BaseLib.Utils;
+using BaseLib.Utils;
 using manosaba.Characters.HikamiMeruru;
 using Manosaba.Extensions;
 using MegaCrit.Sts2.Core.Commands;
@@ -54,12 +54,7 @@ namespace Manosaba.Characters.HikamiMeruru.Cards
             puzzleCards.Add(CombatState.CreateCard<NanokaLeftArm>(Owner));
             puzzleCards.Add(CombatState.CreateCard<NanokaLeftLeg>(Owner));
 
-            IReadOnlyList<CardPileAddResult> results = await CardPileCmd.AddGeneratedCardsToCombat(
-                puzzleCards,
-                PileType.Draw,
-                addedByPlayer: true,
-                CardPilePosition.Random
-            );
+            IReadOnlyList<CardPileAddResult> results = await CardPileCmd.AddGeneratedCardsToCombat(puzzleCards, PileType.Draw, Owner, CardPilePosition.Random);
             CardCmd.PreviewCardPileAdd(results);
         }
 

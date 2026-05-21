@@ -48,8 +48,8 @@ namespace Manosaba.Characters.SaekiMiria.Cards
                 powerAmount++;
             }
 
-            await PowerCmd.Apply<StrengthPower>(target, -powerAmount, ownerCreature, this);
-            await PowerCmd.Apply<WeakPower>(target, powerAmount, ownerCreature, this);
+            await CommonActions.Apply<StrengthPower>(choiceContext, target, this, -powerAmount);
+            await CommonActions.Apply<WeakPower>(choiceContext, target, this, powerAmount);
         }
     }
 }

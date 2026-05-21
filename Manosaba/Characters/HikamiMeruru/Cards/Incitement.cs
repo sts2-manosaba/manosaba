@@ -49,11 +49,7 @@ public class Incitement : PathCustomCardModel
             return;
         }
 
-        await PowerCmd.Apply<MajokaPower>(
-            targetPlayer.Creature,
-            DynamicVars["MajokaPower"].BaseValue,
-            owner.Creature,
-            this);
+await CommonActions.Apply<MajokaPower>(choiceContext,  targetPlayer.Creature, this, DynamicVars["MajokaPower"].BaseValue);
         await PlayerCmd.GainEnergy(DynamicVars.Energy.BaseValue, targetPlayer);
     }
 

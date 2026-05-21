@@ -36,7 +36,7 @@ public sealed class Projection : PathCustomCardModel
             return;
 
         var forgeSpear = combatState.CreateCard<ForgeSpear>(Owner);
-        await CardPileCmd.AddGeneratedCardToCombat(forgeSpear, PileType.Hand, addedByPlayer: true);
+        await CardPileCmd.AddGeneratedCardToCombat(forgeSpear, PileType.Hand, Owner);
     }
 
     protected override void OnUpgrade()

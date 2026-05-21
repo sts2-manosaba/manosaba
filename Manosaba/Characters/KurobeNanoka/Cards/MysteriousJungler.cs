@@ -44,8 +44,8 @@ public sealed class MysteriousJungler : PathCustomCardModel
         _ = choiceContext;
         _ = cardPlay;
 
-        await PowerCmd.Apply<DexterityPower>(Owner.Creature, -DynamicVars[DexterityLossVar].BaseValue, Owner.Creature, this);
-        await PowerCmd.Apply<MysteriousJunglerPower>(Owner.Creature, 1m, Owner.Creature, this);
+        await CommonActions.Apply<DexterityPower>(choiceContext, Owner.Creature, this, -DynamicVars[DexterityLossVar].BaseValue);
+        await CommonActions.Apply<MysteriousJunglerPower>(choiceContext, Owner.Creature, this, 1m);
     }
 
     protected override void OnUpgrade()

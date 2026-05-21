@@ -18,7 +18,7 @@ public static class CombatEnemyLayoutCmd
     private const float MaxAlternatingYPos = 60f;
     private const float AlternateYPosBeginPadding = 30f;
 
-    public static async Task<Creature?> TryAddEnemy<T>(CombatState combatState) where T : MonsterModel
+    public static async Task<Creature?> TryAddEnemy<T>(ICombatState combatState) where T : MonsterModel
     {
         if (!CanSpawnAnotherEnemy(combatState))
         {
@@ -37,14 +37,14 @@ public static class CombatEnemyLayoutCmd
     }
 
     /// <summary>Encounters with a layout scene use fixed slots; mid-combat spawns are often blocked.</summary>
-    public static bool UsesEncounterSlotLayout(CombatState combatState) =>
+    public static bool UsesEncounterSlotLayout(ICombatState combatState) =>
         combatState.Encounter is { HasScene: true };
 
     /// <summary>
     /// Slotted encounters only spawn while an encounter slot is free.
     /// Non-slotted encounters use the same practical cap as the widest vanilla layouts.
     /// </summary>
-    public static bool CanSpawnAnotherEnemy(CombatState combatState)
+    public static bool CanSpawnAnotherEnemy(ICombatState combatState)
     {
         int aliveEnemyCount = combatState.Enemies.Count(enemy => enemy.IsAlive);
 
@@ -57,7 +57,7 @@ public static class CombatEnemyLayoutCmd
         return aliveEnemyCount < maxNonSlottedEnemies;
     }
 
-    public static int CountAvailableEnemySlots(CombatState combatState)
+    public static int CountAvailableEnemySlots(ICombatState combatState)
     {
         if (combatState.Encounter is not { HasScene: true } encounter)
         {
@@ -67,7 +67,7 @@ public static class CombatEnemyLayoutCmd
         return encounter.Slots.Count(slot => combatState.Enemies.All(enemy => enemy.SlotName != slot));
     }
 
-    public static string? TryGetNextEnemySlot(CombatState combatState)
+    public static string? TryGetNextEnemySlot(ICombatState combatState)
     {
         if (combatState.Encounter is not { HasScene: true } encounter)
         {
@@ -78,7 +78,7 @@ public static class CombatEnemyLayoutCmd
         return string.IsNullOrEmpty(slot) ? null : slot;
     }
 
-    private static void RepositionNonSlottedEnemies(CombatState combatState)
+    private static void RepositionNonSlottedEnemies(ICombatState combatState)
     {
         NCombatRoom? room = NCombatRoom.Instance;
         if (room == null)

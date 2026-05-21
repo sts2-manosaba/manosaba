@@ -13,6 +13,8 @@ using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.ValueProps;
 
+using Manosaba.Utils;
+
 namespace Manosaba.Characters.TonoHanna.Cards;
 
 [Pool(typeof(TonoHannaCardPool))]
@@ -50,7 +52,7 @@ public sealed class EmergencySuture : PathCustomCardModel
         }
 
         // Same as vanilla FlakCannon: all Status cards in combat not already in Exhaust.
-        // Must read hit count before exhausting — CalculatedHits multiplier counts GetStatuses().
+        // Must read hit count before exhausting  ECalculatedHits multiplier counts GetStatuses().
         List<CardModel> statuses = GetStatuses(Owner).ToList();
         int statusCount = (int)((CalculatedVar)DynamicVars[calculatedHitsKey]).Calculate(cardPlay.Target);
         if (statusCount <= 0)
@@ -66,7 +68,7 @@ public sealed class EmergencySuture : PathCustomCardModel
         await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
             .WithHitCount(statusCount)
             .FromCard(this)
-            .TargetingAllOpponents(CombatState)
+            .TargetingAllOpponentsCompat(CombatState)
             .Execute(choiceContext);
     }
 

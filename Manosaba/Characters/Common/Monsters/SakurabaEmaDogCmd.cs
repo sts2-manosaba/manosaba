@@ -1,4 +1,5 @@
-﻿using Manosaba.Characters.NikaidoHiro.Powers;
+using BaseLib.Utils;
+using Manosaba.Characters.NikaidoHiro.Powers;
 using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Creatures;
@@ -59,7 +60,7 @@ namespace Manosaba.Characters.Common.Monsters
                     }
 
                     NCreature? emaNode = NCombatRoom.Instance?.GetCreatureNode(ema);
-                    await PowerCmd.Apply<IkiteyoHirochanPower>(ema, 1m, null, null);
+                    await CommonActions.Apply<IkiteyoHirochanPower>(choiceContext, ema, null, 1m, silent: true);
                     emaNode?.TrackBlockStatus(summoner.Creature);
                 }
 

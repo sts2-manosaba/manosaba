@@ -1,3 +1,4 @@
+using BaseLib.Utils;
 using System.Collections.Generic;
 using System.Linq;
 using Manosaba.Extensions;
@@ -80,9 +81,9 @@ public sealed class InvestigationMomentPower : PathCustomPowerModel
                 await CreatureCmd.Damage(choiceContext, target, clue, ValueProp.Unpowered, Owner, null);
 
             if (clue > 0m)
-                await PowerCmd.Apply<CluePower>(Owner, -clue, Owner, null);
+                await CommonActions.Apply<CluePower>(choiceContext, Owner, null, -clue);
 
-            await PowerCmd.Apply<SherryDetectiveRewardPower>(Owner, 2m, Owner, null);
+            await CommonActions.Apply<SherryDetectiveRewardPower>(choiceContext, Owner, null, 2m);
         }
     }
 }

@@ -41,7 +41,7 @@ public sealed class MealWithReward : PathCustomCardModel
 
         CardModel toxic = CombatState.CreateCard(ModelDb.Card<Toxic>(), Owner);
         CardCmd.PreviewCardPileAdd(
-            await CardPileCmd.AddGeneratedCardToCombat(toxic, PileType.Discard, addedByPlayer: true));
+            await CardPileCmd.AddGeneratedCardToCombat(toxic, PileType.Discard, Owner));
     }
 
     protected override void OnUpgrade()

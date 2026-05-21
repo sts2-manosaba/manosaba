@@ -43,13 +43,13 @@ public class SpreadBurn : ShitoAlisaCardModel
         {
             if (!enemy.IsAlive || !enemy.IsHittable || enemy == cardPlay.Target)
                 continue;
-            await PowerCmd.Apply<BurnPower>(enemy, sourceBurn, Owner.Creature, this);
+            await CommonActions.Apply<BurnPower>(choiceContext, enemy, this, sourceBurn);
             spreadCount++;
         }
         if (spreadCount <= 0)
             return;
         decimal gainPerSpread = DynamicVars["FireballGainPerSpread"].BaseValue;
-        await PowerCmd.Apply<FireballSwarmPower>(Owner.Creature, gainPerSpread * spreadCount, Owner.Creature, this);
+        await CommonActions.Apply<FireballSwarmPower>(choiceContext, Owner.Creature, this, gainPerSpread * spreadCount);
     }
 
     protected override void OnUpgrade()

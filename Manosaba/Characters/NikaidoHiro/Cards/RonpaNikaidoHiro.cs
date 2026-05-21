@@ -1,4 +1,4 @@
-﻿using BaseLib.Utils;
+using BaseLib.Utils;
 using manosaba.Characters.NikaidoHiro;
 using Manosaba.Characters.Common.Powers;
 using Manosaba.Extensions;
@@ -47,7 +47,7 @@ namespace Manosaba.Characters.NikaidoHiro.Cards
             if (currentSus >= 1)
             {
                 int susPowerCost = (currentSus + 1) / 2;
-                await PowerCmd.Apply<SusPower>(base.Owner.Creature, -susPowerCost, base.Owner.Creature, this);
+                await CommonActions.Apply<SusPower>(choiceContext, base.Owner.Creature, this, -susPowerCost);
             }
         }
 

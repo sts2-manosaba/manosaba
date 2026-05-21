@@ -11,6 +11,7 @@ public sealed class WitchIslandExpeditionParryMessage : INetMessage, IPacketSeri
     public uint promptId;
     public double pressElapsedSeconds;
 
+    public bool ShouldBuffer => false;
     public bool ShouldBroadcast => false;
     public NetTransferMode Mode => NetTransferMode.Reliable;
     public LogLevel LogLevel => LogLevel.Debug;

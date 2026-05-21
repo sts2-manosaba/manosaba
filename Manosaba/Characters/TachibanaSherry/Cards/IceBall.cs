@@ -39,7 +39,7 @@ namespace Manosaba.Characters.TachibanaSherry.Cards
         {
         }
 
-        public static IEnumerable<IceBall> Create(Player owner, int amount, CombatState combatState)
+        public static IEnumerable<IceBall> Create(Player owner, int amount, ICombatState combatState)
         {
             List<IceBall> list = [];
             for (int i = 0; i < amount; i++)

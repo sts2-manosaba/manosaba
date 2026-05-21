@@ -1,3 +1,4 @@
+using BaseLib.Utils;
 using Manosaba.Extensions;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
@@ -30,7 +31,7 @@ public sealed class TheCenterPower : PathCustomPowerModel
         }
 
         Flash();
-        await PowerCmd.Apply<StrengthPower>(Owner, Amount, Owner, cardPlay.Card);
+await CommonActions.Apply<StrengthPower>(context, Owner, cardPlay.Card, Amount);
     }
 
     public override async Task AfterPotionUsed(PotionModel potion, Creature? target)
@@ -41,7 +42,7 @@ public sealed class TheCenterPower : PathCustomPowerModel
         }
 
         Flash();
-        await PowerCmd.Apply<StrengthPower>(Owner, Amount, Owner, null);
+        await CommonActions.Apply<StrengthPower>(new ThrowingPlayerChoiceContext(), Owner, null, Amount);
     }
 
     private bool IsOtherTeammate(Creature? sourceCreature)

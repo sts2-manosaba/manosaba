@@ -52,7 +52,7 @@ public sealed class SearchAnalyzeSolve : PathCustomCardModel
         }
         else
         {
-            await PowerCmd.Apply<CouldItBeThatSkillPower>(ownerCreature, 1m, ownerCreature, this);
+            await PowerCmd.Apply<CouldItBeThatSkillPower>(choiceContext, ownerCreature, 1m, ownerCreature, this);
         }
 
         CouldItBeThatSkillButtonUi.EnsureShown(Owner);

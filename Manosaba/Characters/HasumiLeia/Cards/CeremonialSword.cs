@@ -60,8 +60,8 @@ public sealed class CeremonialSword : PathCustomCardModel
             }
         }
 
-        await PowerCmd.Apply<StrengthPower>(Owner.Creature, DynamicVars.Strength.BaseValue, Owner.Creature, this);
-        await PowerCmd.Apply<SecondSwordPower>(Owner.Creature, 1m, Owner.Creature, this);
+        await CommonActions.Apply<StrengthPower>(choiceContext, Owner.Creature, this, DynamicVars.Strength.BaseValue);
+        await CommonActions.Apply<SecondSwordPower>(choiceContext, Owner.Creature, this, 1m, silent: true);
     }
 
     protected override void OnUpgrade()

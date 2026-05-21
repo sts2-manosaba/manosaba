@@ -39,9 +39,9 @@ public sealed class Kokoro : NatsumeKotodamaCardModel
     {
         _ = cardPlay;
 
-        await PowerCmd.Apply<KokoroPower>(Owner.Creature, DynamicVars["KokoroPower"].BaseValue, Owner.Creature, this);
+        await CommonActions.Apply<KokoroPower>(choiceContext, Owner.Creature, this, DynamicVars["KokoroPower"].BaseValue);
 
-        MegaCrit.Sts2.Core.Combat.CombatState? combatState = CombatState;
+        MegaCrit.Sts2.Core.Combat.ICombatState? combatState = CombatState;
         if (combatState == null)
         {
             return;
@@ -55,11 +55,7 @@ public sealed class Kokoro : NatsumeKotodamaCardModel
             suicides.Add(suicide);
         }
 
-        IReadOnlyList<CardPileAddResult> results = await CardPileCmd.AddGeneratedCardsToCombat(
-            suicides,
-            PileType.Draw,
-            addedByPlayer: true,
-            CardPilePosition.Random);
+        IReadOnlyList<CardPileAddResult> results = await CardPileCmd.AddGeneratedCardsToCombat(suicides, PileType.Draw, Owner, CardPilePosition.Random);
         CardCmd.PreviewCardPileAdd(results);
 
         _ = choiceContext;

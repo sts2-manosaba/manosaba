@@ -13,6 +13,8 @@ using MegaCrit.Sts2.Core.Models.Powers;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.ValueProps;
 
+using Manosaba.Utils;
+
 namespace Manosaba.Characters.TachibanaSherry.Cards;
 
 [Pool(typeof(TachibanaSherryCardPool))]
@@ -46,11 +48,11 @@ public sealed class SanFindsClue : PathCustomCardModel
 
         await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
             .FromCard(this)
-            .TargetingAllOpponents(CombatState)
+            .TargetingAllOpponentsCompat(CombatState)
             .Execute(choiceContext);
 
-        await PowerCmd.Apply<StrengthPower>(ownerCreature, 1m, ownerCreature, this);
-        await PowerCmd.Apply<PlayedSanThisTurnPower>(ownerCreature, 1m, ownerCreature, this);
+        await PowerCmd.Apply<StrengthPower>(choiceContext, ownerCreature, 1m, ownerCreature, this);
+        await PowerCmd.Apply<PlayedSanThisTurnPower>(choiceContext, ownerCreature, 1m, ownerCreature, this);
         RefreshRokuCosts(Owner);
     }
 
@@ -59,7 +61,7 @@ public sealed class SanFindsClue : PathCustomCardModel
         DynamicVars.Damage.UpgradeValueBy(3m);
     }
 
-    /// <summary>疑點本回合增量變動時，刷新此牌的耗能顯示。</summary>
+    /// <summary>疑點本回合增量變動時，刷新此牌的耗�E顯示、E/summary>
     public static void RefreshCostsForOwner(Player? player)
     {
         if (player == null)

@@ -40,7 +40,7 @@ namespace Manosaba.Characters.HikamiMeruru.Cards
             decimal majokaToApply = base.DynamicVars["MajokaPower"].BaseValue - base.Owner.Creature.GetPowerAmount<MajokaPower>();
             if (majokaToApply > 0m)
             {
-                await PowerCmd.Apply<MajokaPower>(base.Owner.Creature, majokaToApply, base.Owner.Creature, this);
+                await CommonActions.Apply<MajokaPower>(choiceContext, base.Owner.Creature, this, majokaToApply);
             }
 
             PlayerCmd.EndTurn(base.Owner, canBackOut: false);

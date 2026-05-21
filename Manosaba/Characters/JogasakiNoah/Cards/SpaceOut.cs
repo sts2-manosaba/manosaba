@@ -1,4 +1,4 @@
-﻿using BaseLib.Utils;
+using BaseLib.Utils;
 using manosaba.Characters.JogasakiNoah;
 using Manosaba.Characters.JogasakiNoah.Powers;
 using Manosaba.Extensions;
@@ -29,7 +29,7 @@ namespace Manosaba.Characters.JogasakiNoah.Cards
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
-            await PowerCmd.Apply<SpaceOutPower>(Owner.Creature, 1m, Owner.Creature, this);
+            await CommonActions.Apply<SpaceOutPower>(choiceContext, Owner.Creature, this, 1m);
             await OrbCmd.AddSlots(base.Owner, base.DynamicVars.Repeat.IntValue);
         }
 

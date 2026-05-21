@@ -33,7 +33,7 @@ namespace Manosaba.Characters.Common.Cards
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
-            await PowerCmd.Apply<WallPower>(Owner.Creature, DynamicVars["WallPower"].BaseValue, Owner.Creature, this);
+            await CommonActions.Apply<WallPower>(choiceContext, Owner.Creature, this, DynamicVars["WallPower"].BaseValue);
         }
 
         protected override void OnUpgrade()

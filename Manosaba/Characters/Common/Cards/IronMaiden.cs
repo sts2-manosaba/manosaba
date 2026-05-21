@@ -52,8 +52,8 @@ public sealed class IronMaiden : PathCustomCardModel
             .FromCard(this)
             .Targeting(target)
             .Execute(choiceContext);
-        await PowerCmd.Apply<WeakPower>(target, DynamicVars.Weak.BaseValue, Owner.Creature, this);
-        await PowerCmd.Apply<VulnerablePower>(target, DynamicVars.Vulnerable.BaseValue, Owner.Creature, this);
+        await PowerCmd.Apply<WeakPower>(choiceContext, target, DynamicVars.Weak.BaseValue, Owner.Creature, this);
+        await PowerCmd.Apply<VulnerablePower>(choiceContext, target, DynamicVars.Vulnerable.BaseValue, Owner.Creature, this);
     }
 
     protected override void OnUpgrade()

@@ -29,7 +29,7 @@ public class PotionThrow : PathCustomCardModel
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        await PowerCmd.Apply<PotionThrowPower>(Owner.Creature, DynamicVars["PotionThrowPower"].BaseValue, Owner.Creature, this);
+        await CommonActions.Apply<PotionThrowPower>(choiceContext, Owner.Creature, this, DynamicVars["PotionThrowPower"].BaseValue);
     }
 
     protected override void OnUpgrade()

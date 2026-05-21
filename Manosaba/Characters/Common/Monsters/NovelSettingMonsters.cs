@@ -1,3 +1,4 @@
+using BaseLib.Utils;
 using BaseLib.Abstracts;
 using manosaba.Extensions;
 using Manosaba.Characters.Common.Commands;
@@ -62,7 +63,10 @@ public sealed class NovelFlameRabbit : NovelSettingMonsterBase
             return;
         }
 
-        await PowerCmd.Apply<BurnPower>(livingTargets, BurnAmount, base.Creature, null);
+        foreach (Creature target in livingTargets)
+        {
+            await CommonActions.Apply<BurnPower>(new ThrowingPlayerChoiceContext(), target, null, BurnAmount);
+        }
     }
 }
 
@@ -119,7 +123,10 @@ public sealed class NovelClawedCockatrice : NovelSettingMonsterBase
 
         ThrowingPlayerChoiceContext context = new();
         await CreatureCmd.Damage(context, livingTargets, DamageAmount, ValueProp.Move, base.Creature, null);
-        await PowerCmd.Apply<VulnerablePower>(livingTargets, VulnerableAmount, base.Creature, null);
+        foreach (Creature target in livingTargets)
+        {
+            await CommonActions.Apply<VulnerablePower>(new ThrowingPlayerChoiceContext(), target, null, VulnerableAmount);
+        }
     }
 }
 

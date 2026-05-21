@@ -52,7 +52,7 @@ namespace Manosaba.Characters.SaekiMiria.Cards
                 }
 
                 Console.WriteLine($"Applying MemorySharingPower to {item.Creature.Name}");
-                MemorySharingPower? selfPower = await PowerCmd.Apply<MemorySharingPower>(item.Creature, 1m, ownerCreature, this);
+                MemorySharingPower? selfPower = await CommonActions.Apply<MemorySharingPower>(choiceContext, item.Creature, this, 1m);
                 selfPower?.SetApplier(ownerCreature);
                 selfPower?.SetUpgraded(base.IsUpgraded);
             }

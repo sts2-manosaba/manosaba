@@ -1,4 +1,4 @@
-﻿using BaseLib.Utils;
+using BaseLib.Utils;
 using manosaba.Characters.Common;
 using Manosaba.Extensions;
 using MegaCrit.Sts2.Core.Commands;
@@ -40,7 +40,7 @@ namespace Manosaba.Characters.Common.Cards
             cards.AddRange(SSRapier.Create(base.Owner, base.DynamicVars.Cards.IntValue, combatState));
             cards.AddRange(SSRibbon.Create(base.Owner, base.DynamicVars.Cards.IntValue, combatState));
             cards.AddRange(SSBroom.Create(base.Owner, base.DynamicVars.Cards.IntValue, combatState));
-            IReadOnlyList<CardPileAddResult> results = await CardPileCmd.AddGeneratedCardsToCombat(cards, PileType.Draw, addedByPlayer: true, CardPilePosition.Random);
+            IReadOnlyList<CardPileAddResult> results = await CardPileCmd.AddGeneratedCardsToCombat(cards, PileType.Draw, Owner, CardPilePosition.Random);
             CardCmd.PreviewCardPileAdd(results);
         }
 

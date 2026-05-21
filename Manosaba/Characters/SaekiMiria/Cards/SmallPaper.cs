@@ -32,7 +32,7 @@ public sealed class SmallPaper : MovieBase
             _ => CombatState.CreateCard<Junk>(Owner)
         };
 
-        CardPileAddResult result = await CardPileCmd.AddGeneratedCardToCombat(generated, PileType.Hand, addedByPlayer: true);
+        CardPileAddResult result = await CardPileCmd.AddGeneratedCardToCombat(generated, PileType.Hand, Owner);
         CardCmd.PreviewCardPileAdd(result, 1.2f, CardPreviewStyle.HorizontalLayout);
     }
 }

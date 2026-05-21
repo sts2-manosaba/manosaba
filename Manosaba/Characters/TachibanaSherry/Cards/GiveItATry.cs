@@ -37,7 +37,7 @@ namespace Manosaba.Characters.TachibanaSherry.Cards
             decimal majokaToApply = base.DynamicVars["MajokaPower"].BaseValue - creature.GetPowerAmount<MajokaPower>();
             if (majokaToApply > 0m)
             {
-                await PowerCmd.Apply<MajokaPower>(creature, majokaToApply, creature, this);
+                await CommonActions.Apply<MajokaPower>(choiceContext, creature, this, majokaToApply);
             }
         }
 

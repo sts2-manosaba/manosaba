@@ -38,7 +38,7 @@ public sealed class AccurateCookie : PathCustomCardModel
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        await PowerCmd.Apply<AccuratePower>(Owner.Creature, DynamicVars["AccuratePower"].BaseValue, Owner.Creature, this);
+        await CommonActions.Apply<AccuratePower>(choiceContext, Owner.Creature, this, DynamicVars["AccuratePower"].BaseValue);
         await CardPileCmd.Draw(choiceContext, DynamicVars.Cards.BaseValue, Owner);
     }
 

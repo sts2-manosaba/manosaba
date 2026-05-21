@@ -1,3 +1,4 @@
+using BaseLib.Utils;
 using Manosaba.Extensions;
 using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Commands;
@@ -36,7 +37,7 @@ public sealed class SkyIslandPower : PathCustomPowerModel
         return DynamicVars["DamageDecrease"].BaseValue / 100m;
     }
 
-    public override async Task AfterSideTurnStart(CombatSide side, CombatState combatState)
+    public override async Task AfterSideTurnStart(CombatSide side, IReadOnlyList<Creature> creatures, ICombatState combatState)
     {
         _ = combatState;
         if (side != Owner.Side || Amount <= 0m)
@@ -45,6 +46,6 @@ public sealed class SkyIslandPower : PathCustomPowerModel
         }
 
         Flash();
-        await PowerCmd.Apply<SkyIslandPower>(Owner, -1m, Owner, null, silent: true);
+        await CommonActions.Apply<SkyIslandPower>(new ThrowingPlayerChoiceContext(), Owner, null, -1m, silent: true);
     }
 }

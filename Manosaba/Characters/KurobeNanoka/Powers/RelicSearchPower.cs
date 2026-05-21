@@ -7,6 +7,7 @@ using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Rewards;
 using MegaCrit.Sts2.Core.Rooms;
 
+using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 namespace Manosaba.Characters.KurobeNanoka.Powers;
 
 public sealed class RelicSearchPower : PathCustomPowerModel
@@ -27,7 +28,7 @@ public sealed class RelicSearchPower : PathCustomPowerModel
         return ResolvePendingRolls("apply");
     }
 
-    public override Task AfterPowerAmountChanged(PowerModel power, decimal amount, Creature? applier, CardModel? cardSource)
+    public override Task AfterPowerAmountChanged(PlayerChoiceContext choiceContext, PowerModel power, decimal amount, Creature? applier, CardModel? cardSource)
     {
         _ = applier;
         _ = cardSource;

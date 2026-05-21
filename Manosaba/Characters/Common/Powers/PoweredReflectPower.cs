@@ -1,3 +1,4 @@
+using BaseLib.Utils;
 using BaseLib.Extensions;
 using Manosaba.Characters.HikamiMeruru.Cards;
 using Manosaba.Characters.JogasakiNoahCard.Cards;
@@ -40,7 +41,7 @@ namespace Manosaba.Characters.Common.Powers
                 && _lastReflectedDealer != null
                 && dealer != _lastReflectedDealer)
             {
-                await ConsumeCurrentVigor();
+                await ConsumeCurrentVigor(choiceContext);
             }
 
             if (target == base.Owner && result.BlockedDamage > 0 && props.IsPoweredAttack_() && dealer != null)
@@ -51,9 +52,9 @@ namespace Manosaba.Characters.Common.Powers
             }
         }
 
-        public override async Task AfterTurnEnd(PlayerChoiceContext choiceContext, CombatSide side)
+        public override async Task AfterSideTurnEnd(PlayerChoiceContext choiceContext, CombatSide side, IEnumerable<Creature> creatures)
         {
-            _ = choiceContext;
+            _ = creatures;
 
             if (side == base.Owner.Side)
             {
@@ -65,22 +66,22 @@ namespace Manosaba.Characters.Common.Powers
             if (!_pendingVigorClear)
                 return;
 
-            await ConsumeCurrentVigor();
+            await ConsumeCurrentVigor(choiceContext);
         }
 
-        private async Task ConsumeCurrentVigor()
+        private async Task ConsumeCurrentVigor(PlayerChoiceContext choiceContext)
         {
             decimal vigor = base.Owner.GetPowerAmount<VigorPower>();
             if (vigor > 0m)
             {
-                await PowerCmd.Apply<VigorPower>(base.Owner, -vigor, base.Owner, null);
+                await CommonActions.Apply<VigorPower>(choiceContext, base.Owner, null, -vigor);
             }
 
             _pendingVigorClear = false;
             _lastReflectedDealer = null;
         }
 
-        public override async Task AfterSideTurnStart(CombatSide side, CombatState combatState)
+        public override async Task AfterSideTurnStart(CombatSide side, IReadOnlyList<Creature> creatures, ICombatState combatState)
         {
             if (side == base.Owner.Side)
             {

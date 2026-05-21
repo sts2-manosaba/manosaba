@@ -50,7 +50,7 @@ public sealed class Urusai : NatsumeKotodamaCardModel
                 return;
             }
 
-            MegaCrit.Sts2.Core.Combat.CombatState? combatState = CombatState;
+            MegaCrit.Sts2.Core.Combat.ICombatState? combatState = CombatState;
             if (combatState == null)
             {
                 return;

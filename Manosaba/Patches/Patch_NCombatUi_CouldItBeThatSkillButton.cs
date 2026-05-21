@@ -13,7 +13,7 @@ public static class Patch_NCombatUi_CouldItBeThatSkillButton
 {
     [HarmonyPatch(nameof(NCombatUi.Activate))]
     [HarmonyPostfix]
-    private static void Activate_Postfix(NCombatUi __instance, CombatState state)
+    private static void Activate_Postfix(NCombatUi __instance, ICombatState state)
     {
         Player? me = TryResolveLocalPlayer(state);
         if (me == null)
@@ -33,7 +33,7 @@ public static class Patch_NCombatUi_CouldItBeThatSkillButton
         CouldItBeThatSkillActivation.ClearAllActivationPending();
     }
 
-    private static Player? TryResolveLocalPlayer(CombatState state)
+    private static Player? TryResolveLocalPlayer(ICombatState state)
     {
         try
         {

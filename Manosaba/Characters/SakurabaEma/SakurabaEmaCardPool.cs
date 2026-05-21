@@ -1,6 +1,7 @@
 using BaseLib.Abstracts;
 using Godot;
 using manosaba.Extensions;
+using Manosaba.Characters.Common.Relics;
 using Manosaba.Extensions;
 using MegaCrit.Sts2.Core.Models;
 
@@ -11,8 +12,8 @@ public class SakurabaEmaCardPool : CustomCardPoolModel
     public override string Title => SakurabaEma.CharacterId;
     public const string CharacterId = SakurabaEma.CharacterId;
 
-    public override string BigEnergyIconPath => (CharacterId + "_energy.png").CharacterImgPath(CharacterId);
-    public override string TextEnergyIconPath => (CharacterId + "_energy_text.png").CharacterImgPath(CharacterId);
+    public override string BigEnergyIconPath => LockedCharacterStarterRelicPool.FallbackBigEnergyIconPath;
+    public override string TextEnergyIconPath => LockedCharacterStarterRelicPool.FallbackTextEnergyIconPath;
 
     private static readonly (float H, float S, float V) CardBackTint =
         CardPoolTintFromCharacterColor.ToCardBackHsv(SakurabaEma.Color);

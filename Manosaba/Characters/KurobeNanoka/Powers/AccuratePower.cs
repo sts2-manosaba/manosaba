@@ -39,9 +39,9 @@ public sealed class AccuratePower : PathCustomPowerModel
         return Task.CompletedTask;
     }
 
-    public override async Task AfterPowerAmountChanged(PowerModel power, decimal amount, Creature? applier, CardModel? cardSource)
+    public override async Task AfterPowerAmountChanged(PlayerChoiceContext choiceContext, PowerModel power, decimal amount, Creature? applier, CardModel? cardSource)
     {
-        await base.AfterPowerAmountChanged(power, amount, applier, cardSource);
+        await base.AfterPowerAmountChanged(choiceContext, power, amount, applier, cardSource);
 
         if (power != this)
         {
