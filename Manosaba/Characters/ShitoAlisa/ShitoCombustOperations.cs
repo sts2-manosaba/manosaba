@@ -6,6 +6,7 @@ using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Models;
+using MegaCrit.Sts2.Core.Nodes.Cards;
 using System.Runtime.CompilerServices;
 
 namespace manosaba.Characters.ShitoAlisa;
@@ -62,6 +63,7 @@ public static class ShitoCombustOperations
         }
 
         card.AddKeyword(ManosabaKeywords.Combust);
+        RefreshCombustCardDisplay(card);
     }
 
     public static bool HasActiveCombust(CardModel card)
@@ -102,7 +104,7 @@ public static class ShitoCombustOperations
             after = (int)v.CurrentCombust;
             max = (int)v.MaxCombust;
             RefreshCombustVisual(target);
-            Log.Debug($"[Manosaba Combust] Ignite card={target.Id.Entry} -{amount} {before}->{after} (max={max})");
+            Log.Info($"[Manosaba Combust] Ignite card={target.Id.Entry} -{amount} {before}->{after} (max={max})");
             if (v.CurrentCombust > 0m)
                 return;
             await FinalCountdownPower.ReduceFromCombust(target.Owner.Creature, target);
@@ -121,7 +123,7 @@ public static class ShitoCombustOperations
         after = state.Current;
         max = state.Max;
         RefreshCombustVisual(target);
-        Log.Debug($"[Manosaba Combust] Ignite card={target.Id.Entry} -{amount} {before}->{after} (max={max})");
+        Log.Info($"[Manosaba Combust] Ignite card={target.Id.Entry} -{amount} {before}->{after} (max={max})");
         if (state.Current > 0)
             return;
         await FinalCountdownPower.ReduceFromCombust(target.Owner.Creature, target);
@@ -142,7 +144,7 @@ public static class ShitoCombustOperations
             v.TickOnDraw();
             int after = (int)v.CurrentCombust;
             RefreshCombustVisual(self);
-            Log.Debug($"[Manosaba Combust] Draw tick card={self.Id.Entry} fromHandDraw={fromHandDraw} {before}->{after} (max={(int)v.MaxCombust})");
+            Log.Info($"[Manosaba Combust] Draw tick card={self.Id.Entry} fromHandDraw={fromHandDraw} {before}->{after} (max={(int)v.MaxCombust})");
             if (v.CurrentCombust > 0m)
                 return;
 
@@ -150,7 +152,7 @@ public static class ShitoCombustOperations
             await GrantFireballSwarmOnCombustZero(self);
             v.ResetCurrentToMax();
             RefreshCombustVisual(self);
-            Log.Debug($"[Manosaba Combust] AutoPlay triggered card={self.Id.Entry}; reset to {(int)v.CurrentCombust}");
+            Log.Info($"[Manosaba Combust] AutoPlay triggered card={self.Id.Entry}; reset to {(int)v.CurrentCombust}");
             await CardCmd.AutoPlay(choiceContext, self, null);
             return;
         }
@@ -162,7 +164,7 @@ public static class ShitoCombustOperations
         state.Current = Math.Max(0, state.Current - 1);
         int afterExternal = state.Current;
         RefreshCombustVisual(self);
-        Log.Debug($"[Manosaba Combust] Draw tick card={self.Id.Entry} fromHandDraw={fromHandDraw} {beforeExternal}->{afterExternal} (max={state.Max})");
+        Log.Info($"[Manosaba Combust] Draw tick card={self.Id.Entry} fromHandDraw={fromHandDraw} {beforeExternal}->{afterExternal} (max={state.Max})");
         if (state.Current > 0)
             return;
 
@@ -170,7 +172,7 @@ public static class ShitoCombustOperations
         await GrantFireballSwarmOnCombustZero(self);
         state.Current = state.Max;
         RefreshCombustVisual(self);
-        Log.Debug($"[Manosaba Combust] AutoPlay triggered card={self.Id.Entry}; reset to {state.Current}");
+        Log.Info($"[Manosaba Combust] AutoPlay triggered card={self.Id.Entry}; reset to {state.Current}");
         await CardCmd.AutoPlay(choiceContext, self, null);
     }
 
@@ -184,11 +186,15 @@ public static class ShitoCombustOperations
 
     private static void RefreshCombustVisual(CardModel card)
     {
+        RefreshCombustCardDisplay(card);
+    }
+
+    private static void RefreshCombustCardDisplay(CardModel card)
+    {
         if (!card.Keywords.Contains(ManosabaKeywords.Combust))
             return;
 
-        // NCard does not subscribe to dynamic-var changes; poke keyword changed event to force Reload().
-        card.RemoveKeyword(ManosabaKeywords.Combust);
-        card.AddKeyword(ManosabaKeywords.Combust);
+        PileType pile = card.Pile?.Type ?? PileType.Hand;
+        NCard.FindOnTable(card)?.UpdateVisuals(pile, CardPreviewMode.Normal);
     }
 }

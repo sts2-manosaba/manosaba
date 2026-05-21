@@ -35,7 +35,7 @@ public static class Patch_Hook_AfterCardDrawn_CombustTick
         {
             if (card.Keywords.Contains(Manosaba.Characters.Common.Overrides.ManosabaKeywords.Combust))
             {
-                Log.Debug($"[Manosaba Combust] Hook draw card={card.Id.Entry} fromHandDraw={fromHandDraw}");
+                Log.Info($"[Manosaba Combust] Hook draw card={card.Id.Entry} fromHandDraw={fromHandDraw}");
             }
             await ShitoCombustOperations.AfterCardDrawn(card, choiceContext, card, fromHandDraw);
         }

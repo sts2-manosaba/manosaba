@@ -39,7 +39,7 @@ public static class Patch_CardModel_CombustKeywordCount
         bool hasState = ShitoCombustOperations.TryGetCombustState(card, out int current, out int max);
         if (!hasState || max <= 0)
         {
-            Log.Debug(
+            Log.Warn(
                 $"[Manosaba CombustKeyword] skip_inject_no_state card={card.Id.Entry} pile={card.Pile?.Type} " +
                 $"hasState={hasState} current={current} max={max}");
             return description;
@@ -58,7 +58,7 @@ public static class Patch_CardModel_CombustKeywordCount
         string descSnip = description.Length <= descSnipLen
             ? description
             : description[..descSnipLen] + "...";
-        Log.Debug(
+        Log.Warn(
             $"[Manosaba CombustKeyword] skip_inject_plain_mismatch card={card.Id.Entry} current={current} max={max} " +
             $"plainLine={plainKeywordLine} desc_snip={descSnip}");
 
