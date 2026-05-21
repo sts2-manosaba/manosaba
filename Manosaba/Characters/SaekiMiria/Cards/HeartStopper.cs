@@ -39,8 +39,8 @@ public sealed class HeartStopper : PathCustomCardModel
         _ = choiceContext;
         _ = cardPlay;
 
-        await PowerCmd.Apply<HeartStopperPower>(Owner.Creature, DynamicVars.Cards.BaseValue, Owner.Creature, this);
-        await PowerCmd.Apply<BurnPower>(Owner.Creature, DynamicVars[burnPowerVar].BaseValue, Owner.Creature, this);
+        await CommonActions.Apply<HeartStopperPower>(choiceContext, Owner.Creature, this, DynamicVars.Cards.BaseValue);
+        await CommonActions.Apply<BurnPower>(choiceContext, Owner.Creature, this, DynamicVars[burnPowerVar].BaseValue);
     }
 
     protected override void OnUpgrade()

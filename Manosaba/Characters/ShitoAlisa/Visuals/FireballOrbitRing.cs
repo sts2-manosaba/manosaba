@@ -333,8 +333,14 @@ public partial class FireballOrbitUnit : Node2D
                 return;
 
             HoverTip tip = power.CreateOrbitHoverTip();
-            _hoverTip = NHoverTipSet.CreateAndShow(_hitbox, tip);
-            _hoverTip.GlobalPosition = _hitbox.GlobalPosition + Vector2.Right * _hitbox.Size.X;
+            NHoverTipSet? hoverTip = NHoverTipSet.CreateAndShow(_hitbox, tip);
+            if (hoverTip == null)
+            {
+                return;
+            }
+
+            hoverTip.GlobalPosition = _hitbox.GlobalPosition + Vector2.Right * _hitbox.Size.X;
+            _hoverTip = hoverTip;
         }
         else if (!want && _hoverTip != null)
         {

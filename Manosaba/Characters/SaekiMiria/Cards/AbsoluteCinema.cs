@@ -33,11 +33,11 @@ public sealed class AbsoluteCinema : PathCustomCardModel
     }
 
     protected override Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
-        => PowerCmd.Apply<AbsoluteCinemaPower>(
+        => CommonActions.Apply<AbsoluteCinemaPower>(
+            choiceContext,
             Owner.Creature,
-            DynamicVars["AbsoluteCinemaPower"].BaseValue,
-            Owner.Creature,
-            this);
+            this,
+            DynamicVars["AbsoluteCinemaPower"].BaseValue);
 
     protected override void OnUpgrade()
     {

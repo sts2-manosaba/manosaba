@@ -1,4 +1,4 @@
-﻿using BaseLib.Utils;
+using BaseLib.Utils;
 using manosaba.Characters.Common;
 using Manosaba.Characters.Common.Commands;
 using Manosaba.Characters.Common.Powers;
@@ -33,7 +33,7 @@ namespace Manosaba.Characters.Common.Cards
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
-            CombatState? combatState = CombatState;
+            ICombatState? combatState = CombatState;
             Creature? ownerCreature = Owner.Creature;
             if (combatState == null || ownerCreature == null)
             {
@@ -63,7 +63,7 @@ namespace Manosaba.Characters.Common.Cards
             }
         }
 
-        public override async Task AfterTurnEnd(PlayerChoiceContext choiceContext, CombatSide side)
+        public override async Task AfterSideTurnEnd(PlayerChoiceContext choiceContext, CombatSide side, IEnumerable<Creature> creatures)
         {
             CardPile? pile = base.Pile;
             if (pile != null && (pile.Type == PileType.Discard || pile.Type == PileType.Hand || pile.Type == PileType.Draw || pile.Type == PileType.Exhaust) && side == CombatSide.Player)
@@ -87,7 +87,7 @@ namespace Manosaba.Characters.Common.Cards
             }
         }
 
-        public override async Task AfterPowerAmountChanged(PowerModel power, decimal amount, Creature? applier, CardModel? cardSource)
+        public override async Task AfterPowerAmountChanged(PlayerChoiceContext choiceContext, PowerModel power, decimal amount, Creature? applier, CardModel? cardSource)
         {
             if (power is MajokaPower)
             {

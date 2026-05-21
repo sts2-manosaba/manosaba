@@ -1,4 +1,4 @@
-﻿using BaseLib.Utils;
+using BaseLib.Utils;
 using Godot;
 using manosaba.Characters.HikamiMeruru;
 using Manosaba.Extensions;
@@ -35,7 +35,7 @@ namespace Manosaba.Characters.HikamiMeruru.Potions
             {
                 PotionModel.AssertValidForTargetedPotion(item);
                 NCombatRoom.Instance?.PlaySplashVfx(item, new Color("65cf81"));
-                await PowerCmd.Apply<ShrinkPower>(item, base.DynamicVars.Repeat.BaseValue, ownerCreature, null);
+                await CommonActions.Apply<ShrinkPower>(choiceContext, item, null, base.DynamicVars.Repeat.BaseValue);
             }
         }
     }

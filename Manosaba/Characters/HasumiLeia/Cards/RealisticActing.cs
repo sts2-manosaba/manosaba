@@ -40,7 +40,7 @@ public class RealisticActing : PathCustomCardModel
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        await PowerCmd.Apply<DexterityPower>(base.Owner.Creature, base.DynamicVars.Dexterity.BaseValue, base.Owner.Creature, this);
+        await CommonActions.Apply<DexterityPower>(choiceContext, base.Owner.Creature, this, base.DynamicVars.Dexterity.BaseValue);
     }
 
     protected override void OnUpgrade()

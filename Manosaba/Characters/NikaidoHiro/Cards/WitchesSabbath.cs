@@ -1,4 +1,4 @@
-﻿using BaseLib.Utils;
+using BaseLib.Utils;
 using manosaba.Characters.NikaidoHiro;
 using Manosaba.Characters.Common.Powers;
 using Manosaba.Extensions;
@@ -11,6 +11,8 @@ using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.ValueProps;
+
+using Manosaba.Utils;
 
 namespace Manosaba.Characters.NikaidoHiro.Cards
 {
@@ -56,17 +58,17 @@ namespace Manosaba.Characters.NikaidoHiro.Cards
                 int creatureMajoka = creature.GetPowerAmount<MajokaPower>();
                 if (creatureMajoka > 0)
                 {
-                    await PowerCmd.Apply<MajokaPower>(creature, -creatureMajoka, base.Owner.Creature, this);
+                    await CommonActions.Apply<MajokaPower>(choiceContext, creature, this, -creatureMajoka);
                 }
             }
 
-            await PowerCmd.Apply<SusPower>(base.Owner.Creature, -voteAmount, base.Owner.Creature, this);
+            await CommonActions.Apply<SusPower>(choiceContext, base.Owner.Creature, this, -voteAmount);
 
             decimal damage = (DynamicVars.CalculationBase.BaseValue + voteAmount * 5 + majokaAmount / 25) * (1 + 0.01m * majokaAmount);
 
             await DamageCmd.Attack(damage)
                 .FromCard(this)
-                .TargetingAllOpponents(combatState)
+                .TargetingAllOpponentsCompat(combatState)
                 .Execute(choiceContext);
         }
 
@@ -75,7 +77,7 @@ namespace Manosaba.Characters.NikaidoHiro.Cards
             DynamicVars.CalculationBase.UpgradeValueBy(20m);
         }
 
-        private static int GetTotalMajokaAmount(CombatState? combatState)
+        private static int GetTotalMajokaAmount(ICombatState? combatState)
         {
             if (combatState == null)
             {
@@ -91,7 +93,7 @@ namespace Manosaba.Characters.NikaidoHiro.Cards
             return total;
         }
 
-        private static bool AreAllAlivePlayersMajokaThresholdMet(CombatState? combatState)
+        private static bool AreAllAlivePlayersMajokaThresholdMet(ICombatState? combatState)
         {
             if (combatState == null)
             {

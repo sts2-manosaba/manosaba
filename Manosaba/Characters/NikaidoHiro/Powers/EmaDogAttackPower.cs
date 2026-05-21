@@ -1,4 +1,4 @@
-﻿using System.Linq;
+using System.Linq;
 using Manosaba.Extensions;
 using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Commands;
@@ -15,9 +15,9 @@ namespace Manosaba.Characters.NikaidoHiro.Powers
         public override PowerStackType StackType => PowerStackType.Single;
         public override bool ShouldPlayVfx => false;
 
-        public override async Task BeforeTurnEnd(PlayerChoiceContext choiceContext, CombatSide side)
+        public override async Task BeforeSideTurnEnd(PlayerChoiceContext choiceContext, CombatSide side, IEnumerable<Creature> creatures)
         {
-            CombatState? combatState = CombatState;
+            ICombatState? combatState = CombatState;
             if (side == CombatSide.Player && Owner.IsAlive && combatState != null)
             {
                 List<Creature> targets = combatState.GetOpponentsOf(Owner)

@@ -45,7 +45,7 @@ public sealed class NarehateFeeding : PathCustomCardModel
         _ = choiceContext;
 
         await CreatureCmd.GainBlock(Owner.Creature, DynamicVars.Block, cardPlay);
-        await PowerCmd.Apply<DoomPower>(Owner.Creature, DynamicVars["DoomPower"].BaseValue, Owner.Creature, this);
+        await CommonActions.Apply<DoomPower>(choiceContext, Owner.Creature, this, DynamicVars["DoomPower"].BaseValue);
     }
 
     /*protected override PileType GetResultPileType()

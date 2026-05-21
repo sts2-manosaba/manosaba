@@ -28,20 +28,20 @@ public sealed class LegIrons : LevelingPathCustomRelicModel
             return;
 
         decimal stacks = Math.Max(1, RelicLevel);
-        await PowerCmd.Apply<FireballSwarmPower>(Owner.Creature, stacks, Owner.Creature, null);
+        await CommonActions.Apply<FireballSwarmPower>(new ThrowingPlayerChoiceContext(), Owner.Creature, null, stacks);
     }
 
-    public override async Task AfterPowerAmountChanged(PowerModel power, decimal amount, Creature? applier, CardModel? cardSource)
+    public override async Task AfterPowerAmountChanged(PlayerChoiceContext choiceContext, PowerModel power, decimal amount, Creature? applier, CardModel? cardSource)
     {
         if (RelicLevel < 2 || Owner.Creature == null)
             return;
         if (power is not FireballSwarmPower || power.Owner != Owner.Creature || amount <= 0m)
             return;
 
-        await PowerCmd.Apply<MajokaPower>(Owner.Creature, amount * 5m, Owner.Creature, cardSource);
+        await CommonActions.Apply<MajokaPower>(choiceContext, Owner.Creature, cardSource, amount * 5m);
     }
 
-    public override async Task AfterTurnEnd(PlayerChoiceContext choiceContext, CombatSide side)
+    public override async Task AfterSideTurnEnd(PlayerChoiceContext choiceContext, CombatSide side, IEnumerable<Creature> creatures)
     {
         if (RelicLevel < 4 || Owner.Creature == null || side != Owner.Creature.Side)
             return;

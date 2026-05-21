@@ -1,3 +1,4 @@
+using BaseLib.Utils;
 using Manosaba.Extensions;
 using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Commands;
@@ -24,7 +25,7 @@ public sealed class SanityPower : PathCustomPowerModel
         }
 
         Flash();
-        int remaining = await PowerCmd.ModifyAmount(this, -amount, Owner, card);
+        int remaining = await PowerCmd.ModifyAmount(new ThrowingPlayerChoiceContext(), this, -amount, Owner, card);
         if (remaining <= 0 && Owner.IsAlive)
         {
             await CreatureCmd.Kill(Owner);
@@ -92,7 +93,7 @@ public sealed class CallOfCthulhuPower : PathCustomPowerModel
         return Task.CompletedTask;
     }
 
-    public override Task BeforeSideTurnStart(PlayerChoiceContext choiceContext, CombatSide side, CombatState combatState)
+    public override Task BeforeSideTurnStart(PlayerChoiceContext choiceContext, CombatSide side, IReadOnlyList<Creature> creatures, ICombatState combatState)
     {
         _ = choiceContext;
         _ = combatState;
@@ -105,7 +106,7 @@ public sealed class CallOfCthulhuPower : PathCustomPowerModel
         return Task.CompletedTask;
     }
 
-    public override async Task AfterSideTurnStart(CombatSide side, CombatState combatState)
+    public override async Task AfterSideTurnStart(CombatSide side, IReadOnlyList<Creature> creatures, ICombatState combatState)
     {
         _ = combatState;
 
@@ -114,7 +115,7 @@ public sealed class CallOfCthulhuPower : PathCustomPowerModel
             return;
         }
 
-        await PowerCmd.Apply<StrengthPower>(Owner, DynamicVars["StrengthPower"].BaseValue, Owner, null);
+        await CommonActions.Apply<StrengthPower>(new ThrowingPlayerChoiceContext(), Owner, null, DynamicVars["StrengthPower"].BaseValue);
     }
 }
 
@@ -140,7 +141,7 @@ public sealed class ShadowFromTheSteeplePower : PathCustomPowerModel
         return target == Owner ? 1m + Amount * DamageMultiplierPerStack : 1m;
     }
 
-    public override async Task AfterTurnEnd(PlayerChoiceContext choiceContext, CombatSide side)
+    public override async Task AfterSideTurnEnd(PlayerChoiceContext choiceContext, CombatSide side, IEnumerable<Creature> creatures)
     {
         _ = choiceContext;
 

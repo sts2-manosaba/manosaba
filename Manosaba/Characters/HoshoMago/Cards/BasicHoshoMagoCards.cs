@@ -97,7 +97,7 @@ public class TraumaHoshoMago : PathCustomCardModel
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        await PowerCmd.Apply<MajokaPower>(Owner.Creature, DynamicVars["MajokaPower"].BaseValue, Owner.Creature, this);
+        await CommonActions.Apply<MajokaPower>(choiceContext, Owner.Creature, this, DynamicVars["MajokaPower"].BaseValue);
     }
 
     protected override void OnUpgrade()
@@ -164,7 +164,7 @@ public class DreamInterpretation : PathCustomCardModel
             selected.AddKeyword(CardKeyword.Exhaust);
         }
 
-        await CardPileCmd.AddGeneratedCardToCombat(selected, PileType.Hand, addedByPlayer: true);
+        await CardPileCmd.AddGeneratedCardToCombat(selected, PileType.Hand, Owner);
     }
 
     protected override void OnUpgrade()

@@ -26,7 +26,7 @@ namespace Manosaba.Characters.TachibanaSherry.Cards
         {
         }
 
-        public static IEnumerable<BrokenCrossbow> Create(Player owner, int amount, CombatState combatState)
+        public static IEnumerable<BrokenCrossbow> Create(Player owner, int amount, ICombatState combatState)
         {
             List<BrokenCrossbow> list = new List<BrokenCrossbow>();
             for (int i = 0; i < amount; i++)

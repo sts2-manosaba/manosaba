@@ -1,4 +1,5 @@
-﻿using Manosaba.Extensions;
+using BaseLib.Utils;
+using Manosaba.Extensions;
 using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Creatures;
@@ -30,7 +31,9 @@ public abstract class ManosabaTemporaryStrengthPower : PathCustomPowerModel, ITe
 
     public override PowerStackType StackType => PowerStackType.Counter;
 
-    public abstract AbstractModel OriginModel { get; }
+    public abstract AbstractModel? OriginModel { get; }
+
+    AbstractModel ITemporaryPower.OriginModel => OriginModel ?? InternallyAppliedPower;
 
     public PowerModel InternallyAppliedPower => ModelDb.Power<StrengthPower>();
 
@@ -53,7 +56,7 @@ public abstract class ManosabaTemporaryStrengthPower : PathCustomPowerModel, ITe
     {
         get
         {
-            AbstractModel originModel = OriginModel;
+            AbstractModel originModel = OriginModel ?? InternallyAppliedPower;
             if (!(originModel is CardModel cardModel))
             {
                 if (!(originModel is PotionModel potionModel))
@@ -98,7 +101,7 @@ public abstract class ManosabaTemporaryStrengthPower : PathCustomPowerModel, ITe
         {
             List<IHoverTip> list = new List<IHoverTip>();
             List<IHoverTip> list2 = list;
-            AbstractModel originModel = OriginModel;
+            AbstractModel originModel = OriginModel ?? InternallyAppliedPower;
             IEnumerable<IHoverTip> collection;
             if (!(originModel is CardModel card))
             {
@@ -147,11 +150,11 @@ public abstract class ManosabaTemporaryStrengthPower : PathCustomPowerModel, ITe
         }
         else
         {
-            await PowerCmd.Apply<StrengthPower>(target, (decimal)Sign * amount, applier, cardSource, silent: true);
+            await CommonActions.Apply<StrengthPower>(new ThrowingPlayerChoiceContext(), target, cardSource, (decimal)Sign * amount);
         }
     }
 
-    public override async Task AfterPowerAmountChanged(PowerModel power, decimal amount, Creature? applier, CardModel? cardSource)
+    public override async Task AfterPowerAmountChanged(PlayerChoiceContext choiceContext, PowerModel power, decimal amount, Creature? applier, CardModel? cardSource)
     {
         if (!(amount == (decimal)base.Amount) && power == this)
         {
@@ -161,18 +164,18 @@ public abstract class ManosabaTemporaryStrengthPower : PathCustomPowerModel, ITe
             }
             else
             {
-                await PowerCmd.Apply<StrengthPower>(base.Owner, (decimal)Sign * amount, applier, cardSource, silent: true);
+                await CommonActions.Apply<StrengthPower>(choiceContext, base.Owner, cardSource, (decimal)Sign * amount);
             }
         }
     }
 
-    public override async Task AfterTurnEnd(PlayerChoiceContext choiceContext, CombatSide side)
+    public override async Task AfterSideTurnEnd(PlayerChoiceContext choiceContext, CombatSide side, IEnumerable<Creature> creatures)
     {
         if (side == base.Owner.Side)
         {
             Flash();
             await PowerCmd.Remove(this);
-            await PowerCmd.Apply<StrengthPower>(base.Owner, -Sign * base.Amount, base.Owner, null);
+            await CommonActions.Apply<StrengthPower>(choiceContext, base.Owner, null, -Sign * base.Amount);
         }
     }
 }

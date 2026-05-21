@@ -86,7 +86,7 @@ public sealed class MindExpansionPower : PathCustomPowerModel
             }
 
             selected.AddKeyword(ManosabaKeywords.Shared);
-            await CardPileCmd.AddGeneratedCardToCombat(selected, PileType.Hand, addedByPlayer: true);
+            await CardPileCmd.AddGeneratedCardToCombat(selected, PileType.Hand, Owner.Player);
         }
     }
 }

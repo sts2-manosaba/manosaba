@@ -1,3 +1,4 @@
+using BaseLib.Utils;
 using Manosaba.Extensions;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Creatures;
@@ -57,7 +58,7 @@ namespace Manosaba.Characters.NikaidoHiro.Powers
                 return;
             }
 
-            await PowerCmd.Apply<MusouKenPower>(Owner, damageTaken, Owner, cardSource);
+            await CommonActions.Apply<MusouKenPower>(new ThrowingPlayerChoiceContext(), Owner, cardSource, damageTaken);
         }
 
         public override async Task AfterPlayerTurnStart(PlayerChoiceContext choiceContext, Player player)

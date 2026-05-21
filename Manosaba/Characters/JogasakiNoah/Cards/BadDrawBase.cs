@@ -45,7 +45,7 @@ public abstract class BadDrawBase : PathCustomCardModel
             decimal majokaToApply = 100m - target.GetPowerAmount<MajokaPower>();
             if (majokaToApply > 0m)
             {
-                await PowerCmd.Apply<MajokaPower>(target, majokaToApply, ownerCreature, this);
+                await CommonActions.Apply<MajokaPower>(choiceContext, target, this, majokaToApply);
             }
         }
 

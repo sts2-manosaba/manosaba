@@ -9,6 +9,7 @@ using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.ValueProps;
 
+using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 namespace Manosaba.Characters.HasumiLeia.Powers;
 
 public sealed class GazeGuidingPower : PathCustomPowerModel
@@ -26,9 +27,9 @@ public sealed class GazeGuidingPower : PathCustomPowerModel
         return Task.CompletedTask;
     }
 
-    public override async Task AfterPowerAmountChanged(PowerModel power, decimal amount, Creature? applier, CardModel? cardSource)
+    public override async Task AfterPowerAmountChanged(PlayerChoiceContext choiceContext, PowerModel power, decimal amount, Creature? applier, CardModel? cardSource)
     {
-        await base.AfterPowerAmountChanged(power, amount, applier, cardSource);
+        await base.AfterPowerAmountChanged(choiceContext, power, amount, applier, cardSource);
         if (power is MajokaPower && power.Owner == Owner)
             SyncDamageReductionPercent();
     }
@@ -41,7 +42,7 @@ public sealed class GazeGuidingPower : PathCustomPowerModel
         decimal majoka = Math.Min(100m, Owner.GetPowerAmount<MajokaPower>());
         decimal reduction = majoka / 200m; // 0..0.5
 
-        CombatState? combatState = CombatState;
+        ICombatState? combatState = CombatState;
         bool isMultiplayerGame = combatState != null
             && combatState.GetTeammatesOf(Owner).Any(c => c != Owner && c.IsPlayer);
 

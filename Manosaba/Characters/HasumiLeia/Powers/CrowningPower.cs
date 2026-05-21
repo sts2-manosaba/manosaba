@@ -1,3 +1,4 @@
+using BaseLib.Utils;
 using Manosaba.Characters.Common.Overrides;
 using Manosaba.Characters.Common.Powers;
 using Manosaba.Extensions;
@@ -37,6 +38,6 @@ public sealed class CrowningPower : PathCustomPowerModel
             return;
         }
 
-        await PowerCmd.Apply<TemporaryStrengthDownPower>(target, Amount, Owner, cardSource);
+        await CommonActions.Apply<TemporaryStrengthDownPower>(choiceContext, target, cardSource, Amount);
     }
 }

@@ -91,7 +91,7 @@ public static class Patch_NHealthBar_BurnPreview
         float offsetRight = GetFgWidth(creature, creature.CurrentHp, maxFgWidth) - maxFgWidth;
         hpForeground.OffsetRight = offsetRight;
 
-        if (creature.ShowsInfiniteHp)
+        if (creature.HpDisplay.IsInfinite())
         {
             hpForeground.SelfModulate = _invincibleForegroundColor;
             burnForeground.Visible = false;
@@ -282,7 +282,7 @@ public static class Patch_NHealthBar_BurnPreview
             return false;
         }
 
-        if (creature.ShowsInfiniteHp)
+        if (creature.HpDisplay.IsInfinite())
         {
             infinityTex.Visible = creature.IsAlive;
             doomForeground.Modulate = Colors.Transparent;

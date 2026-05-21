@@ -30,8 +30,8 @@ namespace Manosaba.Characters.TachibanaSherry.Cards
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
             await CreatureCmd.Damage(choiceContext, base.Owner.Creature, DynamicVars.Damage.BaseValue, ValueProp.Unpowered, base.Owner.Creature);
-            await PowerCmd.Apply<ThornsPower>(base.Owner.Creature, DynamicVars["ThornsPower"].BaseValue, base.Owner.Creature, this);
-            await PowerCmd.Apply<VulnerablePower>(base.Owner.Creature, DynamicVars.Vulnerable.BaseValue, base.Owner.Creature, this);
+            await CommonActions.Apply<ThornsPower>(choiceContext, base.Owner.Creature, this, DynamicVars["ThornsPower"].BaseValue);
+            await CommonActions.Apply<VulnerablePower>(choiceContext, base.Owner.Creature, this, DynamicVars.Vulnerable.BaseValue);
         }
 
         protected override void OnUpgrade()

@@ -1,4 +1,4 @@
-﻿using BaseLib.Utils;
+using BaseLib.Utils;
 using manosaba.Characters.HikamiMeruru;
 using manosaba.Characters.SaekiMiria;
 using Manosaba.Extensions;
@@ -36,7 +36,7 @@ namespace Manosaba.Characters.SaekiMiria.Cards
             }
 
             await CreatureCmd.GainBlock(ownerCreature, base.DynamicVars.Block, cardPlay);
-            await PowerCmd.Apply<CoveredPower>(target, 1m, ownerCreature, this);
+            await CommonActions.Apply<CoveredPower>(choiceContext, target, this, 1m);
         }
 
         protected override void OnUpgrade()

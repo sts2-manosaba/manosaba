@@ -34,7 +34,7 @@ namespace Manosaba.Characters.Common.Cards
                 return;
             }
 
-            await PowerCmd.Apply<InhibitionPower>(target, DynamicVars["InhibitionPower"].BaseValue, ownerCreature, this);
+            await CommonActions.Apply<InhibitionPower>(choiceContext, target, this, DynamicVars["InhibitionPower"].BaseValue);
         }
 
         protected override void OnUpgrade()

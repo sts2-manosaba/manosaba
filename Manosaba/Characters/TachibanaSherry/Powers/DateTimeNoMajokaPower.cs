@@ -18,17 +18,17 @@ namespace Manosaba.Characters.TachibanaSherry.Powers
         public override PowerType Type => PowerType.Buff;
         public override PowerStackType StackType => PowerStackType.Single;
 
-        public override async Task AfterPowerAmountChanged(PowerModel power, decimal amountDiff, Creature? applier, CardModel? source)
+        public override async Task AfterPowerAmountChanged(PlayerChoiceContext choiceContext, PowerModel power, decimal amountDiff, Creature? applier, CardModel? source)
         {
             if (_adjustingMajoka || power is not MajokaPower || amountDiff <= 0 || power.Owner != Owner)
                 return;
 
             _adjustingMajoka = true;
-            await PowerCmd.Apply<MajokaPower>(Owner, -amountDiff, Owner, source);
+            await CommonActions.Apply<MajokaPower>(choiceContext, Owner, source, -amountDiff);
             _adjustingMajoka = false;
         }
 
-        public override async Task AfterTurnEnd(PlayerChoiceContext choiceContext, CombatSide side)
+        public override async Task AfterSideTurnEnd(PlayerChoiceContext choiceContext, CombatSide side, IEnumerable<Creature> creatures)
         {
             if (side == CombatSide.Enemy)
                 await PowerCmd.Remove(this);

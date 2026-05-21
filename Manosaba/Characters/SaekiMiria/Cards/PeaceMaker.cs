@@ -37,7 +37,7 @@ namespace Manosaba.Characters.SaekiMiria.Cards
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
-            await PowerCmd.Apply<PeacemakerPower>(base.Owner.Creature, DynamicVars["PeacemakerPower"].BaseValue, base.Owner.Creature, this);
+            await CommonActions.Apply<PeacemakerPower>(choiceContext, base.Owner.Creature, this, DynamicVars["PeacemakerPower"].BaseValue);
         }
 
         protected override void OnUpgrade()

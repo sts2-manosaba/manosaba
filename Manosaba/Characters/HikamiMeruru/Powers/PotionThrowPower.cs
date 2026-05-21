@@ -1,3 +1,4 @@
+using BaseLib.Utils;
 using Godot;
 using Manosaba.Characters.HikamiMeruru.PotionCraft;
 using Manosaba.Extensions;
@@ -152,7 +153,7 @@ public sealed class PotionThrowPower : PathCustomPowerModel
     {
         decimal vigor = Owner.GetPowerAmount<VigorPower>();
         return vigor > 0m
-            ? PowerCmd.Apply<VigorPower>(Owner, -vigor, Owner, null)
+            ? CommonActions.Apply<VigorPower>(new ThrowingPlayerChoiceContext(), Owner, null, -vigor)
             : Task.CompletedTask;
     }
 }

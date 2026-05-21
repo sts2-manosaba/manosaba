@@ -43,7 +43,7 @@ public sealed class PetEnemyAiPower : PathCustomPowerModel
         return Owner;
     }
 
-    public override async Task AfterTurnEnd(PlayerChoiceContext choiceContext, CombatSide side)
+    public override async Task AfterSideTurnEnd(PlayerChoiceContext choiceContext, CombatSide side, IEnumerable<Creature> creatures)
     {
         if (side != CombatSide.Player)
         {

@@ -35,7 +35,7 @@ public class FireSword : ShitoAlisaCardModel
         Creature target = cardPlay.Target;
         if (target.IsAlive && target.CanReceivePowers)
         {
-            await PowerCmd.Apply<BurnPower>(target, DynamicVars["BurnPower"].BaseValue, Owner.Creature, this);
+            await CommonActions.Apply<BurnPower>(choiceContext, target, this, DynamicVars["BurnPower"].BaseValue);
         }
     }
 

@@ -28,7 +28,7 @@ public sealed class LifeSentence : PathCustomCardModel
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        await PowerCmd.Apply<LifeSentencePower>(Owner.Creature, DynamicVars["LifeSentencePower"].BaseValue, Owner.Creature, this);
+        await CommonActions.Apply<LifeSentencePower>(choiceContext, Owner.Creature, this, DynamicVars["LifeSentencePower"].BaseValue);
     }
 
     protected override void OnUpgrade()

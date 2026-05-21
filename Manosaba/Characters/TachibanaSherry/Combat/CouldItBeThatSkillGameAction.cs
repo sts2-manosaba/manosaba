@@ -151,7 +151,8 @@ public static class CouldItBeThatSkillActivation
             return false;
         }
 
-        if (!CombatManager.Instance.IsPlayPhase || CombatManager.Instance.PlayerActionsDisabled)
+        if (RunManager.Instance.ActionQueueSynchronizer.CombatState != ActionSynchronizerCombatState.PlayPhase
+            || CombatManager.Instance.PlayerActionsDisabled)
         {
             return false;
         }

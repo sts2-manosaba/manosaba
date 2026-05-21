@@ -1,3 +1,4 @@
+using System.Runtime.CompilerServices;
 using HarmonyLib;
 using Manosaba.Config;
 using Manosaba.Multiplayer;
@@ -6,7 +7,6 @@ using MegaCrit.Sts2.Core.Multiplayer.Game;
 using MegaCrit.Sts2.Core.Multiplayer.Game.Lobby;
 using MegaCrit.Sts2.Core.Multiplayer.Messages.Lobby;
 using MegaCrit.Sts2.Core.Saves;
-using System.Runtime.CompilerServices;
 
 namespace Manosaba.Patches;
 
@@ -67,18 +67,6 @@ public static class Patch_LoadRunLobby_ManosabaDifficultySync
         hostService.SendMessage(BuildMessageFromLobbySnapshot(), senderId);
     }
 
-    [HarmonyPatch("TryBeginRun")]
-    [HarmonyPrefix]
-    private static void Prefix_TryBeginRun(LoadRunLobby __instance)
-    {
-        if (__instance.NetService.Type == NetGameType.Client)
-        {
-            return;
-        }
-
-        BroadcastCurrentDifficulty(__instance.NetService);
-    }
-
     [HarmonyPatch(nameof(LoadRunLobby.CleanUp))]
     [HarmonyPrefix]
     private static void Prefix_CleanUp(LoadRunLobby __instance)
@@ -110,7 +98,7 @@ public static class Patch_LoadRunLobby_ManosabaDifficultySync
         Handlers.Add(lobby, handler);
     }
 
-    private static void BroadcastCurrentDifficulty(INetGameService netService)
+    internal static void BroadcastCurrentDifficulty(INetGameService netService)
     {
         netService.SendMessage(BuildMessageFromLobbySnapshot());
     }

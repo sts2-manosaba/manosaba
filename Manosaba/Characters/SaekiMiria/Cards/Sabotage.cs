@@ -40,8 +40,8 @@ namespace Manosaba.Characters.SaekiMiria.Cards
                 .FromCard(this)
                 .Targeting(target)
                 .Execute(choiceContext);
-            await PowerCmd.Apply<VulnerablePower>(target, DynamicVars.Vulnerable.BaseValue, base.Owner.Creature, this);
-            await PowerCmd.Apply<WeakPower>(target, DynamicVars.Weak.BaseValue, base.Owner.Creature, this);
+            await CommonActions.Apply<VulnerablePower>(choiceContext, target, this, DynamicVars.Vulnerable.BaseValue);
+            await CommonActions.Apply<WeakPower>(choiceContext, target, this, DynamicVars.Weak.BaseValue);
         }
 
         protected override void OnUpgrade()

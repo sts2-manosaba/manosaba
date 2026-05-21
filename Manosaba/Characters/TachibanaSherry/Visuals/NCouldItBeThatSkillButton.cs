@@ -372,7 +372,7 @@ public static class CouldItBeThatSkillButtonUi
         FindButton(combatUi)?.QueueFree();
     }
 
-    public static void RefreshIfPresent(NCombatUi combatUi, CombatState state)
+    public static void RefreshIfPresent(NCombatUi combatUi, ICombatState state)
     {
         Player? me = TryResolveLocalPlayer(state);
         if (me?.Creature?.GetPower<CouldItBeThatSkillPower>() == null)
@@ -403,7 +403,7 @@ public static class CouldItBeThatSkillButtonUi
         return null;
     }
 
-    private static Player? TryResolveLocalPlayer(CombatState state)
+    private static Player? TryResolveLocalPlayer(ICombatState state)
     {
         try
         {

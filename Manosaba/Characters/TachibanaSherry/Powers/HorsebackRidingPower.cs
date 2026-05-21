@@ -1,3 +1,4 @@
+using BaseLib.Utils;
 using Manosaba.Extensions;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Creatures;
@@ -21,6 +22,6 @@ public sealed class HorsebackRidingPower : PathCustomPowerModel
             return;
         }
 
-        await PowerCmd.Apply<CluePower>(Owner, Amount, Owner, null);
+        await CommonActions.Apply<CluePower>(choiceContext, Owner, null, Amount);
     }
 }

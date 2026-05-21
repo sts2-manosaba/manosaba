@@ -38,7 +38,7 @@ namespace Manosaba.Characters.HasumiLeia.Cards
                 return;
             }
 
-            await PowerCmd.Apply<IncomeDamageMultiplyPower>(target, 1m, ownerCreature, this);
+            await CommonActions.Apply<IncomeDamageMultiplyPower>(choiceContext, target, this, 1m, silent: true);
         }
 
         protected override void OnUpgrade()

@@ -27,7 +27,7 @@ public sealed class AchubaPower : PathCustomPowerModel
 
     public override PowerType Type => PowerType.Debuff;
     public override PowerStackType StackType => PowerStackType.Single;
-    public override bool IsInstanced => true;
+    public override PowerInstanceType InstanceType => PowerInstanceType.Instanced;
 
     protected override IEnumerable<DynamicVar> CanonicalVars => [new StringVar(ApplierVar)];
 

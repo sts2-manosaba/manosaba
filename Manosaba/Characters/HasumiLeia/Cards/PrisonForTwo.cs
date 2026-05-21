@@ -48,11 +48,11 @@ public sealed class PrisonForTwo : PathCustomCardModel
         }
 
         decimal prisonAmount = DynamicVars["PrisonPower"].BaseValue;
-        await PowerCmd.Apply<PrisonPower>(ownerCreature, prisonAmount, ownerCreature, this);
-        await PowerCmd.Apply<PrisonPower>(teammate, prisonAmount, ownerCreature, this);
+        await CommonActions.Apply<PrisonPower>(choiceContext, ownerCreature, this, prisonAmount);
+        await CommonActions.Apply<PrisonPower>(choiceContext, teammate, this, prisonAmount);
 
-        await PowerCmd.Apply<PrisonForTwoPower>(ownerCreature, 1m, teammate, this);
-        await PowerCmd.Apply<PrisonForTwoPower>(teammate, 1m, ownerCreature, this);
+        await CommonActions.Apply<PrisonForTwoPower>(choiceContext, ownerCreature, this, 1m, silent: true);
+        await CommonActions.Apply<PrisonForTwoPower>(choiceContext, teammate, this, 1m, silent: true);
     }
 
     protected override void OnUpgrade()

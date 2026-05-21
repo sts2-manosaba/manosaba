@@ -1,4 +1,4 @@
-﻿using Manosaba.Characters.Common.Commands;
+using Manosaba.Characters.Common.Commands;
 using Manosaba.Extensions;
 using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Commands;
@@ -6,6 +6,7 @@ using MegaCrit.Sts2.Core.Entities.Powers;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Models;
 
+using MegaCrit.Sts2.Core.Entities.Creatures;
 namespace Manosaba.Characters.JogasakiNoah.Powers
 {
     public class SpaceOutPower : PathCustomPowerModel
@@ -15,7 +16,7 @@ namespace Manosaba.Characters.JogasakiNoah.Powers
         public override PowerStackType StackType => PowerStackType.Single;
 
 
-        public override async Task AfterSideTurnStart(CombatSide side, CombatState combatState)
+        public override async Task AfterSideTurnStart(CombatSide side, IReadOnlyList<Creature> creatures, ICombatState combatState)
         {
             if (side != CombatSide.Player || Owner?.Player == null || Owner.CombatState == null)
             {
@@ -27,7 +28,7 @@ namespace Manosaba.Characters.JogasakiNoah.Powers
             await OrbCmd.Channel(choiceContext, randomOrb.ToMutable(), Owner.Player);
         }
 
-        public override async Task AfterTurnEnd(PlayerChoiceContext choiceContext, CombatSide side)
+        public override async Task AfterSideTurnEnd(PlayerChoiceContext choiceContext, CombatSide side, IEnumerable<Creature> creatures)
         {
             if (side == CombatSide.Player && Owner?.Player is { } ownerPlayer && ownerPlayer.Creature?.CombatState is { } combatState && ownerPlayer.PlayerCombatState != null)
             {

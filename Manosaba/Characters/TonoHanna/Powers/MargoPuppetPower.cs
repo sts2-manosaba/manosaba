@@ -1,3 +1,4 @@
+using BaseLib.Utils;
 using System.Linq;
 using Manosaba.Characters.Common.Overrides;
 using Manosaba.Characters.Common.Powers;
@@ -11,6 +12,7 @@ using MegaCrit.Sts2.Core.Extensions;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Models;
 
+using MegaCrit.Sts2.Core.Entities.Creatures;
 namespace Manosaba.Characters.TonoHanna.Powers
 {
     public class MargoPuppetPower : PathCustomPowerModel
@@ -18,7 +20,7 @@ namespace Manosaba.Characters.TonoHanna.Powers
         public override PowerType Type => PowerType.Buff;
         public override PowerStackType StackType => PowerStackType.Counter;
 
-        public override async Task BeforeSideTurnStart(PlayerChoiceContext choiceContext, CombatSide side, CombatState combatState)
+        public override async Task BeforeSideTurnStart(PlayerChoiceContext choiceContext, CombatSide side, IReadOnlyList<Creature> creatures, ICombatState combatState)
         {
             if (side != Owner.Side || Owner.Player == null)
                 return;
@@ -39,7 +41,7 @@ namespace Manosaba.Characters.TonoHanna.Powers
 
                 if (card is MeruruPuppet)
                 {
-                    await PowerCmd.Apply<MajokaPower>(Owner, 10m, Owner, null);
+                    await CommonActions.Apply<MajokaPower>(choiceContext, Owner, null, 10m);
                 }
             }
         }

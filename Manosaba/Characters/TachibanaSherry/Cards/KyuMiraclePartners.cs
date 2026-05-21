@@ -12,6 +12,8 @@ using MegaCrit.Sts2.Core.Models.Powers;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.ValueProps;
 
+using Manosaba.Utils;
+
 namespace Manosaba.Characters.TachibanaSherry.Cards;
 
 [Pool(typeof(TachibanaSherryCardPool))]
@@ -46,7 +48,7 @@ public sealed class KyuMiraclePartners : PathCustomCardModel
 
         await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
             .FromCard(this)
-            .TargetingAllOpponents(CombatState)
+            .TargetingAllOpponentsCompat(CombatState)
             .Execute(choiceContext);
     }
 

@@ -55,11 +55,11 @@ public sealed class DuoCombination : PathCustomCardModel
         await CreatureCmd.GainBlock(ownerCreature, DynamicVars.Block, cardPlay);
         await CreatureCmd.GainBlock(teammate, DynamicVars.Block, cardPlay);
 
-        await PowerCmd.Apply<DuoCombinationPower>(teammate, 1m, ownerCreature, this);
+        await CommonActions.Apply<DuoCombinationPower>(choiceContext, teammate, this, 1m, silent: true);
 
         if (cardPlay.Target.Player?.Character is NikaidoHiroCharacter)
         {
-            await PowerCmd.Apply<Manosaba.Characters.Common.Powers.TemporaryStrengthPower>(teammate, DynamicVars[temporaryStrengthVar].BaseValue, ownerCreature, this);
+            await CommonActions.Apply<Manosaba.Characters.Common.Powers.TemporaryStrengthPower>(choiceContext, teammate, this, DynamicVars[temporaryStrengthVar].BaseValue);
         }
     }
 

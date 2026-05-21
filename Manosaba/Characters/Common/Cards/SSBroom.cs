@@ -1,4 +1,4 @@
-﻿using BaseLib.Utils;
+using BaseLib.Utils;
 using manosaba.Characters.Common;
 using Manosaba.Extensions;
 using MegaCrit.Sts2.Core.Combat;
@@ -29,7 +29,7 @@ namespace Manosaba.Characters.Common.Cards
         {
         }
 
-        public static IEnumerable<SSBroom> Create(Player owner, int amount, CombatState combatState)
+        public static IEnumerable<SSBroom> Create(Player owner, int amount, ICombatState combatState)
         {
             List<SSBroom> list = new List<SSBroom>();
             for (int i = 0; i < amount; i++)

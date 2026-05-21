@@ -1,42 +1,52 @@
-﻿using MegaCrit.Sts2.Core.Combat;
+﻿using BaseLib.Utils;
+using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Models.Powers;
 
-namespace Manosaba.Characters.Common.Commands
+namespace Manosaba.Characters.Common.Commands;
+
+public static class ManosabaCombatCmd
 {
-    public static class ManosabaCombatCmd
+    public static async Task ForceWinWithoutDeathOrEscape(ICombatState? combatState)
     {
-        public static async Task ForceWinWithoutDeathOrEscape(CombatState combatState)
+        if (combatState == null)
         {
-            CombatManager? combatManager = CombatManager.Instance;
-            if (combatManager == null || !combatManager.IsInProgress)
-            {
-                return;
-            }
-
-            await ReleaseStolenCards(combatState);
-
-            IReadOnlyList<Creature> enemies = combatState.Enemies.ToList();
-            foreach (Creature enemy in enemies)
-            {
-                enemy.RemoveAllPowersInternalExcept();
-                await CreatureCmd.Kill(enemy);
-            }
-            await combatManager.CheckWinCondition();
+            return;
         }
 
-        private static async Task ReleaseStolenCards(CombatState combatState)
+        await ForceWinWithoutDeathOrEscape(new CombatStateWrapper(combatState));
+    }
+
+    public static async Task ForceWinWithoutDeathOrEscape(CombatStateWrapper combatState)
+    {
+        CombatManager? combatManager = CombatManager.Instance;
+        if (combatManager == null || !combatManager.IsInProgress)
         {
-            foreach (Creature creature in combatState.Creatures.ToList())
+            return;
+        }
+
+        await ReleaseStolenCards(combatState);
+
+        IReadOnlyList<Creature> enemies = combatState.Enemies.ToList();
+        foreach (Creature enemy in enemies)
+        {
+            enemy.RemoveAllPowersInternalExcept();
+            await CreatureCmd.Kill(enemy);
+        }
+        await combatManager.CheckWinCondition();
+    }
+
+    private static async Task ReleaseStolenCards(CombatStateWrapper combatState)
+    {
+        foreach (Creature creature in combatState.Creatures.ToList())
+        {
+            foreach (SwipePower swipePower in creature.GetPowerInstances<SwipePower>().ToList())
             {
-                foreach (SwipePower swipePower in creature.GetPowerInstances<SwipePower>().ToList())
+                await swipePower.BeforeDeath(creature);
+                if (creature.Powers.Contains(swipePower))
                 {
-                    await swipePower.BeforeDeath(creature);
-                    if (creature.Powers.Contains(swipePower))
-                    {
-                        swipePower.RemoveInternal();
-                    }
+                    swipePower.RemoveInternal();
                 }
             }
         }

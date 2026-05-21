@@ -3,6 +3,7 @@ using Manosaba.Characters.JogasakiNoa.Orbs;
 using Manosaba.Extensions;
 using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Commands;
+using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Entities.Orbs;
 using MegaCrit.Sts2.Core.Entities.Powers;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
@@ -22,9 +23,10 @@ public class PaintRefillPower : PathCustomPowerModel
     public override string CustomBigIconPath => "power.png".PowerImagePath();
     public override string CustomBigBetaIconPath => "power.png".PowerImagePath();
 
-    public override async Task AfterTurnEnd(PlayerChoiceContext choiceContext, CombatSide side)
+    public override async Task AfterSideTurnEnd(PlayerChoiceContext choiceContext, CombatSide side, IEnumerable<Creature> creatures)
     {
-        if (Amount < 1m || side != CombatSide.Player || Owner?.Player is not { } player || player.PlayerCombatState?.OrbQueue is not { } orbQueue)
+        _ = creatures;
+        if (Amount < 1m || side != Owner.Side || Owner?.Player is not { } player || player.PlayerCombatState?.OrbQueue is not { } orbQueue)
         {
             return;
         }

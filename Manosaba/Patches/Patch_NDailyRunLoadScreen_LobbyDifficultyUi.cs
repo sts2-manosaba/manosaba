@@ -23,13 +23,6 @@ public static class Patch_NDailyRunLoadScreen_LobbyDifficultyUi
             LobbyDifficultyUiEnterKind.LoadRunLobbyOpen);
     }
 
-    [HarmonyPatch(typeof(NDailyRunLoadScreen), "CleanUpLobby", new[] { typeof(bool) })]
-    [HarmonyPrefix]
-    private static void Prefix_CleanUpLobby(NDailyRunLoadScreen __instance)
-    {
-        ManosabaLobbyDifficultyUiHost.OnCleanup(__instance, () => LobbyDifficultyUiNetContext.From(LobbyRef(__instance)));
-    }
-
     [HarmonyPatch(typeof(NDailyRunLoadScreen), nameof(NDailyRunLoadScreen._Process))]
     [HarmonyPostfix]
     private static void Postfix_Process(NDailyRunLoadScreen __instance, double delta)

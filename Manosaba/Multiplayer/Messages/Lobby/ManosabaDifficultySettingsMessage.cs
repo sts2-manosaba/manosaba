@@ -16,6 +16,7 @@ public struct ManosabaDifficultySettingsMessage : INetMessage, IPacketSerializab
 
     public double enemyAttackDamageMultiplierPercent;
 
+    public bool ShouldBuffer => true;
     public bool ShouldBroadcast => true;
 
     public NetTransferMode Mode => NetTransferMode.Reliable;

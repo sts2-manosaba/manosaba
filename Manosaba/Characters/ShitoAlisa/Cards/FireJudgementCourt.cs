@@ -47,7 +47,7 @@ public sealed class FireJudgementCourt : ShitoAlisaCardModel
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        CombatState? state = CombatState;
+        ICombatState? state = CombatState;
         if (state == null)
             return;
 
@@ -57,7 +57,7 @@ public sealed class FireJudgementCourt : ShitoAlisaCardModel
         {
             if (!enemy.IsAlive || !enemy.IsHittable || !enemy.CanReceivePowers)
                 continue;
-            await PowerCmd.Apply<BurnPower>(enemy, burnAmount, Owner.Creature, this);
+            await CommonActions.Apply<BurnPower>(choiceContext, enemy, this, burnAmount);
         }
 
         foreach (Creature enemy in opponents)
@@ -81,7 +81,7 @@ public sealed class FireJudgementCourt : ShitoAlisaCardModel
                         break;
                     }
 
-                    await burn.AfterSideTurnStart(enemy.Side, state);
+                    await burn.AfterSideTurnStart(enemy.Side, state.GetCreaturesOnSide(enemy.Side), state);
                 }
             }
         }

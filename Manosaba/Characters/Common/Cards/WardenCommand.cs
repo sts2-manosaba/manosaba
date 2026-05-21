@@ -26,14 +26,13 @@ public sealed class WardenCommand : PathCustomCardModel
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        _ = choiceContext;
         _ = cardPlay;
         if (Owner?.Creature is not { } ownerCreature)
         {
             return;
         }
 
-        await PowerCmd.Apply<WardenCommandPower>(ownerCreature, 1m, ownerCreature, this);
+        await PowerCmd.Apply<WardenCommandPower>(choiceContext, ownerCreature, 1m, ownerCreature, this);
     }
 
     protected override void OnUpgrade()

@@ -34,7 +34,7 @@ public class RelicSearch : PathCustomCardModel
         _ = choiceContext;
         _ = cardPlay;
 
-        await PowerCmd.Apply<RelicSearchPower>(Owner.Creature, DynamicVars["ExtraRolls"].BaseValue, Owner.Creature, this);
+        await CommonActions.Apply<RelicSearchPower>(choiceContext, Owner.Creature, this, DynamicVars["ExtraRolls"].BaseValue);
     }
 
     protected override void OnUpgrade()

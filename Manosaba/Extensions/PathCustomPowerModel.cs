@@ -2,13 +2,14 @@
 using BaseLib.Extensions;
 using manosaba.Extensions;
 using MegaCrit.Sts2.Core.Entities.Creatures;
+using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Models;
 
 namespace Manosaba.Extensions
 {
     public abstract class PathCustomPowerModel : CustomPowerModel
     {
-        public override async Task AfterPowerAmountChanged(PowerModel power, decimal amount, Creature? applier, CardModel? cardSource)
+        public override async Task AfterPowerAmountChanged(PlayerChoiceContext choiceContext, PowerModel power, decimal amount, Creature? applier, CardModel? cardSource)
         {
             if (power.Amount < 0 && !power.AllowNegative)
             {

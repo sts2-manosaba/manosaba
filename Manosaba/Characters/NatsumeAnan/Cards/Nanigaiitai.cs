@@ -7,6 +7,8 @@ using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models.Powers;
 using MegaCrit.Sts2.Core.ValueProps;
 
+using Manosaba.Utils;
+
 namespace manosaba.Characters.NatsumeAnan.Cards;
 
 [Pool(typeof(NatsumeAnanCardPool))]
@@ -34,7 +36,7 @@ public sealed class Nanigaiitai : NatsumeKotodamaCardModel
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         _ = cardPlay;
-        MegaCrit.Sts2.Core.Combat.CombatState? combatState = CombatState;
+        MegaCrit.Sts2.Core.Combat.ICombatState? combatState = CombatState;
         if (combatState == null)
         {
             return;
@@ -42,13 +44,13 @@ public sealed class Nanigaiitai : NatsumeKotodamaCardModel
 
         await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
             .FromCard(this)
-            .TargetingAllOpponents(combatState)
+            .TargetingAllOpponentsCompat(combatState)
             .Execute(choiceContext);
 
         foreach (var enemy in combatState.HittableEnemies)
         {
-            await PowerCmd.Apply<WeakPower>(enemy, DynamicVars.Weak.BaseValue, Owner.Creature, this);
-            await PowerCmd.Apply<VulnerablePower>(enemy, DynamicVars.Vulnerable.BaseValue, Owner.Creature, this);
+            await CommonActions.Apply<WeakPower>(choiceContext, enemy, this, DynamicVars.Weak.BaseValue);
+            await CommonActions.Apply<VulnerablePower>(choiceContext, enemy, this, DynamicVars.Vulnerable.BaseValue);
         }
     }
 

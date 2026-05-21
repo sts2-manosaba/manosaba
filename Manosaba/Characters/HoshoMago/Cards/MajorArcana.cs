@@ -17,6 +17,7 @@ using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.Entities.Powers;
 using MegaCrit.Sts2.Core.GameActions;
+using MegaCrit.Sts2.Core.Entities.Multiplayer;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization;
@@ -28,6 +29,8 @@ using MegaCrit.Sts2.Core.Nodes.Rooms;
 using MegaCrit.Sts2.Core.Rooms;
 using MegaCrit.Sts2.Core.Runs;
 using MegaCrit.Sts2.Core.ValueProps;
+
+using Manosaba.Utils;
 
 namespace Manosaba.Characters.HoshoMago.Cards;
 
@@ -147,15 +150,15 @@ public sealed class TheFool : HoshoMagoArcanaBase
         bool hasTheWorldInDeck = Owner.Deck?.Cards?.Any(card => card is TheWorld) == true;
         if (hasTheWorldInDeck)
         {
-            await PowerCmd.Apply<EnergyNextTurnPower>(ownerCreature, DynamicVars["WorldEnergy"].BaseValue, ownerCreature, this);
-            await PowerCmd.Apply<DrawCardsNextTurnPower>(ownerCreature, DynamicVars["WorldCards"].BaseValue, ownerCreature, this);
+            await CommonActions.Apply<EnergyNextTurnPower>(choiceContext, ownerCreature, this, DynamicVars["WorldEnergy"].BaseValue);
+            await CommonActions.Apply<DrawCardsNextTurnPower>(choiceContext, ownerCreature, this, DynamicVars["WorldCards"].BaseValue);
         }
         else
         {
-            await PowerCmd.Apply<EnergyNextTurnPower>(ownerCreature, DynamicVars.Energy.IntValue, ownerCreature, this);
+            await CommonActions.Apply<EnergyNextTurnPower>(choiceContext, ownerCreature, this, DynamicVars.Energy.IntValue);
         }
 
-        await PowerCmd.Apply<TheFoolPower>(ownerCreature, 1, ownerCreature, this);
+        await CommonActions.Apply<TheFoolPower>(choiceContext, ownerCreature, this, 1);
     }
 
     protected override void OnUpgrade()
@@ -192,7 +195,7 @@ public sealed class TheMagician : HoshoMagoArcanaBase
             return;
         }
 
-        await PowerCmd.Apply<MajokaPower>(ownerCreature, majokaToGain, ownerCreature, this);
+        await CommonActions.Apply<MajokaPower>(choiceContext, ownerCreature, this, majokaToGain);
     }
     protected override void OnUpgrade()
     {
@@ -264,7 +267,7 @@ public sealed class TheEmpress : HoshoMagoArcanaBase
             .Targeting(target)
             .FromCard(this)
             .Execute(choiceContext);
-        IEnumerable<DamageResult> results = attackCommand.Results;
+        IEnumerable<DamageResult> results = attackCommand.Results.SelectMany(hit => hit);
         int totalUnblockedDamage = results.Where(result => result.Receiver.IsEnemy).Sum(result => result.UnblockedDamage);
         if (totalUnblockedDamage > 0)
         {
@@ -351,8 +354,8 @@ public sealed class TheHierophant : HoshoMagoArcanaBase
 
         foreach (Creature enemy in enemies)
         {
-            await PowerCmd.Apply<WeakPower>(enemy, DynamicVars.Weak.BaseValue, ownerCreature, this);
-            await PowerCmd.Apply<VulnerablePower>(enemy, DynamicVars.Vulnerable.BaseValue, ownerCreature, this);
+            await CommonActions.Apply<WeakPower>(choiceContext, enemy, this, DynamicVars.Weak.BaseValue);
+            await CommonActions.Apply<VulnerablePower>(choiceContext, enemy, this, DynamicVars.Vulnerable.BaseValue);
         }
     }
 
@@ -386,7 +389,7 @@ public sealed class TheLovers : HoshoMagoArcanaBase
             loversToApply += DynamicVars["DevilBonus"].BaseValue;
         }
 
-        await PowerCmd.Apply<TheLoversPower>(target, loversToApply, ownerCreature, this);
+        await CommonActions.Apply<TheLoversPower>(choiceContext, target, this, loversToApply);
     }
 
     protected override void OnUpgrade()
@@ -420,7 +423,7 @@ public sealed class TheChariot : HoshoMagoArcanaBase
         await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
             .WithHitCount(hitCount)
             .FromCard(this)
-            .TargetingAllOpponents(CombatState)
+            .TargetingAllOpponentsCompat(CombatState)
             .Execute(choiceContext);
     }
 
@@ -447,7 +450,7 @@ public sealed class Strength : HoshoMagoArcanaBase
             return;
         }
 
-        await PowerCmd.Apply<StrengthPower>(ownerCreature, DynamicVars["StrengthPower"].BaseValue, ownerCreature, this);
+        await CommonActions.Apply<StrengthPower>(choiceContext, ownerCreature, this, DynamicVars["StrengthPower"].BaseValue);
     }
 
     protected override void OnUpgrade()
@@ -473,7 +476,7 @@ public sealed class TheHermit : HoshoMagoArcanaBase
             return;
         }
 
-        await PowerCmd.Apply<IntangiblePower>(ownerCreature, DynamicVars["IntangiblePower"].BaseValue, ownerCreature, this);
+        await CommonActions.Apply<IntangiblePower>(choiceContext, ownerCreature, this, DynamicVars["IntangiblePower"].BaseValue);
 
         IEnumerable<CardModel>? deckCards = Owner.Deck?.Cards;
         bool hasMoonAndPriestess = deckCards != null
@@ -498,7 +501,7 @@ public sealed class TheHermit : HoshoMagoArcanaBase
             return;
         }
 
-        await PowerCmd.Apply<IntangiblePower>(teammate, DynamicVars["IntangiblePower"].BaseValue, ownerCreature, this);
+        await CommonActions.Apply<IntangiblePower>(choiceContext, teammate, this, DynamicVars["IntangiblePower"].BaseValue);
     }
 
     protected override void OnUpgrade()
@@ -577,7 +580,7 @@ public sealed class Justice : HoshoMagoArcanaBase
             return;
         }
 
-        await PowerCmd.Apply<InhibitionPower>(ownerCreature, exhaustedCount * perCardInhibition, ownerCreature, this);
+        await CommonActions.Apply<InhibitionPower>(choiceContext, ownerCreature, this, exhaustedCount * perCardInhibition);
         if (Owner.Deck?.Cards?.Any(card => card is Temperance) == true)
         {
             await CreatureCmd.GainBlock(ownerCreature, exhaustedCount * DynamicVars["TemperanceBlock"].BaseValue, ValueProp.Move, cardPlay);
@@ -614,7 +617,7 @@ public sealed class TheHangedMan : HoshoMagoArcanaBase
             return;
         }
 
-        await PowerCmd.Apply<StrengthPower>(target, -DynamicVars["StrengthPower"].BaseValue, ownerCreature, this);
+        await CommonActions.Apply<StrengthPower>(choiceContext, target, this, -DynamicVars["StrengthPower"].BaseValue);
 
         NCreature? node = NCombatRoom.Instance?.GetCreatureNode(target);
         if (node == null)
@@ -671,12 +674,18 @@ public sealed class Death : HoshoMagoArcanaBase
 
         if (enemies.Count > 0)
         {
-            await PowerCmd.Apply<DoomPower>(enemies, enemyBaseDoom, ownerCreature, this);
+            foreach (Creature enemy in enemies)
+            {
+                await CommonActions.Apply<DoomPower>(choiceContext, enemy, this, enemyBaseDoom);
+            }
         }
 
         if (allies.Count > 0)
         {
-            await PowerCmd.Apply<DoomPower>(allies, allyBaseDoom, ownerCreature, this);
+            foreach (Creature ally in allies)
+            {
+                await CommonActions.Apply<DoomPower>(choiceContext, ally, this, allyBaseDoom);
+            }
         }
 
         if (!hasTheMagicianInDeck || enemies.Count <= 0)
@@ -692,7 +701,7 @@ public sealed class Death : HoshoMagoArcanaBase
                 continue;
             }
 
-            await PowerCmd.Apply<DoomPower>(enemy, currentDoom * 0.5m, ownerCreature, this);
+            await CommonActions.Apply<DoomPower>(choiceContext, enemy, this, currentDoom * 0.5m);
         }
     }
 
@@ -719,7 +728,7 @@ public sealed class Temperance : HoshoMagoArcanaBase
             return;
         }
 
-        await PowerCmd.Apply<TemperancePower>(ownerCreature, DynamicVars["TemperancePower"].BaseValue, ownerCreature, this);
+        await CommonActions.Apply<TemperancePower>(choiceContext, ownerCreature, this, DynamicVars["TemperancePower"].BaseValue);
         if (Owner.Deck?.Cards?.Any(card => card is Justice) == true)
         {
             await CreatureCmd.GainBlock(ownerCreature, DynamicVars["JusticeBlock"].BaseValue, ValueProp.Move, cardPlay);
@@ -801,7 +810,7 @@ public sealed class TheTower : HoshoMagoArcanaBase
         {
             await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
                 .FromCard(this)
-                .TargetingAllOpponents(combatState)
+                .TargetingAllOpponentsCompat(combatState)
                 .Execute(choiceContext);
         }
 
@@ -814,10 +823,10 @@ public sealed class TheTower : HoshoMagoArcanaBase
             }
 
             await PowerCmd.Remove<ArtifactPower>(enemy);
-            await PowerCmd.Apply<TheTowerPower>(enemy, DynamicVars["TheTowerPower"].BaseValue, ownerCreature, this);
+            await CommonActions.Apply<TheTowerPower>(choiceContext, enemy, this, DynamicVars["TheTowerPower"].BaseValue);
             if (hasDeathInDeck)
             {
-                await PowerCmd.Apply<DoomPower>(enemy, DynamicVars["DeathDoom"].BaseValue, ownerCreature, this);
+                await CommonActions.Apply<DoomPower>(choiceContext, enemy, this, DynamicVars["DeathDoom"].BaseValue);
             }
         }
     }
@@ -859,10 +868,10 @@ public sealed class TheStar : HoshoMagoArcanaBase
 
         if (target != ownerCreature && target.IsPlayer && target.IsAlive)
         {
-            await PowerCmd.Apply<CoveredPower>(target, 1m, ownerCreature, this);
+            await CommonActions.Apply<CoveredPower>(choiceContext, target, this, 1m);
         }
 
-        await PowerCmd.Apply<TheStarPower>(ownerCreature, TheStarPower.EncodeReflectMultiplier(DynamicVars["ReflectMultiplier"].BaseValue), ownerCreature, this);
+        await CommonActions.Apply<TheStarPower>(choiceContext, ownerCreature, this, TheStarPower.EncodeReflectMultiplier(DynamicVars["ReflectMultiplier"].BaseValue));
     }
 
     protected override void OnUpgrade()
@@ -953,7 +962,7 @@ public sealed class TheSun : HoshoMagoArcanaBase
 
         if (!hasSunMoonStar)
         {
-            await PowerCmd.Apply<TheSunPower>(ownerCreature, DynamicVars["TheSunPower"].BaseValue, ownerCreature, this);
+            await CommonActions.Apply<TheSunPower>(choiceContext, ownerCreature, this, DynamicVars["TheSunPower"].BaseValue);
             return;
         }
 
@@ -968,7 +977,7 @@ public sealed class TheSun : HoshoMagoArcanaBase
 
         foreach (Creature ally in allies)
         {
-            await PowerCmd.Apply<TheSunPower>(ally, DynamicVars["TheSunPower"].BaseValue, ownerCreature, this);
+            await CommonActions.Apply<TheSunPower>(choiceContext, ally, this, DynamicVars["TheSunPower"].BaseValue);
         }
     }
 
@@ -1178,7 +1187,8 @@ public sealed class TheWorld : HoshoMagoArcanaBase
 
     private bool IsWorldPlayableForBloom()
     {
-        if (!CombatManager.Instance.IsPlayPhase || CombatManager.Instance.IsOverOrEnding || Owner == null)
+        if (RunManager.Instance.ActionQueueSynchronizer.CombatState != ActionSynchronizerCombatState.PlayPhase
+            || CombatManager.Instance.IsOverOrEnding || Owner == null)
         {
             return false;
         }

@@ -13,6 +13,8 @@ using MegaCrit.Sts2.Core.Nodes.Rooms;
 using MegaCrit.Sts2.Core.Nodes.Vfx.Cards;
 using MegaCrit.Sts2.Core.ValueProps;
 
+using Manosaba.Utils;
+
 namespace Manosaba.Characters.NikaidoHiro.Cards
 {
     [Pool(typeof(NikaidoHiroCardPool))]
@@ -45,7 +47,7 @@ namespace Manosaba.Characters.NikaidoHiro.Cards
             await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
                 .WithHitCount(DynamicVars.Repeat.IntValue)
                 .FromCard(this)
-                .TargetingAllOpponents(combatState)
+                .TargetingAllOpponentsCompat(combatState)
                 .Execute(choiceContext);
 
             await CreatureCmd.GainBlock(Owner.Creature, DynamicVars.Block, cardPlay);

@@ -7,6 +7,7 @@ using MegaCrit.Sts2.Core.Localization;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.ValueProps;
 
+using MegaCrit.Sts2.Core.Entities.Creatures;
 namespace manosaba.Characters.NatsumeAnan.Powers;
 
 public sealed class JigaiPower : ManosabaTemporaryStrengthPower
@@ -18,7 +19,7 @@ public sealed class JigaiPower : ManosabaTemporaryStrengthPower
     protected override string SmartDescriptionLocKey => "MANOSABA-JIGAI_POWER.smartDescription";
     protected override bool IsPositive => false;
 
-    public override async Task AfterSideTurnStart(CombatSide side, CombatState combatState)
+    public override async Task AfterSideTurnStart(CombatSide side, IReadOnlyList<Creature> creatures, ICombatState combatState)
     {
         _ = combatState;
 

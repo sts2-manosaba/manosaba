@@ -1,4 +1,4 @@
-﻿using BaseLib.Utils;
+using BaseLib.Utils;
 using manosaba.Characters.HikamiMeruru;
 using Manosaba.Extensions;
 using MegaCrit.Sts2.Core.Commands;
@@ -27,7 +27,7 @@ namespace Manosaba.Characters.HikamiMeruru.Potions
         protected override async Task OnUse(PlayerChoiceContext choiceContext, Creature? target)
         {
             PotionModel.AssertValidForTargetedPotion(target);
-            await PowerCmd.Apply<StrengthPower>(target, base.DynamicVars.Strength.BaseValue, base.Owner.Creature, null);
+            await CommonActions.Apply<StrengthPower>(choiceContext, target, null, base.DynamicVars.Strength.BaseValue);
         }
     }
 }

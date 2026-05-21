@@ -44,7 +44,7 @@ public sealed class ToughItOut : PathCustomCardModel
         {
             CardModel wound = CombatState.CreateCard(ModelDb.Card<Wound>(), Owner);
             CardCmd.PreviewCardPileAdd(
-                await CardPileCmd.AddGeneratedCardToCombat(wound, PileType.Discard, addedByPlayer: true));
+                await CardPileCmd.AddGeneratedCardToCombat(wound, PileType.Discard, Owner));
         }
     }
 

@@ -1,4 +1,4 @@
-﻿using BaseLib.Utils;
+using BaseLib.Utils;
 using manosaba.Characters.NikaidoHiro;
 using Manosaba.Characters.Common.Monsters;
 using Manosaba.Characters.Common.Overrides;
@@ -44,7 +44,7 @@ namespace Manosaba.Characters.Common.Cards
                 return;
             }
 
-            await PowerCmd.Apply<EmaDogAttackPower>(dog, DynamicVars["EmaDogAttackPower"].BaseValue, ownerCreature, this);
+            await CommonActions.Apply<EmaDogAttackPower>(choiceContext, dog, this, DynamicVars["EmaDogAttackPower"].BaseValue);
         }
 
         protected override void OnUpgrade()

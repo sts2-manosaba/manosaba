@@ -43,8 +43,8 @@ public sealed class WalkingMisfortune : PathCustomCardModel
         _ = choiceContext;
         _ = cardPlay;
 
-        await PowerCmd.Apply<UnluckyPower>(Owner.Creature, DynamicVars["UnluckyPower"].BaseValue, Owner.Creature, this);
-        await PowerCmd.Apply<WalkingMisfortunePower>(Owner.Creature, DynamicVars["WalkingMisfortunePower"].BaseValue, Owner.Creature, this);
+        await CommonActions.Apply<UnluckyPower>(choiceContext, Owner.Creature, this, DynamicVars["UnluckyPower"].BaseValue);
+        await CommonActions.Apply<WalkingMisfortunePower>(choiceContext, Owner.Creature, this, DynamicVars["WalkingMisfortunePower"].BaseValue);
     }
 
     protected override void OnUpgrade()

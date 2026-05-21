@@ -1,3 +1,4 @@
+using BaseLib.Utils;
 using System.Threading.Tasks;
 using BaseLib.Abstracts;
 using Godot;
@@ -5,6 +6,7 @@ using manosaba.Extensions;
 using Manosaba.Characters.Common.Encounters;
 using Manosaba.Characters.Common.Powers;
 using MegaCrit.Sts2.Core.Commands;
+using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Entities.Ascension;
 using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Helpers;
@@ -70,14 +72,14 @@ public sealed class BasementGuardian : MonsterModel, ICustomModel
         decimal majokaToApply = OpeningMajoka - Creature.GetPowerAmount<MajokaPower>();
         if (majokaToApply > 0m)
         {
-            await PowerCmd.Apply<MajokaPower>(Creature, majokaToApply, Creature, null);
+            await CommonActions.Apply<MajokaPower>(new ThrowingPlayerChoiceContext(), Creature, null, majokaToApply);
         }
     }
 
     private async Task WarChantMove(IReadOnlyList<Creature> targets)
     {
         _ = targets;
-        await PowerCmd.Apply<StrengthPower>(Creature, 2m, Creature, null);
+        await CommonActions.Apply<StrengthPower>(new ThrowingPlayerChoiceContext(), Creature, null, 2m);
     }
 
     private Task FlailMove(IReadOnlyList<Creature> targets)

@@ -1,4 +1,4 @@
-﻿using BaseLib.Utils;
+using BaseLib.Utils;
 using Manosaba.Extensions;
 using MegaCrit.Sts2.Core.Models.CardPools;
 using MegaCrit.Sts2.Core.Combat;
@@ -29,7 +29,7 @@ namespace Manosaba.Characters.Common.Cards
         {
         }
 
-        public static IEnumerable<BadEnd> Create(Player owner, int amount, CombatState combatState)
+        public static IEnumerable<BadEnd> Create(Player owner, int amount, ICombatState combatState)
         {
             List<BadEnd> list = new List<BadEnd>();
             for (int i = 0; i < amount; i++)
@@ -40,7 +40,7 @@ namespace Manosaba.Characters.Common.Cards
             return list;
         }
 
-        public override async Task OnTurnEndInHand(PlayerChoiceContext choiceContext)
+        protected override async Task OnTurnEndInHand(PlayerChoiceContext choiceContext)
         {
             VfxCmd.PlayOnCreatureCenter(base.Owner.Creature, "vfx/vfx_bloody_impact");
             await CreatureCmd.Damage(choiceContext, base.Owner.Creature, base.DynamicVars.Damage, this);

@@ -39,7 +39,7 @@ namespace Manosaba.Characters.TachibanaSherry.Cards
                 .FromCard(this)
                 .Targeting(target)
                 .Execute(choiceContext);
-            await PowerCmd.Apply<StrengthPower>(base.Owner.Creature, base.DynamicVars["StrengthPower"].BaseValue, base.Owner.Creature, this);
+            await CommonActions.Apply<StrengthPower>(choiceContext, base.Owner.Creature, this, base.DynamicVars["StrengthPower"].BaseValue);
         }
         
 

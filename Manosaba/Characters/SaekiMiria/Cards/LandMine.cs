@@ -36,7 +36,7 @@ public sealed class LandMine : PathCustomCardModel
     {
     }
 
-    public override async Task OnTurnEndInHand(PlayerChoiceContext choiceContext)
+    protected override async Task OnTurnEndInHand(PlayerChoiceContext choiceContext)
     {
         Creature? ownerCreature = Owner?.Creature;
         if (ownerCreature == null)

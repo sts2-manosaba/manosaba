@@ -44,9 +44,9 @@ public sealed class PrisonMeal : PathCustomCardModel
         _ = choiceContext;
         _ = cardPlay;
 
-        await PowerCmd.Apply<HealingPower>(Owner.Creature, DynamicVars["HealingPower"].BaseValue, Owner.Creature, this);
-        await PowerCmd.Apply<PoisonPower>(Owner.Creature, DynamicVars.Poison.BaseValue, Owner.Creature, this);
-        await PowerCmd.Apply<MajokaPower>(Owner.Creature, DynamicVars["MajokaPower"].BaseValue, Owner.Creature, this);
+        await CommonActions.Apply<HealingPower>(choiceContext, Owner.Creature, this, DynamicVars["HealingPower"].BaseValue);
+        await CommonActions.Apply<PoisonPower>(choiceContext, Owner.Creature, this, DynamicVars.Poison.BaseValue);
+        await CommonActions.Apply<MajokaPower>(choiceContext, Owner.Creature, this, DynamicVars["MajokaPower"].BaseValue);
     }
 
     protected override void OnUpgrade()

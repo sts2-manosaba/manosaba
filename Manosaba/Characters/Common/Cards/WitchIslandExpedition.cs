@@ -26,11 +26,7 @@ public sealed class WitchIslandExpedition : PathCustomCardModel
     {
         _ = choiceContext;
         _ = cardPlay;
-        await PowerCmd.Apply<WitchIslandExpeditionPower>(
-            Owner.Creature,
-            DynamicVars["WitchIslandExpeditionPower"].BaseValue,
-            Owner.Creature,
-            this);
+await CommonActions.Apply<WitchIslandExpeditionPower>(choiceContext,  Owner.Creature, this, DynamicVars["WitchIslandExpeditionPower"].BaseValue);
     }
 
     protected override void OnUpgrade()

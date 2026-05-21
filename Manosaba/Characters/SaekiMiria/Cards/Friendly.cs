@@ -27,7 +27,7 @@ namespace Manosaba.Characters.SaekiMiria.Cards
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
-            await PowerCmd.Apply<FriendlyPower>(Owner.Creature, 1m, Owner.Creature, this);
+            await CommonActions.Apply<FriendlyPower>(choiceContext, Owner.Creature, this, 1m);
         }
 
         protected override void OnUpgrade()

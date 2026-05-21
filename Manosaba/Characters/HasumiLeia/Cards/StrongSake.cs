@@ -36,7 +36,7 @@ public sealed class StrongSake : PathCustomCardModel
     }
 
     protected override Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay) =>
-        PowerCmd.Apply<StrongSakePower>(Owner.Creature, DynamicVars["StrongSakePower"].BaseValue, Owner.Creature, this);
+        CommonActions.Apply<StrongSakePower>(choiceContext, Owner.Creature, this, DynamicVars["StrongSakePower"].BaseValue);
 
     protected override void OnUpgrade()
     {

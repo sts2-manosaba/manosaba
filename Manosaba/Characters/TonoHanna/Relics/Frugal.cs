@@ -63,7 +63,7 @@ public sealed class FeatherFan : LevelingPathCustomRelicModel
 
     public override Task AfterObtained() => Task.CompletedTask;
 
-    public override async Task AfterSideTurnStart(CombatSide side, CombatState combatState)
+    public override async Task AfterSideTurnStart(CombatSide side, IReadOnlyList<Creature> creatures, ICombatState combatState)
     {
         if (RelicLevel < 4 || Owner?.Creature == null)
         {
@@ -164,10 +164,10 @@ public sealed class FeatherFan : LevelingPathCustomRelicModel
         }
 
         decimal majoka = 10m * positiveDelta;
-        await PowerCmd.Apply<MajokaPower>(owner, majoka, owner, null);
+        await CommonActions.Apply<MajokaPower>(new ThrowingPlayerChoiceContext(), owner, null, majoka);
     }
 
-    public override async Task BeforeTurnEnd(PlayerChoiceContext choiceContext, CombatSide side)
+    public override async Task BeforeSideTurnEnd(PlayerChoiceContext choiceContext, CombatSide side, IEnumerable<Creature> creatures)
     {
         if (Owner?.Creature is not { } ownerCreature)
         {

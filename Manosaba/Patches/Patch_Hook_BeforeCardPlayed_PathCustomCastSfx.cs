@@ -17,7 +17,7 @@ namespace Manosaba.Patches;
 public static class Patch_Hook_BeforeCardPlayed_PathCustomCastSfx
 {
     [HarmonyPostfix]
-    private static Task BeforeCardPlayedPostfix(Task __result, CombatState combatState, CardPlay cardPlay)
+    private static Task BeforeCardPlayedPostfix(Task __result, ICombatState combatState, CardPlay cardPlay)
         => BeforeCardPlayedWrapped(__result, cardPlay);
 
     private static async Task BeforeCardPlayedWrapped(Task originalTask, CardPlay cardPlay)

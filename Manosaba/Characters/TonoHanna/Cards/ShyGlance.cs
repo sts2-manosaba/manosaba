@@ -12,6 +12,8 @@ using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.Powers;
 using MegaCrit.Sts2.Core.ValueProps;
 
+using Manosaba.Utils;
+
 namespace Manosaba.Characters.TonoHanna.Cards;
 
 [Pool(typeof(TonoHannaCardPool))]
@@ -42,12 +44,12 @@ public sealed class ShyGlance : PathCustomCardModel
 
         await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
             .FromCard(this)
-            .TargetingAllOpponents(CombatState)
+            .TargetingAllOpponentsCompat(CombatState)
             .Execute(choiceContext);
 
         foreach (Creature enemy in CombatState.Enemies)
         {
-            await PowerCmd.Apply<WeakPower>(enemy, DynamicVars["WeakPower"].BaseValue, Owner.Creature, this);
+            await CommonActions.Apply<WeakPower>(choiceContext, enemy, this, DynamicVars["WeakPower"].BaseValue);
         }
     }
 

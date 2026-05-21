@@ -1,3 +1,4 @@
+using BaseLib.Utils;
 using Manosaba.Characters.Common.Powers;
 using Manosaba.Extensions;
 using MegaCrit.Sts2.Core.Combat;
@@ -30,10 +31,10 @@ public sealed class AwakenedMadnessPower : PathCustomPowerModel
             return;
         }
 
-        await PowerCmd.Apply<MadnessPower>(target, result.UnblockedDamage, Owner, cardSource);
+        await CommonActions.Apply<MadnessPower>(choiceContext, target, cardSource, result.UnblockedDamage);
     }
 
-    public override async Task AfterTurnEnd(PlayerChoiceContext choiceContext, CombatSide side)
+    public override async Task AfterSideTurnEnd(PlayerChoiceContext choiceContext, CombatSide side, IEnumerable<Creature> creatures)
     {
         _ = choiceContext;
         if (side == Owner.Side)

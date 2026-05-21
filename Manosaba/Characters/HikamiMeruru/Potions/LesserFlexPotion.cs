@@ -1,4 +1,4 @@
-﻿using BaseLib.Utils;
+using BaseLib.Utils;
 using manosaba.Characters.HikamiMeruru;
 using Manosaba.Extensions;
 using MegaCrit.Sts2.Core.Commands;
@@ -29,7 +29,7 @@ namespace Manosaba.Characters.HikamiMeruru.Potions
         {
             PotionModel.AssertValidForTargetedPotion(target);
             decimal baseValue = base.DynamicVars.Strength.BaseValue;
-            await PowerCmd.Apply<FlexPotionPower>(target, baseValue, base.Owner.Creature, null);
+            await CommonActions.Apply<FlexPotionPower>(choiceContext, target, null, baseValue);
         }
     }
 }

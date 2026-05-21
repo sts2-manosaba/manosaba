@@ -39,7 +39,7 @@ public sealed class TrustingLeap : PathCustomCardModel
             return;
         }
 
-        await PowerCmd.Apply<StrengthPower>(ownerCreature, -2m, ownerCreature, this);
+        await CommonActions.Apply<StrengthPower>(choiceContext, ownerCreature, this, -2m);
         await PlayerCmd.GainEnergy(DynamicVars.Energy.IntValue, Owner);
     }
 

@@ -125,7 +125,12 @@ public sealed partial class NKotodamaCounter : Control
         if (_hoverTip == null)
             return;
 
-        NHoverTipSet nHoverTipSet = NHoverTipSet.CreateAndShow(this, _hoverTip);
+        NHoverTipSet? nHoverTipSet = NHoverTipSet.CreateAndShow(this, _hoverTip);
+        if (nHoverTipSet == null)
+        {
+            return;
+        }
+
         nHoverTipSet.GlobalPosition = GlobalPosition + new Vector2(-70f, -200f);
     }
 

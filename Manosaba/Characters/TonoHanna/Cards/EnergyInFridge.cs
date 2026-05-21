@@ -43,8 +43,8 @@ public sealed class EnergyInFridge : PathCustomCardModel
             return;
         }
 
-        await PowerCmd.Apply<StrengthPower>(ownerCreature, -2m, ownerCreature, this);
-        await PowerCmd.Apply<EnergyInFridgePower>(ownerCreature, DynamicVars["EnergyInFridgePower"].BaseValue, ownerCreature, this);
+        await PowerCmd.Apply<StrengthPower>(choiceContext, ownerCreature, -2m, ownerCreature, this);
+        await PowerCmd.Apply<EnergyInFridgePower>(choiceContext, ownerCreature, DynamicVars["EnergyInFridgePower"].BaseValue, ownerCreature, this);
     }
 
     protected override void OnUpgrade()

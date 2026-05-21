@@ -50,7 +50,7 @@ public sealed class Crowning : PathCustomCardModel
 
         foreach (Creature target in targets)
         {
-            await PowerCmd.Apply<TemporaryStrengthDownPower>(target, DynamicVars["StrengthLoss"].BaseValue, Owner.Creature, this);
+            await CommonActions.Apply<TemporaryStrengthDownPower>(choiceContext, target, this, DynamicVars["StrengthLoss"].BaseValue);
         }
     }
 

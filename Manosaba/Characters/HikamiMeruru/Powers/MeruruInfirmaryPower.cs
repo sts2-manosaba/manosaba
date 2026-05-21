@@ -1,3 +1,4 @@
+using BaseLib.Utils;
 using Manosaba.Characters.HikamiMeruru.Potions;
 using Manosaba.Extensions;
 using MegaCrit.Sts2.Core.Combat;
@@ -33,10 +34,10 @@ public sealed class MeruruInfirmaryPower : PathCustomPowerModel
         if (damageTaken <= 0)
             return;
 
-        await PowerCmd.Apply<MeruruInfirmaryPower>(Owner, damageTaken, Owner, cardSource);
+        await CommonActions.Apply<MeruruInfirmaryPower>(new ThrowingPlayerChoiceContext(), Owner, cardSource, damageTaken);
     }
 
-    public override async Task AfterSideTurnStart(CombatSide side, CombatState combatState)
+    public override async Task AfterSideTurnStart(CombatSide side, IReadOnlyList<Creature> creatures, ICombatState combatState)
     {
         if (side != Owner.Side)
             return;
@@ -67,7 +68,7 @@ public sealed class MeruruInfirmaryPower : PathCustomPowerModel
         decimal deltaToBase = PersistentBaseAmount - Amount;
         if (deltaToBase != 0m)
         {
-            await PowerCmd.Apply<MeruruInfirmaryPower>(Owner, deltaToBase, Owner, null);
+            await CommonActions.Apply<MeruruInfirmaryPower>(new ThrowingPlayerChoiceContext(), Owner, null, deltaToBase);
         }
     }
 }

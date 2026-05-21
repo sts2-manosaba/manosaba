@@ -42,7 +42,7 @@ public sealed class Suspicion : PathCustomCardModel
 
         CardModel dazed = CombatState.CreateCard(ModelDb.Card<Dazed>(), Owner);
         CardCmd.PreviewCardPileAdd(
-            await CardPileCmd.AddGeneratedCardToCombat(dazed, PileType.Discard, addedByPlayer: true));
+            await CardPileCmd.AddGeneratedCardToCombat(dazed, PileType.Discard, Owner));
     }
 
     protected override void OnUpgrade()

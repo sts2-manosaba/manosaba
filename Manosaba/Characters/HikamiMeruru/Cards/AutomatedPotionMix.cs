@@ -29,7 +29,7 @@ public class AutomatedPotionMix : PathCustomCardModel
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        await PowerCmd.Apply<AutomatedPotionMixPower>(Owner.Creature, DynamicVars["AutomatedPotionMixPower"].BaseValue, Owner.Creature, this);
+        await CommonActions.Apply<AutomatedPotionMixPower>(choiceContext, Owner.Creature, this, DynamicVars["AutomatedPotionMixPower"].BaseValue);
     }
 
     protected override void OnUpgrade()

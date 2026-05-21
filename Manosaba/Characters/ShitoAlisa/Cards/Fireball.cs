@@ -12,9 +12,11 @@ using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.ValueProps;
 using MegaCrit.Sts2.Core.Models.CardPools;
 
+using Manosaba.Utils;
+
 namespace Manosaba.Characters.ShitoAlisa.Cards;
 
-/// <summary>è¡ç”Ÿç‰Œã€Œç«çƒã€ï¼šæ¶ˆè€—ã€é€ æˆå‚·å®³ï¼›å‡ç´šæ‰“å…¨é«”æ•µäººã€‚</summary>
+/// <summary>è¡ç??ç??ã??ç«çE?ï¼?æ¶?è??ã?E? æ?å?·å®³E?å?ç´?æ??å?¨é«?æ?µäººã?E/summary>
 [Pool(typeof(TokenCardPool))]
 public sealed class Fireball : ShitoAlisaCardModel
 {
@@ -40,7 +42,7 @@ public sealed class Fireball : ShitoAlisaCardModel
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        CombatState? state = CombatState;
+        ICombatState? state = CombatState;
         if (state == null)
             return;
 
@@ -48,7 +50,7 @@ public sealed class Fireball : ShitoAlisaCardModel
         {
             await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
                 .FromCard(this)
-                .TargetingAllOpponents(state)
+                .TargetingAllOpponentsCompat(state)
                 .Execute(choiceContext);
         }
         else

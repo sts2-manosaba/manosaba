@@ -126,7 +126,7 @@ public static class Patch_AttackCommand_Execute_WitchIslandExpeditionIntent
             return [singleTarget];
         }
 
-        CombatState? combatState = traverse.Field("_combatState").GetValue<CombatState?>();
+        ICombatState? combatState = traverse.Field("_combatState").GetValue<CombatState?>();
         return combatState?.PlayerCreatures ?? [];
     }
 

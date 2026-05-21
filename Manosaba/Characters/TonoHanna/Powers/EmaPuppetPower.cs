@@ -26,9 +26,9 @@ namespace Manosaba.Characters.TonoHanna.Powers
             new DamageVar("HiroBonus", HiroBonusPerStack, ValueProp.Unpowered),
         ];
 
-        public override async Task AfterPowerAmountChanged(PowerModel power, decimal amount, Creature? applier, CardModel? cardSource)
+        public override async Task AfterPowerAmountChanged(PlayerChoiceContext choiceContext, PowerModel power, decimal amount, Creature? applier, CardModel? cardSource)
         {
-            await base.AfterPowerAmountChanged(power, amount, applier, cardSource);
+            await base.AfterPowerAmountChanged(choiceContext, power, amount, applier, cardSource);
             if (power == this)
             {
                 SyncHiroBonus();
@@ -57,7 +57,7 @@ namespace Manosaba.Characters.TonoHanna.Powers
             if (Owner.CombatState == null)
                 return;
 
-            CombatState combat = Owner.CombatState;
+            ICombatState combat = Owner.CombatState;
             await CreatureCmd.Damage(context, combat.HittableEnemies, Amount, ValueProp.Unpowered, Owner, null);
 
             if (cardPlay.Card is HiroPuppet)

@@ -26,7 +26,7 @@ public class VotePower : PathCustomPowerModel
         return Amount;
     }
 
-    public override async Task AfterTurnEnd(PlayerChoiceContext choiceContext, CombatSide side)
+    public override async Task AfterSideTurnEnd(PlayerChoiceContext choiceContext, CombatSide side, IEnumerable<Creature> creatures)
     {
         _ = choiceContext;
 
@@ -36,6 +36,6 @@ public class VotePower : PathCustomPowerModel
         }
 
         int remainingAmount = Amount / 2;
-        await PowerCmd.ModifyAmount(this, remainingAmount - Amount, Owner, null);
+        await PowerCmd.ModifyAmount(choiceContext, this, remainingAmount - Amount, Owner, null);
     }
 }

@@ -1,4 +1,4 @@
-﻿using BaseLib.Utils;
+using BaseLib.Utils;
 using manosaba.Characters.SaekiMiria;
 using Manosaba.Characters.Common.Powers;
 using Manosaba.Characters.SaekiMiria.Helper;
@@ -47,7 +47,7 @@ namespace Manosaba.Characters.SaekiMiria.Cards
                          .Where(power => !ShouldIgnoreThisPower(power))
                          .ToList())
             {
-                if (originalPower.IsInstanced)
+                if (originalPower.InstanceType != PowerInstanceType.None)
                 {
                     await PowerCmd.Remove(originalPower);
                     continue;
@@ -55,7 +55,7 @@ namespace Manosaba.Characters.SaekiMiria.Cards
 
                 if (originalPower.Amount > 0m)
                 {
-                    await PowerCmd.ModifyAmount(originalPower, -originalPower.Amount, ownerCreature, this);
+                    await PowerCmd.ModifyAmount(choiceContext, originalPower, -originalPower.Amount, ownerCreature, this);
                 }
             }
 
@@ -67,16 +67,16 @@ namespace Manosaba.Characters.SaekiMiria.Cards
                 }
 
                 PowerModel? existingPower = ownerCreature.GetPowerById(debuff.Id);
-                if (existingPower != null && !existingPower.IsInstanced)
+                if (existingPower != null && existingPower.InstanceType == PowerInstanceType.None)
                 {
                     DoHackyThingsForSpecificPowers(existingPower);
-                    await PowerCmd.ModifyAmount(existingPower, debuff.Amount, ownerCreature, this);
+                    await PowerCmd.ModifyAmount(choiceContext, existingPower, debuff.Amount, ownerCreature, this);
                 }
                 else
                 {
                     PowerModel clone = (PowerModel)debuff.ClonePreservingMutability();
                     DoHackyThingsForSpecificPowers(clone);
-                    await PowerCmd.Apply(clone, ownerCreature, debuff.Amount, ownerCreature, this);
+                    await PowerCmd.Apply(choiceContext, clone, ownerCreature, debuff.Amount, ownerCreature, this);
                 }
             }
 

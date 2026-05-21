@@ -1,4 +1,4 @@
-﻿using BaseLib.Utils;
+using BaseLib.Utils;
 using manosaba.Characters.Common;
 using Manosaba.Characters.Common.Overrides;
 using Manosaba.Characters.Common.Powers;
@@ -10,6 +10,8 @@ using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.ValueProps;
+
+using Manosaba.Utils;
 
 namespace Manosaba.Characters.Common.Cards
 {
@@ -39,14 +41,14 @@ namespace Manosaba.Characters.Common.Cards
                 return;
 
             await DamageCmd.Attack(base.DynamicVars.Damage.BaseValue).FromCard(this)
-            .TargetingAllOpponents(combatState)
+            .TargetingAllOpponentsCompat(combatState)
             .Execute(choiceContext);
             List<Creature> targets = (from c in combatState.GetOpponentsOf(base.Owner.Creature)
                                       where c != null && c.IsAlive && c.IsEnemy && c.IsHittable && c.CanReceivePowers
                                       select c).ToList();
             foreach (Creature item in targets)
             {
-                await PowerCmd.Apply<BurnPower>(item, DynamicVars["BurnPower"].BaseValue, Owner.Creature, this);
+                await CommonActions.Apply<BurnPower>(choiceContext, item, this, DynamicVars["BurnPower"].BaseValue);
             }
         }
         protected override void OnUpgrade()

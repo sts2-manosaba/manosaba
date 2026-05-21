@@ -39,7 +39,7 @@ namespace Manosaba.Characters.TachibanaSherry.Cards
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
-            await PowerCmd.Apply<QuickWitPower>(Owner.Creature, DynamicVars["QuickWitPower"].BaseValue, Owner.Creature, this);
+            await CommonActions.Apply<QuickWitPower>(choiceContext, Owner.Creature, this, DynamicVars["QuickWitPower"].BaseValue);
         }
 
         protected override void OnUpgrade()

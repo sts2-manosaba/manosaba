@@ -66,7 +66,7 @@ public sealed class Ribbon : LevelingPathCustomRelicModel
         return Task.CompletedTask;
     }
 
-    public override Task AfterSideTurnStart(CombatSide side, CombatState combatState)
+    public override Task AfterSideTurnStart(CombatSide side, IReadOnlyList<Creature> creatures, ICombatState combatState)
     {
         _ = combatState;
 
@@ -156,8 +156,24 @@ public sealed class Ribbon : LevelingPathCustomRelicModel
             return target;
         }
 
-        guard = SummonGuard();
-        if (guard is { IsAlive: true })
+        guard = JailerCmd.Summon(Owner, DynamicVars.Summon.BaseValue);
+        if (guard == null)
+        {
+            return target;
+        }
+
+        _hasSummonedThisCombat = true;
+        Console.WriteLine($"[Ribbon] Guard summoned. owner={DescribeOwner(Owner)} guard={DescribeGuard(guard)}");
+        Flash();
+
+        _ = PowerCmd.Apply<MajokaPower>(
+            new ThrowingPlayerChoiceContext(),
+            Owner.Creature,
+            DynamicVars["MajokaPower"].BaseValue,
+            Owner.Creature,
+            null);
+
+        if (guard.IsAlive)
         {
             _redirectedDamageToGuard = true;
             Console.WriteLine($"[Ribbon] Redirecting damage to newly summoned guard. owner={DescribeOwner(Owner)} guard={DescribeGuard(guard)}");
@@ -220,7 +236,7 @@ public sealed class Ribbon : LevelingPathCustomRelicModel
         await GainDefenseMajoka();
     }
 
-    public override async Task AfterPowerAmountChanged(PowerModel power, decimal amount, Creature? applier, CardModel? cardSource)
+    public override async Task AfterPowerAmountChanged(PlayerChoiceContext choiceContext, PowerModel power, decimal amount, Creature? applier, CardModel? cardSource)
     {
         _ = cardSource;
 
@@ -241,7 +257,7 @@ public sealed class Ribbon : LevelingPathCustomRelicModel
         }
 
         Flash();
-        await PowerCmd.Apply<MajokaPower>(Owner.Creature, 100m - currentMajoka, applier, null);
+        await CommonActions.Apply<MajokaPower>(choiceContext, Owner.Creature, null, 100m - currentMajoka);
     }
 
     protected override void OnRelicLevelChanged(int oldLevel, int newLevel)
@@ -255,7 +271,7 @@ public sealed class Ribbon : LevelingPathCustomRelicModel
         DynamicVars.Summon.BaseValue = GuardStartingHp + (RelicLevel - 1) * hpPerLevel;
     }
 
-    private Creature? SummonGuard()
+    private async Task<Creature?> SummonGuardAsync()
     {
         Creature? guard = JailerCmd.Summon(Owner, DynamicVars.Summon.BaseValue);
         if (guard == null)
@@ -267,14 +283,19 @@ public sealed class Ribbon : LevelingPathCustomRelicModel
         Console.WriteLine($"[Ribbon] Guard summoned. owner={DescribeOwner(Owner)} guard={DescribeGuard(guard)}");
         Flash();
 
-        _ = PowerCmd.Apply<MajokaPower>(Owner.Creature, DynamicVars["MajokaPower"].BaseValue, Owner.Creature, null);
+        _ = PowerCmd.Apply<MajokaPower>(
+            new ThrowingPlayerChoiceContext(),
+            Owner.Creature,
+            DynamicVars["MajokaPower"].BaseValue,
+            Owner.Creature,
+            null);
 
         return guard;
     }
 
     private Task<MajokaPower?> GainDefenseMajoka()
     {
-        return PowerCmd.Apply<MajokaPower>(Owner.Creature, DynamicVars["InterceptMajoka"].BaseValue, Owner.Creature, null);
+        return CommonActions.Apply<MajokaPower>(new ThrowingPlayerChoiceContext(), Owner.Creature, null, DynamicVars["InterceptMajoka"].BaseValue);
     }
 
     private Creature? GetGuard()

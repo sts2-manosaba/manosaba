@@ -64,8 +64,8 @@ public sealed class IAmReborn : PathCustomCardModel
         }
 
         await CardCmd.Discard(choiceContext, PileType.Hand.GetPile(Owner).Cards);
-        await PowerCmd.Apply<IAmRebornPower>(ownerCreature, 1m, ownerCreature, this);
-        await PowerCmd.Apply<DrawCardsNextTurnPower>(ownerCreature, 5m, ownerCreature, this);
+        await CommonActions.Apply<IAmRebornPower>(choiceContext, ownerCreature, this, 1m, silent: true);
+        await CommonActions.Apply<DrawCardsNextTurnPower>(choiceContext, ownerCreature, this, 5m, silent: true);
     }
 
     protected override void OnUpgrade()

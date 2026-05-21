@@ -1,6 +1,7 @@
 using BaseLib.Abstracts;
 using Godot;
 using manosaba.Extensions;
+using Manosaba.Characters.Common.Relics;
 using Manosaba.Extensions;
 
 namespace manosaba.Characters.HoshoMago;

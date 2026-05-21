@@ -29,7 +29,7 @@ public class ThisIsFine : ShitoAlisaCardModel
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        await PowerCmd.Apply<ThisIsFinePower>(Owner.Creature, DynamicVars["ThisIsFinePower"].BaseValue, Owner.Creature, this);
+        await CommonActions.Apply<ThisIsFinePower>(choiceContext, Owner.Creature, this, DynamicVars["ThisIsFinePower"].BaseValue);
     }
 
     protected override void OnUpgrade()

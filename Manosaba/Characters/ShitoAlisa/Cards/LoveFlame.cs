@@ -30,7 +30,7 @@ public sealed class LoveFlame : ShitoAlisaCardModel
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        await PowerCmd.Apply<FireballSwarmPower>(Owner.Creature, -2m, Owner.Creature, this);
+        await CommonActions.Apply<FireballSwarmPower>(choiceContext, Owner.Creature, this, -2m);
         await PlayerCmd.GainEnergy(DynamicVars.Energy.BaseValue, Owner);
     }
 

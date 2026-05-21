@@ -1,3 +1,4 @@
+using BaseLib.Utils;
 using BaseLib.Extensions;
 using manosaba.Characters.NatsumeAnan.Cards;
 using Manosaba.Characters.HasumiLeia.Cards;
@@ -19,6 +20,7 @@ using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Nodes.CommonUi;
 using MegaCrit.Sts2.Core.ValueProps;
 
+using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 namespace Manosaba.Characters.Common.Powers
 {
     public class MajokaPower : PathCustomPowerModel
@@ -84,7 +86,7 @@ namespace Manosaba.Characters.Common.Powers
             return 1m + maxBonus * (decimal)ratio;
         }
 
-        public override async Task AfterPowerAmountChanged(PowerModel power, decimal amount, Creature? applier, CardModel? cardSource)
+        public override async Task AfterPowerAmountChanged(PlayerChoiceContext choiceContext, PowerModel power, decimal amount, Creature? applier, CardModel? cardSource)
         {
             if (power is MajokaPower)
             {
@@ -94,7 +96,7 @@ namespace Manosaba.Characters.Common.Powers
                 }
 
                 int toApplyMI = base.Amount / 100 - base.Owner.GetPowerAmount<MurderousImpulsePower>();
-                await PowerCmd.Apply<MurderousImpulsePower>(ownerCreature, toApplyMI, ownerCreature, null);
+                await CommonActions.Apply<MurderousImpulsePower>(choiceContext, ownerCreature, null, toApplyMI);
                 await CheckAndGiveMahouCards();
             }
         }
@@ -115,7 +117,7 @@ namespace Manosaba.Characters.Common.Powers
                     CardModel cardToDeck = Owner.Player.RunState.CreateCard(cardType, Owner.Player);
                     CardCmd.PreviewCardPileAdd(await CardPileCmd.Add(cardToDeck, PileType.Deck), 1.2f, CardPreviewStyle.GridLayout);
                     CardModel cardToHand = Owner.CombatState.CreateCard(cardType, Owner.Player);
-                    await CardPileCmd.AddGeneratedCardToCombat(cardToHand, PileType.Hand, true);
+                    await CardPileCmd.AddGeneratedCardToCombat(cardToHand, PileType.Hand, Owner.Player);
                 }
             }
         }

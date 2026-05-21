@@ -1,7 +1,9 @@
+using BaseLib.Utils;
 using Manosaba.Characters.Common.Commands;
-using Manosaba.Extensions;
-using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Combat;
+using Manosaba.Extensions;
+using Manosaba.Utils;
+using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Entities.Powers;
@@ -19,23 +21,23 @@ public sealed class FinalCountdownPower : PathCustomPowerModel
     public override PowerType Type => PowerType.Buff;
     public override PowerStackType StackType => PowerStackType.Counter;
 
-    public override async Task AfterTurnEnd(PlayerChoiceContext choiceContext, CombatSide side)
+    public override async Task AfterSideTurnEnd(PlayerChoiceContext choiceContext, CombatSide side, IEnumerable<Creature> creatures)
     {
         if (side != Owner.Side)
             return;
         if (Amount <= 0)
             return;
-        if (IsCombatOverOrEnding(CombatState))
+        if (IsCombatOverOrEnding(ManosabaCombatCompat.From(Owner)))
             return;
-        await PowerCmd.Apply<FinalCountdownPower>(Owner, -1m, Owner, null, silent: true);
+        await CommonActions.Apply<FinalCountdownPower>(choiceContext, Owner, null, -1m, silent: true);
     }
 
-    public override async Task AfterPowerAmountChanged(PowerModel power, decimal amount, Creature? applier, CardModel? cardSource)
+    public override async Task AfterPowerAmountChanged(PlayerChoiceContext choiceContext, PowerModel power, decimal amount, Creature? applier, CardModel? cardSource)
     {
         if (power != this)
             return;
 
-        if (IsCombatOverOrEnding(CombatState) || _winTriggered)
+        if (IsCombatOverOrEnding(ManosabaCombatCompat.From(Owner)) || _winTriggered)
             return;
         if (Amount > 0)
             return;
@@ -47,18 +49,22 @@ public sealed class FinalCountdownPower : PathCustomPowerModel
 
         _winTriggered = true;
         await ManosabaVfxCmd.PlaySceneAtCombatCenterAndWait(VfxScenePath, fitCoverViewport: false);
-        await ManosabaCombatCmd.ForceWinWithoutDeathOrEscape(CombatState);
+        CombatStateWrapper? combatState = ManosabaCombatCompat.From(Owner);
+        if (combatState != null)
+        {
+            await ManosabaCombatCmd.ForceWinWithoutDeathOrEscape(combatState);
+        }
     }
 
-    public static Task ReduceFromCombust(Creature owner, CardModel? cardSource)
+    public static async Task ReduceFromCombust(Creature owner, CardModel? cardSource)
     {
         FinalCountdownPower? power = owner.GetPower<FinalCountdownPower>();
-        if (power == null || power.Amount <= 0m || IsCombatOverOrEnding(owner.CombatState))
-            return Task.CompletedTask;
-        return PowerCmd.Apply<FinalCountdownPower>(owner, -2m, owner, cardSource, silent: true);
+        if (power == null || power.Amount <= 0m || IsCombatOverOrEnding(ManosabaCombatCompat.From(owner)))
+            return;
+        await CommonActions.Apply<FinalCountdownPower>(new ThrowingPlayerChoiceContext(), owner, cardSource, -1m, silent: true);
     }
 
-    private static bool IsCombatOverOrEnding(CombatState? combatState)
+    private static bool IsCombatOverOrEnding(CombatStateWrapper? combatState)
     {
         if (combatState == null)
             return true;
@@ -67,4 +73,3 @@ public sealed class FinalCountdownPower : PathCustomPowerModel
         return manager != null && manager.IsOverOrEnding;
     }
 }
-

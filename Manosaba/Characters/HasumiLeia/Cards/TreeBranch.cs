@@ -44,7 +44,7 @@ public sealed class TreeBranch : PathCustomCardModel
             return;
         }
 
-        await PowerCmd.Apply<TreeBranchSecondSwordPower>(ownerCreature, 1m, ownerCreature, this);
+        await CommonActions.Apply<TreeBranchSecondSwordPower>(choiceContext, ownerCreature, this, 1m, silent: true);
     }
 
     protected override void OnUpgrade()

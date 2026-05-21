@@ -40,8 +40,8 @@ namespace Manosaba.Characters.TonoHanna.Cards
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
-            await PowerCmd.Apply<MargoPuppetCollectionPower>(Owner.Creature, DynamicVars["MargoPuppetCollectionPower"].BaseValue, Owner.Creature, this);
-            await PowerCmd.Apply<MargoPuppetPower>(Owner.Creature, DynamicVars["MargoPuppetPower"].BaseValue, Owner.Creature, this);
+            await CommonActions.Apply<MargoPuppetCollectionPower>(choiceContext, Owner.Creature, this, DynamicVars["MargoPuppetCollectionPower"].BaseValue);
+            await CommonActions.Apply<MargoPuppetPower>(choiceContext, Owner.Creature, this, DynamicVars["MargoPuppetPower"].BaseValue);
         }
 
         protected override void OnUpgrade()

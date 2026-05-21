@@ -34,7 +34,7 @@ public sealed class SpearMastery : PathCustomCardModel
     }
 
     protected override Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay) =>
-        PowerCmd.Apply<SpearMasteryPower>(Owner.Creature, DynamicVars["SpearMasteryPower"].BaseValue, Owner.Creature, this);
+        CommonActions.Apply<SpearMasteryPower>(choiceContext, Owner.Creature, this, DynamicVars["SpearMasteryPower"].BaseValue);
 
     protected override void OnUpgrade()
     {

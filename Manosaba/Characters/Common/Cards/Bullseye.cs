@@ -1,4 +1,4 @@
-﻿using BaseLib.Utils;
+using BaseLib.Utils;
 using manosaba.Characters.Common;
 using Manosaba.Characters.Common.Overrides;
 using Manosaba.Extensions;
@@ -38,7 +38,7 @@ namespace Manosaba.Characters.Common.Cards
             .FromCard(this)
             .Targeting(target)
             .Execute(choiceContext);
-            await PowerCmd.Apply<VulnerablePower>(target, DynamicVars.Vulnerable.BaseValue, base.Owner.Creature, this);
+            await CommonActions.Apply<VulnerablePower>(choiceContext, target, this, DynamicVars.Vulnerable.BaseValue);
         }
 
         protected override void OnUpgrade()

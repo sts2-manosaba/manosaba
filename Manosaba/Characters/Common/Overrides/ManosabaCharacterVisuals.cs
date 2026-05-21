@@ -72,7 +72,7 @@ namespace Manosaba.Characters.Common.Overrides
 				return;
 			}
 
-			if (RunManager.Instance.IsSinglePlayerOrFakeMultiplayer)
+			if (RunManager.Instance.IsSingleplayerOrFakeMultiplayer)
 			{
 				_creatureNode.Visible = true;
 				return;

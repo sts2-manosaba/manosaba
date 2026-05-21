@@ -38,13 +38,13 @@ namespace Manosaba.Characters.JogasakiNoah.Cards
                 return;
             }
 
-            await PowerCmd.Apply<ZumaPower>(ownerCreature, DynamicVars["ZumaPower"].BaseValue, ownerCreature, this);
+            await CommonActions.Apply<ZumaPower>(choiceContext, ownerCreature, this, DynamicVars["ZumaPower"].BaseValue);
             await OrbCmd.AddSlots(Owner, 1);
             List<CardModel> cards = Enumerable.Range(0, DynamicVars.Cards.IntValue)
                 .Select(_ => combatState.CreateCard<PaletteGap>(Owner))
                 .Cast<CardModel>()
                 .ToList();
-            IReadOnlyList<CardPileAddResult> results = await CardPileCmd.AddGeneratedCardsToCombat(cards, PileType.Draw, addedByPlayer: true, CardPilePosition.Random);
+            IReadOnlyList<CardPileAddResult> results = await CardPileCmd.AddGeneratedCardsToCombat(cards, PileType.Draw, Owner, CardPilePosition.Random);
             CardCmd.PreviewCardPileAdd(results);
         }
 

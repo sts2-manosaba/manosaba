@@ -52,7 +52,7 @@ public class RefuseMajo : PathCustomCardModel
 
         decimal majoka = Owner.Creature.GetPowerAmount<MajokaPower>();
         if (majoka > 0)
-            await PowerCmd.Apply<MajokaPower>(Owner.Creature, -majoka, Owner.Creature, this);
+            await CommonActions.Apply<MajokaPower>(choiceContext, Owner.Creature, this, -majoka);
     }
 
     protected override void OnUpgrade()

@@ -34,8 +34,8 @@ public class CocoPuppet : PathCustomCardModel
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        await PowerCmd.Apply<CocoPuppetPower>(Owner.Creature, DynamicVars.Block.BaseValue, Owner.Creature, this);
-        await PowerCmd.Apply<CocoPuppetCollectionPower>(Owner.Creature, DynamicVars["CocoPuppetCollectionPower"].BaseValue, Owner.Creature, this);
+        await CommonActions.Apply<CocoPuppetPower>(choiceContext, Owner.Creature, this, DynamicVars.Block.BaseValue);
+        await CommonActions.Apply<CocoPuppetCollectionPower>(choiceContext, Owner.Creature, this, DynamicVars["CocoPuppetCollectionPower"].BaseValue);
     }
 
     protected override void OnUpgrade()

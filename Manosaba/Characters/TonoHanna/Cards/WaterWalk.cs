@@ -37,7 +37,7 @@ public sealed class WaterWalk : PathCustomCardModel
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        await PowerCmd.Apply<BufferPower>(Owner.Creature, DynamicVars["BufferPower"].BaseValue, Owner.Creature, this);
+        await CommonActions.Apply<BufferPower>(choiceContext, Owner.Creature, this, DynamicVars["BufferPower"].BaseValue);
         await CardPileCmd.Draw(choiceContext, DynamicVars.Cards.BaseValue, Owner);
     }
 

@@ -1,3 +1,4 @@
+using System.Linq;
 using Manosaba.Characters.Common.Overrides;
 using Manosaba.Extensions;
 using MegaCrit.Sts2.Core.Commands;
@@ -32,7 +33,7 @@ public sealed class SecondSwordPower : PathCustomPowerModel
         }
     }
 
-    public override async Task AfterAttack(AttackCommand command)
+    public override async Task AfterAttack(PlayerChoiceContext choiceContext, AttackCommand command)
     {
         if (Owner.CombatState == null)
         {
@@ -59,7 +60,7 @@ public sealed class SecondSwordPower : PathCustomPowerModel
             return;
         }
 
-        foreach (DamageResult result in command.Results)
+        foreach (DamageResult result in command.Results.SelectMany(hit => hit))
         {
             if (result.Receiver is not Creature receiver || receiver.IsDead)
             {

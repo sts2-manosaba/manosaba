@@ -34,7 +34,7 @@ public sealed class SmoothMove : PathCustomCardModel
     }
 
     protected override Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay) =>
-        PowerCmd.Apply<SmoothMovePower>(Owner.Creature, DynamicVars["Cards"].BaseValue, Owner.Creature, this);
+        CommonActions.Apply<SmoothMovePower>(choiceContext, Owner.Creature, this, DynamicVars["Cards"].BaseValue);
 
     protected override void OnUpgrade()
     {

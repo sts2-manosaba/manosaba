@@ -1,4 +1,4 @@
-﻿using BaseLib.Utils;
+using BaseLib.Utils;
 using Godot;
 using manosaba.Characters.JogasakiNoah;
 using Manosaba.Characters.JogasakiNoah.Powers;
@@ -73,7 +73,7 @@ namespace Manosaba.Characters.JogasakiNoah.Potions
             {
                 PetEnemyAiPower.TryAdvanceToValidMove(pet, petTargets);
             }
-            await PowerCmd.Apply<PetEnemyAiPower>(pet, 1m, Owner.Creature, null);
+            await CommonActions.Apply<PetEnemyAiPower>(choiceContext, pet, null, 1m);
         }
     }
 }

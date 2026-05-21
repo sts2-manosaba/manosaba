@@ -35,7 +35,7 @@ public sealed class LittleMatchGirl : PathCustomCardModel
             return;
         }
 
-        await PowerCmd.Apply<LittleMatchGirlPower>(ownerCreature, DynamicVars.Heal.BaseValue, ownerCreature, this);
+        await CommonActions.Apply<LittleMatchGirlPower>(choiceContext, ownerCreature, this, DynamicVars.Heal.BaseValue);
     }
 
     protected override void OnUpgrade()

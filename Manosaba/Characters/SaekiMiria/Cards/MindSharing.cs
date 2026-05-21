@@ -1,4 +1,4 @@
-﻿using BaseLib.Utils;
+using BaseLib.Utils;
 using manosaba.Characters.SaekiMiria;
 using Manosaba.Characters.Common.Overrides;
 using Manosaba.Characters.Common.Powers;
@@ -8,6 +8,7 @@ using Manosaba.Extensions;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Creatures;
+using MegaCrit.Sts2.Core.Entities.Powers;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Models;
@@ -77,7 +78,7 @@ namespace Manosaba.Characters.NikaidoHiro.Cards
                     int targetAmount = kvp.Value;
                     existingPowers.TryGetValue(powerId, out PowerModel? existing);
 
-                    if (existing != null && !existing.IsInstanced)
+                    if (existing != null && existing.InstanceType == PowerInstanceType.None)
                     {
                         Console.WriteLine($"Updating existing power {powerId} on {teammate.Name}");
 
@@ -86,18 +87,18 @@ namespace Manosaba.Characters.NikaidoHiro.Cards
                         if (targetAmount > existing.Amount)
                         {
                             await PowerCmd.ModifyAmount(
+                                choiceContext,
                                 existing,
                                 targetAmount - existing.Amount,
                                 Owner.Creature,
-                                this
-                            );
+                                this);
                         }
                     }
                     else
                     {
                         if (!sourcePowers.TryGetValue(powerId, out PowerModel? source)) continue;
 
-                        if (existing?.IsInstanced == true)
+                        if (existing?.InstanceType != PowerInstanceType.None)
                         {
                             Console.WriteLine($"Skipping instanced power {powerId} on {teammate.Name} because an instance already exists");
                             continue;
@@ -111,12 +112,12 @@ namespace Manosaba.Characters.NikaidoHiro.Cards
                         DoHackyThingsForSpecificPowers(clone);
 
                         await PowerCmd.Apply(
+                            choiceContext,
                             clone,
                             teammate,
                             targetAmount,
                             Owner.Creature,
-                            this
-                        );
+                            this);
                     }
                 }
             }

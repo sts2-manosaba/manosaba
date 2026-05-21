@@ -181,7 +181,7 @@ public static class ShitoCombustOperations
         if (card.Owner?.Creature is not { } ownerCreature || !ownerCreature.IsAlive)
             return;
 
-        await PowerCmd.Apply<FireballSwarmPower>(ownerCreature, 1m, ownerCreature, null);
+        await CommonActions.Apply<FireballSwarmPower>(new ThrowingPlayerChoiceContext(), ownerCreature, null, 1m);
     }
 
     private static void RefreshCombustVisual(CardModel card)

@@ -49,7 +49,7 @@ public sealed class HannaPuppetPower : PathCustomPowerModel
         await HannaSoarLiftVisual.TryRestoreAsync(oldOwner);
     }
 
-    public override async Task AfterSideTurnStart(CombatSide side, CombatState combatState)
+    public override async Task AfterSideTurnStart(CombatSide side, IReadOnlyList<Creature> creatures, ICombatState combatState)
     {
         if (side == Owner.Side)
         {

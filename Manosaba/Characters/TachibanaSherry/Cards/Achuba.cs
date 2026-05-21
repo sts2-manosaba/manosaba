@@ -31,14 +31,13 @@ public sealed class Achuba : PathCustomCardModel
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        _ = choiceContext;
         if (cardPlay.Target is not { } target || Owner?.Creature is not { } ownerCreature)
         {
             return;
         }
 
-        await PowerCmd.Apply<AchubaPower>(target, 1m, ownerCreature, this);
-        await PowerCmd.Apply<StrengthPower>(ownerCreature, 1m, ownerCreature, this);
+        await PowerCmd.Apply<AchubaPower>(choiceContext, target, 1m, ownerCreature, this);
+        await PowerCmd.Apply<StrengthPower>(choiceContext, ownerCreature, 1m, ownerCreature, this);
     }
 
     protected override void OnUpgrade()

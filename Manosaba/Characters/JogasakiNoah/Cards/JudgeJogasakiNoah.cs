@@ -41,7 +41,7 @@ public class JudgeJogasakiNoah : PathCustomCardModel
 
         foreach (CardModel badDraw in badDrawCards)
         {
-            await CardPileCmd.AddGeneratedCardToCombat(badDraw, PileType.Hand, addedByPlayer: true);
+            await CardPileCmd.AddGeneratedCardToCombat(badDraw, PileType.Hand, Owner);
         }
     }
 

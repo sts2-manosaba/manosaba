@@ -1,4 +1,4 @@
-﻿using BaseLib.Utils;
+using BaseLib.Utils;
 using manosaba.Characters.Common;
 using manosaba.Characters.HasumiLeia;
 using Manosaba.Characters.Common.Overrides;
@@ -10,6 +10,8 @@ using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models.Powers;
 using MegaCrit.Sts2.Core.ValueProps;
+
+using Manosaba.Utils;
 
 namespace Manosaba.Characters.HasumiLeia.Cards
 {
@@ -37,12 +39,12 @@ namespace Manosaba.Characters.HasumiLeia.Cards
                 return;
 
             await DamageCmd.Attack(base.DynamicVars.Damage.BaseValue).FromCard(this)
-            .TargetingAllOpponents(combatState)
+            .TargetingAllOpponentsCompat(combatState)
             .Execute(choiceContext);
 
             foreach (var enemy in combatState.Enemies)
             {
-                await PowerCmd.Apply<WeakPower>(enemy, DynamicVars["WeakPower"].BaseValue, base.Owner.Creature, this);
+                await CommonActions.Apply<WeakPower>(choiceContext, enemy, this, DynamicVars["WeakPower"].BaseValue);
             }
         }
 

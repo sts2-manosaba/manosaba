@@ -114,7 +114,7 @@ public sealed class MindOverload : PathCustomCardModel
         }
     }
 
-    private static Creature? GetAutoTarget(CardModel card, Player ownerPlayer, Creature ownerCreature, CombatState combatState)
+    private static Creature? GetAutoTarget(CardModel card, Player ownerPlayer, Creature ownerCreature, ICombatState combatState)
     {
         Rng combatTargets = ownerPlayer.RunState.Rng.CombatTargets;
         return card.TargetType switch
@@ -126,7 +126,7 @@ public sealed class MindOverload : PathCustomCardModel
         };
     }
 
-    private static Creature? PickRandomAlly(Rng combatTargets, CombatState combatState, Creature ownerCreature)
+    private static Creature? PickRandomAlly(Rng combatTargets, ICombatState combatState, Creature ownerCreature)
     {
         List<Creature> allies = combatState.Allies
             .Where(c => c != null && c.IsAlive && c.IsPlayer && c != ownerCreature)

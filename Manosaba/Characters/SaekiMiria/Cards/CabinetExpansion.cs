@@ -29,11 +29,11 @@ public sealed class CabinetExpansion : PathCustomCardModel
     }
 
     protected override Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
-        => PowerCmd.Apply<CabinetExpansionPower>(
+        => CommonActions.Apply<CabinetExpansionPower>(
+            choiceContext,
             Owner.Creature,
-            DynamicVars["CabinetExpansionPower"].BaseValue,
-            Owner.Creature,
-            this);
+            this,
+            DynamicVars["CabinetExpansionPower"].BaseValue);
 
     protected override void OnUpgrade()
     {

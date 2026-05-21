@@ -9,6 +9,8 @@ using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models.Powers;
 using MegaCrit.Sts2.Core.ValueProps;
 
+using Manosaba.Utils;
+
 namespace Manosaba.Characters.TachibanaSherry.Cards
 {
     [Pool(typeof(TachibanaSherryCardPool))]
@@ -37,9 +39,9 @@ namespace Manosaba.Characters.TachibanaSherry.Cards
 
             await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
                 .FromCard(this)
-                .TargetingAllOpponents(base.CombatState)
+                .TargetingAllOpponentsCompat(base.CombatState)
                 .Execute(choiceContext);
-            await PowerCmd.Apply<StrengthPower>(base.Owner.Creature, base.DynamicVars["StrengthPower"].BaseValue, base.Owner.Creature, this);
+            await CommonActions.Apply<StrengthPower>(choiceContext, base.Owner.Creature, this, base.DynamicVars["StrengthPower"].BaseValue);
         }
 
         protected override void OnUpgrade()

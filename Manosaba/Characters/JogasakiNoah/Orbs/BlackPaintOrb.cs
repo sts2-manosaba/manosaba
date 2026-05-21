@@ -27,7 +27,7 @@ public sealed class BlackPaintOrb : ManosabaOrbModel
     {
         Trigger();
         PlayPassiveSfx();
-        await PowerCmd.Apply<MajokaPower>(Owner.Creature, PassiveVal, Owner.Creature, null);
+        await CommonActions.Apply<MajokaPower>(choiceContext, Owner.Creature, null, PassiveVal);
     }
 
     public override async Task<IEnumerable<Creature>> Evoke(PlayerChoiceContext playerChoiceContext)
@@ -39,7 +39,10 @@ public sealed class BlackPaintOrb : ManosabaOrbModel
             targets.Add(teammate);
         }
 
-        await PowerCmd.Apply<MajokaPower>(targets, EvokeVal, Owner.Creature, null);
+        foreach (Creature target in targets)
+        {
+            await CommonActions.Apply<MajokaPower>(playerChoiceContext, target, null, EvokeVal);
+        }
         return targets;
     }
 }

@@ -48,7 +48,10 @@ public sealed class TheDevilEyeOfNoEscapeToken : PathCustomCardModel
             return;
         }
 
-        await PowerCmd.Apply<EyeOfNoEscapePower>(targets, DynamicVars["EyeOfNoEscapePower"].BaseValue, Owner.Creature, this);
+        foreach (Creature target in targets)
+        {
+            await CommonActions.Apply<EyeOfNoEscapePower>(choiceContext, target, this, DynamicVars["EyeOfNoEscapePower"].BaseValue);
+        }
     }
 
     protected override void OnUpgrade()
@@ -89,7 +92,10 @@ public sealed class TheDevilAwakenedMadnessPowerToken : PathCustomCardModel
             return;
         }
 
-        await PowerCmd.Apply<AwakenedMadnessPower>(targets, DynamicVars["AwakenedMadnessPower"].BaseValue, Owner.Creature, this);
+        foreach (Creature target in targets)
+        {
+            await CommonActions.Apply<AwakenedMadnessPower>(choiceContext, target, this, DynamicVars["AwakenedMadnessPower"].BaseValue);
+        }
     }
 
     protected override void OnUpgrade()

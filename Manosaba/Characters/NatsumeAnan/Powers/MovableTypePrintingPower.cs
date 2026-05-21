@@ -23,7 +23,7 @@ public sealed class MovableTypePrintingPower : PathCustomPowerModel
 
     public override int DisplayAmount => EnergyIncrement - GetInternalData<Data>().EnergySpent % EnergyIncrement;
 
-    public override bool IsInstanced => true;
+    public override PowerInstanceType InstanceType => PowerInstanceType.Instanced;
 
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [

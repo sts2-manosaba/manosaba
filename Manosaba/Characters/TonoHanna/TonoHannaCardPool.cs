@@ -2,6 +2,7 @@ using BaseLib.Abstracts;
 using Godot;
 using manosaba.Characters.Common;
 using manosaba.Extensions;
+using Manosaba.Characters.Common.Relics;
 using Manosaba.Extensions;
 using MegaCrit.Sts2.Core.Models;
 

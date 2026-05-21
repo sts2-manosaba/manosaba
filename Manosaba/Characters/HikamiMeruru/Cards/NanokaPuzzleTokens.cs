@@ -1,4 +1,4 @@
-﻿using BaseLib.Utils;
+using BaseLib.Utils;
 using Manosaba.Characters.Common.Commands;
 using Manosaba.Extensions;
 using MegaCrit.Sts2.Core.Combat;
@@ -39,7 +39,7 @@ namespace Manosaba.Characters.HikamiMeruru.Cards
         public override async Task AfterCardDrawn(PlayerChoiceContext choiceContext, CardModel card, bool fromHandDraw)
         {
             CombatManager? combatManager = CombatManager.Instance;
-            CombatState? combatState = CombatState;
+            ICombatState? combatState = CombatState;
             Player? owner = Owner;
             Creature? ownerCreature = owner?.Creature;
             if (combatManager == null || combatState == null || owner == null || ownerCreature == null || combatManager.IsEnding)
@@ -79,7 +79,7 @@ namespace Manosaba.Characters.HikamiMeruru.Cards
             CardPileAddResult completeResult = await CardPileCmd.AddGeneratedCardToCombat(
                 complete,
                 PileType.Hand,
-                addedByPlayer: true,
+                owner,
                 CardPilePosition.Random
             );
             CardCmd.PreviewCardPileAdd(completeResult, 1.2f, CardPreviewStyle.HorizontalLayout);
@@ -109,7 +109,7 @@ namespace Manosaba.Characters.HikamiMeruru.Cards
         {
         }
 
-        public static IEnumerable<NanokaPiece> Create(Player owner, int amount, CombatState combatState)
+        public static IEnumerable<NanokaPiece> Create(Player owner, int amount, ICombatState combatState)
         {
             List<NanokaPiece> list = [];
             for (int i = 0; i < amount; i++)

@@ -64,10 +64,10 @@ public sealed class HiroPuppet : PathCustomCardModel
             await CreatureCmd.Heal(ownerCreature, damageDealt * 0.2m);
         }
 
-        await PowerCmd.Apply<HiroPuppetCollectionPower>(ownerCreature, 1m, ownerCreature, this);
+        await CommonActions.Apply<HiroPuppetCollectionPower>(choiceContext, ownerCreature, this, 1m);
         CardModel copy = CreateClone();
         CardCmd.PreviewCardPileAdd(
-            await CardPileCmd.AddGeneratedCardToCombat(copy, PileType.Discard, addedByPlayer: true),
+            await CardPileCmd.AddGeneratedCardToCombat(copy, PileType.Discard, Owner),
             2.2f);
     }
 

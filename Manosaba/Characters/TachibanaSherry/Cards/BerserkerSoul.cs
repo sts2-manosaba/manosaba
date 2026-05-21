@@ -83,7 +83,7 @@ public sealed class BerserkerSoul : PathCustomCardModel
     }
 
     /// <summary>比照 <c>HellraiserPower</c>：無可打擊目標或全為無限血量時停止連鎖。</summary>
-    private static bool CanContinueBerserkerChain(CombatState combatState)
+    private static bool CanContinueBerserkerChain(ICombatState combatState)
     {
         IReadOnlyList<Creature> hittableEnemies = combatState.HittableEnemies;
         if (hittableEnemies.Count == 0)
@@ -91,6 +91,6 @@ public sealed class BerserkerSoul : PathCustomCardModel
             return false;
         }
 
-        return !hittableEnemies.All(static c => c.ShowsInfiniteHp);
+        return !hittableEnemies.All(static c => c.HpDisplay.IsInfinite());
     }
 }

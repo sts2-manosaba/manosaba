@@ -38,7 +38,7 @@ public sealed class Endurance : NatsumeKotodamaCardModel
         }
 
         CardModel dazed = combatState.CreateCard<Dazed>(Owner);
-        CardCmd.PreviewCardPileAdd(await CardPileCmd.AddGeneratedCardToCombat(dazed, PileType.Discard, addedByPlayer: true));
+        CardCmd.PreviewCardPileAdd(await CardPileCmd.AddGeneratedCardToCombat(dazed, PileType.Discard, Owner));
     }
 
     protected override void OnUpgrade()

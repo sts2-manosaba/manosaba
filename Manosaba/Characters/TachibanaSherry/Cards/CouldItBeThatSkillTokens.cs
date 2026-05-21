@@ -27,9 +27,9 @@ public static class CouldItBeThatSkillTokens
     private const int OptionsOffered = 2;
 
     private readonly record struct WeightedTokenEntry(
-        Func<CombatState, Player, CardModel> Create,
+        Func<ICombatState, Player, CardModel> Create,
         float Weight,
-        Func<CombatState, bool>? CanOffer = null);
+        Func<ICombatState, bool>? CanOffer = null);
 
     /// <summary>事件 token 權重表；調整 <see cref="WeightedTokenEntry.Weight"/> 即可改變出現機率（允許重複抽中）。</summary>
     private static readonly WeightedTokenEntry[] TokenWeights =
@@ -51,7 +51,7 @@ public static class CouldItBeThatSkillTokens
         new(static (combatState, player) => combatState.CreateCard<CouldItBeThatCrimeSceneToken>(player), 8f),
     ];
 
-    public static List<CardModel> PickRandomOptions(CombatState combatState, Player player)
+    public static List<CardModel> PickRandomOptions(ICombatState combatState, Player player)
     {
         List<WeightedTokenEntry> eligible = GetEligibleEntries(combatState);
         if (eligible.Count == 0)
@@ -70,23 +70,23 @@ public static class CouldItBeThatSkillTokens
         return results;
     }
 
-    public static List<CardModel> CreateAll(CombatState combatState, Player player)
+    public static List<CardModel> CreateAll(ICombatState combatState, Player player)
     {
         return GetEligibleEntries(combatState)
             .Select(entry => entry.Create(combatState, player))
             .ToList();
     }
 
-    private static List<WeightedTokenEntry> GetEligibleEntries(CombatState combatState) =>
+    private static List<WeightedTokenEntry> GetEligibleEntries(ICombatState combatState) =>
         TokenWeights.Where(entry => entry.CanOffer?.Invoke(combatState) ?? true).ToList();
 
-    internal static IEnumerable<Creature> AllAlivePlayers(CombatState combatState, Creature ownerCreature)
+    internal static IEnumerable<Creature> AllAlivePlayers(ICombatState combatState, Creature ownerCreature)
     {
         return combatState.GetTeammatesOf(ownerCreature)
             .Where(creature => creature is { IsAlive: true, IsPlayer: true, Player: not null });
     }
 
-    internal static IEnumerable<Creature> AllAliveEnemies(CombatState combatState, Creature ownerCreature)
+    internal static IEnumerable<Creature> AllAliveEnemies(ICombatState combatState, Creature ownerCreature)
     {
         return combatState.GetOpponentsOf(ownerCreature)
             .Where(creature => creature is { IsAlive: true });
@@ -128,7 +128,7 @@ public sealed class CouldItBeThatPrisonFoodToken : CouldItBeThatEventTokenBase
         decimal poison = DynamicVars["PoisonPower"].BaseValue;
         foreach (Creature player in CouldItBeThatSkillTokens.AllAlivePlayers(combatState, Owner.Creature))
         {
-            await PowerCmd.Apply<PoisonPower>(player, poison, Owner.Creature, this);
+            await PowerCmd.Apply<PoisonPower>(choiceContext, player, poison, Owner.Creature, this);
         }
     }
 }
@@ -262,7 +262,7 @@ public sealed class CouldItBeThatCombatFeelsGoodToken : CouldItBeThatEventTokenB
             await CardPileCmd.AddGeneratedCardsToCombat(
                 [strike],
                 PileType.Hand,
-                addedByPlayer: true,
+                player.Player,
                 CardPilePosition.Random);
         }
     }
@@ -293,7 +293,7 @@ public sealed class CouldItBeThatBigFistsToken : CouldItBeThatEventTokenBase
         decimal strength = DynamicVars[temporaryStrengthVar].BaseValue;
         foreach (Creature player in CouldItBeThatSkillTokens.AllAlivePlayers(combatState, ownerCreature))
         {
-            await PowerCmd.Apply<ManosabaTemporaryStrengthPower>(player, strength, ownerCreature, this);
+            await PowerCmd.Apply<ManosabaTemporaryStrengthPower>(choiceContext, player, strength, ownerCreature, this);
         }
     }
 }
@@ -379,7 +379,7 @@ public sealed class CouldItBeThatEquivalentExchangeToken : CouldItBeThatEventTok
                 await CreatureCmd.SetCurrentHp(player, 1);
             }
 
-            await PowerCmd.Apply<BufferPower>(player, buffer, ownerCreature, this);
+            await PowerCmd.Apply<BufferPower>(choiceContext, player, buffer, ownerCreature, this);
         }
     }
 }
@@ -417,12 +417,12 @@ public sealed class CouldItBeThatTruthRevealedToken : CouldItBeThatEventTokenBas
 
         foreach (Creature enemy in CouldItBeThatSkillTokens.AllAliveEnemies(combatState, ownerCreature))
         {
-            await PowerCmd.Apply<VulnerablePower>(enemy, vulnerable, ownerCreature, this);
+            await PowerCmd.Apply<VulnerablePower>(choiceContext, enemy, vulnerable, ownerCreature, this);
         }
 
         foreach (Creature player in CouldItBeThatSkillTokens.AllAlivePlayers(combatState, ownerCreature))
         {
-            await PowerCmd.Apply<IntangiblePower>(player, intangible, ownerCreature, this);
+            await PowerCmd.Apply<IntangiblePower>(choiceContext, player, intangible, ownerCreature, this);
         }
     }
 }
@@ -488,7 +488,7 @@ public sealed class CouldItBeThatWardenMassProductionToken : CouldItBeThatEventT
                 break;
             }
 
-            await PowerCmd.Apply<EventWardenBountyPower>(warden, 1m, Owner.Creature, this);
+            await PowerCmd.Apply<EventWardenBountyPower>(choiceContext, warden, 1m, Owner.Creature, this);
         }
     }
 }
@@ -516,7 +516,7 @@ public sealed class CouldItBeThatCrimeSceneToken : CouldItBeThatEventTokenBase
         decimal majoka = DynamicVars["MajokaPower"].BaseValue;
         foreach (Creature player in CouldItBeThatSkillTokens.AllAlivePlayers(combatState, ownerCreature))
         {
-            await PowerCmd.Apply<MajokaPower>(player, majoka, ownerCreature, this);
+            await PowerCmd.Apply<MajokaPower>(choiceContext, player, majoka, ownerCreature, this);
         }
     }
 }

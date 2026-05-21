@@ -30,7 +30,7 @@ namespace Manosaba.Characters.HasumiLeia.Cards
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
-            await PowerCmd.Apply<ShadowmeldPower>(base.Owner.Creature, base.DynamicVars["Power"].BaseValue, base.Owner.Creature, this);
+            await CommonActions.Apply<ShadowmeldPower>(choiceContext, base.Owner.Creature, this, base.DynamicVars["Power"].BaseValue);
         }
 
         protected override void OnUpgrade()

@@ -61,7 +61,7 @@ public sealed class HandGun : PathCustomRelicModel
             return;
         }
 
-        CombatState? combatState = Owner.Creature.CombatState;
+        ICombatState? combatState = Owner.Creature.CombatState;
         if (combatState == null || !combatState.GetOpponentsOf(Owner.Creature).Contains(dealer))
         {
             return;

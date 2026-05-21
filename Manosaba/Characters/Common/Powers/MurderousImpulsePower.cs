@@ -1,4 +1,5 @@
-﻿using Manosaba.Characters.HikamiMeruru.Powers;
+using System.Linq;
+using Manosaba.Characters.HikamiMeruru.Powers;
 using Manosaba.Multiplayer;
 using Manosaba.Extensions;
 using MegaCrit.Sts2.Core.Commands;
@@ -19,7 +20,7 @@ namespace Manosaba.Characters.Common.Powers
         public override PowerStackType StackType => PowerStackType.Counter;
         public override bool AllowNegative => false;
 
-        public override async Task AfterAttack(AttackCommand command)
+        public override async Task AfterAttack(PlayerChoiceContext choiceContext, AttackCommand command)
         {
             if (base.Amount < 1 || Owner.GetPowerAmount<InhibitionPower>() >= 1)
             {
@@ -31,7 +32,7 @@ namespace Manosaba.Characters.Common.Powers
                 return;
             }
 
-            int totalDamage = command.Results.Sum(result => result.TotalDamage);
+            int totalDamage = command.Results.SelectMany(hit => hit).Sum(result => result.TotalDamage);
             if (totalDamage <= 0)
             {
                 return;

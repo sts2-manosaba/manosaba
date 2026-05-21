@@ -1,4 +1,4 @@
-﻿using BaseLib.Utils;
+using BaseLib.Utils;
 using manosaba.Characters.JogasakiNoah;
 using manosaba.Characters.SaekiMiria;
 using Manosaba.Characters.Common.Powers;
@@ -34,7 +34,7 @@ namespace Manosaba.Characters.SaekiMiria.Cards
                 return;
             }
 
-            await PowerCmd.Apply<MajokaPower>(ownerCreature, DynamicVars["MajokaPower"].BaseValue, ownerCreature, this);
+            await CommonActions.Apply<MajokaPower>(choiceContext, ownerCreature, this, DynamicVars["MajokaPower"].BaseValue);
             IEnumerable<Creature> enumerable = from c in combatState.GetTeammatesOf(ownerCreature)
                                                where c != null && c.IsAlive && c.IsPlayer && c.Player != null
                                                select c;

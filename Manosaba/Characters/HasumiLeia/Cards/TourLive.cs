@@ -30,7 +30,7 @@ public sealed class TourLive : PathCustomCardModel
     {
         _ = choiceContext;
         _ = cardPlay;
-        return PowerCmd.Apply<LeiaPuppetPower>(Owner.Creature, DynamicVars.Gold.BaseValue, Owner.Creature, this);
+        return CommonActions.Apply<LeiaPuppetPower>(choiceContext, Owner.Creature, this, DynamicVars.Gold.BaseValue);
     }
 
     protected override void OnUpgrade()

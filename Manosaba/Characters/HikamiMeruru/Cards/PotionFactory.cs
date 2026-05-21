@@ -1,4 +1,4 @@
-﻿using BaseLib.Utils;
+using BaseLib.Utils;
 using manosaba.Characters.HikamiMeruru;
 using Manosaba.Characters.HikamiMeruru.Powers;
 using Manosaba.Extensions;
@@ -29,7 +29,7 @@ namespace Manosaba.Characters.HikamiMeruru.Cards
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
-            await PowerCmd.Apply<PotionFactoryPower>(base.Owner.Creature, base.DynamicVars["PotionFactoryPower"].BaseValue, base.Owner.Creature, this);
+            await CommonActions.Apply<PotionFactoryPower>(choiceContext, base.Owner.Creature, this, base.DynamicVars["PotionFactoryPower"].BaseValue);
 
         }
 

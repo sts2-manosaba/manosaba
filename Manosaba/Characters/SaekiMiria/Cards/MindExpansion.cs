@@ -27,7 +27,7 @@ public sealed class MindExpansion : PathCustomCardModel
         _ = choiceContext;
         _ = cardPlay;
 
-        await PowerCmd.Apply<MindExpansionPower>(Owner.Creature, 1m, Owner.Creature, this);
+        await CommonActions.Apply<MindExpansionPower>(choiceContext, Owner.Creature, this, 1m);
     }
 
     protected override void OnUpgrade()

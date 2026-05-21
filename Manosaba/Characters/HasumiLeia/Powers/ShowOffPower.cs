@@ -1,3 +1,4 @@
+using BaseLib.Utils;
 using BaseLib.Extensions;
 using Manosaba.Characters.Common.Cards;
 using Manosaba.Extensions;
@@ -43,7 +44,7 @@ public class ShowOffPower : PathCustomPowerModel
 
     public override int DisplayAmount => base.DynamicVars["StrengthApplied"].IntValue;
 
-    public override bool IsInstanced => true;
+    public override PowerInstanceType InstanceType => PowerInstanceType.Instanced;
 
     protected override IEnumerable<DynamicVar> CanonicalVars => [
     
@@ -84,13 +85,13 @@ public class ShowOffPower : PathCustomPowerModel
         {
             Console.WriteLine("ShowOffPower triggered by damage from " + dealer.Name);
             Flash();
-            await PowerCmd.Apply<StrengthPower>(base.Owner, Amount, base.Owner, null, silent: true);
+            await CommonActions.Apply<StrengthPower>(choiceContext, base.Owner, null, Amount, silent: true);
             base.DynamicVars["StrengthApplied"].BaseValue += (decimal)base.DynamicVars.Strength.IntValue;
             InvokeDisplayAmountChanged();
         }
     }
 
-    public override async Task AfterTurnEnd(PlayerChoiceContext choiceContext, CombatSide side)
+    public override async Task AfterSideTurnEnd(PlayerChoiceContext choiceContext, CombatSide side, IEnumerable<Creature> creatures)
     {
         if (side == base.Owner.Side)
         {
@@ -100,7 +101,7 @@ public class ShowOffPower : PathCustomPowerModel
             }
 
             await PowerCmd.Remove(this);
-            await PowerCmd.Apply<StrengthPower>(base.Owner, -base.DynamicVars["StrengthApplied"].BaseValue, base.Owner, null, silent: true);
+            await CommonActions.Apply<StrengthPower>(choiceContext, base.Owner, null, -base.DynamicVars["StrengthApplied"].BaseValue, silent: true);
         }
         else
         {

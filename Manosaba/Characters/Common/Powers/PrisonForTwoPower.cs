@@ -14,7 +14,7 @@ public sealed class PrisonForTwoPower : PathCustomPowerModel
 
     public override PowerType Type => PowerType.Buff;
     public override PowerStackType StackType => PowerStackType.Single;
-    public override bool IsInstanced => true;
+    public override PowerInstanceType InstanceType => PowerInstanceType.Instanced;
     public override int DisplayAmount => 1;
 
     protected override IEnumerable<DynamicVar> CanonicalVars => [new StringVar(PartnerNetIdVar)];

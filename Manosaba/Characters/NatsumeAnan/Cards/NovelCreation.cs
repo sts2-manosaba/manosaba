@@ -41,7 +41,7 @@ public sealed class NovelCreation : NatsumeKotodamaCardModel
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        MegaCrit.Sts2.Core.Combat.CombatState? combatState = CombatState;
+        MegaCrit.Sts2.Core.Combat.ICombatState? combatState = CombatState;
         if (combatState == null)
         {
             return;
@@ -57,7 +57,7 @@ public sealed class NovelCreation : NatsumeKotodamaCardModel
         }
 
         CardModel settingCard = RollNovelSettingCard(targetNoah, combatState);
-        CardPileAddResult result = await CardPileCmd.AddGeneratedCardToCombat(settingCard, PileType.Hand, addedByPlayer: true);
+        CardPileAddResult result = await CardPileCmd.AddGeneratedCardToCombat(settingCard, PileType.Hand, Owner);
         CardCmd.PreviewCardPileAdd(result);
 
         _ = choiceContext;
@@ -65,7 +65,7 @@ public sealed class NovelCreation : NatsumeKotodamaCardModel
 
     private Player? SelectRandomJogasakiNoahTeammate()
     {
-        MegaCrit.Sts2.Core.Combat.CombatState? combatState = CombatState;
+        MegaCrit.Sts2.Core.Combat.ICombatState? combatState = CombatState;
         if (combatState == null)
         {
             return null;
@@ -86,7 +86,7 @@ public sealed class NovelCreation : NatsumeKotodamaCardModel
         return Owner.RunState.Rng.CombatTargets.NextItem(noahTeammates);
     }
 
-    private CardModel RollNovelSettingCard(Player targetNoah, MegaCrit.Sts2.Core.Combat.CombatState combatState)
+    private CardModel RollNovelSettingCard(Player targetNoah, MegaCrit.Sts2.Core.Combat.ICombatState combatState)
     {
         int roll = Owner.RunState.Rng.CombatCardGeneration.NextInt(100);
         if (roll < 33)

@@ -52,7 +52,7 @@ namespace Manosaba.Characters.HikamiMeruru.Cards
                 await CreatureCmd.Heal(item, base.DynamicVars.Heal.BaseValue);
                 decimal inhibition = ((CalculatedVar)DynamicVars["InhibitionPower"]).Calculate(null);
                 if (inhibition >= 1m)
-                    await PowerCmd.Apply<InhibitionPower>(item, inhibition, ownerCreature, this);
+                    await CommonActions.Apply<InhibitionPower>(choiceContext, item, this, inhibition);
 
                 if (item.Player != null)
                 {

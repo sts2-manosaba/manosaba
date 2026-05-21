@@ -1,3 +1,4 @@
+using BaseLib.Utils;
 using Manosaba.Characters.Common.Powers;
 using Manosaba.Extensions;
 using MegaCrit.Sts2.Core.Combat;
@@ -6,6 +7,7 @@ using MegaCrit.Sts2.Core.Entities.Powers;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Models;
 
+using MegaCrit.Sts2.Core.Entities.Creatures;
 namespace Manosaba.Characters.HoshoMago.Powers;
 
 public sealed class EyeOfNoEscapePower : PathCustomPowerModel
@@ -16,7 +18,7 @@ public sealed class EyeOfNoEscapePower : PathCustomPowerModel
     public override PowerType Type => PowerType.Debuff;
     public override PowerStackType StackType => PowerStackType.Counter;
 
-    public override async Task AfterTurnEnd(PlayerChoiceContext choiceContext, CombatSide side)
+    public override async Task AfterSideTurnEnd(PlayerChoiceContext choiceContext, CombatSide side, IEnumerable<Creature> creatures)
     {
         _ = choiceContext;
         if (side != Owner.Side)
@@ -24,7 +26,7 @@ public sealed class EyeOfNoEscapePower : PathCustomPowerModel
             return;
         }
 
-        await PowerCmd.Apply<MadnessPower>(Owner, MadnessPerTurn, Owner, null);
+        await CommonActions.Apply<MadnessPower>(choiceContext, Owner, null, MadnessPerTurn);
         await PowerCmd.TickDownDuration(this);
     }
 }

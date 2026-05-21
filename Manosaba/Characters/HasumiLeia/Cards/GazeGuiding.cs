@@ -31,7 +31,7 @@ public sealed class GazeGuiding : PathCustomCardModel
     }
 
     protected override Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay) =>
-        PowerCmd.Apply<GazeGuidingPower>(Owner.Creature, DynamicVars["GazeGuidingPower"].BaseValue, Owner.Creature, this);
+        CommonActions.Apply<GazeGuidingPower>(choiceContext, Owner.Creature, this, DynamicVars["GazeGuidingPower"].BaseValue);
 
     protected override void OnUpgrade()
     {

@@ -1,4 +1,4 @@
-﻿using BaseLib.Utils;
+using BaseLib.Utils;
 using manosaba.Characters.NikaidoHiro;
 using Manosaba.Characters.Common.Powers;
 using Manosaba.Extensions;
@@ -34,8 +34,8 @@ namespace Manosaba.Characters.NikaidoHiro.Cards
                 return;
             }
 
-            await PowerCmd.Apply<SusPower>(base.Owner.Creature, -suspicionToConsume, base.Owner.Creature, this);
-            await PowerCmd.Apply<StrengthPower>(base.Owner.Creature, suspicionToConsume, base.Owner.Creature, this);
+            await CommonActions.Apply<SusPower>(choiceContext, base.Owner.Creature, this, -suspicionToConsume);
+            await CommonActions.Apply<StrengthPower>(choiceContext, base.Owner.Creature, this, suspicionToConsume);
         }
 
         protected override void OnUpgrade()

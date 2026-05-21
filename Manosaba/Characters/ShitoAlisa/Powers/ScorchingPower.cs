@@ -1,3 +1,4 @@
+using BaseLib.Utils;
 using System.Linq;
 using Manosaba.Characters.Common.Powers;
 using Manosaba.Extensions;
@@ -26,9 +27,9 @@ public sealed class ScorchingPower : PathCustomPowerModel
         foreach (Creature e in CombatState.GetOpponentsOf(Owner).ToList())
         {
             if (e.IsAlive && e.IsHittable)
-                await PowerCmd.Apply<BurnPower>(e, stacks, Owner, null);
+                await CommonActions.Apply<BurnPower>(choiceContext, e, null, stacks);
         }
-        await PowerCmd.Apply<FireballSwarmPower>(Owner, Amount, Owner, null);
+        await CommonActions.Apply<FireballSwarmPower>(choiceContext, Owner, null, Amount);
     }
 
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<BurnPower>(), HoverTipFactory.FromPower<FireballSwarmPower>()];

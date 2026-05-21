@@ -1,4 +1,4 @@
-﻿using BaseLib.Utils;
+using BaseLib.Utils;
 using manosaba.Characters.Common;
 using Manosaba.Extensions;
 using MegaCrit.Sts2.Core.Commands;
@@ -29,8 +29,8 @@ namespace Manosaba.Characters.Common.Cards
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
             if (cardPlay.Target != null && cardPlay.Target != Owner.Creature)
-                await PowerCmd.Apply<StrengthPower>(cardPlay.Target, DynamicVars.Strength.BaseValue, base.Owner.Creature, this);
-            await PowerCmd.Apply<DexterityPower>(base.Owner.Creature, DynamicVars.Dexterity.BaseValue, base.Owner.Creature, this);
+                await CommonActions.Apply<StrengthPower>(choiceContext, cardPlay.Target, this, DynamicVars.Strength.BaseValue);
+            await CommonActions.Apply<DexterityPower>(choiceContext, base.Owner.Creature, this, DynamicVars.Dexterity.BaseValue);
         }
 
         protected override void OnUpgrade()

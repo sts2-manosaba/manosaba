@@ -53,11 +53,11 @@ namespace Manosaba.Characters.TonoHanna.Cards
 
             if (PuppetCollectionHelper.HasUsedInCombat<SherryPuppetCollectionPower>(ownerCreature))
             {
-                await PowerCmd.Apply<StrengthPower>(ownerCreature, 2m, ownerCreature, this);
+                await CommonActions.Apply<StrengthPower>(choiceContext, ownerCreature, this, 2m);
             }
 
-            await PowerCmd.Apply<HannaPuppetCollectionPower>(ownerCreature, DynamicVars["HannaPuppetCollectionPower"].BaseValue, ownerCreature, this);
-            await PowerCmd.Apply<HannaPuppetPower>(ownerCreature, DynamicVars["HannaPuppetPower"].BaseValue, ownerCreature, this);
+            await CommonActions.Apply<HannaPuppetCollectionPower>(choiceContext, ownerCreature, this, DynamicVars["HannaPuppetCollectionPower"].BaseValue);
+            await CommonActions.Apply<HannaPuppetPower>(choiceContext, ownerCreature, this, DynamicVars["HannaPuppetPower"].BaseValue);
         }
 
         protected override void OnUpgrade()

@@ -59,11 +59,7 @@ public class MovieViewing : PathCustomCardModel
         if (movies.Count == 0)
             return;
 
-        IReadOnlyList<CardPileAddResult> results = await CardPileCmd.AddGeneratedCardsToCombat(
-            movies,
-            PileType.Hand,
-            addedByPlayer: true,
-            CardPilePosition.Random);
+        IReadOnlyList<CardPileAddResult> results = await CardPileCmd.AddGeneratedCardsToCombat(movies, PileType.Hand, Owner, CardPilePosition.Random);
         CardCmd.PreviewCardPileAdd(results);
     }
 

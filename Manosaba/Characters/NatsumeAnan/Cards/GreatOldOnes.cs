@@ -15,6 +15,8 @@ using MegaCrit.Sts2.Core.Models.Exceptions;
 using MegaCrit.Sts2.Core.Nodes.CommonUi;
 using MegaCrit.Sts2.Core.ValueProps;
 
+using Manosaba.Utils;
+
 namespace manosaba.Characters.NatsumeAnan.Cards;
 
 [Pool(typeof(NatsumeAnanCardPool))]
@@ -87,7 +89,7 @@ public sealed class BookOfGreatOldOnes : NatsumeKotodamaCardModel
 
         if (_resolvedKotodamaX > 0)
         {
-            await PowerCmd.Apply<SanityPower>(Owner.Creature, _resolvedKotodamaX, Owner.Creature, this);
+            await CommonActions.Apply<SanityPower>(choiceContext, Owner.Creature, this, _resolvedKotodamaX);
         }
 
         await RemoveCurrentDeckHandAndDiscardFromCombat();
@@ -125,7 +127,7 @@ public sealed class BookOfGreatOldOnes : NatsumeKotodamaCardModel
 
     private async Task AddGreatOldOnesDeck()
     {
-        CombatState? combatState = CombatState;
+        ICombatState? combatState = CombatState;
         if (combatState == null)
         {
             return;
@@ -145,11 +147,11 @@ public sealed class BookOfGreatOldOnes : NatsumeKotodamaCardModel
             .. CreateMany<PageCthulhu>(combatState, 4),
         ];
 
-        var results = await CardPileCmd.AddGeneratedCardsToCombat(cards, PileType.Draw, addedByPlayer: true, CardPilePosition.Random);
+        var results = await CardPileCmd.AddGeneratedCardsToCombat(cards, PileType.Draw, Owner, CardPilePosition.Random);
         CardCmd.PreviewCardPileAdd(results, 1.2f, CardPreviewStyle.MessyLayout);
     }
 
-    private IEnumerable<CardModel> CreateMany<T>(CombatState combatState, int count) where T : CardModel
+    private IEnumerable<CardModel> CreateMany<T>(ICombatState combatState, int count) where T : CardModel
     {
         for (int i = 0; i < count; i++)
         {
@@ -212,7 +214,7 @@ public sealed class PageAzathoth : GreatOldOnePageCard
         return Task.CompletedTask;
     }
 
-    public override async Task AfterTurnEnd(PlayerChoiceContext choiceContext, CombatSide side)
+    public override async Task AfterSideTurnEnd(PlayerChoiceContext choiceContext, CombatSide side, IEnumerable<Creature> creatures)
     {
         _ = choiceContext;
 
@@ -280,7 +282,7 @@ public sealed class PageNyarlathotep : GreatOldOnePageCard
             .FromCard(this)
             .Targeting(cardPlay.Target)
             .Execute(choiceContext);
-        await PowerCmd.Apply<ShadowFromTheSteeplePower>(cardPlay.Target, DynamicVars["ShadowFromTheSteeplePower"].BaseValue, Owner.Creature, this);
+        await CommonActions.Apply<ShadowFromTheSteeplePower>(choiceContext, cardPlay.Target, this, DynamicVars["ShadowFromTheSteeplePower"].BaseValue);
     }
 
     protected override void OnUpgrade()
@@ -332,7 +334,7 @@ public sealed class PageYogSothoth : GreatOldOnePageCard
         _ = choiceContext;
         _ = cardPlay;
 
-        CombatState? combatState = CombatState;
+        ICombatState? combatState = CombatState;
         if (combatState == null)
         {
             return;
@@ -367,7 +369,7 @@ public sealed class PageHastur : GreatOldOnePageCard
     {
         _ = cardPlay;
 
-        CombatState? combatState = CombatState;
+        ICombatState? combatState = CombatState;
         if (combatState == null)
         {
             return;
@@ -376,7 +378,7 @@ public sealed class PageHastur : GreatOldOnePageCard
         await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
             .WithHitCount(DynamicVars["Hits"].IntValue)
             .FromCard(this)
-            .TargetingAllOpponents(combatState)
+            .TargetingAllOpponentsCompat(combatState)
             .Execute(choiceContext);
     }
 
@@ -408,7 +410,7 @@ public sealed class PageCthugha : GreatOldOnePageCard
             .Execute(choiceContext);
     }
 
-    public override async Task BeforeSideTurnStart(PlayerChoiceContext choiceContext, CombatSide side, CombatState combatState)
+    public override async Task BeforeSideTurnStart(PlayerChoiceContext choiceContext, CombatSide side, IReadOnlyList<Creature> creatures, ICombatState combatState)
     {
         _ = combatState;
 
@@ -443,10 +445,10 @@ public sealed class PageCthulhu : GreatOldOnePageCard
             return;
         }
 
-        await PowerCmd.Apply<CallOfCthulhuPower>(targetPlayer.Creature, 1m, Owner.Creature, this);
+        await CommonActions.Apply<CallOfCthulhuPower>(choiceContext, targetPlayer.Creature, this, 1m);
         if (IsUpgraded && targetPlayer != Owner)
         {
-            await PowerCmd.Apply<CallOfCthulhuPower>(Owner.Creature, 1m, Owner.Creature, this);
+            await CommonActions.Apply<CallOfCthulhuPower>(choiceContext, Owner.Creature, this, 1m);
         }
     }
 

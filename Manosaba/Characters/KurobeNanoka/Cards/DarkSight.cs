@@ -28,7 +28,7 @@ public sealed class DarkSight : PathCustomCardModel
     {
         _ = cardPlay;
 
-        await PowerCmd.Apply<DarkSightPower>(Owner.Creature, 1m, Owner.Creature, this);
+        await CommonActions.Apply<DarkSightPower>(choiceContext, Owner.Creature, this, 1m);
 
         List<CardModel> handCards = PileType.Hand.GetPile(Owner).Cards.ToList();
         if (handCards.Count > 0)

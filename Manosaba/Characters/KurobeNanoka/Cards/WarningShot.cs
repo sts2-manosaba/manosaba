@@ -49,10 +49,10 @@ public class WarningShot : GunBase
         NanokaHelper.PlayGunFireSfx();
         foreach (Creature hittableEnemy in combatState.HittableEnemies)
         {
-            await PowerCmd.Apply<WarningShotPower>(hittableEnemy, base.DynamicVars["StrengthLoss"].BaseValue, ownerCreature, this);
+            await CommonActions.Apply<WarningShotPower>(choiceContext, hittableEnemy, this, base.DynamicVars["StrengthLoss"].BaseValue);
         }
 
-        await PowerCmd.Apply<AccuratePower>(ownerCreature, DynamicVars["AccuratePower"].BaseValue, ownerCreature, this);
+        await CommonActions.Apply<AccuratePower>(choiceContext, ownerCreature, this, DynamicVars["AccuratePower"].BaseValue);
     }
 
     protected override void OnUpgrade()

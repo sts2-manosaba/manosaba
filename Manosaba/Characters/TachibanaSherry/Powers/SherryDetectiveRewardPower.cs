@@ -1,3 +1,4 @@
+using BaseLib.Utils;
 using Manosaba.Characters.TachibanaSherry.Cards;
 using Manosaba.Extensions;
 using MegaCrit.Sts2.Core.Combat;
@@ -18,9 +19,9 @@ public sealed class SherryDetectiveRewardPower : PathCustomPowerModel
     public override PowerType Type => PowerType.Buff;
     public override PowerStackType StackType => PowerStackType.Counter;
 
-    public override async Task AfterPowerAmountChanged(PowerModel power, decimal amount, Creature? applier, CardModel? cardSource)
+    public override async Task AfterPowerAmountChanged(PlayerChoiceContext choiceContext, PowerModel power, decimal amount, Creature? applier, CardModel? cardSource)
     {
-        await base.AfterPowerAmountChanged(power, amount, applier, cardSource);
+        await base.AfterPowerAmountChanged(choiceContext, power, amount, applier, cardSource);
 
         if (power == this)
         {
@@ -33,11 +34,11 @@ public sealed class SherryDetectiveRewardPower : PathCustomPowerModel
         await CreatureCmd.GainBlock(Owner, 1m, ValueProp.Unpowered, null);
     }
 
-    public override async Task AfterTurnEnd(PlayerChoiceContext choiceContext, CombatSide side)
+    public override async Task AfterSideTurnEnd(PlayerChoiceContext choiceContext, CombatSide side, IEnumerable<Creature> creatures)
     {
         if (side != Owner.Side || Amount <= 0)
             return;
 
-        await PowerCmd.Apply<SherryDetectiveRewardPower>(Owner, -1m, Owner, null);
+        await CommonActions.Apply<SherryDetectiveRewardPower>(choiceContext, Owner, null, -1m);
     }
 }

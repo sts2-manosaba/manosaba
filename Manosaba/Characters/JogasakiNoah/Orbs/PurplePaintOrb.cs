@@ -51,7 +51,7 @@ public sealed class PurplePaintOrb : ManosabaOrbModel
 
         Trigger();
         PlayPassiveSfx();
-        await PowerCmd.Apply<DoomPower>(chosen, PassiveVal, Owner.Creature, null);
+        await CommonActions.Apply<DoomPower>(choiceContext, chosen, null, PassiveVal);
     }
 
     public override async Task<IEnumerable<Creature>> Evoke(PlayerChoiceContext playerChoiceContext)
@@ -69,7 +69,10 @@ public sealed class PurplePaintOrb : ManosabaOrbModel
             return [];
         }
 
-        await PowerCmd.Apply<DoomPower>(enemies, EvokeVal, Owner.Creature, null);
+        foreach (Creature enemy in enemies)
+        {
+            await CommonActions.Apply<DoomPower>(playerChoiceContext, enemy, null, EvokeVal);
+        }
         return enemies;
     }
 }

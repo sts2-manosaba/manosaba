@@ -13,7 +13,7 @@ public sealed class TheLoversPower : PathCustomPowerModel
 {
     public override PowerType Type => PowerType.Debuff;
     public override PowerStackType StackType => PowerStackType.Counter;
-    public override bool IsInstanced => true;
+    public override PowerInstanceType InstanceType => PowerInstanceType.Instanced;
 
     public override async Task AfterDamageGiven(
         PlayerChoiceContext choiceContext,
@@ -43,7 +43,7 @@ public sealed class TheLoversPower : PathCustomPowerModel
         await CreatureCmd.Heal(applier, healAmount);
     }
 
-    public override async Task AfterTurnEnd(PlayerChoiceContext choiceContext, CombatSide side)
+    public override async Task AfterSideTurnEnd(PlayerChoiceContext choiceContext, CombatSide side, IEnumerable<Creature> creatures)
     {
         if (side == Owner.Side)
         {

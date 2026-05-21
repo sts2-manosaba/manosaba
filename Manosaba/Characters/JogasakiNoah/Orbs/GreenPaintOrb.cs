@@ -51,7 +51,7 @@ public sealed class GreenPaintOrb : ManosabaOrbModel
 
         Trigger();
         PlayPassiveSfx();
-        await PowerCmd.Apply<PoisonPower>(chosen, PassiveVal, Owner.Creature, null);
+        await CommonActions.Apply<PoisonPower>(choiceContext, chosen, null, PassiveVal);
     }
 
     public override async Task<IEnumerable<Creature>> Evoke(PlayerChoiceContext playerChoiceContext)
@@ -69,7 +69,10 @@ public sealed class GreenPaintOrb : ManosabaOrbModel
             return [];
         }
 
-        await PowerCmd.Apply<PoisonPower>(enemies, EvokeVal, Owner.Creature, null);
+        foreach (Creature enemy in enemies)
+        {
+            await CommonActions.Apply<PoisonPower>(playerChoiceContext, enemy, null, EvokeVal);
+        }
         return enemies;
     }
 }

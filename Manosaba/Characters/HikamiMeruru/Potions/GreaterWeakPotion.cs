@@ -1,4 +1,4 @@
-﻿using BaseLib.Utils;
+using BaseLib.Utils;
 using manosaba.Characters.HikamiMeruru;
 using Manosaba.Extensions;
 using MegaCrit.Sts2.Core.Commands;
@@ -35,7 +35,7 @@ namespace Manosaba.Characters.HikamiMeruru.Potions
             foreach (Creature item in targets)
             {
                 PotionModel.AssertValidForTargetedPotion(item);
-                await PowerCmd.Apply<WeakPower>(item, base.DynamicVars.Weak.BaseValue, ownerCreature, null);
+                await CommonActions.Apply<WeakPower>(choiceContext, item, null, base.DynamicVars.Weak.BaseValue);
             }
         }
     }

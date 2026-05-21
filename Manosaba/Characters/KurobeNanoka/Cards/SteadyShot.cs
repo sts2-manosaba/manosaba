@@ -37,7 +37,7 @@ public class SteadyShot : PathCustomCardModel
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        await PowerCmd.Apply<SteadyShotPower>(Owner.Creature, DynamicVars["SteadyShotPower"].BaseValue, Owner.Creature, this);
+        await CommonActions.Apply<SteadyShotPower>(choiceContext, Owner.Creature, this, DynamicVars["SteadyShotPower"].BaseValue);
     }
 
     protected override void OnUpgrade()

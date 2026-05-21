@@ -46,16 +46,8 @@ namespace Manosaba.Characters.TachibanaSherry.Cards
                 return;
             }
 
-            await PowerCmd.Apply<StrengthPower>(
-                ownerCreature,
-                DynamicVars["StrengthPower"].BaseValue,
-                ownerCreature,
-                this);
-            await PowerCmd.Apply<CluePower>(
-                ownerCreature,
-                DynamicVars["CluePower"].BaseValue,
-                ownerCreature,
-                this);
+            await CommonActions.Apply<StrengthPower>(choiceContext, ownerCreature, this, DynamicVars["StrengthPower"].BaseValue);
+            await CommonActions.Apply<CluePower>(choiceContext, ownerCreature, this, DynamicVars["CluePower"].BaseValue);
         }
 
         protected override void OnUpgrade()

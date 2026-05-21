@@ -1,4 +1,4 @@
-﻿using BaseLib.Extensions;
+using BaseLib.Extensions;
 using BaseLib.Utils;
 using Manosaba.Characters.Common.Monsters;
 using Manosaba.Characters.Common.Powers;
@@ -59,7 +59,7 @@ namespace manosaba.Characters.HasumiLeia.Relics
             // Leia gains Two Swords at combat start if she has any sword relic.
             if (Owner.Character is HasumiLeia && Owner.Creature.GetPowerAmount<SecondSwordPower>() <= 0m && HasAnySwordRelic(Owner.Relics))
             {
-                await PowerCmd.Apply<SecondSwordPower>(Owner.Creature, 1m, Owner.Creature, cardSource: null);
+                await CommonActions.Apply<SecondSwordPower>(new ThrowingPlayerChoiceContext(), Owner.Creature, null, 1m);
             }
         }
 
@@ -76,7 +76,7 @@ namespace manosaba.Characters.HasumiLeia.Relics
                 && _lastReflectedDealer != null
                 && dealer != _lastReflectedDealer)
             {
-                await ConsumeCurrentVigor();
+                await ConsumeCurrentVigor(choiceContext);
             }
 
             if (target == base.Owner.Creature && result.BlockedDamage > 0 && props.IsPoweredAttack_() && dealer != null)
@@ -127,9 +127,9 @@ namespace manosaba.Characters.HasumiLeia.Relics
                 || creature.Monster?.GetType().Name == entomancerTypeName;
         }
 
-        public override async Task AfterTurnEnd(PlayerChoiceContext choiceContext, CombatSide side)
+        public override async Task AfterSideTurnEnd(PlayerChoiceContext choiceContext, CombatSide side, IEnumerable<Creature> creatures)
         {
-            _ = choiceContext;
+            _ = creatures;
 
             if (side == base.Owner.Creature.Side)
             {
@@ -141,15 +141,15 @@ namespace manosaba.Characters.HasumiLeia.Relics
             if (RelicLevel < 5 || !_pendingVigorClear)
                 return;
 
-            await ConsumeCurrentVigor();
+            await ConsumeCurrentVigor(choiceContext);
         }
 
-        private async Task ConsumeCurrentVigor()
+        private async Task ConsumeCurrentVigor(PlayerChoiceContext choiceContext)
         {
             decimal vigor = base.Owner.Creature.GetPowerAmount<VigorPower>();
             if (vigor > 0m)
             {
-                await PowerCmd.Apply<VigorPower>(base.Owner.Creature, -vigor, base.Owner.Creature, null);
+                await CommonActions.Apply<VigorPower>(choiceContext, base.Owner.Creature, null, -vigor);
             }
 
             _pendingVigorClear = false;

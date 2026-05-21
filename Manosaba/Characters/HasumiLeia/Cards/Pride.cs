@@ -65,7 +65,7 @@ public sealed class Pride : PathCustomCardModel
         }
 
         var crowning = CombatState.CreateCard<Crowning>(Owner);
-        CardCmd.PreviewCardPileAdd(await CardPileCmd.AddGeneratedCardToCombat(crowning, PileType.Discard, addedByPlayer: true));
+        CardCmd.PreviewCardPileAdd(await CardPileCmd.AddGeneratedCardToCombat(crowning, PileType.Discard, Owner));
     }
 
     protected override void OnUpgrade()

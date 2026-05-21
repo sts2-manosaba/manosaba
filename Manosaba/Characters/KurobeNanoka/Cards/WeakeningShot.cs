@@ -48,7 +48,7 @@ public class WeakeningShot : GunBase
         if (target == null)
             return;
         await ExecuteGunAttack(choiceContext, target, DynamicVars.Damage.BaseValue);
-        await PowerCmd.Apply<WeakPower>(target, DynamicVars.Weak.BaseValue, base.Owner.Creature, this);
+        await CommonActions.Apply<WeakPower>(choiceContext, target, this, DynamicVars.Weak.BaseValue);
     }
 
     protected override void OnUpgrade()

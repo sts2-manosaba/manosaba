@@ -32,7 +32,7 @@ public class TrapSetting : PathCustomCardModel
             return;
         }
 
-        await PowerCmd.Apply<TrapSettingPower>(cardPlay.Target, 1m, Owner.Creature, this);
+        await CommonActions.Apply<TrapSettingPower>(choiceContext, cardPlay.Target, this, 1m);
     }
 
     protected override void OnUpgrade()

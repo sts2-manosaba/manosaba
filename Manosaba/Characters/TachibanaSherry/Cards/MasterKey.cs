@@ -46,7 +46,7 @@ namespace Manosaba.Characters.TachibanaSherry.Cards
                 return;
 
             List<BrokenLock> cards = BrokenLock.Create(base.Owner, 1, base.CombatState).ToList();
-            await CardPileCmd.AddGeneratedCardsToCombat(cards, PileType.Hand, addedByPlayer: true, CardPilePosition.Random);
+            await CardPileCmd.AddGeneratedCardsToCombat(cards, PileType.Hand, Owner, CardPilePosition.Random);
             if (base.IsUpgraded)
             {
                 foreach (CardModel c in cards)
@@ -57,7 +57,7 @@ namespace Manosaba.Characters.TachibanaSherry.Cards
             await CreatureCmd.GainBlock(ownerCreature, base.DynamicVars.Block, cardPlay);
             if (ownerCreature.GetPowerAmount<SherryDetectiveRewardPower>() > 0m)
             {
-                await PowerCmd.Apply<StrengthPower>(ownerCreature, 1m, ownerCreature, this);
+                await CommonActions.Apply<StrengthPower>(choiceContext, ownerCreature, this, 1m);
             }
         }
 

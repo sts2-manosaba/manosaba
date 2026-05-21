@@ -7,6 +7,7 @@ using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
 
+using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 namespace Manosaba.Characters.HikamiMeruru.Powers
 {
     public sealed class CatalystPower : PathCustomPowerModel
@@ -19,9 +20,9 @@ namespace Manosaba.Characters.HikamiMeruru.Powers
         protected override IEnumerable<DynamicVar> CanonicalVars => [new DynamicVar(ThresholdVar, 3m)];
         protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPotion<Tredecim>()];
 
-        public override async Task AfterPowerAmountChanged(PowerModel power, decimal amount, Creature? applier, CardModel? cardSource)
+        public override async Task AfterPowerAmountChanged(PlayerChoiceContext choiceContext, PowerModel power, decimal amount, Creature? applier, CardModel? cardSource)
         {
-            await base.AfterPowerAmountChanged(power, amount, applier, cardSource);
+            await base.AfterPowerAmountChanged(choiceContext, power, amount, applier, cardSource);
 
             int threshold = DynamicVars[ThresholdVar].IntValue;
             if (_resolvingThreshold || power is not CatalystPower || power.Owner != Owner || power.Amount < threshold)

@@ -54,10 +54,10 @@ namespace Manosaba.Characters.TonoHanna.Cards
                 await CreatureCmd.GainBlock(ownerCreature, 3m, ValueProp.Move, cardPlay);
             }
 
-            await PowerCmd.Apply<AnAnPuppetCollectionPower>(ownerCreature, 1m, ownerCreature, this);
+            await CommonActions.Apply<AnAnPuppetCollectionPower>(choiceContext, ownerCreature, this, 1m);
             foreach (Creature enemy in CombatState.HittableEnemies)
             {
-                await PowerCmd.Apply<AnAnPuppetPower>(enemy, DynamicVars["StrengthLoss"].BaseValue, ownerCreature, this);
+                await CommonActions.Apply<AnAnPuppetPower>(choiceContext, enemy, this, DynamicVars["StrengthLoss"].BaseValue);
             }
         }
 

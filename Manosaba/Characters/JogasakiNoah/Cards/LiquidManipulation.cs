@@ -46,7 +46,7 @@ namespace Manosaba.Characters.JogasakiNoahCard.Cards
             foreach (Creature item in enumerable)
             {
                 decimal amount = ((CalculatedVar)DynamicVars["LiquidManipulationPower"]).Calculate(null);
-                await PowerCmd.Apply<LiquidManipulationPower>(item, amount, ownerCreature, this);
+                await CommonActions.Apply<LiquidManipulationPower>(choiceContext, item, this, amount);
             }
         }
 

@@ -30,7 +30,7 @@ public sealed class EscapeRoute : PathCustomCardModel
     }
 
     protected override Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay) =>
-        PowerCmd.Apply<BlockNextTurnPower>(Owner.Creature, DynamicVars.Block.BaseValue, Owner.Creature, this);
+        CommonActions.Apply<BlockNextTurnPower>(choiceContext, Owner.Creature, this, DynamicVars.Block.BaseValue);
 
     protected override void OnUpgrade()
     {

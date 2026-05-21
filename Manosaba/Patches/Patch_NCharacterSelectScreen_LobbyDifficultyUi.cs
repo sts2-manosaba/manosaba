@@ -36,13 +36,6 @@ public static class Patch_NCharacterSelectScreen_LobbyDifficultyUi
             LobbyDifficultyUiEnterKind.SubmenuReopened);
     }
 
-    [HarmonyPatch(typeof(NCharacterSelectScreen), "CleanUpLobby", new[] { typeof(bool) })]
-    [HarmonyPrefix]
-    private static void Prefix_CleanUpLobby(NCharacterSelectScreen __instance)
-    {
-        ManosabaLobbyDifficultyUiHost.OnCleanup(__instance, () => LobbyDifficultyUiNetContext.From(LobbyRef(__instance)));
-    }
-
     [HarmonyPatch(typeof(NCharacterSelectScreen), nameof(NCharacterSelectScreen._Process))]
     [HarmonyPostfix]
     private static void Postfix_Process(NCharacterSelectScreen __instance, double delta)

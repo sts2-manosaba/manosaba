@@ -15,7 +15,7 @@ public sealed class TrapSettingPower : PathCustomPowerModel
 {
     public override PowerType Type => PowerType.Debuff;
     public override PowerStackType StackType => PowerStackType.Counter;
-    public override bool IsInstanced => true;
+    public override PowerInstanceType InstanceType => PowerInstanceType.Instanced;
     public override int DisplayAmount => _activeThisTurn ? 2 : 1;
 
     private int _appliedRound;
@@ -64,7 +64,7 @@ public sealed class TrapSettingPower : PathCustomPowerModel
         return ShouldAffectDamage(props) ? 2m : 1m;
     }
 
-    public override async Task AfterSideTurnStart(CombatSide side, CombatState combatState)
+    public override async Task AfterSideTurnStart(CombatSide side, IReadOnlyList<Creature> creatures, ICombatState combatState)
     {
         if (side != CombatSide.Player)
         {
@@ -87,7 +87,7 @@ public sealed class TrapSettingPower : PathCustomPowerModel
         }
     }
 
-    public override async Task AfterTurnEnd(PlayerChoiceContext choiceContext, CombatSide side)
+    public override async Task AfterSideTurnEnd(PlayerChoiceContext choiceContext, CombatSide side, IEnumerable<Creature> creatures)
     {
         _ = choiceContext;
 
