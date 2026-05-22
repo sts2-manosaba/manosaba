@@ -1,6 +1,7 @@
 using System.Linq;
 using System.Reflection;
 using Manosaba;
+using Manosaba.Characters.Common;
 using Manosaba.Config;
 using Manosaba.Multiplayer;
 using MegaCrit.Sts2.Core.Entities.Multiplayer;
@@ -65,7 +66,10 @@ internal static class ManosabaRandomCharacterPool
 
     internal static CharacterModel[] BuildManosabaOnlyPool()
     {
-        return ModelDb.AllCharacters.Where(IsManosabaPlayableCharacter).ToArray();
+        return ModelDb.AllCharacters
+            .Where(IsManosabaPlayableCharacter)
+            .Where(c => !ManosabaLockedCharacterIds.IsLocked(c))
+            .ToArray();
     }
 
     /// <summary>
@@ -94,7 +98,7 @@ internal static class ManosabaRandomCharacterPool
             return;
         }
 
-        if (IsManosabaPlayableCharacter(incoming))
+        if (IsManosabaPlayableCharacter(incoming) && !ManosabaLockedCharacterIds.IsLocked(incoming))
         {
             return;
         }
