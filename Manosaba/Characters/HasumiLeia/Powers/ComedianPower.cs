@@ -15,10 +15,9 @@ public sealed class ComedianPower : PathCustomPowerModel
     public override PowerStackType StackType => PowerStackType.Counter;
     public override bool AllowNegative => false;
 
-    public override async Task AfterCardDrawnEarly(PlayerChoiceContext choiceContext, CardModel card, bool fromHandDraw)
+    public override async Task AfterCardDrawn(PlayerChoiceContext choiceContext, CardModel card, bool fromHandDraw)
     {
-        if (!fromHandDraw)
-            return;
+        _ = fromHandDraw;
         if (card.Owner != Owner.Player)
             return;
         if (card.Rarity == CardRarity.Basic || card.Rarity == CardRarity.Common || card.Rarity == CardRarity.Uncommon || card.Rarity == CardRarity.Rare || card.Rarity == CardRarity.Ancient)
