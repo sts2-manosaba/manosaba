@@ -620,7 +620,7 @@
   "MANOSABA-THE_TOWER.title": "탑",
   "MANOSABA-THE_TOWER.description": "모든 적에게 피해를 {Damage:diff()} 주고, [gold]인공물[/gold]을 제거한 뒤 [gold]탑[/gold]을 {TheTowerPower:diff()} 부여합니다.\n덱에 [gold]죽음[/gold]이 있으면 [gold]종말[/gold]을 {DeathDoom} 추가로 부여합니다.",
   "MANOSABA-THE_STAR.title": "별",
-  "MANOSABA-THE_STAR.description": "[gold]방어도[/gold]를 {Block:diff()} 얻습니다.\n덱에 [gold]태양[/gold], [gold]달[/gold], [gold]별[/gold]이 모두 있으면 이 [gold]방어도[/gold]가 2배가 됩니다.\n이번 턴 대상 플레이어의 피해를 대신 받고, 받은 피해의 {ReflectMultiplier:diff()}배를 반사합니다.",
+  "MANOSABA-THE_STAR.description": "[gold]방어도[/gold]를 {Block:diff()} 얻습니다.\n덱에 [gold]태양[/gold], [gold]달[/gold], [gold]별[/gold]이 모두 있으면 이 [gold]방어도[/gold]가 2배가 됩니다.\n이번 턴 대상 플레이어의 피해를 대신 받고, 받은 피해의 {IfUpgraded:show:150|100}%를 반사합니다.",
   "MANOSABA-THE_MOON.title": "달",
   "MANOSABA-THE_MOON.description": "적 1명에게 피해를 {CalculatedDamage:diff()} 줍니다.\n대상의 [gold]중독[/gold], [gold]종말[/gold], [gold]화상[/gold] 총합의 {IfUpgraded:show:40|25}%만큼 피해를 줍니다.\n덱에 [gold]태양[/gold], [gold]달[/gold], [gold]별[/gold]이 모두 있으면 이 피해가 2배가 됩니다.",
   "MANOSABA-THE_SUN.title": "태양",

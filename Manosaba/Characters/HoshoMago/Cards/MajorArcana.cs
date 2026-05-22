@@ -832,7 +832,7 @@ public sealed class TheTower : HoshoMagoArcanaBase
 [Pool(typeof(HoshoMagoCardPool))]
 public sealed class TheStar : HoshoMagoArcanaBase
 {
-    private const int ReflectMultiplier = 2;
+    private const decimal ReflectMultiplier = 1m;
 
     public override bool GainsBlock => true;
     protected override IEnumerable<DynamicVar> CanonicalVars => [new BlockVar(16m, ValueProp.Move), new DynamicVar("ReflectMultiplier", ReflectMultiplier)];
@@ -862,13 +862,13 @@ public sealed class TheStar : HoshoMagoArcanaBase
             await PowerCmd.Apply<CoveredPower>(target, 1m, ownerCreature, this);
         }
 
-        await PowerCmd.Apply<TheStarPower>(ownerCreature, DynamicVars["ReflectMultiplier"].BaseValue, ownerCreature, this);
+        await PowerCmd.Apply<TheStarPower>(ownerCreature, TheStarPower.EncodeReflectMultiplier(DynamicVars["ReflectMultiplier"].BaseValue), ownerCreature, this);
     }
 
     protected override void OnUpgrade()
     {
         DynamicVars.Block.UpgradeValueBy(4);
-        DynamicVars["ReflectMultiplier"].UpgradeValueBy(1m);
+        DynamicVars["ReflectMultiplier"].UpgradeValueBy(0.5m);
     }
 }
 

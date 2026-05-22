@@ -357,7 +357,7 @@
   "MANOSABA-THE_TOWER_POWER.smartDescription": "無法獲得[gold]增益[/gold]。",
   "MANOSABA-THE_STAR_POWER.title": "星星",
   "MANOSABA-THE_STAR_POWER.description": "本回合受到攻擊傷害時，反彈該傷害。",
-  "MANOSABA-THE_STAR_POWER.smartDescription": "本回合受到攻擊傷害時，反彈該傷害的 [blue]{Amount}[/blue] 倍。",
+  "MANOSABA-THE_STAR_POWER.smartDescription": "本回合受到攻擊傷害時，反彈該傷害的 [blue]{Amount}[/blue]%。",
   "MANOSABA-THE_SUN_POWER.title": "太陽",
   "MANOSABA-THE_SUN_POWER.description": "最大[gold]能量[/gold]增加。",
   "MANOSABA-THE_SUN_POWER.smartDescription": "最大[gold]能量[/gold]增加 [blue]{Amount}[/blue]。",

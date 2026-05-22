@@ -306,7 +306,7 @@
   "MANOSABA-THE_TOWER_POWER.smartDescription": "[gold]バフ[/gold]を得られない。",
   "MANOSABA-THE_STAR_POWER.title": "星",
   "MANOSABA-THE_STAR_POWER.description": "このターン、攻撃で受けたダメージを反射する。",
-  "MANOSABA-THE_STAR_POWER.smartDescription": "このターン、攻撃で受けたダメージの[blue]{Amount}[/blue]倍を反射する。",
+  "MANOSABA-THE_STAR_POWER.smartDescription": "このターン、攻撃で受けたダメージの[blue]{Amount}[/blue]%を反射する。",
   "MANOSABA-THE_SUN_POWER.title": "太陽",
   "MANOSABA-THE_SUN_POWER.description": "最大[gold]エナジー[/gold]を増やす。",
   "MANOSABA-THE_SUN_POWER.smartDescription": "最大[gold]エナジー[/gold]を[blue]{Amount}[/blue]増やす。",

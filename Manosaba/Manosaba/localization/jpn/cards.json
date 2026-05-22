@@ -620,7 +620,7 @@
   "MANOSABA-THE_TOWER.title": "塔",
   "MANOSABA-THE_TOWER.description": "すべての敵に{Damage:diff()}ダメージを与え、[gold]アーティファクト[/gold]を取り除き、{TheTowerPower:diff()}層の[gold]塔[/gold]を付与する。\nデッキに[gold]死神[/gold]がある場合、追加で{DeathDoom}層の[gold]破滅[/gold]を付与する。",
   "MANOSABA-THE_STAR.title": "星",
-  "MANOSABA-THE_STAR.description": "{Block:diff()}[gold]ブロック[/gold]を得る。\nデッキに[gold]太陽[/gold]・[gold]月[/gold]・[gold]星[/gold]が揃っている場合、この[gold]ブロック[/gold]は2倍になる。\nこのターン、対象プレイヤーへのダメージを肩代わりし、受けたダメージの{ReflectMultiplier:diff()}倍を反射する。",
+  "MANOSABA-THE_STAR.description": "{Block:diff()}[gold]ブロック[/gold]を得る。\nデッキに[gold]太陽[/gold]・[gold]月[/gold]・[gold]星[/gold]が揃っている場合、この[gold]ブロック[/gold]は2倍になる。\nこのターン、対象プレイヤーへのダメージを肩代わりし、受けたダメージの{IfUpgraded:show:150|100}%を反射する。",
   "MANOSABA-THE_MOON.title": "月",
   "MANOSABA-THE_MOON.description": "敵1体に{CalculatedDamage:diff()}ダメージを与える。\n対象の[gold]毒[/gold]・[gold]破滅[/gold]・[gold]燃焼[/gold]の合計スタックの {IfUpgraded:show:40|25}% 分のダメージを与える。\nデッキに[gold]太陽[/gold]・[gold]月[/gold]・[gold]星[/gold]が揃っている場合、このダメージは2倍になる。",
   "MANOSABA-THE_SUN.title": "太陽",

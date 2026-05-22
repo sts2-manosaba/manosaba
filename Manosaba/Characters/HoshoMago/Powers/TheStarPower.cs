@@ -11,8 +11,12 @@ namespace Manosaba.Characters.HoshoMago.Powers;
 
 public sealed class TheStarPower : PathCustomPowerModel
 {
+    private const decimal PercentScale = 100m;
+
     public override PowerType Type => PowerType.Buff;
     public override PowerStackType StackType => PowerStackType.Counter;
+
+    public static decimal EncodeReflectMultiplier(decimal multiplier) => multiplier * PercentScale;
 
     public override async Task AfterDamageReceived(
         PlayerChoiceContext choiceContext,
@@ -34,7 +38,7 @@ public sealed class TheStarPower : PathCustomPowerModel
             return;
         }
 
-        decimal reflectedAmount = result.TotalDamage * Amount;
+        decimal reflectedAmount = result.TotalDamage * ReflectMultiplier;
         int reflectedDamage = (int)Math.Floor(reflectedAmount);
         if (reflectedDamage <= 0)
         {
@@ -52,4 +56,6 @@ public sealed class TheStarPower : PathCustomPowerModel
             await PowerCmd.Remove(this);
         }
     }
+
+    private decimal ReflectMultiplier => Amount / PercentScale;
 }
