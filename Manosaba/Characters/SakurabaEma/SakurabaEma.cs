@@ -1,8 +1,8 @@
 using Godot;
 using manosaba.Characters.SakurabaEma.Cards;
 using manosaba.Extensions;
-using manosaba.Characters.ShitoAlisa;
 using Manosaba.Characters.Common;
+using Manosaba.Characters.Common.Relics;
 using MegaCrit.Sts2.Core.Entities.Characters;
 using MegaCrit.Sts2.Core.Models;
 
@@ -33,7 +33,7 @@ public class SakurabaEma : ManosabaLockedCharacterModel
         ModelDb.Card<TraumaSakurabaEma>(),
     ];
 
-    public override IReadOnlyList<RelicModel> StartingRelics => [ModelDb.Relic<LegIrons>()];
+    public override IReadOnlyList<RelicModel> StartingRelics => [ModelDb.Relic<LockedCharacterStarterRelic>()];
 
     public override CardPoolModel CardPool => ModelDb.CardPool<SakurabaEmaCardPool>();
     public override RelicPoolModel RelicPool => ModelDb.RelicPool<SakurabaEmaRelicPool>();

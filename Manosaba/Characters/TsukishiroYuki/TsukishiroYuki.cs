@@ -1,8 +1,8 @@
 using Godot;
 using manosaba.Characters.TsukishiroYuki.Cards;
-using manosaba.Characters.ShitoAlisa;
 using manosaba.Extensions;
 using Manosaba.Characters.Common;
+using Manosaba.Characters.Common.Relics;
 using MegaCrit.Sts2.Core.Entities.Characters;
 using MegaCrit.Sts2.Core.Models;
 
@@ -33,7 +33,7 @@ public class TsukishiroYuki : ManosabaLockedCharacterModel
         ModelDb.Card<TraumaTsukishiroYuki>(),
     ];
 
-    public override IReadOnlyList<RelicModel> StartingRelics => [ModelDb.Relic<LegIrons>()];
+    public override IReadOnlyList<RelicModel> StartingRelics => [ModelDb.Relic<LockedCharacterStarterRelic>()];
 
     public override CardPoolModel CardPool => ModelDb.CardPool<TsukishiroYukiCardPool>();
     public override RelicPoolModel RelicPool => ModelDb.RelicPool<TsukishiroYukiRelicPool>();

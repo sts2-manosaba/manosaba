@@ -1,8 +1,8 @@
 using Godot;
 using manosaba.Characters.SawatariCoco.Cards;
-using manosaba.Characters.ShitoAlisa;
 using manosaba.Extensions;
 using Manosaba.Characters.Common;
+using Manosaba.Characters.Common.Relics;
 using MegaCrit.Sts2.Core.Entities.Characters;
 using MegaCrit.Sts2.Core.Models;
 
@@ -33,7 +33,7 @@ public class SawatariCoco : ManosabaLockedCharacterModel
         ModelDb.Card<TraumaSawatariCoco>(),
     ];
 
-    public override IReadOnlyList<RelicModel> StartingRelics => [ModelDb.Relic<LegIrons>()];
+    public override IReadOnlyList<RelicModel> StartingRelics => [ModelDb.Relic<LockedCharacterStarterRelic>()];
 
     public override CardPoolModel CardPool => ModelDb.CardPool<SawatariCocoCardPool>();
     public override RelicPoolModel RelicPool => ModelDb.RelicPool<SawatariCocoRelicPool>();
