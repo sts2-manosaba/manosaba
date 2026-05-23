@@ -1,12 +1,18 @@
+using System;
+using System.Collections.Generic;
 using BaseLib.Utils;
 using manosaba.Characters.TachibanaSherry;
 using Manosaba.Characters.TachibanaSherry.Powers;
 using Manosaba.Extensions;
+using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
+using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
+using MegaCrit.Sts2.Core.Hooks;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
+using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.Powers;
 using MegaCrit.Sts2.Core.ValueProps;
 
@@ -21,6 +27,85 @@ public sealed class GoodMorningSherry : PathCustomCardModel
     private const TargetType targetType = TargetType.AnyEnemy;
     private const bool shouldShowInCardLibrary = true;
 
+    /// <summary>
+    /// Vanilla <see cref="CalculatedVar.Calculate"/> gates the multiplier on <c>card.CombatState</c>;
+    /// <see cref="SherryDetectiveRewardPower"/> should affect hand previews without that gate.
+    /// </summary>
+    private sealed class GoodMorningSherryCalculatedDamageVar : CalculatedDamageVar
+    {
+        public GoodMorningSherryCalculatedDamageVar()
+            : base(ValueProp.Move)
+        {
+            WithMultiplier(DetectiveBonusMultiplier);
+        }
+
+        private static decimal DetectiveBonusMultiplier(CardModel card, Creature? _)
+        {
+            if (card.Owner?.Creature == null)
+            {
+                return 0m;
+            }
+
+            return card.Owner.Creature.GetPowerAmount<SherryDetectiveRewardPower>() > 0 ? 1m : 0m;
+        }
+
+        public override void UpdateCardPreview(CardModel card, CardPreviewMode previewMode, Creature? target, bool runGlobalHooks)
+        {
+            EnchantmentModel? enchantment = card.Enchantment;
+            if (enchantment != null)
+            {
+                decimal baseValue = GetBaseVar().BaseValue;
+                baseValue += enchantment.EnchantDamageAdditive(baseValue, Props);
+                baseValue *= enchantment.EnchantDamageMultiplicative(baseValue, Props);
+                baseValue = Math.Max(baseValue, 0m);
+                if (card.IsEnchantmentPreview)
+                {
+                    PreviewValue = baseValue;
+                }
+                else
+                {
+                    EnchantedValue = baseValue;
+                }
+            }
+
+            decimal num = GetBaseVar().BaseValue + GetExtraVar().BaseValue * DetectiveBonusMultiplier(card, target);
+            if (runGlobalHooks)
+            {
+                CombatState? combatState = card.CombatState ?? card.Owner?.Creature?.CombatState;
+                if (combatState == null || card.Owner == null)
+                {
+                    PreviewValue = Math.Max(num, 0m);
+                }
+                else
+                {
+                    PreviewValue = Hook.ModifyDamage(
+                        card.Owner.RunState,
+                        combatState,
+                        target,
+                        IsFromOsty ? card.Owner.Osty : card.Owner.Creature,
+                        num,
+                        Props,
+                        card,
+                        ModifyDamageHookType.All,
+                        previewMode,
+                        out IEnumerable<AbstractModel> _);
+                }
+            }
+            else if (!card.IsEnchantmentPreview)
+            {
+                if (enchantment != null)
+                {
+                    num += enchantment.EnchantDamageAdditive(num, Props);
+                    num *= enchantment.EnchantDamageMultiplicative(num, Props);
+                }
+
+                PreviewValue = num;
+            }
+
+            PreviewValue = Math.Max(PreviewValue, 0m);
+        }
+    }
+
     protected override IEnumerable<IHoverTip> ExtraHoverTips =>
     [
         HoverTipFactory.FromPower<SherryDetectiveRewardPower>(),
@@ -28,7 +113,12 @@ public sealed class GoodMorningSherry : PathCustomCardModel
         HoverTipFactory.Static(StaticHoverTip.Block),
     ];
 
-    protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(15m, ValueProp.Move)];
+    protected override IEnumerable<DynamicVar> CanonicalVars =>
+    [
+        new CalculationBaseVar(15m),
+        new ExtraDamageVar(5m),
+        new GoodMorningSherryCalculatedDamageVar(),
+    ];
 
     public GoodMorningSherry() : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)
     {
@@ -43,8 +133,7 @@ public sealed class GoodMorningSherry : PathCustomCardModel
 
         await CreatureCmd.Damage(choiceContext, ownerCreature, 2m, ValueProp.Unpowered, ownerCreature);
 
-        decimal bonus = ownerCreature.GetPowerAmount<SherryDetectiveRewardPower>() > 0 ? 5m : 0m;
-        await DamageCmd.Attack(DynamicVars.Damage.BaseValue + bonus)
+        await DamageCmd.Attack(DynamicVars.CalculatedDamage)
             .FromCard(this)
             .Targeting(target)
             .Execute(choiceContext);
@@ -52,6 +141,6 @@ public sealed class GoodMorningSherry : PathCustomCardModel
 
     protected override void OnUpgrade()
     {
-        DynamicVars.Damage.UpgradeValueBy(5m);
+        DynamicVars.CalculationBase.UpgradeValueBy(5m);
     }
 }

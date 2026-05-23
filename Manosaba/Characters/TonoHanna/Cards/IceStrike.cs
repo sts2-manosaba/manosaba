@@ -1,11 +1,15 @@
+using System;
+using System.Collections.Generic;
 using BaseLib.Utils;
 using manosaba.Characters.TonoHanna;
 using Manosaba.Characters.TonoHanna.Powers;
 using Manosaba.Extensions;
+using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
+using MegaCrit.Sts2.Core.Hooks;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
@@ -24,35 +28,90 @@ public class IceStrike : PathCustomCardModel
     private const bool shouldShowInCardLibrary = true;
 
     /// <summary>
-    /// Card UI uses <see cref="DamageVar.UpdateCardPreview"/>; bonus from <see cref="PuppetCollectionSummaryPower"/> was only applied in <see cref="OnPlay"/>, so the printed damage was too low in combat.
+    /// Vanilla <see cref="CalculatedVar.Calculate"/> only applies the multiplier when <c>card.CombatState != null</c>;
+    /// hand previews need <see cref="PuppetCollectionSummaryPower"/> stacks without that gate.
     /// </summary>
-    private sealed class IceStrikeDamageVar : DamageVar
+    private sealed class IceStrikeCalculatedDamageVar : CalculatedDamageVar
     {
-        public IceStrikeDamageVar(decimal damage, ValueProp props)
-            : base(damage, props)
+        public IceStrikeCalculatedDamageVar()
+            : base(ValueProp.Move)
         {
+            WithMultiplier(CollectionMultiplier);
+        }
+
+        private static decimal CollectionMultiplier(CardModel card, Creature? _)
+        {
+            if (card.Owner?.Creature == null)
+            {
+                return 0m;
+            }
+
+            return card.Owner.Creature.GetPower<PuppetCollectionSummaryPower>()?.Amount ?? 0;
         }
 
         public override void UpdateCardPreview(CardModel card, CardPreviewMode previewMode, Creature? target, bool runGlobalHooks)
         {
-            base.UpdateCardPreview(card, previewMode, target, runGlobalHooks);
-            if (card.Owner?.Creature == null)
+            EnchantmentModel? enchantment = card.Enchantment;
+            if (enchantment != null)
             {
-                return;
+                decimal baseValue = GetBaseVar().BaseValue;
+                baseValue += enchantment.EnchantDamageAdditive(baseValue, Props);
+                baseValue *= enchantment.EnchantDamageMultiplicative(baseValue, Props);
+                baseValue = Math.Max(baseValue, 0m);
+                if (card.IsEnchantmentPreview)
+                {
+                    PreviewValue = baseValue;
+                }
+                else
+                {
+                    EnchantedValue = baseValue;
+                }
             }
 
-            int collection = card.Owner.Creature.GetPower<PuppetCollectionSummaryPower>()?.Amount ?? 0;
-            if (collection == 0)
+            decimal num = GetBaseVar().BaseValue + GetExtraVar().BaseValue * CollectionMultiplier(card, target);
+            if (runGlobalHooks)
             {
-                return;
+                CombatState? combatState = card.CombatState ?? card.Owner?.Creature?.CombatState;
+                if (combatState == null || card.Owner == null)
+                {
+                    PreviewValue = Math.Max(num, 0m);
+                }
+                else
+                {
+                    PreviewValue = Hook.ModifyDamage(
+                        card.Owner.RunState,
+                        combatState,
+                        target,
+                        IsFromOsty ? card.Owner.Osty : card.Owner.Creature,
+                        num,
+                        Props,
+                        card,
+                        ModifyDamageHookType.All,
+                        previewMode,
+                        out IEnumerable<AbstractModel> _);
+                }
+            }
+            else if (!card.IsEnchantmentPreview)
+            {
+                if (enchantment != null)
+                {
+                    num += enchantment.EnchantDamageAdditive(num, Props);
+                    num *= enchantment.EnchantDamageMultiplicative(num, Props);
+                }
+
+                PreviewValue = num;
             }
 
-            decimal bonusPer = card.IsUpgraded ? 6m : 5m;
-            PreviewValue += collection * bonusPer;
+            PreviewValue = Math.Max(PreviewValue, 0m);
         }
     }
 
-    protected override IEnumerable<DynamicVar> CanonicalVars => [new IceStrikeDamageVar(25m, ValueProp.Move)];
+    protected override IEnumerable<DynamicVar> CanonicalVars =>
+    [
+        new CalculationBaseVar(25m),
+        new ExtraDamageVar(5m),
+        new IceStrikeCalculatedDamageVar(),
+    ];
 
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<PuppetCollectionSummaryPower>()];
 
@@ -62,19 +121,20 @@ public class IceStrike : PathCustomCardModel
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        if (Owner.Creature is not { } ownerCreature || cardPlay.Target is not { } target)
+        if (Owner.Creature is null || cardPlay.Target is not { } target)
         {
             return;
         }
 
-        int collection = ownerCreature.GetPower<PuppetCollectionSummaryPower>()?.Amount ?? 0;
-        decimal bonusPer = IsUpgraded ? 6m : 5m;
-        decimal damage = DynamicVars.Damage.BaseValue + collection * bonusPer;
-        await DamageCmd.Attack(damage).FromCard(this).Targeting(target).Execute(choiceContext);
+        await DamageCmd.Attack(DynamicVars.CalculatedDamage)
+            .FromCard(this)
+            .Targeting(target)
+            .Execute(choiceContext);
     }
 
     protected override void OnUpgrade()
     {
-        DynamicVars.Damage.UpgradeValueBy(5m);
+        DynamicVars.CalculationBase.UpgradeValueBy(5m);
+        DynamicVars.ExtraDamage.UpgradeValueBy(1m);
     }
 }
