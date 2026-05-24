@@ -444,7 +444,7 @@
   "MANOSABA-SWEEPING_EDGE.title": "薙ぎ払いの刃",
   "MANOSABA-SWEEPING_EDGE.description": "すべての敵に{Damage:diff()}ダメージを与え、{WeakPower:diff()}層の[gold]弱体[/gold]を与える。",
   "MANOSABA-GAZE_GUIDING.title": "視線誘導",
-  "MANOSABA-GAZE_GUIDING.description": "攻撃してきた敵があなたに与えるダメージが減少する(最大50%)。\nマルチプレイでは、さらに以下の効果を得る。\nあなたが受けるダメージが増加(最大100%)し、味方が受けるダメージが減少(最大50%)する。\n現在の[gold]魔女化[/gold]スタック(0~100)に応じて効果が増加する。",
+  "MANOSABA-GAZE_GUIDING.description": "シングルプレイ：あなたが受けるダメージが、現在の[gold]魔女化[/gold]に応じて減少する（最大50%）。\nマルチプレイ：他の味方が受けるダメージが、あなたの[gold]魔女化[/gold]に応じて減少する（最大50%）。あなたが受けるダメージは増加しない。",
   "MANOSABA-DEFENSIVE_STANCE.title": "防御姿勢",
   "MANOSABA-DEFENSIVE_STANCE.description": "このターン得る[gold]ブロック[/gold]が2倍になる。",
   "MANOSABA-CLUSTERPHOBIA.title": "閉所恐怖症",

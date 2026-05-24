@@ -55,8 +55,7 @@ public sealed class GazeGuidingPower : PathCustomPowerModel
 
         if (target == Owner)
         {
-            decimal increase = majoka / 100m; // 0..1
-            return 1m + increase;
+            return 1m;
         }
 
         if (target.IsPlayer && target != Owner && combatState != null && combatState.GetTeammatesOf(Owner).Contains(target))

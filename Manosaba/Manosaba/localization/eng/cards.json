@@ -444,7 +444,7 @@
   "MANOSABA-SWEEPING_EDGE.title": "Sweeping Edge",
   "MANOSABA-SWEEPING_EDGE.description": "Deal {Damage:diff()} damage to ALL enemies and apply {WeakPower:diff()} [gold]Weak[/gold].",
   "MANOSABA-GAZE_GUIDING.title": "Gaze Guiding",
-  "MANOSABA-GAZE_GUIDING.description": "Enemies that attack you deal less damage to you (max 50%).\nIn multiplayer, also gain:\nYou take more damage (max 100%), and allies take less damage (max 50%).\nScales with your current [gold]Majoka[/gold] stacks (0~100).",
+  "MANOSABA-GAZE_GUIDING.description": "Single-player: Damage you take is reduced based on your current [gold]Majoka[/gold], up to 50%.\nMultiplayer: Damage taken by other teammates is reduced based on your current [gold]Majoka[/gold], up to 50%. Damage you take is unchanged.",
   "MANOSABA-DEFENSIVE_STANCE.title": "Defensive Stance",
   "MANOSABA-DEFENSIVE_STANCE.description": "Double the [gold]Block[/gold] you gain this turn.",
   "MANOSABA-CLUSTERPHOBIA.title": "Claustrophobia",

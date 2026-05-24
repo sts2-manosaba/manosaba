@@ -26,6 +26,17 @@ public sealed class TreeBranchSecondSwordPower : PathCustomPowerModel
     public override string CustomBigIconPath => SharedIconFile.PowerImagePath();
     public override string CustomBigBetaIconPath => SharedIconFile.PowerImagePath();
 
+    public override async Task AfterApplied(Creature? applier, CardModel? cardSource)
+    {
+        _ = applier;
+        _ = cardSource;
+
+        if (Owner.GetPower<SecondSwordPower>() is not null)
+        {
+            await PowerCmd.Remove(this);
+        }
+    }
+
     public override async Task AfterAttack(AttackCommand command)
     {
         if (Owner.CombatState == null)

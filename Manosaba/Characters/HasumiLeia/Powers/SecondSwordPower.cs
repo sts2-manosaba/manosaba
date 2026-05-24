@@ -21,6 +21,17 @@ public sealed class SecondSwordPower : PathCustomPowerModel
     public override bool AllowNegative => false;
     public override bool ShouldPlayVfx => false;
 
+    public override async Task AfterApplied(Creature? applier, CardModel? cardSource)
+    {
+        _ = applier;
+        _ = cardSource;
+
+        if (Owner.GetPower<TreeBranchSecondSwordPower>() is TreeBranchSecondSwordPower temporary)
+        {
+            await PowerCmd.Remove(temporary);
+        }
+    }
+
     public override async Task AfterAttack(AttackCommand command)
     {
         if (Owner.CombatState == null)
