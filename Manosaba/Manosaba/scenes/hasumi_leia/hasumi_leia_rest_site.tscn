@@ -28,7 +28,6 @@ offset_bottom = 390.1905
 
 [node name="Hitbox" type="Control" parent="ControlRoot"]
 unique_name_in_owner = true
-visible = false
 anchors_preset = 0
 offset_left = -155.0
 offset_top = -351.0
@@ -37,7 +36,6 @@ offset_bottom = 332.0
 
 [node name="ThoughtBubbleRight" type="Control" parent="ControlRoot"]
 unique_name_in_owner = true
-visible = false
 anchors_preset = 0
 offset_left = 209.0
 offset_top = -317.0
@@ -46,7 +44,6 @@ offset_bottom = -317.0
 
 [node name="ThoughtBubbleLeft" type="Control" parent="ControlRoot"]
 unique_name_in_owner = true
-visible = false
 anchors_preset = 0
 offset_left = -151.0
 offset_top = -268.0
