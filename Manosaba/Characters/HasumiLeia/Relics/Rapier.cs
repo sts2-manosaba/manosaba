@@ -5,10 +5,10 @@ using Manosaba.Characters.Common.Powers;
 using Manosaba.Characters.HasumiLeia.Powers;
 using Manosaba.Characters.SaekiMiria.Cards;
 using Manosaba.Extensions;
+using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Creatures;
-using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.Entities.Relics;
 using MegaCrit.Sts2.Core.Factories;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
@@ -39,7 +39,8 @@ namespace manosaba.Characters.HasumiLeia.Relics
         protected override int MaxRelicLevel => 5;
 
         private decimal basePercentage = 0.6m;
-        private bool _reflectedSinceLastTurnStart;
+        private Creature? _lastReflectedDealer;
+        private bool _pendingVigorClear;
 
 
         public override Task AfterObtained()
@@ -67,12 +68,23 @@ namespace manosaba.Characters.HasumiLeia.Relics
             if (ReflectionDamageGuard.IsActive)
                 return;
 
+            if (RelicLevel >= 5
+                && target == base.Owner.Creature
+                && dealer != null
+                && props.IsPoweredAttack_()
+                && _pendingVigorClear
+                && _lastReflectedDealer != null
+                && dealer != _lastReflectedDealer)
+            {
+                await ConsumeCurrentVigor();
+            }
+
             if (target == base.Owner.Creature && result.BlockedDamage > 0 && props.IsPoweredAttack_() && dealer != null)
             {
-                _reflectedSinceLastTurnStart = true;
                 decimal damage = decimal.Ceiling(result.BlockedDamage * basePercentage);
                 int extraHits = target.GetPowerAmount<RapierMasteryPower>();
                 int hits = 1 + Math.Max(0, extraHits);
+                bool dealtPoweredReflectDamage = false;
 
                 await ReflectionDamageGuard.Run(async () =>
                 {
@@ -93,8 +105,18 @@ namespace manosaba.Characters.HasumiLeia.Relics
                         }
 
                         await CreatureCmd.Damage(choiceContext, dealer, damage, parryProps, parryDealer, null);
+                        if (parryProps.HasFlag(ValueProp.Move))
+                        {
+                            dealtPoweredReflectDamage = true;
+                        }
                     }
                 });
+
+                if (RelicLevel >= 5 && dealtPoweredReflectDamage)
+                {
+                    _pendingVigorClear = true;
+                    _lastReflectedDealer = dealer;
+                }
             }
         }
 
@@ -105,19 +127,33 @@ namespace manosaba.Characters.HasumiLeia.Relics
                 || creature.Monster?.GetType().Name == entomancerTypeName;
         }
 
-        public override async Task AfterPlayerTurnStart(PlayerChoiceContext choiceContext, Player player)
+        public override async Task AfterTurnEnd(PlayerChoiceContext choiceContext, CombatSide side)
         {
-            if (base.Owner.Creature != player.Creature)
+            _ = choiceContext;
+
+            if (side == base.Owner.Creature.Side)
+            {
+                _pendingVigorClear = false;
+                _lastReflectedDealer = null;
+                return;
+            }
+
+            if (RelicLevel < 5 || !_pendingVigorClear)
                 return;
 
-            if (!_reflectedSinceLastTurnStart)
-                return;
+            await ConsumeCurrentVigor();
+        }
 
-            _reflectedSinceLastTurnStart = false;
-
+        private async Task ConsumeCurrentVigor()
+        {
             decimal vigor = base.Owner.Creature.GetPowerAmount<VigorPower>();
             if (vigor > 0m)
+            {
                 await PowerCmd.Apply<VigorPower>(base.Owner.Creature, -vigor, base.Owner.Creature, null);
+            }
+
+            _pendingVigorClear = false;
+            _lastReflectedDealer = null;
         }
 
 
