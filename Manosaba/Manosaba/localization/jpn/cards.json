@@ -578,6 +578,8 @@
   "MANOSABA-LITTLE_MATCH_GIRL.description": "[gold]ステータス[/gold]カードを引いたとき、HPを{Heal:diff()}回復する。",
   "MANOSABA-EMERGENCY_SUTURE.title": "緊急縫合",
   "MANOSABA-EMERGENCY_SUTURE.description": "すべての[gold]状態異常[/gold]カードを[gold]消耗[/gold]する。\nこの方法で[gold]消耗[/gold]したカード1枚につき、すべての敵に{Damage:diff()}ダメージを与える。{InCombat:\n(攻撃回数は{CalculatedHits:diff()}回)|}",
+  "MANOSABA-ENERGY_IN_FRIDGE.title": "冷蔵",
+  "MANOSABA-ENERGY_IN_FRIDGE.description": "余ったエナジーを次のターンに持ち越せる。",
   "MANOSABA-STRIKE_HOSHO_MAGO.title": "打撃",
   "MANOSABA-STRIKE_HOSHO_MAGO.description": "{Damage:diff()}ダメージを与える。",
   "MANOSABA-DEFEND_HOSHO_MAGO.title": "防御",

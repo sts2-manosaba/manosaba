@@ -8,6 +8,7 @@ using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
+using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.ValueProps;
@@ -32,6 +33,9 @@ public sealed class EmergencySuture : PathCustomCardModel
         new CalculationExtraVar(1m),
         new CalculatedVar(calculatedHitsKey).WithMultiplier(static (card, _) => GetStatuses(card.Owner).Count()),
     ];
+
+    protected override IEnumerable<IHoverTip> ExtraHoverTips =>
+        [HoverTipFactory.FromKeyword(CardKeyword.Exhaust)];
 
     public EmergencySuture()
         : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)

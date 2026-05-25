@@ -578,6 +578,8 @@
   "MANOSABA-LITTLE_MATCH_GIRL.description": "Whenever you draw a [gold]Status[/gold] card, heal {Heal:diff()} HP.",
   "MANOSABA-EMERGENCY_SUTURE.title": "Emergency Suture",
   "MANOSABA-EMERGENCY_SUTURE.description": "[gold]Exhaust[/gold] all of your [gold]Status[/gold] cards.\nFor each card [gold]Exhausted[/gold] this way, deal {Damage:diff()} damage to ALL enemies.{InCombat:\n(Hits {CalculatedHits:diff()} {CalculatedHits:plural:time|times})|}",
+  "MANOSABA-ENERGY_IN_FRIDGE.title": "Refrigeration",
+  "MANOSABA-ENERGY_IN_FRIDGE.description": "Energy is conserved between turns.",
   "MANOSABA-STRIKE_HOSHO_MAGO.title": "Strike",
   "MANOSABA-STRIKE_HOSHO_MAGO.description": "Deal {Damage:diff()} damage.",
   "MANOSABA-DEFEND_HOSHO_MAGO.title": "Defend",

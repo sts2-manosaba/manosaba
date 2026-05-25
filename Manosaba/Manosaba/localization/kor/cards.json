@@ -578,6 +578,8 @@
   "MANOSABA-LITTLE_MATCH_GIRL.description": "[gold]상태[/gold] 카드를 뽑을 때마다 체력을 {Heal:diff()} 회복합니다.",
   "MANOSABA-EMERGENCY_SUTURE.title": "응급 봉합",
   "MANOSABA-EMERGENCY_SUTURE.description": "모든 [gold]상태[/gold] 카드를 [gold]소멸[/gold]시킵니다.\n이 방식으로 [gold]소멸[/gold]한 카드마다 모든 적에게 피해를 {Damage:diff()} 줍니다.{InCombat:\n({CalculatedHits:diff()}번 적중합니다)|}",
+  "MANOSABA-ENERGY_IN_FRIDGE.title": "냉장",
+  "MANOSABA-ENERGY_IN_FRIDGE.description": "남은 에너지가 다음 턴까지 유지됩니다.",
   "MANOSABA-STRIKE_HOSHO_MAGO.title": "타격",
   "MANOSABA-STRIKE_HOSHO_MAGO.description": "피해를 {Damage:diff()} 줍니다.",
   "MANOSABA-DEFEND_HOSHO_MAGO.title": "수비",
