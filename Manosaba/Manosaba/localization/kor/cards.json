@@ -21,6 +21,8 @@
   "MANOSABA-GOOD_SLEEP.description": "[gold]방어도[/gold]를 {Block:diff()} 얻고, [gold]마녀화[/gold]를 {MajokaPower:diff()} 얻습니다.",
   "MANOSABA-INTIMIDATE.title": "위협",
   "MANOSABA-INTIMIDATE.description": "대상에게 [gold]약화[/gold]를 {WeakPower:diff()} 부여하고, 자신에게 [gold]의심[/gold]을 {SusPower:diff()} 부여합니다.",
+  "MANOSABA-LIFE_SENTENCE.title": "종신형",
+  "MANOSABA-LIFE_SENTENCE.description": "[gold]종신형[/gold]을 {LifeSentencePower:diff()} 얻습니다.",
   "MANOSABA-LABOURS_OF_HIRO.title": "12 시련",
   "MANOSABA-LABOURS_OF_HIRO.description": "[gold]12 시련[/gold]을 얻습니다.",
   "MANOSABA-MUSOU_KEN.title": "무상검",

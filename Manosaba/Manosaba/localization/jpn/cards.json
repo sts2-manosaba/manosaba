@@ -21,6 +21,8 @@
   "MANOSABA-GOOD_SLEEP.description": "{Block:diff()}[gold]ブロック[/gold]を得る。{MajokaPower:diff()}層の[gold]魔女化[/gold]を得る。",
   "MANOSABA-INTIMIDATE.title": "威圧",
   "MANOSABA-INTIMIDATE.description": "対象に{WeakPower:diff()}層の[gold]弱体[/gold]を与え、自身に{SusPower:diff()}層の[gold]嫌疑[/gold]を与える。",
+  "MANOSABA-LIFE_SENTENCE.title": "終身刑",
+  "MANOSABA-LIFE_SENTENCE.description": "{LifeSentencePower:diff()}層の[gold]終身刑[/gold]を得る。",
   "MANOSABA-LABOURS_OF_HIRO.title": "十二の試練",
   "MANOSABA-LABOURS_OF_HIRO.description": "[gold]十二の試練[/gold]を得る。",
   "MANOSABA-MUSOU_KEN.title": "無想剣",

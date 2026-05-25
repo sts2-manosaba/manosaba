@@ -21,6 +21,8 @@
   "MANOSABA-GOOD_SLEEP.description": "Gain {Block:diff()} [gold]Block[/gold] and {MajokaPower:diff()} [gold]Majoka[/gold].",
   "MANOSABA-INTIMIDATE.title": "Intimidate",
   "MANOSABA-INTIMIDATE.description": "Apply {WeakPower:diff()} [gold]Weak[/gold] to a target and gain {SusPower:diff()} [gold]Suspicion[/gold].",
+  "MANOSABA-LIFE_SENTENCE.title": "Life Sentence",
+  "MANOSABA-LIFE_SENTENCE.description": "Gain {LifeSentencePower:diff()} [gold]Life Sentence[/gold].",
   "MANOSABA-LABOURS_OF_HIRO.title": "Labours of Hiro",
   "MANOSABA-LABOURS_OF_HIRO.description": "Gain [gold]Labours of Hiro[/gold].",
   "MANOSABA-MUSOU_KEN.title": "Musou Ken",

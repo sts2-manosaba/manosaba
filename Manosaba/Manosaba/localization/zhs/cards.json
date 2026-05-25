@@ -21,6 +21,8 @@
   "MANOSABA-GOOD_SLEEP.description": "獲得 {Block:diff()} 點[gold]格檔[/gold]，獲得 {MajokaPower:diff()} 層[gold]魔女化[/gold]。",
   "MANOSABA-INTIMIDATE.title": "威嚇",
   "MANOSABA-INTIMIDATE.description": "給予目標 {WeakPower:diff()} 層[gold]虛弱[/gold]，並給予自己 {SusPower:diff()} 層[gold]嫌疑[/gold]。",
+  "MANOSABA-LIFE_SENTENCE.title": "牢底坐穿",
+  "MANOSABA-LIFE_SENTENCE.description": "獲得 {LifeSentencePower:diff()} 層[gold]牢底坐穿[/gold]。",
   "MANOSABA-LABOURS_OF_HIRO.title": "十二試煉",
   "MANOSABA-LABOURS_OF_HIRO.description": "獲得[gold]十二試煉[/gold]。",
   "MANOSABA-MUSOU_KEN.title": "無想劍",
