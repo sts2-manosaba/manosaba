@@ -160,6 +160,8 @@
   "MANOSABA-SHIOU.description": "{CalculatedBlock:diff()}[gold]ブロック[/gold]を得る。",
   "MANOSABA-ORB_FULL_SPECTRUM_TEST.title": "全色球テスト",
   "MANOSABA-ORB_FULL_SPECTRUM_TEST.description": "[gold]ペイントボール枠[/gold]を2つ増やす。\n[gold]赤[/gold]、[gold]橙[/gold]、[gold]黄[/gold]、[gold]緑[/gold]、[gold]青[/gold]、[gold]紫[/gold]、[gold]黒[/gold]、[gold]白色ペイントボール[/gold]を順に1個ずつ生成する。",
+  "MANOSABA-PAINT_REFILL.title": "絵具補充",
+  "MANOSABA-PAINT_REFILL.description": "自分に[gold]絵具補充[/gold]を付与する。",
   "MANOSABA-PALETTE.title": "調色",
   "MANOSABA-PALETTE.description": "{Block:diff()}[gold]ブロック[/gold]を得る。\n[gold]赤・黄・青[/gold]からランダムに1個のペイントボールを生成する。",
   "MANOSABA-PALETTE_GAP.title": "隙間調色",

@@ -160,6 +160,8 @@
   "MANOSABA-SHIOU.description": "獲得 {CalculatedBlock:diff()} 點[gold]格檔[/gold]。",
   "MANOSABA-ORB_FULL_SPECTRUM_TEST.title": "全色球測試",
   "MANOSABA-ORB_FULL_SPECTRUM_TEST.description": "增加 2 格[gold]顏料球欄位[/gold]。\n依序生成各 1 顆[gold]紅[/gold]、[gold]橙[/gold]、[gold]黃[/gold]、[gold]綠[/gold]、[gold]藍[/gold]、[gold]紫[/gold]、[gold]黑[/gold]、[gold]白色顏料球[/gold]。",
+  "MANOSABA-PAINT_REFILL.title": "顏料補充",
+  "MANOSABA-PAINT_REFILL.description": "給予自身[gold]顏料補充[/gold]。",
   "MANOSABA-PALETTE.title": "調色",
   "MANOSABA-PALETTE.description": "獲得 {Block:diff()} 點[gold]格擋[/gold]。\n從[gold]紅色、黃色、藍色[/gold]中隨機生成 1 顆顏料球。",
   "MANOSABA-PALETTE_GAP.title": "縫隙調色",

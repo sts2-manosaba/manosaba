@@ -160,6 +160,8 @@
   "MANOSABA-SHIOU.description": "[gold]방어도[/gold]를 {CalculatedBlock:diff()} 얻습니다.",
   "MANOSABA-ORB_FULL_SPECTRUM_TEST.title": "전색 구슬 테스트",
   "MANOSABA-ORB_FULL_SPECTRUM_TEST.description": "[gold]구슬 슬롯[/gold]을 2칸 추가합니다. [gold]빨강[/gold], [gold]주황[/gold], [gold]노랑[/gold], [gold]초록[/gold], [gold]파랑[/gold], [gold]보라[/gold], [gold]검정[/gold], [gold]흰색 물감 구슬[/gold]을 순서대로 1개씩 생성합니다.",
+  "MANOSABA-PAINT_REFILL.title": "물감 보충",
+  "MANOSABA-PAINT_REFILL.description": "자신에게 [gold]물감 보충[/gold]을 부여합니다.",
   "MANOSABA-PALETTE.title": "조색",
   "MANOSABA-PALETTE.description": "[gold]방어도[/gold]를 {Block:diff()} 얻습니다.\n[gold]빨강·노랑·파랑[/gold] 중에서 물감 구슬 1개를 무작위로 생성합니다.",
   "MANOSABA-PALETTE_GAP.title": "틈새 조색",

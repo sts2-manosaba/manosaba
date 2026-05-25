@@ -160,6 +160,8 @@
   "MANOSABA-SHIOU.description": "Gain {CalculatedBlock:diff()} [gold]Block[/gold].",
   "MANOSABA-ORB_FULL_SPECTRUM_TEST.title": "Orb Full Spectrum Test",
   "MANOSABA-ORB_FULL_SPECTRUM_TEST.description": "Gain 2 [gold]Orb Slots[/gold].\nChannel 1 each of [gold]Red[/gold], [gold]Orange[/gold], [gold]Yellow[/gold], [gold]Green[/gold], [gold]Blue[/gold], [gold]Purple[/gold], [gold]Black[/gold], and [gold]White Paint Orb[/gold].",
+  "MANOSABA-PAINT_REFILL.title": "Paint Refill",
+  "MANOSABA-PAINT_REFILL.description": "Gain [gold]Paint Refill[/gold].",
   "MANOSABA-PALETTE.title": "Palette",
   "MANOSABA-PALETTE.description": "Gain {Block:diff()} [gold]Block[/gold].\nRandomly generate 1 paint orb from [gold]Red, Yellow, and Blue[/gold].",
   "MANOSABA-PALETTE_GAP.title": "Gap Palette",
