@@ -36,7 +36,7 @@ public class SawatariCoco : ManosabaLockedCharacterModel
     public override IReadOnlyList<RelicModel> StartingRelics => [ModelDb.Relic<LockedCharacterStarterRelic>()];
 
     public override CardPoolModel CardPool => ModelDb.CardPool<SawatariCocoCardPool>();
-    public override RelicPoolModel RelicPool => ModelDb.RelicPool<SawatariCocoRelicPool>();
+    public override RelicPoolModel RelicPool => ModelDb.RelicPool<LockedCharacterStarterRelicPool>();
     public override PotionPoolModel PotionPool => ModelDb.PotionPool<SawatariCocoPotionPool>();
 
     public override string CharacterSelectSfx => ManosabaCharacterSfx.CharacterSelectEvent(CharacterId);

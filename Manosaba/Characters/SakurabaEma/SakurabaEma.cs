@@ -36,7 +36,7 @@ public class SakurabaEma : ManosabaLockedCharacterModel
     public override IReadOnlyList<RelicModel> StartingRelics => [ModelDb.Relic<LockedCharacterStarterRelic>()];
 
     public override CardPoolModel CardPool => ModelDb.CardPool<SakurabaEmaCardPool>();
-    public override RelicPoolModel RelicPool => ModelDb.RelicPool<SakurabaEmaRelicPool>();
+    public override RelicPoolModel RelicPool => ModelDb.RelicPool<LockedCharacterStarterRelicPool>();
     public override PotionPoolModel PotionPool => ModelDb.PotionPool<SakurabaEmaPotionPool>();
 
     public override string CharacterSelectSfx => ManosabaCharacterSfx.CharacterSelectEvent(CharacterId);

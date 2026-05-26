@@ -36,7 +36,7 @@ public class TsukishiroYuki : ManosabaLockedCharacterModel
     public override IReadOnlyList<RelicModel> StartingRelics => [ModelDb.Relic<LockedCharacterStarterRelic>()];
 
     public override CardPoolModel CardPool => ModelDb.CardPool<TsukishiroYukiCardPool>();
-    public override RelicPoolModel RelicPool => ModelDb.RelicPool<TsukishiroYukiRelicPool>();
+    public override RelicPoolModel RelicPool => ModelDb.RelicPool<LockedCharacterStarterRelicPool>();
     public override PotionPoolModel PotionPool => ModelDb.PotionPool<TsukishiroYukiPotionPool>();
 
     public override string CharacterSelectSfx => ManosabaCharacterSfx.CharacterSelectEvent(CharacterId);
