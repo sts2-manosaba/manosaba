@@ -63,7 +63,7 @@ public sealed class LittleFairyPower : PathCustomPowerModel
             DynamicVars["FairyEnergy"].BaseValue = TotalEnergyPerTrigger();
         }
 
-        if (power is not StrengthPower || power.Owner != Owner || amount <= 0m || applier != Owner)
+        if (power is not StrengthPower || power.Owner != Owner || amount <= 0m)
         {
             return;
         }
