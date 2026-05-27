@@ -692,6 +692,8 @@
   "MANOSABA-PRISON.description": "給予自身 {PrisonPower:diff()} 層[gold]魔女島監獄[/gold]。",
   "MANOSABA-WITCH_ISLAND_EXPEDITION.title": "魔女島遠征隊",
   "MANOSABA-WITCH_ISLAND_EXPEDITION.description": "獲得[gold]魔女島遠征隊[/gold]。",
+  "MANOSABA-WARDEN_COMMAND.title": "典獄長的號令",
+  "MANOSABA-WARDEN_COMMAND.description": "打出[gold]處刑卡[/gold]時，會被額外打出一次。",
   "MANOSABA-INHIBITION.title": "抑制",
   "MANOSABA-INHIBITION.description": "給予目標玩家 {InhibitionPower:diff()} 層[gold]抑制力[/gold]。",
   "MANOSABA-SIMPLE_SPEAR.title": "簡易長矛",

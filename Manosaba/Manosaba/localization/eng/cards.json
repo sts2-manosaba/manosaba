@@ -692,6 +692,8 @@
   "MANOSABA-PRISON.description": "Gain {PrisonPower:diff()} [gold]Witch Island Prison[/gold].",
   "MANOSABA-WITCH_ISLAND_EXPEDITION.title": "Witch Island Expedition",
   "MANOSABA-WITCH_ISLAND_EXPEDITION.description": "Gain [gold]Witch Island Expedition[/gold].",
+  "MANOSABA-WARDEN_COMMAND.title": "Warden's Command",
+  "MANOSABA-WARDEN_COMMAND.description": "When you play an [gold]Execution[/gold] card, it is played an additional time.",
   "MANOSABA-INHIBITION.title": "Suppression",
   "MANOSABA-INHIBITION.description": "Apply {InhibitionPower:diff()} [gold]Inhibition[/gold] to target player.",
   "MANOSABA-SIMPLE_SPEAR.title": "Simple Spear",
