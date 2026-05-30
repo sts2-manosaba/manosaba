@@ -1,7 +1,6 @@
 using System.Linq;
 using System.Reflection;
 using Manosaba;
-using Manosaba.Characters.Common;
 using Manosaba.Config;
 using Manosaba.Multiplayer;
 using MegaCrit.Sts2.Core.Entities.Multiplayer;
@@ -29,6 +28,13 @@ internal static class ManosabaRandomCharacterPool
 
     private static readonly Lazy<CharacterModel[]> SortedManosabaPool = new(
         () => BuildManosabaOnlyPool()
+            .OrderBy(c => c.Id.Entry, StringComparer.Ordinal)
+            .ToArray());
+
+    private static readonly Lazy<CharacterModel[]> SortedAllPlayablePool = new(
+        () => ModelDb.AllCharacters
+            .Where(c => c is not RandomCharacter)
+            .Where(Patch_UnlockState_ManosabaLockedCharacters.CountsAsPlayableCharacter)
             .OrderBy(c => c.Id.Entry, StringComparer.Ordinal)
             .ToArray());
 
@@ -68,13 +74,12 @@ internal static class ManosabaRandomCharacterPool
     {
         return ModelDb.AllCharacters
             .Where(IsManosabaPlayableCharacter)
-            .Where(c => !ManosabaLockedCharacterIds.IsLocked(c))
+            .Where(Patch_UnlockState_ManosabaLockedCharacters.CountsAsPlayableCharacter)
             .ToArray();
     }
 
     /// <summary>
-    /// 目前欄位仍為「隨機」占位、且即將換成的角色為非 Mod 自機時，改從 Mod 池抽籤（出發時
-    /// <see cref="MegaCrit.Sts2.Core.Multiplayer.Game.Lobby.StartRunLobby.BeginRunLocally"/> 會直接呼叫 <c>ChangeCharacter</c> 而不走 <c>SetLocalCharacter</c>）。
+    /// 「隨機」占位結算時修正原版抽籤結果：ManosabaOnly 模式改抽 Mod 自機；AllCharacters 模式排除鎖定占位。
     /// </summary>
     /// <remarks>
     /// 單人與多人皆用同一套映射：以「原版／UI 傳入的角色」在 <see cref="ModelDb.AllCharacters"/> 列舉中的索引，
@@ -83,11 +88,6 @@ internal static class ManosabaRandomCharacterPool
     /// </remarks>
     internal static void TryReplaceVanillaPickWhenRandomSlot(ref CharacterModel incoming, CharacterModel? slotCurrent)
     {
-        if (ManosabaLobbyDifficultyState.GetRandomCharacterPoolModeForGameplay() != RandomCharacterPoolMode.ManosabaCharactersOnly)
-        {
-            return;
-        }
-
         if (slotCurrent is not RandomCharacter)
         {
             return;
@@ -98,16 +98,37 @@ internal static class ManosabaRandomCharacterPool
             return;
         }
 
-        if (IsManosabaPlayableCharacter(incoming) && !ManosabaLockedCharacterIds.IsLocked(incoming))
+        if (ManosabaLobbyDifficultyState.GetRandomCharacterPoolModeForGameplay() == RandomCharacterPoolMode.ManosabaCharactersOnly)
+        {
+            if (IsManosabaPlayableCharacter(incoming)
+                && Patch_UnlockState_ManosabaLockedCharacters.CountsAsPlayableCharacter(incoming))
+            {
+                return;
+            }
+
+            TryRemapRandomPick(
+                ref incoming,
+                SortedManosabaPool.Value,
+                "[Manosaba] RandomCharacterPool=ManosabaOnly but pool empty; vanilla random pick kept.");
+            return;
+        }
+
+        if (Patch_UnlockState_ManosabaLockedCharacters.CountsAsPlayableCharacter(incoming))
         {
             return;
         }
 
-        CharacterModel[] pool = SortedManosabaPool.Value;
+        TryRemapRandomPick(
+            ref incoming,
+            SortedAllPlayablePool.Value,
+            "[Manosaba] AllCharacters random pool empty after excluding locked placeholders; vanilla random pick kept.");
+    }
+
+    private static void TryRemapRandomPick(ref CharacterModel incoming, CharacterModel[] pool, string emptyPoolMessage)
+    {
         if (pool.Length == 0)
         {
-            Log.Warn(
-                "[Manosaba] RandomCharacterPool=ManosabaOnly but pool empty; vanilla random pick kept.");
+            Log.Warn(emptyPoolMessage);
             return;
         }
 

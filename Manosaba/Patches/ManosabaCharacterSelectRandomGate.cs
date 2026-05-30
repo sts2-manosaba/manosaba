@@ -1,4 +1,3 @@
-using Manosaba.Characters.Common;
 using MegaCrit.Sts2.Core.Entities.Multiplayer;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Unlocks;
@@ -12,7 +11,7 @@ namespace Manosaba.Patches;
 internal static class ManosabaCharacterSelectRandomGate
 {
     internal static bool CountsTowardRandomUnlockCheck(CharacterModel character) =>
-        !ManosabaLockedCharacterIds.IsLocked(character);
+        Patch_UnlockState_ManosabaLockedCharacters.CountsAsPlayableCharacter(character);
 
     internal static bool AreAllPlayableCharactersUnlocked(UnlockState unlockState)
     {
