@@ -72,7 +72,7 @@ namespace manosaba.Characters.NikaidoHiro.Relics
                 return 0m;
             }
 
-            decimal bonus = ownerCreature.GetPowerAmount<SusPower>() / 2m;
+            decimal bonus = ownerCreature.GetPowerAmount<SusPower>() / 4m;
             bonus += amount * GetHpDamageBonusPercent(ownerCreature) / 100m;
             return bonus;
         }

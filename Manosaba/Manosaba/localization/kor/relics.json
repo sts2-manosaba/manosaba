@@ -1,6 +1,6 @@
 {
   "MANOSABA-PEN_OF_HIRO.title": "히로의 만년필",
-  "MANOSABA-PEN_OF_HIRO.description": "[gold]의심[/gold] 2마다 공격 피해가 1 증가합니다.\nHP가 50% 미만이면 공격 피해가 {HalfHpDamageBonusPercent}% 증가합니다.\nHP가 20% 미만이면 대신 {LowHpDamageBonusPercent}% 증가합니다.",
+  "MANOSABA-PEN_OF_HIRO.description": "[gold]의심[/gold] 4마다 공격 피해가 1 증가합니다.\nHP가 50% 미만이면 공격 피해가 {HalfHpDamageBonusPercent}% 증가합니다.\nHP가 20% 미만이면 대신 {LowHpDamageBonusPercent}% 증가합니다.",
   "MANOSABA-PEN_OF_HIRO.flavor": "신비로운 위증녀 전용",
   "MANOSABA-SPRAY_CAN_OF_NOAH.title": "노아의 스프레이 캔",
   "MANOSABA-SPRAY_CAN_OF_NOAH.description": "[gold]구슬 슬롯[/gold]이 {OrbSlots}칸 증가합니다. 업그레이드 시 증가 칸 수가 늘어납니다.\n자신의 턴 시작 시 무작위 물감 구슬을 생성합니다(Lv1~2: 1개, Lv3~4: 2개, Lv5: 3개).",

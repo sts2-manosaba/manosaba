@@ -1,4 +1,5 @@
 ﻿using Manosaba.Characters.Common.Cards;
+using Manosaba.Characters.Common.Monsters;
 using Manosaba.Extensions;
 using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Commands;
@@ -15,11 +16,22 @@ public class SusPower : PathCustomPowerModel
 
     public override async Task AfterSideTurnStart(CombatSide side, CombatState combatState)
     {
-        if (side == CombatSide.Player && Owner.GetPowerAmount<SusPower>() >= 10 && Owner.Player != null)
+        if (side == CombatSide.Player && ShouldAddBadEnd() && Owner.Player != null)
         {
             List<BadEnd> cards = BadEnd.Create(Owner.Player, 1, combatState).ToList();
             IReadOnlyList<CardPileAddResult> results = await CardPileCmd.AddGeneratedCardsToCombat(cards, PileType.Hand, addedByPlayer: true, CardPilePosition.Top);
             CardCmd.PreviewCardPileAdd(results);
         }
+    }
+
+    private bool ShouldAddBadEnd()
+    {
+        int suspicion = Owner.GetPowerAmount<SusPower>();
+        if (Owner.Player?.PlayerCombatState?.GetPet<SakurabaEmaDog>() is { IsAlive: true })
+        {
+            return suspicion > 20;
+        }
+
+        return suspicion > 10;
     }
 }
