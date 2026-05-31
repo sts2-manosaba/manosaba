@@ -16,7 +16,7 @@ namespace Manosaba.Characters.TachibanaSherry.Cards
     [Pool(typeof(TachibanaSherryCardPool))]
     public class BurnTheHouseDown : PathCustomCardModel
     {
-        private const int energyCost = 3;
+        private const int energyCost = 2;
         private const CardType type = CardType.Attack;
         private const CardRarity rarity = CardRarity.Rare;
         private const TargetType targetType = TargetType.AnyEnemy;
@@ -49,7 +49,7 @@ namespace Manosaba.Characters.TachibanaSherry.Cards
 
         protected override void OnUpgrade()
         {
-            base.DynamicVars.CalculationBase.UpgradeValueBy(5m);
+            base.DynamicVars.CalculationBase.UpgradeValueBy(10m);
         }
     }
 }

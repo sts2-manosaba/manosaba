@@ -29,7 +29,7 @@ public sealed class LittleFairyPower : PathCustomPowerModel
     public override PowerStackType StackType => PowerStackType.Counter;
     public override int DisplayAmount => GetInternalData<Data>().StrengthCredit;
 
-    protected override IEnumerable<DynamicVar> CanonicalVars => [new DynamicVar("FairyEnergy", 1m)];
+    protected override IEnumerable<DynamicVar> CanonicalVars => [new EnergyVar(1)];
 
     protected override object InitInternalData() => new Data();
 
@@ -43,12 +43,12 @@ public sealed class LittleFairyPower : PathCustomPowerModel
         if (power == this)
         {
             List<decimal> layers = data.EnergyPerStackLayer;
-            if (amount > 0m && cardSource is LittleFairy lf
-                && lf.DynamicVars.TryGetValue("FairyEnergy", out DynamicVar? energyVar))
+            if (amount > 0m && cardSource is LittleFairy lf)
             {
+                decimal energyPerStack = lf.DynamicVars.Energy.BaseValue;
                 for (int i = 0; i < (int)amount; i++)
                 {
-                    layers.Add(energyVar.BaseValue);
+                    layers.Add(energyPerStack);
                 }
             }
             else if (amount < 0m)
@@ -60,7 +60,7 @@ public sealed class LittleFairyPower : PathCustomPowerModel
                 }
             }
 
-            DynamicVars["FairyEnergy"].BaseValue = TotalEnergyPerTrigger();
+            DynamicVars.Energy.BaseValue = TotalEnergyPerTrigger();
         }
 
         if (power is not StrengthPower || power.Owner != Owner || amount <= 0m)

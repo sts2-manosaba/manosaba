@@ -49,7 +49,7 @@ namespace Manosaba.Characters.TachibanaSherry.Cards
             await PowerCmd.Apply<CluePower>(ownerCreature, DynamicVars["CluePower"].BaseValue, ownerCreature, this);
             if (ownerCreature.GetPowerAmount<SherryDetectiveRewardPower>() > 0m)
             {
-                await PowerCmd.Apply<StrengthPower>(ownerCreature, 1m, ownerCreature, this);
+                await PowerCmd.Apply<StrengthPower>(ownerCreature, 2m, ownerCreature, this);
             }
         }
 

@@ -34,7 +34,7 @@ namespace Manosaba.Characters.TachibanaSherry.Cards
         [
             new PowerVar<MajokaPower>(20m),
             new PowerVar<CluePower>(2m),
-            new DamageVar(5m, ValueProp.Unpowered),
+            new DamageVar(2m, ValueProp.Unpowered),
         ];
 
         public IsekaiElevator() : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)

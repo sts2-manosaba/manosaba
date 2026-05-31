@@ -21,7 +21,7 @@ namespace Manosaba.Characters.TachibanaSherry.Cards
         private const bool shouldShowInCardLibrary = true;
         protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<ThornsPower>(), HoverTipFactory.FromPower<VulnerablePower>()];
 
-        protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(5m, ValueProp.Unpowered), new PowerVar<ThornsPower>(10), new PowerVar<VulnerablePower>(2)];
+        protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(2m, ValueProp.Unpowered), new PowerVar<ThornsPower>(10), new PowerVar<VulnerablePower>(1)];
 
         public DirtyEhe() : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)
         {

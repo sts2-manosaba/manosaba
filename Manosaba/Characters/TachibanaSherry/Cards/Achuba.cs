@@ -1,68 +1,48 @@
 using BaseLib.Utils;
-using System.Linq;
 using manosaba.Characters.TachibanaSherry;
+using Manosaba.Characters.TachibanaSherry.Powers;
 using Manosaba.Extensions;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
-using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
-using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models.Powers;
-using MegaCrit.Sts2.Core.ValueProps;
 
-namespace Manosaba.Characters.TachibanaSherry.Cards
+namespace Manosaba.Characters.TachibanaSherry.Cards;
+
+[Pool(typeof(TachibanaSherryCardPool))]
+public sealed class Achuba : PathCustomCardModel
 {
-    [Pool(typeof(TachibanaSherryCardPool))]
-    public class Achuba : PathCustomCardModel
+    private const int energyCost = 2;
+    private const CardType type = CardType.Skill;
+    private const CardRarity rarity = CardRarity.Uncommon;
+    private const TargetType targetType = TargetType.AnyEnemy;
+    private const bool shouldShowInCardLibrary = true;
+
+    protected override IEnumerable<IHoverTip> ExtraHoverTips =>
+    [
+        HoverTipFactory.FromPower<AchubaPower>(),
+        HoverTipFactory.FromPower<StrengthPower>(),
+    ];
+
+    public Achuba() : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)
     {
-        private const int energyCost = 1;
-        private const CardType type = CardType.Attack;
-        private const CardRarity rarity = CardRarity.Uncommon;
-        private const TargetType targetType = TargetType.RandomEnemy;
-        private const bool shouldShowInCardLibrary = true;
+    }
 
-        protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<SoarPower>()];
-
-        protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(10m, ValueProp.Move)];
-
-        public Achuba() : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)
+    protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
+    {
+        _ = choiceContext;
+        if (cardPlay.Target is not { } target || Owner?.Creature is not { } ownerCreature)
         {
+            return;
         }
 
-        protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
-        {
-            if (base.CombatState == null || base.Owner?.Creature == null)
-                return;
+        await PowerCmd.Apply<AchubaPower>(target, 1m, ownerCreature, this);
+        await PowerCmd.Apply<StrengthPower>(ownerCreature, 1m, ownerCreature, this);
+    }
 
-            int attackCount = 1;
-            while (attackCount > 0)
-            {
-                attackCount--;
-                var candidates = base.CombatState.HittableEnemies
-                    .Where(e => e.IsAlive && e.GetPowerAmount<SoarPower>() <= 0)
-                    .ToList();
-                if (candidates.Count == 0)
-                    break;
-
-                Creature? target = base.Owner.RunState.Rng.CombatTargets.NextItem(candidates);
-                if (target == null)
-                {
-                    break;
-                }
-
-                var attackCommand = await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
-                    .FromCard(this)
-                    .Targeting(target)
-                    .Execute(choiceContext);
-                if (attackCommand.Results.Any(r => r.WasTargetKilled))
-                    attackCount++;
-            }
-        }
-
-        protected override void OnUpgrade()
-        {
-            base.DynamicVars.Damage.UpgradeValueBy(5m);
-        }
+    protected override void OnUpgrade()
+    {
+        EnergyCost.UpgradeBy(-1);
     }
 }

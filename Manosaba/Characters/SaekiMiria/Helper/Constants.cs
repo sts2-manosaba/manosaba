@@ -96,6 +96,7 @@ namespace Manosaba.Characters.SaekiMiria.Helper
                 typeof(SherryDetectiveRewardPower),
                 typeof(HorsebackRidingPower),
                 typeof(LittleFairyPower),
+                typeof(AchubaPower),
                 typeof(CluesGainedThisTurnPower),
                 typeof(PlayedSanThisTurnPower),
             };

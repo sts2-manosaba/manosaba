@@ -49,6 +49,7 @@ public sealed class SanFindsClue : PathCustomCardModel
             .TargetingAllOpponents(CombatState)
             .Execute(choiceContext);
 
+        await PowerCmd.Apply<StrengthPower>(ownerCreature, 1m, ownerCreature, this);
         await PowerCmd.Apply<PlayedSanThisTurnPower>(ownerCreature, 1m, ownerCreature, this);
         RefreshRokuCosts(Owner);
     }

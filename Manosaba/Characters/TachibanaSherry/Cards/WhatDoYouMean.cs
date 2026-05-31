@@ -51,7 +51,7 @@ namespace Manosaba.Characters.TachibanaSherry.Cards
             await PowerCmd.Apply<WeakPower>(target, DynamicVars["WeakPower"].BaseValue, ownerCreature, this);
             if (ownerCreature.GetPowerAmount<SherryDetectiveRewardPower>() > 0m)
             {
-                await PowerCmd.Apply<StrengthPower>(ownerCreature, 1m, ownerCreature, this);
+                await PowerCmd.Apply<StrengthPower>(ownerCreature, 2m, ownerCreature, this);
             }
 
             CardModel? cardModel = (await CardSelectCmd.FromHand(

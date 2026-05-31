@@ -28,7 +28,7 @@ public sealed class LittleFairy : PathCustomCardModel
 
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
-        new DynamicVar("FairyEnergy", 1m),
+        new EnergyVar(1),
         new PowerVar<LittleFairyPower>(1m),
     ];
 

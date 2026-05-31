@@ -44,7 +44,7 @@ namespace Manosaba.Characters.TachibanaSherry.Cards
             await PowerCmd.Apply<DontRushPower>(cardPlay.Target, DynamicVars["EnemyStrengthLoss"].BaseValue, Owner.Creature, this);
             if (Owner.Creature.GetPowerAmount<SherryDetectiveRewardPower>() > 0m)
             {
-                await PowerCmd.Apply<StrengthPower>(Owner.Creature, 1m, Owner.Creature, this);
+                await PowerCmd.Apply<StrengthPower>(Owner.Creature, 2m, Owner.Creature, this);
             }
         }
 

@@ -11,7 +11,7 @@ using MegaCrit.Sts2.Core.ValueProps;
 
 namespace Manosaba.Characters.TachibanaSherry.Cards;
 
-/// <summary>投降：格檔後固定失去 3 點力量；升級僅增加格檔（13→17）。</summary>
+/// <summary>投降：格檔後固定失去 2 點力量；升級僅增加格檔（13→17）。</summary>
 [Pool(typeof(TachibanaSherryCardPool))]
 public sealed class Surrender : PathCustomCardModel
 {
@@ -43,7 +43,7 @@ public sealed class Surrender : PathCustomCardModel
         }
 
         await CreatureCmd.GainBlock(ownerCreature, DynamicVars.Block, cardPlay);
-        await PowerCmd.Apply<StrengthPower>(ownerCreature, -3m, ownerCreature, this);
+        await PowerCmd.Apply<StrengthPower>(ownerCreature, -2m, ownerCreature, this);
     }
 
     protected override void OnUpgrade()
