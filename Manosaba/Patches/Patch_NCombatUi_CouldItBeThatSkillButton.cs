@@ -1,4 +1,5 @@
 using HarmonyLib;
+using Manosaba.Characters.TachibanaSherry.Combat;
 using Manosaba.Characters.TachibanaSherry.Visuals;
 using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Context;
@@ -29,6 +30,7 @@ public static class Patch_NCombatUi_CouldItBeThatSkillButton
     private static void Deactivate_Postfix(NCombatUi __instance)
     {
         CouldItBeThatSkillButtonUi.RemoveFrom(__instance);
+        CouldItBeThatSkillActivation.ClearAllActivationPending();
     }
 
     private static Player? TryResolveLocalPlayer(CombatState state)

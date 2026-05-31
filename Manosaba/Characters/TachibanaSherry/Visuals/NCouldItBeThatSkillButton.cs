@@ -12,6 +12,8 @@ using MegaCrit.Sts2.Core.Localization;
 using MegaCrit.Sts2.Core.Nodes.Combat;
 using MegaCrit.Sts2.Core.Nodes.HoverTips;
 using MegaCrit.Sts2.Core.Nodes.Rooms;
+using MegaCrit.Sts2.Core.Nodes.Screens.ScreenContext;
+using MegaCrit.Sts2.Core.Rooms;
 
 namespace Manosaba.Characters.TachibanaSherry.Visuals;
 
@@ -190,6 +192,7 @@ public sealed partial class NCouldItBeThatSkillButton : Control
         if (inputEvent is InputEventMouseButton { Pressed: true, ButtonIndex: MouseButton.Left })
         {
             CouldItBeThatSkillActivation.TryEnqueue(_player);
+            Refresh(force: true);
             AcceptEvent();
         }
     }
@@ -271,9 +274,16 @@ public sealed partial class NCouldItBeThatSkillButton : Control
 
         CouldItBeThatSkillPower? skillPower = _player.Creature?.GetPower<CouldItBeThatSkillPower>();
         bool hasPower = skillPower != null;
-        Visible = hasPower;
-        if (!hasPower)
+        Visible = hasPower && ShouldBeVisibleOnCombatUi();
+        if (!hasPower || !Visible)
         {
+            if (!Visible && _isHovered)
+            {
+                _isHovered = false;
+                NHoverTipSet.Remove(this);
+                RestoreIdleVisuals();
+            }
+
             return;
         }
 
@@ -308,6 +318,17 @@ public sealed partial class NCouldItBeThatSkillButton : Control
         MouseFilter = canClick ? MouseFilterEnum.Stop : MouseFilterEnum.Ignore;
 
         _ = force;
+    }
+
+    private static bool ShouldBeVisibleOnCombatUi()
+    {
+        NCombatRoom? combatRoom = NCombatRoom.Instance;
+        if (combatRoom == null || combatRoom.Mode != CombatRoomMode.ActiveCombat)
+        {
+            return false;
+        }
+
+        return ActiveScreenContext.Instance.IsCurrent(combatRoom);
     }
 }
 

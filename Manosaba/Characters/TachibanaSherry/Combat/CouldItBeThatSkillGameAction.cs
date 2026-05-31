@@ -11,6 +11,7 @@ using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Multiplayer.Serialization;
 using MegaCrit.Sts2.Core.Nodes.Combat;
 using MegaCrit.Sts2.Core.Nodes.Rooms;
+using MegaCrit.Sts2.Core.Nodes.Screens.ScreenContext;
 using MegaCrit.Sts2.Core.Rooms;
 using MegaCrit.Sts2.Core.Runs;
 
@@ -68,6 +69,7 @@ public sealed class CouldItBeThatSkillGameAction : GameAction
 
     protected override void CancelAction()
     {
+        CouldItBeThatSkillActivation.ClearActivationPending(Player);
     }
 
     public override INetAction ToNetAction()
@@ -104,30 +106,58 @@ public struct NetCouldItBeThatSkillGameAction : INetAction, IPacketSerializable
 
 public static class CouldItBeThatSkillActivation
 {
+    private static ActionExecutor? _subscribedExecutor;
+    private static ulong? _pendingPlayerNetId;
+
+    public static bool IsActivationPending(Player player) =>
+        _pendingPlayerNetId == player.NetId;
+
     public static bool CanActivate(Player player)
     {
+        if (IsActivationPending(player))
+        {
+            return false;
+        }
+
         if (player.Creature?.GetPower<CouldItBeThatSkillPower>() is not { IsReady: true })
         {
             return false;
         }
 
-        if (RunManager.Instance.ActionExecutor.CurrentlyRunningAction != null)
+        if (!LocalContext.IsMe(player))
         {
             return false;
         }
 
-        NCombatUi? combatUi = NCombatRoom.Instance?.Ui;
-        if (combatUi == null || NCombatRoom.Instance?.Mode != CombatRoomMode.ActiveCombat)
+        NCombatRoom? combatRoom = NCombatRoom.Instance;
+        NCombatUi? combatUi = combatRoom?.Ui;
+        if (combatUi == null || combatRoom == null || combatRoom.Mode != CombatRoomMode.ActiveCombat)
         {
             return false;
         }
 
-        if (combatUi.Hand.IsInCardSelection || combatUi.Hand.InCardPlay)
+        if (!ActiveScreenContext.Instance.IsCurrent(combatRoom))
+        {
+            return false;
+        }
+
+        if (combatUi.Hand.IsInCardSelection || combatUi.Hand.InCardPlay || combatUi.Hand.CurrentMode != NPlayerHand.Mode.Play)
         {
             return false;
         }
 
         if (player.Creature?.CombatState is not { CurrentSide: CombatSide.Player })
+        {
+            return false;
+        }
+
+        if (!CombatManager.Instance.IsPlayPhase || CombatManager.Instance.PlayerActionsDisabled)
+        {
+            return false;
+        }
+
+        if (CombatManager.Instance.PlayersTakingExtraTurn.Count > 0 &&
+            !CombatManager.Instance.PlayersTakingExtraTurn.Contains(player))
         {
             return false;
         }
@@ -147,6 +177,46 @@ public static class CouldItBeThatSkillActivation
             return;
         }
 
+        EnsurePendingTrackerSubscribed();
+        _pendingPlayerNetId = player.NetId;
         RunManager.Instance.ActionQueueSynchronizer.RequestEnqueue(new CouldItBeThatSkillGameAction(player));
+    }
+
+    public static void ClearActivationPending(Player player)
+    {
+        if (_pendingPlayerNetId == player.NetId)
+        {
+            _pendingPlayerNetId = null;
+        }
+    }
+
+    public static void ClearAllActivationPending()
+    {
+        _pendingPlayerNetId = null;
+    }
+
+    private static void EnsurePendingTrackerSubscribed()
+    {
+        ActionExecutor executor = RunManager.Instance.ActionExecutor;
+        if (_subscribedExecutor == executor)
+        {
+            return;
+        }
+
+        if (_subscribedExecutor != null)
+        {
+            _subscribedExecutor.AfterActionExecuted -= OnAfterActionExecuted;
+        }
+
+        _subscribedExecutor = executor;
+        _subscribedExecutor.AfterActionExecuted += OnAfterActionExecuted;
+    }
+
+    private static void OnAfterActionExecuted(GameAction action)
+    {
+        if (action is CouldItBeThatSkillGameAction && action.OwnerId == _pendingPlayerNetId)
+        {
+            _pendingPlayerNetId = null;
+        }
     }
 }
