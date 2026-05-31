@@ -1,4 +1,4 @@
-﻿using manosaba.Characters.NatsumeAnan.Powers;
+using manosaba.Characters.NatsumeAnan.Powers;
 using Manosaba.Characters.Common.Cards;
 using Manosaba.Characters.Common.Overrides;
 using Manosaba.Characters.Common.Powers;
@@ -97,6 +97,7 @@ namespace Manosaba.Characters.SaekiMiria.Helper
                 typeof(HorsebackRidingPower),
                 typeof(LittleFairyPower),
                 typeof(AchubaPower),
+                typeof(CouldItBeThatSkillPower),
                 typeof(CluesGainedThisTurnPower),
                 typeof(PlayedSanThisTurnPower),
             };

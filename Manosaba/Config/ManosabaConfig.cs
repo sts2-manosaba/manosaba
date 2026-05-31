@@ -43,6 +43,9 @@ public sealed class ManosabaConfig : SimpleModConfig
     public static ManosabaFxPlayMode HikamiMeruruExaidEffectFrequency { get; set; } = ManosabaFxPlayMode.EveryTime;
 
     [ConfigHoverTip]
+    public static ManosabaFxPlayMode SearchAnalyzeSolveEffectFrequency { get; set; } = ManosabaFxPlayMode.EveryTime;
+
+    [ConfigHoverTip]
     public static ManosabaFxPlayMode NoahFriendsEffectFrequency { get; set; } = ManosabaFxPlayMode.EveryTime;
 
     [ConfigHoverTip]
