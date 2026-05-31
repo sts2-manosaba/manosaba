@@ -60,7 +60,7 @@ public sealed class FutureOfPotions : PathCustomCardModel
                     choiceContext,
                     ownerCreature,
                     selfDamage,
-                    ValueProp.Move,
+                    ValueProp.Unpowered,
                     ownerCreature,
                     this);
             }
