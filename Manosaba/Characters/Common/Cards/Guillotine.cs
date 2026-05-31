@@ -1,5 +1,6 @@
 ﻿using BaseLib.Utils;
 using manosaba.Characters.Common;
+using Manosaba.Characters.Common.Overrides;
 using Manosaba.Extensions;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
@@ -18,6 +19,7 @@ namespace Manosaba.Characters.Common.Cards
         private const CardRarity rarity = CardRarity.Common;
         private const TargetType targetType = TargetType.AnyEnemy;
         private const bool shouldShowInCardLibrary = true;
+        public override IEnumerable<CardKeyword> CanonicalKeywords => [ManosabaKeywords.Execution];
         protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(14, ValueProp.Move), new DynamicVar("BeheadedThreshold", 10m)];
 
         public Guillotine() : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)

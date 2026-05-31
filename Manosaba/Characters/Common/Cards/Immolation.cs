@@ -1,5 +1,6 @@
 ﻿using BaseLib.Utils;
 using manosaba.Characters.Common;
+using Manosaba.Characters.Common.Overrides;
 using Manosaba.Characters.Common.Powers;
 using Manosaba.Extensions;
 using MegaCrit.Sts2.Core.Commands;
@@ -21,6 +22,8 @@ namespace Manosaba.Characters.Common.Cards
         private const CardRarity rarity = CardRarity.Rare;
         private const TargetType targetType = TargetType.AllEnemies;
         private const bool shouldShowInCardLibrary = true;
+
+        public override IEnumerable<CardKeyword> CanonicalKeywords => [ManosabaKeywords.Execution];
 
         protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<BurnPower>()];
         protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(8m, ValueProp.Move), new PowerVar<BurnPower>(5m)];

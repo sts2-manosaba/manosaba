@@ -2,6 +2,7 @@
 using manosaba.Characters.JogasakiNoah;
 using manosaba.Characters.SaekiMiria;
 using manosaba.Characters.HasumiLeia;
+using Manosaba.Characters.Common.Overrides;
 using Manosaba.Characters.Common.Powers;
 using Manosaba.Extensions;
 using MegaCrit.Sts2.Core.Commands;
@@ -20,6 +21,7 @@ namespace Manosaba.Characters.HasumiLeia.Cards
         private const CardRarity rarity = CardRarity.Uncommon;
         private const TargetType targetType = TargetType.Self;
         private const bool shouldShowInCardLibrary = true;
+        public override IEnumerable<CardKeyword> CanonicalKeywords => [ManosabaKeywords.Execution];
         protected override IEnumerable<DynamicVar> CanonicalVars => [new PowerVar<MajokaPower>(20m)];
         protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<MajokaPower>()];
         public Clusterphobia() : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)

@@ -1,5 +1,6 @@
 using BaseLib.Utils;
 using manosaba.Characters.Common;
+using Manosaba.Characters.Common.Overrides;
 using Manosaba.Characters.Common.Powers;
 using Manosaba.Extensions;
 using MegaCrit.Sts2.Core.Commands;
@@ -17,6 +18,7 @@ public sealed class WardenCommand : PathCustomCardModel
     private const CardRarity rarity = CardRarity.Rare;
     private const TargetType targetType = TargetType.Self;
     private const bool shouldShowInCardLibrary = true;
+    protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromKeyword(ManosabaKeywords.Execution)];
 
     public WardenCommand() : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)
     {

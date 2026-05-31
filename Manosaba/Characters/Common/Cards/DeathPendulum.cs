@@ -1,6 +1,7 @@
 using System.Linq;
 using BaseLib.Utils;
 using manosaba.Characters.Common;
+using Manosaba.Characters.Common.Overrides;
 using Manosaba.Extensions;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
@@ -20,6 +21,8 @@ public sealed class DeathPendulum : PathCustomCardModel
     private const CardRarity rarity = CardRarity.Uncommon;
     private const TargetType targetType = TargetType.AllEnemies;
     private const bool shouldShowInCardLibrary = true;
+
+    public override IEnumerable<CardKeyword> CanonicalKeywords => [ManosabaKeywords.Execution];
 
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [

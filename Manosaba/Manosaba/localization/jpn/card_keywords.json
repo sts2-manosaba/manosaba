@@ -24,5 +24,7 @@
   "MANOSABA-TWO_SWORDS.title": "二刀流",
   "MANOSABA-TWO_SWORDS.description": "使用するには[gold]二刀流[/gold]が必要。",
   "MANOSABA-SEKKETSUSOUJITSU.title": "赤血操術",
-  "MANOSABA-SEKKETSUSOUJITSU.description": "この種類のアタック/スキルを使用すると[gold]血球[/gold]を1個発動し、その血球のパッシブ値に応じてダメージ/ブロックを増加させる。\nデッキにこの種類のカードがある場合、ダメージでHPを失うたび、50%の確率で失ったHPと同じ層数の[gold]血球[/gold]を1個生成する。"
+  "MANOSABA-SEKKETSUSOUJITSU.description": "この種類のアタック/スキルを使用すると[gold]血球[/gold]を1個発動し、その血球のパッシブ値に応じてダメージ/ブロックを増加させる。\nデッキにこの種類のカードがある場合、ダメージでHPを失うたび、50%の確率で失ったHPと同じ層数の[gold]血球[/gold]を1個生成する。",
+  "MANOSABA-EXECUTION.title": "処刑カード",
+  "MANOSABA-EXECUTION.description": "以下のカードを含む：\n[gold]落石[/gold]\n[gold]ブルズアイ[/gold]\n[gold]集中射撃[/gold]\n[gold]死の振り子[/gold]\n[gold]絞首刑[/gold]\n[gold]溶解[/gold]\n[gold]電刑[/gold]\n[gold]ギロチン[/gold]\n[gold]ホットポット[/gold]\n[gold]火刑[/gold]\n[gold]自害[/gold]\n[gold]濡れ衣[/gold]\n[gold]閉所恐怖症[/gold]"
 }

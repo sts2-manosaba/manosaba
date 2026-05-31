@@ -1,5 +1,6 @@
 ﻿using BaseLib.Utils;
 using manosaba.Characters.Common;
+using Manosaba.Characters.Common.Overrides;
 using manosaba.Extensions;
 using Manosaba.Characters.Common.Powers;
 using Manosaba.Extensions;
@@ -22,6 +23,7 @@ namespace Manosaba.Characters.Common.Cards
         private const CardRarity rarity = CardRarity.Common;
         private const TargetType targetType = TargetType.Self;
         private const bool shouldShowInCardLibrary = true;
+        public override IEnumerable<CardKeyword> CanonicalKeywords => [ManosabaKeywords.Execution];
         protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<MajokaPower>()];
         protected override IEnumerable<DynamicVar> CanonicalVars => BaseCanonicalVars;
 

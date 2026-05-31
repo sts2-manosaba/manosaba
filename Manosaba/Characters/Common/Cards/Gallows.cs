@@ -1,5 +1,6 @@
 using BaseLib.Utils;
 using manosaba.Characters.Common;
+using Manosaba.Characters.Common.Overrides;
 using Manosaba.Extensions;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
@@ -17,6 +18,8 @@ public sealed class Gallows : PathCustomCardModel, IIgnoreEnemyDamageCap
     private const CardRarity rarity = CardRarity.Rare;
     private const TargetType targetType = TargetType.AnyEnemy;
     private const bool shouldShowInCardLibrary = true;
+
+    public override IEnumerable<CardKeyword> CanonicalKeywords => [ManosabaKeywords.Execution];
 
     protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(25m, ValueProp.Move)];
 

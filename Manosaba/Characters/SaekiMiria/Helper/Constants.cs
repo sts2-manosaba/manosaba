@@ -36,7 +36,8 @@ namespace Manosaba.Characters.SaekiMiria.Helper
         public static HashSet<CardKeyword> IgnoredCardKeywords = new()
             {
                 ManosabaKeywords.GunShot,
-                ManosabaKeywords.Mahou
+                ManosabaKeywords.Mahou,
+                ManosabaKeywords.Execution,
             };
 
         //For mind sharing

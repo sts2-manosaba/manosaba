@@ -1,5 +1,6 @@
 ﻿using BaseLib.Utils;
 using manosaba.Characters.Common;
+using Manosaba.Characters.Common.Overrides;
 using Manosaba.Characters.Common.Powers;
 using Manosaba.Extensions;
 using MegaCrit.Sts2.Core.Commands;
@@ -24,7 +25,7 @@ namespace Manosaba.Characters.Common.Cards
 
         protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<StrengthPower>()];
         protected override IEnumerable<DynamicVar> CanonicalVars => [new DynamicVar("StrengthLoss", 8m)];
-        public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
+        public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust, ManosabaKeywords.Execution];
 
         public Dissolve() : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)
         {
