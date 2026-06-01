@@ -217,6 +217,8 @@
   "MANOSABA-COULD_IT_BE_THAT_CRIME_SCENE_TOKEN.description": "All players gain {MajokaPower:diff()} [gold]Majoka[/gold].",
   "MANOSABA-BIG_INVESTIGATION.title": "Big Investigation",
   "MANOSABA-BIG_INVESTIGATION.description": "Apply {VulnerablePower:diff()} [gold]Vulnerable[/gold].\nGain {CluePower:diff()} [gold]Clue[/gold].\nWhen you have [gold]Great Detective's Due[/gold], gain 2 [gold]Strength[/gold].",
+  "MANOSABA-BERSERKER_SOUL.title": "Berserker Soul",
+  "MANOSABA-BERSERKER_SOUL.description": "Can only be played while you have less than {StrengthCap} [gold]Strength[/gold].\nDiscard all cards in your [gold]Hand[/gold].\nDraw a card and play it on a random enemy until you draw a non-Attack card.",
   "MANOSABA-BROKEN_CROSSBOW.title": "Broken Crossbow",
   "MANOSABA-BROKEN_CROSSBOW.description": "Gain {Energy:energyIcons()}.",
   "MANOSABA-BROKEN_LOCK.title": "Broken Lock",

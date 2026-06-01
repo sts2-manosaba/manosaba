@@ -217,6 +217,8 @@
   "MANOSABA-COULD_IT_BE_THAT_CRIME_SCENE_TOKEN.description": "全プレイヤーが{MajokaPower:diff()}層の[gold]魔女化[/gold]を得る。",
   "MANOSABA-BIG_INVESTIGATION.title": "大調査",
   "MANOSABA-BIG_INVESTIGATION.description": "{VulnerablePower:diff()}層の[gold]脆弱[/gold]を与える。\n{CluePower:diff()}層の[gold]手がかり[/gold]を得る。\n[gold]名探偵の報奨[/gold]があるとき、[gold]筋力[/gold]を2得る。",
+  "MANOSABA-BERSERKER_SOUL.title": "狂戦士の魂",
+  "MANOSABA-BERSERKER_SOUL.description": "[gold]筋力[/gold]が{StrengthCap}未満のときのみ使用できる。\nすべての[gold]手札[/gold]を捨てる。\n1枚引き、攻撃でないカードを引くまで、引いたカードをランダムな敵にプレイする。",
   "MANOSABA-BROKEN_CROSSBOW.title": "壊れたクロスボウ",
   "MANOSABA-BROKEN_CROSSBOW.description": "{Energy:energyIcons()}を得る。",
   "MANOSABA-BROKEN_LOCK.title": "壊れた鍵",
