@@ -28,7 +28,8 @@ public static class CouldItBeThatSkillTokens
 
     private readonly record struct WeightedTokenEntry(
         Func<CombatState, Player, CardModel> Create,
-        float Weight);
+        float Weight,
+        Func<CombatState, bool>? CanOffer = null);
 
     /// <summary>事件 token 權重表；調整 <see cref="WeightedTokenEntry.Weight"/> 即可改變出現機率（允許重複抽中）。</summary>
     private static readonly WeightedTokenEntry[] TokenWeights =
@@ -45,13 +46,15 @@ public static class CouldItBeThatSkillTokens
         new(static (combatState, player) => combatState.CreateCard<CouldItBeThatEquivalentExchangeToken>(player), 1f),
         new(static (combatState, player) => combatState.CreateCard<CouldItBeThatTruthRevealedToken>(player), 1f),
         new(static (combatState, player) => combatState.CreateCard<CouldItBeThatHannasFridgeToken>(player), 8f),
-        new(static (combatState, player) => combatState.CreateCard<CouldItBeThatWardenMassProductionToken>(player), 7f),
+        new(static (combatState, player) => combatState.CreateCard<CouldItBeThatWardenMassProductionToken>(player), 7f,
+            static combatState => !CombatEnemyLayoutCmd.UsesEncounterSlotLayout(combatState)),
         new(static (combatState, player) => combatState.CreateCard<CouldItBeThatCrimeSceneToken>(player), 8f),
     ];
 
     public static List<CardModel> PickRandomOptions(CombatState combatState, Player player)
     {
-        if (TokenWeights.Length == 0)
+        List<WeightedTokenEntry> eligible = GetEligibleEntries(combatState);
+        if (eligible.Count == 0)
         {
             return [];
         }
@@ -60,7 +63,7 @@ public static class CouldItBeThatSkillTokens
         List<CardModel> results = new(OptionsOffered);
         for (int i = 0; i < OptionsOffered; i++)
         {
-            WeightedTokenEntry entry = rng.WeightedNextItem(TokenWeights, static e => e.Weight);
+            WeightedTokenEntry entry = rng.WeightedNextItem(eligible, static e => e.Weight);
             results.Add(entry.Create(combatState, player));
         }
 
@@ -69,10 +72,13 @@ public static class CouldItBeThatSkillTokens
 
     public static List<CardModel> CreateAll(CombatState combatState, Player player)
     {
-        return TokenWeights
+        return GetEligibleEntries(combatState)
             .Select(entry => entry.Create(combatState, player))
             .ToList();
     }
+
+    private static List<WeightedTokenEntry> GetEligibleEntries(CombatState combatState) =>
+        TokenWeights.Where(entry => entry.CanOffer?.Invoke(combatState) ?? true).ToList();
 
     internal static IEnumerable<Creature> AllAlivePlayers(CombatState combatState, Creature ownerCreature)
     {
