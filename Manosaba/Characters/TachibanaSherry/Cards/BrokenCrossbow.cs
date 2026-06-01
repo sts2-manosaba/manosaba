@@ -1,6 +1,5 @@
 using BaseLib.Utils;
 using manosaba.Characters.TachibanaSherry;
-using Manosaba.Characters.Common.Powers;
 using Manosaba.Extensions;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Combat;
@@ -8,7 +7,6 @@ using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
-using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Models.CardPools;
 
 namespace Manosaba.Characters.TachibanaSherry.Cards
@@ -22,9 +20,7 @@ namespace Manosaba.Characters.TachibanaSherry.Cards
         private const TargetType targetType = TargetType.Self;
         private const bool shouldShowInCardLibrary = true;
         public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Retain, CardKeyword.Exhaust];
-        protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<SusPower>()];
-
-        protected override IEnumerable<DynamicVar> CanonicalVars => [new PowerVar<SusPower>(2), new EnergyVar(2)];
+        protected override IEnumerable<DynamicVar> CanonicalVars => [new EnergyVar(2)];
 
         public BrokenCrossbow() : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)
         {
@@ -43,7 +39,6 @@ namespace Manosaba.Characters.TachibanaSherry.Cards
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
-            await PowerCmd.Apply<SusPower>(base.Owner.Creature, base.DynamicVars["SusPower"].BaseValue, base.Owner.Creature, this);
             await PlayerCmd.GainEnergy(base.DynamicVars.Energy.IntValue, base.Owner);
         }
 
