@@ -173,7 +173,7 @@
   "MANOSABA-ZUMA_POWER.smartDescription": "같은 구슬 3개 이상 연속 시 함께 격발, [gold]2배[/gold]; 연쇄는 [gold]4배[/gold], 이후 [gold]8배[/gold]. [gold]주마[/gold]가 있으면 [blue]노아의 스프레이 캔[/blue]은 [gold]빨강[/gold], [gold]파랑[/gold], [gold]노랑[/gold] 물감 구슬만 생성합니다.",
 
   "MANOSABA-QUICK_WIT_POWER.title": "번뜩이는 기지",
-  "MANOSABA-QUICK_WIT_POWER.description": "매 턴 시작 시 다음 효과를 모두 얻습니다(수치는 범위 내에서 무작위):\n[gold]힘[/gold] -2~2 획득,\n[gold]민첩[/gold] -2~2 획득,\n체력 -2~+2,\n[gold]단서[/gold] 0~2 획득.\n[gold]명탐정의 보상[/gold]이 있으면 모든 무작위가 최댓값이 됩니다.",
+  "MANOSABA-QUICK_WIT_POWER.description": "매 턴 시작 시 [gold]힘[/gold]·[gold]민첩[/gold]·체력 -2~2, [gold]단서[/gold] 0~2를 얻습니다.\n[gold]명탐정의 보상[/gold]이 있으면 최댓값이 됩니다.",
   "MANOSABA-QUICK_WIT_POWER.smartDescription": "매 턴 시작 시 [gold]힘[/gold]·[gold]민첩[/gold]·체력·[gold]단서[/gold]가 무작위로 변합니다. [gold]명탐정의 보상[/gold]이 있으면 항상 최댓값입니다.",
   "MANOSABA-COULD_IT_BE_THAT_SKILL_POWER.title": "스킬: 혹시?",
   "MANOSABA-COULD_IT_BE_THAT_SKILL_POWER.description": "무작위 [gold]사건 카드[/gold] 2장 중 1장을 골라 자동으로 플레이합니다.",
@@ -196,7 +196,7 @@
   "MANOSABA-INVESTIGATION_MOMENT_POWER.description": "매 턴 시작 시 1중첩 증가합니다. 5중첩이 되면 무작위 적 1명에게 자신의 [gold]단서[/gold] 중첩만큼의 피해(비강화)를 주고, [gold]명탐정의 보상[/gold]을 2 얻으며, 모든 [gold]단서[/gold]를 잃습니다.",
   "MANOSABA-INVESTIGATION_MOMENT_POWER.smartDescription": "턴 시작마다 +1. 5중첩이면 무작위 적에게 자신의 [gold]단서[/gold]만큼 비강화 피해, [gold]명탐정의 보상[/gold] 2 획득 후 [gold]단서[/gold]를 모두 제거.",
   "MANOSABA-CLUE_POWER.title": "단서",
-  "MANOSABA-CLUE_POWER.description": "셔리가 무언가 눈치챈 듯하다.\n[gold]단서[/gold]를 5중첩 누적할 때마다 [gold]힘[/gold]을 1 얻고 [gold]조사 시각[/gold]을 1 얻습니다.",
+  "MANOSABA-CLUE_POWER.description": "[gold]단서[/gold]를 5중첩 누적할 때마다 [gold]힘[/gold]을 1 얻고 [gold]조사 시각[/gold]을 1 얻습니다.",
   "MANOSABA-CLUE_POWER.smartDescription": "[gold]단서[/gold]를 5중첩 누적할 때마다 [gold]힘[/gold]을 1 얻고 [gold]조사 시각[/gold]을 1 얻습니다.",
   "MANOSABA-SHERRY_DETECTIVE_REWARD_POWER.title": "명탐정의 보상",
   "MANOSABA-SHERRY_DETECTIVE_REWARD_POWER.description": "[gold]힘[/gold]을 얻을 때마다 추가로 [gold]방어도[/gold]를 1 얻습니다. 매 턴 종료 시 1중첩을 잃습니다.",
