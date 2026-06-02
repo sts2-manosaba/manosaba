@@ -1,5 +1,6 @@
 using Manosaba.Characters.JogasakiNoa.Orbs;
 using Manosaba.Extensions;
+using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Entities.Orbs;
 using MegaCrit.Sts2.Core.Entities.Players;
@@ -77,13 +78,20 @@ namespace Manosaba.Characters.JogasakiNoah.Powers
 
                     decimal previous = ActiveEvokeMultiplier.Value;
                     ActiveEvokeMultiplier.Value = GetComboMultiplier(combo);
+                    int evokedCount;
                     try
                     {
-                        await EvokeMatchingRun(choiceContext, player, matchingRun);
+                        evokedCount = await EvokeMatchingRun(choiceContext, player, matchingRun);
                     }
                     finally
                     {
                         ActiveEvokeMultiplier.Value = previous;
+                    }
+
+                    if (evokedCount > 0)
+                    {
+                        Flash();
+                        await CardPileCmd.Draw(choiceContext, evokedCount, player);
                     }
 
                     combo++;
@@ -105,14 +113,15 @@ namespace Manosaba.Characters.JogasakiNoah.Powers
             };
         }
 
-        private static async Task EvokeMatchingRun(PlayerChoiceContext choiceContext, Player player, IReadOnlyList<OrbModel> matchedOrbs)
+        private static async Task<int> EvokeMatchingRun(PlayerChoiceContext choiceContext, Player player, IReadOnlyList<OrbModel> matchedOrbs)
         {
             OrbQueue? queue = player.PlayerCombatState?.OrbQueue;
             if (queue == null || matchedOrbs.Count < 3 || player.Creature.CombatState == null)
             {
-                return;
+                return 0;
             }
 
+            int evokedCount = 0;
             foreach (OrbModel matchedOrb in matchedOrbs)
             {
                 if (!queue.Orbs.Contains(matchedOrb))
@@ -135,12 +144,15 @@ namespace Manosaba.Characters.JogasakiNoah.Powers
                 }
 
                 await Hook.AfterOrbEvoked(choiceContext, player.Creature.CombatState, matchedOrb, targets);
+                evokedCount++;
 
                 if (removed)
                 {
                     matchedOrb.RemoveInternal();
                 }
             }
+
+            return evokedCount;
         }
 
         private static List<OrbModel> FindMatchingRun(IReadOnlyList<OrbModel> orbs)
