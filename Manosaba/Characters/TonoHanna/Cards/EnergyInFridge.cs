@@ -8,19 +8,25 @@ using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
+using MegaCrit.Sts2.Core.Models.Powers;
 
 namespace Manosaba.Characters.TonoHanna.Cards;
 
 [Pool(typeof(TonoHannaCardPool))]
 public sealed class EnergyInFridge : PathCustomCardModel
 {
-    private const int energyCost = 2;
+    private const int energyCost = 3;
     private const CardType type = CardType.Power;
     private const CardRarity rarity = CardRarity.Rare;
     private const TargetType targetType = TargetType.Self;
     private const bool shouldShowInCardLibrary = true;
 
-    public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Innate];
+    protected override IEnumerable<IHoverTip> ExtraHoverTips =>
+    [
+        HoverTipFactory.FromPower<StrengthPower>(),
+        HoverTipFactory.FromPower<EnergyInFridgePower>(),
+        base.EnergyHoverTip,
+    ];
 
     protected override IEnumerable<DynamicVar> CanonicalVars => [new PowerVar<EnergyInFridgePower>(1)];
 
@@ -37,11 +43,12 @@ public sealed class EnergyInFridge : PathCustomCardModel
             return;
         }
 
-        await PowerCmd.Apply<EnergyInFridgePower>(ownerCreature, 1m, ownerCreature, this);
+        await PowerCmd.Apply<StrengthPower>(ownerCreature, -2m, ownerCreature, this);
+        await PowerCmd.Apply<EnergyInFridgePower>(ownerCreature, DynamicVars["EnergyInFridgePower"].BaseValue, ownerCreature, this);
     }
 
     protected override void OnUpgrade()
     {
-        EnergyCost.UpgradeBy(-1);
+        AddKeyword(CardKeyword.Innate);
     }
 }

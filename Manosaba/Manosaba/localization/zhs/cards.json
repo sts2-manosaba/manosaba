@@ -616,7 +616,7 @@
   "MANOSABA-EMERGENCY_SUTURE.title": "緊急縫合",
   "MANOSABA-EMERGENCY_SUTURE.description": "[gold]消耗[/gold]你所有的狀態牌。\n每有一張被[gold]消耗[/gold]的牌，就對所有敵人造成 {Damage:diff()} 點傷害。{InCombat:\n（攻击{CalculatedHits:diff()}次）|}",
   "MANOSABA-ENERGY_IN_FRIDGE.title": "多餘的能量可以放冰箱嗎",
-  "MANOSABA-ENERGY_IN_FRIDGE.description": "多餘的能量可以留到下一回合。",
+  "MANOSABA-ENERGY_IN_FRIDGE.description": "失去2點[gold]力量[/gold]。\n獲得[gold]多餘的能量可以放冰箱嗎[/gold]。",
   "MANOSABA-STRIKE_HOSHO_MAGO.title": "打擊",
   "MANOSABA-STRIKE_HOSHO_MAGO.description": "造成 {Damage:diff()} 點傷害。",
   "MANOSABA-DEFEND_HOSHO_MAGO.title": "防禦",
