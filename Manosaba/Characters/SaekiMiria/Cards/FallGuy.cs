@@ -1,6 +1,5 @@
 ﻿using BaseLib.Utils;
 using manosaba.Characters.SaekiMiria;
-using Manosaba.Characters.Common.Overrides;
 using Manosaba.Characters.Common.Powers;
 using Manosaba.Characters.SaekiMiria.Helper;
 using Manosaba.Extensions;
@@ -24,7 +23,6 @@ namespace Manosaba.Characters.SaekiMiria.Cards
         private const CardRarity rarity = CardRarity.Uncommon;
         private const TargetType targetType = TargetType.AnyAlly;
         private const bool shouldShowInCardLibrary = true;
-        public override IEnumerable<CardKeyword> CanonicalKeywords => [ManosabaKeywords.Execution];
         protected override IEnumerable<DynamicVar> CanonicalVars => [new BlockVar(8m, MegaCrit.Sts2.Core.ValueProps.ValueProp.Move)];
         public FallGuy() : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)
         {
