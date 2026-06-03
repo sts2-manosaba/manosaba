@@ -20,7 +20,8 @@ namespace Manosaba.Characters.NikaidoHiro.Cards
         private const CardRarity rarity = CardRarity.Common;
         private const TargetType targetType = TargetType.AnyEnemy;
         private const bool shouldShowInCardLibrary = true;
-        protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(8, ValueProp.Move), new CardsVar(2)];
+        public override bool GainsBlock => true;
+        protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(4, ValueProp.Move), new BlockVar(4, ValueProp.Move), new CardsVar(1)];
 
         public StrikeChi() : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)
         {
@@ -37,6 +38,7 @@ namespace Manosaba.Characters.NikaidoHiro.Cards
                 .FromCard(this)
                 .Targeting(target)
                 .Execute(choiceContext);
+            await CreatureCmd.GainBlock(Owner.Creature, DynamicVars.Block, cardPlay);
             await CardPileCmd.Draw(choiceContext, DynamicVars.Cards.BaseValue, Owner);
             await ManosabaKeywords.ResolveLowStance(Owner.Creature, Owner.Creature, this);
 
@@ -44,7 +46,7 @@ namespace Manosaba.Characters.NikaidoHiro.Cards
 
         protected override void OnUpgrade()
         {
-            DynamicVars.Damage.UpgradeValueBy(4);
+            DynamicVars.Block.UpgradeValueBy(4);
         }
     }
 }

@@ -34,7 +34,7 @@
   "MANOSABA-SEVERING_SPIN.title": "總卷",
   "MANOSABA-SEVERING_SPIN.description": "對全體敵人造成 {Damage:diff()} 點傷害 {Repeat:diff()} 次。獲得 {Block:diff()} 點[gold]格檔[/gold]。隨機切換為一個並非目前架式的[gold]架式[/gold]。",
   "MANOSABA-STRIKE_CHI.title": "打擊-地",
-  "MANOSABA-STRIKE_CHI.description": "造成 {Damage:diff()} 點傷害。\n抽 {Cards:diff()} 張牌。",
+  "MANOSABA-STRIKE_CHI.description": "造成 {Damage:diff()} 點傷害。\n獲得 {Block:diff()} 點格擋。\n抽 {Cards:diff()} 張牌。",
   "MANOSABA-STRIKE_JIN.title": "打擊-人",
   "MANOSABA-STRIKE_JIN.description": "造成 {Damage:diff()} 點傷害。\n抽 {Cards:diff()} 張牌。",
   "MANOSABA-STRIKE_NIKAIDO_HIRO.title": "打擊",

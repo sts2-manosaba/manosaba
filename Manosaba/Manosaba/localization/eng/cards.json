@@ -34,7 +34,7 @@
   "MANOSABA-SEVERING_SPIN.title": "Severing Spin",
   "MANOSABA-SEVERING_SPIN.description": "Deal {Damage:diff()} damage to all enemies {Repeat:diff()} times. Gain {Block:diff()} [gold]Block[/gold]. Randomly switch to a Stance different from your current one.",
   "MANOSABA-STRIKE_CHI.title": "Strike - Chi",
-  "MANOSABA-STRIKE_CHI.description": "Deal {Damage:diff()} damage.\nDraw {Cards:diff()} card.",
+  "MANOSABA-STRIKE_CHI.description": "Deal {Damage:diff()} damage.\nGain {Block:diff()} Block.\nDraw {Cards:diff()} card.",
   "MANOSABA-STRIKE_JIN.title": "Strike - Jin",
   "MANOSABA-STRIKE_JIN.description": "Deal {Damage:diff()} damage.\nDraw {Cards:diff()} card.",
   "MANOSABA-STRIKE_NIKAIDO_HIRO.title": "Strike",

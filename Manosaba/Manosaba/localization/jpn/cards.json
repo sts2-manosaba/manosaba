@@ -34,7 +34,7 @@
   "MANOSABA-SEVERING_SPIN.title": "惣捲",
   "MANOSABA-SEVERING_SPIN.description": "敵全体に{Damage:diff()}ダメージを{Repeat:diff()}回与える。{Block:diff()}[gold]ブロック[/gold]を得る。現在と異なる[gold]構え[/gold]にランダムで切り替える。",
   "MANOSABA-STRIKE_CHI.title": "打撃・地",
-  "MANOSABA-STRIKE_CHI.description": "{Damage:diff()}ダメージを与える。\n{Cards:diff()}枚引く。",
+  "MANOSABA-STRIKE_CHI.description": "{Damage:diff()}ダメージを与える。\n{Block:diff()}ブロックを得る。\n{Cards:diff()}枚引く。",
   "MANOSABA-STRIKE_JIN.title": "打撃・人",
   "MANOSABA-STRIKE_JIN.description": "{Damage:diff()}ダメージを与える。\n{Cards:diff()}枚引く。",
   "MANOSABA-STRIKE_NIKAIDO_HIRO.title": "打撃",

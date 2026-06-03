@@ -34,7 +34,7 @@
   "MANOSABA-SEVERING_SPIN.title": "총권",
   "MANOSABA-SEVERING_SPIN.description": "모든 적에게 피해를 {Damage:diff()} {Repeat:diff()}번 줍니다. [gold]방어도[/gold]를 {Block:diff()} 얻습니다. 현재와 다른 무작위 [gold]자세[/gold]로 전환합니다.",
   "MANOSABA-STRIKE_CHI.title": "타격-지",
-  "MANOSABA-STRIKE_CHI.description": "피해를 {Damage:diff()} 줍니다.\n카드를 {Cards:diff()}장 뽑습니다.",
+  "MANOSABA-STRIKE_CHI.description": "피해를 {Damage:diff()} 줍니다.\n방어도를 {Block:diff()} 얻습니다.\n카드를 {Cards:diff()}장 뽑습니다.",
   "MANOSABA-STRIKE_JIN.title": "타격-인",
   "MANOSABA-STRIKE_JIN.description": "피해를 {Damage:diff()} 줍니다.\n카드를 {Cards:diff()}장 뽑습니다.",
   "MANOSABA-STRIKE_NIKAIDO_HIRO.title": "타격",
