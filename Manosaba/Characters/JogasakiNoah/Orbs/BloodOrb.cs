@@ -70,7 +70,7 @@ public sealed class BloodOrb : ManosabaOrbModel
     {
         decimal orbModifiedValue = ModifyOrbValue(baseValue);
         decimal majokaAmount = Owner?.Creature?.GetPowerAmount<MajokaPower>() ?? 0m;
-        decimal amplified = orbModifiedValue * (1m + majokaAmount / 100m);
+        decimal amplified = orbModifiedValue * MajokaPower.GetMajokaDamageMultiplier(majokaAmount);
         return Math.Max(1m, Math.Floor(amplified));
     }
 }

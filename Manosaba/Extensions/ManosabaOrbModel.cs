@@ -23,7 +23,7 @@ namespace Manosaba.Extensions
             decimal orbModifiedValue = ModifyOrbValue(baseValue);
             decimal majokaAmount = Owner?.Creature?.GetPowerAmount<MajokaPower>() ?? 0m;
             decimal zumaMultiplier = ZumaPower.GetCurrentEvokeMultiplier();
-            decimal amplified = orbModifiedValue * (1m + majokaAmount / 100m) * zumaMultiplier;
+            decimal amplified = orbModifiedValue * MajokaPower.GetMajokaDamageMultiplier(majokaAmount) * zumaMultiplier;
             return Math.Max(1m, Math.Floor(amplified));
         }
 

@@ -65,7 +65,7 @@ namespace Manosaba.Characters.Common.Powers
             return GetMajokaDamageMultiplier(base.Amount);
         }
 
-        private static decimal GetMajokaDamageMultiplier(decimal stacks)
+        public static decimal GetMajokaDamageMultiplier(decimal stacks)
         {
             if (stacks <= 0m)
             {
