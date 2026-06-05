@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://ck8frlt7w3mdk"]
 
-[ext_resource type="Texture2D" uid="uid://b27jcslno50wi" path="res://Manosaba/images/characters/hosho_mago/HoshoMagoBg.png" id="1_we6m4"]
+[ext_resource type="Texture2D" uid="uid://c5tvjhrwbn1jn" path="res://Manosaba/images/characters/hosho_mago/HoshoMagoBg2.png" id="1_we6m4"]
 
 [node name="HoshoMagoBg" type="Control"]
 layout_mode = 3
@@ -17,7 +17,7 @@ grow_horizontal = 2
 grow_vertical = 2
 pivot_offset = Vector2(1280, 600)
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(696, 470)
-scale = Vector2(1.7284533, 1.7284532)
+[node name="Sprite2D2" type="Sprite2D" parent="."]
+position = Vector2(686.87506, 438.25006)
+scale = Vector2(1.315918, 1.315918)
 texture = ExtResource("1_we6m4")
