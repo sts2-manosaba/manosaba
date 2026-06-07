@@ -186,7 +186,7 @@
   "MANOSABA-SEARCH_ANALYZE_SOLVE.description": "Gain [gold]Skill: Could It Be That?[/gold].\nIf you already have [gold]Skill: Could It Be That?[/gold], reduce its cooldown by 1.",
   "MANOSABA-SEARCH_ANALYZE_SOLVE.selectionScreenPrompt": "Choose an Event Card.",
   "MANOSABA-SIX_SEVEN.title": "SIX SEVEN",
-  "MANOSABA-SIX_SEVEN.description": "SIX SEVENNNN",
+  "MANOSABA-SIX_SEVEN.description": "Randomly gain one of the following:\n67%: Gain {StrengthPower:diff()} [gold]Strength[/gold].\n6+7%: Gain {CluePower:diff()} [gold]Clue[/gold].\n6+7%: Gain {DexterityPower:diff()} [gold]Dexterity[/gold].\n6%: Gain {PlatingPower:diff()} [gold]Plating[/gold].\n1%: Gain {Block:diff()} [gold]Block[/gold].",
   "MANOSABA-COULD_IT_BE_THAT_PRISON_FOOD_TOKEN.title": "Prison Food",
   "MANOSABA-COULD_IT_BE_THAT_PRISON_FOOD_TOKEN.description": "All players gain {PoisonPower:diff()} [gold]Poison[/gold].",
   "MANOSABA-COULD_IT_BE_THAT_MERURU_ARRIVAL_TOKEN.title": "Meruru Arrives",

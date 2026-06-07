@@ -186,7 +186,7 @@
   "MANOSABA-SEARCH_ANALYZE_SOLVE.description": "[gold]スキル：もしかして？[/gold]を得る。\n既に[gold]スキル：もしかして？[/gold]を持っている場合、スキルのクールダウンが1短縮される。",
   "MANOSABA-SEARCH_ANALYZE_SOLVE.selectionScreenPrompt": "事件牌を1枚選ぶ。",
   "MANOSABA-SIX_SEVEN.title": "SIX SEVEN",
-  "MANOSABA-SIX_SEVEN.description": "SIX SEVENNNN",
+  "MANOSABA-SIX_SEVEN.description": "以下のいずれかをランダムに得る。\n67%：{StrengthPower:diff()}点の[gold]筋力[/gold]を得る。\n6+7%：{CluePower:diff()}層の[gold]手がかり[/gold]を得る。\n6+7%：{DexterityPower:diff()}点の[gold]敏捷[/gold]を得る。\n6%：{PlatingPower:diff()}層の[gold]装甲[/gold]を得る。\n1%：{Block:diff()}点の[gold]ブロック[/gold]を得る。",
   "MANOSABA-COULD_IT_BE_THAT_PRISON_FOOD_TOKEN.title": "監獄食品",
   "MANOSABA-COULD_IT_BE_THAT_PRISON_FOOD_TOKEN.description": "全プレイヤーが[gold]毒[/gold]を{PoisonPower:diff()}層得る。",
   "MANOSABA-COULD_IT_BE_THAT_MERURU_ARRIVAL_TOKEN.title": "メルル降臨",

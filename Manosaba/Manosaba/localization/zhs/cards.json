@@ -184,7 +184,7 @@
   "MANOSABA-SEARCH_ANALYZE_SOLVE.description": "獲得[gold]技能:難道說？[/gold]。\n如果已經擁有[gold]技能:難道說？[/gold]時，技能冷卻縮短1。",
   "MANOSABA-SEARCH_ANALYZE_SOLVE.selectionScreenPrompt": "選擇一張事件卡",
   "MANOSABA-SIX_SEVEN.title": "SIX SEVEN",
-  "MANOSABA-SIX_SEVEN.description": "SIX SEVENNNN",
+  "MANOSABA-SIX_SEVEN.description": "隨機獲得以下其中一項效果：\n67%：獲得 {StrengthPower:diff()} 點[gold]力量[/gold]。\n6+7%：獲得 {CluePower:diff()} 層[gold]疑點[/gold]。\n6+7%：獲得 {DexterityPower:diff()} 點[gold]敏捷[/gold]。\n6%：獲得 {PlatingPower:diff()} 層[gold]覆甲[/gold]。\n1%：獲得 {Block:diff()} 點[gold]格檔[/gold]。",
   "MANOSABA-COULD_IT_BE_THAT_PRISON_FOOD_TOKEN.title": "監獄食品",
   "MANOSABA-COULD_IT_BE_THAT_PRISON_FOOD_TOKEN.description": "所有玩家獲得{PoisonPower:diff()}層[gold]中毒[/gold]。",
   "MANOSABA-COULD_IT_BE_THAT_MERURU_ARRIVAL_TOKEN.title": "梅露露降臨",

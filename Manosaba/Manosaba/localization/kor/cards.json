@@ -186,7 +186,7 @@
   "MANOSABA-SEARCH_ANALYZE_SOLVE.description": "[gold]스킬: 혹시?[/gold]을(를) 얻습니다.\n이미 [gold]스킬: 혹시?[/gold]을(를) 보유 중이면 스킬 재사용 대기시간이 1 줄어듭니다.",
   "MANOSABA-SEARCH_ANALYZE_SOLVE.selectionScreenPrompt": "사건 카드 1장을 선택하세요.",
   "MANOSABA-SIX_SEVEN.title": "SIX SEVEN",
-  "MANOSABA-SIX_SEVEN.description": "SIX SEVENNNN",
+  "MANOSABA-SIX_SEVEN.description": "다음 중 하나를 무작위로 얻습니다.\n67%: [gold]힘[/gold] {StrengthPower:diff()}.\n6+7%: [gold]단서[/gold] {CluePower:diff()}.\n6+7%: [gold]민첩[/gold] {DexterityPower:diff()}.\n6%: [gold]판금[/gold] {PlatingPower:diff()}.\n1%: [gold]방어도[/gold] {Block:diff()}.",
   "MANOSABA-COULD_IT_BE_THAT_PRISON_FOOD_TOKEN.title": "감옥 식품",
   "MANOSABA-COULD_IT_BE_THAT_PRISON_FOOD_TOKEN.description": "모든 플레이어가 [gold]중독[/gold] {PoisonPower:diff()}중첩을 얻습니다.",
   "MANOSABA-COULD_IT_BE_THAT_MERURU_ARRIVAL_TOKEN.title": "메루루 강림",
