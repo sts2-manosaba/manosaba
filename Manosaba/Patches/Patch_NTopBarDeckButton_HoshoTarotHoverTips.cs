@@ -4,9 +4,11 @@ using manosaba.Characters.HoshoMago;
 using manosaba.Characters.HoshoMago.Relics;
 using Manosaba.Characters.Common.Overrides;
 using Manosaba.Characters.HoshoMago.Cards;
+using MegaCrit.Sts2.Core.ControllerInput;
 using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization;
+using MegaCrit.Sts2.Core.Nodes.CommonUi;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Nodes.HoverTips;
 using MegaCrit.Sts2.Core.Nodes.TopBar;
@@ -41,10 +43,12 @@ public static class Patch_NTopBarDeckButton_HoshoTarotHoverTips
             .ToHashSet();
 
         string tarotCollectionText = BuildTarotCollectionText(tarotPool, ownedTarotIds);
+        LocString deckTitle = new LocString("static_hover_tips", "DECK.title");
+        deckTitle.Add("Hotkey", NInputManager.Instance.GetShortcutKey(MegaInput.viewDeckAndTabLeft).ToString());
         IEnumerable<IHoverTip> tips =
         [
             new HoverTip(
-                new LocString("static_hover_tips", "DECK.title"),
+                deckTitle,
                 new LocString("static_hover_tips", "DECK.description")
             ),
             new HoverTip(
