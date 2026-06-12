@@ -56,5 +56,18 @@
   "MANOSABA-RITUAL_SWORD.flavor": "An ornately decorated blade. It had been kept in a safe.",
   "MANOSABA-RITUAL_SWORD_BLOODIED.title": "Bloodied Ritual Sword",
   "MANOSABA-RITUAL_SWORD_BLOODIED.description": "At the start of [gold]Elite[/gold] and [gold]Boss[/gold] combats, gain [blue]{StrengthPower}[/blue] [gold]Strength[/gold] and [blue]{DexterityPower}[/blue] [gold]Dexterity[/gold].",
-  "MANOSABA-RITUAL_SWORD_BLOODIED.flavor": "An ornately decorated blade, now slick with blood."
+  "MANOSABA-RITUAL_SWORD_BLOODIED.flavor": "An ornately decorated blade, now slick with blood.",
+  "SEA_GLASS.MANOSABA-NIKAIDO_HIRO.title": "Correct Glass",
+  "SEA_GLASS.MANOSABA-HIKAMI_MERURU.title": "Healing Glass",
+  "SEA_GLASS.MANOSABA-JOGASAKI_NOAH.title": "Paint Glass",
+  "SEA_GLASS.MANOSABA-TACHIBANA_SHERRY.title": "Detective Glass",
+  "SEA_GLASS.MANOSABA-SAEKI_MIRIA.title": "Movie Glass",
+  "SEA_GLASS.MANOSABA-HASUMI_LEIA.title": "Star Glass",
+  "SEA_GLASS.MANOSABA-KUROBE_NANOKA.title": "Bullet Glass",
+  "SEA_GLASS.MANOSABA-TONO_HANNA.title": "Doll Glass",
+  "SEA_GLASS.MANOSABA-HOSHO_MAGO.title": "Tarot Glass",
+  "SEA_GLASS.MANOSABA-NATSUME_ANAN.title": "Kotodama Glass",
+  "SEA_GLASS.MANOSABA-SHITO_ALISA.title": "Burning Glass",
+  "MANOSABA-TOUCH_OF_OROBAS.description": "Upon pickup, upgrade [gold]{StarterRelic}[/gold] to [gold]Lv. 5[/gold].",
+  "MANOSABA-TOUCH_OF_OROBAS.eventDescription": "Upgrade [gold]{StarterRelic}[/gold] to [gold]Lv. 5[/gold]."
 }

@@ -56,5 +56,18 @@
   "MANOSABA-RITUAL_SWORD.flavor": "화려하게 장식된 검. 금고에 보관되어 있었다.",
   "MANOSABA-RITUAL_SWORD_BLOODIED.title": "피에 젖은 의식의 검",
   "MANOSABA-RITUAL_SWORD_BLOODIED.description": "[gold]정예[/gold] 및 [gold]보스[/gold] 전투 시작 시, [blue]{StrengthPower}[/blue]의 [gold]힘[/gold]과 [blue]{DexterityPower}[/blue]의 [gold]민첩[/gold]을 얻습니다.",
-  "MANOSABA-RITUAL_SWORD_BLOODIED.flavor": "화려하게 장식된 검. 이제 피에 젖어 있다."
+  "MANOSABA-RITUAL_SWORD_BLOODIED.flavor": "화려하게 장식된 검. 이제 피에 젖어 있다.",
+  "SEA_GLASS.MANOSABA-NIKAIDO_HIRO.title": "정확 유리",
+  "SEA_GLASS.MANOSABA-HIKAMI_MERURU.title": "치유 유리",
+  "SEA_GLASS.MANOSABA-JOGASAKI_NOAH.title": "안료 유리",
+  "SEA_GLASS.MANOSABA-TACHIBANA_SHERRY.title": "신탐 유리",
+  "SEA_GLASS.MANOSABA-SAEKI_MIRIA.title": "영화 유리",
+  "SEA_GLASS.MANOSABA-HASUMI_LEIA.title": "스타 유리",
+  "SEA_GLASS.MANOSABA-KUROBE_NANOKA.title": "탄환 유리",
+  "SEA_GLASS.MANOSABA-TONO_HANNA.title": "인형 유리",
+  "SEA_GLASS.MANOSABA-HOSHO_MAGO.title": "타로 유리",
+  "SEA_GLASS.MANOSABA-NATSUME_ANAN.title": "언령 유리",
+  "SEA_GLASS.MANOSABA-SHITO_ALISA.title": "연소 유리",
+  "MANOSABA-TOUCH_OF_OROBAS.description": "획득 시, [gold]{StarterRelic}[/gold]을(를) [gold]Lv.5[/gold]까지 레벨업합니다.",
+  "MANOSABA-TOUCH_OF_OROBAS.eventDescription": "[gold]{StarterRelic}[/gold]을(를) [gold]Lv.5[/gold]까지 레벨업합니다."
 }

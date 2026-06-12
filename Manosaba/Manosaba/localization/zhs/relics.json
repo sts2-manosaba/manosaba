@@ -53,5 +53,18 @@
   "MANOSABA-RITUAL_SWORD.flavor": "一把裝飾精美的劍。此前放在了保險箱中。",
   "MANOSABA-RITUAL_SWORD_BLOODIED.title": "染血儀式劍",
   "MANOSABA-RITUAL_SWORD_BLOODIED.description": "在[gold]精英[/gold]戰及[gold]Boss[/gold]戰的戰鬥開始時，獲得[blue]{StrengthPower}[/blue]點[gold]力量[/gold]和[blue]{DexterityPower}[/blue]點[gold]敏捷[/gold]。",
-  "MANOSABA-RITUAL_SWORD_BLOODIED.flavor": "一把裝飾精美的劍。這把劍已經沾滿了鮮血。"
+  "MANOSABA-RITUAL_SWORD_BLOODIED.flavor": "一把裝飾精美的劍。這把劍已經沾滿了鮮血。",
+  "SEA_GLASS.MANOSABA-NIKAIDO_HIRO.title": "正確玻璃",
+  "SEA_GLASS.MANOSABA-HIKAMI_MERURU.title": "治癒玻璃",
+  "SEA_GLASS.MANOSABA-JOGASAKI_NOAH.title": "顏料玻璃",
+  "SEA_GLASS.MANOSABA-TACHIBANA_SHERRY.title": "神探玻璃",
+  "SEA_GLASS.MANOSABA-SAEKI_MIRIA.title": "電影玻璃",
+  "SEA_GLASS.MANOSABA-HASUMI_LEIA.title": "明星玻璃",
+  "SEA_GLASS.MANOSABA-KUROBE_NANOKA.title": "子彈玻璃",
+  "SEA_GLASS.MANOSABA-TONO_HANNA.title": "人偶玻璃",
+  "SEA_GLASS.MANOSABA-HOSHO_MAGO.title": "塔羅玻璃",
+  "SEA_GLASS.MANOSABA-NATSUME_ANAN.title": "言靈玻璃",
+  "SEA_GLASS.MANOSABA-SHITO_ALISA.title": "燃燒玻璃",
+  "MANOSABA-TOUCH_OF_OROBAS.description": "拾起時，將[gold]{StarterRelic}[/gold]升級至[gold]Lv.5[/gold]。",
+  "MANOSABA-TOUCH_OF_OROBAS.eventDescription": "將[gold]{StarterRelic}[/gold]升級至[gold]Lv.5[/gold]。"
 }
