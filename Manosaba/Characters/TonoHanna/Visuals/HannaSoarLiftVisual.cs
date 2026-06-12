@@ -16,6 +16,21 @@ internal static class HannaSoarLiftVisual
     private static readonly Dictionary<Creature, float> s_baseYByCreature = new();
     private static readonly object s_lock = new();
 
+    public static bool TryGetLiftedY(Creature creature, out float liftedY)
+    {
+        lock (s_lock)
+        {
+            if (s_baseYByCreature.TryGetValue(creature, out float baseY))
+            {
+                liftedY = baseY - LiftPixels;
+                return true;
+            }
+        }
+
+        liftedY = 0f;
+        return false;
+    }
+
     public static async Task TryLiftAsync(Creature owner, Creature? applier)
     {
         if (applier == null || applier.Side != owner.Side)
