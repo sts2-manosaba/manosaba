@@ -3,6 +3,7 @@ using BaseLib.Utils;
 using Manosaba.Extensions;
 using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Commands;
+using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Entities.Powers;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Models;
@@ -18,7 +19,7 @@ public sealed class CluesGainedThisTurnPower : PathCustomPowerModel
     /// <summary>僅供減費等邏輯計數，不顯示在角色下方 Power 列。</summary>
     protected override bool IsVisibleInternal => false;
 
-    public override async Task AfterTurnEnd(PlayerChoiceContext choiceContext, CombatSide side)
+    public override async Task AfterSideTurnEnd(PlayerChoiceContext choiceContext, CombatSide side, IEnumerable<Creature> creatures)
     {
         if (side != Owner.Side || Amount <= 0m)
         {
