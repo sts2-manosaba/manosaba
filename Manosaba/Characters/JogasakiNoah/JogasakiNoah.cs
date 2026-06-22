@@ -45,7 +45,8 @@ namespace manosaba.Characters.JogasakiNoah
             override all the other methods that define those assets. 
             These are just some of the simplest assets, given some placeholders to differentiate your character with. 
             You don't have to, but you're suggested to rename these images. */
-        public override string CustomIconTexturePath => (CharacterId + "_map.png").CharacterImgPath(CharacterId);
+        public override string? CustomIconTexturePath => null;
+        public override string? CustomIconOutlineTexturePath => null;
         public override string CustomCharacterSelectIconPath => (CharacterId + "_char_select.png").CharacterImgPath(CharacterId);
         public override string CustomMapMarkerPath => (CharacterId + "_map.png").CharacterImgPath(CharacterId);
         public override string CustomCharacterSelectBg => (CharacterId + "_bg.tscn").CharacterScenePath(CharacterId);

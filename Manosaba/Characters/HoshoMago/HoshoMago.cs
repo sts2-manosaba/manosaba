@@ -41,7 +41,8 @@ public class HoshoMago : PlaceholderCharacterModel
     public override RelicPoolModel RelicPool => ModelDb.RelicPool<HoshoMagoRelicPool>();
     public override PotionPoolModel PotionPool => ModelDb.PotionPool<HoshoMagoPotionPool>();
 
-    public override string CustomIconTexturePath => (PlaceholderCharacterId + "_map.png").CharacterImgPath(PlaceholderCharacterId);
+    public override string? CustomIconTexturePath => null;
+    public override string? CustomIconOutlineTexturePath => null;
     public override string CustomCharacterSelectIconPath => (PlaceholderCharacterId + "_char_select.png").CharacterImgPath(PlaceholderCharacterId);
     public override string CustomMapMarkerPath => (PlaceholderCharacterId + "_map.png").CharacterImgPath(PlaceholderCharacterId);
     public override string CustomCharacterSelectBg => (PlaceholderCharacterId + "_bg.tscn").CharacterScenePath(PlaceholderCharacterId);

@@ -43,7 +43,8 @@ public class HasumiLeia : PlaceholderCharacterModel
 	public override RelicPoolModel RelicPool => ModelDb.RelicPool<HasumiLeiaRelicPool>();
 	public override PotionPoolModel PotionPool => ModelDb.PotionPool<HasumiLeiaPotionPool>();
 
-	public override string CustomIconTexturePath => (CharacterId + "_map.png").CharacterImgPath(CharacterId);
+	public override string? CustomIconTexturePath => null;
+	public override string? CustomIconOutlineTexturePath => null;
 	public override string CustomCharacterSelectIconPath => (CharacterId + "_char_select.png").CharacterImgPath(CharacterId);
 	public override string CustomMapMarkerPath => (CharacterId + "_map.png").CharacterImgPath(CharacterId);
 	public override string CustomCharacterSelectBg => (CharacterId + "_bg.tscn").CharacterScenePath(CharacterId);
