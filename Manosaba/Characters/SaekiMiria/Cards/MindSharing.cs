@@ -56,7 +56,7 @@ namespace Manosaba.Characters.NikaidoHiro.Cards
                     if (item == null) continue;
                     if (ShouldIgnoreThisPower(item)) continue;
 
-                    Console.WriteLine($"Collected power {item.GetType().Name} amount {item.Amount} from {teammate.Name}");
+                    Console.WriteLine($"Collected power {item.Id} type {item.GetType().Name} amount {item.Amount} instanceType {item.InstanceType} from {teammate.Name}");
 
                     AddPowerToList(powerAmounts, item);
                     sourcePowers.TryAdd(item.Id, item);
@@ -80,7 +80,7 @@ namespace Manosaba.Characters.NikaidoHiro.Cards
 
                     if (existing != null && existing.InstanceType == PowerInstanceType.None)
                     {
-                        Console.WriteLine($"Updating existing power {powerId} on {teammate.Name}");
+                        Console.WriteLine($"Updating existing power {powerId} on {teammate.Name} from {existing.Amount} to target {targetAmount} type {existing.GetType().Name}");
 
                         DoHackyThingsForSpecificPowers(existing);
 
@@ -98,16 +98,16 @@ namespace Manosaba.Characters.NikaidoHiro.Cards
                     {
                         if (!sourcePowers.TryGetValue(powerId, out PowerModel? source)) continue;
 
-                        if (existing?.InstanceType != PowerInstanceType.None)
+                        if (existing != null && existing.InstanceType != PowerInstanceType.None)
                         {
-                            Console.WriteLine($"Skipping instanced power {powerId} on {teammate.Name} because an instance already exists");
+                            Console.WriteLine($"Skipping instanced power {powerId} on {teammate.Name} because existing power {existing.GetType().Name} is {existing.InstanceType}");
                             continue;
                         }
 
                         var clone = source.ClonePreservingMutability() as PowerModel;
                         if (clone == null) continue;
 
-                        Console.WriteLine($"Applying new power {powerId} to {teammate.Name}");
+                        Console.WriteLine($"Applying new power {powerId} to {teammate.Name} from source {source.GetType().Name} instanceType {source.InstanceType} amount {targetAmount}");
 
                         DoHackyThingsForSpecificPowers(clone);
 

@@ -50,12 +50,21 @@ namespace Manosaba.Characters.SaekiMiria.Cards
                     PowerModel? powerById = enemy.GetPowerById(item.Id);
                     if (powerById != null && powerById.InstanceType == PowerInstanceType.None)
                     {
+                        Console.WriteLine($"TraumaSharing updating existing debuff {item.Id} on {enemy.Name} from {powerById.Amount} by {item.Amount} sourceType {item.GetType().Name} existingType {powerById.GetType().Name}");
                         DoHackyThingsForSpecificPowers(powerById);
                         await PowerCmd.ModifyAmount(choiceContext, powerById, item.Amount, ownerCreature, this);
                     }
                     else
                     {
                         PowerModel power = (PowerModel)item.ClonePreservingMutability();
+                        if (powerById != null)
+                        {
+                            Console.WriteLine($"TraumaSharing applying cloned debuff {item.Id} to {enemy.Name} because existing power {powerById.GetType().Name} is {powerById.InstanceType}; clone type {power.GetType().Name} amount {item.Amount}");
+                        }
+                        else
+                        {
+                            Console.WriteLine($"TraumaSharing applying new debuff {item.Id} to {enemy.Name} type {power.GetType().Name} amount {item.Amount}");
+                        }
                         DoHackyThingsForSpecificPowers(power);
                         await PowerCmd.Apply(choiceContext, power, enemy, item.Amount, ownerCreature, this);
                     }

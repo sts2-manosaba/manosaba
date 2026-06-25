@@ -58,6 +58,7 @@ namespace Manosaba.Characters.SaekiMiria.Helper
                 typeof(StrengthPower),
                 typeof(SherryPuppetPower),
                 typeof(AccuracyPower),
+                typeof(AccuratePower),
                 typeof(LaboursOfHiroPower),
                 typeof(SteadyShotPower),
                 typeof(MusouKenPower),

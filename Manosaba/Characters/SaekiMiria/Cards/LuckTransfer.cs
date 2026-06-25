@@ -61,12 +61,21 @@ public sealed class LuckTransfer : PathCustomCardModel
             PowerModel? powerById = target.GetPowerById(item.Id);
             if (powerById != null && powerById.InstanceType == PowerInstanceType.None)
             {
+                Console.WriteLine($"LuckTransfer updating existing debuff {item.Id} on {target.Name} from {powerById.Amount} by {scaledAmount} sourceType {item.GetType().Name} existingType {powerById.GetType().Name}");
                 DoHackyThingsForSpecificPowers(powerById);
                 await PowerCmd.ModifyAmount(choiceContext, powerById, scaledAmount, ownerCreature, this);
             }
             else
             {
                 PowerModel power = (PowerModel)item.ClonePreservingMutability();
+                if (powerById != null)
+                {
+                    Console.WriteLine($"LuckTransfer applying cloned debuff {item.Id} to {target.Name} because existing power {powerById.GetType().Name} is {powerById.InstanceType}; clone type {power.GetType().Name} amount {scaledAmount}");
+                }
+                else
+                {
+                    Console.WriteLine($"LuckTransfer applying new debuff {item.Id} to {target.Name} type {power.GetType().Name} amount {scaledAmount}");
+                }
                 DoHackyThingsForSpecificPowers(power);
                 await PowerCmd.Apply(choiceContext, power, target, scaledAmount, ownerCreature, this);
             }

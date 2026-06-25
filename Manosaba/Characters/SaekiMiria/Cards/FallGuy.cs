@@ -49,12 +49,14 @@ namespace Manosaba.Characters.SaekiMiria.Cards
             {
                 if (originalPower.InstanceType != PowerInstanceType.None)
                 {
+                    Console.WriteLine($"FallGuy removing instanced debuff {originalPower.Id} from {target.Name} type {originalPower.GetType().Name} instanceType {originalPower.InstanceType} amount {originalPower.Amount}");
                     await PowerCmd.Remove(originalPower);
                     continue;
                 }
 
                 if (originalPower.Amount > 0m)
                 {
+                    Console.WriteLine($"FallGuy reducing debuff {originalPower.Id} on {target.Name} by {originalPower.Amount} type {originalPower.GetType().Name}");
                     await PowerCmd.ModifyAmount(choiceContext, originalPower, -originalPower.Amount, ownerCreature, this);
                 }
             }
@@ -69,12 +71,21 @@ namespace Manosaba.Characters.SaekiMiria.Cards
                 PowerModel? existingPower = ownerCreature.GetPowerById(debuff.Id);
                 if (existingPower != null && existingPower.InstanceType == PowerInstanceType.None)
                 {
+                    Console.WriteLine($"FallGuy updating existing debuff {debuff.Id} on {ownerCreature.Name} from {existingPower.Amount} by {debuff.Amount} type {existingPower.GetType().Name}");
                     DoHackyThingsForSpecificPowers(existingPower);
                     await PowerCmd.ModifyAmount(choiceContext, existingPower, debuff.Amount, ownerCreature, this);
                 }
                 else
                 {
                     PowerModel clone = (PowerModel)debuff.ClonePreservingMutability();
+                    if (existingPower != null)
+                    {
+                        Console.WriteLine($"FallGuy applying cloned debuff {debuff.Id} to {ownerCreature.Name} because existing power {existingPower.GetType().Name} is {existingPower.InstanceType}; clone type {clone.GetType().Name} amount {debuff.Amount}");
+                    }
+                    else
+                    {
+                        Console.WriteLine($"FallGuy applying new debuff {debuff.Id} to {ownerCreature.Name} type {clone.GetType().Name} amount {debuff.Amount}");
+                    }
                     DoHackyThingsForSpecificPowers(clone);
                     await PowerCmd.Apply(choiceContext, clone, ownerCreature, debuff.Amount, ownerCreature, this);
                 }
