@@ -218,7 +218,7 @@
   "MANOSABA-BIG_INVESTIGATION.title": "대 수사",
   "MANOSABA-BIG_INVESTIGATION.description": "[gold]취약[/gold]을 {VulnerablePower:diff()} 부여합니다.\n[gold]단서[/gold]를 {CluePower:diff()} 얻습니다.\n[gold]명탐정의 보상[/gold]이 있으면 [gold]힘[/gold]을 2 얻습니다.",
   "MANOSABA-BERSERKER_SOUL.title": "광전사의 영혼",
-  "MANOSABA-BERSERKER_SOUL.description": "[gold]힘[/gold]이 {StrengthCap} 미만일 때만 사용할 수 있습니다.\n모든 [gold]손패[/gold]를 버립니다.\n카드를 1장 뽑고, 공격이 아닌 카드를 뽑을 때까지 뽑은 카드를 무작위 적에게 사용합니다.",
+  "MANOSABA-BERSERKER_SOUL.description": "[gold]힘[/gold]이 {StrengthCap} 미만일 때만 사용할 수 있습니다.\n모든 [gold]손패[/gold]를 버립니다.\n카드를 1장 뽑고, 공격이 아닌 카드를 뽑을 때까지 뽑은 카드를 무작위 적에게 사용합니다(최대 {MaxPlays}회).",
   "MANOSABA-BROKEN_CROSSBOW.title": "부서진 석궁",
   "MANOSABA-BROKEN_CROSSBOW.description": "{Energy:energyIcons()}를 얻습니다.",
   "MANOSABA-BROKEN_LOCK.title": "부서진 자물쇠",

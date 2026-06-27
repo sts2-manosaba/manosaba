@@ -14,7 +14,7 @@ using MegaCrit.Sts2.Core.Models.Powers;
 
 namespace Manosaba.Characters.TachibanaSherry.Cards;
 
-/// <summary>狂戰士之魂：力量未達上限時捨棄手牌，連續抽打攻擊牌於隨機敵人直至抽到非攻擊牌；無可打擊敵人或皆為無限血量時停止。</summary>
+/// <summary>狂戰士之魂：力量未達上限時捨棄手牌，連續抽打攻擊牌於隨機敵人直至抽到非攻擊牌或達 {MaxPlays} 次；無可打擊敵人或皆為無限血量時停止。</summary>
 [Pool(typeof(TachibanaSherryCardPool))]
 public sealed class BerserkerSoul : PathCustomCardModel
 {
@@ -26,12 +26,18 @@ public sealed class BerserkerSoul : PathCustomCardModel
 
     private const string StrengthCapKey = "StrengthCap";
     private const decimal StrengthCap = 16m;
+    private const string MaxPlaysKey = "MaxPlays";
+    private const int MaxPlays = 7;
 
     public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
 
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<StrengthPower>()];
 
-    protected override IEnumerable<DynamicVar> CanonicalVars => [new IntVar(StrengthCapKey, StrengthCap)];
+    protected override IEnumerable<DynamicVar> CanonicalVars =>
+    [
+        new IntVar(StrengthCapKey, StrengthCap),
+        new IntVar(MaxPlaysKey, MaxPlays),
+    ];
 
     protected override bool IsPlayable =>
         base.IsPlayable && Owner.Creature.GetPowerAmount<StrengthPower>() < StrengthCap;
@@ -55,7 +61,11 @@ public sealed class BerserkerSoul : PathCustomCardModel
             await CardCmd.Discard(choiceContext, handCards);
         }
 
-        while (!CombatManager.Instance.IsOverOrEnding && CanContinueBerserkerChain(combatState))
+        for (int i = 0;
+             i < MaxPlays
+             && !CombatManager.Instance.IsOverOrEnding
+             && CanContinueBerserkerChain(combatState);
+             i++)
         {
             if (await CardPileCmd.Draw(choiceContext, Owner) is not CardModel drawn)
             {

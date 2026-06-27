@@ -216,7 +216,7 @@
   "MANOSABA-BIG_INVESTIGATION.title": "大調查",
   "MANOSABA-BIG_INVESTIGATION.description": "給予{VulnerablePower:diff()}層[gold]易傷[/gold]。\n獲得{CluePower:diff()}層[gold]疑點[/gold]。\n當你有[gold]神探當賞[/gold]時，獲得2點[gold]力量[/gold]。",
   "MANOSABA-BERSERKER_SOUL.title": "狂戰士之魂",
-  "MANOSABA-BERSERKER_SOUL.description": "[gold]力量[/gold]小於{StrengthCap}時才能使用。\n捨棄所有[gold]手牌[/gold]。\n抽一張牌，對一名隨機敵人打出這張牌，直到你抽到一張非攻擊牌。",
+  "MANOSABA-BERSERKER_SOUL.description": "[gold]力量[/gold]小於{StrengthCap}時才能使用。\n捨棄所有[gold]手牌[/gold]。\n抽一張牌，對一名隨機敵人打出這張牌，直到你抽到一張非攻擊牌（最多{MaxPlays}次）。",
   "MANOSABA-BROKEN_CROSSBOW.title": "壞掉的十字弩",
   "MANOSABA-BROKEN_CROSSBOW.description": "獲得{Energy:energyIcons()}。",
   "MANOSABA-BROKEN_LOCK.title": "壞掉的鎖",
