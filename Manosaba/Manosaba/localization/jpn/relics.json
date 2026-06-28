@@ -69,5 +69,8 @@
   "SEA_GLASS.MANOSABA-NATSUME_ANAN.title": "コトダマグラス",
   "SEA_GLASS.MANOSABA-SHITO_ALISA.title": "ネンショウグラス",
   "MANOSABA-TOUCH_OF_OROBAS.description": "取得時、[gold]{StarterRelic}[/gold]を[gold]Lv.5[/gold]にレベルアップする。",
-  "MANOSABA-TOUCH_OF_OROBAS.eventDescription": "[gold]{StarterRelic}[/gold]を[gold]Lv.5[/gold]にレベルアップする。"
+  "MANOSABA-TOUCH_OF_OROBAS.eventDescription": "[gold]{StarterRelic}[/gold]を[gold]Lv.5[/gold]にレベルアップする。",
+  "MANOSABA-LIVE_STREAMING_EQUIPMENT.title": "配信機材",
+  "MANOSABA-LIVE_STREAMING_EQUIPMENT.description": "[gold]配信モード[/gold]中にダメージを与えた敵を[gold]ファン[/gold]にする。\nLv2+：ターン終了時、[gold]隠れ[/gold]1。\nLv4+：戦闘開始時、[gold]配信モード[/gold]3。\n累計ファン：{FanCount}。",
+  "MANOSABA-LIVE_STREAMING_EQUIPMENT.flavor": "今日も配信頑張るぞ！"
 }

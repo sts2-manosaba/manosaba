@@ -153,5 +153,19 @@
   "MANOSABA-SHITO_ALISA.cardsModifierTitle": "",
   "MANOSABA-SHITO_ALISA.cardsModifierDescription": "",
   "MANOSABA-SHITO_ALISA.banter.alive.endTurnPing": "——빨리 가! 나를 살인자로 만들지 마!",
-  "MANOSABA-SHITO_ALISA.banter.dead.endTurnPing": "..."
+  "MANOSABA-SHITO_ALISA.banter.dead.endTurnPing": "...",
+  "MANOSABA-SAWATARI_COCO.title": "사와타리 코코",
+  "MANOSABA-SAWATARI_COCO.titleObject": "",
+  "MANOSABA-SAWATARI_COCO.description": "으악, 너무 역겨워...! 나랑 내 오shi 말고는 다 죽어버리면 안 돼?",
+  "MANOSABA-SAWATARI_COCO.pronounObject": "그녀",
+  "MANOSABA-SAWATARI_COCO.possessiveAdjective": "그녀의",
+  "MANOSABA-SAWATARI_COCO.pronounPossessive": "그녀의",
+  "MANOSABA-SAWATARI_COCO.pronounSubject": "그녀",
+  "MANOSABA-SAWATARI_COCO.goldMonologue": "",
+  "MANOSABA-SAWATARI_COCO.eventDeathPrevention": "",
+  "MANOSABA-SAWATARI_COCO.aromaPrinciple": "",
+  "MANOSABA-SAWATARI_COCO.cardsModifierTitle": "",
+  "MANOSABA-SAWATARI_COCO.cardsModifierDescription": "",
+  "MANOSABA-SAWATARI_COCO.banter.alive.endTurnPing": "뭐 기다리는 거야? 빨리 움직여~",
+  "MANOSABA-SAWATARI_COCO.banter.dead.endTurnPing": "......"
 }

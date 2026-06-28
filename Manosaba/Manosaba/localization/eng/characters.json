@@ -153,5 +153,19 @@
   "MANOSABA-SHITO_ALISA.cardsModifierTitle": "",
   "MANOSABA-SHITO_ALISA.cardsModifierDescription": "",
   "MANOSABA-SHITO_ALISA.banter.alive.endTurnPing": "As long as there's a spark, we can still turn this around.",
-  "MANOSABA-SHITO_ALISA.banter.dead.endTurnPing": "..."
+  "MANOSABA-SHITO_ALISA.banter.dead.endTurnPing": "...",
+  "MANOSABA-SAWATARI_COCO.title": "Sawatari Coco",
+  "MANOSABA-SAWATARI_COCO.titleObject": "",
+  "MANOSABA-SAWATARI_COCO.description": "Ugh, that's so gross...! Can't everyone except me and my oshi just die?",
+  "MANOSABA-SAWATARI_COCO.pronounObject": "her",
+  "MANOSABA-SAWATARI_COCO.possessiveAdjective": "her",
+  "MANOSABA-SAWATARI_COCO.pronounPossessive": "hers",
+  "MANOSABA-SAWATARI_COCO.pronounSubject": "she",
+  "MANOSABA-SAWATARI_COCO.goldMonologue": "",
+  "MANOSABA-SAWATARI_COCO.eventDeathPrevention": "",
+  "MANOSABA-SAWATARI_COCO.aromaPrinciple": "",
+  "MANOSABA-SAWATARI_COCO.cardsModifierTitle": "",
+  "MANOSABA-SAWATARI_COCO.cardsModifierDescription": "",
+  "MANOSABA-SAWATARI_COCO.banter.alive.endTurnPing": "What are you waiting for? Move already~",
+  "MANOSABA-SAWATARI_COCO.banter.dead.endTurnPing": "......"
 }

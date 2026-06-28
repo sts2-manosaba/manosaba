@@ -1,0 +1,15 @@
+[gd_scene load_steps=2 format=3 uid="uid://delmcrsdg2x4q"]
+
+[ext_resource type="Texture2D" uid="uid://xumx5atrwkxv" path="res://Manosaba/images/characters/sawatari_coco/sawatari_coco_map.png" id="1_ydejf"]
+
+[node name="SawatariCocoIcon" type="TextureRect"]
+anchors_preset = -1
+anchor_top = -0.004
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 2.592
+offset_right = 1.0
+offset_bottom = -4.0
+texture = ExtResource("1_ydejf")
+expand_mode = 1
+stretch_mode = 5

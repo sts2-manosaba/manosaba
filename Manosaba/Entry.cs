@@ -33,6 +33,9 @@ using manosaba.Characters.TachibanaSherry.Relics;
 using manosaba.Characters.TonoHanna;
 using manosaba.Characters.TonoHanna.Helpers;
 using manosaba.Characters.TonoHanna.Relics;
+using manosaba.Characters.SawatariCoco;
+using manosaba.Characters.SawatariCoco.Helpers;
+using manosaba.Characters.SawatariCoco.Relics;
 using Manosaba.Audio;
 using Manosaba.Characters.TachibanaSherry.Helpers;
 using Manosaba.Characters.JogasakiNoah.Potions;
@@ -85,6 +88,7 @@ public class Entry
         SavedPropertiesTypeCache.InjectTypeIntoCache(typeof(Ribbon));
         SavedPropertiesTypeCache.InjectTypeIntoCache(typeof(LegIrons));
         SavedPropertiesTypeCache.InjectTypeIntoCache(typeof(Clipboard));
+        SavedPropertiesTypeCache.InjectTypeIntoCache(typeof(LiveStreamingEquipment));
         PerfectGuardInputTracker.EnsureInstalled();
         CharacterSfxRegistry.Register(TachibanaSherry.CharacterId, SherrySfx.Instance);
         CharacterSfxRegistry.Register(SaekiMiria.CharacterId, SaekiMiriaSfx.Instance);
@@ -97,6 +101,7 @@ public class Entry
         CharacterSfxRegistry.Register(HoshoMago.CharacterId, HoshoMagoSfx.Instance);
         CharacterSfxRegistry.Register(HikamiMeruru.CharacterId, HikamiMeruruSfx.Instance);
         CharacterSfxRegistry.Register(TonoHanna.CharacterId, TonoHannaSfx.Instance);
+        CharacterSfxRegistry.Register(SawatariCoco.CharacterId, SawatariCocoSfx.Instance);
         Log.Debug("Mod initialized!");
     }
 }

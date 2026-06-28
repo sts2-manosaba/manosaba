@@ -10,5 +10,8 @@ namespace Manosaba.Characters.Common.Overrides
 
         [CustomEnum("tarot")]
         public static CardTag Tarot;
+
+        [CustomEnum("shopping")]
+        public static CardTag Shopping;
     }
 }

@@ -8,6 +8,7 @@ using Manosaba.Characters.JogasakiNoahCard.Cards;
 using Manosaba.Characters.KurobeNanoka.Cards;
 using Manosaba.Characters.NikaidoHiro.Cards;
 using Manosaba.Characters.SaekiMiria.Cards;
+using manosaba.Characters.SawatariCoco.Cards;
 using Manosaba.Characters.ShitoAlisa.Cards;
 using Manosaba.Characters.TachibanaSherry.Cards;
 using Manosaba.Characters.TonoHanna.Cards;
@@ -50,6 +51,7 @@ namespace Manosaba.Characters.Common.Powers
             { "kurobe_nanoka", typeof(HallucinationMagic)},
             { "shito_alisa", typeof(FireJudgementCourt)},
             { "natsume_anan", typeof(Brainwash)},
+            { "sawatari_coco", typeof(Clairvoyance)},
         };
 
         public override decimal ModifyDamageMultiplicative(Creature? target, decimal amount, ValueProp props, Creature? dealer, CardModel? cardSource)

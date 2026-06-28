@@ -171,7 +171,6 @@
   "MANOSABA-ZUMA_POWER.title": "祖瑪",
   "MANOSABA-ZUMA_POWER.description": "當 3 顆以上相鄰的顏料球相同時，一同[gold]激發[/gold]，效果為[gold]2 倍[/gold]。連鎖時依序提升為[gold]4 倍[/gold]、[gold]8 倍[/gold]。每有 1 顆顏料球因[gold]祖瑪[/gold]被[gold]激發[/gold]，抽 1 張牌。擁有[gold]祖瑪[/gold]時，[blue]諾亞的噴漆罐[/blue]只會[gold]生成[/gold][gold]紅[/gold]、[gold]藍[/gold]、[gold]黃[/gold]顏料球。",
   "MANOSABA-ZUMA_POWER.smartDescription": "3 顆以上相鄰且相同的顏料球會一同[gold]激發[/gold]：依連鎖為[gold]2 倍[/gold]、[gold]4 倍[/gold]、[gold]8 倍[/gold]。每有 1 顆顏料球因[gold]祖瑪[/gold]被[gold]激發[/gold]，抽 1 張牌。[blue]諾亞的噴漆罐[/blue]只會[gold]生成[/gold][gold]紅[/gold]、[gold]藍[/gold]、[gold]黃[/gold]顏料球。",
-
   "MANOSABA-QUICK_WIT_POWER.title": "靈機一動",
   "MANOSABA-QUICK_WIT_POWER.description": "每回合開始獲得-2~2點[gold]力量[/gold]、[gold]敏捷[/gold]、血量、0~2層[gold]疑點[/gold]。\n當有[gold]神探當賞[/gold]時必為最大值。",
   "MANOSABA-QUICK_WIT_POWER.smartDescription": "每回合開始隨機獲得[gold]力量[/gold]、[gold]敏捷[/gold]、血量變化與[gold]疑點[/gold]；擁有[gold]神探當賞[/gold]時固定取最大值。",
@@ -213,7 +212,6 @@
   "MANOSABA-PLAYED_SAN_THIS_TURN_POWER.title": "三！已打出",
   "MANOSABA-PLAYED_SAN_THIS_TURN_POWER.description": "本回合已打出過[gold]三！找到線索！[/gold]。",
   "MANOSABA-PLAYED_SAN_THIS_TURN_POWER.smartDescription": "本回合打出過三！找到線索！；回合結束時清除。",
-
   "MANOSABA-FRIENDLY_POWER.title": "親和力",
   "MANOSABA-FRIENDLY_POWER.description": "每層使你受到的攻擊傷害降低20%（乘算）。",
   "MANOSABA-FRIENDLY_POWER.smartDescription": "你受到的攻擊傷害總共降低 [blue]{DamageReductionPercent}[/blue]%。",
@@ -292,7 +290,6 @@
   "MANOSABA-PEACEMAKER_POWER.title": "和事佬",
   "MANOSABA-PEACEMAKER_POWER.description": "敵人少獲得 X 點力量。",
   "MANOSABA-PEACEMAKER_POWER.smartDescription": "敵人少獲得 X 點力量。",
-
   "MANOSABA-PORTABLE_FLETCHING_STATION_POWER.title": "攜帶式製作站",
   "MANOSABA-PORTABLE_FLETCHING_STATION_POWER.description": "成功製作簡易長矛時，有{ProcChance}%機會額外獲得一張簡易長矛，抽選{Amount}次。",
   "MANOSABA-PORTABLE_FLETCHING_STATION_POWER.smartDescription": "成功製作簡易長矛時，有[blue]{ProcChance}[/blue]%機會額外獲得一張簡易長矛，抽選[blue]{Amount}[/blue]次。",
@@ -317,7 +314,6 @@
   "MANOSABA-SHOW_OFF_POWER.title": "炫技",
   "MANOSABA-SHOW_OFF_POWER.description": "這回合成功格檔傷害時，到下回合結束為止獲得[blue]{StrengthPower}[/blue]點力量。",
   "MANOSABA-SHOW_OFF_POWER.smartDescription": "這回合成功格檔傷害時，到下回合結束為止獲得 [blue]{StrengthPower}[/blue] 點力量。",
-
   "MANOSABA-ACCURATE_POWER.title": "精準",
   "MANOSABA-ACCURATE_POWER.description": "下一次[gold]槍擊[/gold]額外造成傷害。發動後移除所有層數。",
   "MANOSABA-ACCURATE_POWER.smartDescription": "下一次[gold]槍擊[/gold]額外造成 [blue]{Amount}%[/blue] 傷害。發動後移除所有層數。",
@@ -345,7 +341,6 @@
   "MANOSABA-EVENT_WARDEN_BOUNTY_POWER.title": "典獄長賞金",
   "MANOSABA-EVENT_WARDEN_BOUNTY_POWER.description": "此敵人死亡時，所有玩家獲得5[gold]金幣[/gold]。",
   "MANOSABA-EVENT_WARDEN_BOUNTY_POWER.smartDescription": "此敵人死亡時，所有玩家獲得5[gold]金幣[/gold]。",
-
   "MANOSABA-MOVIE_NOISE_POWER.title": "電影噪音",
   "MANOSABA-MOVIE_NOISE_POWER.description": "每當你打出一張電影牌時，對一名隨機敵人造成傷害。",
   "MANOSABA-MOVIE_NOISE_POWER.smartDescription": "每當你打出一張電影牌時，對一名隨機敵人造成 [blue]{Amount}[/blue] 點傷害。",
@@ -384,7 +379,6 @@
   "MANOSABA-THE_SUN_POWER.title": "太陽",
   "MANOSABA-THE_SUN_POWER.description": "最大[gold]能量[/gold]增加。",
   "MANOSABA-THE_SUN_POWER.smartDescription": "最大[gold]能量[/gold]增加 [blue]{Amount}[/blue]。",
-
   "MANOSABA-DISASTER_GIRL_POWER.title": "災厄少女",
   "MANOSABA-DISASTER_GIRL_POWER.description": "每當你對敵人累積施加 5 層[gold]灼燒[/gold]，對一名隨機敵人造成 [blue]{Damage}[/blue] 點傷害。",
   "MANOSABA-DISASTER_GIRL_POWER.smartDescription": "每累積施加 5 層[gold]灼燒[/gold]，對一名隨機敵人造成 [blue]{Damage}[/blue] 點傷害。",
@@ -432,5 +426,31 @@
   "MANOSABA-CALL_OF_CTHULHU_POWER.smartDescription": "每回合最多受到 [blue]{DamageLimit}[/blue] 點生命傷害。在你的回合開始時，獲得 {StrengthPower:diff()} 層[gold]力量[/gold]。",
   "MANOSABA-SHADOW_FROM_THE_STEEPLE_POWER.title": "尖塔的陰影",
   "MANOSABA-SHADOW_FROM_THE_STEEPLE_POWER.description": "每層使受到傷害提高。持有者回合結束時移除。",
-  "MANOSABA-SHADOW_FROM_THE_STEEPLE_POWER.smartDescription": "每層使受到傷害提高 [blue]{DamageMultiplierPercent}%[/blue]。持有者回合結束時移除。"
+  "MANOSABA-SHADOW_FROM_THE_STEEPLE_POWER.smartDescription": "每層使受到傷害提高 [blue]{DamageMultiplierPercent}%[/blue]。持有者回合結束時移除。",
+  "MANOSABA-HIDING_POWER.title": "躲藏",
+  "MANOSABA-HIDING_POWER.description": "回合開始時，每層獲得 2 點[gold]格擋[/gold]及 1 層[gold]魔女化[/gold]。",
+  "MANOSABA-HIDING_POWER.smartDescription": "回合開始時，每層獲得 2 點[gold]格擋[/gold]及 1 層[gold]魔女化[/gold]。",
+  "MANOSABA-LIVE_STREAM_MODE_POWER.title": "直播模式",
+  "MANOSABA-LIVE_STREAM_MODE_POWER.description": "回合結束時，對隨機敵人造成等同層數的傷害後，減少 1 層。",
+  "MANOSABA-LIVE_STREAM_MODE_POWER.smartDescription": "回合結束時，對隨機敵人造成等同層數的傷害後，減少 1 層。",
+  "MANOSABA-FAN_POWER.title": "粉絲",
+  "MANOSABA-FAN_POWER.description": "對你造成的傷害減少 1。",
+  "MANOSABA-FAN_POWER.smartDescription": "對你造成的傷害減少 1。",
+  "MANOSABA-FAN_SERVICE_SKILL_POWER.title": "技能:粉絲福利",
+  "MANOSABA-FAN_SERVICE_SKILL_POWER.description": "讓全體敵人成為粉絲。\n從兩種粉絲福利中選擇一個發動。",
+  "MANOSABA-FAN_SERVICE_SKILL_POWER.smartDescription": "每 {CooldownTurnsAfterUse:diff()} 回合可使用一次：讓全體敵人成為粉絲。\n從兩種粉絲福利中選擇一個發動。",
+  "MANOSABA-FAN_SERVICE_SKILL_POWER.activateLabel": "發動技能",
+  "MANOSABA-FAN_SERVICE_SKILL_POWER.selectionScreenPrompt": "選擇一種粉絲福利",
+  "MANOSABA-LETS_PLAY_A_GAME_POWER.title": "我想玩個遊戲",
+  "MANOSABA-LETS_PLAY_A_GAME_POWER.description": "回合結束時獲得 30 層[gold]魔女化[/gold]。\n[gold]魔女化[/gold]層數達到 150 層時，可可每回合開始時將被接管。",
+  "MANOSABA-LETS_PLAY_A_GAME_POWER.smartDescription": "回合結束時獲得 30 層[gold]魔女化[/gold]。[gold]魔女化[/gold]層數達到 150 層時，可可每回合開始時將被接管。",
+  "MANOSABA-CLAIRVOYANCE_EFFECT_POWER.title": "千里眼",
+  "MANOSABA-CLAIRVOYANCE_EFFECT_POWER.description": "回合結束時，如果敵人行動有攻擊預測，獲得 5 點格擋。如果敵人行動無攻擊預測，獲得 1 點力量。\n回合結束時，減少 1 層。",
+  "MANOSABA-CLAIRVOYANCE_EFFECT_POWER.smartDescription": "回合結束時，如果敵人行動有攻擊預測，獲得 5 點格擋。如果敵人行動無攻擊預測，獲得 1 點力量。回合結束時，減少 1 層。",
+  "MANOSABA-THANKS_FOR_THE_TIP_POWER.title": "感謝打賞",
+  "MANOSABA-THANKS_FOR_THE_TIP_POWER.description": "每次完全格擋時獲得金幣。",
+  "MANOSABA-THANKS_FOR_THE_TIP_POWER.smartDescription": "每次完全格擋時獲得 {Gold} [gold]金幣[/gold]。",
+  "MANOSABA-ONLINE_SHOPPING_POWER.title": "網購時間",
+  "MANOSABA-ONLINE_SHOPPING_POWER.description": "每回合開始時選擇 1 張[gold]商品牌[/gold]加入[gold]抽牌堆[/gold]。",
+  "MANOSABA-ONLINE_SHOPPING_POWER.smartDescription": "每回合開始時選擇 1 張[gold]商品牌[/gold]加入[gold]抽牌堆[/gold]。"
 }

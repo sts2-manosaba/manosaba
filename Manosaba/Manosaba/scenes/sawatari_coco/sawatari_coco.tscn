@@ -1,0 +1,39 @@
+[gd_scene load_steps=4 format=3 uid="uid://ci4b03ofr0gss"]
+
+[ext_resource type="Script" uid="uid://ci5rydvtx3dwt" path="res://Characters/Common/Overrides/ManosabaCharacterVisuals.cs" id="1_iyebb"]
+[ext_resource type="Texture2D" uid="uid://dsjxp5f5g0my4" path="res://Manosaba/images/characters/sawatari_coco/SawatariCoco.png" id="3_4e3wc"]
+[ext_resource type="Texture2D" uid="uid://cjm5bydgqy2qj" path="res://Manosaba/images/characters/sawatari_coco/SawatariCocoM.png" id="3_gyjds"]
+
+[node name="SawatariCoco" type="Node2D"]
+script = ExtResource("1_iyebb")
+
+[node name="Visuals" type="Sprite2D" parent="."]
+unique_name_in_owner = true
+
+[node name="Sprite2D" type="Sprite2D" parent="Visuals"]
+position = Vector2(4.499994, -170.28975)
+scale = Vector2(0.23111612, 0.23111612)
+texture = ExtResource("3_4e3wc")
+
+[node name="Majoka" type="Sprite2D" parent="Visuals"]
+visible = false
+position = Vector2(6.7958856, -182.85025)
+scale = Vector2(0.21917501, 0.2191749)
+texture = ExtResource("3_gyjds")
+
+[node name="Bounds" type="Control" parent="."]
+unique_name_in_owner = true
+layout_mode = 3
+anchors_preset = 0
+offset_left = -84.0
+offset_top = -310.0
+offset_right = 93.0
+offset_bottom = 16.0
+
+[node name="IntentPos" type="Marker2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(12, -323)
+
+[node name="CenterPos" type="Marker2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(2, -188)

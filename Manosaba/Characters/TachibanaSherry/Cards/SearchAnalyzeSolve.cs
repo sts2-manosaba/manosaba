@@ -22,6 +22,8 @@ public sealed class SearchAnalyzeSolve : PathCustomCardModel
     private const TargetType targetType = TargetType.Self;
     private const bool shouldShowInCardLibrary = true;
 
+    protected override bool IsPlayable => base.IsPlayable && Owner.Character is global::manosaba.Characters.TachibanaSherry.TachibanaSherry;
+
     protected override IEnumerable<IHoverTip> ExtraHoverTips =>
     [
         HoverTipFactory.FromPower<CouldItBeThatSkillPower>(),
