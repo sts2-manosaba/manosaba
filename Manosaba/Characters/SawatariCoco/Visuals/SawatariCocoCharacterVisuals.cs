@@ -2,40 +2,38 @@ using Godot;
 using Manosaba.Characters.Common.Overrides;
 using Manosaba.Characters.Common.Powers;
 using Manosaba.Characters.SawatariCoco.Equipment;
-using Manosaba.Characters.SawatariCoco.Powers;
 using manosaba.Characters.SawatariCoco.Helper;
 using MegaCrit.Sts2.Core.Entities.Creatures;
 
 namespace Manosaba.Characters.SawatariCoco.Visuals;
 
 /// <summary>
-/// Coco combat visuals with equipment sprite overlays (Coco scene only; other characters use equipment powers without overlay).
-/// Godot scene naming (under sawatari_coco.tscn):
-/// - Visuals/Sprite2D — base body
-/// - Visuals/Majoka — majoka form (100+ stacks)
-/// - Visuals/Equipment/Headwear|Top|Skirt|Shoes — normal equipment Sprite2D nodes
-/// - Visuals/Majoka/Equipment/Headwear|Top|Skirt|Shoes — majoka equipment Sprite2D nodes
-/// Texture paths: res://Manosaba/images/characters/sawatari_coco/equipment/{series}_{slot}[ _majoka].png
-/// Example: punk_cat_headwear.png, cybercat_top_majoka.png
+/// Coco combat visuals: default body + majoka body in tscn; full-set outfit replaces the active sprite only.
+/// Godot scene (sawatari_coco.tscn):
+/// - Visuals/Sprite2D — default body (SawatariCoco.png in tscn)
+/// - Visuals/Majoka — majoka body (SawatariCocoM.png in tscn)
+/// Full set textures: res://Manosaba/images/characters/sawatari_coco/equipment/{series}.png
+/// Majoka full set: .../equipment/{series}_majoka.png (e.g. punk_cat.png, punk_cat_majoka.png)
 /// </summary>
 public sealed partial class SawatariCocoCharacterVisuals : ManosabaCharacterVisuals
 {
     private Creature? _creature;
-    private readonly Dictionary<EquipmentSlot, CanvasItem?> _normalEquipmentNodes = new();
-    private readonly Dictionary<EquipmentSlot, CanvasItem?> _majokaEquipmentNodes = new();
-    private EquipmentSeries _lastHeadwearSeries = EquipmentSeries.None;
-    private EquipmentSeries _lastTopSeries = EquipmentSeries.None;
-    private EquipmentSeries _lastSkirtSeries = EquipmentSeries.None;
-    private EquipmentSeries _lastShoesSeries = EquipmentSeries.None;
-    private bool _lastHadMajoka;
+    private Sprite2D? _normalSprite;
+    private Sprite2D? _majokaSprite;
+    private Texture2D? _defaultNormalTexture;
+    private Texture2D? _defaultMajokaTexture;
+    private EquipmentSeries? _lastFullSetSeries;
 
     public override void _Ready()
     {
         base._Ready();
         _creature = (GetParent() as MegaCrit.Sts2.Core.Nodes.Combat.NCreature)?.Entity;
-        CacheEquipmentNodes();
-        _lastHadMajoka = HasMajoka();
-        ApplyEquipmentVisuals(_lastHadMajoka);
+        _normalSprite = GetNodeOrNull<Sprite2D>("Visuals/Sprite2D");
+        _majokaSprite = GetNodeOrNull<Sprite2D>("Visuals/Majoka");
+        _defaultNormalTexture = _normalSprite?.Texture;
+        _defaultMajokaTexture = _majokaSprite?.Texture;
+        _lastFullSetSeries = GetFullSetSeries();
+        ApplyBodyTextures();
     }
 
     public override void _Process(double delta)
@@ -47,109 +45,48 @@ public sealed partial class SawatariCocoCharacterVisuals : ManosabaCharacterVisu
             return;
         }
 
-        bool hasMajoka = HasMajoka();
-        EquipmentSeries headwear = GetSlotSeries(EquipmentSlot.Headwear);
-        EquipmentSeries top = GetSlotSeries(EquipmentSlot.Top);
-        EquipmentSeries skirt = GetSlotSeries(EquipmentSlot.Skirt);
-        EquipmentSeries shoes = GetSlotSeries(EquipmentSlot.Shoes);
-
-        if (hasMajoka == _lastHadMajoka
-            && headwear == _lastHeadwearSeries
-            && top == _lastTopSeries
-            && skirt == _lastSkirtSeries
-            && shoes == _lastShoesSeries)
+        EquipmentSeries? fullSetSeries = GetFullSetSeries();
+        if (fullSetSeries == _lastFullSetSeries)
         {
             return;
         }
 
-        _lastHadMajoka = hasMajoka;
-        _lastHeadwearSeries = headwear;
-        _lastTopSeries = top;
-        _lastSkirtSeries = skirt;
-        _lastShoesSeries = shoes;
-        ApplyEquipmentVisuals(hasMajoka);
+        _lastFullSetSeries = fullSetSeries;
+        ApplyBodyTextures();
     }
 
-    private void CacheEquipmentNodes()
+    private EquipmentSeries? GetFullSetSeries()
+        => _creature == null ? null : SawatariCocoEquipmentHelper.GetFullSetSeries(_creature);
+
+    private void ApplyBodyTextures()
     {
-        foreach (EquipmentSlot slot in Enum.GetValues<EquipmentSlot>())
-        {
-            string nodeName = slot.ToString();
-            _normalEquipmentNodes[slot] = GetNodeOrNull<CanvasItem>($"Visuals/Equipment/{nodeName}");
-            _majokaEquipmentNodes[slot] = GetNodeOrNull<CanvasItem>($"Visuals/Majoka/Equipment/{nodeName}");
-        }
+        ApplySpriteTexture(_normalSprite, _defaultNormalTexture, isMajokaLayer: false);
+        ApplySpriteTexture(_majokaSprite, _defaultMajokaTexture, isMajokaLayer: true);
     }
 
-    private bool HasMajoka()
-        => _creature != null && _creature.GetPowerAmount<MajokaPower>() >= 100;
-
-    private EquipmentSeries GetSlotSeries(EquipmentSlot slot)
+    private void ApplySpriteTexture(Sprite2D? sprite, Texture2D? defaultTexture, bool isMajokaLayer)
     {
-        if (_creature == null)
-        {
-            return EquipmentSeries.None;
-        }
-
-        EquipmentSlotPowerBase? power = slot switch
-        {
-            EquipmentSlot.Headwear => _creature.GetPower<EquipmentHeadwearSlotPower>(),
-            EquipmentSlot.Top => _creature.GetPower<EquipmentTopSlotPower>(),
-            EquipmentSlot.Skirt => _creature.GetPower<EquipmentSkirtSlotPower>(),
-            EquipmentSlot.Shoes => _creature.GetPower<EquipmentShoesSlotPower>(),
-            _ => null,
-        };
-
-        return power?.EquippedSeries ?? EquipmentSeries.None;
-    }
-
-    private void ApplyEquipmentVisuals(bool hasMajoka)
-    {
-        foreach (EquipmentSlot slot in Enum.GetValues<EquipmentSlot>())
-        {
-            EquipmentSeries series = GetSlotSeries(slot);
-            ApplySlotVisual(slot, series, hasMajoka, _normalEquipmentNodes, false);
-            ApplySlotVisual(slot, series, hasMajoka, _majokaEquipmentNodes, true);
-        }
-    }
-
-    private void ApplySlotVisual(
-        EquipmentSlot slot,
-        EquipmentSeries series,
-        bool hasMajoka,
-        Dictionary<EquipmentSlot, CanvasItem?> nodes,
-        bool isMajokaLayer)
-    {
-        if (!nodes.TryGetValue(slot, out CanvasItem? node) || node == null)
+        if (sprite == null)
         {
             return;
         }
 
-        bool shouldShow = series != EquipmentSeries.None && hasMajoka == isMajokaLayer;
-        if (!shouldShow)
+        EquipmentSeries? fullSetSeries = _lastFullSetSeries;
+        if (fullSetSeries is EquipmentSeries series)
         {
-            node.Visible = false;
-            return;
+            string texturePath = SawatariCocoEquipmentHelper.GetFullSetVisualTexturePath(series, isMajokaLayer);
+            if (!string.IsNullOrEmpty(texturePath)
+                && ResourceLoader.Exists(texturePath)
+                && ResourceLoader.Load<Texture2D>(texturePath) is { } outfitTexture)
+            {
+                sprite.Texture = outfitTexture;
+                return;
+            }
         }
 
-        string texturePath = SawatariCocoEquipmentHelper.GetVisualTexturePath(slot, series, isMajokaLayer);
-        if (string.IsNullOrEmpty(texturePath) || !ResourceLoader.Exists(texturePath))
+        if (defaultTexture != null)
         {
-            node.Visible = false;
-            return;
+            sprite.Texture = defaultTexture;
         }
-
-        Texture2D? texture = ResourceLoader.Load<Texture2D>(texturePath);
-        if (texture == null)
-        {
-            node.Visible = false;
-            return;
-        }
-
-        if (node is Sprite2D sprite)
-        {
-            sprite.Texture = texture;
-        }
-
-        node.Visible = true;
     }
 }

@@ -137,30 +137,33 @@ public static class SawatariCocoEquipmentHelper
         return series;
     }
 
-    public static string GetVisualTexturePath(EquipmentSlot slot, EquipmentSeries series, bool isMajoka)
+    /// <summary>Full-outfit sprite when all four slots wear the same series.</summary>
+    public static string GetFullSetVisualTexturePath(EquipmentSeries series, bool isMajoka)
     {
         if (series == EquipmentSeries.None)
         {
             return string.Empty;
         }
 
-        string seriesKey = series switch
-        {
-            EquipmentSeries.PunkCat => "punk_cat",
-            EquipmentSeries.Cybercat => "cybercat",
-            EquipmentSeries.MysteriousCat => "mysterious_cat",
-            EquipmentSeries.CutieCats => "cutie_cats",
-            _ => string.Empty,
-        };
-
+        string? seriesKey = GetSeriesFileKey(series);
         if (string.IsNullOrEmpty(seriesKey))
         {
             return string.Empty;
         }
 
         string majokaSuffix = isMajoka ? "_majoka" : string.Empty;
-        return $"res://Manosaba/images/characters/sawatari_coco/equipment/{seriesKey}_{slot.ToString().ToLowerInvariant()}{majokaSuffix}.png";
+        return $"res://Manosaba/images/characters/sawatari_coco/equipment/{seriesKey}{majokaSuffix}.png";
     }
+
+    private static string? GetSeriesFileKey(EquipmentSeries series)
+        => series switch
+        {
+            EquipmentSeries.PunkCat => "punk_cat",
+            EquipmentSeries.Cybercat => "cybercat",
+            EquipmentSeries.MysteriousCat => "mysterious_cat",
+            EquipmentSeries.CutieCats => "cutie_cats",
+            _ => null,
+        };
 
     private static async Task TryTriggerSetBonusAsync(
         PlayerChoiceContext choiceContext,
