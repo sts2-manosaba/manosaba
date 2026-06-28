@@ -56,13 +56,13 @@ public sealed class LiveStreamingEquipment : LevelingPathCustomRelicModel
 
     public override async Task BeforeCombatStart()
     {
-        if (RelicLevel < 4 || Owner.Creature is not { } creature)
+        if (RelicLevel < 4 || Owner.Creature is not { } liveStreamCreature)
         {
             return;
         }
 
         Flash();
-        await CommonActions.Apply<LiveStreamModePower>(new ThrowingPlayerChoiceContext(), creature, null, 3m);
+        await CommonActions.Apply<LiveStreamModePower>(new ThrowingPlayerChoiceContext(), liveStreamCreature, null, 3m);
     }
 
     public override async Task AfterDamageGiven(

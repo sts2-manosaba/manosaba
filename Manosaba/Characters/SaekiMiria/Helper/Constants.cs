@@ -10,6 +10,7 @@ using Manosaba.Characters.KurobeNanoka.Powers;
 using Manosaba.Characters.NikaidoHiro.Powers;
 using Manosaba.Characters.SaekiMiria.Cards;
 using Manosaba.Characters.SaekiMiria.Powers;
+using Manosaba.Characters.SawatariCoco.Powers;
 using Manosaba.Characters.ShitoAlisa.Powers;
 using Manosaba.Characters.TachibanaSherry.Powers;
 using Manosaba.Characters.TonoHanna.Powers;
@@ -102,6 +103,14 @@ namespace Manosaba.Characters.SaekiMiria.Helper
                 typeof(CouldItBeThatSkillPower),
                 typeof(CluesGainedThisTurnPower),
                 typeof(PlayedSanThisTurnPower),
+
+                typeof(EquipmentHeadwearSlotPower),
+                typeof(EquipmentTopSlotPower),
+                typeof(EquipmentSkirtSlotPower),
+                typeof(EquipmentShoesSlotPower),
+                typeof(EquipmentScorePower),
+                typeof(EquipmentSetBonusPower),
+                typeof(MysteriousCatSetEnergyPower),
             };
 
         public static HashSet<Type> AllowedLuckTransferPowers = new()

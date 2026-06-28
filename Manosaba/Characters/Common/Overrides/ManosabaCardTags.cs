@@ -13,5 +13,17 @@ namespace Manosaba.Characters.Common.Overrides
 
         [CustomEnum("shopping")]
         public static CardTag Shopping;
+
+        [CustomEnum("punk_cat_equipment")]
+        public static CardTag PunkCatEquipment;
+
+        [CustomEnum("cybercat_equipment")]
+        public static CardTag CybercatEquipment;
+
+        [CustomEnum("mysterious_cat_equipment")]
+        public static CardTag MysteriousCatEquipment;
+
+        [CustomEnum("cutie_cats_equipment")]
+        public static CardTag CutieCatsEquipment;
     }
 }

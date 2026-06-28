@@ -28,5 +28,13 @@
   "MANOSABA-EXECUTION.title": "처형 카드",
   "MANOSABA-EXECUTION.description": "다음 카드를 포함：\n[gold]낙석[/gold]\n[gold]표적[/gold]\n[gold]집중 사격[/gold]\n[gold]죽음의 진자[/gold]\n[gold]교수형[/gold]\n[gold]용해[/gold]\n[gold]전기 처형[/gold]\n[gold]단두대[/gold]\n[gold]뜨거운 솥[/gold]\n[gold]화형[/gold]\n[gold]자해[/gold]\n[gold]철처녀[/gold]\n[gold]突き穿つ死翔の槍[/gold]",
   "MANOSABA-SHOPPING.title": "쇼핑",
-  "MANOSABA-SHOPPING.description": "온라인 쇼핑으로 얻는 소모 카드."
+  "MANOSABA-SHOPPING.description": "온라인 쇼핑으로 얻는 소모 카드.",
+  "MANOSABA-PUNK_CAT_EQUIPMENT.title": "펑크 캣 장비",
+  "MANOSABA-PUNK_CAT_EQUIPMENT.description": "사용 시 해당 부위 장비를 변경할지 선택하고 장비 점수를 얻습니다.\n펑크 캣 풀세트 착용 시 [gold]힘[/gold] +5. 전투당 1회.",
+  "MANOSABA-CYBERCAT_EQUIPMENT.title": "사이버캣 장비",
+  "MANOSABA-CYBERCAT_EQUIPMENT.description": "사용 시 해당 부위 장비를 변경할지 선택하고 장비 점수를 얻습니다.\n사이버캣 풀세트 착용 시 [gold]민첩[/gold] +5. 전투당 1회.",
+  "MANOSABA-MYSTERIOUS_CAT_EQUIPMENT.title": "미스터리어스 캣 장비",
+  "MANOSABA-MYSTERIOUS_CAT_EQUIPMENT.description": "사용 시 해당 부위 장비를 변경할지 선택하고 장비 점수를 얻습니다.\n미스터리어스 캣 풀세트 착용 시 최대 에너지 +2. 전투당 1회.",
+  "MANOSABA-CUTIE_CATS_EQUIPMENT.title": "큐티 캣츠 장비",
+  "MANOSABA-CUTIE_CATS_EQUIPMENT.description": "사용 시 해당 부위 장비를 변경할지 선택하고 장비 점수를 얻습니다.\n큐티 캣츠 풀세트 착용 시 모든 적에게 [gold]화상[/gold] 10과 [gold]중독[/gold] 10. 전투당 1회."
 }

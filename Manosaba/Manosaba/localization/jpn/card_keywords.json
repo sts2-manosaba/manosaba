@@ -28,5 +28,13 @@
   "MANOSABA-EXECUTION.title": "処刑カード",
   "MANOSABA-EXECUTION.description": "以下のカードを含む：\n[gold]落石[/gold]\n[gold]ブルズアイ[/gold]\n[gold]集中射撃[/gold]\n[gold]死の振り子[/gold]\n[gold]絞首刑[/gold]\n[gold]溶解[/gold]\n[gold]電刑[/gold]\n[gold]ギロチン[/gold]\n[gold]ホットポット[/gold]\n[gold]火刑[/gold]\n[gold]自害[/gold]\n[gold]鉄処女[/gold]\n[gold]突き穿つ死翔の槍[/gold]",
   "MANOSABA-SHOPPING.title": "ショッピング",
-  "MANOSABA-SHOPPING.description": "ネットショッピングで得る消耗カード。"
+  "MANOSABA-SHOPPING.description": "ネットショッピングで得る消耗カード。",
+  "MANOSABA-PUNK_CAT_EQUIPMENT.title": "パンクキャット装備",
+  "MANOSABA-PUNK_CAT_EQUIPMENT.description": "使用時、この部位の装備を変更するか選び、装備スコアを得る。\nパンクキャット装備フルセットで[gold]筋力[/gold]+5。1戦闘に1回のみ。",
+  "MANOSABA-CYBERCAT_EQUIPMENT.title": "サイバーキャット装備",
+  "MANOSABA-CYBERCAT_EQUIPMENT.description": "使用時、この部位の装備を変更するか選び、装備スコアを得る。\nサイバーキャット装備フルセットで[gold]敏捷[/gold]+5。1戦闘に1回のみ。",
+  "MANOSABA-MYSTERIOUS_CAT_EQUIPMENT.title": "ミステリアスキャット装備",
+  "MANOSABA-MYSTERIOUS_CAT_EQUIPMENT.description": "使用時、この部位の装備を変更するか選び、装備スコアを得る。\nミステリアスキャット装備フルセットで最大エネルギー+2。1戦闘に1回のみ。",
+  "MANOSABA-CUTIE_CATS_EQUIPMENT.title": "キューティーキャッツ装備",
+  "MANOSABA-CUTIE_CATS_EQUIPMENT.description": "使用時、この部位の装備を変更するか選び、装備スコアを得る。\nキューティーキャッツ装備フルセットで全敵に[gold]燃焼[/gold]10と[gold]毒[/gold]10。1戦闘に1回のみ。"
 }

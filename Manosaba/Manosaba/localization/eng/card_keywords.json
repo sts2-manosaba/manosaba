@@ -28,5 +28,13 @@
   "MANOSABA-EXECUTION.title": "Execution",
   "MANOSABA-EXECUTION.description": "Includes the following cards:\n[gold]Boulders[/gold]\n[gold]Bullseye[/gold]\n[gold]Concentrated Fire[/gold]\n[gold]Death Pendulum[/gold]\n[gold]Gallows[/gold]\n[gold]Dissolve[/gold]\n[gold]Electrocution[/gold]\n[gold]Guillotine[/gold]\n[gold]Hot Pot[/gold]\n[gold]Immolation[/gold]\n[gold]Suicide[/gold]\n[gold]Iron Maiden[/gold]\n[gold]Piercing Death-Soaring Spear[/gold]",
   "MANOSABA-SHOPPING.title": "Shopping",
-  "MANOSABA-SHOPPING.description": "Consumable cards gained from online shopping."
+  "MANOSABA-SHOPPING.description": "Consumable cards gained from online shopping.",
+  "MANOSABA-PUNK_CAT_EQUIPMENT.title": "Punk Cat Equipment",
+  "MANOSABA-PUNK_CAT_EQUIPMENT.description": "When played, choose whether to equip this piece and gain its equipment score.\nWearing the full Punk Cat set grants 5 [gold]Strength[/gold]. Can trigger only once per combat.",
+  "MANOSABA-CYBERCAT_EQUIPMENT.title": "Cybercat Equipment",
+  "MANOSABA-CYBERCAT_EQUIPMENT.description": "When played, choose whether to equip this piece and gain its equipment score.\nWearing the full Cybercat set grants 5 [gold]Dexterity[/gold]. Can trigger only once per combat.",
+  "MANOSABA-MYSTERIOUS_CAT_EQUIPMENT.title": "Mysterious Cat Equipment",
+  "MANOSABA-MYSTERIOUS_CAT_EQUIPMENT.description": "When played, choose whether to equip this piece and gain its equipment score.\nWearing the full Mysterious Cat set grants 2 Max Energy. Can trigger only once per combat.",
+  "MANOSABA-CUTIE_CATS_EQUIPMENT.title": "Cutie Cats Equipment",
+  "MANOSABA-CUTIE_CATS_EQUIPMENT.description": "When played, choose whether to equip this piece and gain its equipment score.\nWearing the full Cutie Cats set applies 10 [gold]Burn[/gold] and 10 [gold]Poison[/gold] to ALL enemies. Can trigger only once per combat."
 }
