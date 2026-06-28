@@ -111,6 +111,11 @@ namespace Manosaba.Characters.SaekiMiria.Helper
                 typeof(EquipmentScorePower),
                 typeof(EquipmentSetBonusPower),
                 typeof(MysteriousCatSetEnergyPower),
+
+                typeof(FanServiceSkillPower),
+                typeof(LetsPlayAGamePower),
+                typeof(HidingPower),
+                typeof(LiveStreamModePower),
             };
 
         public static HashSet<Type> AllowedLuckTransferPowers = new()
