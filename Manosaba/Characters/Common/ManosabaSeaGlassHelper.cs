@@ -1,8 +1,6 @@
 using System.Reflection;
 using HarmonyLib;
 using manosaba.Characters.HoshoMago;
-using Manosaba.Characters.Common.Overrides;
-using Manosaba.Characters.HoshoMago.Cards;
 using MegaCrit.Sts2.Core.CardSelection;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
@@ -123,20 +121,7 @@ internal static class ManosabaSeaGlassHelper
         EnsureCurrentMapPointPlayerEntry(player);
 
         int totalCards = seaGlass.DynamicVars.Cards.IntValue;
-        List<CardModel> tarotPool = ModelDb.CardPool<HoshoMagoCardPool>()
-            .GetUnlockedCards(player.UnlockState, player.RunState.CardMultiplayerConstraint)
-            .Where(card => card.Tags.Contains(ManosabaCardTags.Tarot) && card is not TheWorld)
-            .Where(card => !ManosabaUniqueCardEligibility.IsBlockedForPlayerOffer(player, card))
-            .ToList();
-
-        if (tarotPool.Count == 0)
-        {
-            tarotPool = ModelDb.CardPool<HoshoMagoCardPool>()
-                .GetUnlockedCards(player.UnlockState, player.RunState.CardMultiplayerConstraint)
-                .Where(card => card.Tags.Contains(ManosabaCardTags.Tarot) && card is not TheWorld)
-                .ToList();
-        }
-
+        List<CardModel> tarotPool = ManosabaTarotRewardHelper.GetOfferableTarotPool(player);
         if (tarotPool.Count == 0)
         {
             Log.Error("Sea Glass tarot pool was empty.");
@@ -144,31 +129,16 @@ internal static class ManosabaSeaGlassHelper
         }
 
         List<CardCreationResult> options = [];
-        List<CardModel> available = tarotPool.ToList();
         HashSet<ModelId> offeredIds = [];
         for (int i = 0; i < totalCards; i++)
         {
-            if (available.Count == 0)
-            {
-                available = tarotPool
-                    .Where(card => !offeredIds.Contains(card.Id))
-                    .ToList();
-            }
-
-            if (available.Count == 0)
+            CardModel? card = ManosabaTarotRewardHelper.PickRandomTarot(player, tarotPool, offeredIds);
+            if (card == null)
             {
                 break;
             }
 
-            CardModel? canonical = player.RunState.Rng.Niche.NextItem(available);
-            if (canonical == null)
-            {
-                continue;
-            }
-
-            available.Remove(canonical);
-            offeredIds.Add(canonical.Id);
-            CardModel card = player.RunState.CreateCard(canonical, player);
+            offeredIds.Add(card.Id);
             options.Add(new CardCreationResult(card));
         }
 
