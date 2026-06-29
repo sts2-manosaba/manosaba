@@ -41,17 +41,21 @@ public static class Patch_RunState_FromSerializable_ManosabaDifficulty
             return;
         }
 
-        // For loaded multiplayer runs, host settings may already be synchronized into lobby snapshot.
-        // Do not clobber synchronized values with local defaults.
         if (ManosabaLobbyDifficultyState.RunFrozen)
         {
             return;
         }
 
+        long mpStartTime = save.StartTime;
+        bool loadedFromStore = false;
+        if (mpStartTime != 0 && ManosabaPerSaveDifficultyStore.TryLoadForRun(mpStartTime, playerCount, out ManosabaDifficultySettingsMessage mpPersisted))
+        {
+            loadedFromStore = true;
+            ManosabaLobbyDifficultyState.ApplyFromHost(mpPersisted);
+        }
+
         if (ManosabaLobbyDifficultyState.LobbySessionActive)
         {
-            // Clients must not freeze from local lobby here: it may still reflect a prior singleplayer session.
-            // Host-authoritative difficulty arrives via ManosabaDifficultySettingsMessage -> FreezeForRunFromHost.
             if (RunManager.Instance?.NetService?.Type == NetGameType.Client)
             {
                 return;
@@ -62,6 +66,11 @@ public static class Patch_RunState_FromSerializable_ManosabaDifficulty
         }
 
         ManosabaLobbyDifficultyState.ClearRunSnapshot();
-        ManosabaLobbyDifficultyState.FreezeForRunFromDefaults();
+        if (!loadedFromStore)
+        {
+            ManosabaLobbyDifficultyState.ResetToLobbyDefaults();
+        }
+
+        ManosabaLobbyDifficultyState.FreezeForRun();
     }
 }

@@ -382,7 +382,8 @@ public static class ManosabaLobbyDifficultyUiHost
 
         LobbyDifficultyUiNetContext lobby = maybe.Value;
         PushUiToRuntime(owner, getLobby, st);
-        ManosabaLobbyDifficultyState.SaveLobbySnapshotAsDefaults();
+        ManosabaLobbyDifficultyState.SaveLobbySnapshotAsDefaults(flushImmediately: true);
+        ManosabaPerSaveDifficultyStore.TryPersistActiveRun(flushImmediately: true);
         TryHostWatchdogBroadcast(lobby, st, force: true);
     }
 

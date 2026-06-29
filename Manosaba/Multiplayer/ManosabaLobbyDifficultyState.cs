@@ -197,19 +197,35 @@ public static class ManosabaLobbyDifficultyState
     }
 
     /// <summary>
+    /// Copy gameplay/lobby difficulty into mod-config static fields (uses frozen snap mid-run).
+    /// </summary>
+    public static void SyncSnapshotToConfig()
+    {
+        (double hp, double atk, double mur, RandomCharacterPoolMode pool) = GetPersistedDifficultySnapshot();
+        ManosabaConfig.LobbyEnemyHpMultiplierPercent = Math.Clamp(hp, 100d, 400d);
+        ManosabaConfig.LobbyEnemyAttackDamageMultiplierPercent = Math.Clamp(atk, 100d, 400d);
+        ManosabaConfig.LobbyMurderousImpulseAllyDamageMultiplierPercent = Math.Clamp(mur, 0d, 100d);
+        ManosabaConfig.LobbyRandomCharacterPool = pool is RandomCharacterPoolMode.AllCharacters
+            ? RandomCharacterPoolMode.AllCharacters
+            : RandomCharacterPoolMode.ManosabaCharactersOnly;
+    }
+
+    /// <summary>
     /// Persist current lobby snapshot as next-session defaults in mod config.
     /// Host/singleplayer only; clients should not call this.
     /// </summary>
-    public static void SaveLobbySnapshotAsDefaults()
+    public static void SaveLobbySnapshotAsDefaults(bool flushImmediately = false)
     {
-        ManosabaConfig.LobbyEnemyHpMultiplierPercent = Math.Clamp(_lobbyEnemyHpMultiplierPercent, 100d, 400d);
-        ManosabaConfig.LobbyEnemyAttackDamageMultiplierPercent = Math.Clamp(_lobbyEnemyAttackDamageMultiplierPercent, 100d, 400d);
-        ManosabaConfig.LobbyMurderousImpulseAllyDamageMultiplierPercent = Math.Clamp(_lobbyMurderousImpulseAllyDamageMultiplierPercent, 0d, 100d);
-        ManosabaConfig.LobbyRandomCharacterPool = _lobbyRandomCharacterPool is RandomCharacterPoolMode.AllCharacters
-            ? RandomCharacterPoolMode.AllCharacters
-            : RandomCharacterPoolMode.ManosabaCharactersOnly;
+        SyncSnapshotToConfig();
 
-        ModConfig.SaveDebounced<ManosabaConfig>(250);
+        if (flushImmediately)
+        {
+            ModConfigRegistry.Get<ManosabaConfig>()?.Save();
+        }
+        else
+        {
+            ModConfig.SaveDebounced<ManosabaConfig>(250);
+        }
     }
 
     private static RandomCharacterPoolMode ClampRandomPoolMode(byte raw)

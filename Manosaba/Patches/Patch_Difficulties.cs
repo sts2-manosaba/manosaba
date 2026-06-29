@@ -119,27 +119,6 @@ public static class Patch_Difficulties
     }
 
     /// <summary>
-    /// 判斷 <paramref name="amount"/> 是否等於「乘大廳%之前」的敵方滿血基底：單人為設計值 <see cref="MonsterModel.MaxInitialHp"/>；
-    /// 多人時為 vanilla 在 <see cref="CombatState.CreateCreature"/> 內依 <see cref="Creature.ScaleHpForMultiplayer"/> 與
-    /// <c>Players.Count &gt; 1</c> 算出的基底。部分流程會在 max 已乘大廳後，仍用此基底呼叫設定 current HP（見 <see cref="CreatureCmd.SetMaxAndCurrentHp"/>）。
-    /// </summary>
-    private static bool AmountMatchesPreLobbyEnemyFullBase(Creature creature, MonsterModel m, decimal amount)
-    {
-        CombatStateWrapper? cs = ManosabaCombatCompat.From(creature);
-        if (cs == null)
-        {
-            return false;
-        }
-
-        int preLobby = (int)Creature.ScaleHpForMultiplayer(
-            m.MaxInitialHp,
-            ManosabaCombatCompat.GetEncounter(creature),
-            cs.Players.Count,
-            cs.RunState.CurrentActIndex);
-        return (int)amount == preLobby;
-    }
-
-    /// <summary>
     /// 怪進房後第一次機會：把敵方 max 與 current HP 一併乘上大廳敵方倍率（與 vanilla 既有乘法疊加）。
     /// </summary>
     /// <remarks>跳過無限血顯示階段（main: ShowsInfiniteHp / beta: HpDisplay），避免被放大，造成連線 checksum 不一致。</remarks>
@@ -192,14 +171,28 @@ public static class Patch_Difficulties
     }
 
     /// <summary>
-    /// 部分遭遇會先把 <see cref="Creature.MaxHp"/> 設成已乘大廳後的 max，再以「大廳前的滿血基底」呼叫 <see cref="Creature.SetCurrentHpInternal"/>：
-    /// 單人為 <see cref="MonsterModel.MaxInitialHp"/>，多人為與 <see cref="CombatState.CreateCreature"/> 相同的多人縮放結果。
-    /// 若 <c>ScaleEnemyHp(amount)</c> 等於目前 max，且 <paramref name="amount"/> 與該基底一致，且為固定 HP 怪（<c>MinInitialHp == MaxInitialHp</c>），
-    /// 則將寫入的 current HP 改為 max，避免卡在未縮放的舊值；可變 HP 怪不處理。
+    /// 與 <see cref="Patch_CreatureCmd_SetMaxHp_HpMultiplier"/> 對稱：<see cref="CreatureCmd.SetMaxAndCurrentHp"/> 會用同一個
+    /// 「已乘多人、未乘大廳」的數值先設 max 再設 current；若只 patch SetMaxHp，current 會卡在 50/76 這類狀態。
+    /// 典型案例：Ovicopter 的 ToughEgg 孵化（<see cref="MegaCrit.Sts2.Core.Models.Monsters.ToughEgg.Hatch"/>）。
     /// </summary>
-    /// <remarks>
-    /// 若未修正，current HP 會低於已乘大廳的 max，顯示與 checksum 皆可能異常。
-    /// </remarks>
+    [HarmonyPatch(typeof(CreatureCmd), nameof(CreatureCmd.SetCurrentHp))]
+    private static class Patch_CreatureCmd_SetCurrentHp_HpMultiplier
+    {
+        private static void Prefix(Creature creature, ref decimal amount)
+        {
+            if (!ShouldScaleEnemySetMaxHp(creature, amount))
+            {
+                return;
+            }
+
+            amount = ScaleEnemyHp(amount);
+        }
+    }
+
+    /// <summary>
+    /// 部分流程在 max 已乘大廳倍率後，仍直接呼叫 <see cref="Creature.SetCurrentHpInternal"/> 並帶入未乘倍率的數值。
+    /// 若該數值乘大廳倍率後等於目前 max，則改寫為 max，避免 current 低於已縮放的 max（兜底，主要路徑見 SetCurrentHp patch）。
+    /// </summary>
     [HarmonyPatch(typeof(Creature), nameof(Creature.SetCurrentHpInternal))]
     private static class Patch_Creature_SetCurrentHpInternal_LobbyDesignCapSync
     {
@@ -217,17 +210,6 @@ public static class Patch_Difficulties
             }
 
             if ((int)ScaleEnemyHp(amount) != maxHp)
-            {
-                return;
-            }
-
-            MonsterModel m = __instance.Monster;
-            if (m.MinInitialHp != m.MaxInitialHp)
-            {
-                return;
-            }
-
-            if (!AmountMatchesPreLobbyEnemyFullBase(__instance, m, amount))
             {
                 return;
             }

@@ -2,6 +2,9 @@ using System.Text.Json;
 using BaseLib.Config;
 using Manosaba.Config;
 using Manosaba.Multiplayer.Messages.Lobby;
+using MegaCrit.Sts2.Core.Multiplayer.Game;
+using MegaCrit.Sts2.Core.Runs;
+using MegaCrit.Sts2.Core.Saves;
 
 namespace Manosaba.Multiplayer;
 
@@ -47,6 +50,48 @@ public static class ManosabaPerSaveDifficultyStore
 
     private static byte KindFromPlayerCount(int playerCount) => playerCount >= 2 ? SaveKindMulti : SaveKindSolo;
 
+    /// <summary>
+    /// Persists difficulty for the active run using <see cref="RunManager.ToSave"/>.
+    /// </summary>
+    public static void TryPersistActiveRun(bool flushImmediately = false)
+    {
+        RunManager? rm = RunManager.Instance;
+        if (rm == null || !rm.IsInProgress || !rm.ShouldSave)
+        {
+            return;
+        }
+
+        NetGameType net = rm.NetService.Type;
+        if (net != NetGameType.Singleplayer && net != NetGameType.Host)
+        {
+            return;
+        }
+
+        SerializableRun snapshot = rm.ToSave(null);
+        if (snapshot.StartTime == 0)
+        {
+            return;
+        }
+
+        TryPersistFromSnapshot(snapshot.StartTime, snapshot.Players?.Count ?? 1, flushImmediately);
+    }
+
+    /// <summary>
+    /// Writes the current gameplay/lobby difficulty snapshot for a run id.
+    /// No-op when <paramref name="runStartTime"/> is 0.
+    /// </summary>
+    public static void TryPersistFromSnapshot(long runStartTime, int playerCount, bool flushImmediately = false)
+    {
+        if (runStartTime == 0)
+        {
+            return;
+        }
+
+        (double hp, double atk, double mur, RandomCharacterPoolMode pool) =
+            ManosabaLobbyDifficultyState.GetPersistedDifficultySnapshot();
+        SaveForRun(runStartTime, playerCount, hp, atk, mur, pool, flushImmediately);
+    }
+
     /// <summary>Saves the difficulty snapshot for this run id (unix start time from vanilla save).</summary>
     public static void SaveForRun(
         long runStartTime,
@@ -54,7 +99,8 @@ public static class ManosabaPerSaveDifficultyStore
         double enemyHpPercent,
         double enemyAttackPercent,
         double murderousPercent,
-        RandomCharacterPoolMode randomPool)
+        RandomCharacterPoolMode randomPool,
+        bool flushImmediately = false)
     {
         if (runStartTime == 0)
         {
@@ -91,7 +137,7 @@ public static class ManosabaPerSaveDifficultyStore
         });
 
         PruneEntries(list);
-        PersistPayload(payload);
+        PersistPayload(payload, flushImmediately);
     }
 
     public static bool TryLoadForRun(long runStartTime, int playerCount, out ManosabaDifficultySettingsMessage message)
@@ -158,10 +204,17 @@ public static class ManosabaPerSaveDifficultyStore
         }
     }
 
-    private static void PersistPayload(Payload payload)
+    private static void PersistPayload(Payload payload, bool flushImmediately)
     {
         string json = JsonSerializer.Serialize(payload, JsonOptions);
         ManosabaConfig.PerSaveLobbyDifficultyJson = json;
-        ModConfig.SaveDebounced<ManosabaConfig>(250);
+        if (flushImmediately)
+        {
+            ModConfigRegistry.Get<ManosabaConfig>()?.Save();
+        }
+        else
+        {
+            ModConfig.SaveDebounced<ManosabaConfig>(250);
+        }
     }
 }

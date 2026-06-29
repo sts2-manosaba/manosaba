@@ -35,6 +35,7 @@ public static class Patch_LoadRunLobby_ManosabaDifficultySync
             if (startTime != 0 && ManosabaPerSaveDifficultyStore.TryLoadForRun(startTime, playerCount, out ManosabaDifficultySettingsMessage saved))
             {
                 ManosabaLobbyDifficultyState.ApplyFromHost(saved);
+                ManosabaPerSaveDifficultyStore.TryPersistFromSnapshot(startTime, playerCount, flushImmediately: true);
             }
             else
             {

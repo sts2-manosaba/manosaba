@@ -37,6 +37,6 @@ public static class Patch_RunManager_ToSave_ManosabaPerSaveDifficulty
             ManosabaLobbyDifficultyState.GetPersistedDifficultySnapshot();
 
         int playerCount = __result.Players?.Count ?? 1;
-        ManosabaPerSaveDifficultyStore.SaveForRun(__result.StartTime, playerCount, hp, atk, mur, pool);
+        ManosabaPerSaveDifficultyStore.SaveForRun(__result.StartTime, playerCount, hp, atk, mur, pool, flushImmediately: true);
     }
 }
