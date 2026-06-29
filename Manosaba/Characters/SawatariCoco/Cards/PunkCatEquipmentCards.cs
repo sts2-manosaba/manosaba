@@ -24,7 +24,6 @@ public sealed class PunkCatHeadwear : EquipmentCardModel
     protected override EquipmentSeries Series => EquipmentSeries.PunkCat;
     protected override int EquipmentScore => 2000;
     protected override CardTag SeriesTag => ManosabaCardTags.PunkCatEquipment;
-    protected override string PieceDisplayName => "龐克貓咪頭飾";
 
     protected override IEnumerable<DynamicVar> CanonicalVars => WithEquipmentScoreFanCountDamage();
 
@@ -64,11 +63,11 @@ public sealed class PunkCatTop : EquipmentCardModel
     protected override EquipmentSeries Series => EquipmentSeries.PunkCat;
     protected override int EquipmentScore => 5000;
     protected override CardTag SeriesTag => ManosabaCardTags.PunkCatEquipment;
-    protected override string PieceDisplayName => "龐克貓咪上衣";
-
     protected override IEnumerable<IHoverTip> CardExtraHoverTips => [HoverTipFactory.FromPower<LiveStreamModePower>()];
 
-    protected override IEnumerable<DynamicVar> CanonicalVars => WithEquipmentScore(new DamageVar(5, ValueProp.Move));
+    protected override IEnumerable<DynamicVar> CanonicalVars => WithEquipmentScore(
+        new DamageVar(5, ValueProp.Move),
+        new SawatariCocoCardDynamicVars.LiveStreamHitCountVar());
 
     public PunkCatTop() : base(1, CardType.Attack, CardRarity.Rare, TargetType.AnyEnemy, true)
     {
@@ -81,7 +80,9 @@ public sealed class PunkCatTop : EquipmentCardModel
             return;
         }
 
-        int hitCount = 1 + GetLiveStreamHitBonus(Owner.Creature);
+        int hitCount = DynamicVars.Repeat is SawatariCocoCardDynamicVars.LiveStreamHitCountVar hitCountVar
+            ? hitCountVar.GetHitCount(this)
+            : 1 + GetLiveStreamHitBonus(Owner.Creature);
         await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
             .WithHitCount(hitCount)
             .FromCard(this)
@@ -104,18 +105,14 @@ public sealed class PunkCatSkirt : EquipmentCardModel
     protected override EquipmentSeries Series => EquipmentSeries.PunkCat;
     protected override int EquipmentScore => 2000;
     protected override CardTag SeriesTag => ManosabaCardTags.PunkCatEquipment;
-    protected override string PieceDisplayName => "龐克貓咪裙子";
-
     protected override IEnumerable<IHoverTip> CardExtraHoverTips =>
     [
         HoverTipFactory.FromPower<LiveStreamModePower>(),
         HoverTipFactory.FromPower<VulnerablePower>(),
     ];
 
-    protected override IEnumerable<DynamicVar> CanonicalVars => WithEquipmentScore(
-        new DamageVar(8, ValueProp.Move),
-        new ExtraDamageVar(liveModeBonusDamage),
-        new PowerVar<VulnerablePower>(1m));
+    protected override IEnumerable<DynamicVar> CanonicalVars => WithEquipmentScoreLiveStreamBonusDamage(8m, liveModeBonusDamage)
+        .Concat([new PowerVar<VulnerablePower>(1m)]);
 
     public PunkCatSkirt() : base(1, CardType.Attack, CardRarity.Uncommon, TargetType.AnyEnemy, true)
     {
@@ -128,13 +125,7 @@ public sealed class PunkCatSkirt : EquipmentCardModel
             return;
         }
 
-        decimal damage = DynamicVars.Damage.BaseValue;
-        if (IsInLiveStreamMode(Owner.Creature))
-        {
-            damage += DynamicVars.ExtraDamage.BaseValue;
-        }
-
-        await DamageCmd.Attack(damage)
+        await DamageCmd.Attack(DynamicVars.CalculatedDamage)
             .FromCard(this)
             .Targeting(target)
             .Execute(choiceContext);
@@ -157,13 +148,9 @@ public sealed class PunkCatShoes : EquipmentCardModel
     protected override EquipmentSeries Series => EquipmentSeries.PunkCat;
     protected override int EquipmentScore => 1000;
     protected override CardTag SeriesTag => ManosabaCardTags.PunkCatEquipment;
-    protected override string PieceDisplayName => "龐克貓咪鞋子";
-
     protected override IEnumerable<IHoverTip> CardExtraHoverTips => [HoverTipFactory.FromPower<LiveStreamModePower>()];
 
-    protected override IEnumerable<DynamicVar> CanonicalVars => WithEquipmentScore(
-        new DamageVar(9, ValueProp.Move),
-        new ExtraDamageVar(liveModeBonusDamage));
+    protected override IEnumerable<DynamicVar> CanonicalVars => WithEquipmentScoreLiveStreamBonusDamage(9m, liveModeBonusDamage);
 
     public PunkCatShoes() : base(1, CardType.Attack, CardRarity.Common, TargetType.AnyEnemy, true)
     {
@@ -176,13 +163,7 @@ public sealed class PunkCatShoes : EquipmentCardModel
             return;
         }
 
-        decimal damage = DynamicVars.Damage.BaseValue;
-        if (IsInLiveStreamMode(Owner.Creature))
-        {
-            damage += DynamicVars.ExtraDamage.BaseValue;
-        }
-
-        await DamageCmd.Attack(damage)
+        await DamageCmd.Attack(DynamicVars.CalculatedDamage)
             .FromCard(this)
             .Targeting(target)
             .Execute(choiceContext);
@@ -190,6 +171,6 @@ public sealed class PunkCatShoes : EquipmentCardModel
 
     protected override void OnUpgrade()
     {
-        DynamicVars.Damage.UpgradeValueBy(4m);
+        DynamicVars.CalculationBase.UpgradeValueBy(4m);
     }
 }

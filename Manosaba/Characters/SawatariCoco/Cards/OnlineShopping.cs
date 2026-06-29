@@ -2,7 +2,6 @@ using BaseLib.Utils;
 using manosaba.Characters.SawatariCoco;
 using Manosaba.Characters.SawatariCoco.Powers;
 using Manosaba.Extensions;
-using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
@@ -35,8 +34,11 @@ public sealed class OnlineShopping : PathCustomCardModel
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         _ = cardPlay;
+        await CommonActions.Apply<OnlineShoppingPower>(choiceContext, Owner.Creature, this, 1m);
+    }
 
-        OnlineShoppingPower? power = await CommonActions.Apply<OnlineShoppingPower>(choiceContext, Owner.Creature, this, 1m);
-        power?.SetUpgraded(IsUpgraded);
+    protected override void OnUpgrade()
+    {
+        AddKeyword(CardKeyword.Innate);
     }
 }

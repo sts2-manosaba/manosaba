@@ -26,8 +26,6 @@ public sealed class CutieCatsHeadwear : EquipmentCardModel
     protected override EquipmentSeries Series => EquipmentSeries.CutieCats;
     protected override int EquipmentScore => 2000;
     protected override CardTag SeriesTag => ManosabaCardTags.CutieCatsEquipment;
-    protected override string PieceDisplayName => "搗蛋貓咪頭飾";
-
     protected override IEnumerable<IHoverTip> CardExtraHoverTips =>
     [
         HoverTipFactory.FromPower<LiveStreamModePower>(),
@@ -81,8 +79,6 @@ public sealed class CutieCatsTop : EquipmentCardModel
     protected override EquipmentSeries Series => EquipmentSeries.CutieCats;
     protected override int EquipmentScore => 1000;
     protected override CardTag SeriesTag => ManosabaCardTags.CutieCatsEquipment;
-    protected override string PieceDisplayName => "搗蛋貓咪上衣";
-
     public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
 
     protected override IEnumerable<IHoverTip> CardExtraHoverTips =>
@@ -123,8 +119,6 @@ public sealed class CutieCatsPants : EquipmentCardModel
     protected override EquipmentSeries Series => EquipmentSeries.CutieCats;
     protected override int EquipmentScore => 2000;
     protected override CardTag SeriesTag => ManosabaCardTags.CutieCatsEquipment;
-    protected override string PieceDisplayName => "搗蛋貓咪褲子";
-
     protected override IEnumerable<IHoverTip> CardExtraHoverTips =>
     [
         HoverTipFactory.FromPower<PoisonPower>(),
@@ -169,8 +163,6 @@ public sealed class CutieCatsShoes : EquipmentCardModel
     protected override EquipmentSeries Series => EquipmentSeries.CutieCats;
     protected override int EquipmentScore => 5000;
     protected override CardTag SeriesTag => ManosabaCardTags.CutieCatsEquipment;
-    protected override string PieceDisplayName => "搗蛋貓咪鞋子";
-
     public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
 
     protected override IEnumerable<IHoverTip> CardExtraHoverTips => [HoverTipFactory.Static(StaticHoverTip.Stun)];

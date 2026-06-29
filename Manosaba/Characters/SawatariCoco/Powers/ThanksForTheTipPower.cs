@@ -1,50 +1,34 @@
-using BaseLib.Utils;
+using manosaba.Characters.SawatariCoco.Helper;
 using Manosaba.Extensions;
-using MegaCrit.Sts2.Core.Commands;
-using MegaCrit.Sts2.Core.Entities.Creatures;
-using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.Entities.Powers;
-using MegaCrit.Sts2.Core.GameActions.Multiplayer;
-using MegaCrit.Sts2.Core.Localization.DynamicVars;
-using MegaCrit.Sts2.Core.Models;
-using MegaCrit.Sts2.Core.Models.Relics;
-using MegaCrit.Sts2.Core.ValueProps;
+using MegaCrit.Sts2.Core.Entities.Players;
+using MegaCrit.Sts2.Core.Rewards;
+using MegaCrit.Sts2.Core.Rooms;
 
 namespace Manosaba.Characters.SawatariCoco.Powers;
 
-/// <summary>感谢打赏：完全格挡伤害时获得金币。</summary>
+/// <summary>感謝打賞：打出時鎖定當下粉絲數（與升級加成）為 Amount，戰鬥結束時獲得該金幣。</summary>
 public sealed class ThanksForTheTipPower : PathCustomPowerModel
 {
-    private decimal _goldReward = 3m;
+    public const int UpgradedBonusGold = 10;
 
     public override PowerType Type => PowerType.Buff;
-    public override PowerStackType StackType => PowerStackType.Single;
+    public override PowerStackType StackType => PowerStackType.Counter;
 
-    protected override IEnumerable<DynamicVar> CanonicalVars => [new GoldVar(3)];
-
-    public void SetGoldReward(decimal gold)
+    public static int GetGoldForApplication(Player player, bool upgraded)
     {
-        _goldReward = gold;
-        DynamicVars.Gold.BaseValue = (int)gold;
+        int fanCount = SawatariCocoHelper.GetTotalFanCount(player);
+        return fanCount + (upgraded ? UpgradedBonusGold : 0);
     }
 
-    public override async Task AfterDamageReceived(
-        PlayerChoiceContext choiceContext,
-        Creature target,
-        DamageResult result,
-        ValueProp props,
-        Creature? dealer,
-        CardModel? cardSource)
+    public override Task AfterCombatEnd(CombatRoom room)
     {
-        _ = props;
-        _ = dealer;
-        _ = cardSource;
-
-        if (target != Owner || !result.WasFullyBlocked || Owner.Player is not { } player)
+        if (Owner.Player is not { } player || Amount <= 0)
         {
-            return;
+            return Task.CompletedTask;
         }
 
-        await PlayerCmd.GainGold(_goldReward, player);
+        room.AddExtraReward(player, new GoldReward(Amount, player));
+        return Task.CompletedTask;
     }
 }

@@ -1,5 +1,6 @@
 using BaseLib.Utils;
 using manosaba.Characters.SawatariCoco;
+using Manosaba.Characters.Common.Overrides;
 using Manosaba.Characters.SawatariCoco.Powers;
 using Manosaba.Extensions;
 using MegaCrit.Sts2.Core.Commands;
@@ -21,6 +22,8 @@ public sealed class LetsPlayAGame : PathCustomCardModel
     private const bool shouldShowInCardLibrary = true;
 
     private const int playWhatGameTokens = 3;
+
+    public override IEnumerable<CardKeyword> CanonicalKeywords => [ManosabaKeywords.Unique];
 
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [

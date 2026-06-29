@@ -21,7 +21,12 @@ public sealed class FanService : PathCustomCardModel
 
     protected override bool IsPlayable => base.IsPlayable && Owner.Character is global::manosaba.Characters.SawatariCoco.SawatariCoco;
 
-    protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<FanServiceSkillPower>()];
+    protected override IEnumerable<IHoverTip> ExtraHoverTips =>
+    [
+        HoverTipFactory.FromPower<FanServiceSkillPower>(),
+        HoverTipFactory.FromCard<FanServiceAutographToken>(),
+        HoverTipFactory.FromCard<FanServiceRoastTimeToken>(),
+    ];
 
     public FanService() : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)
     {

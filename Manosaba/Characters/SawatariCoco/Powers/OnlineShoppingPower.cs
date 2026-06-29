@@ -10,51 +10,42 @@ using MegaCrit.Sts2.Core.Models;
 
 namespace Manosaba.Characters.SawatariCoco.Powers;
 
-/// <summary>网购：每回合开始时从购物牌中选择一张加入抽牌堆；打出购物牌时花费金币。</summary>
+/// <summary>網購時間：每回合開始時依層數選擇商品牌加入抽牌堆。</summary>
 public sealed class OnlineShoppingPower : PathCustomPowerModel
 {
-    private bool _upgraded;
-
     public override PowerType Type => PowerType.Buff;
-    public override PowerStackType StackType => PowerStackType.Single;
-
-    public void SetUpgraded(bool upgraded)
-    {
-        _upgraded = upgraded;
-    }
+    public override PowerStackType StackType => PowerStackType.Counter;
 
     public override async Task AfterPlayerTurnStartLate(PlayerChoiceContext choiceContext, Player player)
     {
-        if (player.Creature != Owner || player != Owner.Player || Owner.CombatState is not { } combatState)
+        if (player.Creature != Owner || player != Owner.Player || Owner.CombatState is not { } combatState || Amount <= 0m)
         {
             return;
         }
 
-        List<CardModel> options = SawatariCocoHelper.ShoppingCardTypes
-            .Select(type =>
+        for (int i = 0; i < (int)Amount; i++)
+        {
+            List<CardModel> options = SawatariCocoHelper.ShoppingCardTypes
+                .Select(type =>
+                {
+                    CardModel? canonical = ModelDb.GetById<CardModel>(ModelDb.GetId(type));
+                    return canonical != null ? combatState.CreateCard(canonical, player) : null;
+                })
+                .OfType<CardModel>()
+                .ToList();
+
+            if (options.Count == 0)
             {
-                CardModel? canonical = ModelDb.GetById<CardModel>(ModelDb.GetId(type));
-                return canonical != null ? combatState.CreateCard(canonical, player) : null;
-            })
-            .OfType<CardModel>()
-            .ToList();
+                return;
+            }
 
-        if (options.Count == 0)
-        {
-            return;
+            CardModel? selected = await CardSelectCmd.FromChooseACardScreen(choiceContext, options, player, canSkip: true);
+            if (selected == null)
+            {
+                return;
+            }
+
+            await CardPileCmd.AddGeneratedCardToCombat(selected, PileType.Draw, player);
         }
-
-        CardModel? selected = await CardSelectCmd.FromChooseACardScreen(choiceContext, options, player, canSkip: true);
-        if (selected == null)
-        {
-            return;
-        }
-
-        if (_upgraded)
-        {
-            CardCmd.Upgrade(selected);
-        }
-
-        await CardPileCmd.AddGeneratedCardToCombat(selected, PileType.Draw, player);
     }
 }

@@ -20,6 +20,8 @@ namespace manosaba.Characters.TachibanaSherry.Relics
     {
         public override RelicRarity Rarity => RelicRarity.Starter;
 
+        protected override int MaxRelicLevel => 5;
+
         public override async Task BeforeCombatStart()
         {
             if (Owner.Creature == null)

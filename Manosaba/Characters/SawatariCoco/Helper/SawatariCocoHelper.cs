@@ -14,6 +14,7 @@ using manosaba.Characters.SawatariCoco.Cards;
 using manosaba.Characters.SawatariCoco.Relics;
 using Manosaba.Characters.SawatariCoco.Powers;
 using Manosaba.Extensions;
+using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Entities.Players;
@@ -58,14 +59,28 @@ public static class SawatariCocoHelper
     public static int GetTotalFanCount(Player? player)
         => player?.GetRelic<LiveStreamingEquipment>()?.TotalFanCount ?? 0;
 
-    public static async Task<bool> TryMakeFanAsync(PlayerChoiceContext choiceContext, Player player, Creature target)
+    public static bool IsFanOf(Creature target, Creature? fanOwner)
     {
-        if (target.GetPowerAmount<FanPower>() > 0m)
+        if (fanOwner == null)
         {
             return false;
         }
 
-        await CommonActions.Apply<FanPower>(choiceContext, target, null, 1m);
+        return target.GetPowerInstances<FanPower>().Any(power => power.Applier == fanOwner);
+    }
+
+    public static int CountFansOf(Creature ownerCreature, ICombatState combatState)
+        => combatState.GetOpponentsOf(ownerCreature)
+            .Count(enemy => enemy.IsAlive && IsFanOf(enemy, ownerCreature));
+
+    public static async Task<bool> TryMakeFanAsync(PlayerChoiceContext choiceContext, Player player, Creature target)
+    {
+        if (player.Creature is not { } fanOwner || IsFanOf(target, fanOwner))
+        {
+            return false;
+        }
+
+        await PowerCmd.Apply<FanPower>(choiceContext, target, 1m, fanOwner, null);
         if (player.GetRelic<LiveStreamingEquipment>() is { } relic)
         {
             relic.TotalFanCount++;

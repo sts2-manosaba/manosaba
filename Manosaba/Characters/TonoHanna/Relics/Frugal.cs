@@ -35,6 +35,8 @@ public sealed class FeatherFan : LevelingPathCustomRelicModel
 
     public override RelicRarity Rarity => RelicRarity.Starter;
 
+    protected override int MaxRelicLevel => 5;
+
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
         new DynamicVar("GoldPerEnergy", BaseGoldPerEnergy),

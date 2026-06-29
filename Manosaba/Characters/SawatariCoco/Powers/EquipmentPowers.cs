@@ -7,11 +7,31 @@ using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Entities.Powers;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
+using MegaCrit.Sts2.Core.Localization;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.Powers;
 
 namespace Manosaba.Characters.SawatariCoco.Powers;
+
+/// <summary>Resolves <see cref="StringVar.StringValue"/> as a cards.json title entry at display time.</summary>
+public sealed class EquipmentPieceNameVar : StringVar
+{
+    public EquipmentPieceNameVar(string name)
+        : base(name)
+    {
+    }
+
+    public override string ToString()
+    {
+        if (string.IsNullOrEmpty(StringValue))
+        {
+            return string.Empty;
+        }
+
+        return new LocString("cards", $"{StringValue}.title").GetFormattedText();
+    }
+}
 
 public abstract class EquipmentSlotPowerBase : PathCustomPowerModel
 {
@@ -24,7 +44,7 @@ public abstract class EquipmentSlotPowerBase : PathCustomPowerModel
 
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
-        new StringVar(PieceNameVar),
+        new EquipmentPieceNameVar(PieceNameVar),
         new DynamicVar("SlotScore", 0m),
     ];
 
@@ -32,13 +52,13 @@ public abstract class EquipmentSlotPowerBase : PathCustomPowerModel
 
     public int SlotScore => (int)DynamicVars["SlotScore"].BaseValue;
 
-    public void SetEquippedPiece(EquipmentSeries series, string pieceName, int score)
+    public void SetEquippedPiece(EquipmentSeries series, string pieceTitleLocEntry, int score)
     {
         EquippedSeries = series;
         DynamicVars["SlotScore"].BaseValue = score;
         if (DynamicVars[PieceNameVar] is StringVar nameVar)
         {
-            nameVar.StringValue = pieceName;
+            nameVar.StringValue = pieceTitleLocEntry;
         }
     }
 

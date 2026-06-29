@@ -3,7 +3,6 @@ using manosaba.Characters.SawatariCoco;
 using manosaba.Characters.SawatariCoco.Helper;
 using Manosaba.Characters.SawatariCoco.Powers;
 using Manosaba.Extensions;
-using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Creatures;
@@ -24,6 +23,8 @@ public sealed class LiveStreamingEquipment : LevelingPathCustomRelicModel
     private int _totalFanCount;
 
     public override RelicRarity Rarity => RelicRarity.Starter;
+
+    protected override int MaxRelicLevel => 5;
 
     protected override IEnumerable<DynamicVar> CanonicalVars => [new DynamicVar("FanCount", 0m)];
 
@@ -56,13 +57,22 @@ public sealed class LiveStreamingEquipment : LevelingPathCustomRelicModel
 
     public override async Task BeforeCombatStart()
     {
-        if (RelicLevel < 4 || Owner.Creature is not { } liveStreamCreature)
+        if (Owner.Creature is not { } creature)
         {
             return;
         }
 
-        Flash();
-        await CommonActions.Apply<LiveStreamModePower>(new ThrowingPlayerChoiceContext(), liveStreamCreature, null, 3m);
+        if (RelicLevel >= 2)
+        {
+            Flash();
+            await CommonActions.Apply<HidingPower>(new ThrowingPlayerChoiceContext(), creature, null, RelicLevel);
+        }
+
+        if (RelicLevel >= 4)
+        {
+            Flash();
+            await CommonActions.Apply<LiveStreamModePower>(new ThrowingPlayerChoiceContext(), creature, null, 3m);
+        }
     }
 
     public override async Task AfterDamageGiven(
@@ -96,24 +106,13 @@ public sealed class LiveStreamingEquipment : LevelingPathCustomRelicModel
             return;
         }
 
-        if (target.GetPowerAmount<FanPower>() > 0m)
+        if (SawatariCocoHelper.IsFanOf(target, ownerCreature))
         {
             return;
         }
 
         Flash();
         await SawatariCocoHelper.TryMakeFanAsync(choiceContext, Owner, target);
-    }
-
-    public override async Task AfterSideTurnEnd(PlayerChoiceContext choiceContext, CombatSide side, IEnumerable<Creature> creatures)
-    {
-        if (RelicLevel < 2 || Owner.Creature is not { } creature || side != creature.Side)
-        {
-            return;
-        }
-
-        Flash();
-        await CommonActions.Apply<HidingPower>(choiceContext, creature, null, 1m);
     }
 
     private void SyncFanCountVar()

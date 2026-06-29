@@ -20,6 +20,8 @@ public sealed class Clipboard : LevelingPathCustomRelicModel, ICustomEnergySaveC
 
     public override RelicRarity Rarity => RelicRarity.Starter;
 
+    protected override int MaxRelicLevel => 5;
+
     protected override IEnumerable<IHoverTip> ExtraHoverTips =>
     [
         .. base.ExtraHoverTips,

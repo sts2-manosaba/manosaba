@@ -1,5 +1,6 @@
 using BaseLib.Utils;
 using manosaba.Characters.SawatariCoco;
+using manosaba.Characters.SawatariCoco.Helper;
 using Manosaba.Characters.Common.Overrides;
 using Manosaba.Characters.SawatariCoco.Equipment;
 using Manosaba.Characters.SawatariCoco.Powers;
@@ -22,8 +23,6 @@ public sealed class MysteriousCatHeadwear : EquipmentCardModel
     protected override EquipmentSeries Series => EquipmentSeries.MysteriousCat;
     protected override int EquipmentScore => 1000;
     protected override CardTag SeriesTag => ManosabaCardTags.MysteriousCatEquipment;
-    protected override string PieceDisplayName => "神秘貓咪頭飾";
-
     protected override IEnumerable<IHoverTip> CardExtraHoverTips => [HoverTipFactory.FromPower<HidingPower>()];
 
     protected override IEnumerable<DynamicVar> CanonicalVars => WithEquipmentScore(
@@ -55,8 +54,6 @@ public sealed class MysteriousCatTop : EquipmentCardModel
     protected override EquipmentSeries Series => EquipmentSeries.MysteriousCat;
     protected override int EquipmentScore => 2000;
     protected override CardTag SeriesTag => ManosabaCardTags.MysteriousCatEquipment;
-    protected override string PieceDisplayName => "神秘貓咪上衣";
-
     protected override IEnumerable<IHoverTip> CardExtraHoverTips => [HoverTipFactory.FromPower<HidingPower>()];
 
     protected override IEnumerable<DynamicVar> CanonicalVars => WithEquipmentScore(
@@ -101,13 +98,14 @@ public sealed class MysteriousCatPants : EquipmentCardModel
     protected override EquipmentSeries Series => EquipmentSeries.MysteriousCat;
     protected override int EquipmentScore => 5000;
     protected override CardTag SeriesTag => ManosabaCardTags.MysteriousCatEquipment;
-    protected override string PieceDisplayName => "神秘貓咪褲子";
-
     protected override IEnumerable<IHoverTip> CardExtraHoverTips => [HoverTipFactory.FromPower<FanPower>()];
 
     protected override IEnumerable<DynamicVar> CanonicalVars => WithEquipmentScore(
         new CardsVar(1),
-        new EnergyVar(1));
+        new EnergyVar(1),
+        new CalculationBaseVar(0m),
+        new SawatariCocoCardDynamicVars.EnemyFanTotalDrawsVar(),
+        new SawatariCocoCardDynamicVars.EnemyFanTotalEnergyVar());
 
     public MysteriousCatPants() : base(1, CardType.Skill, CardRarity.Rare, TargetType.Self, true)
     {
@@ -122,8 +120,7 @@ public sealed class MysteriousCatPants : EquipmentCardModel
             return;
         }
 
-        int fanCount = combatState.GetOpponentsOf(Owner.Creature)
-            .Count(enemy => enemy.IsAlive && enemy.GetPowerAmount<FanPower>() > 0m);
+        int fanCount = SawatariCocoHelper.CountFansOf(Owner.Creature, combatState);
 
         if (fanCount <= 0)
         {
@@ -151,8 +148,6 @@ public sealed class MysteriousCatShoes : EquipmentCardModel
     protected override EquipmentSeries Series => EquipmentSeries.MysteriousCat;
     protected override int EquipmentScore => 2000;
     protected override CardTag SeriesTag => ManosabaCardTags.MysteriousCatEquipment;
-    protected override string PieceDisplayName => "神秘貓咪鞋子";
-
     public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
 
     protected override IEnumerable<IHoverTip> CardExtraHoverTips => [HoverTipFactory.FromPower<LiveStreamModePower>()];

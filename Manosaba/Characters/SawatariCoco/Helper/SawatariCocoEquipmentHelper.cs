@@ -36,8 +36,18 @@ public static class SawatariCocoEquipmentHelper
 
         EquipmentSlot slot = source.EquipSlot;
         EquipmentSeries series = source.EquipSeries;
-        string pieceName = source.EquipPieceDisplayName;
+        string pieceTitleLocEntry = source.Id.Entry;
         int score = source.EquipScore;
+
+        EquipmentSeries equippedSeries = GetSlotSeries(creature, slot);
+        bool slotEmpty = equippedSeries == EquipmentSeries.None || GetSlotScore(creature, slot) <= 0;
+        bool sameEquipment = !slotEmpty && equippedSeries == series;
+
+        if (slotEmpty || sameEquipment)
+        {
+            await EquipPieceAsync(choiceContext, creature, slot, series, pieceTitleLocEntry, score, source);
+            return true;
+        }
 
         if (ModelDb.GetById<CardModel>(ModelDb.GetId(newTokenType)) is not CardModel newCanonical)
         {
@@ -52,10 +62,7 @@ public static class SawatariCocoEquipmentHelper
 
         List<CardModel> options = [newOption];
 
-        if (GetSlotSeries(creature, slot) is var equippedSeries
-            && equippedSeries != EquipmentSeries.None
-            && GetSlotScore(creature, slot) > 0
-            && EquipmentPieceTokenRegistry.TryGetTokenType(equippedSeries, slot, out Type oldTokenType)
+        if (EquipmentPieceTokenRegistry.TryGetTokenType(equippedSeries, slot, out Type oldTokenType)
             && ModelDb.GetById<CardModel>(ModelDb.GetId(oldTokenType)) is CardModel oldCanonical)
         {
             CardModel? oldOption = combatState.CreateCard(oldCanonical, player);
@@ -80,7 +87,7 @@ public static class SawatariCocoEquipmentHelper
             return false;
         }
 
-        await EquipPieceAsync(choiceContext, creature, slot, series, pieceName, score, source);
+        await EquipPieceAsync(choiceContext, creature, slot, series, pieceTitleLocEntry, score, source);
         return true;
     }
 
@@ -89,7 +96,7 @@ public static class SawatariCocoEquipmentHelper
         Creature creature,
         EquipmentSlot slot,
         EquipmentSeries series,
-        string pieceName,
+        string pieceTitleLocEntry,
         int score,
         CardModel? source)
     {
@@ -99,7 +106,7 @@ public static class SawatariCocoEquipmentHelper
             return;
         }
 
-        slotPower.SetEquippedPiece(series, pieceName, score);
+        slotPower.SetEquippedPiece(series, pieceTitleLocEntry, score);
 
         int totalScore = GetTotalEquipmentScore(creature);
         if (await GetOrCreateScorePowerAsync(choiceContext, creature) is { } scorePower)

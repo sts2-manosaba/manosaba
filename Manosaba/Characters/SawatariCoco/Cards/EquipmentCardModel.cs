@@ -27,12 +27,10 @@ public abstract class EquipmentCardModel : PathCustomCardModel
     protected abstract EquipmentSeries Series { get; }
     protected abstract int EquipmentScore { get; }
     protected abstract CardTag SeriesTag { get; }
-    protected abstract string PieceDisplayName { get; }
 
     internal EquipmentSlot EquipSlot => Slot;
     internal EquipmentSeries EquipSeries => Series;
     internal int EquipScore => EquipmentScore;
-    internal string EquipPieceDisplayName => PieceDisplayName;
 
     protected override HashSet<CardTag> CanonicalTags => [SeriesTag];
 
@@ -74,19 +72,22 @@ public abstract class EquipmentCardModel : PathCustomCardModel
     /// <see cref="CalculatedDamageVar"/> requires <see cref="CalculationBaseVar"/> and <see cref="ExtraDamageVar"/> even when damage is entirely fan-count-based.
     /// </summary>
     protected IEnumerable<DynamicVar> WithEquipmentScoreFanCountDamage()
-        => WithEquipmentScore(
-            new CalculationBaseVar(0m),
-            new ExtraDamageVar(1m),
-            new FanCountCalculatedDamageVar());
+        => WithEquipmentScore(SawatariCocoCardDynamicVars.FanCountDamage().ToArray());
 
     /// <summary>
     /// <see cref="CalculatedBlockVar"/> requires <see cref="CalculationBaseVar"/> and <see cref="CalculationExtraVar"/> even when block is entirely fan-count-based.
     /// </summary>
     protected IEnumerable<DynamicVar> WithEquipmentScoreFanCountBlock()
-        => WithEquipmentScore(
-            new CalculationBaseVar(0m),
-            new CalculationExtraVar(1m),
-            new FanCountCalculatedBlockVar());
+        => WithEquipmentScore(SawatariCocoCardDynamicVars.FanCountBlock().ToArray());
+
+    protected IEnumerable<DynamicVar> WithEquipmentScoreLiveStreamBonusDamage(decimal baseDamage, decimal bonusDamage)
+        => WithEquipmentScore(SawatariCocoCardDynamicVars.LiveStreamBonusDamage(baseDamage, bonusDamage).ToArray());
+
+    protected IEnumerable<DynamicVar> WithEquipmentScoreLiveStreamBonusBlock(decimal baseBlock, decimal bonusBlock)
+        => WithEquipmentScore(SawatariCocoCardDynamicVars.LiveStreamBonusBlock(baseBlock, bonusBlock).ToArray());
+
+    protected IEnumerable<DynamicVar> WithEquipmentScoreHidingBonusBlock(decimal baseBlock)
+        => WithEquipmentScore(SawatariCocoCardDynamicVars.HidingBonusBlock(baseBlock).ToArray());
 
     protected sealed override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
@@ -107,67 +108,4 @@ public abstract class EquipmentCardModel : PathCustomCardModel
 
     protected static bool IsInLiveStreamMode(Creature creature)
         => SawatariCocoHelper.IsInLiveStreamMode(creature);
-}
-
-internal static class EquipmentCardPreviewHelper
-{
-    public static void SyncFanCountDamage(CardModel card, decimal bonusDamage = 0m)
-    {
-        if (card.Owner is null)
-        {
-            return;
-        }
-
-        decimal fanCount = SawatariCocoHelper.GetTotalFanCount(card.Owner);
-        card.DynamicVars.Damage.BaseValue = fanCount + bonusDamage;
-    }
-
-    public static void SyncFanCountBlock(CardModel card, decimal bonusBlock = 0m)
-    {
-        if (card.Owner is null)
-        {
-            return;
-        }
-
-        decimal fanCount = SawatariCocoHelper.GetTotalFanCount(card.Owner);
-        card.DynamicVars.Block.BaseValue = fanCount + bonusBlock;
-    }
-}
-
-internal sealed class FanCountCalculatedDamageVar : CalculatedDamageVar
-{
-    public FanCountCalculatedDamageVar()
-        : base(MegaCrit.Sts2.Core.ValueProps.ValueProp.Move)
-    {
-        WithMultiplier(FanCountMultiplier);
-    }
-
-    private static decimal FanCountMultiplier(CardModel card, Creature? _)
-        => card.Owner is null ? 0m : SawatariCocoHelper.GetTotalFanCount(card.Owner);
-
-    public override void UpdateCardPreview(CardModel card, CardPreviewMode previewMode, Creature? target, bool runGlobalHooks)
-    {
-        decimal flat = GetBaseVar().BaseValue;
-        decimal fanCount = card.Owner is null ? 0m : SawatariCocoHelper.GetTotalFanCount(card.Owner);
-        PreviewValue = flat + fanCount;
-    }
-}
-
-internal sealed class FanCountCalculatedBlockVar : CalculatedBlockVar
-{
-    public FanCountCalculatedBlockVar()
-        : base(MegaCrit.Sts2.Core.ValueProps.ValueProp.Move)
-    {
-        WithMultiplier(FanCountMultiplier);
-    }
-
-    private static decimal FanCountMultiplier(CardModel card, Creature? _)
-        => card.Owner is null ? 0m : SawatariCocoHelper.GetTotalFanCount(card.Owner);
-
-    public override void UpdateCardPreview(CardModel card, CardPreviewMode previewMode, Creature? target, bool runGlobalHooks)
-    {
-        decimal flat = GetBaseVar().BaseValue;
-        decimal fanCount = card.Owner is null ? 0m : SawatariCocoHelper.GetTotalFanCount(card.Owner);
-        PreviewValue = flat + fanCount;
-    }
 }

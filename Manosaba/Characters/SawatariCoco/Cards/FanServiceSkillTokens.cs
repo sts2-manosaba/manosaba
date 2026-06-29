@@ -21,7 +21,7 @@ public static class FanServiceSkillTokens
     public static List<CardModel> CreateOptions(ICombatState combatState, Player player) =>
     [
         combatState.CreateCard<FanServiceAutographToken>(player),
-        combatState.CreateCard<FanServiceVerbalInsultToken>(player),
+        combatState.CreateCard<FanServiceRoastTimeToken>(player),
     ];
 
     public static void SyncFanCountVars(CardModel card, Player player)
@@ -31,7 +31,7 @@ public static class FanServiceSkillTokens
         {
             card.DynamicVars.Block.BaseValue = fanCount;
         }
-        else if (card is FanServiceVerbalInsultToken)
+        else if (card is FanServiceRoastTimeToken)
         {
             card.DynamicVars.Damage.BaseValue = fanCount;
         }
@@ -79,11 +79,11 @@ public sealed class FanServiceAutographToken : FanServiceEventTokenBase
 }
 
 [Pool(typeof(TokenCardPool))]
-public sealed class FanServiceVerbalInsultToken : FanServiceEventTokenBase
+public sealed class FanServiceRoastTimeToken : FanServiceEventTokenBase
 {
     protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(0, ValueProp.Unpowered)];
 
-    public FanServiceVerbalInsultToken() : base(CardType.Attack, TargetType.AllEnemies)
+    public FanServiceRoastTimeToken() : base(CardType.Attack, TargetType.AllEnemies)
     {
     }
 

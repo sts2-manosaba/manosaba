@@ -26,7 +26,6 @@ public sealed class CybercatHeadwear : EquipmentCardModel
     protected override EquipmentSeries Series => EquipmentSeries.Cybercat;
     protected override int EquipmentScore => 5000;
     protected override CardTag SeriesTag => ManosabaCardTags.CybercatEquipment;
-    protected override string PieceDisplayName => "電幻貓咪頭飾";
 
     protected override IEnumerable<DynamicVar> CanonicalVars => WithEquipmentScoreFanCountBlock();
 
@@ -73,8 +72,6 @@ public sealed class CybercatTop : EquipmentCardModel
     protected override EquipmentSeries Series => EquipmentSeries.Cybercat;
     protected override int EquipmentScore => 2000;
     protected override CardTag SeriesTag => ManosabaCardTags.CybercatEquipment;
-    protected override string PieceDisplayName => "電幻貓咪上衣";
-
     protected override IEnumerable<IHoverTip> CardExtraHoverTips => [HoverTipFactory.FromPower<HidingPower>()];
 
     protected override IEnumerable<DynamicVar> CanonicalVars => WithEquipmentScore(
@@ -108,13 +105,10 @@ public sealed class CybercatSkirt : EquipmentCardModel
     protected override EquipmentSeries Series => EquipmentSeries.Cybercat;
     protected override int EquipmentScore => 1000;
     protected override CardTag SeriesTag => ManosabaCardTags.CybercatEquipment;
-    protected override string PieceDisplayName => "電幻貓咪裙子";
-
     protected override IEnumerable<IHoverTip> CardExtraHoverTips => [HoverTipFactory.FromPower<HidingPower>()];
 
-    protected override IEnumerable<DynamicVar> CanonicalVars => WithEquipmentScore(
-        new BlockVar(5, ValueProp.Move),
-        new CardsVar(1));
+    protected override IEnumerable<DynamicVar> CanonicalVars => WithEquipmentScoreHidingBonusBlock(5m)
+        .Concat([new CardsVar(1)]);
 
     public CybercatSkirt() : base(1, CardType.Skill, CardRarity.Common, TargetType.Self, true)
     {
@@ -124,15 +118,16 @@ public sealed class CybercatSkirt : EquipmentCardModel
     {
         _ = cardPlay;
 
-        decimal hiding = Owner.Creature.GetPowerAmount<HidingPower>();
-        decimal block = DynamicVars.Block.BaseValue + hiding;
+        decimal block = DynamicVars.CalculatedBlock is SawatariCocoCardDynamicVars.HidingBonusCalculatedBlockVar hidingBlockVar
+            ? hidingBlockVar.Calculate(null)
+            : DynamicVars.CalculatedBlock.IntValue;
         await CreatureCmd.GainBlock(Owner.Creature, block, ValueProp.Move, cardPlay);
         await CardPileCmd.Draw(choiceContext, DynamicVars.Cards.BaseValue, Owner);
     }
 
     protected override void OnUpgrade()
     {
-        DynamicVars.Block.UpgradeValueBy(3m);
+        DynamicVars.CalculationBase.UpgradeValueBy(3m);
     }
 }
 
@@ -147,13 +142,9 @@ public sealed class CybercatShoes : EquipmentCardModel
     protected override EquipmentSeries Series => EquipmentSeries.Cybercat;
     protected override int EquipmentScore => 2000;
     protected override CardTag SeriesTag => ManosabaCardTags.CybercatEquipment;
-    protected override string PieceDisplayName => "電幻貓咪鞋子";
-
     protected override IEnumerable<IHoverTip> CardExtraHoverTips => [HoverTipFactory.FromPower<LiveStreamModePower>()];
 
-    protected override IEnumerable<DynamicVar> CanonicalVars => WithEquipmentScore(
-        new BlockVar(8, ValueProp.Move),
-        new DynamicVar("LiveModeBonusBlock", liveModeBonusBlock));
+    protected override IEnumerable<DynamicVar> CanonicalVars => WithEquipmentScoreLiveStreamBonusBlock(8m, liveModeBonusBlock);
 
     public CybercatShoes() : base(1, CardType.Skill, CardRarity.Uncommon, TargetType.Self, true)
     {
@@ -163,17 +154,14 @@ public sealed class CybercatShoes : EquipmentCardModel
     {
         _ = cardPlay;
 
-        decimal block = DynamicVars.Block.BaseValue;
-        if (IsInLiveStreamMode(Owner.Creature))
-        {
-            block += DynamicVars["LiveModeBonusBlock"].BaseValue;
-        }
-
+        decimal block = DynamicVars.CalculatedBlock is SawatariCocoCardDynamicVars.LiveStreamBonusCalculatedBlockVar liveStreamBlockVar
+            ? liveStreamBlockVar.Calculate(null)
+            : DynamicVars.CalculatedBlock.IntValue;
         await CreatureCmd.GainBlock(Owner.Creature, block, ValueProp.Move, cardPlay);
     }
 
     protected override void OnUpgrade()
     {
-        DynamicVars.Block.UpgradeValueBy(4m);
+        DynamicVars.CalculationBase.UpgradeValueBy(4m);
     }
 }

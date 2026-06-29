@@ -9,7 +9,7 @@ using MegaCrit.Sts2.Core.ValueProps;
 
 namespace Manosaba.Characters.SawatariCoco.Powers;
 
-/// <summary>躲藏：回合開始時，每層獲得 2 點格擋及 1 層魔女化。</summary>
+/// <summary>躲藏：回合開始時，每層獲得 1 點格擋及 1 層魔女化。</summary>
 public sealed class HidingPower : PathCustomPowerModel
 {
     public override PowerType Type => PowerType.Buff;
@@ -22,7 +22,7 @@ public sealed class HidingPower : PathCustomPowerModel
             return;
         }
 
-        await CreatureCmd.GainBlock(Owner, Amount * 2m, ValueProp.Unpowered, null);
+        await CreatureCmd.GainBlock(Owner, Amount, ValueProp.Unpowered, null);
         await CommonActions.Apply<MajokaPower>(choiceContext, Owner, null, Amount);
     }
 }

@@ -24,8 +24,8 @@ public sealed class Clairvoyance : PathCustomCardModel
     private const TargetType targetType = TargetType.Self;
     private const bool shouldShowInCardLibrary = true;
 
-    private const decimal MajokaPerStack = 20m;
-    private const decimal MaxStacks = 5m;
+    private const decimal MajokaPerStack = 10m;
+    private const decimal MaxStacks = 10m;
 
     private const string StacksVarName = nameof(ClairvoyanceEffectPower);
 

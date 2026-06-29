@@ -2,9 +2,9 @@ using BaseLib.Utils;
 using manosaba.Characters.SawatariCoco;
 using Manosaba.Characters.SawatariCoco.Powers;
 using Manosaba.Extensions;
-using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
+using MegaCrit.Sts2.Core.Localization;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 
 namespace manosaba.Characters.SawatariCoco.Cards;
@@ -18,7 +18,7 @@ public sealed class ThanksForTheTip : PathCustomCardModel
     private const TargetType targetType = TargetType.Self;
     private const bool shouldShowInCardLibrary = true;
 
-    protected override IEnumerable<DynamicVar> CanonicalVars => [new GoldVar(3)];
+    protected override IEnumerable<DynamicVar> CanonicalVars => [new IfUpgradedVar(UpgradeDisplay.Normal)];
 
     public ThanksForTheTip() : base(energyCost, type, rarity, targetType, shouldShowInCardLibrary)
     {
@@ -28,12 +28,12 @@ public sealed class ThanksForTheTip : PathCustomCardModel
     {
         _ = cardPlay;
 
-        ThanksForTheTipPower? power = await CommonActions.Apply<ThanksForTheTipPower>(choiceContext, Owner.Creature, this, 1m);
-        power?.SetGoldReward(DynamicVars.Gold.BaseValue);
-    }
+        int gold = ThanksForTheTipPower.GetGoldForApplication(Owner, IsUpgraded);
+        if (gold <= 0)
+        {
+            return;
+        }
 
-    protected override void OnUpgrade()
-    {
-        DynamicVars.Gold.UpgradeValueBy(2);
+        await CommonActions.Apply<ThanksForTheTipPower>(choiceContext, Owner.Creature, this, gold);
     }
 }
