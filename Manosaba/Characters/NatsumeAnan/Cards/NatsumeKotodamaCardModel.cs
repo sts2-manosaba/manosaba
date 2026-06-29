@@ -2,6 +2,7 @@ using Manosaba.Characters.Common.Resources;
 using System.Collections.Generic;
 using System.Linq;
 using MegaCrit.Sts2.Core.HoverTips;
+using MegaCrit.Sts2.Core.Hooks;
 using MegaCrit.Sts2.Core.Localization;
 using MegaCrit.Sts2.Core.Entities.Cards;
 
@@ -19,6 +20,14 @@ public abstract class NatsumeKotodamaCardModel : CharacterCustomEnergyCardModel<
     }
 
     protected override string CustomEnergyCostVarName => "KotodamaCost";
+
+    protected int ResolveKotodamaXValue(int spentKotodama)
+    {
+        int xValue = Math.Max(0, spentKotodama);
+        return CombatState is { } combatState
+            ? Math.Max(0, Hook.ModifyXValue(combatState, this, xValue))
+            : xValue;
+    }
 
     protected override IEnumerable<IHoverTip> ExtraHoverTips
     {

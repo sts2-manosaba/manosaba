@@ -12,9 +12,11 @@ namespace Manosaba.Characters.JogasakiNoah.Cards;
 
 internal static class SekketsusoujitsuHelper
 {
+    public readonly record struct BloodOrbEvokeResult(decimal PassiveValue, decimal Layers);
+
     public static decimal BloodOrbDamageBonus(CardModel card)
     {
-        return GetHighestLayerBloodOrb(card.Owner)?.PassiveVal ?? 0m;
+        return GetHighestPassiveBloodOrb(card.Owner)?.PassiveVal ?? 0m;
     }
 
     public static bool HasBloodOrb(Player? player)
@@ -24,19 +26,25 @@ internal static class SekketsusoujitsuHelper
 
     public static async Task<decimal> EvokeNextBloodOrb(PlayerChoiceContext choiceContext, Player owner)
     {
+        BloodOrbEvokeResult? result = await EvokeHighestPassiveBloodOrb(choiceContext, owner);
+        return result?.PassiveValue ?? 0m;
+    }
+
+    public static async Task<BloodOrbEvokeResult?> EvokeHighestPassiveBloodOrb(PlayerChoiceContext choiceContext, Player owner)
+    {
         OrbQueue? queue = owner.PlayerCombatState?.OrbQueue;
         if (queue == null || owner.Creature?.CombatState == null)
         {
-            return 0m;
+            return null;
         }
 
-        BloodOrb? bloodOrb = GetHighestLayerBloodOrb(owner);
+        BloodOrb? bloodOrb = GetHighestPassiveBloodOrb(owner);
         if (bloodOrb == null || !queue.Orbs.Contains(bloodOrb))
         {
-            return 0m;
+            return null;
         }
 
-        decimal damageBonus = bloodOrb.PassiveVal;
+        BloodOrbEvokeResult result = new(bloodOrb.PassiveVal, bloodOrb.Layers);
         bool removed = queue.Remove(bloodOrb);
         NCombatRoom.Instance?.GetCreatureNode(owner.Creature)?.OrbManager?.EvokeOrbAnim(bloodOrb);
 
@@ -57,14 +65,15 @@ internal static class SekketsusoujitsuHelper
             bloodOrb.RemoveInternal();
         }
 
-        return damageBonus;
+        return result;
     }
 
-    private static BloodOrb? GetHighestLayerBloodOrb(Player? owner)
+    private static BloodOrb? GetHighestPassiveBloodOrb(Player? owner)
     {
         return owner?.PlayerCombatState?.OrbQueue?.Orbs
             .OfType<BloodOrb>()
-            .OrderByDescending(orb => orb.Layers)
+            .OrderByDescending(orb => orb.PassiveVal)
+            .ThenByDescending(orb => orb.Layers)
             .FirstOrDefault();
     }
 

@@ -23,8 +23,9 @@ public sealed class Urusai : NatsumeKotodamaCardModel
 
     public int PrepareKotodamaXCostForPlay()
     {
-        _resolvedKotodamaX = Math.Max(0, KotodamaEnergy.Get(Owner));
-        return _resolvedKotodamaX;
+        int kotodamaSpent = Math.Max(0, KotodamaEnergy.Get(Owner));
+        _resolvedKotodamaX = ResolveKotodamaXValue(kotodamaSpent);
+        return kotodamaSpent;
     }
 
     public void OverrideResolvedKotodamaXCostForPlay(int value)
@@ -39,7 +40,7 @@ public sealed class Urusai : NatsumeKotodamaCardModel
         {
             // Auto-play paths (for example Instigate -> AutoPlayFromDrawPile) bypass SpendResources.
             // Match vanilla X-cost behavior: resolve X from current resource but do not spend it.
-            hits = Math.Max(0, KotodamaEnergy.Get(Owner));
+            hits = ResolveKotodamaXValue(KotodamaEnergy.Get(Owner));
             _resolvedKotodamaX = hits;
         }
 

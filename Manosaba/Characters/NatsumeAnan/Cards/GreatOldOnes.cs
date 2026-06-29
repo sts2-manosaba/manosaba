@@ -49,8 +49,9 @@ public sealed class BookOfGreatOldOnes : NatsumeKotodamaCardModel
 
     public int PrepareKotodamaXCostForPlay()
     {
-        _resolvedKotodamaX = Math.Max(0, KotodamaEnergy.Get(Owner));
-        return _resolvedKotodamaX;
+        int kotodamaSpent = Math.Max(0, KotodamaEnergy.Get(Owner));
+        _resolvedKotodamaX = ResolveKotodamaXValue(kotodamaSpent);
+        return kotodamaSpent;
     }
 
     public void OverrideResolvedKotodamaXCostForPlay(int value)
@@ -68,7 +69,7 @@ public sealed class BookOfGreatOldOnes : NatsumeKotodamaCardModel
                 return true;
             }
 
-            return KotodamaEnergy.Get(owner) > 0;
+            return ResolveKotodamaXValue(KotodamaEnergy.Get(owner)) > 0;
         }
         catch (CanonicalModelException)
         {
@@ -84,7 +85,7 @@ public sealed class BookOfGreatOldOnes : NatsumeKotodamaCardModel
     {
         if (cardPlay.IsAutoPlay && _resolvedKotodamaX <= 0)
         {
-            _resolvedKotodamaX = Math.Max(0, KotodamaEnergy.Get(Owner));
+            _resolvedKotodamaX = ResolveKotodamaXValue(KotodamaEnergy.Get(Owner));
         }
 
         if (_resolvedKotodamaX > 0)
