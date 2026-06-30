@@ -9,6 +9,7 @@ using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Entities.Powers;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Models;
+using MegaCrit.Sts2.Core.Models.Monsters;
 using MegaCrit.Sts2.Core.Nodes.Rooms;
 using MegaCrit.Sts2.Core.ValueProps;
 
@@ -54,6 +55,7 @@ namespace Manosaba.Characters.Common.Powers
             // Prison for Two: paired teammates should not target each other with Murderous Impulse.
             Creature[] filteredAllies = validAllies
                 .Where(c => !PrisonForTwoPower.ShouldExcludeTarget(Owner, c))
+                .Where(c => !IsDecorativeCompanion(c))
                 .ToArray();
             if (filteredAllies.Length == 0)
             {
@@ -86,5 +88,9 @@ namespace Manosaba.Characters.Common.Powers
         {
             return NCombatRoom.Instance is not { } combatRoom || combatRoom.GetCreatureNode(creature) != null;
         }
+
+        /// <summary>Cosmetic relic pets that never participate in combat (no health bar, no AI).</summary>
+        private static bool IsDecorativeCompanion(Creature candidate) =>
+            candidate.Monster is PaelsLegion or Byrdpip;
     }
 }
