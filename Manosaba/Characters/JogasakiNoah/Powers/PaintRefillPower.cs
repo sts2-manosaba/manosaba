@@ -37,11 +37,10 @@ public class PaintRefillPower : PathCustomPowerModel
         }
 
         Flash();
-        IReadOnlyList<OrbModel> paintOrbs = JogasakiNoahOrbPool.AllOrbs;
         int attempts = 0;
         while (orbQueue.Orbs.Count < orbQueue.Capacity && attempts++ < MaxRefillAttempts)
         {
-            OrbModel randomOrb = paintOrbs[player.RunState.Rng.CombatOrbGeneration.NextInt(paintOrbs.Count)];
+            OrbModel randomOrb = JogasakiNoahOrbPool.RollRandomGeneratedOrb(player);
             await OrbCmd.Channel(choiceContext, randomOrb.ToMutable(), player);
         }
     }

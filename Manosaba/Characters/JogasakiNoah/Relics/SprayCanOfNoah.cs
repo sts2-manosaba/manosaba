@@ -20,13 +20,6 @@ namespace manosaba.Characters.JogasakiNoah.Relics
     [Pool(typeof(JogasakiNoahRelicPool))]
     public sealed class SprayCanOfNoah : LevelingPathCustomRelicModel
     {
-        private static readonly IReadOnlyList<OrbModel> ZumaPrimaryOrbs =
-        [
-            ModelDb.Orb<RedPaintOrb>(),
-            ModelDb.Orb<BluePaintOrb>(),
-            ModelDb.Orb<YellowPaintOrb>(),
-        ];
-
         public override RelicRarity Rarity => RelicRarity.Starter;
         protected override int MaxRelicLevel => 5;
 
@@ -57,14 +50,9 @@ namespace manosaba.Characters.JogasakiNoah.Relics
                 >= 3 => 2,
                 _ => 1
             };
-            bool hasZumaPower = base.Owner.Creature.HasPower<ZumaPower>();
-            bool hasSekirinyakudouPower = base.Owner.Creature.HasPower<SekirinyakudouPower>();
-
             for (int i = 0; i < randomOrbsToChannel; i++)
             {
-                OrbModel randomOrb = hasSekirinyakudouPower
-                    ? ModelDb.Orb<BloodOrb>()
-                    : RollRandomPaintOrb(hasZumaPower);
+                OrbModel randomOrb = JogasakiNoahOrbPool.RollRandomGeneratedOrb(base.Owner);
                 await OrbCmd.Channel(choiceContext, randomOrb.ToMutable(), base.Owner);
             }
         }
@@ -106,13 +94,6 @@ namespace manosaba.Characters.JogasakiNoah.Relics
         {
             int bonusSlots = (RelicLevel - 1) / 2;
             base.DynamicVars["OrbSlots"].BaseValue = 6m + bonusSlots;
-        }
-
-        private OrbModel RollRandomPaintOrb(bool restrictToZumaPrimaryOrbs)
-        {
-            IReadOnlyList<OrbModel> paintOrbs = restrictToZumaPrimaryOrbs ? ZumaPrimaryOrbs : JogasakiNoahOrbPool.AllOrbs;
-            int idx = base.Owner.RunState.Rng.CombatOrbGeneration.NextInt(paintOrbs.Count);
-            return paintOrbs[idx];
         }
 
         private bool HasSekketsusoujitsuCardInDeck()
